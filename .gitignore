@@ -1,0 +1,19 @@
+﻿# Build output
+build/
+dist/
+out/
+*.obj
+*.pdb
+*.ilk
+
+# Local tools and caches
+.vs/
+__pycache__/
+.pytest_cache/
+*.pyc
+
+# Logs and temporary files
+*.log
+*.tmp
+Thumbs.db
+desktop.ini
