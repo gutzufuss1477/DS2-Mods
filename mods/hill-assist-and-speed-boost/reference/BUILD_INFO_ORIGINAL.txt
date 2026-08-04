@@ -1,0 +1,7 @@
+DS2 Vehicle Physics Core v1.1.0
+Target: Steam 1.10.89.0
+DS2VehicleCore.asi SHA256: 78F4D90B6473F9163E65A227AE6444D516133ABAC34C9E6575BD2B13C3CB60B6
+
+Build:
+clang-cl /c /O2 /GS- /GR- /EHs-c- /Zl /std:c++17 DS2VehicleCore.cpp
+lld-link /dll /entry:DllMain /nodefaultlib /machine:x64 /subsystem:windows DS2VehicleCore.obj kernel32.lib

@@ -1,0 +1,15 @@
+Third-party notices
+
+Ultimate ASI Loader
+-------------------
+This mod requires an external x64 ASI loader. The validated setup uses
+Ultimate ASI Loader by ThirteenAG. It is not included in this repository.
+
+Official project:
+https://github.com/ThirteenAG/Ultimate-ASI-Loader
+
+Game ownership
+--------------
+DEATH STRANDING 2: ON THE BEACH and all associated names, characters and
+assets are property of their respective owners. This repository contains no
+original game files.

@@ -1,6 +1,6 @@
-// Pickup Truck Hill Assist v1.2.0
+// DS2 Vehicle Physics Core v1.1.0
 // DEATH STRANDING 2: ON THE BEACH - Steam 1.10.89.0
-// Public source corresponding to the validated targeted release.
+// Shared modular core for Pickup Truck Hill Assist and Vehicle Speed Boost.
 // Uses exact slope-table signatures and a measured late streaming window.
 
 extern "C" {
@@ -93,7 +93,8 @@ extern "C" void* memcpy(void* dst, const void* src, SIZE_T size) {
 
 static HMODULE g_module = 0;
 static HANDLE g_mutex = 0;
-static WCHAR g_iniPath[512];
+static WCHAR g_hillIniPath[512];
+static WCHAR g_speedIniPath[512];
 static WCHAR g_logPath[512];
 static WCHAR g_modulePath[512];
 static int g_enabled = 1;
@@ -114,11 +115,29 @@ static UINT64 g_windowObjects = 0;
 static int g_scanWindowLogged = 0;
 static int g_scanWindowEndedLogged = 0;
 
+// Optional speed patch. The trace for Steam 1.10.89.0 validated:
+// DSPhysicsVehicleResource +0x94 = BoostTopSpeedKMH (truck profiles 45/50)
+// DSPhysicsBikeResource    +0x94 = BoostTopSpeedKMH (bike profile 60)
+// In-game validation confirms +0x40 and +0x44 as regular-speed caps.
+// +0xA0 RoadLv2Speed is not used because in-game testing showed no effect.
+static int g_speedEnabled = 1;
+static float g_truckBoostTopSpeedMultiplier = 2.0f;
+static float g_bikeBoostTopSpeedMultiplier = 2.0f;
+static float g_truckNormalSpeedMultiplier = 1.0f;
+static float g_bikeNormalSpeedMultiplier = 1.0f;
+static int g_stopAfterSpeedProfiles = 3;
+static void* g_speedPatchedResources[128];
+static int g_speedPatchedResourceCount = 0;
+static int g_speedProfilesPatched = 0;
+static int g_speedFieldsChanged = 0;
+static int g_allComplete = 0;
+
 #define TYPE_CACHE_SIZE 4096
 #define TYPE_CACHE_PROBES 8
 #define TYPE_OTHER 1
 #define TYPE_SLOPE_RESOURCE 2
 #define TYPE_VEHICLE_RESOURCE 3
+#define TYPE_BIKE_RESOURCE 4
 
 struct TypeCacheEntry {
     void* vtable;
@@ -211,54 +230,127 @@ static void log_line(const char* s) {
     LogBuffer b; lb_init(&b); log_prefix(&b); lb_text(&b, s); lb_text(&b, "\r\n"); append_log(&b);
 }
 
-static void make_paths() {
-    g_modulePath[0] = 0;
-    DWORD n = GetModuleFileNameW(g_module, g_modulePath, 511);
+static void append_filename_to_module_dir(WCHAR* dst, int cap, const WCHAR* fileName) {
+    if (!dst || cap <= 0) return;
+    dst[0] = 0;
+
+    WCHAR path[512];
+    DWORD n = GetModuleFileNameW(g_module, path, 511);
     if (n == 0 || n >= 511) {
-        wcopy(g_iniPath, 512, L"PickupTruckHillAssist.ini");
-        wcopy(g_logPath, 512, L"PickupTruckHillAssist.log");
+        wcopy(dst, cap, fileName);
         return;
     }
+    path[n] = 0;
+
     int last = -1;
-    for (int i = 0; g_modulePath[i]; ++i) if (g_modulePath[i] == L'\\' || g_modulePath[i] == L'/') last = i;
-    int pos = 0;
-    for (int i = 0; i <= last && pos < 430; ++i) {
-        g_iniPath[pos] = g_modulePath[i]; g_logPath[pos] = g_modulePath[i]; ++pos;
+    for (int i = 0; path[i]; ++i) {
+        if (path[i] == L'\\' || path[i] == L'/') last = i;
     }
-    const WCHAR* ini = L"PickupTruckHillAssist.ini";
-    const WCHAR* log = L"PickupTruckHillAssist.log";
-    int j = 0; while (ini[j] && pos + j < 511) { g_iniPath[pos + j] = ini[j]; ++j; } g_iniPath[pos + j] = 0;
-    j = 0; while (log[j] && pos + j < 511) { g_logPath[pos + j] = log[j]; ++j; } g_logPath[pos + j] = 0;
+
+    int pos = 0;
+    for (int i = 0; i <= last && pos < cap - 1; ++i) dst[pos++] = path[i];
+    int j = 0;
+    while (fileName[j] && pos < cap - 1) dst[pos++] = fileName[j++];
+    dst[pos] = 0;
 }
+
+static void make_paths() {
+    append_filename_to_module_dir(g_hillIniPath, 512, L"PickupTruckHillAssist.ini");
+    append_filename_to_module_dir(g_speedIniPath, 512, L"VehicleSpeedBoost.ini");
+    append_filename_to_module_dir(g_logPath, 512, L"DS2VehicleCore.log");
+}
+
 static void read_config() {
-    g_enabled = (int)GetPrivateProfileIntW(L"HillAssist", L"Enabled", 1, g_iniPath);
-    int grip = (int)GetPrivateProfileIntW(L"HillAssist", L"GripPercent", 350, g_iniPath);
-    int minF = (int)GetPrivateProfileIntW(L"HillAssist", L"MinimumFrictionPercent", 150, g_iniPath);
-    int start = (int)GetPrivateProfileIntW(L"HillAssist", L"AssistStartSlopeDegrees", 6, g_iniPath);
-    int full = (int)GetPrivateProfileIntW(L"HillAssist", L"FullAssistSlopeDegrees", 22, g_iniPath);
-    int maxF = (int)GetPrivateProfileIntW(L"HillAssist", L"MaximumFrictionPercent", 800, g_iniPath);
-    int stopAfter = (int)GetPrivateProfileIntW(L"HillAssist", L"StopAfterChangedEntries", 14, g_iniPath);
-    int scanStart = (int)GetPrivateProfileIntW(L"HillAssist", L"ScanStartGroup", 4300, g_iniPath);
-    int scanEnd = (int)GetPrivateProfileIntW(L"HillAssist", L"ScanEndGroup", 4800, g_iniPath);
+    // Each feature defaults to disabled. Installing its own INI enables it.
+    g_enabled = (int)GetPrivateProfileIntW(L"HillAssist", L"Enabled", 0, g_hillIniPath);
+    int grip = (int)GetPrivateProfileIntW(L"HillAssist", L"GripPercent", 400, g_hillIniPath);
+    int minF = (int)GetPrivateProfileIntW(L"HillAssist", L"MinimumFrictionPercent", 175, g_hillIniPath);
+    int start = (int)GetPrivateProfileIntW(L"HillAssist", L"AssistStartSlopeDegrees", 6, g_hillIniPath);
+    int full = (int)GetPrivateProfileIntW(L"HillAssist", L"FullAssistSlopeDegrees", 22, g_hillIniPath);
+    int maxF = (int)GetPrivateProfileIntW(L"HillAssist", L"MaximumFrictionPercent", 800, g_hillIniPath);
+    int stopAfter = (int)GetPrivateProfileIntW(L"HillAssist", L"StopAfterChangedEntries", 14, g_hillIniPath);
+    int hillScanStart = (int)GetPrivateProfileIntW(L"HillAssist", L"ScanStartGroup", 4300, g_hillIniPath);
+    int hillScanEnd = (int)GetPrivateProfileIntW(L"HillAssist", L"ScanEndGroup", 4800, g_hillIniPath);
+
+    g_speedEnabled = (int)GetPrivateProfileIntW(L"VehicleSpeedBoost", L"Enabled", 0, g_speedIniPath);
+    int truckTop = (int)GetPrivateProfileIntW(L"VehicleSpeedBoost", L"TruckBoostTopSpeedPercent", 150, g_speedIniPath);
+    int bikeTop = (int)GetPrivateProfileIntW(L"VehicleSpeedBoost", L"BikeBoostTopSpeedPercent", 150, g_speedIniPath);
+    int truckNormal = (int)GetPrivateProfileIntW(
+        L"VehicleSpeedBoost",
+        L"TruckNormalSpeedPercent",
+        0,
+        g_speedIniPath
+    );
+    int bikeNormal = (int)GetPrivateProfileIntW(
+        L"VehicleSpeedBoost",
+        L"BikeNormalSpeedPercent",
+        0,
+        g_speedIniPath
+    );
+
+    // Compatibility with the previous RC key names.
+    if (truckNormal <= 0) {
+        truckNormal = (int)GetPrivateProfileIntW(
+            L"VehicleSpeedBoost",
+            L"TruckNormalRoadSpeedPercent",
+            150,
+            g_speedIniPath
+        );
+    }
+
+    if (bikeNormal <= 0) {
+        bikeNormal = (int)GetPrivateProfileIntW(
+            L"VehicleSpeedBoost",
+            L"BikeNormalRoadSpeedPercent",
+            150,
+            g_speedIniPath
+        );
+    }
+    int stopSpeed = (int)GetPrivateProfileIntW(L"VehicleSpeedBoost", L"StopAfterProfiles", 3, g_speedIniPath);
+    int speedScanStart = (int)GetPrivateProfileIntW(L"VehicleSpeedBoost", L"ScanStartGroup", 4300, g_speedIniPath);
+    int speedScanEnd = (int)GetPrivateProfileIntW(L"VehicleSpeedBoost", L"ScanEndGroup", 4800, g_speedIniPath);
+
     if (grip < 100) grip = 100; if (grip > 600) grip = 600;
     if (minF < 100) minF = 100; if (minF > 400) minF = 400;
     if (start < 0) start = 0; if (start > 60) start = 60;
     if (full <= start) full = start + 1; if (full > 80) full = 80;
     if (maxF < 100) maxF = 100; if (maxF > 2000) maxF = 2000;
+    if (stopAfter < 0) stopAfter = 0; if (stopAfter > 256) stopAfter = 256;
+
+    if (truckTop < 100) truckTop = 100; if (truckTop > 300) truckTop = 300;
+    if (bikeTop < 100) bikeTop = 100; if (bikeTop > 300) bikeTop = 300;
+    if (truckNormal < 50) truckNormal = 50; if (truckNormal > 300) truckNormal = 300;
+    if (bikeNormal < 50) bikeNormal = 50; if (bikeNormal > 300) bikeNormal = 300;
+    if (stopSpeed < 0) stopSpeed = 0; if (stopSpeed > 64) stopSpeed = 64;
+
+    if (hillScanStart < 0) hillScanStart = 0; if (hillScanStart > 20000) hillScanStart = 20000;
+    if (hillScanEnd <= hillScanStart) hillScanEnd = hillScanStart + 500; if (hillScanEnd > 30000) hillScanEnd = 30000;
+    if (speedScanStart < 0) speedScanStart = 0; if (speedScanStart > 20000) speedScanStart = 20000;
+    if (speedScanEnd <= speedScanStart) speedScanEnd = speedScanStart + 500; if (speedScanEnd > 30000) speedScanEnd = 30000;
+
     g_gripMultiplier = (float)grip / 100.0f;
     g_minFrictionFull = (float)minF / 100.0f;
     g_startSlope = (float)start;
-    if (stopAfter < 0) stopAfter = 0;
-    if (stopAfter > 256) stopAfter = 256;
-    if (scanStart < 0) scanStart = 0;
-    if (scanStart > 20000) scanStart = 20000;
-    if (scanEnd <= scanStart) scanEnd = scanStart + 500;
-    if (scanEnd > 30000) scanEnd = 30000;
     g_fullSlope = (float)full;
     g_maxFriction = (float)maxF / 100.0f;
     g_stopAfterChangedEntries = stopAfter;
-    g_scanStartGroup = (UINT64)scanStart;
-    g_scanEndGroup = (UINT64)scanEnd;
+
+    g_truckBoostTopSpeedMultiplier = (float)truckTop / 100.0f;
+    g_bikeBoostTopSpeedMultiplier = (float)bikeTop / 100.0f;
+    g_truckNormalSpeedMultiplier = (float)truckNormal / 100.0f;
+    g_bikeNormalSpeedMultiplier = (float)bikeNormal / 100.0f;
+    g_stopAfterSpeedProfiles = stopSpeed;
+
+    if (g_enabled && g_speedEnabled) {
+        g_scanStartGroup = (UINT64)(hillScanStart < speedScanStart ? hillScanStart : speedScanStart);
+        g_scanEndGroup = (UINT64)(hillScanEnd > speedScanEnd ? hillScanEnd : speedScanEnd);
+    } else if (g_enabled) {
+        g_scanStartGroup = (UINT64)hillScanStart;
+        g_scanEndGroup = (UINT64)hillScanEnd;
+    } else {
+        g_scanStartGroup = (UINT64)speedScanStart;
+        g_scanEndGroup = (UINT64)speedScanEnd;
+    }
 }
 
 static bool readable_range(const void* ptr, SIZE_T bytes) {
@@ -325,6 +417,8 @@ static BYTE classify_stream_object(void* obj) {
             kind = TYPE_SLOPE_RESOURCE;
         } else if (scmp(type, "DSPhysicsVehicleResource") == 0) {
             kind = TYPE_VEHICLE_RESOURCE;
+        } else if (scmp(type, "DSPhysicsBikeResource") == 0) {
+            kind = TYPE_BIKE_RESOURCE;
         }
     }
 
@@ -339,6 +433,218 @@ struct RawArray {
     UINT32 capacity;
     void* entries;
 };
+
+static bool already_speed_patched(void* resource) {
+    for (int i = 0; i < g_speedPatchedResourceCount; ++i) {
+        if (g_speedPatchedResources[i] == resource) return true;
+    }
+    return false;
+}
+
+static void remember_speed_patched(void* resource) {
+    if (g_speedPatchedResourceCount < 128) {
+        g_speedPatchedResources[g_speedPatchedResourceCount++] = resource;
+    }
+}
+
+static bool plausible_speed_value(float value) {
+    return value >= 10.0f && value <= 250.0f;
+}
+
+static bool plausible_normal_speed_value(float value) {
+    return value >= 5.0f && value <= 150.0f;
+}
+
+static int patch_speed_resource(void* resource, bool isBike) {
+    if (
+        !g_speedEnabled ||
+        !resource ||
+        already_speed_patched(resource)
+    ) {
+        return 0;
+    }
+
+    if (!readable_range(resource, isBike ? 0xE0 : 0xD8)) {
+        return 0;
+    }
+
+    // Validated regular-speed caps inherited by truck and bike physics.
+    float* normalSpeedA = (float*)((BYTE*)resource + 0x40);
+    float* normalSpeedB = (float*)((BYTE*)resource + 0x44);
+    float* boostTopSpeed = (float*)((BYTE*)resource + 0x94);
+
+    float originalNormalA = *normalSpeedA;
+    float originalNormalB = *normalSpeedB;
+    float originalBoost = *boostTopSpeed;
+
+    if (
+        !plausible_normal_speed_value(originalNormalA) ||
+        !plausible_normal_speed_value(originalNormalB) ||
+        !plausible_speed_value(originalBoost)
+    ) {
+        return 0;
+    }
+
+    float normalMultiplier = isBike
+        ? g_bikeNormalSpeedMultiplier
+        : g_truckNormalSpeedMultiplier;
+
+    float boostMultiplier = isBike
+        ? g_bikeBoostTopSpeedMultiplier
+        : g_truckBoostTopSpeedMultiplier;
+
+    float newNormalA = originalNormalA * normalMultiplier;
+    float newNormalB = originalNormalB * normalMultiplier;
+    float newBoost = originalBoost * boostMultiplier;
+
+    if (newNormalA > 450.0f) newNormalA = 450.0f;
+    if (newNormalB > 450.0f) newNormalB = 450.0f;
+    if (newBoost > 500.0f) newBoost = 500.0f;
+
+    DWORD oldProtNormal = 0;
+    DWORD oldProtBoost = 0;
+    BOOL changedNormalProtection = FALSE;
+    BOOL changedBoostProtection = FALSE;
+
+    if (!writable_range(normalSpeedA, 8)) {
+        changedNormalProtection = VirtualProtect(
+            normalSpeedA,
+            8,
+            PAGE_READWRITE,
+            &oldProtNormal
+        );
+
+        if (!changedNormalProtection) {
+            log_line(
+                "WARNING: normal-speed fields are not writable; "
+                "profile skipped."
+            );
+            return 0;
+        }
+    }
+
+    if (!writable_range(boostTopSpeed, 4)) {
+        changedBoostProtection = VirtualProtect(
+            boostTopSpeed,
+            4,
+            PAGE_READWRITE,
+            &oldProtBoost
+        );
+
+        if (!changedBoostProtection) {
+            if (changedNormalProtection) {
+                DWORD dummy = 0;
+                VirtualProtect(
+                    normalSpeedA,
+                    8,
+                    oldProtNormal,
+                    &dummy
+                );
+            }
+
+            log_line(
+                "WARNING: boost-speed field is not writable; "
+                "profile skipped."
+            );
+            return 0;
+        }
+    }
+
+    int changed = 0;
+
+    float deltaNormalA = newNormalA - originalNormalA;
+    if (deltaNormalA < 0.0f) deltaNormalA = -deltaNormalA;
+
+    float deltaNormalB = newNormalB - originalNormalB;
+    if (deltaNormalB < 0.0f) deltaNormalB = -deltaNormalB;
+
+    float deltaBoost = newBoost - originalBoost;
+    if (deltaBoost < 0.0f) deltaBoost = -deltaBoost;
+
+    if (deltaNormalA > 0.001f) {
+        *normalSpeedA = newNormalA;
+        ++changed;
+        ++g_speedFieldsChanged;
+    }
+
+    if (deltaNormalB > 0.001f) {
+        *normalSpeedB = newNormalB;
+        ++changed;
+        ++g_speedFieldsChanged;
+    }
+
+    if (deltaBoost > 0.001f) {
+        *boostTopSpeed = newBoost;
+        ++changed;
+        ++g_speedFieldsChanged;
+    }
+
+    if (changedNormalProtection) {
+        DWORD dummy = 0;
+        VirtualProtect(
+            normalSpeedA,
+            8,
+            oldProtNormal,
+            &dummy
+        );
+    }
+
+    if (changedBoostProtection) {
+        DWORD dummy = 0;
+        VirtualProtect(
+            boostTopSpeed,
+            4,
+            oldProtBoost,
+            &dummy
+        );
+    }
+
+    remember_speed_patched(resource);
+    ++g_speedProfilesPatched;
+
+    LogBuffer b; lb_init(&b); log_prefix(&b);
+    lb_text(&b, "speed profile type=");
+    lb_text(&b, isBike ? "bike" : "truck");
+    lb_text(&b, " resource=");
+    lb_hex(&b, (UINT64)resource);
+    lb_text(&b, " normalA ");
+    lb_float2(&b, originalNormalA);
+    lb_text(&b, " -> ");
+    lb_float2(&b, newNormalA);
+    lb_text(&b, " normalB ");
+    lb_float2(&b, originalNormalB);
+    lb_text(&b, " -> ");
+    lb_float2(&b, newNormalB);
+    lb_text(&b, " boostTopSpeedKMH ");
+    lb_float2(&b, originalBoost);
+    lb_text(&b, " -> ");
+    lb_float2(&b, newBoost);
+    lb_text(&b, " profiles=");
+    lb_uint(&b, g_speedProfilesPatched);
+    lb_text(&b, "\r\n");
+    append_log(&b);
+
+    return changed;
+}
+
+static void update_all_complete() {
+    bool hillDone = !g_enabled || g_patchComplete;
+    bool speedDone = !g_speedEnabled ||
+        (g_stopAfterSpeedProfiles > 0 &&
+         g_speedProfilesPatched >= g_stopAfterSpeedProfiles);
+
+    if (!g_allComplete && hillDone && speedDone) {
+        g_allComplete = 1;
+
+        LogBuffer b; lb_init(&b); log_prefix(&b);
+        lb_text(&b, "All requested patches complete. hillEntries=");
+        lb_uint(&b, g_totalEntriesChanged);
+        lb_text(&b, " speedProfiles="); lb_uint(&b, g_speedProfilesPatched);
+        lb_text(&b, " speedFields="); lb_uint(&b, g_speedFieldsChanged);
+        lb_text(&b, ". Callback switched to fast bypass mode.\r\n");
+        append_log(&b);
+    }
+}
 
 static bool already_patched(void* resource) {
     for (int i = 0; i < g_patchedResourceCount; ++i) if (g_patchedResources[i] == resource) return true;
@@ -481,7 +787,7 @@ static void* g_listenerVtable[3] = { (void*)&on_finish_load, (void*)&on_before_u
 static StreamingEvents g_listener = { g_listenerVtable };
 
 static void __fastcall on_finish_load(StreamingEvents*, const RawArray* objects) {
-    if (!g_enabled || g_patchComplete) return;
+    if ((!g_enabled && !g_speedEnabled) || g_allComplete) return;
 
     ++g_callbackGroups;
     if (g_callbackGroups < g_scanStartGroup) return;
@@ -489,7 +795,16 @@ static void __fastcall on_finish_load(StreamingEvents*, const RawArray* objects)
     if (g_callbackGroups > g_scanEndGroup) {
         if (!g_scanWindowEndedLogged) {
             g_scanWindowEndedLogged = 1;
-            log_line("WARNING: scan window ended before all target tables were found. Adjust ScanStartGroup/ScanEndGroup in the INI.");
+
+            LogBuffer end; lb_init(&end); log_prefix(&end);
+            lb_text(&end, "Scan window ended. hillEntries=");
+            lb_uint(&end, g_totalEntriesChanged);
+            lb_text(&end, " speedProfiles=");
+            lb_uint(&end, g_speedProfilesPatched);
+            lb_text(&end, " speedFields=");
+            lb_uint(&end, g_speedFieldsChanged);
+            lb_text(&end, "\r\n");
+            append_log(&end);
         }
         return;
     }
@@ -497,8 +812,12 @@ static void __fastcall on_finish_load(StreamingEvents*, const RawArray* objects)
     if (!g_scanWindowLogged) {
         g_scanWindowLogged = 1;
         LogBuffer begin; lb_init(&begin); log_prefix(&begin);
-        lb_text(&begin, "Targeted scan window started at group="); lb_uint(&begin, g_callbackGroups);
-        lb_text(&begin, " endGroup="); lb_uint(&begin, g_scanEndGroup); lb_text(&begin, "\r\n"); append_log(&begin);
+        lb_text(&begin, "Targeted scan window started at group=");
+        lb_uint(&begin, g_callbackGroups);
+        lb_text(&begin, " endGroup=");
+        lb_uint(&begin, g_scanEndGroup);
+        lb_text(&begin, "\r\n");
+        append_log(&begin);
     }
 
     if (!objects || !readable_range(objects, sizeof(RawArray))) return;
@@ -509,23 +828,43 @@ static void __fastcall on_finish_load(StreamingEvents*, const RawArray* objects)
     g_windowObjects += objects->count;
 
     void** entries = (void**)objects->entries;
-    int changed = 0;
+    int hillChanged = 0;
+    int speedChanged = 0;
+
     for (UINT32 i = 0; i < objects->count; ++i) {
         void* obj = entries[i];
         if (!obj) continue;
 
-        int direct = patch_slope_resource(obj, "ExactSlopeSignature");
-        changed += direct;
-        if (!direct) changed += patch_vehicle_resource(obj);
-        if (g_patchComplete) break;
+        BYTE kind = classify_stream_object(obj);
+
+        if (kind == TYPE_VEHICLE_RESOURCE) {
+            speedChanged += patch_speed_resource(obj, false);
+        } else if (kind == TYPE_BIKE_RESOURCE) {
+            speedChanged += patch_speed_resource(obj, true);
+        }
+
+        if (g_enabled && !g_patchComplete) {
+            int direct = patch_slope_resource(obj, "ExactSlopeSignature");
+            hillChanged += direct;
+            if (!direct) hillChanged += patch_vehicle_resource(obj);
+        }
+
+        update_all_complete();
+        if (g_allComplete) break;
     }
 
-    if (changed > 0) {
+    if (hillChanged > 0 || speedChanged > 0) {
         LogBuffer b; lb_init(&b); log_prefix(&b);
-        lb_text(&b, "targeted group patched entries="); lb_uint(&b, changed);
-        lb_text(&b, " group="); lb_uint(&b, g_callbackGroups);
-        lb_text(&b, " windowObjects="); lb_uint(&b, g_windowObjects);
-        lb_text(&b, "\r\n"); append_log(&b);
+        lb_text(&b, "targeted group result hillFields=");
+        lb_uint(&b, hillChanged);
+        lb_text(&b, " speedFields=");
+        lb_uint(&b, speedChanged);
+        lb_text(&b, " group=");
+        lb_uint(&b, g_callbackGroups);
+        lb_text(&b, " windowObjects=");
+        lb_uint(&b, g_windowObjects);
+        lb_text(&b, "\r\n");
+        append_log(&b);
     }
 }
 
@@ -598,8 +937,8 @@ static bool register_listener(void* manager) {
 
 static DWORD __stdcall worker(LPVOID) {
     make_paths(); read_config();
-    log_line("Pickup Truck Hill Assist v1.2 LATE TARGETED loaded (exact signatures, delayed scan window).");
-    if (!g_enabled) { log_line("Disabled in INI."); return 0; }
+    log_line("DS2 Vehicle Physics Core v1.1.0 loaded (modular single listener).");
+    if (!g_enabled && !g_speedEnabled) { log_line("No enabled module configuration found. Core remains inactive."); return 0; }
     LogBuffer cfg; lb_init(&cfg); log_prefix(&cfg);
     lb_text(&cfg, "Config: grip="); lb_float2(&cfg, g_gripMultiplier);
     lb_text(&cfg, " minFriction="); lb_float2(&cfg, g_minFrictionFull);
@@ -609,6 +948,13 @@ static DWORD __stdcall worker(LPVOID) {
     lb_text(&cfg, " stopAfterEntries="); lb_uint(&cfg, g_stopAfterChangedEntries);
     lb_text(&cfg, " scanStartGroup="); lb_uint(&cfg, g_scanStartGroup);
     lb_text(&cfg, " scanEndGroup="); lb_uint(&cfg, g_scanEndGroup);
+    lb_text(&cfg, " hillEnabled="); lb_uint(&cfg, g_enabled);
+    lb_text(&cfg, " speedEnabled="); lb_uint(&cfg, g_speedEnabled);
+    lb_text(&cfg, " truckTop="); lb_float2(&cfg, g_truckBoostTopSpeedMultiplier);
+    lb_text(&cfg, " bikeTop="); lb_float2(&cfg, g_bikeBoostTopSpeedMultiplier);
+    lb_text(&cfg, " truckNormal="); lb_float2(&cfg, g_truckNormalSpeedMultiplier);
+    lb_text(&cfg, " bikeNormal="); lb_float2(&cfg, g_bikeNormalSpeedMultiplier);
+    lb_text(&cfg, " stopSpeedProfiles="); lb_uint(&cfg, g_stopAfterSpeedProfiles);
     lb_text(&cfg, "\r\n"); append_log(&cfg);
 
     HMODULE exe = GetModuleHandleW(0);
@@ -629,7 +975,7 @@ static DWORD __stdcall worker(LPVOID) {
     }
     if (!manager) { log_line("ERROR: StreamingManager was not created within 60 seconds."); return 0; }
     if (!register_listener(manager)) { log_line("ERROR: Could not register streaming listener."); return 0; }
-    log_line("Streaming listener registered. Early groups are bypassed until the targeted scan window.");
+    log_line("Shared streaming listener registered. Early groups are bypassed until the targeted scan window.");
     return 0;
 }
 
@@ -640,7 +986,7 @@ extern "C" BOOL __stdcall DllMain(HINSTANCE instance, DWORD reason, LPVOID) {
         if (!is_main_game_process()) return TRUE;
         g_module = (HMODULE)instance;
         DisableThreadLibraryCalls(g_module);
-        g_mutex = CreateMutexW(0, FALSE, L"Local\\DS2_PickupTruckHillAssist_v1_2");
+        g_mutex = CreateMutexW(0, FALSE, L"Local\\DS2_VehiclePhysicsCore_v1_1");
         if (!g_mutex) return TRUE;
         if (GetLastError() == ERROR_ALREADY_EXISTS) {
             CloseHandle(g_mutex);
