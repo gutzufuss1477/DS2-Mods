@@ -1,0 +1,4 @@
+LIBRARY NTDLL.dll
+EXPORTS
+    __C_specific_handler
+    __chkstk

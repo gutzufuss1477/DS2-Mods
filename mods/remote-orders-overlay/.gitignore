@@ -4,3 +4,5 @@ dist/
 *.lib
 *.exp
 *.pdb
+release/localized-test/
+release/*_LOCALIZED_TEST.zip

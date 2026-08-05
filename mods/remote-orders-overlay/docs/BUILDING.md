@@ -1,6 +1,22 @@
 # Building and Reproducing the Release
 
-## Exact runtime-tested release
+## Current v0.2.0 source release
+
+Requirements:
+
+- Windows 10 or Windows 11 x64
+- LLVM for Windows with `clang-cl.exe`, `lld-link.exe` and `llvm-dlltool.exe`
+- PowerShell 5.1 or newer
+
+Run:
+
+```powershell
+.\scripts\build_source_release.ps1
+```
+
+The script creates the deterministic production ASI at `release/DS2_Remote_Orders_Overlay.asi`. It uses the installed Windows SDK libraries when available and otherwise generates minimal Kernel32/NTDLL import libraries from the reviewed definitions in `tools/minimal_imports`.
+
+## Legacy v0.1.3-alpha reproduction
 
 Requirements:
 
@@ -19,7 +35,7 @@ or:
 scripts\build_release.cmd
 ```
 
-The script transforms the included validated baseline ASI into the exact no-log release. It refuses to continue unless:
+The legacy script transforms the included validated baseline ASI into the exact v0.1.3-alpha no-log release. It refuses to continue unless:
 
 - the baseline SHA-256 is correct;
 - every expected log path occurs exactly once;

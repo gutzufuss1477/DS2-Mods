@@ -1,4 +1,4 @@
-# Remote Orders Overlay (Interim)
+# Remote Orders Overlay v0.2.0 (Interim)
 
 Can't be bothered to travel across half of Australia just to discover who has the last orders needed to bring a facility to five stars?
 
@@ -10,6 +10,9 @@ This is an interim overlay release. The long-term goal remains opening the game'
 
 - Displays up to ten available orders in two compact columns.
 - Uses localized mission data from the game.
+- Localizes the overlay interface in all 18 Steam interface languages.
+- Includes an INI language override for systems where Windows and the game use different languages.
+- Cleans up repeated localized facility-name variants produced by the native MissionMenu formatter.
 - Shows the selected facility number.
 - Click-through overlay that does not block the map.
 - Read-only: no automatic order acceptance or mission-state changes.
@@ -20,9 +23,11 @@ This is an interim overlay release. The long-term goal remains opening the game'
 
 1. Close the game.
 2. Install one working x64 ASI loader.
-3. Remove older Remote Orders test ASIs.
-4. Copy `DS2_Remote_Orders_Overlay.asi` beside `DS2.exe`.
+3. Remove older Remote Orders Overlay ASIs.
+4. Copy `DS2_Remote_Orders_Overlay.asi` and `DS2_Remote_Orders_Overlay.ini` beside `DS2.exe`.
 5. Start the game and open the world map.
+
+`Language=auto` follows the Windows display language. If the game uses another language, edit the INI and set a code such as `fr`, `it`, `es-ES` or `es-419`.
 
 ## Requirements
 
@@ -32,4 +37,4 @@ This is an interim overlay release. The long-term goal remains opening the game'
 
 ## Known limitation
 
-This version displays an external overlay and does not yet open the native Accept Orders menu from the world map.
+This version displays an external overlay and does not yet open the native Accept Orders menu from the world map. A small number of Romance-language facility names may still contain an additional grammatical article before the label is shortened to fit the column.
