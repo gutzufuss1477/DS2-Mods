@@ -1,0 +1,141 @@
+﻿
+File: C:\Projekte\DS2\freight_likes_booster\build\wo049\freight_likes_booster_ds2_like_trace_wo049.asi
+Format: COFF-x86-64
+Arch: x86_64
+AddressSize: 64bit
+ImageFileHeader {
+  Machine: IMAGE_FILE_MACHINE_AMD64 (0x8664)
+  SectionCount: 4
+  TimeDateStamp: 2034-06-02 10:53:28 (0x792AF528)
+  PointerToSymbolTable: 0x0
+  SymbolCount: 0
+  StringTableSize: 0
+  OptionalHeaderSize: 240
+  Characteristics [ (0x2022)
+    IMAGE_FILE_DLL (0x2000)
+    IMAGE_FILE_EXECUTABLE_IMAGE (0x2)
+    IMAGE_FILE_LARGE_ADDRESS_AWARE (0x20)
+  ]
+}
+ImageOptionalHeader {
+  Magic: 0x20B
+  MajorLinkerVersion: 14
+  MinorLinkerVersion: 0
+  SizeOfCode: 6144
+  SizeOfInitializedData: 3584
+  SizeOfUninitializedData: 0
+  AddressOfEntryPoint: 0x11C0
+  BaseOfCode: 0x1000
+  ImageBase: 0x180000000
+  SectionAlignment: 4096
+  FileAlignment: 512
+  MajorOperatingSystemVersion: 6
+  MinorOperatingSystemVersion: 0
+  MajorImageVersion: 0
+  MinorImageVersion: 0
+  MajorSubsystemVersion: 6
+  MinorSubsystemVersion: 0
+  SizeOfImage: 24576
+  SizeOfHeaders: 1024
+  CheckSum: 0x0
+  Subsystem: IMAGE_SUBSYSTEM_WINDOWS_GUI (0x2)
+  Characteristics [ (0x160)
+    IMAGE_DLL_CHARACTERISTICS_DYNAMIC_BASE (0x40)
+    IMAGE_DLL_CHARACTERISTICS_HIGH_ENTROPY_VA (0x20)
+    IMAGE_DLL_CHARACTERISTICS_NX_COMPAT (0x100)
+  ]
+  SizeOfStackReserve: 1048576
+  SizeOfStackCommit: 4096
+  SizeOfHeapReserve: 1048576
+  SizeOfHeapCommit: 4096
+  NumberOfRvaAndSize: 16
+  DataDirectory {
+    ExportTableRVA: 0x3340
+    ExportTableSize: 0x69
+    ImportTableRVA: 0x33AC
+    ImportTableSize: 0x28
+    ResourceTableRVA: 0x0
+    ResourceTableSize: 0x0
+    ExceptionTableRVA: 0x5000
+    ExceptionTableSize: 0xCC
+    CertificateTableRVA: 0x0
+    CertificateTableSize: 0x0
+    BaseRelocationTableRVA: 0x0
+    BaseRelocationTableSize: 0x0
+    DebugRVA: 0x3324
+    DebugSize: 0x1C
+    ArchitectureRVA: 0x0
+    ArchitectureSize: 0x0
+    GlobalPtrRVA: 0x0
+    GlobalPtrSize: 0x0
+    TLSTableRVA: 0x0
+    TLSTableSize: 0x0
+    LoadConfigTableRVA: 0x0
+    LoadConfigTableSize: 0x0
+    BoundImportRVA: 0x0
+    BoundImportSize: 0x0
+    IATRVA: 0x34B0
+    IATSize: 0xD8
+    DelayImportDescriptorRVA: 0x0
+    DelayImportDescriptorSize: 0x0
+    CLRRuntimeHeaderRVA: 0x0
+    CLRRuntimeHeaderSize: 0x0
+    ReservedRVA: 0x0
+    ReservedSize: 0x0
+  }
+}
+DOSHeader {
+  Magic: MZ
+  UsedBytesInTheLastPage: 120
+  FileSizeInPages: 1
+  NumberOfRelocationItems: 0
+  HeaderSizeInParagraphs: 4
+  MinimumExtraParagraphs: 0
+  MaximumExtraParagraphs: 0
+  InitialRelativeSS: 0
+  InitialSP: 0
+  Checksum: 0
+  InitialIP: 0
+  InitialRelativeCS: 0
+  AddressOfRelocationTable: 64
+  OverlayNumber: 0
+  OEMid: 0
+  OEMinfo: 0
+  AddressOfNewExeHeader: 120
+}
+Import {
+  Name: KERNEL32.dll
+  ImportLookupTableRVA: 0x33D8
+  ImportAddressTableRVA: 0x34B0
+  Symbol: AddVectoredExceptionHandler (0)
+  Symbol: CloseHandle (0)
+  Symbol: CreateFileW (0)
+  Symbol: CreateThread (0)
+  Symbol: CreateToolhelp32Snapshot (0)
+  Symbol: DisableThreadLibraryCalls (0)
+  Symbol: FlushFileBuffers (0)
+  Symbol: GetCurrentProcess (0)
+  Symbol: GetCurrentProcessId (0)
+  Symbol: GetCurrentThreadId (0)
+  Symbol: GetModuleFileNameW (0)
+  Symbol: GetModuleHandleW (0)
+  Symbol: GetPrivateProfileStringW (0)
+  Symbol: GetThreadContext (0)
+  Symbol: OpenThread (0)
+  Symbol: ReadProcessMemory (0)
+  Symbol: RemoveVectoredExceptionHandler (0)
+  Symbol: ResumeThread (0)
+  Symbol: SetFilePointer (0)
+  Symbol: SetThreadContext (0)
+  Symbol: Sleep (0)
+  Symbol: SuspendThread (0)
+  Symbol: Thread32First (0)
+  Symbol: Thread32Next (0)
+  Symbol: VirtualQuery (0)
+  Symbol: WriteFile (0)
+}
+Export {
+  Ordinal: 1
+  Name: DllMain
+  RVA: 0x11C0
+}
