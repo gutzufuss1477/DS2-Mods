@@ -1,10 +1,10 @@
 # Validation
 
-Runtime validation on DS2 Steam build 1.10.89.0:
+Validated on Steam PC DS2 build 1.10.89.0, timestamp `0x6A3DAE46`, image size `0x0B292000`.
 
-- Lost cargo at the validated writer used component sequence `34 + 17 + 12` (normal reward +63).
-- A regular order used component signature `RBX=1`; it is excluded by the production guard.
-- Production effect test logged `APPLIED=1`, adjusting the first validated component input `10209` to `15209`.
-- The player observed `+5063`: normal `+63` plus configured `+5000`.
+- The lost-cargo writer used component sequence `34 + 17 + 12` and normally awarded `+63`.
+- With `ExtraLikes=5000`, production runtime validation observed `+5063` and `APPLIED=1`.
+- A regular-order comparison had `RBX=1`; the production guard requires `RBX=0x22` and excludes it.
+- The production hook has no timeout or diagnostic hit cap and remains active until game exit.
 
-The binary SHA-256 is listed in `SHA256SUMS.txt`.
+Build evidence is in `build/public/PE_REPORT.txt`; the release hash is in `SHA256SUMS.txt`. A clean-copy build should be repeated before publishing and must produce the same SHA-256.

@@ -1,12 +1,12 @@
 ﻿
-File: C:\Projekte\DS2\freight_likes_booster\build\wo049\freight_likes_booster_ds2_like_trace_wo049.asi
+File: build/public/ds2_lost_cargo_likes_booster.asi
 Format: COFF-x86-64
 Arch: x86_64
 AddressSize: 64bit
 ImageFileHeader {
   Machine: IMAGE_FILE_MACHINE_AMD64 (0x8664)
   SectionCount: 4
-  TimeDateStamp: 2034-06-02 10:53:28 (0x792AF528)
+  TimeDateStamp: 2105-02-28 15:07:04 (0xFE3AF598)
   PointerToSymbolTable: 0x0
   SymbolCount: 0
   StringTableSize: 0
@@ -21,8 +21,8 @@ ImageOptionalHeader {
   Magic: 0x20B
   MajorLinkerVersion: 14
   MinorLinkerVersion: 0
-  SizeOfCode: 6144
-  SizeOfInitializedData: 3584
+  SizeOfCode: 4096
+  SizeOfInitializedData: 2560
   SizeOfUninitializedData: 0
   AddressOfEntryPoint: 0x11C0
   BaseOfCode: 0x1000
@@ -35,7 +35,7 @@ ImageOptionalHeader {
   MinorImageVersion: 0
   MajorSubsystemVersion: 6
   MinorSubsystemVersion: 0
-  SizeOfImage: 24576
+  SizeOfImage: 20480
   SizeOfHeaders: 1024
   CheckSum: 0x0
   Subsystem: IMAGE_SUBSYSTEM_WINDOWS_GUI (0x2)
@@ -50,19 +50,19 @@ ImageOptionalHeader {
   SizeOfHeapCommit: 4096
   NumberOfRvaAndSize: 16
   DataDirectory {
-    ExportTableRVA: 0x3340
-    ExportTableSize: 0x69
-    ImportTableRVA: 0x33AC
+    ExportTableRVA: 0x2060
+    ExportTableSize: 0x5B
+    ImportTableRVA: 0x20BC
     ImportTableSize: 0x28
     ResourceTableRVA: 0x0
     ResourceTableSize: 0x0
-    ExceptionTableRVA: 0x5000
-    ExceptionTableSize: 0xCC
+    ExceptionTableRVA: 0x4000
+    ExceptionTableSize: 0x84
     CertificateTableRVA: 0x0
     CertificateTableSize: 0x0
     BaseRelocationTableRVA: 0x0
     BaseRelocationTableSize: 0x0
-    DebugRVA: 0x3324
+    DebugRVA: 0x2044
     DebugSize: 0x1C
     ArchitectureRVA: 0x0
     ArchitectureSize: 0x0
@@ -74,8 +74,8 @@ ImageOptionalHeader {
     LoadConfigTableSize: 0x0
     BoundImportRVA: 0x0
     BoundImportSize: 0x0
-    IATRVA: 0x34B0
-    IATSize: 0xD8
+    IATRVA: 0x21A0
+    IATSize: 0xB8
     DelayImportDescriptorRVA: 0x0
     DelayImportDescriptorSize: 0x0
     CLRRuntimeHeaderRVA: 0x0
@@ -105,15 +105,13 @@ DOSHeader {
 }
 Import {
   Name: KERNEL32.dll
-  ImportLookupTableRVA: 0x33D8
-  ImportAddressTableRVA: 0x34B0
+  ImportLookupTableRVA: 0x20E8
+  ImportAddressTableRVA: 0x21A0
   Symbol: AddVectoredExceptionHandler (0)
   Symbol: CloseHandle (0)
-  Symbol: CreateFileW (0)
   Symbol: CreateThread (0)
   Symbol: CreateToolhelp32Snapshot (0)
   Symbol: DisableThreadLibraryCalls (0)
-  Symbol: FlushFileBuffers (0)
   Symbol: GetCurrentProcess (0)
   Symbol: GetCurrentProcessId (0)
   Symbol: GetCurrentThreadId (0)
@@ -125,14 +123,12 @@ Import {
   Symbol: ReadProcessMemory (0)
   Symbol: RemoveVectoredExceptionHandler (0)
   Symbol: ResumeThread (0)
-  Symbol: SetFilePointer (0)
   Symbol: SetThreadContext (0)
   Symbol: Sleep (0)
   Symbol: SuspendThread (0)
   Symbol: Thread32First (0)
   Symbol: Thread32Next (0)
   Symbol: VirtualQuery (0)
-  Symbol: WriteFile (0)
 }
 Export {
   Ordinal: 1
