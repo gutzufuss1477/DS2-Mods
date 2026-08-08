@@ -28,6 +28,12 @@ CapacityUnits=320
 - `reference/PickupCargoCapacity_v1.0.0.asi` — exact v1.0.0 reference binary
 - `tools/verify_pe_equivalence.py` — compares builds while ignoring only the PE timestamp
 
+## Distribution
+
+Binary release archives are published separately from the source branch. They are intentionally not committed here because GitHub already wraps the repository in a source ZIP; committing a release ZIP would create a ZIP-inside-ZIP download that can trigger antivirus archive heuristics.
+
+Build locally with one of the documented scripts, or download the packaged mod from the GitHub Releases page when a release asset is available.
+
 ## How the patch works
 
 The original pickup limit is generated from ten usable pack areas of sixteen size units each; pack-area index zero is reserved. The plugin validates and changes four mutually dependent constants in the pickup pack-area function:

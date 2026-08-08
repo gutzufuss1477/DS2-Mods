@@ -6,6 +6,9 @@ out/
 *.pdb
 *.ilk
 
+# Release archives belong in GitHub Releases, not in GitHub's source archive.
+mods/pickup-cargo-capacity/*.zip
+
 # Local tools and caches
 .vs/
 __pycache__/

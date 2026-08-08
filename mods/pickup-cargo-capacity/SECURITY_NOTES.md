@@ -35,3 +35,9 @@ The source imports only these `KERNEL32.dll` functions:
 There is no networking, registry access, shell execution, remote-process access, process injection, downloading, telemetry or persistence mechanism.
 
 `CreateThread` avoids performing patch work directly under the Windows loader lock. `VirtualProtect` and `FlushInstructionCache` are required for the documented in-process byte patch.
+
+## Antivirus reports
+
+The release package is not stored inside the source branch. This prevents GitHub's automatically generated repository archive from containing a second release archive, a layout that can increase false-positive antivirus detections.
+
+Do not disable antivirus protection or add broad exclusions. If a release is incorrectly detected, submit the individual ASI file to the antivirus vendor as a false positive and include a link to this source code and its reproducible build instructions.
