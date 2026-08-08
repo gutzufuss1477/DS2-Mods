@@ -1,7 +1,16 @@
 # Security notes
 
-This ASI is an in-process DS2 plugin. It checks the executable timestamp and image size before enabling. It uses a hardware execute breakpoint and vectored exception handler at one validated writer, and changes only the validated `RCX` value for a Lost Cargo reward component.
+This ASI is an in-process DS2 plugin. It checks the executable timestamp and image size before enabling.
 
-It does not call DS2 functions, edit save files, use networking, or modify the registry. The guard checks the validated caller, `RBX > 1`, `R8=0`, readable record data, arithmetic bounds, and one application per record. The observed regular-order signature (`RBX=1`) remains excluded.
+The v1.1.0 implementation uses hardware execute breakpoints plus a vectored exception handler on two validated paths:
 
-The handler is owned by the worker thread: shutdown disables the hook, clears thread breakpoints, and removes the handler. DLL detach only signals shutdown and does not perform unsafe loader-lock cleanup. There is no timeout or hit limit; the hook remains active until game exit.
+1. The Lost Cargo Like writer at `DS2.exe+0x1E1335D` with validated caller `DS2.exe+0x1E14C74`.
+2. The Connection update path located at runtime through the validated instruction signature used by the connection-level update.
+
+The Like hook requires the validated caller, `RBX > 1`, `R8 == 0`, readable record data and arithmetic bounds. The observed regular-order `RBX == 1` signature remains excluded.
+
+After the Like bonus is armed, Connection synchronization is allowed only when the same thread reaches the matching Connection record, the Like record is exactly `ConnectionRecord + 0x18`, and the visible Like total equals the current Connection Points plus `ExtraLikes`. Only then is the current Connection Point value synchronized to the boosted visible total.
+
+The plugin does not directly write the star level and does not force level 5. DS2 continues through its own Connection update logic after the point synchronization.
+
+The ASI does not edit save files directly, use networking, or modify the registry. It is build-guarded to the validated executable. Revalidate after a DS2 game update before publishing or using the mod on the new build.
