@@ -1,4 +1,4 @@
-// DS2 Pickup Cargo Capacity v1.0.0
+// DS2 Pickup Cargo Capacity v1.0.1
 // Validated current-build patch for the pickup cargo pack-area limit.
 // Applies four mutually dependent instruction patches only after exact-byte validation.
 
@@ -39,14 +39,6 @@ __declspec(dllimport) BOOL WriteFile(HANDLE, LPCVOID, DWORD, DWORD*, LPVOID);
 #define FILE_ATTRIBUTE_NORMAL 0x00000080u
 #define INVALID_HANDLE_VALUE ((HANDLE)(QWORD)-1)
 #define PAGE_EXECUTE_READWRITE 0x40u
-
-extern "C" int _fltused = 0;
-extern "C" void* memcpy(void* dst, const void* src, SIZE_T n) {
-    BYTE* d = (BYTE*)dst;
-    const BYTE* s = (const BYTE*)src;
-    for (SIZE_T i = 0; i < n; ++i) d[i] = s[i];
-    return dst;
-}
 
 static HMODULE g_self = 0;
 static wchar_t g_dir[MAX_PATH_W];
@@ -125,7 +117,7 @@ static void write_status(const char* state, const char* detail, int configured, 
     if (h == INVALID_HANDLE_VALUE) return;
     TextBuffer t;
     tb_init(&t);
-    tb_str(&t, "DS2 Pickup Cargo Capacity v1.0.0\r\nSTATE=");
+    tb_str(&t, "DS2 Pickup Cargo Capacity v1.0.1\r\nSTATE=");
     tb_str(&t, state);
     tb_str(&t, "\r\nDETAIL=");
     tb_str(&t, detail);
@@ -161,7 +153,7 @@ static BOOL bytes_equal(const BYTE* p, const BYTE* expected, SIZE_T n) {
 static BOOL patch_bytes(BYTE* target, const BYTE* replacement, SIZE_T n) {
     DWORD old_protect = 0;
     if (!VirtualProtect(target, n, PAGE_EXECUTE_READWRITE, &old_protect)) return 0;
-    memcpy(target, replacement, n);
+    for (SIZE_T i = 0; i < n; ++i) target[i] = replacement[i];
     FlushInstructionCache(GetCurrentProcess(), target, n);
     DWORD ignored = 0;
     VirtualProtect(target, n, old_protect, &ignored);

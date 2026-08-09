@@ -1,6 +1,6 @@
 # DS2 Off-road Pickup Cargo Capacity Expansion
 
-Source code for **Off-road Pickup Cargo Capacity Expansion v1.0.0** for *Death Stranding 2: On the Beach*.
+Source code for **Off-road Pickup Cargo Capacity Expansion v1.0.1** for *Death Stranding 2: On the Beach*.
 
 The mod increases the Off-road Pickup's real cargo limit from the original 160 size units to an INI-configurable value from 160 to 480 units. The tested default is 320 units.
 
@@ -21,7 +21,10 @@ CapacityUnits=320
 
 - `src/pickup_cargo_capacity_patch.cpp` — complete mod source code
 - `scripts/build-msvc.cmd` — MSVC build
-- `scripts/build-llvm.cmd` — clang-cl/lld-link release-equivalent build
+- `scripts/build-llvm.cmd` — self-contained clang-cl/lld-link fallback build
+- `src/PickupCargoCapacity.rc` — Windows product and version metadata
+- `src/kernel32.def` — minimal import definition for the self-contained LLVM build
+- `config/PickupCargoCapacity.ini` — default configuration
 - `BUILDING.md` — detailed prerequisites and build instructions
 - `SECURITY_NOTES.md` — runtime patch behaviour and imported APIs
 - `RELEASE_VERIFICATION.md` — source-to-v1.0.0 binary verification
@@ -66,6 +69,8 @@ The output is `build/PickupCargoCapacity.asi`.
 This is an in-process ASI plugin. It uses `VirtualProtect` and `FlushInstructionCache` only after exact-byte validation to modify four bytes/constants inside the current `DS2.exe` process. It does not open or modify another process.
 
 It contains no networking, registry access, shell execution, downloads, telemetry or persistence. See [SECURITY_NOTES.md](SECURITY_NOTES.md).
+
+Version 1.0.1 uses conventional Windows metadata and hardened PE flags. The recommended MSVC build uses normal DLL startup, the static runtime, stack protection and Control Flow Guard. The self-contained LLVM fallback retains the minimal no-CRT startup but enables ASLR, DEP and high-entropy ASLR.
 
 ## Known cosmetic limitation
 

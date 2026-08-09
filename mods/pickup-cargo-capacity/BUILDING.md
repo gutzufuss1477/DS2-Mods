@@ -7,7 +7,7 @@
 - Workload: **Desktop development with C++**
 - Component: a Windows 10/11 SDK
 
-The release was compiled as a small native x64 DLL/ASI without the C/C++ runtime library. It links only against `kernel32.lib` from the installed Windows SDK.
+The recommended v1.0.1 release is compiled as a conventional native x64 DLL/ASI with the static C/C++ runtime, normal DLL startup, stack protection and Control Flow Guard. It includes Windows product/version metadata and enables ASLR, DEP and high-entropy ASLR.
 
 ## Method 1: MSVC
 
@@ -25,11 +25,11 @@ Output:
 build\PickupCargoCapacity.asi
 ```
 
-## Method 2: clang-cl/lld-link — release-equivalent toolchain
+## Method 2: clang-cl/lld-link — self-contained fallback
 
-Install the optional Visual Studio component **C++ Clang tools for Windows** in addition to the C++ workload and Windows SDK.
+Install LLVM for Windows with `clang-cl`, `lld-link`, `llvm-rc` and `llvm-dlltool`. This fallback generates its own minimal `kernel32.lib` and does not require a Windows SDK library directory.
 
-From **x64 Native Tools Command Prompt for VS 2022**, run:
+From a command prompt where the LLVM tools are on `PATH`, run:
 
 ```bat
 scripts\build-llvm.cmd
@@ -41,27 +41,21 @@ Output:
 build\PickupCargoCapacity.asi
 ```
 
-The PE linker timestamp changes on every build. To compare a clang-cl/lld-link build with the v1.0.0 reference binary while ignoring only that four-byte timestamp, run:
+The fallback intentionally keeps the minimal no-CRT startup for environments without the MSVC runtime libraries. It still includes version metadata and enables ASLR, DEP and high-entropy ASLR. The recommended public release build is the MSVC method above.
+
+The legacy equivalence tool is retained for auditing version 1.0.0. It must be run against a v1.0.0 checkout and is not expected to match the hardened v1.0.1 binary:
 
 ```bat
 py tools\verify_pe_equivalence.py build\PickupCargoCapacity.asi reference\PickupCargoCapacity_v1.0.0.asi
 ```
 
-Expected result:
+## Security verification
 
-```text
-MATCH: files are byte-identical after zeroing only the PE COFF timestamp.
-Normalized SHA-256: ed9de1451f3bb0845c3933ca50e12b87403b0c62050631f4bbd94c2dc3b83b69
+After building, verify the signature status and metadata with PowerShell:
+
+```powershell
+Get-Item build\PickupCargoCapacity.asi | Select-Object -ExpandProperty VersionInfo
+Get-FileHash build\PickupCargoCapacity.asi -Algorithm SHA256
 ```
 
-## Manual compiler commands
-
-The scripts execute these essential steps:
-
-```bat
-clang-cl /nologo /c /O2 /GS- /Gs999999 /GR- /EHs-c- /Zl /Oi /std:c++17 /DWIN32 /D_WINDOWS /D_USRDLL /Fo:"build\pickup_cargo_capacity_patch.obj" "src\pickup_cargo_capacity_patch.cpp"
-
-lld-link /dll /entry:DllMain /nodefaultlib /machine:x64 /out:"build\PickupCargoCapacity.asi" "build\pickup_cargo_capacity_patch.obj" kernel32.lib
-```
-
-No downloaded libraries, package manager, generated source files or closed-source SDKs are required beyond the Microsoft Windows SDK import library.
+The binary remains unsigned unless you apply a trusted Authenticode code-signing certificate after the build.
