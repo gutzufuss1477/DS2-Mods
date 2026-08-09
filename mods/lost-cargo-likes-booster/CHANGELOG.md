@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.1.1 (unreleased)
+- Prevented an unmatched Connection event from leaving the bonus permanently armed and blocking later Lost Cargo deliveries.
+- Replaced stale or conflicting pending transactions when a new eligible reward is detected.
+- Relaxed Connection synchronization to tolerate later internal Like components while still adding exactly the configured bonus.
+- Always clears a matched pending transaction, including failed validation/write attempts, so one unusual delivery cannot disable later bonuses.
+
 ## v1.1.0
 - Fixed the configured Lost Cargo Like bonus not producing equivalent Facility star/connection progress.
 - The same bonus is now synchronized into the matched Facility Connection Points.

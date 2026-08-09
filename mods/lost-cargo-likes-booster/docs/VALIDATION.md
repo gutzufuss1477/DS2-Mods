@@ -34,3 +34,15 @@ v1.1.0 therefore synchronizes the configured bonus only when the matching Like/C
 ## Production binary
 
 The release binary is PE32+ x86-64, exports `DllMain`, and imports only KERNEL32.dll functions required by the hook/configuration implementation.
+
+## v1.1.1 candidate regression tests
+
+The source candidate adds recovery for stale or conflicting pending reward state. Before release, validate all of the following in game:
+
+1. Return at least 10 Lost Cargo deliveries without reloading and confirm every delivery receives exactly one bonus.
+2. Alternate Standard Orders and Lost Cargo deliveries and confirm Standard Orders neither receive the bonus nor disable it for the next Lost Cargo delivery.
+3. Confirm Connection/star progress receives the configured bonus for every tested Lost Cargo delivery, including multi-component and fragile-marked rewards.
+4. Exercise two facilities in succession to confirm a changed Facility record cannot leave the previous transaction armed.
+5. Reload a save with and without a pending reward screen and confirm the next Lost Cargo delivery behaves normally.
+
+This section is a required test plan, not a claim of completed in-game validation.
