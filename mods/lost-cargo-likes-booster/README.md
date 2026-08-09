@@ -1,4 +1,4 @@
-# Lost Cargo Likes Booster v1.1.0
+# Lost Cargo Likes Booster v1.1.1
 
 Adds a configurable bonus when returning Lost Cargo in **DEATH STRANDING 2: ON THE BEACH** (validated Steam PC build 1.10.89.0).
 
@@ -21,13 +21,13 @@ ExtraLikes=5000
 
 The same configured bonus is synchronized to the Facility Connection Points when the matching Lost Cargo reward transaction is processed. The mod does **not** directly force a facility to 5 stars; DS2 still evaluates its normal star thresholds.
 
-## v1.1.0
+## v1.1.1
 
-- Fixed extra Lost Cargo Likes not properly contributing to star/connection progression.
-- Synchronizes the configured Like bonus with the matching Facility Connection Points.
-- Applies the bonus once per detected Lost Cargo reward transaction instead of once for every internal Like component.
-- Keeps support for Lost Cargo with different base Like reward amounts, including the previously reported fragile-marked case.
-- Does not use an "instant 5 stars" level override.
+- Prevents an unmatched reward transaction from disabling bonuses for later Lost Cargo deliveries.
+- Distinguishes Lost Cargo from Standard Orders through repeated Reward-entry and Cargo-source correlation instead of a broad Like-component threshold.
+- Keeps Standard Order Likes and Connection progress unchanged.
+- Synchronizes the configured bonus to the matching Lost Cargo Connection Points exactly once.
+- Supports consecutive deliveries at different facilities without carrying stale transaction state forward.
 
 ## Build and verification
 

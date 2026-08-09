@@ -1,92 +1,137 @@
-
-/mnt/data/DS2_Lost_Cargo_Likes_Booster_v1.1.0_BUILD/mods/lost-cargo-likes-booster/build/public/ds2_lost_cargo_likes_booster.asi:	file format coff-x86-64
-Characteristics 0x2022
-	executable
-	large address aware
-	DLL
-
-Time/Date               Wed Feb  5 13:39:40 2059
-Magic                   020b	(PE32+)
-MajorLinkerVersion      14
-MinorLinkerVersion      0
-SizeOfCode              0000000000001400
-SizeOfInitializedData   0000000000000a00
-SizeOfUninitializedData 0000000000000000
-AddressOfEntryPoint     00000000000011d0
-BaseOfCode              0000000000001000
-ImageBase               0000000180000000
-SectionAlignment        00001000
-FileAlignment           00000200
-MajorOSystemVersion     6
-MinorOSystemVersion     0
-MajorImageVersion       0
-MinorImageVersion       0
-MajorSubsystemVersion   6
-MinorSubsystemVersion   0
-Win32Version            00000000
-SizeOfImage             00006000
-SizeOfHeaders           00000400
-CheckSum                00000000
-Subsystem               00000002	(Windows GUI)
-DllCharacteristics      00000160
-					HIGH_ENTROPY_VA
-					DYNAMIC_BASE
-					NX_COMPAT
-SizeOfStackReserve      0000000000100000
-SizeOfStackCommit       0000000000001000
-SizeOfHeapReserve       0000000000100000
-SizeOfHeapCommit        0000000000001000
-LoaderFlags             00000000
-NumberOfRvaAndSizes     00000010
-
-The Data Directory
-Entry 0 0000000000003060 0000005b Export Directory [.edata (or where ever we found it)]
-Entry 1 00000000000030bc 00000028 Import Directory [parts of .idata]
-Entry 2 0000000000000000 00000000 Resource Directory [.rsrc]
-Entry 3 0000000000005000 000000a8 Exception Directory [.pdata]
-Entry 4 0000000000000000 00000000 Security Directory
-Entry 5 0000000000000000 00000000 Base Relocation Directory [.reloc]
-Entry 6 0000000000003044 0000001c Debug Directory
-Entry 7 0000000000000000 00000000 Description Directory
-Entry 8 0000000000000000 00000000 Special Directory
-Entry 9 0000000000000000 00000000 Thread Storage Directory [.tls]
-Entry a 0000000000000000 00000000 Load Configuration Directory
-Entry b 0000000000000000 00000000 Bound Import Directory
-Entry c 00000000000031a0 000000b8 Import Address Table Directory
-Entry d 0000000000000000 00000000 Delay Import Directory
-Entry e 0000000000000000 00000000 CLR Runtime Header
-Entry f 0000000000000000 00000000 Reserved
-
-The Import Tables:
-  lookup 000030e8 time 00000000 fwd 00000000 name 00003416 addr 000031a0
-
-    DLL Name: KERNEL32.dll
-    Hint/Ord  Name
-           0  AddVectoredExceptionHandler
-           0  CloseHandle
-           0  CreateThread
-           0  CreateToolhelp32Snapshot
-           0  DisableThreadLibraryCalls
-           0  GetCurrentProcess
-           0  GetCurrentProcessId
-           0  GetCurrentThreadId
-           0  GetModuleFileNameW
-           0  GetModuleHandleW
-           0  GetPrivateProfileStringW
-           0  GetThreadContext
-           0  OpenThread
-           0  ReadProcessMemory
-           0  RemoveVectoredExceptionHandler
-           0  ResumeThread
-           0  SetThreadContext
-           0  Sleep
-           0  SuspendThread
-           0  Thread32First
-           0  Thread32Next
-           0  VirtualQuery
-
-Export Table:
- DLL name: ds2_lost_cargo_likes_booster.asi
- Ordinal base: 1
- Ordinal      RVA  Name
-       1   0x11d0  DllMain
+﻿
+File: C:\Users\Simon\Documents\review\mods\lost-cargo-likes-booster\build\public\ds2_lost_cargo_likes_booster.asi
+Format: COFF-x86-64
+Arch: x86_64
+AddressSize: 64bit
+ImageFileHeader {
+  Machine: IMAGE_FILE_MACHINE_AMD64 (0x8664)
+  SectionCount: 4
+  TimeDateStamp: 2062-08-07 16:05:51 (0xAE2D1DDF)
+  PointerToSymbolTable: 0x0
+  SymbolCount: 0
+  StringTableSize: 0
+  OptionalHeaderSize: 240
+  Characteristics [ (0x2022)
+    IMAGE_FILE_DLL (0x2000)
+    IMAGE_FILE_EXECUTABLE_IMAGE (0x2)
+    IMAGE_FILE_LARGE_ADDRESS_AWARE (0x20)
+  ]
+}
+ImageOptionalHeader {
+  Magic: 0x20B
+  MajorLinkerVersion: 14
+  MinorLinkerVersion: 0
+  SizeOfCode: 5632
+  SizeOfInitializedData: 2560
+  SizeOfUninitializedData: 0
+  AddressOfEntryPoint: 0x11C0
+  BaseOfCode: 0x1000
+  ImageBase: 0x180000000
+  SectionAlignment: 4096
+  FileAlignment: 512
+  MajorOperatingSystemVersion: 6
+  MinorOperatingSystemVersion: 0
+  MajorImageVersion: 0
+  MinorImageVersion: 0
+  MajorSubsystemVersion: 6
+  MinorSubsystemVersion: 0
+  SizeOfImage: 24576
+  SizeOfHeaders: 1024
+  CheckSum: 0x0
+  Subsystem: IMAGE_SUBSYSTEM_WINDOWS_GUI (0x2)
+  Characteristics [ (0x160)
+    IMAGE_DLL_CHARACTERISTICS_DYNAMIC_BASE (0x40)
+    IMAGE_DLL_CHARACTERISTICS_HIGH_ENTROPY_VA (0x20)
+    IMAGE_DLL_CHARACTERISTICS_NX_COMPAT (0x100)
+  ]
+  SizeOfStackReserve: 1048576
+  SizeOfStackCommit: 4096
+  SizeOfHeapReserve: 1048576
+  SizeOfHeapCommit: 4096
+  NumberOfRvaAndSize: 16
+  DataDirectory {
+    ExportTableRVA: 0x3060
+    ExportTableSize: 0x5B
+    ImportTableRVA: 0x30BC
+    ImportTableSize: 0x28
+    ResourceTableRVA: 0x0
+    ResourceTableSize: 0x0
+    ExceptionTableRVA: 0x5000
+    ExceptionTableSize: 0xB4
+    CertificateTableRVA: 0x0
+    CertificateTableSize: 0x0
+    BaseRelocationTableRVA: 0x0
+    BaseRelocationTableSize: 0x0
+    DebugRVA: 0x3044
+    DebugSize: 0x1C
+    ArchitectureRVA: 0x0
+    ArchitectureSize: 0x0
+    GlobalPtrRVA: 0x0
+    GlobalPtrSize: 0x0
+    TLSTableRVA: 0x0
+    TLSTableSize: 0x0
+    LoadConfigTableRVA: 0x0
+    LoadConfigTableSize: 0x0
+    BoundImportRVA: 0x0
+    BoundImportSize: 0x0
+    IATRVA: 0x31A0
+    IATSize: 0xB8
+    DelayImportDescriptorRVA: 0x0
+    DelayImportDescriptorSize: 0x0
+    CLRRuntimeHeaderRVA: 0x0
+    CLRRuntimeHeaderSize: 0x0
+    ReservedRVA: 0x0
+    ReservedSize: 0x0
+  }
+}
+DOSHeader {
+  Magic: MZ
+  UsedBytesInTheLastPage: 120
+  FileSizeInPages: 1
+  NumberOfRelocationItems: 0
+  HeaderSizeInParagraphs: 4
+  MinimumExtraParagraphs: 0
+  MaximumExtraParagraphs: 0
+  InitialRelativeSS: 0
+  InitialSP: 0
+  Checksum: 0
+  InitialIP: 0
+  InitialRelativeCS: 0
+  AddressOfRelocationTable: 64
+  OverlayNumber: 0
+  OEMid: 0
+  OEMinfo: 0
+  AddressOfNewExeHeader: 120
+}
+Import {
+  Name: KERNEL32.dll
+  ImportLookupTableRVA: 0x30E8
+  ImportAddressTableRVA: 0x31A0
+  Symbol: AddVectoredExceptionHandler (0)
+  Symbol: CloseHandle (0)
+  Symbol: CreateThread (0)
+  Symbol: CreateToolhelp32Snapshot (0)
+  Symbol: DisableThreadLibraryCalls (0)
+  Symbol: GetCurrentProcess (0)
+  Symbol: GetCurrentProcessId (0)
+  Symbol: GetCurrentThreadId (0)
+  Symbol: GetModuleFileNameW (0)
+  Symbol: GetModuleHandleW (0)
+  Symbol: GetPrivateProfileStringW (0)
+  Symbol: GetThreadContext (0)
+  Symbol: OpenThread (0)
+  Symbol: ReadProcessMemory (0)
+  Symbol: RemoveVectoredExceptionHandler (0)
+  Symbol: ResumeThread (0)
+  Symbol: SetThreadContext (0)
+  Symbol: Sleep (0)
+  Symbol: SuspendThread (0)
+  Symbol: Thread32First (0)
+  Symbol: Thread32Next (0)
+  Symbol: VirtualQuery (0)
+}
+Export {
+  Ordinal: 1
+  Name: DllMain
+  RVA: 0x11C0
+}

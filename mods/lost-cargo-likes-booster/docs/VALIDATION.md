@@ -35,16 +35,15 @@ v1.1.0 therefore synchronizes the configured bonus only when the matching Like/C
 
 The release binary is PE32+ x86-64, exports `DllMain`, and imports only KERNEL32.dll functions required by the hook/configuration implementation.
 
-## v1.1.1 candidate regression tests
+## v1.1.1 transaction classification and regression test
 
-The source candidate adds recovery for stale or conflicting pending reward state. Before release, validate all of the following in game:
+Diagnostic comparison observed a Standard Order using separate Reward entries for components `276 + 200`, while the compared Lost Cargo transaction reused the same Reward entry and Cargo source for components `25 + 25 + 12`. v1.1.1 requires this repeated Reward/Cargo correlation before arming the bonus.
 
-Diagnostic comparison observed a Standard Order using separate Reward entries for components `276 + 200`, while the compared Lost Cargo transaction reused the same Reward entry and Cargo source for components `25 + 25 + 12`. The candidate now requires this repeated Reward/Cargo correlation before arming the bonus.
+The release candidate was tested in game with the following sequence:
 
-1. Return at least 10 Lost Cargo deliveries without reloading and confirm every delivery receives exactly one bonus.
-2. Alternate Standard Orders and Lost Cargo deliveries and confirm Standard Orders neither receive the bonus nor disable it for the next Lost Cargo delivery.
-3. Confirm Connection/star progress receives the configured bonus for every tested Lost Cargo delivery, including multi-component and fragile-marked rewards.
-4. Exercise two facilities in succession to confirm a changed Facility record cannot leave the previous transaction armed.
-5. Reload a save with and without a pending reward screen and confirm the next Lost Cargo delivery behaves normally.
+1. At the first facility, a Standard Order received only its normal Likes and minimal normal star progress.
+2. Lost Cargo delivered immediately afterward received the configured bonus and the corresponding larger star/Connection increase.
+3. At a second facility, another Standard Order again received no configured bonus.
+4. Lost Cargo delivered afterward again received the configured bonus and corresponding star/Connection progress.
 
-This section is a required test plan, not a claim of completed in-game validation.
+This confirms Standard Orders are excluded, Lost Cargo is boosted once, Connection progress follows the bonus, and transaction state does not leak across the tested facility transition. Longer multi-delivery and save-reload regression testing remains recommended.

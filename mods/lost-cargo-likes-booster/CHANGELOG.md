@@ -1,6 +1,6 @@
 # Changelog
 
-## v1.1.1 (unreleased)
+## v1.1.1
 - Prevented an unmatched Connection event from leaving the bonus permanently armed and blocking later Lost Cargo deliveries.
 - Replaced stale or conflicting pending transactions when a new eligible reward is detected.
 - Replaced the broad `RBX > 1` classification with confirmation that consecutive reward components belong to the same Reward entry and Cargo source; this excludes the traced Standard Order path.
