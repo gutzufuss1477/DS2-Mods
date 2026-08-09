@@ -39,6 +39,8 @@ The release binary is PE32+ x86-64, exports `DllMain`, and imports only KERNEL32
 
 The source candidate adds recovery for stale or conflicting pending reward state. Before release, validate all of the following in game:
 
+Diagnostic comparison observed a Standard Order using separate Reward entries for components `276 + 200`, while the compared Lost Cargo transaction reused the same Reward entry and Cargo source for components `25 + 25 + 12`. The candidate now requires this repeated Reward/Cargo correlation before arming the bonus.
+
 1. Return at least 10 Lost Cargo deliveries without reloading and confirm every delivery receives exactly one bonus.
 2. Alternate Standard Orders and Lost Cargo deliveries and confirm Standard Orders neither receive the bonus nor disable it for the next Lost Cargo delivery.
 3. Confirm Connection/star progress receives the configured bonus for every tested Lost Cargo delivery, including multi-component and fragile-marked rewards.

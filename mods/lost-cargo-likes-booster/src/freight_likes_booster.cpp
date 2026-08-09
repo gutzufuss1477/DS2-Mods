@@ -32,9 +32,11 @@ static volatile LONG g_active,g_shutdown,g_stepTid,g_workerTick;
 static volatile u64 g_extraLikes=5000,g_connTarget=0;
 #ifndef DIAGNOSTIC_TRACE
 static volatile LONG g_bonusArmed;
-static volatile u64 g_pendingRecord=0,g_pendingBoosted=0;
+static volatile u64 g_pendingRecord=0,g_pendingBoosted=0,g_pendingReward=0,g_pendingSource=0;
+static volatile u64 g_candidateRecord=0,g_candidateReward=0,g_candidateSource=0;
 static volatile DWORD g_pendingTid=0;
-static volatile u32 g_pendingTick=0;
+static volatile DWORD g_candidateTid=0;
+static volatile u32 g_pendingTick=0,g_candidateTick=0;
 #endif
 
 #ifdef DIAGNOSTIC_TRACE
@@ -60,9 +62,13 @@ static bool valid(){u64 b=(u64)(ULONG_PTR)g_mod;u32 po=0,s=0,ts=0,im=0;return rd
 static bool pat(const u8*p){static const u8 x[]={0x8B,0x56,0x08,0x44,0x8B,0xC0,0x48,0x8B,0xCF,0xE8,0,0,0,0,0x45,0x33,0xE4,0x44,0x8B,0xF8,0x44,0x3B,0xF0};for(u32 i=0;i<23;i++){if(i>=10&&i<=13)continue;if(p[i]!=x[i])return false;}return true;}
 static u64 findConn(){u64 base=(u64)(ULONG_PTR)g_mod,end=base+EXPECTED_IMAGE,cur=base,found=0;u32 count=0;while(cur<end){MEMORY_BASIC_INFORMATION m;memset(&m,0,sizeof(m));if(VirtualQuery((LPCVOID)(ULONG_PTR)cur,&m,sizeof(m))!=sizeof(m))break;u64 rb=(u64)(ULONG_PTR)m.BaseAddress,re=rb+m.RegionSize;if(re<=cur)break;DWORD q=m.Protect&255;bool exec=m.State==MEM_COMMIT&&!(m.Protect&PAGE_GUARD)&&(q==16||q==32||q==64||q==128);u64 s=cur>rb?cur:rb,uend=re<end?re:end;if(exec&&uend>s+23){const u8*p=(const u8*)(ULONG_PTR)s;u64 n=uend-s;for(u64 i=0;i+23<=n;i++){if(pat(p+i)){found=s+i;count++;if(count>1)return 0;}}}cur=re;}return count==1?found:0;}
 #ifndef DIAGNOSTIC_TRACE
-static void clearPending(){g_pendingRecord=0;g_pendingBoosted=0;g_pendingTid=0;g_pendingTick=0;InterlockedExchange(&g_bonusArmed,0);}
+static void clearPending(){g_pendingRecord=0;g_pendingBoosted=0;g_pendingReward=0;g_pendingSource=0;g_pendingTid=0;g_pendingTick=0;InterlockedExchange(&g_bonusArmed,0);}
+static void clearCandidate(){g_candidateRecord=0;g_candidateReward=0;g_candidateSource=0;g_candidateTid=0;g_candidateTick=0;}
 static bool pendingExpired(){return ((u32)g_workerTick-g_pendingTick)>=PENDING_MAX_TICKS;}
+static bool candidateExpired(){return ((u32)g_workerTick-g_candidateTick)>=PENDING_MAX_TICKS;}
 static bool samePending(u64 record,DWORD tid){return g_bonusArmed&&g_pendingRecord==record&&g_pendingTid==tid;}
+static bool sameCandidate(u64 record,u64 reward,u64 source,DWORD tid){return g_candidateRecord==record&&g_candidateReward==reward&&g_candidateSource==source&&g_candidateTid==tid&&!candidateExpired();}
+static void setCandidate(u64 record,u64 reward,u64 source,DWORD tid){g_candidateRecord=record;g_candidateReward=reward;g_candidateSource=source;g_candidateTid=tid;g_candidateTick=(u32)g_workerTick;}
 #endif
 
 static LONG WINAPI veh(EXCEPTION_POINTERS*e){
@@ -81,11 +87,12 @@ static LONG WINAPI veh(EXCEPTION_POINTERS*e){
         u64 n0=q64(v1,&o0),n1=q64(v1+8,&o1),n2=q64(v1+0x10,&o2),n3=q64(v1+0x18,&o3),n4=q64(v1+0x20,&o4),n5=q64(v1+0x28,&o5);
         trace(4,tid,v1,n0,n1,n2,n3,n4);trace(5,tid,n5,cg(c,RDXOFF),cg(c,RBPOFF),cg(c,RSIOFF),cg(c,R14OFF),cg(c,R15OFF));
 #else
+        u64 reward=cg(c,RDIOFF),source=cg(c,R14OFF);
+        if(g_bonusArmed&&(reward!=g_pendingReward||source!=g_pendingSource||pendingExpired()))clearPending();
         bool eligible=ok&&caller==(u64)(ULONG_PTR)g_mod+LIKE_CALLER_RVA&&rbx>1&&r8==0&&preok&&pre<=0xFFFFFFFFFFFFFFDDULL&&in==pre+rbx&&in<=0x7FFFFFFFFFFFFFFFULL-g_extraLikes;
-        if(eligible){
-            bool same=samePending(r9,tid);
-            if(g_bonusArmed&&(!same||pendingExpired()))clearPending();
-            if(!g_bonusArmed&&InterlockedCompareExchange(&g_bonusArmed,1,0)==0){u64 boosted=in+g_extraLikes;g_pendingRecord=r9;g_pendingBoosted=boosted;g_pendingTid=tid;g_pendingTick=(u32)g_workerTick;cs(c,RCXOFF,boosted);}
+        if(eligible&&canon(reward)&&canon(source)){
+            if(!sameCandidate(r9,reward,source,tid)){setCandidate(r9,reward,source,tid);}
+            else if(!g_bonusArmed&&InterlockedCompareExchange(&g_bonusArmed,1,0)==0){u64 boosted=in+g_extraLikes;g_pendingRecord=r9;g_pendingBoosted=boosted;g_pendingReward=reward;g_pendingSource=source;g_pendingTid=tid;g_pendingTick=(u32)g_workerTick;cs(c,RCXOFF,boosted);}
         }
 #endif
         g_stepTid=(LONG)tid;cs(c,EFLAGSOFF,cg(c,EFLAGSOFF)|0x100ULL);return EXCEPTION_CONTINUE_EXECUTION;
@@ -101,6 +108,7 @@ static LONG WINAPI veh(EXCEPTION_POINTERS*e){
             if(cOk&&vOk&&visible>=g_pendingBoosted&&synced<=0xFFFFFFFFULL&&visible>=synced)wr32(rsi+8,(u32)synced);
             clearPending();
         }else if(g_bonusArmed&&pendingExpired())clearPending();
+        clearCandidate();
 #endif
         g_stepTid=(LONG)tid;cs(c,EFLAGSOFF,cg(c,EFLAGSOFF)|0x100ULL);return EXCEPTION_CONTINUE_EXECUTION;
     }
