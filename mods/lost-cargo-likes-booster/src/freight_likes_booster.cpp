@@ -12,12 +12,16 @@ extern "C" void* memset(void*d,int v,SIZE_T n){u8*a=(u8*)d;for(SIZE_T i=0;i<n;i+
 #define DR6 0x68
 #define DR7 0x70
 #define RCXOFF 0x80
+#define RDXOFF 0x88
 #define RBXOFF 0x90
 #define RSPOFF 0x98
+#define RBPOFF 0xA0
 #define RSIOFF 0xA8
 #define RDIOFF 0xB0
 #define R8OFF 0xB8
 #define R9OFF 0xC0
+#define R14OFF 0xE8
+#define R15OFF 0xF0
 #define RIPOFF 0xF8
 #define EFLAGSOFF 0x44
 #define PENDING_MAX_TICKS 20U
@@ -71,6 +75,11 @@ static LONG WINAPI veh(EXCEPTION_POINTERS*e){
         u64 sp=cg(c,RSPOFF),in=cg(c,RCXOFF),r8=cg(c,R8OFF),r9=cg(c,R9OFF),rbx=cg(c,RBXOFF);bool ok=0;u64 caller=q64(sp,&ok),pre=0;bool preok=false;if(canon(r9))pre=q64(r9,&preok);
 #ifdef DIAGNOSTIC_TRACE
         trace(1,tid,caller,in,pre,rbx,r8,r9);
+        u64 rdi=cg(c,RDIOFF);bool o0=false,o1=false,o2=false,o3=false,o4=false,o5=false;
+        u64 v0=q64(rdi,&o0),v1=q64(rdi+8,&o1),v2=q64(rdi+0x10,&o2),v3=q64(rdi+0x18,&o3),v4=q64(rdi+0x20,&o4);
+        trace(3,tid,rdi,v0,v1,v2,v3,v4);
+        u64 n0=q64(v1,&o0),n1=q64(v1+8,&o1),n2=q64(v1+0x10,&o2),n3=q64(v1+0x18,&o3),n4=q64(v1+0x20,&o4),n5=q64(v1+0x28,&o5);
+        trace(4,tid,v1,n0,n1,n2,n3,n4);trace(5,tid,n5,cg(c,RDXOFF),cg(c,RBPOFF),cg(c,RSIOFF),cg(c,R14OFF),cg(c,R15OFF));
 #else
         bool eligible=ok&&caller==(u64)(ULONG_PTR)g_mod+LIKE_CALLER_RVA&&rbx>1&&r8==0&&preok&&pre<=0xFFFFFFFFFFFFFFDDULL&&in==pre+rbx&&in<=0x7FFFFFFFFFFFFFFFULL-g_extraLikes;
         if(eligible){
