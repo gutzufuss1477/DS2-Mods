@@ -1,0 +1,31 @@
+No Magellan Evaluation v1.0.0 - Release PE Report
+====================================================
+
+/mnt/data/no_magellan_release_work/mods/no-magellan-evaluation/build1/ds2_no_magellan_evaluation.asi: PE32+ executable for MS Windows 6.00 (DLL), x86-64, 4 sections
+
+SHA-256: 3EC72DA55493471470246C39179D8F56154D149409A95FF15F200FA0D5054FE3
+
+Imported DLLs / functions:
+	DLL Name: KERNEL32.dll
+	vma:     Ordinal  Hint  Member-Name  Bound-To
+	000034c8  <none>  0000  AddVectoredExceptionHandler
+	000034d0  <none>  0000  CloseHandle
+	000034d8  <none>  0000  CreateFileW
+	000034e0  <none>  0000  CreateThread
+	000034e8  <none>  0000  DisableThreadLibraryCalls
+	000034f0  <none>  0000  FlushFileBuffers
+	000034f8  <none>  0000  FlushInstructionCache
+	00003500  <none>  0000  GetCurrentProcess
+	00003508  <none>  0000  GetCurrentThreadId
+	00003510  <none>  0000  GetModuleFileNameW
+	00003518  <none>  0000  GetModuleHandleW
+	00003520  <none>  0000  GetPrivateProfileStringW
+	00003528  <none>  0000  ReadProcessMemory
+	00003530  <none>  0000  RemoveVectoredExceptionHandler
+	00003538  <none>  0000  Sleep
+	00003540  <none>  0000  VirtualProtect
+	00003548  <none>  0000  VirtualQuery
+	00003550  <none>  0000  WriteFile
+
+ 00003418	00000000 00000000 00000000 00000000 00000000
+

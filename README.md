@@ -9,6 +9,7 @@ Source code, documentation and validated releases for my DEATH STRANDING 2 mods.
 - [Remote Orders Overlay](mods/remote-orders-overlay/)
 - [Pickup Cargo Capacity](mods/pickup-cargo-capacity/)
 - [Lost Cargo Likes Booster](mods/lost-cargo-likes-booster/)
+- [No Magellan Evaluation](mods/no-magellan-evaluation/)
 
 
 Additional DS2 mods can be added later as separate folders under `mods/`.

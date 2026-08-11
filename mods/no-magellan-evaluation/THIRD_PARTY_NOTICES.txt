@@ -1,0 +1,5 @@
+No third-party code or ASI loader binary is bundled with this mod.
+
+An external x64 ASI loader is required at runtime and must be obtained separately under its own terms.
+
+DEATH STRANDING 2: ON THE BEACH and related names/assets belong to their respective rights holders. This is an unofficial fan-made modification.
