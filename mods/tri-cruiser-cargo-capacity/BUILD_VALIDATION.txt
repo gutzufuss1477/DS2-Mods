@@ -1,0 +1,42 @@
+DS2 Tri-Cruiser Cargo Capacity v1.0.0 - Build Validation
+=========================================================
+
+Supported baseline: DS2.exe v1.10.89.0
+Target footprint capacity: 320 total (160 per native side)
+Virtual UI item cap: native 13 -> effective 320, register-only
+
+Reproducible clean build:
+306255b2ecb7eedbdc58e765253f8eccdbe009219fb5a19556452dbcad12162c  /mnt/data/_tc_v100_buildA/release/DS2_TriCruiser_CargoCapacity_v1.0.0.asi
+306255b2ecb7eedbdc58e765253f8eccdbe009219fb5a19556452dbcad12162c  /mnt/data/_tc_v100_buildB/release/DS2_TriCruiser_CargoCapacity_v1.0.0.asi
+BYTE_IDENTICAL=PASS
+
+PASS: cursor fold model 0..159; fail-closed >=160; item cap 320
+
+Release simplification audit:
+- UI precheck classifier hook removed
+- packer-return classifier hook removed
+- runtime status writer removed
+- periodic worker loop removed; install thread exits after patching
+- no CreateFile/WriteFile/Sleep imports
+- only core capacity + cyclic slot-key + item-cap hooks remain
+
+PE imports:
+- kernel32.dll
+  CloseHandle
+  CreateThread
+  DisableThreadLibraryCalls
+  FlushInstructionCache
+  GetCurrentProcess
+  GetModuleHandleW
+  VirtualAlloc
+  VirtualFree
+  VirtualProtect
+
+Export: InitializeASI
+Timestamp: 0 (reproducible link)
+
+Stub audit:
+- original MOV/MOVZX instruction is executed first at every hook
+- incoming RFLAGS are restored before returning to DS2
+- only the intended lookup register / ECX is virtualized
+- raw slot cursors >=160 are left unchanged (fail-closed)
