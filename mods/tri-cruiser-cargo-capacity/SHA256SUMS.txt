@@ -1,1 +1,1 @@
-306255b2ecb7eedbdc58e765253f8eccdbe009219fb5a19556452dbcad12162c  release/DS2_TriCruiser_CargoCapacity_v1.0.0.asi
+905cc132ae77427977315080646e9efe62f074404019d495b785c3b6fc10d42a  release/DS2_TriCruiser_CargoCapacity_v1.1.0.asi

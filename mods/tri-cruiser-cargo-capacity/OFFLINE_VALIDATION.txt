@@ -1,1 +1,7 @@
-PASS: cursor fold model 0..159; fail-closed >=160; item cap 320
+PASS: v1.1.0 capacity/accessory model
+- Regular two-side mode: 160 + 160 = 320 total.
+- Native one-side mode: 320 total.
+- Exact dual-accessory 1/1 state is routed to proven native one-side behavior.
+- Slot-key folds validated for raw cursor values 0..319.
+- Values >=320 remain fail-closed / unvirtualized by the slot-key stubs.
+- No accessory-memory writes are present in the release design.

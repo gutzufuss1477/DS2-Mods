@@ -1,42 +1,37 @@
-DS2 Tri-Cruiser Cargo Capacity v1.0.0 - Build Validation
-=========================================================
+DS2 Tri-Cruiser Cargo Capacity v1.1.0 - Build Validation
 
-Supported baseline: DS2.exe v1.10.89.0
-Target footprint capacity: 320 total (160 per native side)
-Virtual UI item cap: native 13 -> effective 320, register-only
+SUPPORTED_BASELINE=DS2.exe v1.10.89.0
+ASI=DS2_TriCruiser_CargoCapacity_v1.1.0.asi
+ASI_SIZE_BYTES=9216
+ASI_SHA256=905cc132ae77427977315080646e9efe62f074404019d495b785c3b6fc10d42a
 
-Reproducible clean build:
-306255b2ecb7eedbdc58e765253f8eccdbe009219fb5a19556452dbcad12162c  /mnt/data/_tc_v100_buildA/release/DS2_TriCruiser_CargoCapacity_v1.0.0.asi
-306255b2ecb7eedbdc58e765253f8eccdbe009219fb5a19556452dbcad12162c  /mnt/data/_tc_v100_buildB/release/DS2_TriCruiser_CargoCapacity_v1.0.0.asi
-BYTE_IDENTICAL=PASS
+CLEAN_BUILD_A_SHA256=905cc132ae77427977315080646e9efe62f074404019d495b785c3b6fc10d42a
+CLEAN_BUILD_B_SHA256=905cc132ae77427977315080646e9efe62f074404019d495b785c3b6fc10d42a
+CLEAN_BUILDS_BYTE_IDENTICAL=PASS
+ROOT_BUILD_MATCHES_CLEAN_BUILDS=PASS
+OFFLINE_MODEL=PASS
+PE_FORMAT=PE32+ x86-64 DLL
+PE_TIMESTAMP=0
+EXPORT=InitializeASI
+IMPORT_DLL=kernel32.dll
+IMPORTS=CloseHandle,CreateThread,DisableThreadLibraryCalls,FlushInstructionCache,GetCurrentProcess,GetModuleHandleW,VirtualAlloc,VirtualFree,VirtualProtect
 
-PASS: cursor fold model 0..159; fail-closed >=160; item cap 320
+RELEASE_CAPACITY_TARGET=320_TOTAL
+TWO_SIDE_LIMIT=160_PER_SIDE
+ONE_SIDE_LIMIT=320_TOTAL
+ITEM_CAP_VIRTUALIZATION=13_TO_320_REGISTER_ONLY
+SLOT_KEY_FOLD_DOMAIN=RAW_LT_320
+DUAL_ACCESSORY_BEHAVIOR=EXACT_1_1_TO_PROVEN_NATIVE_ONE_SIDE_PATH
+ACCESSORY_MEMORY_WRITE=NONE
+RUNTIME_STATUS_WRITER=NONE
+RUNTIME_TELEMETRY=NONE
+NULL_TRANSFORM_GUARDS=NONE
+OWNERSHIP_MUTATION=NONE
+RELATION_MUTATION=NONE
+FAKE_SUCCESS=NONE
 
-Release simplification audit:
-- UI precheck classifier hook removed
-- packer-return classifier hook removed
-- runtime status writer removed
-- periodic worker loop removed; install thread exits after patching
-- no CreateFile/WriteFile/Sleep imports
-- only core capacity + cyclic slot-key + item-cap hooks remain
+PATCH_ORIGINAL_BYTES_FAIL_CLOSED=PASS
+ACCESSORY_HOOK_ORIGINAL_SIGNATURE=0F B6 48 39 44 38 60 38
+PACK_COMPARE_REWRITE=REGISTER_R8D_DYNAMIC_LIMIT
 
-PE imports:
-- kernel32.dll
-  CloseHandle
-  CreateThread
-  DisableThreadLibraryCalls
-  FlushInstructionCache
-  GetCurrentProcess
-  GetModuleHandleW
-  VirtualAlloc
-  VirtualFree
-  VirtualProtect
-
-Export: InitializeASI
-Timestamp: 0 (reproducible link)
-
-Stub audit:
-- original MOV/MOVZX instruction is executed first at every hook
-- incoming RFLAGS are restored before returning to DS2
-- only the intended lookup register / ECX is virtualized
-- raw slot cursors >=160 are left unchanged (fail-closed)
+Final release source and binary were rebuilt independently twice and verified byte-identical.
