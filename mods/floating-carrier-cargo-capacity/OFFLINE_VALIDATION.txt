@@ -1,0 +1,45 @@
+DS2 Floating Carrier Cargo Capacity v1.0.0 - technical validation summary
+
+Supported baseline
+- DS2.exe v1.10.89.0
+
+Proven cargo-capacity path
+- Item-cap site: RVA 0x0123779B, native 36 -> virtual 240
+- Carrier packer: RVA 0x01188290
+- Carrier side limit A: RVA 0x0118851A, native 18 -> 120
+- Carrier side limit B: RVA 0x0118852A, native 18 -> 120
+
+Offline-identified global weight configuration
+- Class: DSBaggageConfig
+- Global root pointer: DS2.exe + 0x0623EA48
+- Live config: [root + 0x10]
+- Expected DSBaggageConfig vtable RVA: 0x0327CBE0
+
+Weight fields
+- +0x324 CartLv1WeightLimit: 300 -> 5000
+- +0x328 CartLv1WeightLimitForAction: 150 -> 2500
+- +0x32C CartLv1WeightLimitForStop: 300 -> 5000
+- +0x330 CartLv2WeightLimit: 900 -> 5000
+- +0x334 CartLv2WeightLimitForAction: 450 -> 2500
+- +0x338 CartLv2WeightLimitForStop: 900 -> 5000
+
+Constructor fallback immediates
+- RVA 0x011AEA86: Lv1 limit 300 -> 5000
+- RVA 0x011AEA90: Lv1 action 150 -> 2500
+- RVA 0x011AEA9A: Lv1 stop 300 -> 5000
+- RVA 0x011AEAA4: Lv2 limit 900 -> 5000
+- RVA 0x011AEAAE: Lv2 action 450 -> 2500
+- RVA 0x011AEAB8: Lv2 stop 900 -> 5000
+
+Runtime evidence
+- Development diagnostics confirmed the live DSBaggageConfig singleton and matching class signature.
+- The Level 2 movement/overload path was confirmed to use the DSBaggageConfig stop-limit family; after patching the global config, loads above the native 900 kg threshold no longer triggered the overload lock and remained pullable.
+- The same adjacent Level 1 fields were extended and subsequently confirmed ingame above the native 300 kg threshold.
+- Mixed cargo visually continued to stack vertically using the native carrier placement logic.
+
+Release scope
+- No development PAGE_GUARD / single-step code.
+- No breakpoints.
+- No runtime status writer or diagnostics.
+- No ownership/relation manipulation.
+- No fake-success patches.

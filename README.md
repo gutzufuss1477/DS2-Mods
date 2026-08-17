@@ -9,6 +9,7 @@ Source code, documentation and validated releases for my DEATH STRANDING 2 mods.
 - [Remote Orders Overlay](mods/remote-orders-overlay/)
 - [Pickup Cargo Capacity](mods/pickup-cargo-capacity/)
 - [Tri-Cruiser Cargo Capacity](mods/tri-cruiser-cargo-capacity/)
+- [Floating Carrier Cargo Capacity](mods/floating-carrier-cargo-capacity/)
 - [Lost Cargo Likes Booster](mods/lost-cargo-likes-booster/)
 - [No Magellan Evaluation](mods/no-magellan-evaluation/)
 

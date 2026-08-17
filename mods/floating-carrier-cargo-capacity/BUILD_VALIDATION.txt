@@ -1,0 +1,34 @@
+DS2 Floating Carrier Cargo Capacity v1.0.0
+
+Build A SHA-256: 2db7f24180a43a4595af594e6c84de1199a2697899c60b3758c0e2bbb633e512
+Build B SHA-256: 2db7f24180a43a4595af594e6c84de1199a2697899c60b3758c0e2bbb633e512
+Byte-identical rebuild: YES
+PE: PE32+ x86-64 DLL/ASI
+PE timestamp: 0
+Hardened PE flags: HIGH_ENTROPY_VA, DYNAMIC_BASE, NX_COMPAT
+Imports: kernel32.dll only
+Export: InitializeASI
+Baseline: DS2.exe v1.10.89.0
+
+Release functional patches
+- ItemCap 36 -> 240 at RVA 0x0123779B
+- Carrier packer side A 18 -> 120 at RVA 0x0118851A
+- Carrier packer side B 18 -> 120 at RVA 0x0118852A
+- Live global DSBaggageConfig via RVA 0x0623EA48 -> [root+0x10]
+- Lv1 +0x324: 300 -> 5000
+- Lv1 +0x328: 150 -> 2500
+- Lv1 +0x32C: 300 -> 5000
+- Lv2 +0x330: 900 -> 5000
+- Lv2 +0x334: 450 -> 2500
+- Lv2 +0x338: 900 -> 5000
+- Constructor fallback for the same six weight values
+
+Release deliberately excludes
+- STATUS/telemetry output
+- F-key controls
+- PAGE_GUARD
+- breakpoints
+- single-step tracing
+- Cheat Engine dependency
+- ownership/relation manipulation
+- fake-success/result overrides
