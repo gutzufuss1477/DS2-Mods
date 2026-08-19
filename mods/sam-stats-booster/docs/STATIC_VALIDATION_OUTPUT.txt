@@ -1,0 +1,19 @@
+File: DS2.exe
+SHA-256: bf3d1c665545930bc850d8f5df486f7395885bb729d4fd408fdb03390de0765b
+PE timestamp: 0x6a3dae46
+Image base: 0x140000000
+Image size: 0x0b292000
+u32_producer: 1 match(es): 0xd92f30
+q64_lung_producer: 1 match(es): 0xd92ff0
+double_physical_producer: 1 match(es): 0xd93040
+U32 patch site: 0xd92fca; continuation after native call: 0xd92fdd
+Q64 patch site: 0xd93010; continuation at ordinary epilogue: 0xd9302d
+Double patch site: 0xd9309a; continuation after native call: 0xd930b6
+DSPlayRecordManager slot: 0x623e5e8
+Double-record cap: RVA 0x3462020, value 999999999999.99
+U32 getter/mutator: 0xc01120 / 0xc00d70
+Q64 getter/mutator: 0xc011d0 / 0xc00e60
+Double getter: 0xc012b0
+Double mutator decoded from producer call: 0xc00fa0
+
+RESULT: PASS

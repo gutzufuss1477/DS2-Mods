@@ -1,0 +1,32 @@
+DS2 Sam Stats Booster v1.0.0 - ASI PE inspection
+
+File: reference/SamStatsBooster.asi
+Size: 30208 bytes
+SHA-256: E930E2B6C59A955789A2E5F4D967D9BFC30F57CA2DBA9061039841A1F4E8AB99
+Architecture: PE32+ x86-64 DLL/ASI
+Entry point: DllMain
+Import directory: absent
+Runtime libraries: none
+ASLR: enabled
+High-entropy VA: enabled
+NX compatibility: enabled
+
+Exported processor and hook-state symbols:
+- ProcessSamStatsU32
+- ProcessSamStatsQ64
+- ProcessSamStatsDouble
+- g_u32Continue
+- g_q64Continue
+- g_doubleContinue
+- g_managerSlot
+- g_enabledMask
+- g_multiplier
+- g_eventCounts
+
+Embedded release label:
+DS2 Sam Stats Booster v1.0.0 STABLE
+
+Validation source:
+- llvm-objdump 17 PE header inspection
+- static target validation against DS2.exe 1.10.89.0
+- source rebuild completed successfully with Clang/LLD 17
