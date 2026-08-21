@@ -1,0 +1,2 @@
+No third-party source code is bundled.
+The build uses LLVM/Clang and LLD when compiled by the included scripts.

@@ -1,0 +1,6 @@
+1.0.0
+- Initial public release.
+- Configurable RemainingUnits value.
+- Roads Stage 1/2, Monorails Stage 1, Mines Stage 1/2/3.
+- Existing online/player contributions preserved.
+- Native partial-container consumption and overflow handling.

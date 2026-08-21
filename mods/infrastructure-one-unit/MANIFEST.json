@@ -1,0 +1,38 @@
+{
+  "name": "Infrastructure One Unit",
+  "slug": "infrastructure-one-unit",
+  "version": "1.0.0",
+  "platform": "Steam PC",
+  "supportedGame": {
+    "name": "DEATH STRANDING 2: ON THE BEACH",
+    "version": "1.10.89.0",
+    "ds2ExeSha256": "BF3D1C665545930BC850D8F5DF486F7395885BB729D4FD408FDB03390DE0765B",
+    "peTimestamp": "0x6A3DAE46",
+    "imageSize": "0x0B292000"
+  },
+  "binary": {
+    "path": "reference/ds2_infrastructure_one_unit.asi",
+    "sha256": "235556A9F4FCF8D45707D16598190FD62CF9DB2C5BEB4BC566050F87B85F64EE",
+    "provenance": "In-game validated v1.0.3 policy binary with release-label-only patch to v1.0.0-release"
+  },
+  "configuration": {
+    "remainingUnits": {
+      "default": 1,
+      "minimum": 1,
+      "maximum": 1000000,
+      "scope": "per still-open material category"
+    }
+  },
+  "supportedPaths": [
+    "road-stage-1",
+    "road-stage-2",
+    "monorail-stage-1",
+    "mine-stage-1",
+    "mine-stage-2",
+    "mine-stage-3"
+  ],
+  "release": {
+    "path": "release/DS2_Infrastructure_One_Unit_v1.0.0.zip",
+    "sha256": "92654B2D74C65081E9319F0B7C30BEB07AC0B09B5A40EDEC8A2025E186158EC8"
+  }
+}

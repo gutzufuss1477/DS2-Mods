@@ -1,0 +1,17 @@
+Infrastructure One Unit v1.0.0 - Offline Validation
+
+PASS  Delta policy with online/other-player contributions
+PASS  Direct construction progress
+PASS  Cumulative upgrade progress
+PASS  Custom RemainingUnits values
+PASS  Completed and already-below-limit slots remain unchanged
+PASS  16 exact Need/Current caller-pair constants
+PASS  PE32+ x86-64 DLL/ASI format
+PASS  DllMain export
+PASS  KERNEL32.dll is the only imported DLL
+PASS  HIGH_ENTROPY_VA, DYNAMIC_BASE and NX_COMPAT
+PASS  Source cross-build
+PASS  Release binary provenance comparison
+
+Validated reference ASI SHA-256
+235556A9F4FCF8D45707D16598190FD62CF9DB2C5BEB4BC566050F87B85F64EE
