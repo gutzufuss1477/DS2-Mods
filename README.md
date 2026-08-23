@@ -15,5 +15,7 @@ Source code, documentation and validated releases for my DEATH STRANDING 2 mods.
 - [No Magellan Evaluation](mods/no-magellan-evaluation/)
 
 
+* [High-Density Backpack Modules](mods/high-density-backpack-modules)
+
 Additional DS2 mods can be added later as separate folders under `mods/`.
 

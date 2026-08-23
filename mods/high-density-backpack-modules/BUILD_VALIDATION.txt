@@ -1,0 +1,49 @@
+DS2 HIGH-DENSITY BACKPACK MODULES v1.0.0 - BUILD VALIDATION
+================================================================
+
+Build artifact:
+reference/DS2_HighDensityBackpackModules_v1.0.0.asi
+Size: 29184 bytes
+SHA-256: C4C5CC2B525BEB88AEF264521B56C00E6616ABF6DFB0C2F6970C92379D719C1C
+
+Source:
+src/high_density_backpack_modules.cpp
+SHA-256: 8DCF9B946A76F33EFAA823D9226FD89DE223F4CE0A4E723EE4D3B8B071FBD797
+
+VALIDATION RESULTS
+------------------
+Release source differs from the validated v0.15.0 source only in:
+- product title and version strings;
+- runtime log filename;
+- runtime mode label;
+- process mutex name;
+- comments.
+
+Placement, patch, validation, remap and rejection logic: UNCHANGED
+Clean second build byte-identical to first build: PASS
+PE format: Windows x64 DLL / PE32+: PASS
+Deterministic PE timestamp: 0: PASS
+ASLR / High-Entropy VA / NX compatibility: PASS
+Imported DLLs: KERNEL32.dll only
+CRT, UCRT, VCRUNTIME and __chkstk imports: NONE
+Compiler warnings with /W4 /WX: NONE
+Legacy prototype/version strings in release ASI: NONE
+Original DS2 target checks retained: PASS
+All 16 one-cell patch definitions retained: PASS
+Auto-anchor detour and shape-bound checks retained: PASS
+German documentation sharp-s scan: PASS
+
+RUNTIME VALIDATION BASIS
+------------------------
+The behaviour-identical v0.15.0 logic was validated in DS2.exe v1.10.89.0 with:
+- 16 mixed functional backpack components in one layout;
+- menu close/reopen;
+- save, full game restart and load;
+- preserved compact layout after load;
+- substantially increased battery capacity from multiple batteries;
+- automatic occupied-anchor relocation;
+- full-shape backpack-bound protection.
+
+The final v1.0.0 binary itself was rebuilt only for release naming and was not
+separately run in the game before packaging. The executable logic is unchanged
+from the validated source apart from the non-functional strings listed above.

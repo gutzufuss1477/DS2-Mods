@@ -1,0 +1,18 @@
+group	rva	original	replacement	purpose
+replacement_collection	0x00B400F9	2B 48 28	83 E9 01	orientation 3, logical width 1
+replacement_collection	0x00B40102	41 2B 41 24	83 E8 01 90	orientation 3, logical height 1
+replacement_collection	0x00B40112	2B 48 24	83 E9 01	orientation 2, logical width 1
+replacement_collection	0x00B4011A	8B 40 28	6A 01 58	orientation 2, logical height 1
+replacement_collection	0x00B40122	8B 48 28	6A 01 59	orientation 1, logical width 1
+replacement_collection	0x00B4012A	8B 40 24	6A 01 58	orientation 1, logical height 1
+replacement_collection	0x00B40137	8B 48 24	6A 01 59	orientation 0, logical width 1
+replacement_collection	0x00B40145	41 2B 41 28	83 E8 01 90	orientation 0, logical height 1
+grid_validate_commit	0x00B40389	2B 48 28	83 E9 01	orientation 3, logical width 1
+grid_validate_commit	0x00B4038F	2B 50 24	83 EA 01	orientation 3, logical height 1
+grid_validate_commit	0x00B4039F	8B 50 28	6A 01 5A	orientation 2, logical height 1
+grid_validate_commit	0x00B403B3	2B 48 24	83 E9 01	orientation 2, logical width 1
+grid_validate_commit	0x00B403C4	8B 48 28	6A 01 59	orientation 1, logical width 1
+grid_validate_commit	0x00B403CD	8B 50 24	6A 01 5A	orientation 1, logical height 1
+grid_validate_commit	0x00B403E3	8B 48 24	6A 01 59	orientation 0, logical width 1
+grid_validate_commit	0x00B403FD	2B 50 28	83 EA 01	orientation 0, logical height 1
+detour_callsite	0x00B43043	E8 A8 D6 FF FF	dynamic CALL rel32	Auto-Anchor wrapper before replacement collection

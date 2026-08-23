@@ -1,0 +1,1 @@
+Makes functional backpack modules use one logical grid anchor and automatically relocates overlaps, allowing far more batteries, pouches, ammo containers and stabilizers.
