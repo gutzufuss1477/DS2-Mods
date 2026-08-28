@@ -13,6 +13,7 @@ Source code, documentation and validated releases for my DEATH STRANDING 2 mods.
 - [Sam Stats Booster](mods/sam-stats-booster/)
 - [Lost Cargo Likes Booster](mods/lost-cargo-likes-booster/)
 - [No Magellan Evaluation](mods/no-magellan-evaluation/)
+- [Weapons Anywhere](mods/weapons-anywhere/)
 
 
 * [High-Density Backpack Modules](mods/high-density-backpack-modules)
