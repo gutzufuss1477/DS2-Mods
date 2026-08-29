@@ -23,3 +23,13 @@ Source code, documentation and validated releases for my DEATH STRANDING 2 mods.
 
 Additional DS2 mods can be added later as separate folders under `mods/`.
 
+## All-in-one installer
+
+The bilingual Windows GUI, stable-mod catalog, transactional installer and
+release build are maintained under [installer](installer/). Version 1.1.0 adds
+an English/Deutsch selector and one central **Mod Settings** menu while keeping
+the individual runtime INIs expected by each ASI plugin. The manager detects
+the Steam game directory and supported `DS2.exe`, reuses or installs the tested
+x64 ASI loader, preserves customized INIs and supports hash-verified update,
+repair, rollback and removal. Catalog, settings schema and payloads are embedded
+in the release EXE.

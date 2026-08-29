@@ -1,0 +1,19 @@
+DS2 Mod Suite - Third-party notices
+====================================
+
+Ultimate ASI Loader v9.7.2 (x64)
+---------------------------------
+Project: https://github.com/ThirteenAG/Ultimate-ASI-Loader
+Release: https://github.com/ThirteenAG/Ultimate-ASI-Loader/releases/tag/v9.7.2
+Copyright (c) 2023 ThirteenAG
+License: MIT
+
+The bundled binary is the official v9.7.2 x64 dinput8.dll, installed unchanged
+under the supported proxy name winmm.dll. Its expected SHA-256 is:
+
+22FDA9C71EAAE02460F311BF3441638340AB591586D78F1DE213C4819DCB883C
+
+The complete license text is included as LICENSE_Ultimate_ASI_Loader.txt.
+
+DEATH STRANDING 2: ON THE BEACH and related names and assets belong to their
+respective owners. This is an unofficial community project.

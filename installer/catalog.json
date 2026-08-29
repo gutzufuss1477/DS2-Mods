@@ -1,0 +1,394 @@
+{
+  "schemaVersion": 1,
+  "suiteVersion": "1.1.0",
+  "game": {
+    "name": "DEATH STRANDING 2: ON THE BEACH",
+    "executable": "DS2.exe",
+    "steamFolder": "DEATH STRANDING 2 - ON THE BEACH",
+    "supportedVersions": [
+      {
+        "fileVersion": "1.10.89.0",
+        "sha256": "BF3D1C665545930BC850D8F5DF486F7395885BB729D4FD408FDB03390DE0765B"
+      }
+    ]
+  },
+  "loader": {
+    "name": "Ultimate ASI Loader x64",
+    "version": "9.7.2",
+    "fileName": "winmm.dll",
+    "payload": "payload/loader/winmm.dll",
+    "sha256": "22FDA9C71EAAE02460F311BF3441638340AB591586D78F1DE213C4819DCB883C",
+    "knownCompatibleHashes": [
+      "22FDA9C71EAAE02460F311BF3441638340AB591586D78F1DE213C4819DCB883C"
+    ],
+    "proxyFileNames": [
+      "winmm.dll",
+      "dinput8.dll",
+      "version.dll",
+      "winhttp.dll",
+      "dsound.dll",
+      "dxgi.dll",
+      "d3d12.dll",
+      "xinput1_3.dll"
+    ]
+  },
+  "mods": [
+    {
+      "id": "hill-assist-and-speed-boost",
+      "name": "Hill Assist & Speed Boost",
+      "version": "1.1.0",
+      "category": "Vehicles & Cargo",
+      "categoryDe": "Fahrzeuge & Fracht",
+      "description": "Improves uphill driving and provides configurable speed settings for the Pickup and Tri-Cruiser.",
+      "descriptionDe": "Verbessert die Bergauffahrt und konfiguriert die Geschwindigkeit von Pickup und Tri-Cruiser.",
+      "files": [
+        {
+          "payload": "payload/mods/hill-assist-and-speed-boost/DS2VehicleCore.asi",
+          "target": "DS2VehicleCore.asi",
+          "sha256": "78F4D90B6473F9163E65A227AE6444D516133ABAC34C9E6575BD2B13C3CB60B6",
+          "kind": "binary"
+        },
+        {
+          "payload": "payload/mods/hill-assist-and-speed-boost/PickupTruckHillAssist.ini",
+          "target": "PickupTruckHillAssist.ini",
+          "sha256": "9F05C6E68800531617E9F076A390F96D041CE24870C81EC1B9498C17607C7D0C",
+          "kind": "config"
+        },
+        {
+          "payload": "payload/mods/hill-assist-and-speed-boost/VehicleSpeedBoost.ini",
+          "target": "VehicleSpeedBoost.ini",
+          "sha256": "3046F2299FE4C0EE8D935B97706B7F50D2A5C2391EC394746825B90AB442E131",
+          "kind": "config"
+        }
+      ]
+    },
+    {
+      "id": "pickup-cargo-capacity",
+      "name": "Pickup Cargo Capacity",
+      "version": "1.0.1",
+      "category": "Vehicles & Cargo",
+      "categoryDe": "Fahrzeuge & Fracht",
+      "description": "Increases the configurable cargo capacity of the Off-road Pickup.",
+      "descriptionDe": "Erhöht die konfigurierbare Frachtkapazität des Off-road Pickups.",
+      "files": [
+        {
+          "payload": "payload/mods/pickup-cargo-capacity/PickupCargoCapacity.asi",
+          "target": "PickupCargoCapacity.asi",
+          "sha256": "6B3FA29F9B671D93E43DB7001389F59F9C83095BCF612F26B2EE6B4D5E1C4692",
+          "kind": "binary"
+        },
+        {
+          "payload": "payload/mods/pickup-cargo-capacity/PickupCargoCapacity.ini",
+          "target": "PickupCargoCapacity.ini",
+          "sha256": "11036F71687EF01B98ED2E08E9A6D1EB5A894BA4EA9D78167E878A628F784501",
+          "kind": "config"
+        }
+      ]
+    },
+    {
+      "id": "tri-cruiser-cargo-capacity",
+      "name": "Tri-Cruiser Cargo Capacity",
+      "version": "1.1.0",
+      "category": "Vehicles & Cargo",
+      "categoryDe": "Fahrzeuge & Fracht",
+      "description": "Increases the Tri-Cruiser's usable cargo capacity.",
+      "descriptionDe": "Erhöht die logisch nutzbare Frachtkapazität des Tri-Cruisers.",
+      "files": [
+        {
+          "payload": "payload/mods/tri-cruiser-cargo-capacity/DS2_TriCruiser_CargoCapacity_v1.1.0.asi",
+          "target": "DS2_TriCruiser_CargoCapacity_v1.1.0.asi",
+          "sha256": "905CC132AE77427977315080646E9EFE62F074404019D495B785C3B6FC10D42A",
+          "kind": "binary"
+        }
+      ],
+      "obsoleteFiles": [
+        {
+          "target": "DS2_TriCruiser_CargoCapacity_v1.2.0_TEST.asi",
+          "sha256": "C574222A0BEAF22F62054FA8879286382B8B632E637CE921C393D0C5FAFCB41B"
+        },
+        {
+          "target": "DS2_TriCruiser_CargoCapacity_v1.2.1_TEST.asi",
+          "sha256": "E1DE0E6C8102E329B3B8AEDF37C66566032B0CF7AFE2A375E0D9B7284C8F64AB"
+        },
+        {
+          "target": "DS2_TriCruiser_CargoCapacity_v1.2.2_TRACE.asi",
+          "sha256": "DB3CDAEE7C624A2038F3ACC645E7F567F8C7938A98B97F06C3D9837E2AC758A1"
+        },
+        {
+          "target": "DS2_TriCruiser_CargoCapacity_v1.2.3_LIFECYCLE_TRACE.asi",
+          "sha256": "82D5B9B03929784B98A9844EB3DE8051C4CC397D86626FC5B4727D5F08E8A3D3"
+        }
+      ]
+    },
+    {
+      "id": "floating-carrier-cargo-capacity",
+      "name": "Floating Carrier Cargo Capacity",
+      "version": "1.0.0",
+      "category": "Vehicles & Cargo",
+      "categoryDe": "Fahrzeuge & Fracht",
+      "description": "Increases the Floating Carrier's usable cargo capacity.",
+      "descriptionDe": "Erhöht die nutzbare Frachtkapazität des Lastenschwebers.",
+      "files": [
+        {
+          "payload": "payload/mods/floating-carrier-cargo-capacity/DS2_FloatingCarrier_CargoCapacity_v1.0.0.asi",
+          "target": "DS2_FloatingCarrier_CargoCapacity_v1.0.0.asi",
+          "sha256": "2DB7F24180A43A4595AF594E6C84DE1199A2697899C60B3758C0E2BBB633E512",
+          "kind": "binary"
+        }
+      ]
+    },
+    {
+      "id": "high-density-backpack-modules",
+      "name": "High-Density Backpack Modules",
+      "version": "1.0.0",
+      "category": "Equipment & Progression",
+      "categoryDe": "Ausrüstung & Fortschritt",
+      "description": "Allows significantly more functional backpack modules through a more compact logical layout.",
+      "descriptionDe": "Ermöglicht deutlich mehr funktionale Rucksackmodule durch kompaktere logische Belegung.",
+      "files": [
+        {
+          "payload": "payload/mods/high-density-backpack-modules/DS2_HighDensityBackpackModules_v1.0.0.asi",
+          "target": "DS2_HighDensityBackpackModules_v1.0.0.asi",
+          "sha256": "C4C5CC2B525BEB88AEF264521B56C00E6616ABF6DFB0C2F6970C92379D719C1C",
+          "kind": "binary"
+        }
+      ]
+    },
+    {
+      "id": "sam-stats-booster",
+      "name": "Sam Stats Booster",
+      "version": "1.0.0",
+      "category": "Equipment & Progression",
+      "categoryDe": "Ausrüstung & Fortschritt",
+      "description": "Provides a configurable boost to the progression of selected Sam stats.",
+      "descriptionDe": "Beschleunigt konfigurierbar den Fortschritt ausgewählter Sam-Werte.",
+      "files": [
+        {
+          "payload": "payload/mods/sam-stats-booster/SamStatsBooster.asi",
+          "target": "SamStatsBooster.asi",
+          "sha256": "E930E2B6C59A955789A2E5F4D967D9BFC30F57CA2DBA9061039841A1F4E8AB99",
+          "kind": "binary"
+        },
+        {
+          "payload": "payload/mods/sam-stats-booster/SamStatsBooster.ini",
+          "target": "SamStatsBooster.ini",
+          "sha256": "843B792D3F9369AA76E01C52C5498FCBE668206A79EF1E595236032DE084F38E",
+          "kind": "config"
+        }
+      ]
+    },
+    {
+      "id": "porter-grade-booster",
+      "name": "Porter Grade Booster",
+      "version": "1.0.0",
+      "category": "Equipment & Progression",
+      "categoryDe": "Ausrüstung & Fortschritt",
+      "description": "Provides a configurable boost to the category points awarded by DS2 for completed deliveries.",
+      "descriptionDe": "Verstärkt konfigurierbar die Kategoriepunkte, die DS2 für abgeschlossene Lieferungen vergibt.",
+      "files": [
+        {
+          "payload": "payload/mods/porter-grade-booster/PorterGradeBooster.asi",
+          "target": "PorterGradeBooster.asi",
+          "sha256": "7AD9D021E0F7D1E61CA50C9F40D803954B49083A88C31335A18A34BE8F0E2213",
+          "kind": "binary"
+        },
+        {
+          "payload": "payload/mods/porter-grade-booster/PorterGradeBooster.ini",
+          "target": "PorterGradeBooster.ini",
+          "sha256": "D26107507B2FDC7C282E5E729398EA4AAD0F8D49733ADED46F0631EFAC65FD51",
+          "kind": "config"
+        }
+      ]
+    },
+    {
+      "id": "lost-cargo-likes-booster",
+      "name": "Lost Cargo Likes Booster",
+      "version": "1.1.1",
+      "category": "Deliveries & Rewards",
+      "categoryDe": "Lieferungen & Belohnungen",
+      "description": "Awards a configurable Like bonus when returning lost cargo.",
+      "descriptionDe": "Gewährt einen konfigurierbaren Like-Bonus bei der Rückgabe verlorener Fracht.",
+      "files": [
+        {
+          "payload": "payload/mods/lost-cargo-likes-booster/ds2_lost_cargo_likes_booster.asi",
+          "target": "ds2_lost_cargo_likes_booster.asi",
+          "sha256": "AB5771528603819D193748394F7BD90A5EFF6F588E110C9ED91087728E24C71A",
+          "kind": "binary"
+        },
+        {
+          "payload": "payload/mods/lost-cargo-likes-booster/ds2_lost_cargo_likes_booster.ini",
+          "target": "ds2_lost_cargo_likes_booster.ini",
+          "sha256": "DAAF0FAF048ED251CCA8EE27C3D23CA91F48152E7467CC2686DF36CC4BF5B4C4",
+          "kind": "config"
+        }
+      ]
+    },
+    {
+      "id": "no-magellan-evaluation",
+      "name": "No Magellan Evaluation Penalty",
+      "version": "1.0.0",
+      "category": "Deliveries & Rewards",
+      "categoryDe": "Lieferungen & Belohnungen",
+      "description": "Removes the Like penalty from Magellan deliveries without changing their designation.",
+      "descriptionDe": "Entfernt den Like-Malus bei Magellan-Lieferungen, ohne deren Kennzeichnung zu verändern.",
+      "files": [
+        {
+          "payload": "payload/mods/no-magellan-evaluation/ds2_no_magellan_evaluation.asi",
+          "target": "ds2_no_magellan_evaluation.asi",
+          "sha256": "3EC72DA55493471470246C39179D8F56154D149409A95FF15F200FA0D5054FE3",
+          "kind": "binary"
+        },
+        {
+          "payload": "payload/mods/no-magellan-evaluation/ds2_no_magellan_evaluation.ini",
+          "target": "ds2_no_magellan_evaluation.ini",
+          "sha256": "8B71D66310EAE417B0BE23517CF7DE45A5126E9F00080FC826D82A684F67D7B1",
+          "kind": "config"
+        }
+      ]
+    },
+    {
+      "id": "construction-anywhere",
+      "name": "Construction Anywhere",
+      "version": "1.0.0",
+      "category": "Construction & World",
+      "categoryDe": "Bauen & Welt",
+      "description": "Loosens general construction distance limits and tested restricted zones for PCC structures.",
+      "descriptionDe": "Lockert allgemeine Bauabstände und getestete Sperrzonen für PCC-Konstruktionen.",
+      "files": [
+        {
+          "payload": "payload/mods/construction-anywhere/ds2_construction_anywhere.asi",
+          "target": "ds2_construction_anywhere.asi",
+          "sha256": "FC5D96527EE85696B7E796F911DB8414BF0834A6D8418318A4133D26392B09F3",
+          "kind": "binary"
+        },
+        {
+          "payload": "payload/mods/construction-anywhere/ds2_construction_anywhere.ini",
+          "target": "ds2_construction_anywhere.ini",
+          "sha256": "2F5CBD754E854474719C5F7E809C6EAAC42DD4098A2CDF12BDA1218A778778AF",
+          "kind": "config"
+        }
+      ]
+    },
+    {
+      "id": "weapons-anywhere",
+      "name": "Weapons Anywhere",
+      "version": "1.0.0",
+      "category": "Construction & World",
+      "categoryDe": "Bauen & Welt",
+      "description": "Removes selected weapon restrictions in protected areas.",
+      "descriptionDe": "Hebt ausgewählte Waffenbeschränkungen in geschützten Bereichen auf.",
+      "files": [
+        {
+          "payload": "payload/mods/weapons-anywhere/ds2_weapons_anywhere.asi",
+          "target": "ds2_weapons_anywhere.asi",
+          "sha256": "20B922F78393B44E61CA9BE44C689652554A7BA8398C34FED1CCE35D2EEC10D2",
+          "kind": "binary"
+        },
+        {
+          "payload": "payload/mods/weapons-anywhere/ds2_weapons_anywhere.ini",
+          "target": "ds2_weapons_anywhere.ini",
+          "sha256": "1BB984218280F442EE10B443F94DEE06A8B2BE34BA5F2071917022B2A358E541",
+          "kind": "config"
+        }
+      ]
+    },
+    {
+      "id": "zipline-range",
+      "name": "Zipline Range & Speed",
+      "version": "1.0.0",
+      "category": "Construction & World",
+      "categoryDe": "Bauen & Welt",
+      "description": "Configures zip-line connection range and travel speed.",
+      "descriptionDe": "Konfiguriert Verbindungsreichweite und Fahrgeschwindigkeit von Seilrutschen.",
+      "files": [
+        {
+          "payload": "payload/mods/zipline-range/ds2_zipline_range.asi",
+          "target": "ds2_zipline_range.asi",
+          "sha256": "DBC9126DA373EF13285499BDA1131C9B6AC36CC6C430F197210810BBD8D4A6BD",
+          "kind": "binary"
+        },
+        {
+          "payload": "payload/mods/zipline-range/ds2_zipline_range.ini",
+          "target": "ds2_zipline_range.ini",
+          "sha256": "6151A79670C45A7F4D7D410EB2030906720F31BCD7F5286790CBF7E99EC0EFF3",
+          "kind": "config"
+        }
+      ]
+    },
+    {
+      "id": "chiral-bandwidth-costs",
+      "name": "Chiral Bandwidth Costs",
+      "version": "1.0.0",
+      "category": "Construction & World",
+      "categoryDe": "Bauen & Welt",
+      "description": "Sets exact chiral bandwidth costs for supported structures.",
+      "descriptionDe": "Legt die Chiralbandbreitenkosten unterstützter Konstruktionen exakt fest.",
+      "files": [
+        {
+          "payload": "payload/mods/chiral-bandwidth-costs/ds2_chiral_bandwidth_costs.asi",
+          "target": "ds2_chiral_bandwidth_costs.asi",
+          "sha256": "BA49FAEBC661633945A19AFEDFAE0F3D7A88FA62DCA752735692AA3D436DFC2B",
+          "kind": "binary"
+        },
+        {
+          "payload": "payload/mods/chiral-bandwidth-costs/ds2_chiral_bandwidth_costs.ini",
+          "target": "ds2_chiral_bandwidth_costs.ini",
+          "sha256": "223AA9B0E6E95B0D448EECEF643463FFB304E497AAC903FA778A6EAEA9F3CA6A",
+          "kind": "config"
+        }
+      ]
+    },
+    {
+      "id": "infrastructure-one-unit",
+      "name": "Infrastructure One Unit",
+      "version": "1.0.0",
+      "category": "Construction & World",
+      "categoryDe": "Bauen & Welt",
+      "description": "Reduces the remaining material requirements for supported infrastructure to configurable values.",
+      "descriptionDe": "Reduziert den verbleibenden Materialbedarf unterstützter Infrastruktur auf konfigurierbare Werte.",
+      "files": [
+        {
+          "payload": "payload/mods/infrastructure-one-unit/ds2_infrastructure_one_unit.asi",
+          "target": "ds2_infrastructure_one_unit.asi",
+          "sha256": "235556A9F4FCF8D45707D16598190FD62CF9DB2C5BEB4BC566050F87B85F64EE",
+          "kind": "binary"
+        },
+        {
+          "payload": "payload/mods/infrastructure-one-unit/ds2_infrastructure_one_unit.ini",
+          "target": "ds2_infrastructure_one_unit.ini",
+          "sha256": "BFA790625D71A112A7A9A27CD02B08001960441100141AD8AE3C5B11653CA185",
+          "kind": "config"
+        }
+      ]
+    },
+    {
+      "id": "remote-orders-overlay",
+      "name": "Remote Orders Overlay",
+      "version": "0.2.0",
+      "category": "Interface",
+      "categoryDe": "Interface",
+      "description": "Shows a facility's available orders directly on the world map in a localized overlay.",
+      "descriptionDe": "Zeigt verfügbare Aufträge einer Einrichtung direkt auf der Weltkarte als lokalisierte Einblendung.",
+      "files": [
+        {
+          "payload": "payload/mods/remote-orders-overlay/DS2_Remote_Orders_Overlay.asi",
+          "target": "DS2_Remote_Orders_Overlay.asi",
+          "sha256": "02C3046773001DC6499B6B670C6DD0903F37F29EF5D19F1DB4A8DB1F2F183821",
+          "kind": "binary"
+        },
+        {
+          "payload": "payload/mods/remote-orders-overlay/DS2_Remote_Orders_Overlay.ini",
+          "target": "DS2_Remote_Orders_Overlay.ini",
+          "sha256": "2174B4A2775A5338D4D4D9A16ABDADCC77BCBF4E1C51C50F13AB4ECFC3FBBC5E",
+          "kind": "config"
+        }
+      ],
+      "obsoleteFiles": [
+        {
+          "target": "DS2_Remote_Orders_Overlay_LOCALIZED_TEST.asi",
+          "sha256": "84A9ABCC0E048B4B7625C2B21EA14971ECF7CED5D4F26559BFA63187CE1A7E00"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,285 @@
+{
+  "schemaVersion": 1,
+  "mods": [
+    {
+      "modId": "hill-assist-and-speed-boost",
+      "files": [
+        {
+          "target": "PickupTruckHillAssist.ini",
+          "sections": [
+            {
+              "name": "HillAssist",
+              "fields": [
+                { "key": "Enabled", "type": "bool" },
+                { "key": "GripPercent", "type": "int", "min": 100, "max": 600 },
+                { "key": "MinimumFrictionPercent", "type": "int", "min": 100, "max": 400 },
+                { "key": "AssistStartSlopeDegrees", "type": "int", "min": 0, "max": 60 },
+                { "key": "FullAssistSlopeDegrees", "type": "int", "min": 1, "max": 80 },
+                { "key": "MaximumFrictionPercent", "type": "int", "min": 100, "max": 2000 },
+                { "key": "StopAfterChangedEntries", "type": "int", "min": 0, "max": 256, "advanced": true },
+                { "key": "ScanStartGroup", "type": "int", "min": 0, "max": 20000, "advanced": true },
+                { "key": "ScanEndGroup", "type": "int", "min": 1, "max": 30000, "advanced": true }
+              ]
+            }
+          ]
+        },
+        {
+          "target": "VehicleSpeedBoost.ini",
+          "sections": [
+            {
+              "name": "VehicleSpeedBoost",
+              "fields": [
+                { "key": "Enabled", "type": "bool" },
+                { "key": "TruckNormalSpeedPercent", "type": "int", "min": 50, "max": 300, "aliases": ["TruckNormalRoadSpeedPercent"] },
+                { "key": "BikeNormalSpeedPercent", "type": "int", "min": 50, "max": 300, "aliases": ["BikeNormalRoadSpeedPercent"] },
+                { "key": "TruckBoostTopSpeedPercent", "type": "int", "min": 100, "max": 300 },
+                { "key": "BikeBoostTopSpeedPercent", "type": "int", "min": 100, "max": 300 },
+                { "key": "StopAfterProfiles", "type": "int", "min": 0, "max": 64, "advanced": true },
+                { "key": "ScanStartGroup", "type": "int", "min": 0, "max": 20000, "advanced": true },
+                { "key": "ScanEndGroup", "type": "int", "min": 1, "max": 30000, "advanced": true }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "modId": "pickup-cargo-capacity",
+      "files": [
+        {
+          "target": "PickupCargoCapacity.ini",
+          "sections": [
+            {
+              "name": "PickupCargoCapacity",
+              "fields": [
+                { "key": "Enabled", "type": "bool" },
+                { "key": "CapacityUnits", "type": "int", "min": 160, "max": 480, "multipleOf": 16 }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "modId": "sam-stats-booster",
+      "files": [
+        {
+          "target": "SamStatsBooster.ini",
+          "sections": [
+            {
+              "name": "SamStatsBooster",
+              "fields": [
+                { "key": "Enabled", "type": "bool" },
+                { "key": "Multiplier", "type": "decimal", "min": 1.0, "max": 100.0 }
+              ]
+            },
+            {
+              "name": "Stats",
+              "fields": [
+                { "key": "TerrainTraversal", "type": "bool" },
+                { "key": "CarryingCapacity", "type": "bool" },
+                { "key": "Endurance", "type": "bool" },
+                { "key": "KOResistance", "type": "bool" },
+                { "key": "LungCapacity", "type": "bool" },
+                { "key": "StrandSkills", "type": "bool" },
+                { "key": "MeleeCombat", "type": "bool" },
+                { "key": "Handguns", "type": "bool" },
+                { "key": "AssaultRifles", "type": "bool" },
+                { "key": "SniperRifles", "type": "bool" },
+                { "key": "MachineGuns", "type": "bool" },
+                { "key": "Shotguns", "type": "bool" },
+                { "key": "StealthTakedown", "type": "bool", "advanced": true }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "modId": "porter-grade-booster",
+      "files": [
+        {
+          "target": "PorterGradeBooster.ini",
+          "sections": [
+            {
+              "name": "PorterGradeBooster",
+              "fields": [
+                { "key": "Enabled", "type": "bool" },
+                { "key": "Mode", "type": "choice", "choices": ["Multiplier", "Additive", "Both"] },
+                { "key": "Multiplier", "type": "decimal", "min": 0.0, "max": 1000.0 },
+                { "key": "ExtraPoints", "type": "uint64", "min": 0, "max": 18446744073709551615, "advanced": true },
+                { "key": "Porter", "type": "bool" },
+                { "key": "Combat", "type": "bool" },
+                { "key": "Stealth", "type": "bool" },
+                { "key": "Service", "type": "bool" },
+                { "key": "BridgeLink", "type": "bool" }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "modId": "lost-cargo-likes-booster",
+      "files": [
+        {
+          "target": "ds2_lost_cargo_likes_booster.ini",
+          "sections": [
+            {
+              "name": "LostCargoLikesBooster",
+              "fields": [
+                { "key": "ExtraLikes", "type": "int", "min": 1, "max": 1000000 }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "modId": "no-magellan-evaluation",
+      "files": [
+        {
+          "target": "ds2_no_magellan_evaluation.ini",
+          "sections": [
+            {
+              "name": "NoMagellanEvaluation",
+              "fields": [
+                { "key": "Enabled", "type": "bool" },
+                { "key": "DebugLog", "type": "bool", "advanced": true }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "modId": "construction-anywhere",
+      "files": [
+        {
+          "target": "ds2_construction_anywhere.ini",
+          "sections": [
+            {
+              "name": "ConstructionAnywhere",
+              "fields": [
+                { "key": "Enabled", "type": "bool" },
+                { "key": "RemoveProximityLimit", "type": "bool" },
+                { "key": "AllowRestrictedAreas", "type": "bool" },
+                { "key": "IgnorePermittedAreaWhitelist", "type": "bool", "advanced": true },
+                { "key": "DebugLog", "type": "bool", "advanced": true }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "modId": "weapons-anywhere",
+      "files": [
+        {
+          "target": "ds2_weapons_anywhere.ini",
+          "sections": [
+            {
+              "name": "WeaponsAnywhere",
+              "fields": [
+                { "key": "Enabled", "type": "bool" },
+                { "key": "DebugLog", "type": "bool", "advanced": true }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "modId": "zipline-range",
+      "files": [
+        {
+          "target": "ds2_zipline_range.ini",
+          "sections": [
+            {
+              "name": "ZiplineRange",
+              "fields": [
+                { "key": "Enabled", "type": "bool" },
+                { "key": "Level1RangeMeters", "type": "decimal", "min": 300.0, "max": 1000.0 },
+                { "key": "Level2RangeMeters", "type": "decimal", "min": 350.0, "max": 1000.0 },
+                { "key": "SpeedMultiplier", "type": "decimal", "min": 0.25, "max": 10.0 },
+                { "key": "IgnoreConnectionObstacles", "type": "bool", "default": "0", "advanced": true },
+                { "key": "DebugLog", "type": "bool", "advanced": true }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "modId": "chiral-bandwidth-costs",
+      "files": [
+        {
+          "target": "ds2_chiral_bandwidth_costs.ini",
+          "sections": [
+            {
+              "name": "ChiralBandwidthCosts",
+              "fields": [
+                { "key": "Enabled", "type": "bool" },
+                { "key": "DebugLog", "type": "bool", "advanced": true },
+                { "key": "Postbox", "type": "nativeOrInt", "min": 0, "max": 1000000 },
+                { "key": "SafeHouse", "type": "nativeOrInt", "min": 0, "max": 1000000 },
+                { "key": "Watchtower", "type": "nativeOrInt", "min": 0, "max": 1000000 },
+                { "key": "CargoCatapult", "type": "nativeOrInt", "min": 0, "max": 1000000 },
+                { "key": "Generator", "type": "nativeOrInt", "min": 0, "max": 1000000 },
+                { "key": "RainShelter", "type": "nativeOrInt", "min": 0, "max": 1000000 },
+                { "key": "Zipline", "type": "nativeOrInt", "min": 0, "max": 1000000 },
+                { "key": "Bridge", "type": "nativeOrInt", "min": 0, "max": 1000000 },
+                { "key": "ChiralBridge", "type": "nativeOrInt", "min": 0, "max": 1000000 },
+                { "key": "JumpRamp", "type": "nativeOrInt", "min": 0, "max": 1000000 },
+                { "key": "HotSpringDigger", "type": "nativeOrInt", "min": 0, "max": 1000000, "advanced": true }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "modId": "infrastructure-one-unit",
+      "files": [
+        {
+          "target": "ds2_infrastructure_one_unit.ini",
+          "sections": [
+            {
+              "name": "InfrastructureOneUnit",
+              "fields": [
+                { "key": "Enabled", "type": "bool" },
+                { "key": "RemainingUnits", "type": "int", "min": 1, "max": 1000000 },
+                { "key": "RoadConstruction", "type": "bool" },
+                { "key": "RoadUpgrades", "type": "bool" },
+                { "key": "MonorailConstruction", "type": "bool" },
+                { "key": "MineConstruction", "type": "bool" },
+                { "key": "MineUpgrades", "type": "bool" },
+                { "key": "DebugLog", "type": "bool", "advanced": true }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "modId": "remote-orders-overlay",
+      "files": [
+        {
+          "target": "DS2_Remote_Orders_Overlay.ini",
+          "sections": [
+            {
+              "name": "Localization",
+              "fields": [
+                {
+                  "key": "Language",
+                  "type": "choice",
+                  "choices": ["auto", "en", "de", "fr", "it", "es-ES", "es-419", "pt-PT", "pt-BR", "ar", "cs", "nl", "el", "ja", "ko", "pl", "ru", "zh-CN", "zh-TW"]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
