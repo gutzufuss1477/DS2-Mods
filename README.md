@@ -16,6 +16,7 @@ Source code, documentation and validated releases for my DEATH STRANDING 2 mods.
 - [Weapons Anywhere](mods/weapons-anywhere/)
 - [Construction Anywhere](mods/construction-anywhere/)
 - [Zipline Range and Speed](mods/zipline-range/)
+- [Chiral Bandwidth Costs](mods/chiral-bandwidth-costs/)
 
 
 * [High-Density Backpack Modules](mods/high-density-backpack-modules)

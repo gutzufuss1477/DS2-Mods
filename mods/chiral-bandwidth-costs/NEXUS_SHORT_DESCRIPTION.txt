@@ -1,0 +1,1 @@
+Set exact chiral-bandwidth costs per construction through an English INI, with safe Native defaults and strict build validation. For DS2 Steam 1.10.89.0.
