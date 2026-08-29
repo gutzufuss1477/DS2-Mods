@@ -15,6 +15,7 @@ Source code, documentation and validated releases for my DEATH STRANDING 2 mods.
 - [No Magellan Evaluation](mods/no-magellan-evaluation/)
 - [Weapons Anywhere](mods/weapons-anywhere/)
 - [Construction Anywhere](mods/construction-anywhere/)
+- [Zipline Range and Speed](mods/zipline-range/)
 
 
 * [High-Density Backpack Modules](mods/high-density-backpack-modules)
