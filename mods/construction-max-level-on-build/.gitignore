@@ -1,0 +1,4 @@
+# Local experimental packages are retained for regression comparison only.
+release/DS2_Construction_Max_Level_On_Build_TEST_v*.zip
+release/DS2_Construction_Max_Level_On_Build_TEST_v*.zip.sha256.txt
+release/DS2_Construction_Max_Level_On_Build_TEST_v*/
