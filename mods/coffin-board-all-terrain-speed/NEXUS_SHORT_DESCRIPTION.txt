@@ -1,0 +1,1 @@
+Raises Coffin Board speed on both land and water with tested 500% speed and 400% acceleration profiles, while leaving steering and wet grip native.

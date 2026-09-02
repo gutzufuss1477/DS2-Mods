@@ -1,0 +1,4 @@
+# Local build output and test-only release artifacts
+build/
+release/*_TEST_*
+SHA256SUMS_TEST_*.txt

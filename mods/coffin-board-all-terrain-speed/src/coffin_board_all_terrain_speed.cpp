@@ -1,0 +1,1782 @@
+// DS2 Coffin Board All-Terrain Speed v1.0.0
+// Target: DEATH STRANDING 2: ON THE BEACH, Steam 1.10.89.0
+//
+// Event-driven resource patch. The normal-land limits are derived from the
+// resource's own water limits, so the default remains meaningful if another
+// compatible mod deliberately raises the water speed.
+
+extern "C" {
+typedef void* HANDLE;
+typedef void* HMODULE;
+typedef void* HINSTANCE;
+typedef void* LPVOID;
+typedef const void* LPCVOID;
+typedef unsigned long DWORD;
+typedef long LONG;
+typedef unsigned short WORD;
+typedef unsigned char BYTE;
+typedef unsigned int UINT32;
+typedef unsigned long long UINT64;
+typedef unsigned long long SIZE_T;
+typedef long long INT64;
+typedef wchar_t WCHAR;
+typedef const WCHAR* LPCWSTR;
+typedef DWORD (__stdcall *LPTHREAD_START_ROUTINE)(LPVOID);
+
+struct MEMORY_BASIC_INFORMATION_X64 {
+    LPVOID BaseAddress;
+    LPVOID AllocationBase;
+    DWORD AllocationProtect;
+    WORD PartitionId;
+    SIZE_T RegionSize;
+    DWORD State;
+    DWORD Protect;
+    DWORD Type;
+};
+
+struct SYSTEMTIME_X {
+    WORD wYear, wMonth, wDayOfWeek, wDay, wHour, wMinute, wSecond, wMilliseconds;
+};
+
+struct THREADENTRY32_X {
+    DWORD dwSize;
+    DWORD cntUsage;
+    DWORD th32ThreadID;
+    DWORD th32OwnerProcessID;
+    LONG tpBasePri;
+    LONG tpDeltaPri;
+    DWORD dwFlags;
+};
+
+__declspec(dllimport) int __stdcall CloseHandle(HANDLE);
+__declspec(dllimport) void __stdcall AcquireSRWLockExclusive(void*);
+__declspec(dllimport) void __stdcall AcquireSRWLockShared(void*);
+__declspec(dllimport) HANDLE __stdcall CreateFileW(LPCWSTR, DWORD, DWORD, LPVOID, DWORD, DWORD, HANDLE);
+__declspec(dllimport) HANDLE __stdcall CreateMutexW(LPVOID, int, LPCWSTR);
+__declspec(dllimport) HANDLE __stdcall CreateToolhelp32Snapshot(DWORD, DWORD);
+__declspec(dllimport) HANDLE __stdcall CreateThread(LPVOID, SIZE_T, LPTHREAD_START_ROUTINE, LPVOID, DWORD, DWORD*);
+__declspec(dllimport) int __stdcall DisableThreadLibraryCalls(HMODULE);
+__declspec(dllimport) DWORD __stdcall GetLastError();
+__declspec(dllimport) void __stdcall GetLocalTime(SYSTEMTIME_X*);
+__declspec(dllimport) DWORD __stdcall GetCurrentProcessId();
+__declspec(dllimport) DWORD __stdcall GetCurrentThreadId();
+__declspec(dllimport) int __stdcall GetThreadContext(HANDLE, void*);
+__declspec(dllimport) DWORD __stdcall GetModuleFileNameW(HMODULE, WCHAR*, DWORD);
+__declspec(dllimport) HMODULE __stdcall GetModuleHandleW(LPCWSTR);
+__declspec(dllimport) unsigned int __stdcall GetPrivateProfileIntW(LPCWSTR, LPCWSTR, int, LPCWSTR);
+__declspec(dllimport) HANDLE __stdcall OpenThread(DWORD, int, DWORD);
+__declspec(dllimport) void __stdcall ReleaseSRWLockShared(void*);
+__declspec(dllimport) void __stdcall ReleaseSRWLockExclusive(void*);
+__declspec(dllimport) DWORD __stdcall ResumeThread(HANDLE);
+__declspec(dllimport) DWORD __stdcall SetFilePointer(HANDLE, long, long*, DWORD);
+__declspec(dllimport) void __stdcall Sleep(DWORD);
+__declspec(dllimport) DWORD __stdcall SuspendThread(HANDLE);
+__declspec(dllimport) int __stdcall Thread32First(HANDLE, THREADENTRY32_X*);
+__declspec(dllimport) int __stdcall Thread32Next(HANDLE, THREADENTRY32_X*);
+__declspec(dllimport) LPVOID __stdcall VirtualAlloc(LPVOID, SIZE_T, DWORD, DWORD);
+__declspec(dllimport) SIZE_T __stdcall VirtualQuery(LPCVOID, MEMORY_BASIC_INFORMATION_X64*, SIZE_T);
+__declspec(dllimport) int __stdcall VirtualProtect(LPVOID, SIZE_T, DWORD, DWORD*);
+__declspec(dllimport) int __stdcall FlushInstructionCache(HANDLE, LPCVOID, SIZE_T);
+__declspec(dllimport) int __stdcall WriteFile(HANDLE, LPCVOID, DWORD, DWORD*, LPVOID);
+}
+
+extern "C" int _fltused = 0;
+extern "C" void* memset(void* destination, int value, SIZE_T size) {
+    BYTE* output = (BYTE*)destination;
+    for (SIZE_T i = 0; i < size; ++i) output[i] = (BYTE)value;
+    return destination;
+}
+extern "C" void* memcpy(void* destination, const void* source, SIZE_T size) {
+    BYTE* output = (BYTE*)destination;
+    const BYTE* input = (const BYTE*)source;
+    for (SIZE_T i = 0; i < size; ++i) output[i] = input[i];
+    return destination;
+}
+
+#define TRUE 1
+#define FALSE 0
+#define DLL_PROCESS_ATTACH 1u
+#define DLL_PROCESS_DETACH 0u
+#define ERROR_ALREADY_EXISTS 183u
+#define TH32CS_SNAPTHREAD 0x00000004u
+#define THREAD_SUSPEND_RESUME 0x00000002u
+#define THREAD_GET_CONTEXT 0x00000008u
+#define CONTEXT_CONTROL_X64 0x00100001u
+#define MEM_COMMIT 0x1000u
+#define MEM_RESERVE 0x2000u
+#define PAGE_NOACCESS 0x01u
+#define PAGE_READWRITE 0x04u
+#define PAGE_WRITECOPY 0x08u
+#define PAGE_EXECUTE_READWRITE 0x40u
+#define PAGE_EXECUTE_WRITECOPY 0x80u
+#define PAGE_GUARD 0x100u
+#define GENERIC_WRITE 0x40000000u
+#define FILE_APPEND_DATA 0x00000004u
+#define FILE_SHARE_READ 0x00000001u
+#define FILE_SHARE_WRITE 0x00000002u
+#define OPEN_ALWAYS 4u
+#define FILE_ATTRIBUTE_NORMAL 0x80u
+#define FILE_END 2u
+#define INVALID_HANDLE_VALUE ((HANDLE)(INT64)-1)
+
+static const UINT32 EXPECTED_TIMESTAMP = 0x6A3DAE46u;
+static const UINT32 EXPECTED_IMAGE_SIZE = 0x0B292000u;
+static const UINT32 CONFIG_MISSING = 0x80000000u;
+
+static const SIZE_T OFF_STEERING_DEGREE = 0x40u;
+static const SIZE_T OFF_LAND_TOP_SPEED = 0x44u;
+static const SIZE_T OFF_FINAL_GEAR_RATIO = 0x48u;
+static const SIZE_T OFF_LAND_BOOST_TOP_SPEED = 0x94u;
+static const SIZE_T OFF_WATER_TOP_SPEED = 0x98u;
+static const SIZE_T OFF_WATER_BOOST_TOP_SPEED = 0x9Cu;
+static const SIZE_T OFF_WET_SIDE_GRIP = 0xC8u;
+static const SIZE_T OFF_SLIP_SPEED = 0xD8u;
+static const SIZE_T OFF_STANDARD_SPEED = 0x34u;
+
+// Odradek 0.1 graph checksum 3b11a80e0c3b582e808cf07fc8266ddc.
+// These are stable object positions and UUIDs for the supported DS2 build.
+static const UINT32 COFFIN_PHYSICS_GROUP_ID = 499u;
+static const UINT32 COFFIN_PHYSICS_OBJECT_INDEX = 71288u;
+static const UINT32 RIDE_COFFIN_GROUP_ID = 31126u;
+static const UINT32 RIDE_COFFIN_OBJECT_INDEX = 19173u;
+static const UINT64 COFFIN_PHYSICS_UUID_LOW = 0x6B4E9446DCF0C387ull;
+static const UINT64 COFFIN_PHYSICS_UUID_HIGH = 0x26DBAD5945C463BAull;
+static const UINT64 RIDE_COFFIN_UUID_LOW = 0x0248EA66A879EA57ull;
+static const UINT64 RIDE_COFFIN_UUID_HIGH = 0x21C573467A45A1A1ull;
+
+static const UINT32 RVA_STREAMING_SIGNATURE = 0x00693674u;
+static const UINT32 RVA_STREAMING_MANAGER_GLOBAL = 0x06266938u;
+static const UINT32 RVA_STREAMING_SYSTEM_VTABLE = 0x034532A0u;
+static const UINT32 RVA_STREAMING_ADD_LISTENER = 0x026F6E40u;
+static const UINT32 RVA_STREAMING_REMOVE_LISTENER = 0x026F6EE0u;
+static const UINT32 RVA_DRIVE_TORQUE_HOOK = 0x0247A431u;
+static const UINT32 RVA_STEERING_OUTPUT_HOOK = 0x01F46AF6u;
+static const UINT32 RVA_COFFIN_PHYSICS_VTABLE = 0x033AD0B0u;
+static const UINT32 RVA_COFFIN_VFUNC_0 = 0x01F430B0u;
+static const UINT32 RVA_COFFIN_VFUNC_1 = 0x01F4E160u;
+static const UINT32 RVA_COFFIN_VFUNC_2 = 0x01F480A0u;
+static const UINT32 RVA_COFFIN_VFUNC_3 = 0x01F49350u;
+static const UINT32 RVA_COFFIN_VFUNC_6 = 0x01F46AB0u;
+static const SIZE_T OFF_STREAMING_GROUP_LOCK = 0xA8u;
+static const SIZE_T OFF_STREAMING_GROUP_COUNT = 0x150288u;
+static const SIZE_T OFF_STREAMING_GROUP_TABLE = 0x150290u;
+static const SIZE_T STREAMING_GROUP_ENTRY_STRIDE = 0x21u;
+static const SIZE_T OFF_LOADED_GROUP_OBJECTS = 0x20u;
+
+static HMODULE g_module = 0;
+static HANDLE g_mutex = 0;
+static WCHAR g_iniPath[512];
+static WCHAR g_logPath[512];
+static int g_enabled = 1;
+static int g_normalPercent = 100;
+static int g_boostPercent = 100;
+static int g_scaleWaterCaps = 0;
+static int g_driveForcePercent = 100;
+static int g_gearRatioPercent = 100;
+static int g_accelerationPercent = 100;
+static int g_steeringAnglePercent = 100;
+static int g_steeringResponsePercent = 100;
+static int g_wetGripPercent = 100;
+static int g_speedTelemetry = 0;
+static int g_patchStandardSpeed = 0;
+static int g_raiseSlipThreshold = 1;
+static int g_debugLog = 0;
+static int g_simpleProfile = 0;
+static UINT64 g_maxScanGroups = 0;
+static UINT64 g_callbackGroups = 0;
+static UINT64 g_callbackObjects = 0;
+static UINT64 g_rttiLookups = 0;
+static UINT64 g_targetChecks = 0;
+static volatile LONG g_listenerRegistered = 0;
+static void* g_streamingSystem = 0;
+static void (__fastcall* g_removeStreamingListener)(void*, void*) = 0;
+static int g_physicsReady = 0;
+static int g_standardReady = 0;
+static volatile LONG g_complete = 0;
+static float g_desiredNormalSpeed = 60.0f;
+static float g_lastAppliedStandardSpeed = 0.0f;
+static float g_waterBaseline = 0.0f;
+static float g_waterBoostBaseline = 0.0f;
+static float g_lastAppliedWater = 0.0f;
+static float g_lastAppliedWaterBoost = 0.0f;
+static float g_gearRatioBaseline = 0.0f;
+static float g_lastAppliedGearRatio = 0.0f;
+static float g_steeringBaseline = 0.0f;
+static float g_lastAppliedSteering = 0.0f;
+static float g_wetGripBaseline = 0.0f;
+static float g_lastAppliedWetGrip = 0.0f;
+static void* g_seenPhysicsResource = 0;
+static void* g_seenRideConfig = 0;
+static int g_driveHookInstalled = 0;
+static volatile LONG* g_driveFactorBits = 0;
+static volatile LONG* g_driveTelemetryBits = 0;
+static int g_steeringHookInstalled = 0;
+static volatile LONG* g_steeringSlopeBits = 0;
+static volatile LONG* g_steeringSampleSequence = 0;
+static volatile LONG* g_steeringSampleSpeedBits = 0;
+static volatile LONG* g_steeringSamplePreClampBits = 0;
+static volatile LONG* g_steeringSampleFinalBits = 0;
+static volatile LONG* g_steeringSampleRawBits = 0;
+static volatile LONG* g_steeringSampleScaleBits = 0;
+
+static bool patch_complete_acquire() {
+    return __atomic_load_n(&g_complete, __ATOMIC_ACQUIRE) != 0;
+}
+
+static void publish_patch_complete(bool complete) {
+    __atomic_store_n(&g_complete, complete ? 1 : 0, __ATOMIC_RELEASE);
+}
+
+static LONG listener_state_acquire() {
+    return __atomic_load_n(&g_listenerRegistered, __ATOMIC_ACQUIRE);
+}
+static UINT64 g_logLock = 0;
+static HANDLE g_suspendedThreadHandles[512];
+static DWORD g_suspendedThreadIds[512];
+static UINT32 g_suspendedThreadCount = 0;
+__declspec(align(16)) static BYTE g_threadContext[0x4D0];
+
+static float f_abs(float value) { return value < 0.0f ? -value : value; }
+static bool f_near(float value, float expected, float tolerance) {
+    return f_abs(value - expected) <= tolerance;
+}
+static bool f_in_range(float value, float minimum, float maximum) {
+    return value >= minimum && value <= maximum;
+}
+static float f_max(float a, float b) { return a > b ? a : b; }
+static int normalize_steering_angle_percent(int value) {
+    return value >= 100 && value <= 160 ? value : 100;
+}
+static int normalize_steering_response_percent(int value) {
+    return value >= 100 && value <= 300 ? value : 100;
+}
+static int normalize_acceleration_percent(int value) {
+    return value >= 100 && value <= 500 ? value : 100;
+}
+static int normalize_wet_grip_percent(int value) {
+    return value >= 100 && value <= 555 ? value : 100;
+}
+static int normalize_speed_percent(int value) {
+    if (value < 100) return 100;
+    if (value > 1000) return 1000;
+    return value;
+}
+static void apply_unified_speed_profile(int value) {
+    int percent = normalize_speed_percent(value);
+    g_normalPercent = percent;
+    g_boostPercent = percent;
+    g_scaleWaterCaps = 1;
+    g_driveForcePercent = percent;
+    g_gearRatioPercent = 10000 / percent;
+    if (g_gearRatioPercent < 10) g_gearRatioPercent = 10;
+    if (g_gearRatioPercent > 100) g_gearRatioPercent = 100;
+}
+static void apply_acceleration_profile(int value) {
+    g_accelerationPercent = normalize_acceleration_percent(value);
+    UINT64 derivedDrivePercent =
+        (UINT64)g_normalPercent * (UINT64)g_accelerationPercent / 100u;
+    if (derivedDrivePercent < 100u) derivedDrivePercent = 100u;
+    if (derivedDrivePercent > 5000u) derivedDrivePercent = 5000u;
+    g_driveForcePercent = (int)derivedDrivePercent;
+}
+static void apply_compact_steering_profile(int value) {
+    g_steeringResponsePercent = normalize_steering_response_percent(value);
+    g_steeringAnglePercent = g_steeringResponsePercent > 160 ?
+        160 : g_steeringResponsePercent;
+}
+
+static int string_compare(const char* a, const char* b) {
+    if (!a || !b) return a == b ? 0 : 1;
+    while (*a && *b && *a == *b) { ++a; ++b; }
+    return (unsigned char)*a - (unsigned char)*b;
+}
+static void wide_copy(WCHAR* destination, int capacity, const WCHAR* source) {
+    if (!destination || capacity <= 0) return;
+    int index = 0;
+    while (source && source[index] && index < capacity - 1) {
+        destination[index] = source[index];
+        ++index;
+    }
+    destination[index] = 0;
+}
+static WCHAR wide_lower_ascii(WCHAR value) {
+    return value >= L'A' && value <= L'Z' ? (WCHAR)(value + (L'a' - L'A')) : value;
+}
+static bool wide_equal_ignore_case_ascii(const WCHAR* a, const WCHAR* b) {
+    if (!a || !b) return a == b;
+    while (*a && *b) {
+        if (wide_lower_ascii(*a) != wide_lower_ascii(*b)) return false;
+        ++a;
+        ++b;
+    }
+    return *a == 0 && *b == 0;
+}
+static bool is_main_game_process() {
+    WCHAR path[512];
+    DWORD length = GetModuleFileNameW(0, path, 511);
+    if (length == 0 || length >= 511) return false;
+    path[length] = 0;
+    const WCHAR* baseName = path;
+    for (DWORD i = 0; i < length; ++i) {
+        if (path[i] == L'\\' || path[i] == L'/') baseName = &path[i + 1];
+    }
+    return wide_equal_ignore_case_ascii(baseName, L"DS2.exe");
+}
+
+struct LogBuffer { char data[1024]; int length; };
+static void log_init(LogBuffer* buffer) { buffer->length = 0; }
+static void log_char(LogBuffer* buffer, char value) {
+    if (buffer->length < 1023) buffer->data[buffer->length++] = value;
+}
+static void log_text(LogBuffer* buffer, const char* text) {
+    if (!text) return;
+    while (*text && buffer->length < 1023) buffer->data[buffer->length++] = *text++;
+}
+static void log_uint(LogBuffer* buffer, UINT64 value) {
+    char temporary[32];
+    int count = 0;
+    if (value == 0) { log_char(buffer, '0'); return; }
+    while (value && count < 31) {
+        temporary[count++] = (char)('0' + value % 10);
+        value /= 10;
+    }
+    while (count) log_char(buffer, temporary[--count]);
+}
+static void log_float2(LogBuffer* buffer, float value) {
+    if (value < 0.0f) { log_char(buffer, '-'); value = -value; }
+    UINT64 whole = (UINT64)value;
+    UINT32 fraction = (UINT32)((value - (float)whole) * 100.0f + 0.5f);
+    if (fraction >= 100) { ++whole; fraction -= 100; }
+    log_uint(buffer, whole);
+    log_char(buffer, '.');
+    log_char(buffer, (char)('0' + (fraction / 10) % 10));
+    log_char(buffer, (char)('0' + fraction % 10));
+}
+static void log_prefix(LogBuffer* buffer) {
+    SYSTEMTIME_X time;
+    GetLocalTime(&time);
+    log_char(buffer, '['); log_uint(buffer, time.wYear); log_char(buffer, '-');
+    if (time.wMonth < 10) log_char(buffer, '0'); log_uint(buffer, time.wMonth); log_char(buffer, '-');
+    if (time.wDay < 10) log_char(buffer, '0'); log_uint(buffer, time.wDay); log_char(buffer, ' ');
+    if (time.wHour < 10) log_char(buffer, '0'); log_uint(buffer, time.wHour); log_char(buffer, ':');
+    if (time.wMinute < 10) log_char(buffer, '0'); log_uint(buffer, time.wMinute); log_char(buffer, ':');
+    if (time.wSecond < 10) log_char(buffer, '0'); log_uint(buffer, time.wSecond); log_text(buffer, "] ");
+}
+static void append_log(LogBuffer* buffer) {
+    AcquireSRWLockExclusive(&g_logLock);
+    HANDLE file = CreateFileW(
+        g_logPath,
+        FILE_APPEND_DATA,
+        FILE_SHARE_READ | FILE_SHARE_WRITE,
+        0,
+        OPEN_ALWAYS,
+        FILE_ATTRIBUTE_NORMAL,
+        0
+    );
+    if (!file || file == INVALID_HANDLE_VALUE) {
+        ReleaseSRWLockExclusive(&g_logLock);
+        return;
+    }
+    SetFilePointer(file, 0, 0, FILE_END);
+    DWORD written = 0;
+    WriteFile(file, buffer->data, (DWORD)buffer->length, &written, 0);
+    CloseHandle(file);
+    ReleaseSRWLockExclusive(&g_logLock);
+}
+static void log_line(const char* text, bool always) {
+    if (!always && !g_debugLog) return;
+    LogBuffer buffer;
+    log_init(&buffer);
+    log_prefix(&buffer);
+    log_text(&buffer, text);
+    log_text(&buffer, "\r\n");
+    append_log(&buffer);
+}
+
+static void make_sibling_path(WCHAR* destination, int capacity, const WCHAR* fileName) {
+    WCHAR modulePath[512];
+    DWORD length = GetModuleFileNameW(g_module, modulePath, 511);
+    if (length == 0 || length >= 511) {
+        wide_copy(destination, capacity, fileName);
+        return;
+    }
+    modulePath[length] = 0;
+    int separator = -1;
+    for (int i = 0; modulePath[i]; ++i) {
+        if (modulePath[i] == L'\\' || modulePath[i] == L'/') separator = i;
+    }
+    int output = 0;
+    for (int i = 0; i <= separator && output < capacity - 1; ++i) {
+        destination[output++] = modulePath[i];
+    }
+    for (int i = 0; fileName[i] && output < capacity - 1; ++i) {
+        destination[output++] = fileName[i];
+    }
+    destination[output] = 0;
+}
+static void read_configuration() {
+    make_sibling_path(g_iniPath, 512, L"ds2_coffin_board_all_terrain_speed.ini");
+    make_sibling_path(g_logPath, 512, L"ds2_coffin_board_all_terrain_speed.log");
+    g_enabled = (int)GetPrivateProfileIntW(L"CoffinBoardAllTerrainSpeed", L"Enabled", 1, g_iniPath);
+    UINT32 rawUnifiedSpeedPercent = GetPrivateProfileIntW(
+        L"CoffinBoardAllTerrainSpeed", L"SpeedPercent", -2147483647 - 1, g_iniPath
+    );
+    if (rawUnifiedSpeedPercent != CONFIG_MISSING) {
+        g_simpleProfile = 1;
+        apply_unified_speed_profile((int)rawUnifiedSpeedPercent);
+        apply_acceleration_profile((int)GetPrivateProfileIntW(
+            L"CoffinBoardAllTerrainSpeed", L"AccelerationPercent", 100, g_iniPath
+        ));
+    } else {
+        // Backward compatibility for v0.2.2 and hand-tuned advanced profiles.
+        g_normalPercent = (int)GetPrivateProfileIntW(
+            L"CoffinBoardAllTerrainSpeed", L"LandSpeedPercentOfWater", 100, g_iniPath
+        );
+        g_boostPercent = (int)GetPrivateProfileIntW(
+            L"CoffinBoardAllTerrainSpeed", L"LandBoostPercentOfWater", 100, g_iniPath
+        );
+        g_scaleWaterCaps = (int)GetPrivateProfileIntW(
+            L"CoffinBoardAllTerrainSpeed", L"ScaleWaterCapsWithPercent", 0, g_iniPath
+        );
+        g_driveForcePercent = (int)GetPrivateProfileIntW(
+            L"CoffinBoardAllTerrainSpeed", L"DriveForcePercent", 100, g_iniPath
+        );
+        g_gearRatioPercent = (int)GetPrivateProfileIntW(
+            L"CoffinBoardAllTerrainSpeed", L"GearRatioPercent", 100, g_iniPath
+        );
+    }
+    UINT32 rawSteeringPercent = GetPrivateProfileIntW(
+        L"CoffinBoardAllTerrainSpeed", L"SteeringPercent", -2147483647 - 1, g_iniPath
+    );
+    if (rawSteeringPercent != CONFIG_MISSING) {
+        // Keep the proven static angle increase from v0.2.3, while values over
+        // 160 now add only a speed-dependent response gain in the output hook.
+        apply_compact_steering_profile((int)rawSteeringPercent);
+    } else {
+        // Backward-compatible advanced profile: the old angle-only key does
+        // not opt into the new runtime steering-response hook.
+        g_steeringResponsePercent = 100;
+        g_steeringAnglePercent = (int)GetPrivateProfileIntW(
+            L"CoffinBoardAllTerrainSpeed", L"SteeringAnglePercent", 100, g_iniPath
+        );
+    }
+    g_wetGripPercent = normalize_wet_grip_percent((int)GetPrivateProfileIntW(
+        L"CoffinBoardAllTerrainSpeed", L"WetGripPercent", 100, g_iniPath
+    ));
+    UINT32 rawTelemetry = GetPrivateProfileIntW(
+        L"CoffinBoardAllTerrainSpeed", L"Telemetry", -2147483647 - 1, g_iniPath
+    );
+    g_speedTelemetry = rawTelemetry != CONFIG_MISSING ? (rawTelemetry != 0u) :
+        (int)GetPrivateProfileIntW(
+            L"CoffinBoardAllTerrainSpeed", L"SpeedTelemetry", 0, g_iniPath
+        );
+    g_patchStandardSpeed = (int)GetPrivateProfileIntW(
+        L"CoffinBoardAllTerrainSpeed", L"PatchStandardSpeed", 0, g_iniPath
+    );
+    g_raiseSlipThreshold = (int)GetPrivateProfileIntW(
+        L"CoffinBoardAllTerrainSpeed", L"RaiseSlipThreshold", 1, g_iniPath
+    );
+    g_debugLog = (int)GetPrivateProfileIntW(
+        L"CoffinBoardAllTerrainSpeed", L"DebugLog", 0, g_iniPath
+    );
+    int maxGroups = (int)GetPrivateProfileIntW(
+        L"CoffinBoardAllTerrainSpeed", L"MaxScanGroups", 0, g_iniPath
+    );
+    if (g_normalPercent < 100) g_normalPercent = 100;
+    if (g_normalPercent > 1000) g_normalPercent = 1000;
+    if (g_boostPercent < 100) g_boostPercent = 100;
+    if (g_boostPercent > 1000) g_boostPercent = 1000;
+    if (g_driveForcePercent < 100) g_driveForcePercent = 100;
+    if (g_driveForcePercent > 5000) g_driveForcePercent = 5000;
+    // Invalid gearing input fails back to native. In particular, treating 0
+    // as the most aggressive 10% value would be an unsafe surprise.
+    if (g_gearRatioPercent < 10 || g_gearRatioPercent > 100) {
+        g_gearRatioPercent = 100;
+    }
+    // 100 preserves the native 50-degree steering angle. The upper bound is
+    // deliberately conservative because the packaged profile can exceed
+    // 200 km/h and a larger wheel angle can cause snap steering or rollovers.
+    g_steeringAnglePercent = normalize_steering_angle_percent(g_steeringAnglePercent);
+    g_steeringResponsePercent = normalize_steering_response_percent(
+        g_steeringResponsePercent
+    );
+    if (maxGroups < 0) maxGroups = 0;
+    if (maxGroups > 1000000) maxGroups = 1000000;
+    g_maxScanGroups = (UINT64)maxGroups;
+}
+
+static bool readable_range(const void* address, SIZE_T bytes) {
+    if (!address || bytes == 0) return false;
+    MEMORY_BASIC_INFORMATION_X64 information;
+    if (!VirtualQuery(address, &information, sizeof(information))) return false;
+    if (information.State != MEM_COMMIT ||
+        (information.Protect & PAGE_GUARD) ||
+        (information.Protect & PAGE_NOACCESS)) return false;
+    UINT64 regionStart = (UINT64)information.BaseAddress;
+    UINT64 regionEnd = regionStart + (UINT64)information.RegionSize;
+    UINT64 requestedStart = (UINT64)address;
+    UINT64 requestedEnd = requestedStart + (UINT64)bytes;
+    return requestedStart >= regionStart && requestedEnd >= requestedStart && requestedEnd <= regionEnd;
+}
+static bool writable_range(const void* address, SIZE_T bytes) {
+    if (!readable_range(address, bytes)) return false;
+    MEMORY_BASIC_INFORMATION_X64 information;
+    if (!VirtualQuery(address, &information, sizeof(information))) return false;
+    DWORD protection = information.Protect & 0xFFu;
+    return protection == PAGE_READWRITE || protection == PAGE_WRITECOPY ||
+           protection == PAGE_EXECUTE_READWRITE || protection == PAGE_EXECUTE_WRITECOPY;
+}
+
+// Returns 0 on failure, 1 when already equal and 2 when a write occurred.
+static int write_float_checked_tolerance(float* field, float target, float tolerance) {
+    if (!field || !readable_range(field, sizeof(float))) return 0;
+    if (f_near(*field, target, tolerance)) return 1;
+    DWORD oldProtection = 0;
+    int changedProtection = FALSE;
+    if (!writable_range(field, sizeof(float))) {
+        changedProtection = VirtualProtect(field, sizeof(float), PAGE_READWRITE, &oldProtection);
+        if (!changedProtection) return 0;
+    }
+    *field = target;
+    bool verified = f_near(*field, target, tolerance);
+    if (changedProtection) {
+        DWORD ignored = 0;
+        VirtualProtect(field, sizeof(float), oldProtection, &ignored);
+    }
+    return verified ? 2 : 0;
+}
+static int write_float_checked(float* field, float target) {
+    return write_float_checked_tolerance(field, target, 0.01f);
+}
+
+static bool value_is_native_or_compatible(float value, float nativeValue, float target) {
+    return f_near(value, nativeValue, 0.05f) || f_near(value, target, 0.05f) || value > target;
+}
+
+static bool validate_target_build(HMODULE executable) {
+    BYTE* base = (BYTE*)executable;
+    if (!readable_range(base, 0x1000)) return false;
+    UINT32 peOffset = *(UINT32*)(base + 0x3C);
+    if (peOffset > 0x1000 || !readable_range(base + peOffset, 0x108)) return false;
+    BYTE* nt = base + peOffset;
+    if (*(UINT32*)nt != 0x00004550u) return false;
+    if (*(UINT32*)(nt + 8) != EXPECTED_TIMESTAMP) return false;
+    BYTE* optional = nt + 24;
+    if (*(WORD*)optional != 0x020Bu) return false;
+    return *(UINT32*)(optional + 56) == EXPECTED_IMAGE_SIZE;
+}
+
+static bool bytes_equal(const BYTE* left, const BYTE* right, SIZE_T size) {
+    if (!left || !right) return false;
+    for (SIZE_T index = 0; index < size; ++index) {
+        if (left[index] != right[index]) return false;
+    }
+    return true;
+}
+
+static bool tracked_thread_id(const DWORD* ids, UINT32 count, DWORD id) {
+    for (UINT32 index = 0; index < count; ++index) {
+        if (ids[index] == id) return true;
+    }
+    return false;
+}
+
+static void resume_suspended_threads(HANDLE* handles, UINT32 count) {
+    while (count) {
+        HANDLE thread = handles[--count];
+        ResumeThread(thread);
+        CloseHandle(thread);
+    }
+}
+
+// A multi-byte x64 detour cannot be published atomically. Freeze all other
+// threads and require a stable second enumeration before touching executable
+// bytes. The hook is installed during startup, before Coffin gameplay exists.
+static bool suspend_other_threads(
+    HANDLE* handles, UINT32* suspendedCount, const BYTE* patchTarget, SIZE_T patchSize
+) {
+    if (!handles || !suspendedCount || !patchTarget || patchSize == 0u) return false;
+    *suspendedCount = 0;
+    DWORD processId = GetCurrentProcessId();
+    DWORD currentThreadId = GetCurrentThreadId();
+    bool stable = false;
+    bool unsafeInstructionPointer = false;
+    bool contextFailure = false;
+    for (UINT32 pass = 0;
+         pass < 4u && !stable && !unsafeInstructionPointer && !contextFailure;
+         ++pass) {
+        HANDLE snapshot = CreateToolhelp32Snapshot(TH32CS_SNAPTHREAD, 0);
+        if (snapshot == INVALID_HANDLE_VALUE) break;
+        THREADENTRY32_X entry;
+        memset(&entry, 0, sizeof(entry));
+        entry.dwSize = sizeof(entry);
+        bool unresolved = false;
+        UINT32 added = 0;
+        if (Thread32First(snapshot, &entry)) {
+            do {
+                DWORD id = entry.th32ThreadID;
+                if (entry.th32OwnerProcessID != processId || id == currentThreadId ||
+                    tracked_thread_id(g_suspendedThreadIds, *suspendedCount, id)) continue;
+                if (*suspendedCount >= 512u) { unresolved = true; break; }
+                HANDLE thread = OpenThread(THREAD_SUSPEND_RESUME | THREAD_GET_CONTEXT, FALSE, id);
+                if (!thread) { unresolved = true; continue; }
+                if (SuspendThread(thread) == 0xFFFFFFFFu) {
+                    CloseHandle(thread);
+                    unresolved = true;
+                    continue;
+                }
+                g_suspendedThreadIds[*suspendedCount] = id;
+                handles[*suspendedCount] = thread;
+                ++*suspendedCount;
+                ++added;
+                memset(g_threadContext, 0, sizeof(g_threadContext));
+                *(DWORD*)(g_threadContext + 48u) = CONTEXT_CONTROL_X64;
+                if (!GetThreadContext(thread, g_threadContext)) {
+                    contextFailure = true;
+                    break;
+                } else {
+                    UINT64 instructionPointer = *(UINT64*)(g_threadContext + 248u);
+                    UINT64 patchStart = (UINT64)patchTarget;
+                    UINT64 patchEnd = patchStart + (UINT64)patchSize;
+                    if (instructionPointer >= patchStart && instructionPointer < patchEnd) {
+                        unsafeInstructionPointer = true;
+                        break;
+                    }
+                }
+            } while (Thread32Next(snapshot, &entry));
+        } else {
+            unresolved = true;
+        }
+        CloseHandle(snapshot);
+        stable = !unresolved && !unsafeInstructionPointer && !contextFailure && added == 0u;
+    }
+    if (!stable) {
+        resume_suspended_threads(handles, *suspendedCount);
+        *suspendedCount = 0;
+    }
+    return stable;
+}
+
+// The final package does not enable telemetry. Use this smaller trampoline in
+// that mode so the physics thread performs no telemetry load/store at all.
+// Runtime-patched fields: vtable qword +16, return qword +52 and aligned
+// factor bits +68.
+static const BYTE DRIVE_HOOK_NO_TELEMETRY_TEMPLATE[72] = {
+    0xF3,0x0F,0x1E,0xFA,
+    0xC4,0xC1,0x4A,0x59,0xCC,
+    0xC5,0xFA,0x59,0xC1,
+    0x50,
+    0x48,0xB8, 0,0,0,0,0,0,0,0,
+    0x48,0x39,0x03,
+    0x75,0x08,
+    0xC5,0xFA,0x59,0x05, 0x1F,0,0,0,
+    0x58,
+    0xC5,0xFA,0x11,0x47,0x18,
+    0xFF,0x25,0x03,0,0,0,
+    0xCC,0xCC,0xCC,
+    0,0,0,0,0,0,0,0,
+    0xCC,0xCC,0xCC,0xCC,0xCC,0xCC,0xCC,0xCC,
+    0,0,0,0
+};
+
+// Legacy diagnostic variant. It is selected only when an older custom INI
+// explicitly opts into telemetry; the v1.0.0 INI has no such key.
+// Runtime-patched fields: vtable qword +16, return qword +61, aligned factor
+// bits +72 and aligned telemetry bits +76.
+static const BYTE DRIVE_HOOK_TEMPLATE[80] = {
+    0xF3,0x0F,0x1E,0xFA,
+    0xC4,0xC1,0x4A,0x59,0xCC,
+    0xC5,0xFA,0x59,0xC1,
+    0x50,
+    0x48,0xB8, 0,0,0,0,0,0,0,0,
+    0x48,0x39,0x03,
+    0x75,0x14,
+    0xC5,0xFA,0x59,0x05, 0x23,0,0,0,
+    0x8B,0x83,0x20,0x01,0,0,
+    0x89,0x05, 0x1B,0,0,0,
+    0x58,
+    0xC5,0xFA,0x11,0x47,0x18,
+    0xFF,0x25,0,0,0,0,
+    0,0,0,0,0,0,0,0,
+    0xCC,0xCC,0xCC,
+    0,0,0,0,
+    0,0,0,0
+};
+
+struct DriveHookLayout {
+    const BYTE* bytes;
+    SIZE_T size;
+    SIZE_T returnOffset;
+    SIZE_T factorOffset;
+    SIZE_T telemetryOffset;
+};
+
+static DriveHookLayout select_drive_hook_layout() {
+    DriveHookLayout layout;
+    if (g_speedTelemetry) {
+        layout.bytes = DRIVE_HOOK_TEMPLATE;
+        layout.size = sizeof(DRIVE_HOOK_TEMPLATE);
+        layout.returnOffset = 61u;
+        layout.factorOffset = 72u;
+        layout.telemetryOffset = 76u;
+    } else {
+        layout.bytes = DRIVE_HOOK_NO_TELEMETRY_TEMPLATE;
+        layout.size = sizeof(DRIVE_HOOK_NO_TELEMETRY_TEMPLATE);
+        layout.returnOffset = 52u;
+        layout.factorOffset = 68u;
+        layout.telemetryOffset = 0u;
+    }
+    return layout;
+}
+
+// Hooks the proven generic drive-moment store, but changes xmm0 only when the
+// current component has the exact Coffin physics vtable. The optional legacy
+// diagnostic variant also copies prior-frame 3D speed to a private slot. No
+// file I/O or locks run on the physics thread.
+static bool install_drive_force_hook(HMODULE executable) {
+    bool hookNeeded = g_driveForcePercent != 100 ||
+        g_gearRatioPercent < 100 || g_speedTelemetry;
+    if (!hookNeeded) return true;
+    BYTE* base = (BYTE*)executable;
+    BYTE* target = base + RVA_DRIVE_TORQUE_HOOK;
+    void** coffinVtableAddress = (void**)(base + RVA_COFFIN_PHYSICS_VTABLE);
+    static const BYTE expected[18] = {
+        0xC4,0xC1,0x4A,0x59,0xCC,             // vmulss xmm1,xmm6,xmm12
+        0xC5,0xFA,0x59,0xC1,                  // vmulss xmm0,xmm0,xmm1
+        0xC5,0xFA,0x11,0x47,0x18,             // vmovss [rdi+18h],xmm0
+        0xC5,0xE2,0x5C,0xC6                   // next untouched instruction
+    };
+    if (!readable_range(coffinVtableAddress, 4u * sizeof(void*)) ||
+        coffinVtableAddress[0] != (void*)(base + RVA_COFFIN_VFUNC_0) ||
+        coffinVtableAddress[1] != (void*)(base + RVA_COFFIN_VFUNC_1) ||
+        coffinVtableAddress[2] != (void*)(base + RVA_COFFIN_VFUNC_2) ||
+        coffinVtableAddress[3] != (void*)(base + RVA_COFFIN_VFUNC_3) ||
+        !readable_range(target, sizeof(expected)) ||
+        !bytes_equal(target, expected, sizeof(expected))) return false;
+
+    DriveHookLayout layout = select_drive_hook_layout();
+    BYTE* cave = (BYTE*)VirtualAlloc(
+        0, layout.size, MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE
+    );
+    if (!cave) return false;
+    memcpy(cave, layout.bytes, layout.size);
+    UINT64 coffinVtable = (UINT64)(base + RVA_COFFIN_PHYSICS_VTABLE);
+    UINT64 returnAddress = (UINT64)(target + 14u);
+    // The hook is published in a neutral state. The configured multiplier is
+    // exposed only after the resource caps/gearing transaction commits.
+    float driveFactor = 1.0f;
+    memcpy(cave + 16u, &coffinVtable, sizeof(coffinVtable));
+    memcpy(cave + layout.returnOffset, &returnAddress, sizeof(returnAddress));
+    memcpy(cave + layout.factorOffset, &driveFactor, sizeof(driveFactor));
+    if (layout.telemetryOffset) *(float*)(cave + layout.telemetryOffset) = 0.0f;
+    FlushInstructionCache((HANDLE)(INT64)-1, cave, layout.size);
+
+    BYTE replacement[14] = { 0xFF,0x25,0,0,0,0, 0,0,0,0,0,0,0,0 };
+    UINT64 caveAddress = (UINT64)cave;
+    memcpy(replacement + 6u, &caveAddress, sizeof(caveAddress));
+    BYTE original[14];
+    memcpy(original, target, sizeof(original));
+    bool threadsFrozen = false;
+    for (UINT32 attempt = 0; attempt < 50u && !threadsFrozen; ++attempt) {
+        g_suspendedThreadCount = 0;
+        threadsFrozen = suspend_other_threads(
+            g_suspendedThreadHandles, &g_suspendedThreadCount, target, sizeof(replacement)
+        );
+        if (!threadsFrozen) Sleep(1);
+    }
+    if (!threadsFrozen) return false;
+    DWORD oldProtection = 0;
+    if (!VirtualProtect(target, sizeof(replacement), PAGE_EXECUTE_READWRITE, &oldProtection)) {
+        resume_suspended_threads(g_suspendedThreadHandles, g_suspendedThreadCount);
+        g_suspendedThreadCount = 0;
+        return false;
+    }
+    memcpy(target, replacement, sizeof(replacement));
+    FlushInstructionCache((HANDLE)(INT64)-1, target, sizeof(replacement));
+    bool installed = bytes_equal(target, replacement, sizeof(replacement));
+    if (!installed) {
+        memcpy(target, original, sizeof(original));
+        FlushInstructionCache((HANDLE)(INT64)-1, target, sizeof(original));
+    }
+    DWORD ignored = 0;
+    VirtualProtect(target, sizeof(replacement), oldProtection, &ignored);
+    resume_suspended_threads(g_suspendedThreadHandles, g_suspendedThreadCount);
+    g_suspendedThreadCount = 0;
+    if (!installed) return false;
+    g_driveFactorBits = (volatile LONG*)(cave + layout.factorOffset);
+    g_driveTelemetryBits = layout.telemetryOffset ?
+        (volatile LONG*)(cave + layout.telemetryOffset) : 0;
+    g_driveHookInstalled = 1;
+    return true;
+}
+
+// Runtime-patched fields: vtable qword +192, return qword +200, aligned float
+// constants +208..+232, then an aligned steering telemetry record at
+// +236..+256. The odd/even sequence brackets every record publication so the
+// worker can reject torn samples; the physics thread only performs aligned
+// scalar stores and never does file I/O. Slope zero bypasses both the response
+// path and the sampler, keeping the initially published detour neutral.
+static const BYTE STEERING_HOOK_TEMPLATE[260] = {
+    0xF3,0x0F,0x1E,0xFA,
+    0xC5,0xE2,0x59,0xE0,
+    0x4C,0x8B,0x1D,0xB1,0x00,0x00,0x00,
+    0x4C,0x39,0x19,
+    0x0F,0x85,0x95,0x00,0x00,0x00,
+    0x83,0x3D,0xBD,0x00,0x00,0x00,0x00,
+    0x0F,0x84,0x88,0x00,0x00,0x00,
+    0xFF,0x05,0xC1,0x00,0x00,0x00,
+    0xC5,0xFA,0x10,0x91,0x20,0x01,0x00,0x00,
+    0xC5,0xFA,0x11,0x15,0xB5,0x00,0x00,0x00,
+    0xC5,0xEA,0x5C,0x15,0x8D,0x00,0x00,0x00,
+    0xC5,0xEA,0x5F,0x15,0x89,0x00,0x00,0x00,
+    0xC5,0xEA,0x5D,0x15,0x85,0x00,0x00,0x00,
+    0xC5,0xEA,0x59,0x15,0x81,0x00,0x00,0x00,
+    0xC5,0xEA,0x58,0x15,0x7D,0x00,0x00,0x00,
+    0xC5,0xDA,0x59,0xE2,
+    0xC5,0xFA,0x11,0x25,0x85,0x00,0x00,0x00,
+    0xC5,0xDA,0x5F,0x25,0x6D,0x00,0x00,0x00,
+    0xC5,0xDA,0x5D,0x25,0x69,0x00,0x00,0x00,
+    0xC5,0xFA,0x11,0x25,0x71,0x00,0x00,0x00,
+    0xC5,0xFA,0x10,0x91,0xF4,0x00,0x00,0x00,
+    0xC5,0xFA,0x11,0x15,0x65,0x00,0x00,0x00,
+    0xC5,0xFA,0x10,0x91,0x10,0x01,0x00,0x00,
+    0xC5,0xFA,0x11,0x15,0x59,0x00,0x00,0x00,
+    0xFF,0x05,0x3F,0x00,0x00,0x00,
+    0x45,0x89,0xC8,
+    0x4C,0x63,0x10,
+    0x49,0x83,0xFA,0x04,
+    0xFF,0x25,0x0B,0x00,0x00,0x00,
+    0x0F,0x1F,0x00
+};
+
+// The normal game's high-speed scale is capped at 1.0. This Coffin-only hook
+// therefore remaps the final wheel command itself: native response through
+// 80 km/h, a linear gain ramp through 220 km/h, and a hard +/-85-degree clamp.
+static bool install_steering_response_hook(HMODULE executable) {
+    if (g_steeringResponsePercent == 100) return true;
+    BYTE* base = (BYTE*)executable;
+    BYTE* target = base + RVA_STEERING_OUTPUT_HOOK;
+    void** coffinVtableAddress = (void**)(base + RVA_COFFIN_PHYSICS_VTABLE);
+    static const BYTE expected[16] = {
+        0xC5,0xE2,0x59,0xE0,                  // vmulss xmm4,xmm3,xmm0
+        0x45,0x8B,0xC1,                       // mov r8d,r9d
+        0x4C,0x63,0x10,                       // movsxd r10,dword ptr [rax]
+        0x49,0x83,0xFA,0x04,                  // cmp r10,4
+        0x7C,0x72                              // next untouched jl
+    };
+    if (!readable_range(coffinVtableAddress, 7u * sizeof(void*)) ||
+        coffinVtableAddress[0] != (void*)(base + RVA_COFFIN_VFUNC_0) ||
+        coffinVtableAddress[6] != (void*)(base + RVA_COFFIN_VFUNC_6) ||
+        !readable_range(target, sizeof(expected)) ||
+        !bytes_equal(target, expected, sizeof(expected))) return false;
+
+    BYTE* cave = (BYTE*)VirtualAlloc(
+        0, sizeof(STEERING_HOOK_TEMPLATE), MEM_COMMIT | MEM_RESERVE,
+        PAGE_EXECUTE_READWRITE
+    );
+    if (!cave) return false;
+    memcpy(cave, STEERING_HOOK_TEMPLATE, sizeof(STEERING_HOOK_TEMPLATE));
+    UINT64 coffinVtable = (UINT64)(base + RVA_COFFIN_PHYSICS_VTABLE);
+    UINT64 returnAddress = (UINT64)(target + 14u);
+    float rampStartKmh = 80.0f;
+    float zero = 0.0f;
+    float rampSpanKmh = 140.0f;
+    float neutralSlope = 0.0f;
+    float one = 1.0f;
+    float negativeClampRadians = -1.483529806f;
+    float positiveClampRadians = 1.483529806f;
+    memcpy(cave + 192u, &coffinVtable, sizeof(coffinVtable));
+    memcpy(cave + 200u, &returnAddress, sizeof(returnAddress));
+    memcpy(cave + 208u, &rampStartKmh, sizeof(rampStartKmh));
+    memcpy(cave + 212u, &zero, sizeof(zero));
+    memcpy(cave + 216u, &rampSpanKmh, sizeof(rampSpanKmh));
+    memcpy(cave + 220u, &neutralSlope, sizeof(neutralSlope));
+    memcpy(cave + 224u, &one, sizeof(one));
+    memcpy(cave + 228u, &negativeClampRadians, sizeof(negativeClampRadians));
+    memcpy(cave + 232u, &positiveClampRadians, sizeof(positiveClampRadians));
+    FlushInstructionCache((HANDLE)(INT64)-1, cave, sizeof(STEERING_HOOK_TEMPLATE));
+
+    BYTE replacement[14] = { 0xFF,0x25,0,0,0,0, 0,0,0,0,0,0,0,0 };
+    UINT64 caveAddress = (UINT64)cave;
+    memcpy(replacement + 6u, &caveAddress, sizeof(caveAddress));
+    BYTE original[14];
+    memcpy(original, target, sizeof(original));
+    bool threadsFrozen = false;
+    for (UINT32 attempt = 0; attempt < 50u && !threadsFrozen; ++attempt) {
+        g_suspendedThreadCount = 0;
+        threadsFrozen = suspend_other_threads(
+            g_suspendedThreadHandles, &g_suspendedThreadCount, target, sizeof(replacement)
+        );
+        if (!threadsFrozen) Sleep(1);
+    }
+    if (!threadsFrozen) return false;
+    DWORD oldProtection = 0;
+    if (!VirtualProtect(target, sizeof(replacement), PAGE_EXECUTE_READWRITE, &oldProtection)) {
+        resume_suspended_threads(g_suspendedThreadHandles, g_suspendedThreadCount);
+        g_suspendedThreadCount = 0;
+        return false;
+    }
+    memcpy(target, replacement, sizeof(replacement));
+    FlushInstructionCache((HANDLE)(INT64)-1, target, sizeof(replacement));
+    bool installed = bytes_equal(target, replacement, sizeof(replacement));
+    if (!installed) {
+        memcpy(target, original, sizeof(original));
+        FlushInstructionCache((HANDLE)(INT64)-1, target, sizeof(original));
+    }
+    DWORD ignored = 0;
+    VirtualProtect(target, sizeof(replacement), oldProtection, &ignored);
+    resume_suspended_threads(g_suspendedThreadHandles, g_suspendedThreadCount);
+    g_suspendedThreadCount = 0;
+    if (!installed) return false;
+    g_steeringSlopeBits = (volatile LONG*)(cave + 220u);
+    g_steeringSampleSequence = (volatile LONG*)(cave + 236u);
+    g_steeringSampleSpeedBits = (volatile LONG*)(cave + 240u);
+    g_steeringSamplePreClampBits = (volatile LONG*)(cave + 244u);
+    g_steeringSampleFinalBits = (volatile LONG*)(cave + 248u);
+    g_steeringSampleRawBits = (volatile LONG*)(cave + 252u);
+    g_steeringSampleScaleBits = (volatile LONG*)(cave + 256u);
+    g_steeringHookInstalled = 1;
+    return true;
+}
+
+static bool drive_coupling_needed() {
+    return g_driveForcePercent != 100 || g_gearRatioPercent < 100;
+}
+
+static bool steering_coupling_needed() {
+    return g_steeringResponsePercent != 100;
+}
+
+static bool publish_drive_factor_percent(int percent) {
+    if (!g_driveHookInstalled || !g_driveFactorBits) return false;
+    float factor = (float)percent / 100.0f;
+    LONG bits = 0;
+    memcpy(&bits, &factor, sizeof(bits));
+    __atomic_store_n(g_driveFactorBits, bits, __ATOMIC_RELEASE);
+    return __atomic_load_n(g_driveFactorBits, __ATOMIC_ACQUIRE) == bits;
+}
+
+static bool publish_steering_response_percent(int percent) {
+    if (!g_steeringHookInstalled || !g_steeringSlopeBits) return false;
+    float slope = (float)(percent - 100) / 14000.0f;
+    LONG bits = 0;
+    memcpy(&bits, &slope, sizeof(bits));
+    __atomic_store_n(g_steeringSlopeBits, bits, __ATOMIC_RELEASE);
+    return __atomic_load_n(g_steeringSlopeBits, __ATOMIC_ACQUIRE) == bits;
+}
+
+static const char* rtti_type_name(void* object, void** vtable) {
+    if (!object || !vtable || !readable_range(vtable, sizeof(void*))) return 0;
+    typedef void* (__fastcall* GetRttiFn)(void*);
+    GetRttiFn getRtti = (GetRttiFn)vtable[0];
+    if (!getRtti || !readable_range((void*)getRtti, 1)) return 0;
+    void* rtti = getRtti(object);
+    if (!readable_range(rtti, 0x48)) return 0;
+    if (*((BYTE*)rtti + 4) != 4) return 0;
+    const char* typeName = *(const char**)((BYTE*)rtti + 0x40);
+    return readable_range(typeName, 1) ? typeName : 0;
+}
+
+static bool object_has_uuid(void* object, UINT64 low, UINT64 high) {
+    if (!object || !readable_range((BYTE*)object + 0x10u, 16u)) return false;
+    const UINT64* uuid = (const UINT64*)((BYTE*)object + 0x10u);
+    return uuid[0] == low && uuid[1] == high;
+}
+
+static bool object_has_exact_type(void* object, const char* expectedType) {
+    if (!object || !readable_range(object, sizeof(void*))) return false;
+    void** vtable = *(void***)object;
+    if (!vtable) return false;
+    ++g_rttiLookups;
+    const char* typeName = rtti_type_name(object, vtable);
+    return typeName && string_compare(typeName, expectedType) == 0;
+}
+
+static bool patch_standard_speed(void* config, float desiredNormal) {
+    if (!g_patchStandardSpeed) { g_standardReady = 1; return true; }
+    if (!config || !readable_range((BYTE*)config + OFF_STANDARD_SPEED, sizeof(float))) return false;
+    float* standardSpeed = (float*)((BYTE*)config + OFF_STANDARD_SPEED);
+    float oldValue = *standardSpeed;
+    bool wasOurPreviousValue=config==g_seenRideConfig&&g_lastAppliedStandardSpeed>0.0f&&
+        f_near(oldValue,g_lastAppliedStandardSpeed,0.05f);
+    if (!value_is_native_or_compatible(oldValue, 40.0f, desiredNormal)&&
+        !wasOurPreviousValue) {
+        log_line("WARNING: DSPlayerRideCoffinConfig StandardSpeed is unexpected; field left unchanged.", true);
+        return false;
+    }
+    float finalValue = f_max(oldValue, desiredNormal);
+    int result = write_float_checked(standardSpeed, finalValue);
+    if (!result) {
+        log_line("ERROR: Could not write DSPlayerRideCoffinConfig StandardSpeed.", true);
+        return false;
+    }
+    g_standardReady = 1;
+    g_lastAppliedStandardSpeed = finalValue;
+    LogBuffer message;
+    log_init(&message); log_prefix(&message);
+    log_text(&message, "Coffin rider StandardSpeed "); log_float2(&message, oldValue);
+    log_text(&message, " -> "); log_float2(&message, finalValue); log_text(&message, " km/h\r\n");
+    append_log(&message);
+    return true;
+}
+
+static bool patch_coffin_physics(void* resource) {
+    if (!resource || !readable_range((BYTE*)resource + OFF_SLIP_SPEED, sizeof(float))) return false;
+    bool driveCoupling = drive_coupling_needed();
+    bool steeringCoupling = steering_coupling_needed();
+    if (driveCoupling &&
+        (!g_driveHookInstalled || !g_driveFactorBits ||
+         !publish_drive_factor_percent(100))) {
+        return false;
+    }
+    if (steeringCoupling &&
+        (!g_steeringHookInstalled || !g_steeringSlopeBits ||
+         !publish_steering_response_percent(100))) {
+        if (driveCoupling) publish_drive_factor_percent(100);
+        return false;
+    }
+    float* steering = (float*)((BYTE*)resource + OFF_STEERING_DEGREE);
+    float* land = (float*)((BYTE*)resource + OFF_LAND_TOP_SPEED);
+    float* gearRatio = (float*)((BYTE*)resource + OFF_FINAL_GEAR_RATIO);
+    float* landBoost = (float*)((BYTE*)resource + OFF_LAND_BOOST_TOP_SPEED);
+    float* water = (float*)((BYTE*)resource + OFF_WATER_TOP_SPEED);
+    float* waterBoost = (float*)((BYTE*)resource + OFF_WATER_BOOST_TOP_SPEED);
+    float* wetGrip = (float*)((BYTE*)resource + OFF_WET_SIDE_GRIP);
+    float* slip = (float*)((BYTE*)resource + OFF_SLIP_SPEED);
+
+    float oldSteering = *steering;
+    float oldLand = *land;
+    float oldGearRatio = *gearRatio;
+    float oldLandBoost = *landBoost;
+    float oldWater = *water;
+    float oldWaterBoost = *waterBoost;
+    float oldWetGrip = *wetGrip;
+    float oldSlip = *slip;
+
+    bool isOurScaledWater = g_scaleWaterCaps &&
+        g_waterBaseline > 0.0f && g_waterBoostBaseline > 0.0f &&
+        f_near(oldWater, g_lastAppliedWater, 0.05f) &&
+        f_near(oldWaterBoost, g_lastAppliedWaterBoost, 0.05f);
+    float baseWater = isOurScaledWater ? g_waterBaseline : oldWater;
+    float baseWaterBoost = isOurScaledWater ? g_waterBoostBaseline : oldWaterBoost;
+    bool isOurScaledGear = g_gearRatioPercent < 100 &&
+        g_gearRatioBaseline > 0.0f &&
+        f_near(oldGearRatio, g_lastAppliedGearRatio, 0.05f);
+    float baseGearRatio = isOurScaledGear ? g_gearRatioBaseline : oldGearRatio;
+    bool isOurScaledSteering = g_steeringAnglePercent > 100 &&
+        g_steeringBaseline > 0.0f &&
+        f_near(oldSteering, g_lastAppliedSteering, 0.05f);
+    float baseSteering = isOurScaledSteering ? g_steeringBaseline : oldSteering;
+    bool patchWetGrip = g_wetGripPercent > 100;
+    bool isOurScaledWetGrip = patchWetGrip && resource == g_seenPhysicsResource &&
+        f_in_range(g_wetGripBaseline, 0.08f, 0.10f) &&
+        f_in_range(g_lastAppliedWetGrip, 0.09f, 0.50f) &&
+        f_near(oldWetGrip, g_lastAppliedWetGrip, 0.0005f);
+    float baseWetGrip = isOurScaledWetGrip ? g_wetGripBaseline : oldWetGrip;
+
+    // Exact native steering anchor (or our idempotent prior value) plus broad
+    // plausibility for water values modified by another compatible speed mod.
+    if (!f_near(baseSteering, 50.0f, 0.05f) ||
+        baseWater < 10.0f || baseWater > 250.0f ||
+        baseWaterBoost < 10.0f || baseWaterBoost > 300.0f) {
+        log_line("WARNING: DSPhysicsCoffinResource layout/value guard failed; resource skipped.", true);
+        return false;
+    }
+    if (g_gearRatioPercent < 100 && !f_near(baseGearRatio, 15.0f, 0.05f)) {
+        log_line("WARNING: Coffin Board FinalGearRatio conflicts with another mod; resource skipped.", true);
+        return false;
+    }
+    if (patchWetGrip &&
+        (!f_in_range(oldWetGrip, 0.0f, 1.0f) ||
+         !f_near(baseWetGrip, 0.09f, 0.0005f))) {
+        log_line("WARNING: Coffin Board wet side-grip is non-finite, implausible, or conflicts with another mod; resource skipped.", true);
+        return false;
+    }
+
+    float desiredLand = baseWater * (float)g_normalPercent / 100.0f;
+    float desiredBoost = baseWaterBoost * (float)g_boostPercent / 100.0f;
+    if (desiredLand > 650.0f || desiredBoost > 850.0f) {
+        log_line("WARNING: calculated Coffin Board speed is outside the safety range.", true);
+        return false;
+    }
+    if (!value_is_native_or_compatible(oldLand, 40.0f, desiredLand) ||
+        !value_is_native_or_compatible(oldLandBoost, 60.0f, desiredBoost)) {
+        log_line("WARNING: Coffin Board land-speed fields conflict with another mod; resource skipped.", true);
+        return false;
+    }
+    float finalLand = f_max(oldLand, desiredLand);
+    float finalBoost = f_max(oldLandBoost, desiredBoost);
+    float finalWater = g_scaleWaterCaps ? f_max(oldWater, desiredLand) : oldWater;
+    float finalWaterBoost = g_scaleWaterCaps ? f_max(oldWaterBoost, desiredBoost) : oldWaterBoost;
+    float finalGearRatio = g_gearRatioPercent < 100 ?
+        baseGearRatio * (float)g_gearRatioPercent / 100.0f : oldGearRatio;
+    float finalSteering = g_steeringAnglePercent > 100 ?
+        baseSteering * (float)g_steeringAnglePercent / 100.0f : oldSteering;
+    float finalWetGrip = patchWetGrip ?
+        baseWetGrip * (float)g_wetGripPercent / 100.0f : oldWetGrip;
+    if (finalLand > 650.0f || finalWater > 650.0f ||
+        finalBoost > 850.0f || finalWaterBoost > 850.0f) {
+        log_line("WARNING: existing Coffin Board cap is outside the safety range; resource skipped.", true);
+        return false;
+    }
+    if (g_gearRatioPercent < 100 && (finalGearRatio < 1.5f || finalGearRatio > 30.0f)) {
+        log_line("WARNING: calculated Coffin Board gear ratio is outside the safety range.", true);
+        return false;
+    }
+    if (finalSteering < 50.0f || finalSteering > 80.0f) {
+        log_line("WARNING: calculated Coffin Board steering angle is outside the safety range.", true);
+        return false;
+    }
+    if (patchWetGrip && !f_in_range(finalWetGrip, 0.09f, 0.50f)) {
+        log_line("WARNING: calculated Coffin Board wet side-grip is outside the safety range.", true);
+        return false;
+    }
+    float finalSlip = oldSlip;
+    if (g_raiseSlipThreshold) {
+        if (!(f_near(oldSlip, 39.0f, 0.05f) || oldSlip >= finalLand)) {
+            log_line("WARNING: Coffin Board SlipSpeed is unexpected; resource skipped atomically.", true);
+            return false;
+        }
+        finalSlip = f_max(oldSlip, finalLand);
+    }
+
+    int steeringResult = g_steeringAnglePercent > 100 ?
+        write_float_checked(steering, finalSteering) : 1;
+    int landResult = steeringResult ? write_float_checked(land, finalLand) : 0;
+    int boostResult = landResult ? write_float_checked(landBoost, finalBoost) : 0;
+    int waterResult = boostResult ?
+        (g_scaleWaterCaps ? write_float_checked(water, finalWater) : 1) : 0;
+    int waterBoostResult = waterResult ?
+        (g_scaleWaterCaps ? write_float_checked(waterBoost, finalWaterBoost) : 1) : 0;
+    int gearResult = waterBoostResult ?
+        (g_gearRatioPercent < 100 ? write_float_checked(gearRatio, finalGearRatio) : 1) : 0;
+    int slipResult = gearResult ?
+        (g_raiseSlipThreshold ? write_float_checked(slip, finalSlip) : 1) : 0;
+    int wetGripResult = slipResult ?
+        (patchWetGrip ?
+            write_float_checked_tolerance(wetGrip, finalWetGrip, 0.00005f) : 1) : 0;
+    bool driveFactorResult = wetGripResult &&
+        (!driveCoupling || publish_drive_factor_percent(g_driveForcePercent));
+    bool steeringFactorResult = driveFactorResult &&
+        (!steeringCoupling ||
+         publish_steering_response_percent(g_steeringResponsePercent));
+    if (!steeringResult || !landResult || !boostResult || !waterResult || !waterBoostResult ||
+        !gearResult || !slipResult || !wetGripResult ||
+        !driveFactorResult || !steeringFactorResult) {
+        bool rolledBack = true;
+        if (driveCoupling && !publish_drive_factor_percent(100)) rolledBack = false;
+        if (steeringCoupling && !publish_steering_response_percent(100)) rolledBack = false;
+        if (wetGripResult == 2 &&
+            !write_float_checked_tolerance(wetGrip, oldWetGrip, 0.00005f)) rolledBack = false;
+        if (slipResult == 2 && !write_float_checked(slip, oldSlip)) rolledBack = false;
+        if (gearResult == 2 && !write_float_checked(gearRatio, oldGearRatio)) rolledBack = false;
+        if (waterBoostResult == 2 && !write_float_checked(waterBoost, oldWaterBoost)) rolledBack = false;
+        if (waterResult == 2 && !write_float_checked(water, oldWater)) rolledBack = false;
+        if (boostResult == 2 && !write_float_checked(landBoost, oldLandBoost)) rolledBack = false;
+        if (landResult == 2 && !write_float_checked(land, oldLand)) rolledBack = false;
+        if (steeringResult == 2 && !write_float_checked(steering, oldSteering)) rolledBack = false;
+        log_line(
+            rolledBack ?
+                "ERROR: Coffin Board physics-value transaction failed; completed writes were rolled back." :
+                "FATAL: Coffin Board physics-value transaction and rollback were incomplete; restart the game.",
+            true
+        );
+        return false;
+    }
+
+    if (g_scaleWaterCaps) {
+        g_waterBaseline = baseWater;
+        g_waterBoostBaseline = baseWaterBoost;
+        g_lastAppliedWater = finalWater;
+        g_lastAppliedWaterBoost = finalWaterBoost;
+    }
+    if (g_gearRatioPercent < 100) {
+        g_gearRatioBaseline = baseGearRatio;
+        g_lastAppliedGearRatio = finalGearRatio;
+    }
+    if (g_steeringAnglePercent > 100) {
+        g_steeringBaseline = baseSteering;
+        g_lastAppliedSteering = finalSteering;
+    }
+    if (patchWetGrip) {
+        g_wetGripBaseline = baseWetGrip;
+        g_lastAppliedWetGrip = finalWetGrip;
+    }
+    g_desiredNormalSpeed = finalLand;
+    g_seenPhysicsResource = resource;
+    g_physicsReady = 1;
+    LogBuffer message;
+    log_init(&message); log_prefix(&message);
+    log_text(&message, "Coffin physics land "); log_float2(&message, oldLand);
+    log_text(&message, " -> "); log_float2(&message, finalLand);
+    log_text(&message, ", boost "); log_float2(&message, oldLandBoost);
+    log_text(&message, " -> "); log_float2(&message, finalBoost);
+    log_text(&message, ", water "); log_float2(&message, oldWater);
+    log_text(&message, " -> "); log_float2(&message, finalWater);
+    log_text(&message, ", water boost "); log_float2(&message, oldWaterBoost);
+    log_text(&message, " -> "); log_float2(&message, finalWaterBoost);
+    log_text(&message, ", slip "); log_float2(&message, oldSlip);
+    log_text(&message, " -> "); log_float2(&message, finalSlip); log_text(&message, " km/h");
+    log_text(&message, ", gear ratio "); log_float2(&message, oldGearRatio);
+    log_text(&message, " -> "); log_float2(&message, finalGearRatio);
+    if (g_steeringAnglePercent > 100) {
+        log_text(&message, ", steering "); log_float2(&message, oldSteering);
+        log_text(&message, " -> "); log_float2(&message, finalSteering);
+        log_text(&message, " deg");
+    } else {
+        log_text(&message, ", steering native");
+    }
+    if (patchWetGrip) {
+        log_text(&message, ", wet side-grip "); log_float2(&message, oldWetGrip);
+        log_text(&message, " -> "); log_float2(&message, finalWetGrip);
+    } else {
+        log_text(&message, ", wet side-grip native");
+    }
+    log_text(&message, ", drive factor ");
+    log_uint(&message, (UINT64)g_driveForcePercent); log_text(&message, "%");
+    if (steeringCoupling) {
+        log_text(&message, ", steering response ");
+        log_uint(&message, (UINT64)g_steeringResponsePercent);
+        log_text(&message, "% active");
+    }
+    log_text(&message, ", telemetry ");
+    log_text(&message, g_speedTelemetry ? "active" : "off");
+    log_text(&message, ".\r\n");
+    append_log(&message);
+
+    if (g_seenRideConfig && !g_standardReady) {
+        patch_standard_speed(g_seenRideConfig, g_desiredNormalSpeed);
+    }
+    return true;
+}
+
+struct RawArray { UINT32 count; UINT32 capacity; void* entries; };
+struct StreamingEvents { void** vtable; };
+static void mark_complete_if_ready() {
+    bool standardDone = !g_patchStandardSpeed || g_standardReady;
+    if (!patch_complete_acquire() && g_physicsReady && standardDone) {
+        publish_patch_complete(true);
+        LogBuffer message;
+        log_init(&message); log_prefix(&message);
+        log_text(&message, "Patch complete. groups="); log_uint(&message, g_callbackGroups);
+        log_text(&message, " objects="); log_uint(&message, g_callbackObjects);
+        log_text(&message, " rttiLookups="); log_uint(&message, g_rttiLookups);
+        log_text(&message, " targetChecks="); log_uint(&message, g_targetChecks);
+        log_text(&message, ". One-shot listener removal is now pending on the worker.\r\n");
+        append_log(&message);
+    }
+}
+
+static bool validate_group_array(const RawArray* objects) {
+    if (!objects || !readable_range(objects, sizeof(RawArray))) return false;
+    if (objects->count < 1u || objects->count > 1000000u ||
+        objects->capacity < objects->count || objects->capacity > 1000000u ||
+        !objects->entries) return false;
+    return readable_range(objects->entries, sizeof(void*));
+}
+
+static bool group_object_at(const RawArray* objects, UINT32 index, void** object) {
+    if (!objects || !object || objects->count <= index) return false;
+    void** slot = (void**)((BYTE*)objects->entries + (SIZE_T)index * sizeof(void*));
+    if (!readable_range(slot, sizeof(void*))) return false;
+    *object = *slot;
+    return true;
+}
+
+static void inspect_target_positions(const RawArray* objects, bool countTelemetry) {
+    if (!validate_group_array(objects)) return;
+    if (countTelemetry) g_callbackObjects += objects->count;
+    // Group 499 has at least 87,603 objects. v0.1.0 rejected the whole
+    // callback because of its 65,536-object guard and then scanned every later
+    // group forever. The exact graph index turns the callback into O(1).
+    void* candidate = 0;
+    if (!g_physicsReady &&
+        group_object_at(objects, COFFIN_PHYSICS_OBJECT_INDEX, &candidate)) {
+        ++g_targetChecks;
+        if (object_has_uuid(candidate, COFFIN_PHYSICS_UUID_LOW, COFFIN_PHYSICS_UUID_HIGH) &&
+            object_has_exact_type(candidate, "DSPhysicsCoffinResource")) {
+            patch_coffin_physics(candidate);
+        }
+    }
+
+    candidate = 0;
+    if (g_patchStandardSpeed && !g_standardReady &&
+        group_object_at(objects, RIDE_COFFIN_OBJECT_INDEX, &candidate)) {
+        ++g_targetChecks;
+        if (object_has_uuid(candidate, RIDE_COFFIN_UUID_LOW, RIDE_COFFIN_UUID_HIGH) &&
+            object_has_exact_type(candidate, "DSPlayerRideCoffinConfig")) {
+            g_seenRideConfig = candidate;
+            if (g_physicsReady) patch_standard_speed(candidate, g_desiredNormalSpeed);
+        }
+    }
+    mark_complete_if_ready();
+}
+
+static void inspect_target_unload_positions(const RawArray* objects) {
+    if ((!g_seenPhysicsResource && !g_seenRideConfig) || !validate_group_array(objects)) return;
+    void* candidate = 0;
+    if (g_seenPhysicsResource &&
+        group_object_at(objects, COFFIN_PHYSICS_OBJECT_INDEX, &candidate) &&
+        candidate == g_seenPhysicsResource) {
+        bool driveNeutral = !drive_coupling_needed() || publish_drive_factor_percent(100);
+        bool steeringNeutral = !steering_coupling_needed() ||
+            publish_steering_response_percent(100);
+        bool factorsNeutral = driveNeutral && steeringNeutral;
+        g_seenPhysicsResource = 0;
+        g_wetGripBaseline = 0.0f;
+        g_lastAppliedWetGrip = 0.0f;
+        g_physicsReady = 0;
+        publish_patch_complete(false);
+        if (g_patchStandardSpeed && g_seenRideConfig) g_standardReady = 0;
+        log_line(
+            factorsNeutral ?
+                "STATE: Coffin physics resource unloaded; runtime factors neutralized and target state reset within the one-shot window." :
+                "FATAL: Coffin physics resource unloaded but a runtime factor could not be neutralized; restart the game.",
+            true
+        );
+    }
+    candidate = 0;
+    if (g_seenRideConfig &&
+        group_object_at(objects, RIDE_COFFIN_OBJECT_INDEX, &candidate) &&
+        candidate == g_seenRideConfig) {
+        g_seenRideConfig = 0;
+        g_lastAppliedStandardSpeed = 0.0f;
+        if (g_patchStandardSpeed) {
+            g_standardReady = 0;
+            publish_patch_complete(false);
+            log_line("STATE: optional Coffin rider config unloaded; target state reset within the one-shot window.", true);
+        }
+    }
+}
+
+static void __fastcall on_finish_load(StreamingEvents*, const RawArray* objects) {
+    if (!g_enabled || patch_complete_acquire()) return;
+    ++g_callbackGroups;
+    if (g_maxScanGroups && g_callbackGroups > g_maxScanGroups) {
+        publish_patch_complete(true);
+        log_line("WARNING: MaxScanGroups reached before all Coffin Board resources were found.", true);
+        return;
+    }
+    inspect_target_positions(objects, true);
+}
+
+static void __fastcall on_before_unload(StreamingEvents*, const RawArray* objects) {
+    inspect_target_unload_positions(objects);
+}
+static void __fastcall on_load_asset(StreamingEvents*, const RawArray*) {}
+static void* g_listenerVtable[3] = {
+    (void*)&on_finish_load,
+    (void*)&on_before_unload,
+    (void*)&on_load_asset
+};
+static StreamingEvents g_listener = { g_listenerVtable };
+
+static UINT64 resolve_rip(UINT64 instruction, UINT32 displacementOffset) {
+    int displacement = *(int*)(instruction + displacementOffset);
+    return instruction + displacementOffset + 4u + (INT64)displacement;
+}
+static UINT64 find_streaming_manager_global(HMODULE executable) {
+    BYTE* base = (BYTE*)executable;
+    BYTE* candidate = base + RVA_STREAMING_SIGNATURE;
+    if (!readable_range(candidate, 28u)) return 0;
+    static const BYTE signature[28] = {
+        0x48,0x89,0x05,0,0,0,0,0xE8,0,0,0,0,0x33,0xD2,0x41,0xB8,
+        0xF8,0x0A,0x00,0x00,0x48,0x8B,0xC8,0x48,0x8B,0xD8,0xE8,0
+    };
+    static const BYTE mask[28] = {
+        1,1,1,0,0,0,0,1,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0
+    };
+    for (UINT32 index = 0; index < 28u; ++index) {
+        if (mask[index] && candidate[index] != signature[index]) return 0;
+    }
+    UINT64 resolved = resolve_rip((UINT64)candidate, 3u);
+    UINT64 expected = (UINT64)(base + RVA_STREAMING_MANAGER_GLOBAL);
+    return resolved == expected ? resolved : 0;
+}
+
+typedef void (__fastcall* AddListenerFn)(void*, void*);
+typedef void (__fastcall* RemoveListenerFn)(void*, void*);
+
+static bool register_streaming_listener_exact(
+    void* streamingSystem,
+    void** expectedVtable,
+    AddListenerFn expectedAddListener,
+    RemoveListenerFn expectedRemoveListener
+) {
+    if (!streamingSystem || !readable_range(streamingSystem, sizeof(void*))) return false;
+    void** vtable = *(void***)streamingSystem;
+    if (!vtable || !readable_range(vtable, 5u * sizeof(void*))) return false;
+    if (vtable != expectedVtable) return false;
+    AddListenerFn addListener = (AddListenerFn)vtable[3];
+    RemoveListenerFn removeListener = (RemoveListenerFn)vtable[4];
+    if (!addListener || addListener != expectedAddListener ||
+        !removeListener || removeListener != expectedRemoveListener ||
+        listener_state_acquire() != 0) return false;
+
+    addListener(streamingSystem, &g_listener);
+    g_streamingSystem = streamingSystem;
+    g_removeStreamingListener = removeListener;
+    __atomic_store_n(&g_listenerRegistered, 1, __ATOMIC_RELEASE);
+    return true;
+}
+
+static bool register_streaming_listener(void* manager) {
+    if (!manager || !readable_range((BYTE*)manager + 0x578, sizeof(void*))) return false;
+    void* streamingSystem = *(void**)((BYTE*)manager + 0x578);
+    BYTE* executable = (BYTE*)GetModuleHandleW(0);
+    if (!executable) return false;
+    return register_streaming_listener_exact(
+        streamingSystem,
+        (void**)(executable + RVA_STREAMING_SYSTEM_VTABLE),
+        (AddListenerFn)(executable + RVA_STREAMING_ADD_LISTENER),
+        (RemoveListenerFn)(executable + RVA_STREAMING_REMOVE_LISTENER)
+    );
+}
+
+// RemoveListener takes the engine's exclusive listener lock. This function is
+// called only by the worker, never from a callback (dispatch holds that lock
+// shared while invoking callbacks). The CAS makes repeated cleanup attempts a
+// no-op and publishes state changes across the worker/streaming threads.
+static bool unregister_streaming_listener() {
+    LONG state = listener_state_acquire();
+    if (state == 0) return true;
+    if (state != 1 || !g_streamingSystem || !g_removeStreamingListener) return false;
+
+    LONG expected = 1;
+    if (!__atomic_compare_exchange_n(
+            &g_listenerRegistered, &expected, 2, false,
+            __ATOMIC_ACQ_REL, __ATOMIC_ACQUIRE)) {
+        return expected == 0;
+    }
+
+    g_removeStreamingListener(g_streamingSystem, &g_listener);
+    g_removeStreamingListener = 0;
+    g_streamingSystem = 0;
+    __atomic_store_n(&g_listenerRegistered, 0, __ATOMIC_RELEASE);
+    return true;
+}
+
+static bool wait_for_patch_completion(UINT32 maxPolls, DWORD pollMilliseconds) {
+    for (UINT32 poll = 0; poll < maxPolls; ++poll) {
+        if (patch_complete_acquire()) return true;
+        if (pollMilliseconds) Sleep(pollMilliseconds);
+    }
+    return patch_complete_acquire();
+}
+
+static void inspect_already_loaded_group(void* streamingSystem, UINT32 groupId) {
+    if (!streamingSystem || !readable_range((BYTE*)streamingSystem + OFF_STREAMING_GROUP_LOCK, sizeof(void*))) return;
+    void* lock = (BYTE*)streamingSystem + OFF_STREAMING_GROUP_LOCK;
+    AcquireSRWLockShared(lock);
+
+    bool inspected = false;
+    UINT32* arrayHeader = (UINT32*)((BYTE*)streamingSystem + OFF_STREAMING_GROUP_COUNT);
+    void*** tableField = (void***)((BYTE*)streamingSystem + OFF_STREAMING_GROUP_TABLE);
+    if (readable_range(arrayHeader, 2u * sizeof(UINT32)) &&
+        readable_range(tableField, sizeof(void*)) &&
+        arrayHeader[0] > groupId && arrayHeader[0] <= arrayHeader[1] &&
+        arrayHeader[1] < 1000000u && *tableField) {
+        BYTE* entry = (BYTE*)(*tableField) + (SIZE_T)groupId * STREAMING_GROUP_ENTRY_STRIDE;
+        if (readable_range(entry, 16u)) {
+            void* descriptor = *(void**)(entry + 0u);
+            void* loadedGroup = *(void**)(entry + 8u);
+            if (descriptor && loadedGroup && readable_range(descriptor, sizeof(UINT32)) &&
+                *(UINT32*)descriptor == groupId &&
+                readable_range((BYTE*)loadedGroup + OFF_LOADED_GROUP_OBJECTS, sizeof(RawArray))) {
+                inspect_target_positions(
+                    (const RawArray*)((BYTE*)loadedGroup + OFF_LOADED_GROUP_OBJECTS), false
+                );
+                inspected = true;
+            }
+        }
+    }
+    ReleaseSRWLockShared(lock);
+
+    if (inspected && g_debugLog) {
+        LogBuffer message;
+        log_init(&message); log_prefix(&message);
+        log_text(&message, "Backfill inspected loaded streaming group ");
+        log_uint(&message, groupId); log_text(&message, ".\r\n");
+        append_log(&message);
+    }
+}
+
+struct SteeringTelemetrySample {
+    LONG sequence;
+    float speedKmh;
+    float preClampRadians;
+    float finalRadians;
+    float rawInput;
+    float scale;
+};
+
+static bool steering_sample_value_in_range(float value, float minimum, float maximum) {
+    return value >= minimum && value <= maximum;
+}
+
+static bool read_steering_telemetry_sample(SteeringTelemetrySample* sample) {
+    if (!sample || !g_steeringHookInstalled || !g_steeringSampleSequence ||
+        !g_steeringSampleSpeedBits || !g_steeringSamplePreClampBits ||
+        !g_steeringSampleFinalBits || !g_steeringSampleRawBits ||
+        !g_steeringSampleScaleBits) return false;
+    for (int attempt = 0; attempt < 4; ++attempt) {
+        LONG sequenceBefore = __atomic_load_n(
+            g_steeringSampleSequence, __ATOMIC_ACQUIRE
+        );
+        if (sequenceBefore == 0 || (sequenceBefore & 1) != 0) continue;
+        LONG speedBits = __atomic_load_n(
+            g_steeringSampleSpeedBits, __ATOMIC_RELAXED
+        );
+        LONG preClampBits = __atomic_load_n(
+            g_steeringSamplePreClampBits, __ATOMIC_RELAXED
+        );
+        LONG finalBits = __atomic_load_n(
+            g_steeringSampleFinalBits, __ATOMIC_RELAXED
+        );
+        LONG rawBits = __atomic_load_n(
+            g_steeringSampleRawBits, __ATOMIC_RELAXED
+        );
+        LONG scaleBits = __atomic_load_n(
+            g_steeringSampleScaleBits, __ATOMIC_RELAXED
+        );
+        LONG sequenceAfter = __atomic_load_n(
+            g_steeringSampleSequence, __ATOMIC_ACQUIRE
+        );
+        if (sequenceBefore != sequenceAfter || (sequenceAfter & 1) != 0) continue;
+        sample->sequence = sequenceAfter;
+        memcpy(&sample->speedKmh, &speedBits, sizeof(speedBits));
+        memcpy(&sample->preClampRadians, &preClampBits, sizeof(preClampBits));
+        memcpy(&sample->finalRadians, &finalBits, sizeof(finalBits));
+        memcpy(&sample->rawInput, &rawBits, sizeof(rawBits));
+        memcpy(&sample->scale, &scaleBits, sizeof(scaleBits));
+        return steering_sample_value_in_range(sample->speedKmh, 0.0f, 1000.0f) &&
+            steering_sample_value_in_range(sample->preClampRadians, -16.0f, 16.0f) &&
+            steering_sample_value_in_range(sample->finalRadians, -4.0f, 4.0f) &&
+            steering_sample_value_in_range(sample->rawInput, -4.0f, 4.0f) &&
+            steering_sample_value_in_range(sample->scale, -4.0f, 4.0f);
+    }
+    return false;
+}
+
+static bool steering_sample_hit_clamp(const SteeringTelemetrySample* sample) {
+    if (!sample) return false;
+    const float clampRadians = 1.483529806f;
+    return f_abs(sample->preClampRadians) > clampRadians + 0.0005f &&
+        f_near(f_abs(sample->finalRadians), clampRadians, 0.0005f);
+}
+
+static void run_speed_telemetry() {
+    if (!g_speedTelemetry || !g_driveHookInstalled || !g_driveTelemetryBits) return;
+    float runMaximum = 0.0f;
+    float lastLoggedMaximum = 0.0f;
+    LONG lastSteeringSequence = 0;
+    float lastLoggedRaw = 0.0f;
+    float lastLoggedScale = 0.0f;
+    float lastLoggedPreClamp = 0.0f;
+    float lastLoggedFinal = 0.0f;
+    bool lastSteeringActive = false;
+    bool lastLoggedClamp = false;
+    bool steeringHasLogged = false;
+    UINT32 steeringPollsSinceLog = 5u;
+    for (;;) {
+        Sleep(200);
+        LONG currentBits = __atomic_load_n(g_driveTelemetryBits, __ATOMIC_RELAXED);
+        float current = 0.0f;
+        memcpy(&current, &currentBits, sizeof(current));
+        if (current >= 0.0f && current < 1000.0f) {
+            if (current > runMaximum) runMaximum = current;
+            bool firstReading = lastLoggedMaximum == 0.0f && runMaximum >= 1.0f;
+            bool advanced = runMaximum >= lastLoggedMaximum + 10.0f;
+            if (firstReading || advanced) {
+                lastLoggedMaximum = runMaximum;
+                LogBuffer message;
+                log_init(&message); log_prefix(&message);
+                log_text(&message, "Coffin 3D-speed telemetry: current=");
+                log_float2(&message, current);
+                log_text(&message, " km/h, run max="); log_float2(&message, runMaximum);
+                log_text(&message, " km/h.\r\n"); append_log(&message);
+            }
+        }
+
+        SteeringTelemetrySample steering;
+        if (!read_steering_telemetry_sample(&steering) ||
+            steering.sequence == lastSteeringSequence) continue;
+        lastSteeringSequence = steering.sequence;
+        bool active = f_abs(steering.rawInput) >= 0.05f;
+        bool hitClamp = steering_sample_hit_clamp(&steering);
+        if (steeringPollsSinceLog < 1000u) ++steeringPollsSinceLog;
+        bool changed = !steeringHasLogged ||
+            f_abs(steering.rawInput - lastLoggedRaw) >= 0.05f ||
+            f_abs(steering.scale - lastLoggedScale) >= 0.05f ||
+            f_abs(steering.preClampRadians - lastLoggedPreClamp) >= 0.087266463f ||
+            f_abs(steering.finalRadians - lastLoggedFinal) >= 0.043633231f ||
+            hitClamp != lastLoggedClamp;
+        bool released = !active && lastSteeringActive;
+        bool heartbeat = active && steeringPollsSinceLog >= 5u;
+        lastSteeringActive = active;
+        if ((!active && !released) || (!changed && !released && !heartbeat)) continue;
+
+        const float radiansToDegrees = 57.295779513f;
+        LogBuffer steeringMessage;
+        log_init(&steeringMessage); log_prefix(&steeringMessage);
+        log_text(&steeringMessage, "Coffin steering telemetry: speed=");
+        log_float2(&steeringMessage, steering.speedKmh);
+        log_text(&steeringMessage, " km/h, raw=");
+        log_float2(&steeringMessage, steering.rawInput);
+        log_text(&steeringMessage, ", scale=");
+        log_float2(&steeringMessage, steering.scale);
+        log_text(&steeringMessage, ", pre=");
+        log_float2(&steeringMessage, steering.preClampRadians * radiansToDegrees);
+        log_text(&steeringMessage, " deg, final=");
+        log_float2(&steeringMessage, steering.finalRadians * radiansToDegrees);
+        log_text(&steeringMessage, " deg, clamp=");
+        log_text(&steeringMessage, hitClamp ? "yes" : "no");
+        log_text(&steeringMessage, ".\r\n");
+        append_log(&steeringMessage);
+        steeringHasLogged = true;
+        steeringPollsSinceLog = 0u;
+        lastLoggedRaw = steering.rawInput;
+        lastLoggedScale = steering.scale;
+        lastLoggedPreClamp = steering.preClampRadians;
+        lastLoggedFinal = steering.finalRadians;
+        lastLoggedClamp = hitClamp;
+    }
+}
+
+static DWORD __stdcall worker(LPVOID) {
+    read_configuration();
+    log_line("DS2 Coffin Board All-Terrain Speed v1.0.0 loaded.", true);
+    if (!g_enabled) {
+        log_line("Disabled in INI; no game memory was changed.", true);
+        return 0;
+    }
+    HMODULE executable = GetModuleHandleW(0);
+    if (!executable || !validate_target_build(executable)) {
+        log_line("ERROR: Unsupported DS2.exe. Expected Steam build 1.10.89.0; no patch applied.", true);
+        return 0;
+    }
+    UINT64 globalAddress = find_streaming_manager_global(executable);
+    if (!globalAddress || !readable_range((void*)globalAddress, sizeof(void*))) {
+        log_line("ERROR: Exact StreamingManager anchor did not match; no patch applied.", true);
+        return 0;
+    }
+    void** managerGlobal = (void**)globalAddress;
+    void* manager = 0;
+    for (int attempt = 0; attempt < 1200; ++attempt) {
+        if (readable_range(managerGlobal, sizeof(void*))) manager = *managerGlobal;
+        if (manager) break;
+        Sleep(50);
+    }
+    if (!manager) {
+        log_line("ERROR: StreamingManager did not initialize within 60 seconds.", true);
+        return 0;
+    }
+
+    // Publish the invasive hook in its neutral 1.0 state before any listener
+    // callback can change caps or gearing. A configured force/gearing pair is
+    // fail-closed if the exact hook cannot be installed.
+    if (!install_drive_force_hook(executable)) {
+        if (drive_coupling_needed()) {
+            log_line("ERROR: Exact Coffin drive-force hook anchor/vtable did not match; coupled caps/gearing/force patch was not applied.", true);
+            return 0;
+        }
+        log_line("WARNING: Exact Coffin telemetry hook anchor/vtable did not match; cap patch will continue without telemetry.", true);
+    } else if (g_driveHookInstalled) {
+        LogBuffer hookMessage;
+        log_init(&hookMessage); log_prefix(&hookMessage);
+        log_text(&hookMessage, "Coffin-only drive-force hook installed neutral at 100%; requested ");
+        log_uint(&hookMessage, (UINT64)g_driveForcePercent);
+        log_text(&hookMessage, "% activates only after the resource patch, telemetry=");
+        log_uint(&hookMessage, (UINT64)(g_speedTelemetry != 0));
+        log_text(&hookMessage, ".\r\n"); append_log(&hookMessage);
+    }
+
+    if (!install_steering_response_hook(executable)) {
+        if (steering_coupling_needed()) {
+            log_line("ERROR: Exact Coffin steering-response hook anchor/vtable did not match; no resource patch was applied.", true);
+            return 0;
+        }
+    } else if (g_steeringHookInstalled) {
+        LogBuffer hookMessage;
+        log_init(&hookMessage); log_prefix(&hookMessage);
+        log_text(&hookMessage, "Coffin-only steering-response hook installed neutral at 100%; requested ");
+        log_uint(&hookMessage, (UINT64)g_steeringResponsePercent);
+        log_text(&hookMessage, "% activates from 80 to 220 km/h after the resource patch, steering telemetry=");
+        log_uint(&hookMessage, (UINT64)(g_speedTelemetry != 0));
+        log_text(&hookMessage, ".\r\n");
+        append_log(&hookMessage);
+    }
+
+    if (!register_streaming_listener(manager)) {
+        log_line("ERROR: Could not register resource listener; no patch applied.", true);
+        return 0;
+    }
+    LogBuffer message;
+    log_init(&message); log_prefix(&message);
+    log_text(&message, "Listener registered. profile=");
+    log_text(&message, g_simpleProfile ? "simple" : "legacy");
+    log_text(&message, ", land="); log_uint(&message, (UINT64)g_normalPercent);
+    log_text(&message, "% of water, boost="); log_uint(&message, (UINT64)g_boostPercent);
+    log_text(&message, "%, PatchStandardSpeed="); log_uint(&message, (UINT64)(g_patchStandardSpeed != 0));
+    log_text(&message, ", ScaleWaterCapsWithPercent="); log_uint(&message, (UINT64)(g_scaleWaterCaps != 0));
+    log_text(&message, ", DriveForcePercent="); log_uint(&message, (UINT64)g_driveForcePercent);
+    log_text(&message, ", GearRatioPercent="); log_uint(&message, (UINT64)g_gearRatioPercent);
+    log_text(&message, ", AccelerationPercent="); log_uint(&message, (UINT64)g_accelerationPercent);
+    log_text(&message, ", SteeringAnglePercent="); log_uint(&message, (UINT64)g_steeringAnglePercent);
+    log_text(&message, ", SteeringResponsePercent="); log_uint(&message, (UINT64)g_steeringResponsePercent);
+    log_text(&message, ", WetGripPercent="); log_uint(&message, (UINT64)g_wetGripPercent);
+    log_text(&message, ", RaiseSlipThreshold="); log_uint(&message, (UINT64)(g_raiseSlipThreshold != 0));
+    log_text(&message, ", targeted group/index lookup enabled.\r\n"); append_log(&message);
+
+    // AddListener does not replay groups that finished before registration.
+    // Query the native loaded-group table once under its shared SRW lock.
+    inspect_already_loaded_group(g_streamingSystem, COFFIN_PHYSICS_GROUP_ID);
+    if (g_patchStandardSpeed) {
+        inspect_already_loaded_group(g_streamingSystem, RIDE_COFFIN_GROUP_ID);
+    }
+
+    // Keep this one-shot listener only for a bounded discovery window. A
+    // completion published by a callback is observed with acquire semantics.
+    // Removal runs only on this worker; if the callback has not returned yet,
+    // native RemoveListener's exclusive lock waits for the dispatcher's shared
+    // listener lock and provides the final synchronization.
+    bool completed = wait_for_patch_completion(1200u, 50u);
+    if (!unregister_streaming_listener()) {
+        log_line("LIFECYCLE ERROR: exact native listener removal failed; restart DS2 before changing this ASI.", true);
+        return 0;
+    }
+    bool completedAfterRemoval = patch_complete_acquire();
+    if (completed && completedAfterRemoval) {
+        log_line("LIFECYCLE: patch completion observed; one-shot listener removed outside callbacks.", true);
+    } else if (completedAfterRemoval) {
+        log_line("LIFECYCLE: patch completed at the discovery-window boundary; one-shot listener removed outside callbacks.", true);
+    } else if (completed) {
+        log_line("LIFECYCLE WARNING: target unloaded while listener removal was pending; one-shot listener is removed and will not patch a replacement in this session.", true);
+    } else {
+        log_line("LIFECYCLE WARNING: 60-second resource window expired; one-shot listener removed without a completed patch.", true);
+    }
+    log_line("LIFECYCLE: worker no longer participates in streaming shutdown.", true);
+
+    run_speed_telemetry();
+    return 0;
+}
+
+extern "C" int __stdcall DllMain(HINSTANCE instance, DWORD reason, LPVOID) {
+    if (reason == DLL_PROCESS_ATTACH) {
+        if (!is_main_game_process()) return TRUE;
+        g_module = (HMODULE)instance;
+        DisableThreadLibraryCalls(g_module);
+        g_mutex = CreateMutexW(0, FALSE, L"Local\\DS2_CoffinBoardAllTerrainSpeed_v0_1");
+        if (!g_mutex) return TRUE;
+        if (GetLastError() == ERROR_ALREADY_EXISTS) {
+            CloseHandle(g_mutex);
+            g_mutex = 0;
+            return TRUE;
+        }
+        HANDLE thread = CreateThread(0, 0, worker, 0, 0, 0);
+        if (thread) CloseHandle(thread);
+    } else if (reason == DLL_PROCESS_DETACH) {
+        if (g_mutex) { CloseHandle(g_mutex); g_mutex = 0; }
+    }
+    return TRUE;
+}
