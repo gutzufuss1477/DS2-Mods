@@ -1,4 +1,4 @@
-# DS2 Mod Suite v1.1.0
+# DS2 Mod Suite v1.2.0
 
 Clean all-in-one mod manager for **DEATH STRANDING 2: ON THE BEACH**.
 
@@ -63,6 +63,7 @@ Without administrator rights, backups and logs are stored below the LocalAppData
 - Lost Cargo Likes Booster 1.1.1
 - No Magellan Evaluation Penalty 1.0.0
 - Construction Anywhere 1.0.0
+- Construction Max Level on Build 1.0.0
 - Weapons Anywhere 1.0.0
 - Zipline Range & Speed 1.0.0
 - Chiral Bandwidth Costs 1.0.0

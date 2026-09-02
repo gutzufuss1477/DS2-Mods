@@ -1,6 +1,6 @@
 **Description**
 
-DS2 Mod Suite is a clean, standalone all-in-one installer and manager for 15 DEATH STRANDING 2: ON THE BEACH mods.
+DS2 Mod Suite is a clean, standalone all-in-one installer and manager for 16 DEATH STRANDING 2: ON THE BEACH mods.
 
 Choose exactly which mods you want, review their current installation state and apply everything through one English or German interface. The manager detects the Steam game directory, verifies the supported game build, installs missing mods, updates or repairs known versions and safely removes deselected suite mods.
 
@@ -8,7 +8,7 @@ All stable mod files and the tested Ultimate ASI Loader are embedded in the appl
 
 This is more than a loose file bundle: the custom manager adds installation-state detection, centralized configuration, file validation, conflict protection, backups and transactional rollback.
 
-Version 1.1.0 supports the Steam PC executable version `DS2.exe 1.10.89.0`.
+Version 1.2.0 adds Construction Max Level on Build 1.0.0 and supports the Steam PC executable version `DS2.exe 1.10.89.0`.
 
 **Quick start**
 
@@ -27,14 +27,14 @@ This is a standalone installer. Do not install the downloaded archive through Vo
 
 **Main features**
 
-- Installs and manages 15 compatible DS2 mods from one application
+- Installs and manages 16 compatible DS2 mods from one application
 - Clean English and German interface
 - Automatic Steam game-directory detection
 - Verifies the exact supported `DS2.exe` build
 - Detects installed, outdated, incomplete and modified suite files
 - Installs the tested Ultimate ASI Loader x64 v9.7.2 automatically when required
-- Central settings interface for 12 configurable mods
-- Validates 81 settings across 13 individual INI files
+- Central settings interface for 13 configurable mods
+- Validates 83 settings across 14 individual INI files
 - Imports existing installed INI values
 - Hides advanced and experimental settings by default
 - Supports installation, update, repair and safe removal
@@ -69,6 +69,7 @@ The checkboxes represent the desired final state. Installed mods are selected au
 **Construction and World**
 
 - Construction Anywhere 1.0.0 - loosens general PCC distance limits and tested restricted construction zones
+- Construction Max Level on Build 1.0.0 - upgrades newly built supported Player PCC structures through the native flow to their maximum level
 - Weapons Anywhere 1.0.0 - removes selected weapon restrictions in protected areas
 - Zipline Range & Speed 1.0.0 - configures Zipline connection range and actual travel speed
 - Chiral Bandwidth Costs 1.0.0 - sets exact bandwidth costs for supported constructions

@@ -20,7 +20,7 @@ namespace DS2ModSuite
                 report.AppendLine("PASS catalog and all payload hashes");
 
                 List<ConfigFieldDefinition> definitions = ModConfigurationService.GetDefinitions(catalog);
-                Assert(definitions.Count == 81 && definitions.Select(field => field.Target).Distinct(StringComparer.OrdinalIgnoreCase).Count() == 13,
+                Assert(definitions.Count == 83 && definitions.Select(field => field.Target).Distinct(StringComparer.OrdinalIgnoreCase).Count() == 14,
                     "settings schema field/file coverage mismatch");
                 List<ModSpec> filteredSettingsMods = ModSettingsWindow.FilterInstalledConfigurableMods(
                     catalog,
@@ -28,6 +28,20 @@ namespace DS2ModSuite
                     new[] { catalog.Mods[0].Id, catalog.Mods[2].Id });
                 Assert(filteredSettingsMods.Count == 1 && filteredSettingsMods[0].Id == catalog.Mods[0].Id,
                     "installed/configurable settings dropdown filter mismatch");
+                List<ConfigFieldDefinition> maxLevelSettings = definitions
+                    .Where(field => field.ModId == "construction-max-level-on-build")
+                    .ToList();
+                Assert(maxLevelSettings.Count == 2
+                    && maxLevelSettings.Any(field => field.Key == "Enabled" && !field.Schema.Advanced)
+                    && maxLevelSettings.Any(field => field.Key == "DebugLog" && field.Schema.Advanced),
+                    "Construction Max Level on Build settings schema mismatch");
+                List<ModSpec> maxLevelFilteredSettings = ModSettingsWindow.FilterInstalledConfigurableMods(
+                    catalog,
+                    definitions,
+                    new[] { "construction-max-level-on-build" });
+                Assert(maxLevelFilteredSettings.Count == 1
+                    && maxLevelFilteredSettings[0].Id == "construction-max-level-on-build",
+                    "Construction Max Level on Build installed-settings filter mismatch");
                 ModConfigurationProfile configurationProfile = ModConfigurationService.LoadEffectiveProfile(catalog, null);
                 string configurationError;
                 Assert(ModConfigurationService.TryValidateProfile(catalog, configurationProfile, out configurationError),
@@ -58,7 +72,7 @@ namespace DS2ModSuite
                 Assert(catalog.Mods[0].LocalizedDescription == catalog.Mods[0].Description, "English catalog localization failed");
                 LoaderInspector.Relocalize(localizedLoader);
                 Assert(localizedLoader.DisplayText == "ASI Loader 9.7.2 is installed", "English loader relocalization failed");
-                report.AppendLine("PASS English/German localization, persistence and 81-field settings schema validation");
+                report.AppendLine("PASS English/German localization, persistence and 83-field settings schema validation");
 
                 string runningExecutable = System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName;
                 File.Copy(runningExecutable, Path.Combine(testRoot, catalog.Game.Executable), true);

@@ -173,6 +173,23 @@
       ]
     },
     {
+      "modId": "construction-max-level-on-build",
+      "files": [
+        {
+          "target": "ds2_construction_max_level_on_build.ini",
+          "sections": [
+            {
+              "name": "ConstructionMaxLevelOnBuild",
+              "fields": [
+                { "key": "Enabled", "type": "bool" },
+                { "key": "DebugLog", "type": "bool", "advanced": true }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
       "modId": "weapons-anywhere",
       "files": [
         {

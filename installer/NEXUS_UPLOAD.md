@@ -1,22 +1,30 @@
 # Nexus upload data
 
 - Mod name: `DS2 Mod Suite - All-in-One Installer and Manager`
-- Version: `1.1.0`
+- Version: `1.2.0`
 - Category: `Miscellaneous`
-- Main file name: `DS2 Mod Suite v1.1.0 - All-in-One Installer`
-- Archive: `DS2_Mod_Suite_v1.1.0.zip`
-- SHA-256: `F1A77921DBE702BB22890CAE7E2B0282175A3ED6681FC69B2A8685EF75002139`
+- Main file name: `DS2 Mod Suite v1.2.0 - All-in-One Installer`
+- Archive: `DS2_Mod_Suite_v1.2.0.zip`
+- SHA-256: `CE41EE76027D8B0FC6451DA4B1314754820DEAA64E7B0AFA7637FD6CA03DF985`
 - Installation: manual download / standalone application
 
 ## Main file description
 
 Extract the complete ZIP and run `DS2ModManager.exe`. Includes all supported mod payloads and the tested x64 ASI Loader. Do not install this archive through Vortex.
 
-SHA-256: `F1A77921DBE702BB22890CAE7E2B0282175A3ED6681FC69B2A8685EF75002139`
+SHA-256: `CE41EE76027D8B0FC6451DA4B1314754820DEAA64E7B0AFA7637FD6CA03DF985`
 
 ## Changelog
 
-- Bundled 15 validated stable DS2 mods in one portable manager.
+### v1.2.0
+
+- Added Construction Max Level on Build 1.0.0.
+- Expanded the suite to 16 validated stable mods.
+- Added central configuration for the new mod's Enabled and advanced Debug Log options.
+- Expanded central configuration to 13 mods, 14 INI files and 83 validated settings.
+
+### v1.1.0
+
 - Added a clean English and German interface.
 - Added automatic Steam directory and supported-build detection.
 - Added automatic Ultimate ASI Loader x64 setup.

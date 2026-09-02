@@ -15,6 +15,7 @@ Source code, documentation and validated releases for my DEATH STRANDING 2 mods.
 - [No Magellan Evaluation](mods/no-magellan-evaluation/)
 - [Weapons Anywhere](mods/weapons-anywhere/)
 - [Construction Anywhere](mods/construction-anywhere/)
+- [Construction Max Level on Build](mods/construction-max-level-on-build/)
 - [Zipline Range and Speed](mods/zipline-range/)
 - [Chiral Bandwidth Costs](mods/chiral-bandwidth-costs/)
 
@@ -26,8 +27,9 @@ Additional DS2 mods can be added later as separate folders under `mods/`.
 ## All-in-one installer
 
 The bilingual Windows GUI, stable-mod catalog, transactional installer and
-release build are maintained under [installer](installer/). Version 1.1.0 adds
-an English/Deutsch selector and one central **Mod Settings** menu while keeping
+release build are maintained under [installer](installer/). Version 1.2.0 adds
+Construction Max Level on Build to the 16-mod catalog. The English/Deutsch
+interface includes one central **Mod Settings** menu while keeping
 the individual runtime INIs expected by each ASI plugin. The manager detects
 the Steam game directory and supported `DS2.exe`, reuses or installs the tested
 x64 ASI loader, preserves customized INIs and supports hash-verified update,

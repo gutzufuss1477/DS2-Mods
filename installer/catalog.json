@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "suiteVersion": "1.1.0",
+  "suiteVersion": "1.2.0",
   "game": {
     "name": "DEATH STRANDING 2: ON THE BEACH",
     "executable": "DS2.exe",
@@ -265,6 +265,29 @@
           "payload": "payload/mods/construction-anywhere/ds2_construction_anywhere.ini",
           "target": "ds2_construction_anywhere.ini",
           "sha256": "2F5CBD754E854474719C5F7E809C6EAAC42DD4098A2CDF12BDA1218A778778AF",
+          "kind": "config"
+        }
+      ]
+    },
+    {
+      "id": "construction-max-level-on-build",
+      "name": "Construction Max Level on Build",
+      "version": "1.0.0",
+      "category": "Construction & World",
+      "categoryDe": "Bauen & Welt",
+      "description": "Automatically upgrades newly built supported Player PCC structures to their native maximum level through the game's original level functions.",
+      "descriptionDe": "Wertet neu gebaute unterstützte eigene PCC-Konstruktionen über die originalen Level-Funktionen des Spiels automatisch auf ihre native Maximalstufe auf.",
+      "files": [
+        {
+          "payload": "payload/mods/construction-max-level-on-build/ds2_construction_max_level_on_build.asi",
+          "target": "ds2_construction_max_level_on_build.asi",
+          "sha256": "074150110ACE040F1F6D57E0C761E2FA5A39FBCD3E26305130C4ECE4CB595672",
+          "kind": "binary"
+        },
+        {
+          "payload": "payload/mods/construction-max-level-on-build/ds2_construction_max_level_on_build.ini",
+          "target": "ds2_construction_max_level_on_build.ini",
+          "sha256": "18B2B8C4751964F05A6CE0538548D985AC828D97CB24102928A6926834F26228",
           "kind": "config"
         }
       ]

@@ -76,6 +76,14 @@
     "destination": "payload/mods/construction-anywhere/ds2_construction_anywhere.ini"
   },
   {
+    "source": "../mods/construction-max-level-on-build/release/DS2_Construction_Max_Level_On_Build_v1.0.0/ds2_construction_max_level_on_build.asi",
+    "destination": "payload/mods/construction-max-level-on-build/ds2_construction_max_level_on_build.asi"
+  },
+  {
+    "source": "../mods/construction-max-level-on-build/release/DS2_Construction_Max_Level_On_Build_v1.0.0/ds2_construction_max_level_on_build.ini",
+    "destination": "payload/mods/construction-max-level-on-build/ds2_construction_max_level_on_build.ini"
+  },
+  {
     "source": "../mods/weapons-anywhere/release/DS2_Weapons_Anywhere_v1.0.0/ds2_weapons_anywhere.asi",
     "destination": "payload/mods/weapons-anywhere/ds2_weapons_anywhere.asi"
   },

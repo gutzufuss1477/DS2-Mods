@@ -1,1 +1,1 @@
-Install and manage 15 DS2 mods from one clean English/German app. Includes central INI settings, automatic ASI Loader setup, safe updates, backups, verification and rollback. For Steam 1.10.89.0.
+Install and manage 16 DS2 mods from one clean English/German app. Includes central INI settings, automatic ASI Loader setup, safe updates, backups, verification and rollback. For Steam 1.10.89.0.
