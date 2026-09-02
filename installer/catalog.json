@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "suiteVersion": "1.2.0",
+  "suiteVersion": "1.3.0",
   "game": {
     "name": "DEATH STRANDING 2: ON THE BEACH",
     "executable": "DS2.exe",
@@ -134,6 +134,29 @@
           "target": "DS2_FloatingCarrier_CargoCapacity_v1.0.0.asi",
           "sha256": "2DB7F24180A43A4595AF594E6C84DE1199A2697899C60B3758C0E2BBB633E512",
           "kind": "binary"
+        }
+      ]
+    },
+    {
+      "id": "coffin-board-all-terrain-speed",
+      "name": "Coffin Board All-Terrain Speed",
+      "version": "1.0.0",
+      "category": "Vehicles & Cargo",
+      "categoryDe": "Fahrzeuge & Fracht",
+      "description": "Raises the Coffin Board's configurable land and water speed limits and acceleration while keeping steering and wet grip native.",
+      "descriptionDe": "Erhöht die konfigurierbaren Geschwindigkeitslimits und die Beschleunigung des Coffin Boards an Land und im Wasser, während Lenkung und Nasshaftung unverändert bleiben.",
+      "files": [
+        {
+          "payload": "payload/mods/coffin-board-all-terrain-speed/ds2_coffin_board_all_terrain_speed.asi",
+          "target": "ds2_coffin_board_all_terrain_speed.asi",
+          "sha256": "51CE868F01D916A0CC0480D21D92651C600B65D5E9AF2CB059198F578F4E1223",
+          "kind": "binary"
+        },
+        {
+          "payload": "payload/mods/coffin-board-all-terrain-speed/ds2_coffin_board_all_terrain_speed.ini",
+          "target": "ds2_coffin_board_all_terrain_speed.ini",
+          "sha256": "6BE4FACF196E73CE938A35459B89A3B6C0C2551A0D540E44B8EC1B8ADDEE7553",
+          "kind": "config"
         }
       ]
     },

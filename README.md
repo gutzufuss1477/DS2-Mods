@@ -10,6 +10,7 @@ Source code, documentation and validated releases for my DEATH STRANDING 2 mods.
 - [Pickup Cargo Capacity](mods/pickup-cargo-capacity/)
 - [Tri-Cruiser Cargo Capacity](mods/tri-cruiser-cargo-capacity/)
 - [Floating Carrier Cargo Capacity](mods/floating-carrier-cargo-capacity/)
+- [Coffin Board All-Terrain Speed](mods/coffin-board-all-terrain-speed/)
 - [Sam Stats Booster](mods/sam-stats-booster/)
 - [Lost Cargo Likes Booster](mods/lost-cargo-likes-booster/)
 - [No Magellan Evaluation](mods/no-magellan-evaluation/)
@@ -27,8 +28,8 @@ Additional DS2 mods can be added later as separate folders under `mods/`.
 ## All-in-one installer
 
 The bilingual Windows GUI, stable-mod catalog, transactional installer and
-release build are maintained under [installer](installer/). Version 1.2.0 adds
-Construction Max Level on Build to the 16-mod catalog. The English/Deutsch
+release build are maintained under [installer](installer/). Version 1.3.0 adds
+Coffin Board All-Terrain Speed to the 17-mod catalog. The English/Deutsch
 interface includes one central **Mod Settings** menu while keeping
 the individual runtime INIs expected by each ASI plugin. The manager detects
 the Steam game directory and supported `DS2.exe`, reuses or installs the tested

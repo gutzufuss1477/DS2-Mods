@@ -17,10 +17,12 @@ namespace DS2ModSuite
             {
                 Catalog catalog = CatalogService.LoadAndValidate();
                 CatalogService.ValidatePayloads(catalog);
+                Assert(catalog.SuiteVersion == "1.3.0" && catalog.Mods.Count == 17,
+                    "suite version/mod count mismatch");
                 report.AppendLine("PASS catalog and all payload hashes");
 
                 List<ConfigFieldDefinition> definitions = ModConfigurationService.GetDefinitions(catalog);
-                Assert(definitions.Count == 83 && definitions.Select(field => field.Target).Distinct(StringComparer.OrdinalIgnoreCase).Count() == 14,
+                Assert(definitions.Count == 85 && definitions.Select(field => field.Target).Distinct(StringComparer.OrdinalIgnoreCase).Count() == 15,
                     "settings schema field/file coverage mismatch");
                 List<ModSpec> filteredSettingsMods = ModSettingsWindow.FilterInstalledConfigurableMods(
                     catalog,
@@ -42,10 +44,57 @@ namespace DS2ModSuite
                 Assert(maxLevelFilteredSettings.Count == 1
                     && maxLevelFilteredSettings[0].Id == "construction-max-level-on-build",
                     "Construction Max Level on Build installed-settings filter mismatch");
+                List<ConfigFieldDefinition> coffinBoardSettings = definitions
+                    .Where(field => field.ModId == "coffin-board-all-terrain-speed")
+                    .ToList();
+                Assert(coffinBoardSettings.Count == 2
+                    && coffinBoardSettings.Any(field => field.Key == "SpeedPercent"
+                        && field.Schema.Min == 100 && field.Schema.Max == 1000 && field.DefaultValue == "500")
+                    && coffinBoardSettings.Any(field => field.Key == "AccelerationPercent"
+                        && field.Schema.Min == 100 && field.Schema.Max == 500 && field.DefaultValue == "400"),
+                    "Coffin Board settings schema mismatch");
+                List<ModSpec> coffinBoardFilteredSettings = ModSettingsWindow.FilterInstalledConfigurableMods(
+                    catalog,
+                    definitions,
+                    new[] { "coffin-board-all-terrain-speed" });
+                Assert(coffinBoardFilteredSettings.Count == 1
+                    && coffinBoardFilteredSettings[0].Id == "coffin-board-all-terrain-speed",
+                    "Coffin Board installed-settings filter mismatch");
                 ModConfigurationProfile configurationProfile = ModConfigurationService.LoadEffectiveProfile(catalog, null);
                 string configurationError;
                 Assert(ModConfigurationService.TryValidateProfile(catalog, configurationProfile, out configurationError),
                     "default settings profile failed validation: " + configurationError);
+                ConfigFieldDefinition coffinBoardSpeed = coffinBoardSettings.First(field => field.Key == "SpeedPercent");
+                ModConfigurationService.SetValue(configurationProfile, coffinBoardSpeed.Id, "1001");
+                Assert(!ModConfigurationService.TryValidateProfile(catalog, configurationProfile, out configurationError),
+                    "out-of-range Coffin Board speed was accepted");
+                ModConfigurationService.SetValue(configurationProfile, coffinBoardSpeed.Id, "500");
+                Assert(ModConfigurationService.TryValidateProfile(catalog, configurationProfile, out configurationError),
+                    "valid Coffin Board settings were rejected: " + configurationError);
+                string legacyCoffinRoot = Path.Combine(testRoot, "legacy-coffin");
+                Directory.CreateDirectory(legacyCoffinRoot);
+                string legacyCoffinPath = Path.Combine(legacyCoffinRoot, "ds2_coffin_board_all_terrain_speed.ini");
+                File.WriteAllText(legacyCoffinPath,
+                    "[CoffinBoardAllTerrainSpeed]\r\nSpeedPercent=500\r\nAccelerationPercent=400\r\n"
+                    + "SteeringPercent=250\r\nWetGripPercent=300\r\nSpeedTelemetry=1\r\n\r\n[Unrelated]\r\nKeep=1\r\n");
+                Assert(ModConfigurationService.HasDifferences(catalog, configurationProfile,
+                    new[] { "coffin-board-all-terrain-speed" }, legacyCoffinRoot),
+                    "legacy Coffin Board test keys were not detected");
+                byte[] normalizedCoffinIni = ModConfigurationService.BuildConfiguredIni(
+                    catalog, configurationProfile, "ds2_coffin_board_all_terrain_speed.ini", legacyCoffinPath);
+                string normalizedCoffinText = Encoding.UTF8.GetString(normalizedCoffinIni);
+                Assert(!normalizedCoffinText.Contains("SteeringPercent=")
+                    && !normalizedCoffinText.Contains("WetGripPercent=")
+                    && !normalizedCoffinText.Contains("SpeedTelemetry=")
+                    && normalizedCoffinText.Contains("SpeedPercent=500")
+                    && normalizedCoffinText.Contains("AccelerationPercent=400")
+                    && normalizedCoffinText.Contains("[Unrelated]")
+                    && normalizedCoffinText.Contains("Keep=1"),
+                    "legacy Coffin Board INI was not safely normalized");
+                File.WriteAllBytes(legacyCoffinPath, normalizedCoffinIni);
+                Assert(ModConfigurationService.ConfiguredIniMatches(
+                    catalog, configurationProfile, "ds2_coffin_board_all_terrain_speed.ini", legacyCoffinPath),
+                    "normalized Coffin Board INI did not match the stable schema");
                 ConfigFieldDefinition pickupCapacity = definitions.First(field => field.ModId == "pickup-cargo-capacity" && field.Key == "CapacityUnits");
                 ModConfigurationService.SetValue(configurationProfile, pickupCapacity.Id, "333");
                 Assert(!ModConfigurationService.TryValidateProfile(catalog, configurationProfile, out configurationError),
@@ -72,10 +121,57 @@ namespace DS2ModSuite
                 Assert(catalog.Mods[0].LocalizedDescription == catalog.Mods[0].Description, "English catalog localization failed");
                 LoaderInspector.Relocalize(localizedLoader);
                 Assert(localizedLoader.DisplayText == "ASI Loader 9.7.2 is installed", "English loader relocalization failed");
-                report.AppendLine("PASS English/German localization, persistence and 83-field settings schema validation");
+                report.AppendLine("PASS English/German localization, persistence and 85-field settings schema validation");
 
                 string runningExecutable = System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName;
                 File.Copy(runningExecutable, Path.Combine(testRoot, catalog.Game.Executable), true);
+
+                string noProfileUpgradeRoot = Path.Combine(testRoot, "coffin-no-profile-upgrade");
+                Directory.CreateDirectory(noProfileUpgradeRoot);
+                File.Copy(runningExecutable, Path.Combine(noProfileUpgradeRoot, catalog.Game.Executable), true);
+                File.WriteAllText(Path.Combine(noProfileUpgradeRoot, "ds2_coffin_board_all_terrain_speed.asi"), "legacy test binary");
+                string noProfileLegacyIni = Path.Combine(noProfileUpgradeRoot, "ds2_coffin_board_all_terrain_speed.ini");
+                File.WriteAllText(noProfileLegacyIni,
+                    "[CoffinBoardAllTerrainSpeed]\r\nSpeedPercent=650\r\nAccelerationPercent=999\r\n"
+                    + "SteeringPercent=250\r\nWetGripPercent=300\r\nTelemetry=1\r\n\r\n[Unrelated]\r\nKeep=1\r\n");
+                ApplyResult noProfileUpgrade = new InstallEngine(catalog, true).Apply(
+                    new ApplyPlan
+                    {
+                        GamePath = noProfileUpgradeRoot,
+                        SelectedModIds = new List<string> { "coffin-board-all-terrain-speed" },
+                        ConfigurationProfile = null,
+                        Language = "en"
+                    },
+                    new DirectProgress());
+                string noProfileMigratedText = File.ReadAllText(noProfileLegacyIni);
+                Assert(noProfileUpgrade.Success && noProfileUpgrade.Updated == 1 && noProfileUpgrade.ConfigurationsUpdated == 1,
+                    "Coffin Board no-profile TEST upgrade failed: " + noProfileUpgrade.Message);
+                Assert(noProfileMigratedText.Contains("SpeedPercent=650")
+                    && noProfileMigratedText.Contains("AccelerationPercent=400")
+                    && !noProfileMigratedText.Contains("SteeringPercent=")
+                    && !noProfileMigratedText.Contains("WetGripPercent=")
+                    && !noProfileMigratedText.Contains("Telemetry=")
+                    && noProfileMigratedText.Contains("[Unrelated]")
+                    && ModConfigurationService.StableExistingIniMatches(catalog, "coffin-board-all-terrain-speed",
+                        "ds2_coffin_board_all_terrain_speed.ini", noProfileLegacyIni),
+                    "Coffin Board no-profile TEST INI was not safely migrated");
+                byte[] stableNoProfileBytes = File.ReadAllBytes(noProfileLegacyIni);
+                ApplyResult noProfileIdempotent = new InstallEngine(catalog, true).Apply(
+                    new ApplyPlan
+                    {
+                        GamePath = noProfileUpgradeRoot,
+                        SelectedModIds = new List<string> { "coffin-board-all-terrain-speed" },
+                        ConfigurationProfile = null,
+                        Language = "en"
+                    },
+                    new DirectProgress());
+                Assert(noProfileIdempotent.Success && noProfileIdempotent.Installed == 0
+                    && noProfileIdempotent.Updated == 0 && noProfileIdempotent.Repaired == 0
+                    && noProfileIdempotent.ConfigurationsUpdated == 0 && !noProfileIdempotent.LoaderInstalled,
+                    "Coffin Board no-profile migration was not idempotent");
+                Assert(stableNoProfileBytes.SequenceEqual(File.ReadAllBytes(noProfileLegacyIni)),
+                    "stable Coffin Board configuration was rewritten during idempotent apply");
+                report.AppendLine("PASS Coffin Board TEST upgrade without central profile, strict INI migration and idempotent re-apply");
 
                 ModSpec migrationMod = catalog.Mods[0];
                 ModFileSpec migrationBinary = migrationMod.Files.First(file => !file.IsConfig);

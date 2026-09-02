@@ -1,6 +1,6 @@
 **Description**
 
-DS2 Mod Suite is a clean, standalone all-in-one installer and manager for 16 DEATH STRANDING 2: ON THE BEACH mods.
+DS2 Mod Suite is a clean, standalone all-in-one installer and manager for 17 DEATH STRANDING 2: ON THE BEACH mods.
 
 Choose exactly which mods you want, review their current installation state and apply everything through one English or German interface. The manager detects the Steam game directory, verifies the supported game build, installs missing mods, updates or repairs known versions and safely removes deselected suite mods.
 
@@ -8,7 +8,7 @@ All stable mod files and the tested Ultimate ASI Loader are embedded in the appl
 
 This is more than a loose file bundle: the custom manager adds installation-state detection, centralized configuration, file validation, conflict protection, backups and transactional rollback.
 
-Version 1.2.0 adds Construction Max Level on Build 1.0.0 and supports the Steam PC executable version `DS2.exe 1.10.89.0`.
+Version 1.3.0 adds Coffin Board All-Terrain Speed 1.0.0 and supports the Steam PC executable version `DS2.exe 1.10.89.0`.
 
 **Quick start**
 
@@ -27,14 +27,14 @@ This is a standalone installer. Do not install the downloaded archive through Vo
 
 **Main features**
 
-- Installs and manages 16 compatible DS2 mods from one application
+- Installs and manages 17 compatible DS2 mods from one application
 - Clean English and German interface
 - Automatic Steam game-directory detection
 - Verifies the exact supported `DS2.exe` build
 - Detects installed, outdated, incomplete and modified suite files
 - Installs the tested Ultimate ASI Loader x64 v9.7.2 automatically when required
-- Central settings interface for 13 configurable mods
-- Validates 83 settings across 14 individual INI files
+- Central settings interface for 14 configurable mods
+- Validates 85 settings across 15 individual INI files
 - Imports existing installed INI values
 - Hides advanced and experimental settings by default
 - Supports installation, update, repair and safe removal
@@ -54,6 +54,7 @@ The checkboxes represent the desired final state. Installed mods are selected au
 - Pickup Cargo Capacity 1.0.1 - increases the configurable cargo capacity of the Off-road Pickup
 - Tri-Cruiser Cargo Capacity 1.1.0 - increases the Tri-Cruiser's usable cargo capacity
 - Floating Carrier Cargo Capacity 1.0.0 - increases the Floating Carrier's usable cargo capacity
+- Coffin Board All-Terrain Speed 1.0.0 - adds configurable land and water speed limits and acceleration while retaining native steering and wet grip
 
 **Equipment and Progression**
 

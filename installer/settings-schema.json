@@ -61,6 +61,23 @@
       ]
     },
     {
+      "modId": "coffin-board-all-terrain-speed",
+      "files": [
+        {
+          "target": "ds2_coffin_board_all_terrain_speed.ini",
+          "sections": [
+            {
+              "name": "CoffinBoardAllTerrainSpeed",
+              "fields": [
+                { "key": "SpeedPercent", "type": "int", "min": 100, "max": 1000 },
+                { "key": "AccelerationPercent", "type": "int", "min": 100, "max": 500 }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
       "modId": "sam-stats-booster",
       "files": [
         {

@@ -15,4 +15,6 @@ mods/chiral-bandwidth-costs/release/DS2_Chiral_Bandwidth_Costs_v1.0.0/ds2_chiral
 mods/infrastructure-one-unit/release/DS2_Infrastructure_One_Unit_v1.0.0/ds2_infrastructure_one_unit.ini -text -diff
 mods/construction-max-level-on-build/config/ds2_construction_max_level_on_build.ini -text -diff
 mods/construction-max-level-on-build/release/DS2_Construction_Max_Level_On_Build_v1.0.0/ds2_construction_max_level_on_build.ini -text -diff
+mods/coffin-board-all-terrain-speed/config/ds2_coffin_board_all_terrain_speed.ini -text -diff
+mods/coffin-board-all-terrain-speed/release/DS2_Coffin_Board_All_Terrain_Speed_v1.0.0/ds2_coffin_board_all_terrain_speed.ini -text -diff
 mods/remote-orders-overlay/release/DS2_Remote_Orders_Overlay.ini -text -diff

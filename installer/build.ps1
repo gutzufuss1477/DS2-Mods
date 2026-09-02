@@ -8,7 +8,7 @@ $installerRoot = [System.IO.Path]::GetFullPath($PSScriptRoot)
 $workspaceRoot = [System.IO.Path]::GetFullPath((Join-Path $installerRoot '..'))
 $distRoot = [System.IO.Path]::GetFullPath((Join-Path $installerRoot 'dist'))
 $appRoot = [System.IO.Path]::GetFullPath((Join-Path $distRoot 'DS2-Mod-Suite'))
-$zipPath = Join-Path $distRoot 'DS2_Mod_Suite_v1.2.0.zip'
+$zipPath = Join-Path $distRoot 'DS2_Mod_Suite_v1.3.0.zip'
 $zipHashPath = "$zipPath.sha256.txt"
 
 function Assert-ChildPath([string]$parent, [string]$candidate) {

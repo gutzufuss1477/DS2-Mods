@@ -567,6 +567,18 @@ namespace DS2ModSuite
                                 }
                                 if (file.IsConfig && File.Exists(destination))
                                 {
+                                    if (ModConfigurationService.RequiresExactSectionKeys(mod.Id))
+                                    {
+                                        if (!ModConfigurationService.StableExistingIniMatches(catalog, mod.Id, file.Target, destination))
+                                        {
+                                            byte[] stabilized = ModConfigurationService.BuildStableExistingIni(
+                                                catalog, mod.Id, file.Target, destination);
+                                            if (transaction.ReplaceFromBytes(destination, stabilized, "stable configuration migration"))
+                                                result.ConfigurationsUpdated++;
+                                        }
+                                        else logger.Write("Existing stable configuration retained: " + destination);
+                                        continue;
+                                    }
                                     logger.Write("Existing configuration retained: " + destination);
                                     continue;
                                 }
@@ -723,6 +735,10 @@ namespace DS2ModSuite
                     {
                         if (!ModConfigurationService.ConfiguredIniMatches(catalog, configuration, file.Target, destination)) return true;
                     }
+                    else if (file.IsConfig && ModConfigurationService.RequiresExactSectionKeys(mod.Id))
+                    {
+                        if (!ModConfigurationService.StableExistingIniMatches(catalog, mod.Id, file.Target, destination)) return true;
+                    }
                     else if (!file.IsConfig && !IsExactFile(destination, file.Sha256)) return true;
                 }
             }
@@ -768,6 +784,11 @@ namespace DS2ModSuite
                     {
                         if (!ModConfigurationService.ConfiguredIniMatches(catalog, configuration, file.Target, destination))
                             throw new IOException(Localization.T("Configured values could not be verified: ", "Konfigurierte Werte konnten nicht bestätigt werden: ") + file.Target);
+                    }
+                    else if (file.IsConfig && ModConfigurationService.RequiresExactSectionKeys(mod.Id))
+                    {
+                        if (!ModConfigurationService.StableExistingIniMatches(catalog, mod.Id, file.Target, destination))
+                            throw new IOException(Localization.T("The stable configuration migration could not be verified: ", "Die stabile Konfigurationsmigration konnte nicht bestätigt werden: ") + file.Target);
                     }
                     else if (!file.IsConfig && !IsExactFile(destination, file.Sha256))
                     {

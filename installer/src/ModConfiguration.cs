@@ -284,6 +284,18 @@ namespace DS2ModSuite
             }
         }
 
+        public bool SectionHasOnlyKeys(string section, IEnumerable<string> allowedKeys)
+        {
+            HashSet<string> allowed = new HashSet<string>(allowedKeys ?? Enumerable.Empty<string>(), StringComparer.OrdinalIgnoreCase);
+            HashSet<string> seen = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+            foreach (Line line in lines)
+            {
+                if (!line.IsKey || !EqualsName(line.Section, section)) continue;
+                if (!allowed.Contains(line.Key) || !seen.Add(line.Key)) return false;
+            }
+            return true;
+        }
+
         public string ToText()
         {
             return string.Join("\r\n", lines.Select(line => line.Raw ?? string.Empty)) + "\r\n";
@@ -437,6 +449,11 @@ namespace DS2ModSuite
                 IniDocument document;
                 try { document = ReadIni(path); }
                 catch { return true; }
+                if (RequiresExactSectionKeys(fileGroup.First().ModId))
+                {
+                    foreach (IGrouping<string, ConfigFieldDefinition> section in fileGroup.GroupBy(field => field.Section, StringComparer.OrdinalIgnoreCase))
+                        if (!document.SectionHasOnlyKeys(section.Key, section.Select(field => field.Key))) return true;
+                }
                 foreach (ConfigFieldDefinition field in fileGroup)
                 {
                     string current = document.GetValue(field.Section, field.Key, field.Schema.Aliases) ?? field.DefaultValue;
@@ -466,7 +483,8 @@ namespace DS2ModSuite
             {
                 foreach (ConfigFieldDefinition field in definitions) document.RemoveKeyEverywhere(field.Key);
             }
-            if (string.Equals(modId, "chiral-bandwidth-costs", StringComparison.OrdinalIgnoreCase))
+            if (string.Equals(modId, "chiral-bandwidth-costs", StringComparison.OrdinalIgnoreCase)
+                || RequiresExactSectionKeys(modId))
             {
                 foreach (IGrouping<string, ConfigFieldDefinition> section in definitions.GroupBy(field => field.Section, StringComparer.OrdinalIgnoreCase))
                     document.NormalizeSection(section.Key, section.Select(field => field.Key));
@@ -487,6 +505,11 @@ namespace DS2ModSuite
                 .Where(field => string.Equals(field.Target, target, StringComparison.OrdinalIgnoreCase)).ToList();
             Dictionary<string, string> values = ProfileDictionary(profile);
             IniDocument document = ReadIni(path);
+            if (RequiresExactSectionKeys(definitions[0].ModId))
+            {
+                foreach (IGrouping<string, ConfigFieldDefinition> section in definitions.GroupBy(field => field.Section, StringComparer.OrdinalIgnoreCase))
+                    if (!document.SectionHasOnlyKeys(section.Key, section.Select(field => field.Key))) return false;
+            }
             foreach (ConfigFieldDefinition field in definitions)
             {
                 string current = document.GetValue(field.Section, field.Key, field.Schema.Aliases) ?? field.DefaultValue;
@@ -498,9 +521,63 @@ namespace DS2ModSuite
             return true;
         }
 
+        public static bool StableExistingIniMatches(Catalog catalog, string modId, string target, string path)
+        {
+            if (!RequiresExactSectionKeys(modId) || !File.Exists(path)) return false;
+            List<ConfigFieldDefinition> definitions = GetDefinitions(catalog)
+                .Where(field => string.Equals(field.ModId, modId, StringComparison.OrdinalIgnoreCase)
+                    && string.Equals(field.Target, target, StringComparison.OrdinalIgnoreCase)).ToList();
+            if (definitions.Count == 0) throw new InvalidDataException("No strict settings schema exists for " + target);
+            IniDocument document = ReadIni(path);
+            foreach (IGrouping<string, ConfigFieldDefinition> section in definitions.GroupBy(field => field.Section, StringComparer.OrdinalIgnoreCase))
+                if (!document.SectionHasOnlyKeys(section.Key, section.Select(field => field.Key))) return false;
+            foreach (ConfigFieldDefinition field in definitions)
+            {
+                string current = document.GetValue(field.Section, field.Key, field.Schema.Aliases);
+                string normalized;
+                string error;
+                if (current == null || !TryNormalize(field.Schema, current, out normalized, out error)) return false;
+            }
+            return true;
+        }
+
+        public static byte[] BuildStableExistingIni(Catalog catalog, string modId, string target, string existingPath)
+        {
+            if (!RequiresExactSectionKeys(modId)) throw new InvalidDataException("Strict INI normalization is not enabled for " + modId);
+            List<ConfigFieldDefinition> definitions = GetDefinitions(catalog)
+                .Where(field => string.Equals(field.ModId, modId, StringComparison.OrdinalIgnoreCase)
+                    && string.Equals(field.Target, target, StringComparison.OrdinalIgnoreCase)).ToList();
+            if (definitions.Count == 0) throw new InvalidDataException("No strict settings schema exists for " + target);
+            string text = File.Exists(existingPath) ? ReadText(existingPath) : ReadPayloadText(definitions[0].PayloadHash);
+            IniDocument document = IniDocument.Parse(text);
+            Dictionary<string, string> retainedValues = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+            foreach (ConfigFieldDefinition field in definitions)
+            {
+                string current = document.GetValue(field.Section, field.Key, field.Schema.Aliases);
+                string normalized;
+                string error;
+                retainedValues[field.Id] = current != null && TryNormalize(field.Schema, current, out normalized, out error)
+                    ? normalized
+                    : field.DefaultValue;
+            }
+            foreach (IGrouping<string, ConfigFieldDefinition> section in definitions.GroupBy(field => field.Section, StringComparer.OrdinalIgnoreCase))
+                document.NormalizeSection(section.Key, section.Select(field => field.Key));
+            foreach (ConfigFieldDefinition field in definitions)
+            {
+                foreach (string alias in field.Schema.Aliases ?? new List<string>()) document.RemoveKeyEverywhere(alias);
+                document.SetValue(field.Section, field.Key, retainedValues[field.Id]);
+            }
+            return Utf8NoBom.GetBytes(document.ToText());
+        }
+
         public static bool HasDefinitionForTarget(Catalog catalog, string target)
         {
             return GetDefinitions(catalog).Any(field => string.Equals(field.Target, target, StringComparison.OrdinalIgnoreCase));
+        }
+
+        public static bool RequiresExactSectionKeys(string modId)
+        {
+            return string.Equals(modId, "coffin-board-all-terrain-speed", StringComparison.OrdinalIgnoreCase);
         }
 
         public static void ImportFromGame(
