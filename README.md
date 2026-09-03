@@ -19,6 +19,7 @@ Source code, documentation and validated releases for my DEATH STRANDING 2 mods.
 - [Construction Max Level on Build](mods/construction-max-level-on-build/)
 - [Zipline Range and Speed](mods/zipline-range/)
 - [Chiral Bandwidth Costs](mods/chiral-bandwidth-costs/)
+- [Climbing Power Gloves Range](mods/climbing-power-gloves-range/)
 
 
 * [High-Density Backpack Modules](mods/high-density-backpack-modules)
