@@ -1,87 +1,42 @@
-[center][size=5][b]CLIMBING POWER GLOVES - EXTENDED CARGO PICKUP RANGE[/b][/size][/center]
+[b]Pick up cargo from much farther away with both Climbing Power Gloves tiers.[/b]
 
-[center]Pick up cargo from much farther away while keeping both glove tiers separate.[/center]
+Level 1 and Level 2 use separate configurable ranges. The included profile changes their native 8 m and 10 m reach to [b]30 m[/b] and [b]50 m[/b], keeping Level 2 stronger while reducing the need for a Sticky Gun or Sticky Cannon during normal cargo pickup.
 
-[hr]
+Tested in game: Level 2 has the longest reach, switching to Level 1 reduces it immediately, and removing the gloves restores normal close-range pickup.
 
-[size=4][b]DESCRIPTION[/b][/size]
-
-Climbing Power Gloves - Extended Cargo Pickup Range lets both tiers of the Climbing Power Gloves pull in cargo from much farther away in DEATH STRANDING 2: ON THE BEACH.
-
-Level 1 and Level 2 use separate configurable ranges. The included profile raises their native 8 m and 10 m values to 30 m and 50 m, preserving a clear advantage for Level 2 while reducing the need to carry a Sticky Gun or Sticky Cannon for ordinary remote cargo pickup.
-
-Version 1.0.0 was tested in game: Level 2 picks up cargo from a long distance, switching to Level 1 immediately reduces the reach, and removing the gloves restores normal close-range pickup.
-
-[hr]
-
-[size=4][b]MAIN FEATURES[/b][/size]
-
+[b]Features[/b]
 [list]
-[*]Separate configurable pickup ranges for Climbing Power Gloves Level 1 and Level 2
-[*]Tested default profile: 30 m for Level 1 and 50 m for Level 2
-[*]Preserves normal close-range pickup when no gloves are equipped
-[*]Does not change other gloves, pickup speed, throw distance, or global pickup
-[*]Does not modify Sticky Gun or Sticky Cannon range and behavior
-[*]Changes only the verified range field of the two exact glove resources
-[*]Hook-free resource resolver with continuous reload reconciliation
-[*]Exact executable, item-system, VTable, RTTI, and resource validation
-[*]Conflict detection and transactional rollback instead of blind overwrites
-[*]Does not edit DS2.exe, game archives, or save files on disk
+[*]Separate pickup ranges for Level 1 and Level 2
+[*]Configurable from the included English INI
+[*]Normal hand pickup remains unchanged without the gloves
+[*]No changes to other gloves, pickup speed, throw distance, Sticky Gun, Sticky Cannon, saves, DS2.exe, or game archives
 [/list]
 
-[hr]
-
-[size=4][b]INSTALLATION[/b][/size]
-
+[b]Installation[/b]
 [list=1]
-[*]Close DEATH STRANDING 2 completely.
-[*]Install a compatible external 64-bit ASI loader. If DS2 already loads other ASI mods correctly, the existing loader can be used.
-[*]Extract the downloaded archive.
-[*]Copy ds2_climbing_gloves_range.asi and ds2_climbing_gloves_range.ini into the game folder beside DS2.exe.
+[*]Close the game and make sure a compatible 64-bit ASI loader is installed.
+[*]Copy [b]ds2_climbing_gloves_range.asi[/b] and [b]ds2_climbing_gloves_range.ini[/b] beside DS2.exe.
 [*]Fully restart the game.
 [/list]
+To uninstall, close the game, remove both files, and restart.
 
-To uninstall, close the game, remove both files, and restart. The mod does not modify save files, DS2.exe, or game archives on disk.
+[b]INI settings[/b]
+[list]
+[*][b]Enabled[/b] = 0 or 1 (default: 1)
+[*][b]Level1RangeMeters[/b] = 8-100 m (default: 30 m; native: 8 m)
+[*][b]Level2RangeMeters[/b] = 10-100 m (default: 50 m; native: 10 m; cannot be lower than Level 1)
+[*][b]DebugLog[/b] = 0 or 1 (default: 0)
+[/list]
+Set both range values equally if both tiers should have the same reach. Invalid values fail safely. Restart the game after editing the INI.
 
-[hr]
-
-[size=4][b]CONFIGURATION[/b][/size]
-
-[b]Enabled[/b]
-0 or 1. The included default is 1. Set it to 0 to leave both glove resources unchanged.
-
-[b]Level1RangeMeters[/b]
-Accepted range: 8-100 m. Included default: 30 m. Native value: 8 m.
-
-[b]Level2RangeMeters[/b]
-Accepted range: 10-100 m. Included default: 50 m. Native value: 10 m. This value cannot be lower than Level1RangeMeters.
-
-[b]DebugLog[/b]
-0 or 1. Set it to 1 for additional diagnostics in ds2_climbing_gloves_range.log. Critical errors are always logged.
-
-Setting both ranges to the same number gives both tiers the same reach. Invalid settings fail safely without changing either glove resource. Fully restart the game after changing the INI.
-
-[hr]
-
-[size=4][b]REQUIREMENTS[/b][/size]
-
+[b]Requirements and notes[/b]
 [list]
 [*]DEATH STRANDING 2: ON THE BEACH for PC / Steam
-[*]Supported executable version: DS2.exe 1.10.89.0
-[*]A compatible external 64-bit ASI loader
-[*]Both included files placed beside DS2.exe
+[*]Supported version: DS2.exe 1.10.89.0
+[*]Compatible external 64-bit ASI loader
+[*]The mod extends native glove pickup only; normal visibility, obstruction, cargo, and target-selection rules still apply.
+[*]Unknown game builds are rejected and may require an updated mod release.
 [/list]
 
-[hr]
-
-[size=4][b]IMPORTANT NOTES[/b][/size]
-
-This mod extends the gloves' native magnetic cargo pickup. It does not recreate the Sticky Gun or Sticky Cannon targeting, rope, or other special functions. Native visibility, obstruction, target-selection, cargo, and state rules still apply, so some objects may remain unavailable despite being inside the selected distance.
-
-Save/load, area transitions, vehicle pickup, multiple cargo pieces, height differences, and obstacles remain useful regression checks. After a game update, do not assume compatibility: the mod rejects unknown executable builds and may require an updated release.
-
-[hr]
-
-[size=4][b]CREDITS[/b][/size]
-
-Thanks to ShadelessFox for Odradek and the DS2 RTTI research tools, and to the player who proposed the mod and confirmed the Level 2, Level 1, and no-glove pickup-range separation in game.
+[b]Credits[/b]
+Thanks to ShadelessFox for Odradek and the DS2 RTTI research tools, and to the player who proposed and tested the mod.
