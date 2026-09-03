@@ -1,0 +1,1 @@
+Extends Climbing Power Gloves cargo pickup to separate configurable 30 m and 50 m ranges while leaving normal hand pickup unchanged.
