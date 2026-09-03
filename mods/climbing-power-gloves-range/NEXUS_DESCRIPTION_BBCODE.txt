@@ -1,0 +1,87 @@
+[center][size=5][b]CLIMBING POWER GLOVES - EXTENDED CARGO PICKUP RANGE[/b][/size][/center]
+
+[center]Pick up cargo from much farther away while keeping both glove tiers separate.[/center]
+
+[hr]
+
+[size=4][b]DESCRIPTION[/b][/size]
+
+Climbing Power Gloves - Extended Cargo Pickup Range lets both tiers of the Climbing Power Gloves pull in cargo from much farther away in DEATH STRANDING 2: ON THE BEACH.
+
+Level 1 and Level 2 use separate configurable ranges. The included profile raises their native 8 m and 10 m values to 30 m and 50 m, preserving a clear advantage for Level 2 while reducing the need to carry a Sticky Gun or Sticky Cannon for ordinary remote cargo pickup.
+
+Version 1.0.0 was tested in game: Level 2 picks up cargo from a long distance, switching to Level 1 immediately reduces the reach, and removing the gloves restores normal close-range pickup.
+
+[hr]
+
+[size=4][b]MAIN FEATURES[/b][/size]
+
+[list]
+[*]Separate configurable pickup ranges for Climbing Power Gloves Level 1 and Level 2
+[*]Tested default profile: 30 m for Level 1 and 50 m for Level 2
+[*]Preserves normal close-range pickup when no gloves are equipped
+[*]Does not change other gloves, pickup speed, throw distance, or global pickup
+[*]Does not modify Sticky Gun or Sticky Cannon range and behavior
+[*]Changes only the verified range field of the two exact glove resources
+[*]Hook-free resource resolver with continuous reload reconciliation
+[*]Exact executable, item-system, VTable, RTTI, and resource validation
+[*]Conflict detection and transactional rollback instead of blind overwrites
+[*]Does not edit DS2.exe, game archives, or save files on disk
+[/list]
+
+[hr]
+
+[size=4][b]INSTALLATION[/b][/size]
+
+[list=1]
+[*]Close DEATH STRANDING 2 completely.
+[*]Install a compatible external 64-bit ASI loader. If DS2 already loads other ASI mods correctly, the existing loader can be used.
+[*]Extract the downloaded archive.
+[*]Copy ds2_climbing_gloves_range.asi and ds2_climbing_gloves_range.ini into the game folder beside DS2.exe.
+[*]Fully restart the game.
+[/list]
+
+To uninstall, close the game, remove both files, and restart. The mod does not modify save files, DS2.exe, or game archives on disk.
+
+[hr]
+
+[size=4][b]CONFIGURATION[/b][/size]
+
+[b]Enabled[/b]
+0 or 1. The included default is 1. Set it to 0 to leave both glove resources unchanged.
+
+[b]Level1RangeMeters[/b]
+Accepted range: 8-100 m. Included default: 30 m. Native value: 8 m.
+
+[b]Level2RangeMeters[/b]
+Accepted range: 10-100 m. Included default: 50 m. Native value: 10 m. This value cannot be lower than Level1RangeMeters.
+
+[b]DebugLog[/b]
+0 or 1. Set it to 1 for additional diagnostics in ds2_climbing_gloves_range.log. Critical errors are always logged.
+
+Setting both ranges to the same number gives both tiers the same reach. Invalid settings fail safely without changing either glove resource. Fully restart the game after changing the INI.
+
+[hr]
+
+[size=4][b]REQUIREMENTS[/b][/size]
+
+[list]
+[*]DEATH STRANDING 2: ON THE BEACH for PC / Steam
+[*]Supported executable version: DS2.exe 1.10.89.0
+[*]A compatible external 64-bit ASI loader
+[*]Both included files placed beside DS2.exe
+[/list]
+
+[hr]
+
+[size=4][b]IMPORTANT NOTES[/b][/size]
+
+This mod extends the gloves' native magnetic cargo pickup. It does not recreate the Sticky Gun or Sticky Cannon targeting, rope, or other special functions. Native visibility, obstruction, target-selection, cargo, and state rules still apply, so some objects may remain unavailable despite being inside the selected distance.
+
+Save/load, area transitions, vehicle pickup, multiple cargo pieces, height differences, and obstacles remain useful regression checks. After a game update, do not assume compatibility: the mod rejects unknown executable builds and may require an updated release.
+
+[hr]
+
+[size=4][b]CREDITS[/b][/size]
+
+Thanks to ShadelessFox for Odradek and the DS2 RTTI research tools, and to the player who proposed the mod and confirmed the Level 2, Level 1, and no-glove pickup-range separation in game.

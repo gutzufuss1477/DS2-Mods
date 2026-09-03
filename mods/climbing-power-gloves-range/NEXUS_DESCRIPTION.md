@@ -1,3 +1,7 @@
+> **Do not paste this rendered Markdown page into the Nexus editor.** Switch
+> the Nexus description editor to **BBCode mode** and paste the raw contents of
+> [`NEXUS_DESCRIPTION_BBCODE.txt`](NEXUS_DESCRIPTION_BBCODE.txt) instead.
+
 **Description**
 
 Climbing Power Gloves - Extended Cargo Pickup Range lets both tiers of the

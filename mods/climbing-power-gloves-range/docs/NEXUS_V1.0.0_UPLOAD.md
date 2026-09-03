@@ -35,6 +35,14 @@ Extends Climbing Power Gloves cargo pickup to separate configurable 30 m and
 - Supported `DS2.exe 1.10.89.0`
 - External 64-bit ASI loader
 
-Use `NEXUS_DESCRIPTION.md` as the full description and
-`NEXUS_SHORT_DESCRIPTION.txt` for the short-description field. Upload the
+## Description editor
+
+1. Switch the Nexus description editor to **BBCode mode**.
+2. Open `NEXUS_DESCRIPTION_BBCODE.txt` as raw text and copy its complete
+   contents into the editor.
+3. Preview the result before saving. Do not paste the rendered
+   `NEXUS_DESCRIPTION.md` page; Markdown backticks are interpreted as unwanted
+   code blocks.
+
+Use `NEXUS_SHORT_DESCRIPTION.txt` for the short-description field. Upload the
 tracked v1.0.0 ZIP from the `release` folder as the only main file.
