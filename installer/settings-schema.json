@@ -70,7 +70,27 @@
               "name": "CoffinBoardAllTerrainSpeed",
               "fields": [
                 { "key": "SpeedPercent", "type": "int", "min": 100, "max": 1000 },
-                { "key": "AccelerationPercent", "type": "int", "min": 100, "max": 500 }
+                { "key": "AccelerationPercent", "type": "int", "min": 100, "max": 500 },
+                { "key": "AllowFloatingCarrier", "type": "bool" }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "modId": "climbing-power-gloves-range",
+      "files": [
+        {
+          "target": "ds2_climbing_gloves_range.ini",
+          "sections": [
+            {
+              "name": "ClimbingGlovesRange",
+              "fields": [
+                { "key": "Enabled", "type": "bool" },
+                { "key": "Level1RangeMeters", "type": "int", "min": 8, "max": 100 },
+                { "key": "Level2RangeMeters", "type": "int", "min": 10, "max": 100 },
+                { "key": "DebugLog", "type": "bool", "advanced": true }
               ]
             }
           ]

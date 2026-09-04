@@ -1,20 +1,29 @@
 # Nexus upload data
 
 - Mod name: `DS2 Mod Suite - All-in-One Installer and Manager`
-- Version: `1.3.0`
+- Version: `1.4.0`
 - Category: `Miscellaneous`
-- Main file name: `DS2 Mod Suite v1.3.0 - All-in-One Installer`
-- Archive: `DS2_Mod_Suite_v1.3.0.zip`
-- SHA-256: `3D05EE74AA42642C375D012D6375F3A36FEFDD9A6B7F3AED9AD3094BDED32569`
+- Main file name: `DS2 Mod Suite v1.4.0 - All-in-One Installer`
+- Archive: `DS2_Mod_Suite_v1.4.0.zip`
+- SHA-256: `4525273B9548E53FF00D07D1BCC171E91279815568080BAC6C86D37980C7CCFD`
 - Installation: manual download / standalone application
 
 ## Main file description
 
 Extract the complete ZIP and run `DS2ModManager.exe`. Includes all supported mod payloads and the tested x64 ASI Loader. Do not install this archive through Vortex.
 
-SHA-256: `3D05EE74AA42642C375D012D6375F3A36FEFDD9A6B7F3AED9AD3094BDED32569`
+SHA-256: `4525273B9548E53FF00D07D1BCC171E91279815568080BAC6C86D37980C7CCFD` (see `DS2_Mod_Suite_v1.4.0.zip.sha256.txt`)
 
 ## Changelog
+
+### v1.4.0
+
+- Added Climbing Power Gloves Range 1.0.0.
+- Updated Construction Max Level on Build to 1.0.1.
+- Updated Coffin Board All-Terrain Speed to 1.1.7 with optional Floating Carrier mount support (AllowFloatingCarrier) and vehicle-mount stability fixes.
+- Expanded the suite to 18 validated stable mods.
+- Added central configuration for the Climbing Power Gloves range values and the Coffin Board Floating Carrier mount option.
+- Expanded central configuration to 15 mods, 16 INI files and 90 validated settings.
 
 ### v1.3.0
 

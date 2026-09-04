@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "suiteVersion": "1.3.0",
+  "suiteVersion": "1.4.0",
   "game": {
     "name": "DEATH STRANDING 2: ON THE BEACH",
     "executable": "DS2.exe",
@@ -140,7 +140,7 @@
     {
       "id": "coffin-board-all-terrain-speed",
       "name": "Coffin Board All-Terrain Speed",
-      "version": "1.0.0",
+      "version": "1.1.7",
       "category": "Vehicles & Cargo",
       "categoryDe": "Fahrzeuge & Fracht",
       "description": "Raises the Coffin Board's configurable land and water speed limits and acceleration while keeping steering and wet grip native.",
@@ -149,13 +149,13 @@
         {
           "payload": "payload/mods/coffin-board-all-terrain-speed/ds2_coffin_board_all_terrain_speed.asi",
           "target": "ds2_coffin_board_all_terrain_speed.asi",
-          "sha256": "51CE868F01D916A0CC0480D21D92651C600B65D5E9AF2CB059198F578F4E1223",
+          "sha256": "5F9CE4E68F568655DA48CA12D23AAC1CC7276E19520ED20A24639837736CA432",
           "kind": "binary"
         },
         {
           "payload": "payload/mods/coffin-board-all-terrain-speed/ds2_coffin_board_all_terrain_speed.ini",
           "target": "ds2_coffin_board_all_terrain_speed.ini",
-          "sha256": "6BE4FACF196E73CE938A35459B89A3B6C0C2551A0D540E44B8EC1B8ADDEE7553",
+          "sha256": "84D0D3E2541E09369DBA5688630A6ABED4C915B3B81F93521B679B8C1CA71275",
           "kind": "config"
         }
       ]
@@ -174,6 +174,29 @@
           "target": "DS2_HighDensityBackpackModules_v1.0.0.asi",
           "sha256": "C4C5CC2B525BEB88AEF264521B56C00E6616ABF6DFB0C2F6970C92379D719C1C",
           "kind": "binary"
+        }
+      ]
+    },
+    {
+      "id": "climbing-power-gloves-range",
+      "name": "Climbing Power Gloves Range",
+      "version": "1.0.0",
+      "category": "Equipment & Progression",
+      "categoryDe": "Ausrüstung & Fortschritt",
+      "description": "Increases the configurable magnetic cargo pickup range of both Climbing Power Gloves tiers.",
+      "descriptionDe": "Erhöht die konfigurierbare magnetische Frachthebe-Reichweite beider Kletterhandschuh-Stufen.",
+      "files": [
+        {
+          "payload": "payload/mods/climbing-power-gloves-range/ds2_climbing_gloves_range.asi",
+          "target": "ds2_climbing_gloves_range.asi",
+          "sha256": "7C29DA4A5FACEFC11D96079946D4F03F0D45C97102B1A8C8EC0030AA0312195A",
+          "kind": "binary"
+        },
+        {
+          "payload": "payload/mods/climbing-power-gloves-range/ds2_climbing_gloves_range.ini",
+          "target": "ds2_climbing_gloves_range.ini",
+          "sha256": "BC435F4C1CF6742B32CD0FAF4E6070AB92A35D7102DA9995EAC26CC980BC478F",
+          "kind": "config"
         }
       ]
     },
@@ -295,7 +318,7 @@
     {
       "id": "construction-max-level-on-build",
       "name": "Construction Max Level on Build",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "category": "Construction & World",
       "categoryDe": "Bauen & Welt",
       "description": "Automatically upgrades newly built supported Player PCC structures to their native maximum level through the game's original level functions.",
@@ -304,7 +327,7 @@
         {
           "payload": "payload/mods/construction-max-level-on-build/ds2_construction_max_level_on_build.asi",
           "target": "ds2_construction_max_level_on_build.asi",
-          "sha256": "074150110ACE040F1F6D57E0C761E2FA5A39FBCD3E26305130C4ECE4CB595672",
+          "sha256": "FD73C65DDA920CA60761922DAE1E5A16CF37A649CF26AE1114D717ADF493B6C5",
           "kind": "binary"
         },
         {

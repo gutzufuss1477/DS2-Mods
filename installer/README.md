@@ -1,4 +1,4 @@
-# DS2 Mod Suite v1.3.0
+# DS2 Mod Suite v1.4.0
 
 Clean all-in-one mod manager for **DEATH STRANDING 2: ON THE BEACH**.
 
@@ -57,14 +57,15 @@ Without administrator rights, backups and logs are stored below the LocalAppData
 - Pickup Cargo Capacity 1.0.1
 - Tri-Cruiser Cargo Capacity 1.1.0
 - Floating Carrier Cargo Capacity 1.0.0
-- Coffin Board All-Terrain Speed 1.0.0
+- Coffin Board All-Terrain Speed 1.1.7
 - High-Density Backpack Modules 1.0.0
+- Climbing Power Gloves Range 1.0.0
 - Sam Stats Booster 1.0.0
 - Porter Grade Booster 1.0.0
 - Lost Cargo Likes Booster 1.1.1
 - No Magellan Evaluation Penalty 1.0.0
 - Construction Anywhere 1.0.0
-- Construction Max Level on Build 1.0.0
+- Construction Max Level on Build 1.0.1
 - Weapons Anywhere 1.0.0
 - Zipline Range & Speed 1.0.0
 - Chiral Bandwidth Costs 1.0.0

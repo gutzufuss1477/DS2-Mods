@@ -32,16 +32,24 @@
     "destination": "payload/mods/floating-carrier-cargo-capacity/DS2_FloatingCarrier_CargoCapacity_v1.0.0.asi"
   },
   {
-    "source": "../mods/coffin-board-all-terrain-speed/release/DS2_Coffin_Board_All_Terrain_Speed_v1.0.0/ds2_coffin_board_all_terrain_speed.asi",
+    "source": "../mods/coffin-board-all-terrain-speed/release/DS2_Coffin_Board_All_Terrain_Speed_v1.1.7/ds2_coffin_board_all_terrain_speed.asi",
     "destination": "payload/mods/coffin-board-all-terrain-speed/ds2_coffin_board_all_terrain_speed.asi"
   },
   {
-    "source": "../mods/coffin-board-all-terrain-speed/release/DS2_Coffin_Board_All_Terrain_Speed_v1.0.0/ds2_coffin_board_all_terrain_speed.ini",
+    "source": "../mods/coffin-board-all-terrain-speed/release/DS2_Coffin_Board_All_Terrain_Speed_v1.1.7/ds2_coffin_board_all_terrain_speed.ini",
     "destination": "payload/mods/coffin-board-all-terrain-speed/ds2_coffin_board_all_terrain_speed.ini"
   },
   {
     "source": "../mods/high-density-backpack-modules/reference/DS2_HighDensityBackpackModules_v1.0.0.asi",
     "destination": "payload/mods/high-density-backpack-modules/DS2_HighDensityBackpackModules_v1.0.0.asi"
+  },
+  {
+    "source": "../mods/climbing-power-gloves-range/release/DS2_Climbing_Power_Gloves_Range_v1.0.0/ds2_climbing_gloves_range.asi",
+    "destination": "payload/mods/climbing-power-gloves-range/ds2_climbing_gloves_range.asi"
+  },
+  {
+    "source": "../mods/climbing-power-gloves-range/release/DS2_Climbing_Power_Gloves_Range_v1.0.0/ds2_climbing_gloves_range.ini",
+    "destination": "payload/mods/climbing-power-gloves-range/ds2_climbing_gloves_range.ini"
   },
   {
     "source": "../mods/sam-stats-booster/release/DS2_Sam_Stats_Booster_v1.0.0/SamStatsBooster.asi",
@@ -84,11 +92,11 @@
     "destination": "payload/mods/construction-anywhere/ds2_construction_anywhere.ini"
   },
   {
-    "source": "../mods/construction-max-level-on-build/release/DS2_Construction_Max_Level_On_Build_v1.0.0/ds2_construction_max_level_on_build.asi",
+    "source": "../mods/construction-max-level-on-build/release/DS2_Construction_Max_Level_On_Build_v1.0.1/ds2_construction_max_level_on_build.asi",
     "destination": "payload/mods/construction-max-level-on-build/ds2_construction_max_level_on_build.asi"
   },
   {
-    "source": "../mods/construction-max-level-on-build/release/DS2_Construction_Max_Level_On_Build_v1.0.0/ds2_construction_max_level_on_build.ini",
+    "source": "../mods/construction-max-level-on-build/release/DS2_Construction_Max_Level_On_Build_v1.0.1/ds2_construction_max_level_on_build.ini",
     "destination": "payload/mods/construction-max-level-on-build/ds2_construction_max_level_on_build.ini"
   },
   {

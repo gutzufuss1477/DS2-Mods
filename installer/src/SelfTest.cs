@@ -17,12 +17,12 @@ namespace DS2ModSuite
             {
                 Catalog catalog = CatalogService.LoadAndValidate();
                 CatalogService.ValidatePayloads(catalog);
-                Assert(catalog.SuiteVersion == "1.3.0" && catalog.Mods.Count == 17,
+                Assert(catalog.SuiteVersion == "1.4.0" && catalog.Mods.Count == 18,
                     "suite version/mod count mismatch");
                 report.AppendLine("PASS catalog and all payload hashes");
 
                 List<ConfigFieldDefinition> definitions = ModConfigurationService.GetDefinitions(catalog);
-                Assert(definitions.Count == 85 && definitions.Select(field => field.Target).Distinct(StringComparer.OrdinalIgnoreCase).Count() == 15,
+                Assert(definitions.Count == 90 && definitions.Select(field => field.Target).Distinct(StringComparer.OrdinalIgnoreCase).Count() == 16,
                     "settings schema field/file coverage mismatch");
                 List<ModSpec> filteredSettingsMods = ModSettingsWindow.FilterInstalledConfigurableMods(
                     catalog,
@@ -47,11 +47,13 @@ namespace DS2ModSuite
                 List<ConfigFieldDefinition> coffinBoardSettings = definitions
                     .Where(field => field.ModId == "coffin-board-all-terrain-speed")
                     .ToList();
-                Assert(coffinBoardSettings.Count == 2
+                Assert(coffinBoardSettings.Count == 3
                     && coffinBoardSettings.Any(field => field.Key == "SpeedPercent"
                         && field.Schema.Min == 100 && field.Schema.Max == 1000 && field.DefaultValue == "500")
                     && coffinBoardSettings.Any(field => field.Key == "AccelerationPercent"
-                        && field.Schema.Min == 100 && field.Schema.Max == 500 && field.DefaultValue == "400"),
+                        && field.Schema.Min == 100 && field.Schema.Max == 500 && field.DefaultValue == "400")
+                    && coffinBoardSettings.Any(field => field.Key == "AllowFloatingCarrier"
+                        && field.DefaultValue == "1"),
                     "Coffin Board settings schema mismatch");
                 List<ModSpec> coffinBoardFilteredSettings = ModSettingsWindow.FilterInstalledConfigurableMods(
                     catalog,
