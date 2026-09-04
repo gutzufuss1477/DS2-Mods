@@ -1,1 +1,1 @@
-Adds tested 500% all-terrain Coffin Board speed, 400% acceleration, and reliable high-speed riding with a loaded Floating Carrier.
+Adds 500% Coffin Board speed, 400% acceleration, stable Floating Carrier support, and native-safe Pickup/Tri-Cruiser mounting.
