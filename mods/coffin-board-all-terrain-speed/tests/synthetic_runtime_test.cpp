@@ -53,7 +53,136 @@ extern "C" __declspec(dllexport) UINT32 RunSyntheticCoffinSpeedTest() {
     if (g_steeringAnglePercent != 100 ||
         g_steeringResponsePercent != 100 || g_wetGripPercent != 100 ||
         g_speedTelemetry != 0 || g_steeringHookInstalled != 0 ||
-        g_driveTelemetryBits != 0) return 73u;
+        g_driveTelemetryBits != 0 || g_allowFloatingCarrier != 1 ||
+        g_carrierGateInstalled != 0 ||
+        g_carrierLinkPreserveInstalled != 0 ||
+        g_carrierDetachGuardInstalled != 0 ||
+        g_carrierWarningGuardInstalled != 0 ||
+        g_carrierWarningProducerHits != 0 ||
+        g_carrierWarningSuppressedHits != 0) return 73u;
+
+    // The carrier-preservation shim must capture state only for Coffin type 3
+    // and still replay the native lookup for every other vehicle.
+    if (sizeof(CARRIER_LINK_PRESERVE_TEMPLATE) != 166u ||
+        CARRIER_LINK_PRESERVE_TEMPLATE[11u] != 0x83u ||
+        CARRIER_LINK_PRESERVE_TEMPLATE[17u] != 0x03u ||
+        CARRIER_LINK_PRESERVE_TEMPLATE[18u] != 0x75u ||
+        CARRIER_LINK_PRESERVE_TEMPLATE[19u] != 0x5Eu ||
+        CARRIER_LINK_PRESERVE_TEMPLATE[27u] != 0x49u ||
+        CARRIER_LINK_PRESERVE_TEMPLATE[28u] != 0xBAu ||
+        CARRIER_LINK_PRESERVE_TEMPLATE[37u] != 0x49u ||
+        CARRIER_LINK_PRESERVE_TEMPLATE[38u] != 0xC7u ||
+        CARRIER_LINK_PRESERVE_TEMPLATE[39u] != 0x02u ||
+        CARRIER_LINK_PRESERVE_TEMPLATE[44u] != 0x49u ||
+        CARRIER_LINK_PRESERVE_TEMPLATE[45u] != 0xC7u ||
+        CARRIER_LINK_PRESERVE_TEMPLATE[47u] != 0x18u ||
+        CARRIER_LINK_PRESERVE_TEMPLATE[58u] != 0x9Eu ||
+        CARRIER_LINK_PRESERVE_TEMPLATE[67u] != 0x48u ||
+        CARRIER_LINK_PRESERVE_TEMPLATE[68u] != 0xB8u ||
+        CARRIER_LINK_PRESERVE_TEMPLATE[77u] != 0xFFu ||
+        CARRIER_LINK_PRESERVE_TEMPLATE[78u] != 0xD0u ||
+        CARRIER_LINK_PRESERVE_TEMPLATE[79u] != 0x49u ||
+        CARRIER_LINK_PRESERVE_TEMPLATE[80u] != 0xBAu ||
+        CARRIER_LINK_PRESERVE_TEMPLATE[94u] != 0x4Cu ||
+        CARRIER_LINK_PRESERVE_TEMPLATE[101u] != 0x4Du ||
+        CARRIER_LINK_PRESERVE_TEMPLATE[104u] != 0x18u ||
+        CARRIER_LINK_PRESERVE_TEMPLATE[105u] != 0x49u ||
+        CARRIER_LINK_PRESERVE_TEMPLATE[108u] != 0xFFu ||
+        CARRIER_LINK_PRESERVE_TEMPLATE[109u] != 0x25u ||
+        CARRIER_LINK_PRESERVE_TEMPLATE[121u] != 0x48u ||
+        CARRIER_LINK_PRESERVE_TEMPLATE[122u] != 0xB8u ||
+        CARRIER_LINK_PRESERVE_TEMPLATE[138u] != 0xFFu ||
+        CARRIER_LINK_PRESERVE_TEMPLATE[139u] != 0x25u ||
+        CARRIER_LINK_PRESERVE_TEMPLATE[144u] != 0xFFu ||
+        CARRIER_LINK_PRESERVE_TEMPLATE[145u] != 0x25u) return 85u;
+    for (SIZE_T index = 0; index < 8u; ++index) {
+        if (CARRIER_LINK_PRESERVE_TEMPLATE[29u + index] != 0u ||
+            CARRIER_LINK_PRESERVE_TEMPLATE[69u + index] != 0u ||
+            CARRIER_LINK_PRESERVE_TEMPLATE[81u + index] != 0u ||
+            CARRIER_LINK_PRESERVE_TEMPLATE[123u + index] != 0u ||
+            CARRIER_LINK_PRESERVE_TEMPLATE[150u + index] != 0u ||
+            CARRIER_LINK_PRESERVE_TEMPLATE[158u + index] != 0u) return 87u;
+    }
+
+    // The jump-detach guard must recognize only event 0x13754FE0, validate the
+    // captured player/carrier and active vehicle, then expose three independent
+    // continuations for suppression, native detach, and unrelated events.
+    if (sizeof(CARRIER_DETACH_GUARD_TEMPLATE) != 124u ||
+        CARRIER_DETACH_GUARD_TEMPLATE[17u] != 0x3Du ||
+        CARRIER_DETACH_GUARD_TEMPLATE[18u] != 0xE0u ||
+        CARRIER_DETACH_GUARD_TEMPLATE[19u] != 0x4Fu ||
+        CARRIER_DETACH_GUARD_TEMPLATE[20u] != 0x75u ||
+        CARRIER_DETACH_GUARD_TEMPLATE[21u] != 0x13u ||
+        CARRIER_DETACH_GUARD_TEMPLATE[24u] != 0x49u ||
+        CARRIER_DETACH_GUARD_TEMPLATE[25u] != 0xBAu ||
+        CARRIER_DETACH_GUARD_TEMPLATE[34u] != 0x49u ||
+        CARRIER_DETACH_GUARD_TEMPLATE[37u] != 0x08u ||
+        CARRIER_DETACH_GUARD_TEMPLATE[40u] != 0x4Du ||
+        CARRIER_DETACH_GUARD_TEMPLATE[43u] != 0x18u ||
+        CARRIER_DETACH_GUARD_TEMPLATE[55u] != 0x4Cu ||
+        CARRIER_DETACH_GUARD_TEMPLATE[58u] != 0x60u ||
+        CARRIER_DETACH_GUARD_TEMPLATE[72u] != 0x48u ||
+        CARRIER_DETACH_GUARD_TEMPLATE[75u] != 0x68u ||
+        CARRIER_DETACH_GUARD_TEMPLATE[82u] != 0xFFu ||
+        CARRIER_DETACH_GUARD_TEMPLATE[83u] != 0x25u ||
+        CARRIER_DETACH_GUARD_TEMPLATE[88u] != 0xFFu ||
+        CARRIER_DETACH_GUARD_TEMPLATE[89u] != 0x25u ||
+        CARRIER_DETACH_GUARD_TEMPLATE[94u] != 0xFFu ||
+        CARRIER_DETACH_GUARD_TEMPLATE[95u] != 0x25u) return 90u;
+    for (SIZE_T index = 0; index < 8u; ++index) {
+        if (CARRIER_DETACH_GUARD_TEMPLATE[26u + index] != 0u ||
+            CARRIER_DETACH_GUARD_TEMPLATE[100u + index] != 0u ||
+            CARRIER_DETACH_GUARD_TEMPLATE[108u + index] != 0u ||
+            CARRIER_DETACH_GUARD_TEMPLATE[116u + index] != 0u) return 91u;
+    }
+
+    // The overextension warning filter validates the captured carrier against
+    // the player's current carrier and the captured Coffin against the current
+    // vehicle before skipping only MsgDsNotify 0x16669BB0. Component+0x650 is
+    // deliberately not treated as an Entity+0x320 handle. Every remaining
+    // failed identity check resumes the native notification dispatch path.
+    if (sizeof(CARRIER_WARNING_GUARD_TEMPLATE) != 170u ||
+        CARRIER_WARNING_GUARD_TEMPLATE[9u] != 0xF0u ||
+        CARRIER_WARNING_GUARD_TEMPLATE[10u] != 0xFFu ||
+        CARRIER_WARNING_GUARD_TEMPLATE[16u] != 0x49u ||
+        CARRIER_WARNING_GUARD_TEMPLATE[17u] != 0xBAu ||
+        CARRIER_WARNING_GUARD_TEMPLATE[67u] != 0x4Cu ||
+        CARRIER_WARNING_GUARD_TEMPLATE[70u] != 0x60u ||
+        CARRIER_WARNING_GUARD_TEMPLATE[76u] != 0x4Du ||
+        CARRIER_WARNING_GUARD_TEMPLATE[79u] != 0x10u ||
+        CARRIER_WARNING_GUARD_TEMPLATE[91u] != 0x4Cu ||
+        CARRIER_WARNING_GUARD_TEMPLATE[94u] != 0x68u ||
+        CARRIER_WARNING_GUARD_TEMPLATE[100u] != 0xF0u ||
+        CARRIER_WARNING_GUARD_TEMPLATE[112u] != 0xFFu ||
+        CARRIER_WARNING_GUARD_TEMPLATE[113u] != 0x25u ||
+        CARRIER_WARNING_GUARD_TEMPLATE[123u] != 0xC7u ||
+        CARRIER_WARNING_GUARD_TEMPLATE[126u] != 0x50u ||
+        CARRIER_WARNING_GUARD_TEMPLATE[127u] != 0xB0u ||
+        CARRIER_WARNING_GUARD_TEMPLATE[128u] != 0x9Bu ||
+        CARRIER_WARNING_GUARD_TEMPLATE[129u] != 0x66u ||
+        CARRIER_WARNING_GUARD_TEMPLATE[130u] != 0x16u ||
+        CARRIER_WARNING_GUARD_TEMPLATE[135u] != 0x49u ||
+        CARRIER_WARNING_GUARD_TEMPLATE[136u] != 0xBBu ||
+        CARRIER_WARNING_GUARD_TEMPLATE[145u] != 0x41u ||
+        CARRIER_WARNING_GUARD_TEMPLATE[146u] != 0xFFu ||
+        CARRIER_WARNING_GUARD_TEMPLATE[147u] != 0xD3u ||
+        CARRIER_WARNING_GUARD_TEMPLATE[148u] != 0xFFu ||
+        CARRIER_WARNING_GUARD_TEMPLATE[149u] != 0x25u) return 92u;
+    for (SIZE_T index = 58u; index < 67u; ++index) {
+        if (CARRIER_WARNING_GUARD_TEMPLATE[index] != 0x90u) return 92u;
+    }
+    for (SIZE_T index = 0; index < 8u; ++index) {
+        if (CARRIER_WARNING_GUARD_TEMPLATE[18u + index] != 0u ||
+            CARRIER_WARNING_GUARD_TEMPLATE[137u + index] != 0u ||
+            CARRIER_WARNING_GUARD_TEMPLATE[154u + index] != 0u) return 93u;
+    }
+    for (SIZE_T index = 162u; index < 170u; ++index) {
+        if (CARRIER_WARNING_GUARD_TEMPLATE[index] != 0u) return 94u;
+    }
+
+    // The public v1.1.0 path deliberately contains no carrier follow-step
+    // scaling hook or global distance-limit writes. Carrier retention is
+    // implemented only by the exact mount/link/detach/notification guards.
 
     g_normalPercent = 100;
     g_boostPercent = 100;
@@ -250,6 +379,37 @@ extern "C" __declspec(dllexport) UINT32 RunSyntheticCoffinSpeedTest() {
     if (*(float*)(resource + OFF_LAND_TOP_SPEED) != 180.0f ||
         *(float*)(resource + OFF_LAND_BOOST_TOP_SPEED) != 240.0f ||
         *(float*)(resource + OFF_SLIP_SPEED) != 180.0f) return 24u;
+
+    // Model the cached-start race seen in-game: the descriptor exists at the
+    // first backfill, but its loaded-group pointer is published only afterward.
+    // A later bounded discovery poll must still apply the configured 500%.
+    *(void**)(groupEntry + 8u) = 0;
+    *(float*)(resource + OFF_LAND_TOP_SPEED) = 40.0f;
+    *(float*)(resource + OFF_LAND_BOOST_TOP_SPEED) = 60.0f;
+    *(float*)(resource + OFF_WATER_TOP_SPEED) = 60.0f;
+    *(float*)(resource + OFF_WATER_BOOST_TOP_SPEED) = 80.0f;
+    *(float*)(resource + OFF_SLIP_SPEED) = 39.0f;
+    g_normalPercent = 500;
+    g_boostPercent = 500;
+    g_scaleWaterCaps = 1;
+    g_waterBaseline = 0.0f;
+    g_waterBoostBaseline = 0.0f;
+    g_lastAppliedWater = 0.0f;
+    g_lastAppliedWaterBoost = 0.0f;
+    g_physicsReady = 0;
+    g_complete = 0;
+    g_seenPhysicsResource = 0;
+    inspect_already_loaded_group(g_syntheticStreamingSystem, COFFIN_PHYSICS_GROUP_ID);
+    if (g_physicsReady || g_complete || g_seenPhysicsResource) return 95u;
+    *(void**)(groupEntry + 8u) = g_syntheticLoadedGroup;
+    if (!wait_for_patch_completion_with_backfill(
+            g_syntheticStreamingSystem, 1u, 0u, 1u) ||
+        !g_physicsReady || !g_complete || g_seenPhysicsResource != resource ||
+        *(float*)(resource + OFF_LAND_TOP_SPEED) != 300.0f ||
+        *(float*)(resource + OFF_LAND_BOOST_TOP_SPEED) != 400.0f ||
+        *(float*)(resource + OFF_WATER_TOP_SPEED) != 300.0f ||
+        *(float*)(resource + OFF_WATER_BOOST_TOP_SPEED) != 400.0f ||
+        *(float*)(resource + OFF_SLIP_SPEED) != 300.0f) return 96u;
 
     // Optional all-surface mode scales all four caps from one preserved native
     // water baseline. Reapplying the callback must not multiply its own values.
@@ -677,7 +837,7 @@ extern "C" __declspec(dllexport) UINT32 RunSyntheticCoffinSpeedTest() {
     if (!patch_coffin_physics(resource) ||
         !f_near(*(float*)(resource + OFF_WET_SIDE_GRIP), 0.4995f, 0.00001f)) return 70u;
 
-    // Full v1.0.0 packaged-profile transaction: only speed/caps/gearing/slip
+    // Full v1.1.0 packaged-profile speed transaction: only speed/caps/gearing/slip
     // and the required drive factor change. Steering, wet grip and telemetry
     // remain native/inactive, so no steering hook is required.
     *(float*)(resource + OFF_STEERING_DEGREE) = 50.0f;
@@ -788,7 +948,7 @@ extern "C" __declspec(dllexport) UINT32 RunSyntheticCoffinSpeedTest() {
             &synthetic_add_listener,
             &synthetic_remove_listener) ||
         g_syntheticListenerAdds != 1) return 78u;
-    if (wait_for_patch_completion(1u, 0u)) return 79u;
+    if (patch_complete_acquire()) return 79u;
 
     g_seenPhysicsResource = 0;
     g_physicsReady = 0;
@@ -796,7 +956,7 @@ extern "C" __declspec(dllexport) UINT32 RunSyntheticCoffinSpeedTest() {
     g_syntheticCallbackActive = true;
     on_finish_load(&g_listener, &unloadGroup);
     g_syntheticCallbackActive = false;
-    if (!wait_for_patch_completion(1u, 0u) ||
+    if (!patch_complete_acquire() ||
         g_syntheticListenerRemoves != 0 || g_syntheticRemovedInsideCallback) return 80u;
     if (!unregister_streaming_listener() ||
         g_syntheticListenerRemoves != 1 || g_syntheticRemovedInsideCallback ||
@@ -815,7 +975,7 @@ extern "C" __declspec(dllexport) UINT32 RunSyntheticCoffinSpeedTest() {
             syntheticListenerVtable,
             &synthetic_add_listener,
             &synthetic_remove_listener) ||
-        wait_for_patch_completion(1u, 0u) || !unregister_streaming_listener() ||
+        patch_complete_acquire() || !unregister_streaming_listener() ||
         g_syntheticListenerAdds != 2 || g_syntheticListenerRemoves != 2 ||
         listener_state_acquire() != 0) return 84u;
     return 0u;

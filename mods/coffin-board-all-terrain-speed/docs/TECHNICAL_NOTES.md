@@ -272,3 +272,24 @@ vtable immediate at `+16`, return qword at `+52`, and aligned factor at `+68`.
 There is no `component+0x120` velocity load and no telemetry store. The older
 80-byte diagnostic trampoline remains dormant for compatibility and is chosen
 only by an explicitly enabled legacy telemetry key.
+
+## v1.1.0 Floating Carrier support
+
+The public v1.1.0 carrier implementation uses four narrowly scoped Coffin-only
+changes. The linked-object type gate accepts the Floating Carrier case while
+mounting, the RideVehicle transition shim snapshots and preserves the exact
+linked carrier instead of running the native disconnect transaction, the
+confirmed detach event is suppressed only while the captured player/carrier
+and active Coffin handles still match, and the corresponding overextension
+notification is filtered for that same exact pair.
+
+This design preserves native detach/reattach behavior after dismounting and
+does not change cargo or collision damage. Gameplay validation covered fast
+land and water travel, collisions, and large jumps. A confirmation run saw 77
+overextension notification producer hits and 77 exact-pair suppressions.
+
+Earlier experimental follow-step scaling and global distance writes were not
+required for stable retention and are not installed by the public release. The
+unused follow-update executable anchor was also removed from final target
+validation so the release validator checks only instructions used by the
+shipping carrier path.

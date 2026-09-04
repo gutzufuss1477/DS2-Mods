@@ -1,4 +1,4 @@
-// DS2 Coffin Board All-Terrain Speed v1.0.0
+// DS2 Coffin Board All-Terrain Speed v1.1.0
 // Target: DEATH STRANDING 2: ON THE BEACH, Steam 1.10.89.0
 //
 // Event-driven resource patch. The normal-land limits are derived from the
@@ -151,12 +151,60 @@ static const UINT32 RVA_STREAMING_ADD_LISTENER = 0x026F6E40u;
 static const UINT32 RVA_STREAMING_REMOVE_LISTENER = 0x026F6EE0u;
 static const UINT32 RVA_DRIVE_TORQUE_HOOK = 0x0247A431u;
 static const UINT32 RVA_STEERING_OUTPUT_HOOK = 0x01F46AF6u;
+// Interaction 0xA8 builds Coffin Board ride action 0x158. Its linked-object
+// guard treats native vehicle types 1 and 2 as compatible, but excludes the
+// Coffin Board (type 3). Raising this immediate from 1 to 2 adds type 3 to
+// that one exception without disabling any later mount/safety validation.
+static const UINT32 RVA_COFFIN_LINKED_OBJECT_TYPE_LIMIT = 0x01007D94u;
+// RideVehicle normally disconnects the player's active Floating Carrier while
+// entering any vehicle.  The Coffin Board exception below keeps the existing,
+// fully loaded carrier linked instead of invoking that disconnect transaction.
+static const UINT32 RVA_COFFIN_PRESERVE_CARRIER_HOOK = 0x00F9A807u;
+static const UINT32 RVA_COFFIN_PRESERVE_CARRIER_CONTINUE = 0x00F9A81Cu;
+static const UINT32 RVA_COFFIN_PRESERVE_CARRIER_SKIP = 0x00F9AC6Bu;
+static const UINT32 RVA_RESOLVE_LINKED_CARRIER = 0x00E462F0u;
+// Player baggage event 0x13754FE0 is the confirmed detach path used when a
+// high-speed jump exceeds the native Floating Carrier boundary.  Its whole
+// transaction must be skipped while the exact captured carrier is still linked
+// to an active Coffin Board; preserving only player+0xC60 is too late because
+// the transaction has already notified the carrier entity by then.
+static const UINT32 RVA_CARRIER_DETACH_EVENT_GATE = 0x00E5C7AAu;
+static const UINT32 RVA_CARRIER_DETACH_OTHER_EVENT = 0x00E5C7C2u;
+static const UINT32 RVA_CARRIER_DETACH_NATIVE = 0x00E5CDD3u;
+static const UINT32 RVA_CARRIER_DETACH_SUPPRESSED = 0x00E5D0A7u;
+// In the native bit-4 overextension/break branch, DSHoveringCartComponent sends
+// MsgDsNotify 0x16669BB0 to the player immediately before the detach event. Its
+// player consumer selects the warning/dialog text, starts Sam's reaction, and
+// emits MsgMissionPlayerNotify 0x68F85019. Filter only this dispatch for the
+// exact carrier/player/Coffin identity captured during mounting.
+static const UINT32 RVA_CARRIER_WARNING_NOTIFICATION_GATE = 0x0121D839u;
+static const UINT32 RVA_CARRIER_WARNING_NOTIFICATION_CONTINUE = 0x0121D84Au;
+static const UINT32 RVA_ENTITY_MESSAGE_DISPATCH = 0x00130C60u;
+static const UINT32 RVA_RIDE_VEHICLE_CARRIER_GATE = 0x01011B6Fu;
+static const UINT32 RVA_RIDE_VEHICLE_RESULT_GATE = 0x010049B0u;
+static const UINT32 RVA_RIDE_VEHICLE_FALLBACK_GATE = 0x01004A8Au;
 static const UINT32 RVA_COFFIN_PHYSICS_VTABLE = 0x033AD0B0u;
 static const UINT32 RVA_COFFIN_VFUNC_0 = 0x01F430B0u;
 static const UINT32 RVA_COFFIN_VFUNC_1 = 0x01F4E160u;
 static const UINT32 RVA_COFFIN_VFUNC_2 = 0x01F480A0u;
 static const UINT32 RVA_COFFIN_VFUNC_3 = 0x01F49350u;
 static const UINT32 RVA_COFFIN_VFUNC_6 = 0x01F46AB0u;
+#if defined(COFFIN_CARRIER_TRACE_BUILD)
+static const UINT32 RVA_RIDE_VEHICLE_VTABLE = 0x0325E168u;
+static const UINT32 RVA_DROP_CART_VTABLE = 0x03267358u;
+static const UINT32 RVA_GET_CART_VTABLE = 0x03266868u;
+static const UINT32 RVA_ATTACH_CART_VTABLE = 0x03268B48u;
+// The three exact cargo-state event paths that replace the live Floating
+// Carrier/current-vehicle handle block at player+0xC60.
+static const UINT32 RVA_PLAYER_CARRIER_WRITE_1 = 0x00F6CB2Au;
+static const UINT32 RVA_PLAYER_CARRIER_WRITE_2 = 0x00F6CDCAu;
+static const UINT32 RVA_PLAYER_CARRIER_WRITE_3 = 0x00F6D184u;
+static const UINT32 RVA_PLAYER_CARRIER_DIRECT_EVENT = 0x00E18D78u;
+static const UINT32 RVA_PLAYER_CARRIER_ATTACH = 0x00E5CB0Au;
+static const UINT32 RVA_PLAYER_CARRIER_ATTACH_NULL = 0x00E5CB2Du;
+static const UINT32 RVA_PLAYER_CARRIER_DETACH_EVENT = 0x00E5D09Cu;
+static const UINT32 RVA_RIDE_CARRIER_DIRECT_CLEAR = 0x00F9A9BFu;
+#endif
 static const SIZE_T OFF_STREAMING_GROUP_LOCK = 0xA8u;
 static const SIZE_T OFF_STREAMING_GROUP_COUNT = 0x150288u;
 static const SIZE_T OFF_STREAMING_GROUP_TABLE = 0x150290u;
@@ -182,6 +230,7 @@ static int g_patchStandardSpeed = 0;
 static int g_raiseSlipThreshold = 1;
 static int g_debugLog = 0;
 static int g_simpleProfile = 0;
+static int g_allowFloatingCarrier = 1;
 static UINT64 g_maxScanGroups = 0;
 static UINT64 g_callbackGroups = 0;
 static UINT64 g_callbackObjects = 0;
@@ -211,6 +260,45 @@ static int g_driveHookInstalled = 0;
 static volatile LONG* g_driveFactorBits = 0;
 static volatile LONG* g_driveTelemetryBits = 0;
 static int g_steeringHookInstalled = 0;
+static int g_carrierGateInstalled = 0;
+static int g_carrierLinkPreserveInstalled = 0;
+static int g_carrierDetachGuardInstalled = 0;
+static int g_carrierWarningGuardInstalled = 0;
+
+// Written only from native gameplay threads. The Coffin transition publishes
+// the carrier entity last; the event hook reads it first. Aligned qword stores
+// are atomic on x64 and the platform's store ordering makes the snapshot safe
+// without introducing an OS call or lock on the simulation thread.
+struct CarrierRideLinkState {
+    volatile UINT64 carrierEntity;
+    volatile UINT64 playerState;
+    volatile UINT64 coffinVehicleHandle;
+    volatile UINT64 carrierEntityHandle;
+    volatile LONG followUpdateCalls;
+    volatile LONG publishedCarrierCalls;
+    volatile LONG activeCoffinCalls;
+    volatile LONG scaledFollowCalls;
+    volatile UINT64 lastComponentHandle;
+#if defined(COFFIN_CARRIER_TRACE_BUILD)
+    volatile LONG playerEventCalls;
+    volatile LONG cartCodeBreakCalls;
+    volatile LONG carrierHandleChanges;
+    volatile UINT32 lastPlayerEventId;
+    volatile UINT32 lastCarrierChangeEventId;
+    volatile UINT64 carrierBeforeChange;
+    volatile UINT64 carrierAfterChange;
+    volatile UINT64 vehicleBeforeChange;
+    volatile UINT64 vehicleAfterChange;
+#endif
+};
+__declspec(align(16)) static CarrierRideLinkState g_carrierRideLinkState = {};
+static volatile LONG* g_carrierHelperCount = 0;
+static volatile LONG* g_carrierHelperStatus = 0;
+static volatile LONG* g_carrierResultCount = 0;
+static volatile LONG* g_carrierResultCode = 0;
+static volatile LONG* g_carrierFallbackCount = 0;
+static volatile LONG* g_carrierWarningProducerHits = 0;
+static volatile LONG* g_carrierWarningSuppressedHits = 0;
 static volatile LONG* g_steeringSlopeBits = 0;
 static volatile LONG* g_steeringSampleSequence = 0;
 static volatile LONG* g_steeringSampleSpeedBits = 0;
@@ -218,6 +306,29 @@ static volatile LONG* g_steeringSamplePreClampBits = 0;
 static volatile LONG* g_steeringSampleFinalBits = 0;
 static volatile LONG* g_steeringSampleRawBits = 0;
 static volatile LONG* g_steeringSampleScaleBits = 0;
+
+#if defined(COFFIN_CARRIER_TRACE_BUILD)
+static volatile UINT64* g_carrierTracePlayerState = 0;
+
+struct CarrierTraceProbe {
+    const char* name;
+    UINT32 vtableRva;
+    UINT32 slot;
+    UINT32 expectedFunctionRva;
+    volatile LONG count;
+};
+
+static CarrierTraceProbe g_carrierTraceProbes[] = {
+    { "RideVehicle.Enter", RVA_RIDE_VEHICLE_VTABLE, 6u, 0x01004F20u, 0 },
+    { "DropCart.CanEnter", RVA_DROP_CART_VTABLE, 4u, 0x010F2900u, 0 },
+    { "DropCart.Enter", RVA_DROP_CART_VTABLE, 11u, 0x010F29D0u, 0 },
+    { "DropCart.Exit", RVA_DROP_CART_VTABLE, 12u, 0x010F2D70u, 0 },
+    { "DropCart.Event", RVA_DROP_CART_VTABLE, 16u, 0x010F3740u, 0 },
+    { "GetCart.Enter", RVA_GET_CART_VTABLE, 11u, 0x010F4330u, 0 },
+    { "GetCart.Event", RVA_GET_CART_VTABLE, 27u, 0x010F4D30u, 0 },
+    { "AttachCart.Event", RVA_ATTACH_CART_VTABLE, 27u, 0x0112F750u, 0 },
+};
+#endif
 
 static bool patch_complete_acquire() {
     return __atomic_load_n(&g_complete, __ATOMIC_ACQUIRE) != 0;
@@ -231,6 +342,9 @@ static LONG listener_state_acquire() {
     return __atomic_load_n(&g_listenerRegistered, __ATOMIC_ACQUIRE);
 }
 static UINT64 g_logLock = 0;
+// Serializes callback-driven discovery with the worker's loaded-group
+// backfill. A zero-initialized SRW lock is valid on Windows.
+static UINT64 g_targetStateLock = 0;
 static HANDLE g_suspendedThreadHandles[512];
 static DWORD g_suspendedThreadIds[512];
 static UINT32 g_suspendedThreadCount = 0;
@@ -479,6 +593,9 @@ static void read_configuration() {
     g_debugLog = (int)GetPrivateProfileIntW(
         L"CoffinBoardAllTerrainSpeed", L"DebugLog", 0, g_iniPath
     );
+    g_allowFloatingCarrier = (int)GetPrivateProfileIntW(
+        L"CoffinBoardAllTerrainSpeed", L"AllowFloatingCarrier", 1, g_iniPath
+    ) != 0;
     int maxGroups = (int)GetPrivateProfileIntW(
         L"CoffinBoardAllTerrainSpeed", L"MaxScanGroups", 0, g_iniPath
     );
@@ -655,6 +772,629 @@ static bool suspend_other_threads(
         *suspendedCount = 0;
     }
     return stable;
+}
+
+// The first native gate runs before DS2 has identified the nearby vehicle.
+// Let the normal query run, then keep the exception only when that query
+// returns interaction result 0x158. The Coffin interaction generator emits
+// 0x158 exclusively for its ride action; other vehicle results still branch
+// to the original failure path while carrier status bit 12 is set.
+//
+// Runtime-patched qwords: continuation +99, generic success +113, failure +127.
+// Trace cells: hit count +135, last result code +139.
+static const BYTE CARRIER_RESULT_GATE_TEMPLATE[143] = {
+    0xF3,0x0F,0x1E,0xFA,                         // endbr64
+    0xF0,0xFF,0x05,0x7C,0x00,0x00,0x00,          // lock inc dword [hit count]
+    0x8B,0x84,0x24,0x80,0x00,0x00,0x00,          // mov eax,[rsp+80h]
+    0x89,0x05,0x73,0x00,0x00,0x00,               // mov [last result],eax
+    0x48,0x8B,0x43,0x28,                          // mov rax,[rbx+28h]
+    0x8B,0x90,0x90,0x73,0x00,0x00,               // mov edx,[rax+7390h]
+    0x0B,0x90,0x88,0x73,0x00,0x00,               // or edx,[rax+7388h]
+    0xF7,0xC2,0x00,0x10,0x00,0x00,               // test edx,1000h
+    0x0F,0x84,0x11,0x00,0x00,0x00,               // je native
+    0x81,0xBC,0x24,0x80,0x00,0x00,0x00,
+        0x58,0x01,0x00,0x00,                      // cmp dword [rsp+80h],158h
+    0x0F,0x85,0x34,0x00,0x00,0x00,               // jne fail
+    0x8B,0x4C,0x24,0x24,                          // native: mov ecx,[rsp+24h]
+    0x83,0xF9,0x01,                               // cmp ecx,1
+    0x0F,0x85,0x19,0x00,0x00,0x00,               // jne generic success
+    0x81,0xBC,0x24,0x80,0x00,0x00,0x00,
+        0x58,0x01,0x00,0x00,                      // cmp dword [rsp+80h],158h
+    0xFF,0x25,0x00,0x00,0x00,0x00,               // jmp [continuation]
+    0,0,0,0,0,0,0,0,
+    0xFF,0x25,0x00,0x00,0x00,0x00,               // generic: jmp [native success]
+    0,0,0,0,0,0,0,0,
+    0xFF,0x25,0x00,0x00,0x00,0x00,               // fail: jmp [native failure]
+    0,0,0,0,0,0,0,0,
+    0,0,0,0,                                      // hit count
+    0,0,0,0                                       // last result code
+};
+
+// Runtime-patched qwords: continuation +65, failure +79. Trace count +87.
+static const BYTE CARRIER_FALLBACK_GATE_TEMPLATE[91] = {
+    0xF3,0x0F,0x1E,0xFA,                         // endbr64
+    0xF0,0xFF,0x05,0x4C,0x00,0x00,0x00,          // lock inc dword [hit count]
+    0x84,0xC0,                                    // test al,al
+    0x0F,0x84,0x36,0x00,0x00,0x00,               // je fail
+    0x48,0x8B,0x43,0x28,                          // mov rax,[rbx+28h]
+    0x8B,0x90,0x90,0x73,0x00,0x00,               // mov edx,[rax+7390h]
+    0x0B,0x90,0x88,0x73,0x00,0x00,               // or edx,[rax+7388h]
+    0xF7,0xC2,0x00,0x10,0x00,0x00,               // test edx,1000h
+    0x0F,0x85,0x1A,0x00,0x00,0x00,               // jne fail
+    0x48,0x8B,0x44,0x24,0x30,                     // mov rax,[rsp+30h]
+    0x48,0x89,0x83,0x20,0x02,0x00,0x00,          // mov [rbx+220h],rax
+    0xFF,0x25,0x00,0x00,0x00,0x00,               // jmp [continuation]
+    0,0,0,0,0,0,0,0,
+    0xFF,0x25,0x00,0x00,0x00,0x00,               // fail: jmp [native failure]
+    0,0,0,0,0,0,0,0,
+    0,0,0,0                                       // hit count
+};
+
+// The initial gate trace captures the combined shifted player status in ECX,
+// then always continues with the native checks that follow the carrier bit.
+// Runtime-patched continuation qword +34. Trace cells: count +42, status +46.
+static const BYTE CARRIER_INITIAL_GATE_TEMPLATE[50] = {
+    0xF3,0x0F,0x1E,0xFA,                         // endbr64
+    0xF0,0xFF,0x05,0x1F,0x00,0x00,0x00,          // lock inc dword [hit count]
+    0x89,0x0D,0x1D,0x00,0x00,0x00,               // mov [last status],ecx
+    0x48,0x8B,0x43,0x28,                          // mov rax,[rbx+28h]
+    0x83,0xB8,0x48,0x75,0x00,0x00,0x01,          // cmp dword [rax+7548h],1
+    0xFF,0x25,0x00,0x00,0x00,0x00,               // jmp [continuation]
+    0,0,0,0,0,0,0,0,
+    0,0,0,0,                                      // hit count
+    0,0,0,0                                       // last shifted status
+};
+
+// Coffin-only RideVehicle transition shim. The Coffin branch performs the
+// native read-only linked-carrier lookup, snapshots that exact entity plus the
+// player/vehicle handles, and then bypasses the disconnect transaction. For
+// every other vehicle it replays the original lookup and branch unchanged.
+// The carrier handle is cleared before lookup and the entity pointer is
+// published last, after the matching handle is captured. Runtime-patched
+// qwords: state address +29/+81, resolver +69/+123,
+// native continuation +150, Coffin/no-carrier skip +158.
+static const BYTE CARRIER_LINK_PRESERVE_TEMPLATE[166] = {
+    0xF3,0x0F,0x1E,0xFA,
+    0x48,0x8B,0x87,0x90,0x01,0x00,0x00,
+    0x83,0xB8,0xA0,0x02,0x00,0x00,0x03,
+    0x75,0x5E,
+    0x48,0x8B,0x8F,0xA8,0x00,0x00,0x00,
+    0x49,0xBA, 0,0,0,0,0,0,0,0,
+    0x49,0xC7,0x02,0x00,0x00,0x00,0x00,
+    0x49,0xC7,0x42,0x18,0x00,0x00,0x00,0x00,
+    0x49,0x89,0x4A,0x08,
+    // RSI is the selected VehicleEntity. This matches the later native ride
+    // commit at RVA 0xF9ADB6, which copies [rsi+0x320] to playerState+0xC68.
+    0x4C,0x8B,0x9E,0x20,0x03,0x00,0x00,
+    0x4D,0x89,0x5A,0x10,
+    0x48,0xB8, 0,0,0,0,0,0,0,0,
+    0xFF,0xD0,
+    0x49,0xBA, 0,0,0,0,0,0,0,0,
+    0x48,0x85,0xC0,
+    0x74,0x0E,
+    0x4C,0x8B,0x98,0x20,0x03,0x00,0x00,
+    0x4D,0x89,0x5A,0x18,
+    0x49,0x89,0x02,
+    0xFF,0x25,0x2C,0x00,0x00,0x00,
+    0x48,0x8B,0x8F,0xA8,0x00,0x00,0x00,
+    0x48,0xB8, 0,0,0,0,0,0,0,0,
+    0xFF,0xD0,
+    0x48,0x85,0xC0,
+    0x74,0x0E,
+    0xFF,0x25,0x06,0x00,0x00,0x00,
+    0xFF,0x25,0x08,0x00,0x00,0x00,
+    0,0,0,0,0,0,0,0,
+    0,0,0,0,0,0,0,0
+};
+
+static bool install_floating_carrier_link_preserve(HMODULE executable) {
+    if (!g_allowFloatingCarrier) return true;
+    BYTE* base = (BYTE*)executable;
+    BYTE* target = base + RVA_COFFIN_PRESERVE_CARRIER_HOOK;
+    static const BYTE expected[21] = {
+        0x48,0x8B,0x8F,0xA8,0x00,0x00,0x00,
+        0xE8,0xDD,0xBA,0xEA,0xFF,
+        0x48,0x85,0xC0,
+        0x0F,0x84,0x4F,0x04,0x00,0x00
+    };
+    if (!readable_range(target, sizeof(expected)) ||
+        !bytes_equal(target, expected, sizeof(expected))) return false;
+
+    BYTE* cave = (BYTE*)VirtualAlloc(
+        0, sizeof(CARRIER_LINK_PRESERVE_TEMPLATE), MEM_COMMIT | MEM_RESERVE,
+        PAGE_EXECUTE_READWRITE
+    );
+    if (!cave) return false;
+    memcpy(cave, CARRIER_LINK_PRESERVE_TEMPLATE, sizeof(CARRIER_LINK_PRESERVE_TEMPLATE));
+    UINT64 stateAddress = (UINT64)&g_carrierRideLinkState;
+    UINT64 resolver = (UINT64)(base + RVA_RESOLVE_LINKED_CARRIER);
+    UINT64 continuation = (UINT64)(base + RVA_COFFIN_PRESERVE_CARRIER_CONTINUE);
+    UINT64 skipDisconnect = (UINT64)(base + RVA_COFFIN_PRESERVE_CARRIER_SKIP);
+    memcpy(cave + 29u, &stateAddress, sizeof(stateAddress));
+    memcpy(cave + 69u, &resolver, sizeof(resolver));
+    memcpy(cave + 81u, &stateAddress, sizeof(stateAddress));
+    memcpy(cave + 123u, &resolver, sizeof(resolver));
+    memcpy(cave + 150u, &continuation, sizeof(continuation));
+    memcpy(cave + 158u, &skipDisconnect, sizeof(skipDisconnect));
+    FlushInstructionCache(
+        (HANDLE)(INT64)-1, cave, sizeof(CARRIER_LINK_PRESERVE_TEMPLATE)
+    );
+
+    BYTE replacement[21] = {
+        0xFF,0x25,0,0,0,0, 0,0,0,0,0,0,0,0,
+        0x90,0x90,0x90,0x90,0x90,0x90,0x90
+    };
+    UINT64 caveAddress = (UINT64)cave;
+    memcpy(replacement + 6u, &caveAddress, sizeof(caveAddress));
+
+    bool threadsFrozen = false;
+    for (UINT32 attempt = 0; attempt < 50u && !threadsFrozen; ++attempt) {
+        g_suspendedThreadCount = 0;
+        threadsFrozen = suspend_other_threads(
+            g_suspendedThreadHandles, &g_suspendedThreadCount,
+            target, sizeof(replacement)
+        );
+        if (!threadsFrozen) Sleep(1);
+    }
+    if (!threadsFrozen) return false;
+
+    DWORD oldProtection = 0;
+    if (!VirtualProtect(
+            target, sizeof(replacement), PAGE_EXECUTE_READWRITE, &oldProtection
+        )) {
+        resume_suspended_threads(g_suspendedThreadHandles, g_suspendedThreadCount);
+        g_suspendedThreadCount = 0;
+        return false;
+    }
+    memcpy(target, replacement, sizeof(replacement));
+    FlushInstructionCache((HANDLE)(INT64)-1, target, sizeof(replacement));
+    bool installed = bytes_equal(target, replacement, sizeof(replacement));
+    if (!installed) {
+        memcpy(target, expected, sizeof(expected));
+        FlushInstructionCache((HANDLE)(INT64)-1, target, sizeof(expected));
+    }
+    DWORD ignored = 0;
+    VirtualProtect(target, sizeof(replacement), oldProtection, &ignored);
+    resume_suspended_threads(g_suspendedThreadHandles, g_suspendedThreadCount);
+    g_suspendedThreadCount = 0;
+    if (!installed) return false;
+    g_carrierLinkPreserveInstalled = 1;
+    return true;
+}
+
+// Event-dispatch shim for the confirmed Floating Carrier detach event.  The
+// first four instructions are the native function setup overwritten by the
+// hook. Runtime-patched qwords: state address +26, suppressed epilogue +100,
+// native detach branch +108, next event comparison +116.
+static const BYTE CARRIER_DETACH_GUARD_TEMPLATE[124] = {
+    0xF3,0x0F,0x1E,0xFA,
+    0x8B,0x42,0x10,
+    0x49,0x89,0xD5,
+    0x4C,0x8B,0x61,0x48,
+    0x48,0x89,0xCE,
+    0x3D,0xE0,0x4F,0x75,0x13,
+    0x75,0x46,
+    0x49,0xBA, 0,0,0,0,0,0,0,0,
+    0x49,0x39,0x72,0x08,
+    0x75,0x30,
+    0x4D,0x8B,0x5A,0x18,
+    0x4D,0x85,0xDB,
+    0x74,0x27,
+    0x49,0x83,0xFB,0xFF,
+    0x74,0x21,
+    0x4C,0x39,0x9E,0x60,0x0C,0x00,0x00,
+    0x75,0x18,
+    0x49,0x8B,0x02,
+    0x48,0x85,0xC0,
+    0x74,0x10,
+    0x48,0x83,0xBE,0x68,0x0C,0x00,0x00,0xFF,
+    0x74,0x06,
+    0xFF,0x25,0x0C,0x00,0x00,0x00,
+    0xFF,0x25,0x0E,0x00,0x00,0x00,
+    0xFF,0x25,0x10,0x00,0x00,0x00,
+    0,0,0,0,0,0,0,0,
+    0,0,0,0,0,0,0,0,
+    0,0,0,0,0,0,0,0
+};
+
+static bool install_floating_carrier_detach_guard(HMODULE executable) {
+    if (!g_allowFloatingCarrier) return true;
+    BYTE* base = (BYTE*)executable;
+    BYTE* target = base + RVA_CARRIER_DETACH_EVENT_GATE;
+    static const BYTE expected[24] = {
+        0x8B,0x42,0x10,
+        0x4C,0x8B,0xEA,
+        0x4C,0x8B,0x61,0x48,
+        0x48,0x8B,0xF1,
+        0x3D,0xE0,0x4F,0x75,0x13,
+        0x0F,0x84,0x11,0x06,0x00,0x00
+    };
+    if (!readable_range(target, sizeof(expected)) ||
+        !bytes_equal(target, expected, sizeof(expected))) return false;
+
+    BYTE* cave = (BYTE*)VirtualAlloc(
+        0, sizeof(CARRIER_DETACH_GUARD_TEMPLATE),
+        MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE
+    );
+    if (!cave) return false;
+    memcpy(cave, CARRIER_DETACH_GUARD_TEMPLATE,
+           sizeof(CARRIER_DETACH_GUARD_TEMPLATE));
+    UINT64 stateAddress = (UINT64)&g_carrierRideLinkState;
+    UINT64 suppressed = (UINT64)(base + RVA_CARRIER_DETACH_SUPPRESSED);
+    UINT64 nativeDetach = (UINT64)(base + RVA_CARRIER_DETACH_NATIVE);
+    UINT64 otherEvent = (UINT64)(base + RVA_CARRIER_DETACH_OTHER_EVENT);
+    memcpy(cave + 26u, &stateAddress, sizeof(stateAddress));
+    memcpy(cave + 100u, &suppressed, sizeof(suppressed));
+    memcpy(cave + 108u, &nativeDetach, sizeof(nativeDetach));
+    memcpy(cave + 116u, &otherEvent, sizeof(otherEvent));
+    FlushInstructionCache(
+        (HANDLE)(INT64)-1, cave, sizeof(CARRIER_DETACH_GUARD_TEMPLATE)
+    );
+
+    BYTE replacement[24] = {
+        0xFF,0x25,0,0,0,0, 0,0,0,0,0,0,0,0,
+        0x90,0x90,0x90,0x90,0x90,0x90,0x90,0x90,0x90,0x90
+    };
+    UINT64 caveAddress = (UINT64)cave;
+    memcpy(replacement + 6u, &caveAddress, sizeof(caveAddress));
+
+    bool threadsFrozen = false;
+    for (UINT32 attempt = 0; attempt < 50u && !threadsFrozen; ++attempt) {
+        g_suspendedThreadCount = 0;
+        threadsFrozen = suspend_other_threads(
+            g_suspendedThreadHandles, &g_suspendedThreadCount,
+            target, sizeof(replacement)
+        );
+        if (!threadsFrozen) Sleep(1);
+    }
+    if (!threadsFrozen) return false;
+
+    DWORD oldProtection = 0;
+    if (!VirtualProtect(
+            target, sizeof(replacement), PAGE_EXECUTE_READWRITE, &oldProtection
+        )) {
+        resume_suspended_threads(g_suspendedThreadHandles, g_suspendedThreadCount);
+        g_suspendedThreadCount = 0;
+        return false;
+    }
+    memcpy(target, replacement, sizeof(replacement));
+    FlushInstructionCache((HANDLE)(INT64)-1, target, sizeof(replacement));
+    bool installed = bytes_equal(target, replacement, sizeof(replacement));
+    if (!installed) {
+        memcpy(target, expected, sizeof(expected));
+        FlushInstructionCache((HANDLE)(INT64)-1, target, sizeof(expected));
+    }
+    DWORD ignored = 0;
+    VirtualProtect(target, sizeof(replacement), oldProtection, &ignored);
+    resume_suspended_threads(g_suspendedThreadHandles, g_suspendedThreadCount);
+    g_suspendedThreadCount = 0;
+    if (!installed) return false;
+    g_carrierDetachGuardInstalled = 1;
+    return true;
+}
+
+// Inline filter for the proven HUD/Sam overextension notification. The native
+// path rebuilds MsgDsNotify 0x16669BB0 and calls the original entity dispatcher;
+// the Coffin-only path resumes immediately after that call. The captured
+// carrier must still be the player's active carrier and the captured Coffin
+// must still be the active vehicle. DSHoveringCartComponent+0x650 is an
+// internal reference used by its transform lookup, not the player-facing
+// carrier handle, so it is intentionally not compared with Entity+0x320.
+// Runtime fields: shared state +18, dispatcher +137, continuation +154. Trace
+// counters are in the cave at +162 and +166.
+static const BYTE CARRIER_WARNING_GUARD_TEMPLATE[170] = {
+    0xF3,0x0F,0x1E,0xFA,
+    0x50,
+    0x41,0x52,
+    0x41,0x53,
+    0xF0,0xFF,0x05,0x92,0x00,0x00,0x00,
+    0x49,0xBA, 0,0,0,0,0,0,0,0,
+    0x49,0x8B,0x02,
+    0x48,0x85,0xC0,
+    0x74,0x54,
+    0x49,0x8B,0x42,0x08,
+    0x48,0x85,0xC0,
+    0x74,0x4B,
+    0x4D,0x8B,0x5A,0x18,
+    0x4D,0x85,0xDB,
+    0x74,0x42,
+    0x49,0x83,0xFB,0xFF,
+    0x74,0x3C,
+    0x90,0x90,0x90,0x90,0x90,0x90,0x90,
+    0x90,0x90,
+    0x4C,0x39,0x98,0x60,0x0C,0x00,0x00,
+    0x75,0x2A,
+    0x4D,0x8B,0x5A,0x10,
+    0x4D,0x85,0xDB,
+    0x74,0x21,
+    0x49,0x83,0xFB,0xFF,
+    0x74,0x1B,
+    0x4C,0x39,0x98,0x68,0x0C,0x00,0x00,
+    0x75,0x12,
+    0xF0,0xFF,0x05,0x3B,0x00,0x00,0x00,
+    0x41,0x5B,
+    0x41,0x5A,
+    0x58,
+    0xFF,0x25,0x24,0x00,0x00,0x00,
+    0x41,0x5B,
+    0x41,0x5A,
+    0x58,
+    0xC7,0x44,0x24,0x50,0xB0,0x9B,0x66,0x16,
+    0x89,0x44,0x24,0x58,
+    0x49,0xBB, 0,0,0,0,0,0,0,0,
+    0x41,0xFF,0xD3,
+    0xFF,0x25,0x00,0x00,0x00,0x00,
+    0,0,0,0,0,0,0,0,
+    0,0,0,0,
+    0,0,0,0
+};
+
+static bool install_floating_carrier_warning_guard(HMODULE executable) {
+    if (!g_allowFloatingCarrier) return true;
+    BYTE* base = (BYTE*)executable;
+    BYTE* target = base + RVA_CARRIER_WARNING_NOTIFICATION_GATE;
+    static const BYTE expected[17] = {
+        0xC7,0x44,0x24,0x50,0xB0,0x9B,0x66,0x16,
+        0x89,0x44,0x24,0x58,
+        0xE8,0x16,0x34,0xF1,0xFE
+    };
+    if (!readable_range(target, sizeof(expected)) ||
+        !bytes_equal(target, expected, sizeof(expected))) return false;
+
+    BYTE* cave = (BYTE*)VirtualAlloc(
+        0, sizeof(CARRIER_WARNING_GUARD_TEMPLATE),
+        MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE
+    );
+    if (!cave) return false;
+    memcpy(cave, CARRIER_WARNING_GUARD_TEMPLATE,
+           sizeof(CARRIER_WARNING_GUARD_TEMPLATE));
+    UINT64 stateAddress = (UINT64)&g_carrierRideLinkState;
+    UINT64 dispatcher = (UINT64)(base + RVA_ENTITY_MESSAGE_DISPATCH);
+    UINT64 continuation =
+        (UINT64)(base + RVA_CARRIER_WARNING_NOTIFICATION_CONTINUE);
+    memcpy(cave + 18u, &stateAddress, sizeof(stateAddress));
+    memcpy(cave + 137u, &dispatcher, sizeof(dispatcher));
+    memcpy(cave + 154u, &continuation, sizeof(continuation));
+    FlushInstructionCache(
+        (HANDLE)(INT64)-1, cave, sizeof(CARRIER_WARNING_GUARD_TEMPLATE)
+    );
+
+    BYTE replacement[17] = {
+        0xFF,0x25,0,0,0,0, 0,0,0,0,0,0,0,0,
+        0x90,0x90,0x90
+    };
+    UINT64 caveAddress = (UINT64)cave;
+    memcpy(replacement + 6u, &caveAddress, sizeof(caveAddress));
+
+    bool threadsFrozen = false;
+    for (UINT32 attempt = 0; attempt < 50u && !threadsFrozen; ++attempt) {
+        g_suspendedThreadCount = 0;
+        threadsFrozen = suspend_other_threads(
+            g_suspendedThreadHandles, &g_suspendedThreadCount,
+            target, sizeof(replacement)
+        );
+        if (!threadsFrozen) Sleep(1);
+    }
+    if (!threadsFrozen) return false;
+
+    DWORD oldProtection = 0;
+    if (!VirtualProtect(
+            target, sizeof(replacement), PAGE_EXECUTE_READWRITE, &oldProtection
+        )) {
+        resume_suspended_threads(g_suspendedThreadHandles, g_suspendedThreadCount);
+        g_suspendedThreadCount = 0;
+        return false;
+    }
+    memcpy(target, replacement, sizeof(replacement));
+    FlushInstructionCache((HANDLE)(INT64)-1, target, sizeof(replacement));
+    bool installed = bytes_equal(target, replacement, sizeof(replacement));
+    if (!installed) {
+        memcpy(target, expected, sizeof(expected));
+        FlushInstructionCache((HANDLE)(INT64)-1, target, sizeof(expected));
+    }
+    DWORD ignored = 0;
+    VirtualProtect(target, sizeof(replacement), oldProtection, &ignored);
+    resume_suspended_threads(g_suspendedThreadHandles, g_suspendedThreadCount);
+    g_suspendedThreadCount = 0;
+    if (!installed) return false;
+    g_carrierWarningProducerHits = (volatile LONG*)(cave + 162u);
+    g_carrierWarningSuppressedHits = (volatile LONG*)(cave + 166u);
+    g_carrierWarningGuardInstalled = 1;
+    return true;
+}
+
+static bool install_floating_carrier_gate(HMODULE executable) {
+    if (!g_allowFloatingCarrier) return true;
+    BYTE* base = (BYTE*)executable;
+    BYTE* context = base + RVA_COFFIN_LINKED_OBJECT_TYPE_LIMIT - 6u;
+    BYTE* immediate = base + RVA_COFFIN_LINKED_OBJECT_TYPE_LIMIT;
+    static const BYTE expectedContext[9] = {
+        0x41,0x8D,0x45,0xFF,                    // lea eax,[r13-1]
+        0x83,0xF8,0x01,                         // cmp eax,1
+        0x76,0x49                                // jbe native-compatible path
+    };
+    if (!readable_range(context, sizeof(expectedContext)) ||
+        !bytes_equal(context, expectedContext, sizeof(expectedContext))) return false;
+
+    // Publishing a single aligned byte is atomic on x64, but changing page
+    // protection still happens while other game threads are frozen so this
+    // follows the same conservative patch lifecycle as the larger hooks.
+    bool threadsFrozen = false;
+    for (UINT32 attempt = 0; attempt < 50u && !threadsFrozen; ++attempt) {
+        g_suspendedThreadCount = 0;
+        threadsFrozen = suspend_other_threads(
+            g_suspendedThreadHandles, &g_suspendedThreadCount, immediate, 1u
+        );
+        if (!threadsFrozen) Sleep(1);
+    }
+    if (!threadsFrozen) return false;
+
+    DWORD oldProtection = 0;
+    if (!VirtualProtect(immediate, 1u, PAGE_EXECUTE_READWRITE, &oldProtection)) {
+        resume_suspended_threads(g_suspendedThreadHandles, g_suspendedThreadCount);
+        g_suspendedThreadCount = 0;
+        return false;
+    }
+    *immediate = 0x02;
+    FlushInstructionCache((HANDLE)(INT64)-1, immediate, 1u);
+    bool installed = *immediate == 0x02;
+    if (!installed) {
+        *immediate = 0x01;
+        FlushInstructionCache((HANDLE)(INT64)-1, immediate, 1u);
+    }
+    DWORD ignored = 0;
+    VirtualProtect(immediate, 1u, oldProtection, &ignored);
+    resume_suspended_threads(g_suspendedThreadHandles, g_suspendedThreadCount);
+    g_suspendedThreadCount = 0;
+    if (!installed) return false;
+    g_carrierGateInstalled = 1;
+    return true;
+}
+
+// Retained temporarily as an uncalled reference implementation while the
+// targeted interaction patch is gameplay-tested. It is never installed.
+bool install_floating_carrier_gate_legacy(HMODULE executable) {
+    if (!g_allowFloatingCarrier) return true;
+    BYTE* base = (BYTE*)executable;
+    BYTE* initialGate = base + RVA_RIDE_VEHICLE_CARRIER_GATE;
+    BYTE* resultGate = base + RVA_RIDE_VEHICLE_RESULT_GATE;
+    BYTE* fallbackGate = base + RVA_RIDE_VEHICLE_FALLBACK_GATE;
+    static const BYTE expectedInitial[17] = {
+        0x0F,0x85,0x87,0x00,0x00,0x00,
+        0x48,0x8B,0x43,0x28,
+        0x83,0xB8,0x48,0x75,0x00,0x00,0x01
+    };
+    static const BYTE expectedResult[24] = {
+        0x8B,0x4C,0x24,0x24, 0x83,0xF9,0x01,
+        0x0F,0x85,0x93,0x00,0x00,0x00,
+        0x81,0xBC,0x24,0x80,0x00,0x00,0x00,0x58,0x01,0x00,0x00
+    };
+    static const BYTE expectedFallback[20] = {
+        0x84,0xC0, 0x0F,0x84,0xAC,0xFE,0xFF,0xFF,
+        0x48,0x8B,0x44,0x24,0x30,
+        0x48,0x89,0x83,0x20,0x02,0x00,0x00
+    };
+    if (!readable_range(initialGate, sizeof(expectedInitial)) ||
+        !bytes_equal(initialGate, expectedInitial, sizeof(expectedInitial)) ||
+        !readable_range(resultGate, sizeof(expectedResult)) ||
+        !bytes_equal(resultGate, expectedResult, sizeof(expectedResult)) ||
+        !readable_range(fallbackGate, sizeof(expectedFallback)) ||
+        !bytes_equal(fallbackGate, expectedFallback, sizeof(expectedFallback))) return false;
+
+    BYTE* initialCave = (BYTE*)VirtualAlloc(
+        0, sizeof(CARRIER_INITIAL_GATE_TEMPLATE), MEM_COMMIT | MEM_RESERVE,
+        PAGE_EXECUTE_READWRITE
+    );
+    BYTE* resultCave = (BYTE*)VirtualAlloc(
+        0, sizeof(CARRIER_RESULT_GATE_TEMPLATE), MEM_COMMIT | MEM_RESERVE,
+        PAGE_EXECUTE_READWRITE
+    );
+    BYTE* fallbackCave = (BYTE*)VirtualAlloc(
+        0, sizeof(CARRIER_FALLBACK_GATE_TEMPLATE), MEM_COMMIT | MEM_RESERVE,
+        PAGE_EXECUTE_READWRITE
+    );
+    if (!initialCave || !resultCave || !fallbackCave) return false;
+    memcpy(initialCave, CARRIER_INITIAL_GATE_TEMPLATE, sizeof(CARRIER_INITIAL_GATE_TEMPLATE));
+    memcpy(resultCave, CARRIER_RESULT_GATE_TEMPLATE, sizeof(CARRIER_RESULT_GATE_TEMPLATE));
+    memcpy(fallbackCave, CARRIER_FALLBACK_GATE_TEMPLATE, sizeof(CARRIER_FALLBACK_GATE_TEMPLATE));
+
+    UINT64 canEnterFailure = (UINT64)(base + 0x01004936u);
+    UINT64 resultContinuation = (UINT64)(base + 0x010049C8u);
+    UINT64 genericSuccess = (UINT64)(base + 0x01004A50u);
+    UINT64 fallbackContinuation = (UINT64)(base + 0x01004A9Eu);
+    UINT64 helperContinuation = (UINT64)(base + 0x01011B80u);
+    memcpy(initialCave + 34u, &helperContinuation, sizeof(helperContinuation));
+    memcpy(resultCave + 99u, &resultContinuation, sizeof(resultContinuation));
+    memcpy(resultCave + 113u, &genericSuccess, sizeof(genericSuccess));
+    memcpy(resultCave + 127u, &canEnterFailure, sizeof(canEnterFailure));
+    memcpy(fallbackCave + 65u, &fallbackContinuation, sizeof(fallbackContinuation));
+    memcpy(fallbackCave + 79u, &canEnterFailure, sizeof(canEnterFailure));
+    FlushInstructionCache((HANDLE)(INT64)-1, initialCave, sizeof(CARRIER_INITIAL_GATE_TEMPLATE));
+    FlushInstructionCache((HANDLE)(INT64)-1, resultCave, sizeof(CARRIER_RESULT_GATE_TEMPLATE));
+    FlushInstructionCache((HANDLE)(INT64)-1, fallbackCave, sizeof(CARRIER_FALLBACK_GATE_TEMPLATE));
+
+    BYTE initialReplacement[17] = {
+        0xFF,0x25,0,0,0,0, 0,0,0,0,0,0,0,0,
+        0x90,0x90,0x90
+    };
+    BYTE resultReplacement[24] = {
+        0xFF,0x25,0,0,0,0, 0,0,0,0,0,0,0,0,
+        0x90,0x90,0x90,0x90,0x90,0x90,0x90,0x90,0x90,0x90
+    };
+    BYTE fallbackReplacement[20] = {
+        0xFF,0x25,0,0,0,0, 0,0,0,0,0,0,0,0,
+        0x90,0x90,0x90,0x90,0x90,0x90
+    };
+    UINT64 resultCaveAddress = (UINT64)resultCave;
+    UINT64 fallbackCaveAddress = (UINT64)fallbackCave;
+    UINT64 initialCaveAddress = (UINT64)initialCave;
+    memcpy(initialReplacement + 6u, &initialCaveAddress, sizeof(initialCaveAddress));
+    memcpy(resultReplacement + 6u, &resultCaveAddress, sizeof(resultCaveAddress));
+    memcpy(fallbackReplacement + 6u, &fallbackCaveAddress, sizeof(fallbackCaveAddress));
+
+    bool threadsFrozen = false;
+    for (UINT32 attempt = 0; attempt < 50u && !threadsFrozen; ++attempt) {
+        g_suspendedThreadCount = 0;
+        threadsFrozen = suspend_other_threads(
+            g_suspendedThreadHandles, &g_suspendedThreadCount,
+            base + 0x010047D0u, 0x0000D3B0u
+        );
+        if (!threadsFrozen) Sleep(1);
+    }
+    if (!threadsFrozen) return false;
+    DWORD initialProtection = 0;
+    DWORD resultProtection = 0;
+    DWORD fallbackProtection = 0;
+    bool initialWritable = VirtualProtect(
+        initialGate, sizeof(expectedInitial), PAGE_EXECUTE_READWRITE, &initialProtection
+    ) != 0;
+    bool resultWritable = initialWritable && VirtualProtect(
+        resultGate, sizeof(expectedResult), PAGE_EXECUTE_READWRITE, &resultProtection
+    ) != 0;
+    bool fallbackWritable = resultWritable && VirtualProtect(
+        fallbackGate, sizeof(expectedFallback), PAGE_EXECUTE_READWRITE, &fallbackProtection
+    ) != 0;
+    if (!fallbackWritable) {
+        DWORD ignored = 0;
+        if (resultWritable) VirtualProtect(resultGate, sizeof(expectedResult), resultProtection, &ignored);
+        if (initialWritable) VirtualProtect(initialGate, sizeof(expectedInitial), initialProtection, &ignored);
+        resume_suspended_threads(g_suspendedThreadHandles, g_suspendedThreadCount);
+        g_suspendedThreadCount = 0;
+        return false;
+    }
+
+    memcpy(initialGate, initialReplacement, sizeof(initialReplacement));
+    memcpy(resultGate, resultReplacement, sizeof(resultReplacement));
+    memcpy(fallbackGate, fallbackReplacement, sizeof(fallbackReplacement));
+    FlushInstructionCache((HANDLE)(INT64)-1, initialGate, sizeof(initialReplacement));
+    FlushInstructionCache((HANDLE)(INT64)-1, resultGate, sizeof(resultReplacement));
+    FlushInstructionCache((HANDLE)(INT64)-1, fallbackGate, sizeof(fallbackReplacement));
+    bool installed =
+        bytes_equal(initialGate, initialReplacement, sizeof(initialReplacement)) &&
+        bytes_equal(resultGate, resultReplacement, sizeof(resultReplacement)) &&
+        bytes_equal(fallbackGate, fallbackReplacement, sizeof(fallbackReplacement));
+    if (!installed) {
+        memcpy(initialGate, expectedInitial, sizeof(expectedInitial));
+        memcpy(resultGate, expectedResult, sizeof(expectedResult));
+        memcpy(fallbackGate, expectedFallback, sizeof(expectedFallback));
+        FlushInstructionCache((HANDLE)(INT64)-1, initialGate, sizeof(expectedInitial));
+        FlushInstructionCache((HANDLE)(INT64)-1, resultGate, sizeof(expectedResult));
+        FlushInstructionCache((HANDLE)(INT64)-1, fallbackGate, sizeof(expectedFallback));
+    }
+    DWORD ignored = 0;
+    VirtualProtect(fallbackGate, sizeof(expectedFallback), fallbackProtection, &ignored);
+    VirtualProtect(resultGate, sizeof(expectedResult), resultProtection, &ignored);
+    VirtualProtect(initialGate, sizeof(expectedInitial), initialProtection, &ignored);
+    resume_suspended_threads(g_suspendedThreadHandles, g_suspendedThreadCount);
+    g_suspendedThreadCount = 0;
+    if (!installed) return false;
+    g_carrierHelperCount = (volatile LONG*)(initialCave + 42u);
+    g_carrierHelperStatus = (volatile LONG*)(initialCave + 46u);
+    g_carrierResultCount = (volatile LONG*)(resultCave + 135u);
+    g_carrierResultCode = (volatile LONG*)(resultCave + 139u);
+    g_carrierFallbackCount = (volatile LONG*)(fallbackCave + 87u);
+    g_carrierGateInstalled = 1;
+    return true;
 }
 
 // The final package does not enable telemetry. Use this smaller trampoline in
@@ -938,6 +1678,429 @@ static bool install_steering_response_hook(HMODULE executable) {
     g_steeringHookInstalled = 1;
     return true;
 }
+
+#if defined(COFFIN_CARRIER_TRACE_BUILD)
+// Diagnostic-only vtable shim. It preserves registers and flags, increments a
+// private counter without calling into the OS, then tail-jumps to the exact
+// original virtual method. No logging or locking occurs on the game thread.
+static const BYTE CARRIER_TRACE_SHIM_TEMPLATE[35] = {
+    0xF3,0x0F,0x1E,0xFA,                    // endbr64
+    0x9C,                                   // pushfq
+    0x50,                                   // push rax
+    0x48,0xB8, 0,0,0,0,0,0,0,0,            // mov rax,counter
+    0xF0,0xFF,0x00,                         // lock inc dword ptr [rax]
+    0x58,                                   // pop rax
+    0x9D,                                   // popfq
+    0xFF,0x25,0,0,0,0,                     // jmp qword ptr [rip]
+    0,0,0,0,0,0,0,0                        // original virtual method
+};
+
+// RideVehicle.Enter uses the same counter shim but also snapshots the player
+// state pointer from action+0xA8. The worker only reads that pointer and the
+// two native link handles; no game function is called from the worker thread.
+// Runtime-patched qwords: counter +8, original method +41. State cell +49.
+static const BYTE CARRIER_RIDE_ENTER_TRACE_SHIM_TEMPLATE[57] = {
+    0xF3,0x0F,0x1E,0xFA,                    // endbr64
+    0x9C,                                   // pushfq
+    0x50,                                   // push rax
+    0x48,0xB8, 0,0,0,0,0,0,0,0,            // mov rax,counter
+    0xF0,0xFF,0x00,                         // lock inc dword ptr [rax]
+    0x48,0x8B,0x81,0xA8,0x00,0x00,0x00,     // mov rax,[rcx+A8h]
+    0x48,0x89,0x05,0x10,0x00,0x00,0x00,     // mov [state cell],rax
+    0x58,                                   // pop rax
+    0x9D,                                   // popfq
+    0xFF,0x25,0x00,0x00,0x00,               // jmp qword ptr [rip]
+    0,0,0,0,0,0,0,0,                       // original virtual method
+    0,0,0,0,0,0,0,0                        // captured player state
+};
+
+// Non-calling inline trace for the three exact 32-byte handle-block stores.
+// Runtime-patched values: shared state +10, event id +132, native continuation
+// +42 and trace continuation +151. The cave preserves flags, RAX and R10,
+// replays the original AVX store exactly once, and publishes only real changes.
+static const BYTE PLAYER_HANDLE_WRITE_TRACE_TEMPLATE[159] = {
+    0xF3,0x0F,0x1E,0xFA, 0x9C,0x50,0x41,0x52,
+    0x49,0xBA, 0,0,0,0,0,0,0,0,
+    0x49,0x39,0x7A,0x08, 0x74,0x1A,
+    0xC5,0xFC,0x11,0x8F,0x60,0x0C,0x00,0x00,
+    0x41,0x5A,0x58,0x9D,
+    0xFF,0x25,0,0,0,0, 0,0,0,0,0,0,0,0,
+    0x48,0x8B,0x87,0x60,0x0C,0x00,0x00,
+    0x49,0x89,0x42,0x50,
+    0x48,0x8B,0x87,0x68,0x0C,0x00,0x00,
+    0x49,0x89,0x42,0x60,
+    0xC5,0xFC,0x11,0x8F,0x60,0x0C,0x00,0x00,
+    0x48,0x8B,0x87,0x60,0x0C,0x00,0x00,
+    0x49,0x89,0x42,0x58,
+    0x48,0x8B,0x87,0x68,0x0C,0x00,0x00,
+    0x49,0x89,0x42,0x68,
+    0x48,0x8B,0x87,0x60,0x0C,0x00,0x00,
+    0x49,0x3B,0x42,0x50, 0x75,0x0D,
+    0x48,0x8B,0x87,0x68,0x0C,0x00,0x00,
+    0x49,0x3B,0x42,0x60, 0x74,0x0D,
+    0x41,0xC7,0x42,0x48, 0,0,0,0,
+    0xF0,0x41,0xFF,0x42,0x40,
+    0x41,0x5A,0x58,0x9D,
+    0xFF,0x25,0,0,0,0, 0,0,0,0,0,0,0,0
+};
+
+static BYTE* allocate_trace_caves_near(BYTE* executableBase, SIZE_T size) {
+    UINT64 start = ((UINT64)executableBase + 0x0C000000ull) & ~0xFFFFull;
+    UINT64 end = (UINT64)executableBase + 0x70000000ull;
+    for (UINT64 candidate = start; candidate < end; candidate += 0x10000ull) {
+        BYTE* allocation = (BYTE*)VirtualAlloc(
+            (void*)candidate, size, MEM_COMMIT | MEM_RESERVE,
+            PAGE_EXECUTE_READWRITE
+        );
+        if (allocation) return allocation;
+    }
+    return 0;
+}
+
+static bool install_one_player_handle_write_trace(
+    BYTE* target, BYTE* cave, UINT32 eventId
+) {
+    static const BYTE expected[8] = {
+        0xC5,0xFC,0x11,0x8F,0x60,0x0C,0x00,0x00
+    };
+    if (!readable_range(target, sizeof(expected)) ||
+        !bytes_equal(target, expected, sizeof(expected))) return false;
+    memcpy(
+        cave, PLAYER_HANDLE_WRITE_TRACE_TEMPLATE,
+        sizeof(PLAYER_HANDLE_WRITE_TRACE_TEMPLATE)
+    );
+    UINT64 stateAddress = (UINT64)&g_carrierRideLinkState;
+    UINT64 continuation = (UINT64)(target + sizeof(expected));
+    memcpy(cave + 10u, &stateAddress, sizeof(stateAddress));
+    memcpy(cave + 42u, &continuation, sizeof(continuation));
+    memcpy(cave + 132u, &eventId, sizeof(eventId));
+    memcpy(cave + 151u, &continuation, sizeof(continuation));
+    FlushInstructionCache(
+        (HANDLE)(INT64)-1, cave, sizeof(PLAYER_HANDLE_WRITE_TRACE_TEMPLATE)
+    );
+
+    INT64 displacement = (INT64)cave - (INT64)(target + 5u);
+    if (displacement < (INT64)-0x80000000ll ||
+        displacement > (INT64)0x7FFFFFFFll) return false;
+    BYTE replacement[8] = { 0xE9,0,0,0,0, 0x90,0x90,0x90 };
+    LONG relative = (LONG)displacement;
+    memcpy(replacement + 1u, &relative, sizeof(relative));
+
+    bool threadsFrozen = false;
+    for (UINT32 attempt = 0; attempt < 50u && !threadsFrozen; ++attempt) {
+        g_suspendedThreadCount = 0;
+        threadsFrozen = suspend_other_threads(
+            g_suspendedThreadHandles, &g_suspendedThreadCount,
+            target, sizeof(replacement)
+        );
+        if (!threadsFrozen) Sleep(1);
+    }
+    if (!threadsFrozen) return false;
+    DWORD oldProtection = 0;
+    if (!VirtualProtect(
+            target, sizeof(replacement), PAGE_EXECUTE_READWRITE, &oldProtection
+        )) {
+        resume_suspended_threads(g_suspendedThreadHandles, g_suspendedThreadCount);
+        g_suspendedThreadCount = 0;
+        return false;
+    }
+    memcpy(target, replacement, sizeof(replacement));
+    FlushInstructionCache((HANDLE)(INT64)-1, target, sizeof(replacement));
+    bool installed = bytes_equal(target, replacement, sizeof(replacement));
+    if (!installed) {
+        memcpy(target, expected, sizeof(expected));
+        FlushInstructionCache((HANDLE)(INT64)-1, target, sizeof(expected));
+    }
+    DWORD ignored = 0;
+    VirtualProtect(target, sizeof(replacement), oldProtection, &ignored);
+    resume_suspended_threads(g_suspendedThreadHandles, g_suspendedThreadCount);
+    g_suspendedThreadCount = 0;
+    return installed;
+}
+
+static bool install_player_handle_write_traces(HMODULE executable) {
+    BYTE* base = (BYTE*)executable;
+    const UINT32 sites[3] = {
+        RVA_PLAYER_CARRIER_WRITE_1,
+        RVA_PLAYER_CARRIER_WRITE_2,
+        RVA_PLAYER_CARRIER_WRITE_3
+    };
+    const UINT32 eventIds[3] = {
+        0x1F5976C4u,
+        0x2CEFDD76u,
+        0x35A87951u
+    };
+    static const BYTE expected[8] = {
+        0xC5,0xFC,0x11,0x8F,0x60,0x0C,0x00,0x00
+    };
+    for (UINT32 index = 0; index < 3u; ++index) {
+        BYTE* target = base + sites[index];
+        if (!readable_range(target, sizeof(expected)) ||
+            !bytes_equal(target, expected, sizeof(expected))) return false;
+    }
+    SIZE_T stride = 192u;
+    BYTE* caves = allocate_trace_caves_near(base, stride * 3u);
+    if (!caves) return false;
+    for (UINT32 index = 0; index < 3u; ++index) {
+        if (!install_one_player_handle_write_trace(
+                base + sites[index], caves + stride * index, eventIds[index]
+            )) return false;
+    }
+    return true;
+}
+
+// Direct qword writers missed by the 32-byte event-block trace above. Each
+// cave records the exact site only when its base equals the Coffin transition's
+// captured player state, then replays the native store without calling out.
+static const BYTE DIRECT_WRITE_RCX_RAX_TEMPLATE[94] = {
+    0xF3,0x0F,0x1E,0xFA, 0x9C,0x41,0x52,0x41,0x53,
+    0x49,0xBA, 0,0,0,0,0,0,0,0,
+    0x49,0x39,0x4A,0x08, 0x75,0x2B,
+    0x4C,0x8B,0x99,0x60,0x0C,0x00,0x00,
+    0x4D,0x89,0x5A,0x50, 0x49,0x89,0x42,0x58,
+    0x4C,0x8B,0x99,0x68,0x0C,0x00,0x00,
+    0x4D,0x89,0x5A,0x60, 0x4D,0x89,0x5A,0x68,
+    0x41,0xC7,0x42,0x48, 0,0,0,0,
+    0xF0,0x41,0xFF,0x42,0x40,
+    0x48,0x89,0x81,0x60,0x0C,0x00,0x00,
+    0x41,0x5B,0x41,0x5A,0x9D,
+    0xFF,0x25,0,0,0,0, 0,0,0,0,0,0,0,0
+};
+
+static const BYTE DIRECT_WRITE_RSI_RAX_TEMPLATE[94] = {
+    0xF3,0x0F,0x1E,0xFA, 0x9C,0x41,0x52,0x41,0x53,
+    0x49,0xBA, 0,0,0,0,0,0,0,0,
+    0x49,0x39,0x72,0x08, 0x75,0x2B,
+    0x4C,0x8B,0x9E,0x60,0x0C,0x00,0x00,
+    0x4D,0x89,0x5A,0x50, 0x49,0x89,0x42,0x58,
+    0x4C,0x8B,0x9E,0x68,0x0C,0x00,0x00,
+    0x4D,0x89,0x5A,0x60, 0x4D,0x89,0x5A,0x68,
+    0x41,0xC7,0x42,0x48, 0,0,0,0,
+    0xF0,0x41,0xFF,0x42,0x40,
+    0x48,0x89,0x86,0x60,0x0C,0x00,0x00,
+    0x41,0x5B,0x41,0x5A,0x9D,
+    0xFF,0x25,0,0,0,0, 0,0,0,0,0,0,0,0
+};
+
+static const BYTE DIRECT_WRITE_RSI_MINUS_ONE_TEMPLATE[105] = {
+    0xF3,0x0F,0x1E,0xFA, 0x9C,0x41,0x52,0x41,0x53,
+    0x49,0xBA, 0,0,0,0,0,0,0,0,
+    0x49,0x39,0x72,0x08, 0x75,0x32,
+    0x4C,0x8B,0x9E,0x60,0x0C,0x00,0x00,
+    0x4D,0x89,0x5A,0x50,
+    0x49,0xC7,0xC3,0xFF,0xFF,0xFF,0xFF,
+    0x4D,0x89,0x5A,0x58,
+    0x4C,0x8B,0x9E,0x68,0x0C,0x00,0x00,
+    0x4D,0x89,0x5A,0x60, 0x4D,0x89,0x5A,0x68,
+    0x41,0xC7,0x42,0x48, 0,0,0,0,
+    0xF0,0x41,0xFF,0x42,0x40,
+    0x48,0xC7,0x86,0x60,0x0C,0x00,0x00,0xFF,0xFF,0xFF,0xFF,
+    0x41,0x5B,0x41,0x5A,0x9D,
+    0xFF,0x25,0,0,0,0, 0,0,0,0,0,0,0,0
+};
+
+static const BYTE DIRECT_WRITE_RAX_MINUS_ONE_TEMPLATE[105] = {
+    0xF3,0x0F,0x1E,0xFA, 0x9C,0x41,0x52,0x41,0x53,
+    0x49,0xBA, 0,0,0,0,0,0,0,0,
+    0x49,0x39,0x42,0x08, 0x75,0x32,
+    0x4C,0x8B,0x98,0x60,0x0C,0x00,0x00,
+    0x4D,0x89,0x5A,0x50,
+    0x49,0xC7,0xC3,0xFF,0xFF,0xFF,0xFF,
+    0x4D,0x89,0x5A,0x58,
+    0x4C,0x8B,0x98,0x68,0x0C,0x00,0x00,
+    0x4D,0x89,0x5A,0x60, 0x4D,0x89,0x5A,0x68,
+    0x41,0xC7,0x42,0x48, 0,0,0,0,
+    0xF0,0x41,0xFF,0x42,0x40,
+    0x48,0xC7,0x80,0x60,0x0C,0x00,0x00,0xFF,0xFF,0xFF,0xFF,
+    0x41,0x5B,0x41,0x5A,0x9D,
+    0xFF,0x25,0,0,0,0, 0,0,0,0,0,0,0,0
+};
+
+static bool install_direct_carrier_write_trace(
+    BYTE* target, BYTE* cave, const BYTE* expected, SIZE_T instructionSize,
+    const BYTE* traceTemplate, SIZE_T templateSize, UINT32 siteId,
+    SIZE_T eventOffset, SIZE_T continuationOffset
+) {
+    if (!readable_range(target, instructionSize) ||
+        !bytes_equal(target, expected, instructionSize)) return false;
+    memcpy(cave, traceTemplate, templateSize);
+    UINT64 stateAddress = (UINT64)&g_carrierRideLinkState;
+    UINT64 continuation = (UINT64)(target + instructionSize);
+    memcpy(cave + 11u, &stateAddress, sizeof(stateAddress));
+    memcpy(cave + eventOffset, &siteId, sizeof(siteId));
+    memcpy(cave + continuationOffset, &continuation, sizeof(continuation));
+    FlushInstructionCache((HANDLE)(INT64)-1, cave, templateSize);
+
+    INT64 displacement = (INT64)cave - (INT64)(target + 5u);
+    if (displacement < (INT64)-0x80000000ll ||
+        displacement > (INT64)0x7FFFFFFFll) return false;
+    BYTE replacement[11] = {
+        0xE9,0,0,0,0, 0x90,0x90,0x90,0x90,0x90,0x90
+    };
+    LONG relative = (LONG)displacement;
+    memcpy(replacement + 1u, &relative, sizeof(relative));
+
+    bool threadsFrozen = false;
+    for (UINT32 attempt = 0; attempt < 50u && !threadsFrozen; ++attempt) {
+        g_suspendedThreadCount = 0;
+        threadsFrozen = suspend_other_threads(
+            g_suspendedThreadHandles, &g_suspendedThreadCount,
+            target, instructionSize
+        );
+        if (!threadsFrozen) Sleep(1);
+    }
+    if (!threadsFrozen) return false;
+    DWORD oldProtection = 0;
+    if (!VirtualProtect(
+            target, instructionSize, PAGE_EXECUTE_READWRITE, &oldProtection
+        )) {
+        resume_suspended_threads(g_suspendedThreadHandles, g_suspendedThreadCount);
+        g_suspendedThreadCount = 0;
+        return false;
+    }
+    memcpy(target, replacement, instructionSize);
+    FlushInstructionCache((HANDLE)(INT64)-1, target, instructionSize);
+    bool installed = bytes_equal(target, replacement, instructionSize);
+    if (!installed) {
+        memcpy(target, expected, instructionSize);
+        FlushInstructionCache((HANDLE)(INT64)-1, target, instructionSize);
+    }
+    DWORD ignored = 0;
+    VirtualProtect(target, instructionSize, oldProtection, &ignored);
+    resume_suspended_threads(g_suspendedThreadHandles, g_suspendedThreadCount);
+    g_suspendedThreadCount = 0;
+    return installed;
+}
+
+static bool install_direct_carrier_write_traces(HMODULE executable) {
+    BYTE* base = (BYTE*)executable;
+    static const BYTE writeRcxRax[7] = {
+        0x48,0x89,0x81,0x60,0x0C,0x00,0x00
+    };
+    static const BYTE writeRsiRax[7] = {
+        0x48,0x89,0x86,0x60,0x0C,0x00,0x00
+    };
+    static const BYTE writeRsiMinusOne[11] = {
+        0x48,0xC7,0x86,0x60,0x0C,0x00,0x00,0xFF,0xFF,0xFF,0xFF
+    };
+    static const BYTE writeRaxMinusOne[11] = {
+        0x48,0xC7,0x80,0x60,0x0C,0x00,0x00,0xFF,0xFF,0xFF,0xFF
+    };
+    struct DirectTraceSite {
+        UINT32 rva;
+        const BYTE* expected;
+        SIZE_T instructionSize;
+        const BYTE* traceTemplate;
+        SIZE_T templateSize;
+        UINT32 siteId;
+        SIZE_T eventOffset;
+        SIZE_T continuationOffset;
+    };
+    const DirectTraceSite sites[5] = {
+        { RVA_PLAYER_CARRIER_DIRECT_EVENT, writeRcxRax, 7u,
+          DIRECT_WRITE_RCX_RAX_TEMPLATE, 94u, 0x073C6B2Eu, 59u, 86u },
+        { RVA_PLAYER_CARRIER_ATTACH, writeRsiRax, 7u,
+          DIRECT_WRITE_RSI_RAX_TEMPLATE, 94u, 0x15783361u, 59u, 86u },
+        { RVA_PLAYER_CARRIER_ATTACH_NULL, writeRsiMinusOne, 11u,
+          DIRECT_WRITE_RSI_MINUS_ONE_TEMPLATE, 105u, 0x15783362u, 66u, 97u },
+        { RVA_PLAYER_CARRIER_DETACH_EVENT, writeRsiMinusOne, 11u,
+          DIRECT_WRITE_RSI_MINUS_ONE_TEMPLATE, 105u, 0x13754FE0u, 66u, 97u },
+        { RVA_RIDE_CARRIER_DIRECT_CLEAR, writeRaxMinusOne, 11u,
+          DIRECT_WRITE_RAX_MINUS_ONE_TEMPLATE, 105u, 0x00F9A9BFu, 66u, 97u }
+    };
+    for (UINT32 index = 0; index < 5u; ++index) {
+        BYTE* target = base + sites[index].rva;
+        if (!readable_range(target, sites[index].instructionSize) ||
+            !bytes_equal(target, sites[index].expected, sites[index].instructionSize)) {
+            return false;
+        }
+    }
+    SIZE_T stride = 128u;
+    BYTE* caves = allocate_trace_caves_near(base, stride * 5u);
+    if (!caves) return false;
+    for (UINT32 index = 0; index < 5u; ++index) {
+        const DirectTraceSite* site = &sites[index];
+        if (!install_direct_carrier_write_trace(
+                base + site->rva, caves + stride * index,
+                site->expected, site->instructionSize,
+                site->traceTemplate, site->templateSize, site->siteId,
+                site->eventOffset, site->continuationOffset
+            )) return false;
+    }
+    return true;
+}
+
+static bool install_carrier_trace_probes(HMODULE executable) {
+    BYTE* base = (BYTE*)executable;
+    const UINT32 probeCount =
+        (UINT32)(sizeof(g_carrierTraceProbes) / sizeof(g_carrierTraceProbes[0]));
+
+    // Validate every owner table and slot before publishing any shim.
+    for (UINT32 index = 0; index < probeCount; ++index) {
+        CarrierTraceProbe* probe = &g_carrierTraceProbes[index];
+        void** entry = (void**)(base + probe->vtableRva) + probe->slot;
+        if (!readable_range(entry, sizeof(void*)) ||
+            *entry != (void*)(base + probe->expectedFunctionRva)) return false;
+    }
+
+    for (UINT32 index = 0; index < probeCount; ++index) {
+        CarrierTraceProbe* probe = &g_carrierTraceProbes[index];
+        if (index == 0u) {
+            BYTE* shim = (BYTE*)VirtualAlloc(
+                0, sizeof(CARRIER_RIDE_ENTER_TRACE_SHIM_TEMPLATE),
+                MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE
+            );
+            if (!shim) return false;
+            memcpy(
+                shim, CARRIER_RIDE_ENTER_TRACE_SHIM_TEMPLATE,
+                sizeof(CARRIER_RIDE_ENTER_TRACE_SHIM_TEMPLATE)
+            );
+            UINT64 counterAddress = (UINT64)&probe->count;
+            UINT64 originalAddress = (UINT64)(base + probe->expectedFunctionRva);
+            memcpy(shim + 8u, &counterAddress, sizeof(counterAddress));
+            memcpy(shim + 41u, &originalAddress, sizeof(originalAddress));
+            FlushInstructionCache(
+                (HANDLE)(INT64)-1, shim,
+                sizeof(CARRIER_RIDE_ENTER_TRACE_SHIM_TEMPLATE)
+            );
+
+            void** entry = (void**)(base + probe->vtableRva) + probe->slot;
+            DWORD oldProtection = 0;
+            if (!VirtualProtect(
+                    entry, sizeof(void*), PAGE_READWRITE, &oldProtection
+                )) return false;
+            __atomic_store_n((UINT64*)entry, (UINT64)shim, __ATOMIC_RELEASE);
+            DWORD ignored = 0;
+            VirtualProtect(entry, sizeof(void*), oldProtection, &ignored);
+            if (__atomic_load_n((UINT64*)entry, __ATOMIC_ACQUIRE) !=
+                (UINT64)shim) return false;
+            g_carrierTracePlayerState = (volatile UINT64*)(shim + 49u);
+            continue;
+        }
+        BYTE* shim = (BYTE*)VirtualAlloc(
+            0, sizeof(CARRIER_TRACE_SHIM_TEMPLATE), MEM_COMMIT | MEM_RESERVE,
+            PAGE_EXECUTE_READWRITE
+        );
+        if (!shim) return false;
+        memcpy(shim, CARRIER_TRACE_SHIM_TEMPLATE, sizeof(CARRIER_TRACE_SHIM_TEMPLATE));
+        UINT64 counterAddress = (UINT64)&probe->count;
+        UINT64 originalAddress = (UINT64)(base + probe->expectedFunctionRva);
+        memcpy(shim + 8u, &counterAddress, sizeof(counterAddress));
+        memcpy(shim + 27u, &originalAddress, sizeof(originalAddress));
+        FlushInstructionCache((HANDLE)(INT64)-1, shim, sizeof(CARRIER_TRACE_SHIM_TEMPLATE));
+
+        void** entry = (void**)(base + probe->vtableRva) + probe->slot;
+        DWORD oldProtection = 0;
+        if (!VirtualProtect(entry, sizeof(void*), PAGE_READWRITE, &oldProtection)) return false;
+        __atomic_store_n((UINT64*)entry, (UINT64)shim, __ATOMIC_RELEASE);
+        DWORD ignored = 0;
+        VirtualProtect(entry, sizeof(void*), oldProtection, &ignored);
+        if (__atomic_load_n((UINT64*)entry, __ATOMIC_ACQUIRE) != (UINT64)shim) return false;
+    }
+    return true;
+}
+
+#endif
 
 static bool drive_coupling_needed() {
     return g_driveForcePercent != 100 || g_gearRatioPercent < 100;
@@ -1285,7 +2448,17 @@ static bool group_object_at(const RawArray* objects, UINT32 index, void** object
 
 static void inspect_target_positions(const RawArray* objects, bool countTelemetry) {
     if (!validate_group_array(objects)) return;
-    if (countTelemetry) g_callbackObjects += objects->count;
+    AcquireSRWLockExclusive(&g_targetStateLock);
+    if (countTelemetry) {
+        ++g_callbackGroups;
+        g_callbackObjects += objects->count;
+        if (g_maxScanGroups && g_callbackGroups > g_maxScanGroups) {
+            publish_patch_complete(true);
+            log_line("WARNING: MaxScanGroups reached before all Coffin Board resources were found.", true);
+            ReleaseSRWLockExclusive(&g_targetStateLock);
+            return;
+        }
+    }
     // Group 499 has at least 87,603 objects. v0.1.0 rejected the whole
     // callback because of its 65,536-object guard and then scanned every later
     // group forever. The exact graph index turns the callback into O(1).
@@ -1310,10 +2483,16 @@ static void inspect_target_positions(const RawArray* objects, bool countTelemetr
         }
     }
     mark_complete_if_ready();
+    ReleaseSRWLockExclusive(&g_targetStateLock);
 }
 
 static void inspect_target_unload_positions(const RawArray* objects) {
-    if ((!g_seenPhysicsResource && !g_seenRideConfig) || !validate_group_array(objects)) return;
+    if (!validate_group_array(objects)) return;
+    AcquireSRWLockExclusive(&g_targetStateLock);
+    if (!g_seenPhysicsResource && !g_seenRideConfig) {
+        ReleaseSRWLockExclusive(&g_targetStateLock);
+        return;
+    }
     void* candidate = 0;
     if (g_seenPhysicsResource &&
         group_object_at(objects, COFFIN_PHYSICS_OBJECT_INDEX, &candidate) &&
@@ -1347,16 +2526,11 @@ static void inspect_target_unload_positions(const RawArray* objects) {
             log_line("STATE: optional Coffin rider config unloaded; target state reset within the one-shot window.", true);
         }
     }
+    ReleaseSRWLockExclusive(&g_targetStateLock);
 }
 
 static void __fastcall on_finish_load(StreamingEvents*, const RawArray* objects) {
     if (!g_enabled || patch_complete_acquire()) return;
-    ++g_callbackGroups;
-    if (g_maxScanGroups && g_callbackGroups > g_maxScanGroups) {
-        publish_patch_complete(true);
-        log_line("WARNING: MaxScanGroups reached before all Coffin Board resources were found.", true);
-        return;
-    }
     inspect_target_positions(objects, true);
 }
 
@@ -1456,12 +2630,12 @@ static bool unregister_streaming_listener() {
     return true;
 }
 
-static bool wait_for_patch_completion(UINT32 maxPolls, DWORD pollMilliseconds) {
-    for (UINT32 poll = 0; poll < maxPolls; ++poll) {
-        if (patch_complete_acquire()) return true;
-        if (pollMilliseconds) Sleep(pollMilliseconds);
+static DWORD stop_worker_after_listener_error(const char* message) {
+    log_line(message, true);
+    if (!unregister_streaming_listener()) {
+        log_line("LIFECYCLE ERROR: listener cleanup failed after hook installation error; restart DS2 before changing this ASI.", true);
     }
-    return patch_complete_acquire();
+    return 0;
 }
 
 static void inspect_already_loaded_group(void* streamingSystem, UINT32 groupId) {
@@ -1499,6 +2673,31 @@ static void inspect_already_loaded_group(void* streamingSystem, UINT32 groupId) 
         log_uint(&message, groupId); log_text(&message, ".\r\n");
         append_log(&message);
     }
+}
+
+static bool wait_for_patch_completion_with_backfill(
+    void* streamingSystem,
+    UINT32 maxPolls,
+    DWORD pollMilliseconds,
+    UINT32 backfillEveryPolls
+) {
+    if (backfillEveryPolls == 0u) backfillEveryPolls = 1u;
+    for (UINT32 poll = 0; poll < maxPolls; ++poll) {
+        if (patch_complete_acquire()) return true;
+        if ((poll % backfillEveryPolls) == 0u) {
+            // AddListener does not replay a group whose listener snapshot was
+            // taken just before registration. Recheck the native resident
+            // table throughout the bounded discovery window so that startup
+            // timing cannot silently leave the speed patch inactive.
+            inspect_already_loaded_group(streamingSystem, COFFIN_PHYSICS_GROUP_ID);
+            if (g_patchStandardSpeed) {
+                inspect_already_loaded_group(streamingSystem, RIDE_COFFIN_GROUP_ID);
+            }
+            if (patch_complete_acquire()) return true;
+        }
+        if (pollMilliseconds) Sleep(pollMilliseconds);
+    }
+    return patch_complete_acquire();
 }
 
 struct SteeringTelemetrySample {
@@ -1643,9 +2842,228 @@ static void run_speed_telemetry() {
     }
 }
 
+static void run_carrier_gate_trace() {
+    if (!g_allowFloatingCarrier || !g_carrierGateInstalled ||
+        !g_carrierHelperCount || !g_carrierHelperStatus ||
+        !g_carrierResultCount || !g_carrierResultCode ||
+        !g_carrierFallbackCount) return;
+    LONG lastHelper = -1;
+    LONG lastStatus = -1;
+    LONG lastResult = -1;
+    LONG lastCode = -1;
+    LONG lastFallback = -1;
+    log_line("CARRIER PATH TRACE: armed for five minutes; approach the Coffin Board with a connected Floating Carrier.", true);
+    for (UINT32 poll = 0; poll < 300u; ++poll) {
+        Sleep(1000);
+        LONG helper = __atomic_load_n(g_carrierHelperCount, __ATOMIC_ACQUIRE);
+        LONG status = __atomic_load_n(g_carrierHelperStatus, __ATOMIC_ACQUIRE);
+        LONG result = __atomic_load_n(g_carrierResultCount, __ATOMIC_ACQUIRE);
+        LONG code = __atomic_load_n(g_carrierResultCode, __ATOMIC_ACQUIRE);
+        LONG fallback = __atomic_load_n(g_carrierFallbackCount, __ATOMIC_ACQUIRE);
+        bool meaningful = helper != lastHelper || status != lastStatus || result != lastResult ||
+            code != lastCode || fallback != lastFallback;
+        bool heartbeat = (poll % 5u) == 0u;
+        lastHelper = helper;
+        lastStatus = status;
+        lastResult = result;
+        lastCode = code;
+        lastFallback = fallback;
+        if (!meaningful && !heartbeat) continue;
+        LogBuffer message;
+        log_init(&message); log_prefix(&message);
+        log_text(&message, "CARRIER PATH TRACE: helper=");
+        log_uint(&message, (UINT64)(UINT32)helper);
+        log_text(&message, ", shiftedStatus=");
+        log_uint(&message, (UINT64)(UINT32)status);
+        log_text(&message, ", resultGate=");
+        log_uint(&message, (UINT64)(UINT32)result);
+        log_text(&message, ", resultCode=");
+        log_uint(&message, (UINT64)(UINT32)code);
+        log_text(&message, ", fallbackGate=");
+        log_uint(&message, (UINT64)(UINT32)fallback);
+        log_text(&message, ".\r\n");
+        append_log(&message);
+    }
+    log_line("CARRIER PATH TRACE: five-minute window finished.", true);
+}
+
+#if defined(COFFIN_CARRIER_TRACE_BUILD)
+static void run_carrier_trace() {
+    const UINT32 probeCount =
+        (UINT32)(sizeof(g_carrierTraceProbes) / sizeof(g_carrierTraceProbes[0]));
+    LONG lastCounts[sizeof(g_carrierTraceProbes) / sizeof(g_carrierTraceProbes[0])];
+    for (UINT32 index = 0; index < probeCount; ++index) lastCounts[index] = 0;
+    UINT64 lastPlayerState = 0;
+    UINT64 lastCarrierHandle = 0;
+    UINT64 lastVehicleHandle = 0;
+    bool handlesSeen = false;
+    UINT64 lastCapturedCarrier = 0;
+    UINT64 lastCapturedCarrierHandle = 0;
+    LONG lastPlayerEventCalls = 0;
+    LONG lastCartCodeBreakCalls = 0;
+    LONG lastCarrierHandleChanges = 0;
+    LONG lastWarningProducerHits = 0;
+    LONG lastWarningSuppressedHits = 0;
+    log_line(
+        "CARRIER BREAK TRACE: recording for five minutes. Mount with a loaded Floating Carrier, then reproduce one rope break or collision disappearance.",
+        true
+    );
+    for (UINT32 poll = 0; poll < 3000u; ++poll) {
+        Sleep(100);
+        UINT64 playerState = __atomic_load_n(
+            &g_carrierRideLinkState.playerState, __ATOMIC_ACQUIRE
+        );
+        if (!playerState && g_carrierTracePlayerState) playerState = __atomic_load_n(
+            g_carrierTracePlayerState, __ATOMIC_ACQUIRE
+        );
+        if (playerState && readable_range((void*)playerState, 0xC70u)) {
+            UINT64 carrierHandle = __atomic_load_n(
+                (volatile UINT64*)(playerState + 0xC60u), __ATOMIC_ACQUIRE
+            );
+            UINT64 vehicleHandle = __atomic_load_n(
+                (volatile UINT64*)(playerState + 0xC68u), __ATOMIC_ACQUIRE
+            );
+            if (!handlesSeen || playerState != lastPlayerState ||
+                carrierHandle != lastCarrierHandle ||
+                vehicleHandle != lastVehicleHandle) {
+                handlesSeen = true;
+                lastPlayerState = playerState;
+                lastCarrierHandle = carrierHandle;
+                lastVehicleHandle = vehicleHandle;
+                LogBuffer message;
+                log_init(&message); log_prefix(&message);
+                log_text(&message, "CARRIER BREAK TRACE handles: playerState=");
+                log_uint(&message, playerState);
+                log_text(&message, ", carrier=");
+                log_uint(&message, carrierHandle);
+                log_text(&message, ", vehicle=");
+                log_uint(&message, vehicleHandle);
+                log_text(&message, ".\r\n");
+                append_log(&message);
+            }
+        }
+        UINT64 capturedCarrier = __atomic_load_n(
+            &g_carrierRideLinkState.carrierEntity, __ATOMIC_ACQUIRE
+        );
+        UINT64 capturedCarrierHandle = __atomic_load_n(
+            &g_carrierRideLinkState.carrierEntityHandle, __ATOMIC_ACQUIRE
+        );
+        UINT64 coffinHandle = __atomic_load_n(
+            &g_carrierRideLinkState.coffinVehicleHandle, __ATOMIC_ACQUIRE
+        );
+        bool captureChanged = capturedCarrier != lastCapturedCarrier ||
+            capturedCarrierHandle != lastCapturedCarrierHandle;
+        if (captureChanged) {
+            lastCapturedCarrier = capturedCarrier;
+            lastCapturedCarrierHandle = capturedCarrierHandle;
+            LogBuffer message;
+            log_init(&message); log_prefix(&message);
+            log_text(&message, "CARRIER LINK TRACE: entity=");
+            log_uint(&message, capturedCarrier);
+            log_text(&message, ", handle=");
+            log_uint(&message, capturedCarrierHandle);
+            log_text(&message, ", coffinHandle=");
+            log_uint(&message, coffinHandle);
+            log_text(&message, ".\r\n");
+            append_log(&message);
+        }
+        LONG warningProducerHits = g_carrierWarningProducerHits ?
+            __atomic_load_n(g_carrierWarningProducerHits, __ATOMIC_ACQUIRE) : 0;
+        LONG warningSuppressedHits = g_carrierWarningSuppressedHits ?
+            __atomic_load_n(g_carrierWarningSuppressedHits, __ATOMIC_ACQUIRE) : 0;
+        if (warningProducerHits != lastWarningProducerHits ||
+            warningSuppressedHits != lastWarningSuppressedHits) {
+            lastWarningProducerHits = warningProducerHits;
+            lastWarningSuppressedHits = warningSuppressedHits;
+            LogBuffer message;
+            log_init(&message); log_prefix(&message);
+            log_text(&message, "CARRIER WARNING TRACE: producer=");
+            log_uint(&message, (UINT64)(UINT32)warningProducerHits);
+            log_text(&message, ", Coffin-suppressed=");
+            log_uint(&message, (UINT64)(UINT32)warningSuppressedHits);
+            log_text(&message, ".\r\n");
+            append_log(&message);
+        }
+        LONG playerEventCalls = __atomic_load_n(
+            &g_carrierRideLinkState.playerEventCalls, __ATOMIC_ACQUIRE
+        );
+        LONG cartCodeBreakCalls = __atomic_load_n(
+            &g_carrierRideLinkState.cartCodeBreakCalls, __ATOMIC_ACQUIRE
+        );
+        LONG carrierHandleChanges = __atomic_load_n(
+            &g_carrierRideLinkState.carrierHandleChanges, __ATOMIC_ACQUIRE
+        );
+        if (carrierHandleChanges != lastCarrierHandleChanges ||
+            cartCodeBreakCalls != lastCartCodeBreakCalls ||
+            (playerEventCalls != lastPlayerEventCalls && (poll % 10u) == 0u)) {
+            lastPlayerEventCalls = playerEventCalls;
+            lastCartCodeBreakCalls = cartCodeBreakCalls;
+            lastCarrierHandleChanges = carrierHandleChanges;
+            UINT32 lastEvent = __atomic_load_n(
+                &g_carrierRideLinkState.lastPlayerEventId, __ATOMIC_ACQUIRE
+            );
+            UINT32 changeEvent = __atomic_load_n(
+                &g_carrierRideLinkState.lastCarrierChangeEventId, __ATOMIC_ACQUIRE
+            );
+            LogBuffer message;
+            log_init(&message); log_prefix(&message);
+            log_text(&message, "PLAYER CARGO EVENT TRACE: calls=");
+            log_uint(&message, (UINT64)(UINT32)playerEventCalls);
+            log_text(&message, ", CartCodeBreak=");
+            log_uint(&message, (UINT64)(UINT32)cartCodeBreakCalls);
+            log_text(&message, ", handleChanges=");
+            log_uint(&message, (UINT64)(UINT32)carrierHandleChanges);
+            log_text(&message, ", lastEvent=");
+            log_uint(&message, lastEvent);
+            log_text(&message, ", changeEvent=");
+            log_uint(&message, changeEvent);
+            log_text(&message, ", carrier=");
+            log_uint(&message, __atomic_load_n(
+                &g_carrierRideLinkState.carrierBeforeChange, __ATOMIC_ACQUIRE
+            ));
+            log_text(&message, "->");
+            log_uint(&message, __atomic_load_n(
+                &g_carrierRideLinkState.carrierAfterChange, __ATOMIC_ACQUIRE
+            ));
+            log_text(&message, ", vehicle=");
+            log_uint(&message, __atomic_load_n(
+                &g_carrierRideLinkState.vehicleBeforeChange, __ATOMIC_ACQUIRE
+            ));
+            log_text(&message, "->");
+            log_uint(&message, __atomic_load_n(
+                &g_carrierRideLinkState.vehicleAfterChange, __ATOMIC_ACQUIRE
+            ));
+            log_text(&message, ".\r\n");
+            append_log(&message);
+        }
+        for (UINT32 index = 0; index < probeCount; ++index) {
+            LONG count = __atomic_load_n(
+                &g_carrierTraceProbes[index].count, __ATOMIC_ACQUIRE
+            );
+            if (count == lastCounts[index]) continue;
+            lastCounts[index] = count;
+            if (index == 1u) continue;
+            LogBuffer message;
+            log_init(&message); log_prefix(&message);
+            log_text(&message, "CARRIER TRACE event: ");
+            log_text(&message, g_carrierTraceProbes[index].name);
+            log_text(&message, " count=");
+            log_uint(&message, (UINT64)(UINT32)count);
+            log_text(&message, ".\r\n");
+            append_log(&message);
+        }
+    }
+    log_line("CARRIER BREAK TRACE: five-minute recording window finished.", true);
+}
+#endif
+
 static DWORD __stdcall worker(LPVOID) {
     read_configuration();
-    log_line("DS2 Coffin Board All-Terrain Speed v1.0.0 loaded.", true);
+#if defined(COFFIN_CARRIER_TRACE_BUILD)
+    log_line("DS2 Coffin Board All-Terrain Speed v1.1.0 carrier TRACE loaded.", true);
+#else
+    log_line("DS2 Coffin Board All-Terrain Speed v1.1.0 loaded.", true);
+#endif
     if (!g_enabled) {
         log_line("Disabled in INI; no game memory was changed.", true);
         return 0;
@@ -1672,9 +3090,11 @@ static DWORD __stdcall worker(LPVOID) {
         return 0;
     }
 
-    // Publish the invasive hook in its neutral 1.0 state before any listener
-    // callback can change caps or gearing. A configured force/gearing pair is
-    // fail-closed if the exact hook cannot be installed.
+    // Install only the two hooks required by the speed transaction first, then
+    // subscribe immediately. Cached starts can finish loading the Coffin
+    // resource while the independent carrier/trace hooks are still being
+    // installed, so delaying registration until after those hooks creates a
+    // real startup race.
     if (!install_drive_force_hook(executable)) {
         if (drive_coupling_needed()) {
             log_line("ERROR: Exact Coffin drive-force hook anchor/vtable did not match; coupled caps/gearing/force patch was not applied.", true);
@@ -1708,12 +3128,12 @@ static DWORD __stdcall worker(LPVOID) {
     }
 
     if (!register_streaming_listener(manager)) {
-        log_line("ERROR: Could not register resource listener; no patch applied.", true);
+        log_line("ERROR: Could not register resource listener; no speed patch was applied.", true);
         return 0;
     }
     LogBuffer message;
     log_init(&message); log_prefix(&message);
-    log_text(&message, "Listener registered. profile=");
+    log_text(&message, "Listener registered early. profile=");
     log_text(&message, g_simpleProfile ? "simple" : "legacy");
     log_text(&message, ", land="); log_uint(&message, (UINT64)g_normalPercent);
     log_text(&message, "% of water, boost="); log_uint(&message, (UINT64)g_boostPercent);
@@ -1728,19 +3148,67 @@ static DWORD __stdcall worker(LPVOID) {
     log_text(&message, ", RaiseSlipThreshold="); log_uint(&message, (UINT64)(g_raiseSlipThreshold != 0));
     log_text(&message, ", targeted group/index lookup enabled.\r\n"); append_log(&message);
 
-    // AddListener does not replay groups that finished before registration.
-    // Query the native loaded-group table once under its shared SRW lock.
-    inspect_already_loaded_group(g_streamingSystem, COFFIN_PHYSICS_GROUP_ID);
-    if (g_patchStandardSpeed) {
-        inspect_already_loaded_group(g_streamingSystem, RIDE_COFFIN_GROUP_ID);
+    if (!install_floating_carrier_link_preserve(executable)) {
+        return stop_worker_after_listener_error(
+            "ERROR: Exact Coffin/Floating Carrier transition anchor did not match; no mount patch was applied."
+        );
+    }
+    if (!install_floating_carrier_detach_guard(executable)) {
+        return stop_worker_after_listener_error(
+            "ERROR: Exact Floating Carrier detach-event anchor did not match; no jump-preservation patch was applied."
+        );
+    }
+    if (!install_floating_carrier_warning_guard(executable)) {
+        return stop_worker_after_listener_error(
+            "ERROR: Exact Floating Carrier overextension-notification anchor did not match; no warning filter was applied."
+        );
+    }
+    if (!install_floating_carrier_gate(executable)) {
+        return stop_worker_after_listener_error(
+            "ERROR: Exact Coffin/Floating Carrier gate anchor did not match; no mount patch was applied."
+        );
+    }
+    if (g_carrierGateInstalled) {
+        log_line("Coffin-only Floating Carrier mount gate installed; the active loaded carrier remains linked during the ride.", true);
+    }
+    if (g_carrierLinkPreserveInstalled) {
+        log_line("Coffin-only RideVehicle carrier-disconnect transaction bypass installed.", true);
+    }
+    if (g_carrierDetachGuardInstalled) {
+        log_line("Coffin-only Floating Carrier jump-detach event guard installed.", true);
+    }
+    if (g_carrierWarningGuardInstalled) {
+        log_line("Coffin-only Floating Carrier overextension HUD/voice notification guard installed.", true);
     }
 
+#if defined(COFFIN_CARRIER_TRACE_BUILD)
+    if (!install_direct_carrier_write_traces(executable)) {
+        return stop_worker_after_listener_error(
+            "ERROR: Exact direct player carrier-handle write anchors did not match; trace build stopped."
+        );
+    }
+    if (!install_player_handle_write_traces(executable)) {
+        return stop_worker_after_listener_error(
+            "ERROR: Exact player carrier-handle write anchors did not match; trace build stopped."
+        );
+    }
+    if (!install_carrier_trace_probes(executable)) {
+        return stop_worker_after_listener_error(
+            "ERROR: Exact carrier trace vtable anchors did not match; trace build stopped without publishing a behavior patch."
+        );
+    }
+    log_line("CARRIER TRACE: five direct carrier writes, three block stores, and action/component probes installed without callbacks.", true);
+#endif
+
     // Keep this one-shot listener only for a bounded discovery window. A
-    // completion published by a callback is observed with acquire semantics.
+    // completion published by a callback is observed with acquire semantics,
+    // while a 500-ms backfill closes the listener-registration timing gap.
     // Removal runs only on this worker; if the callback has not returned yet,
     // native RemoveListener's exclusive lock waits for the dispatcher's shared
     // listener lock and provides the final synchronization.
-    bool completed = wait_for_patch_completion(1200u, 50u);
+    bool completed = wait_for_patch_completion_with_backfill(
+        g_streamingSystem, 1200u, 50u, 10u
+    );
     if (!unregister_streaming_listener()) {
         log_line("LIFECYCLE ERROR: exact native listener removal failed; restart DS2 before changing this ASI.", true);
         return 0;
@@ -1758,6 +3226,10 @@ static DWORD __stdcall worker(LPVOID) {
     log_line("LIFECYCLE: worker no longer participates in streaming shutdown.", true);
 
     run_speed_telemetry();
+    run_carrier_gate_trace();
+#if defined(COFFIN_CARRIER_TRACE_BUILD)
+    run_carrier_trace();
+#endif
     return 0;
 }
 

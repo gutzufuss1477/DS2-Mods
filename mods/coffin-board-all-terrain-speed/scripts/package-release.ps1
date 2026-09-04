@@ -11,7 +11,7 @@ if (!(Test-Path -LiteralPath $targetExe -PathType Leaf)) {
 & python (Join-Path $root 'tools\validate_target.py') $targetExe
 if ($LASTEXITCODE) { throw 'Offline DS2 target validation failed' }
 
-$name = 'DS2_Coffin_Board_All_Terrain_Speed_v1.0.0'
+$name = 'DS2_Coffin_Board_All_Terrain_Speed_v1.1.0'
 $releaseRoot = Join-Path $root 'release'
 $stage = Join-Path $releaseRoot $name
 $zip = Join-Path $releaseRoot "$name.zip"
@@ -40,7 +40,8 @@ $configuration = Join-Path $root 'build\public\ds2_coffin_board_all_terrain_spee
 $configurationText = Get-Content -LiteralPath $configuration -Raw
 $requiredComments = @(
     '; Top speed on land and water. 500 = 300 km/h normal / 400 km/h boost (range: 100-1000).',
-    '; Acceleration toward the new top speed. 400 = about 4x native (range: 100-500).'
+    '; Acceleration toward the new top speed. 400 = about 4x native (range: 100-500).',
+    '; 1 lets you mount and ride the Coffin Board while a Floating Carrier is attached. 0 keeps the native restriction.'
 )
 foreach ($comment in $requiredComments) {
     if (!$configurationText.Contains($comment)) {
@@ -54,11 +55,12 @@ $effectiveIniLines = @(
 $expectedIniLines = @(
     '[CoffinBoardAllTerrainSpeed]',
     'SpeedPercent=500',
-    'AccelerationPercent=400'
+    'AccelerationPercent=400',
+    'AllowFloatingCarrier=1'
 )
 if ($effectiveIniLines.Count -ne $expectedIniLines.Count -or
     (Compare-Object -ReferenceObject $expectedIniLines -DifferenceObject $effectiveIniLines -SyncWindow 0)) {
-    throw "Final INI must contain only the section plus SpeedPercent=500 and AccelerationPercent=400."
+    throw "Final INI must contain only the section plus SpeedPercent=500, AccelerationPercent=400, and AllowFloatingCarrier=1."
 }
 foreach ($file in $runtimeFiles) {
     Copy-Item -LiteralPath (Join-Path $root "build\public\$file") -Destination $stage -Force
@@ -76,7 +78,7 @@ if ($stagedFiles.Count -ne $expectedStagedFiles.Count -or
 
 Add-Type -AssemblyName System.IO.Compression
 Add-Type -AssemblyName System.IO.Compression.FileSystem
-$fixedTimestamp = [DateTimeOffset]::new(2026, 9, 2, 0, 0, 0, [TimeSpan]::Zero)
+$fixedTimestamp = [DateTimeOffset]::new(2026, 9, 4, 12, 0, 0, [TimeSpan]::Zero)
 $zipStream = [System.IO.File]::Open(
     $fullZip,
     [System.IO.FileMode]::CreateNew,

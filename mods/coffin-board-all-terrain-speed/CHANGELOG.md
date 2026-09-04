@@ -1,5 +1,26 @@
 # Changelog
 
+## 1.1.0
+
+- Added optional Floating Carrier support. With
+  `AllowFloatingCarrier=1`, a loaded carrier can remain attached while the
+  player mounts and rides the Coffin Board.
+- Preserved the exact linked carrier through high-speed travel, water
+  crossings, collisions, and large jumps while retaining native manual
+  detach and reattach behavior after dismounting.
+- Suppressed only the now-invalid native overextension HUD notification and
+  Sam dialogue for the exact active Coffin Board/carrier pair. Gameplay
+  validation recorded 77 producer events and 77 successful suppressions.
+- Fixed an intermittent startup race that could leave the configured speed
+  inactive. The bounded discovery worker now rechecks the already-loaded
+  Coffin resource every 500 ms until the patch completes.
+- Expanded build-locked executable validation and synthetic coverage for the
+  Coffin-only mount, link-preservation, detach, warning, and late-resource
+  discovery paths.
+- Kept native cargo and collision damage unchanged.
+- Removed ineffective experimental carrier follow-step scaling and incorrectly
+  identified global distance writes from the public release path.
+
 ## 1.0.0
 
 - Finalized the tested `500%` all-terrain speed and `400%` acceleration profile.

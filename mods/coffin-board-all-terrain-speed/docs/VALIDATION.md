@@ -1,9 +1,9 @@
-# Validation record — v1.0.0
+# Validation record — v1.1.0
 
 ## Final release profile
 
 The packaged INI is checked during packaging and contains exactly one section
-and two settings:
+and three settings:
 
 ```ini
 [CoffinBoardAllTerrainSpeed]
@@ -13,37 +13,57 @@ SpeedPercent=500
 
 ; Acceleration toward the new top speed. 400 = about 4x native (range: 100-500).
 AccelerationPercent=400
+
+; 1 lets you mount and ride the Coffin Board while a Floating Carrier is attached. 0 keeps the native restriction.
+AllowFloatingCarrier=1
 ```
 
-All absent optional controls resolve to their safe defaults: steering angle
-`100`, steering response `100`, wet grip `100`, and telemetry `0`. Consequently
-the final profile installs no steering hook, performs no steering or wet-grip
+All absent legacy controls resolve to their safe defaults: steering angle
+`100`, steering response `100`, wet grip `100`, and telemetry `0`. The final
+profile therefore installs no steering hook, performs no steering or wet-grip
 resource write, starts no telemetry loop, and selects the dedicated drive
 trampoline with no velocity sampling instruction.
+
+`AllowFloatingCarrier=1` installs only the validated Coffin-specific carrier
+mount, link-preservation, detach-event, and notification guards. Public v1.1.0
+contains no carrier follow-step scaling hook and performs no global
+carrier-distance writes.
 
 ## Synthetic runtime validation
 
 `scripts/test-synthetic.ps1` builds the production source directly into a
-native test DLL and verifies:
+native test DLL and verifies the existing speed transaction plus the v1.1.0
+carrier guard templates. Coverage includes:
 
 - exact group/index/UUID/RTTI resource targeting and loaded-group backfill;
 - `SpeedPercent=500` derivation to `300/400 km/h` caps on land and water,
-  `FinalGearRatio 15 -> 3`, and aligned `SlipSpeed 39 -> 300 km/h`;
-- `AccelerationPercent=400` derivation to a 20x drive factor, producing
-  nominally 4x effective torque with the 0.2x final gearing;
-- final-profile preservation of `SteeringDegree=50` and wet side grip `0.09`;
-- inactive steering coupling, null telemetry slot, and absent steering hook;
-- byte-level branch/RIP target validation for the 72-byte no-telemetry drive
-  trampoline and selector coverage proving that it is used when telemetry is
-  zero;
+  `FinalGearRatio 15 -> 3`, and the raised slip threshold;
+- `AccelerationPercent=400` derivation to the tested effective drive profile;
+- preservation of native steering and wet side grip;
+- inactive steering coupling, null telemetry slot, and the no-telemetry drive
+  trampoline;
 - transaction rollback, reapplication without compounding, conflict refusal,
   and drive-factor neutralization on exact resource unload;
-- exact StreamingSystem Add/Remove slot validation, refusal of a mismatched
-  Remove slot, atomic callback-to-worker completion visibility, duplicate-add
-  refusal, exactly one removal outside callback execution, idempotent removal,
-  and bounded cleanup when completion is never published;
-- dormant legacy diagnostic paths independently, so retained compatibility
-  cannot silently regress the final profile.
+- exact StreamingSystem Add/Remove slot validation, callback-to-worker
+  publication, exactly-once removal outside callbacks, and bounded no-target
+  cleanup;
+- byte-level validation of the Coffin-only linked-carrier preservation shim,
+  the confirmed detach-event guard, and the exact-pair overextension warning
+  filter;
+- absence of the discarded public follow-step and global-distance patch paths.
+
+## Gameplay validation
+
+The v1.1.0 carrier path was exercised with a loaded Floating Carrier during
+high-speed land travel, water crossings, collisions, and large jumps. The
+carrier remained linked to the active Coffin Board. After dismounting, native
+manual detach and reattach behavior remained available.
+
+A confirmation run recorded 77 native overextension notification producer
+hits and 77 Coffin-specific suppressions. The obsolete HUD warning and Sam
+voice reaction did not appear for the exact active board/carrier pair.
+
+Native cargo and collision damage were intentionally left unchanged.
 
 ## Target executable validation
 
@@ -52,17 +72,15 @@ native test DLL and verifies:
 - Steam DS2 `1.10.89.0`, PE timestamp `0x6A3DAE46`, image size `0x0B292000`,
   and SHA-256
   `BF3D1C665545930BC850D8F5DF486F7395885BB729D4FD408FDB03390DE0765B`;
-- the exact StreamingManager signature at RVA `0x693674` resolving to global
-  RVA `0x6266938`;
-- StreamingSystem vtable slot 3 resolving to `AddListener` RVA `0x26F6E40` and
-  slot 4 resolving to `RemoveListener` RVA `0x26F6EE0`;
+- the exact StreamingManager signature and native StreamingSystem Add/Remove
+  listener slots;
 - the target RTTI names and serialized Coffin resource anchors;
-- the unique drive-moment signature at RVA `0x247A431` and exact Coffin
-  component vtable;
-- the known steering and wet-grip consumers retained only for validation of
-  dormant backward-compatible code.
+- the unique drive-moment signature and exact Coffin component vtable;
+- the Coffin linked-object type-limit byte, linked-carrier preservation hook,
+  confirmed Floating Carrier detach-event gate, and overextension-notification
+  gate used by the public v1.1.0 carrier path.
 
 The release script runs the complete synthetic suite and target validator,
-requires both English INI comments, rejects any additional effective key,
+requires all three English INI comments, rejects additional effective keys,
 stages exactly the ASI and INI, writes them in fixed order with a fixed ZIP
 timestamp, and validates the final entry list before reporting success.

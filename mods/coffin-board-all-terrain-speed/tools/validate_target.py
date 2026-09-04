@@ -24,6 +24,13 @@ EXPECTED_STEERING_DEGREE_LOAD_RVA = 0x01F46AD7
 EXPECTED_STEERING_RAD_MULTIPLY_RVA = 0x01F46AEE
 EXPECTED_DEGREES_TO_RADIANS_RVA = 0x03460D94
 EXPECTED_WET_SIDE_GRIP_CONSUMER_RVA = 0x01F48C92
+EXPECTED_COFFIN_LINKED_OBJECT_TYPE_LIMIT_RVA = 0x01007D8E
+EXPECTED_COFFIN_PRESERVE_CARRIER_HOOK_RVA = 0x00F9A807
+EXPECTED_CARRIER_DETACH_EVENT_GATE_RVA = 0x00E5C7AA
+EXPECTED_CARRIER_WARNING_NOTIFICATION_GATE_RVA = 0x0121D839
+EXPECTED_RIDE_VEHICLE_CARRIER_GATE_RVA = 0x01011B6F
+EXPECTED_RIDE_VEHICLE_RESULT_GATE_RVA = 0x010049B0
+EXPECTED_RIDE_VEHICLE_FALLBACK_GATE_RVA = 0x01004A8A
 
 DRIVE_HOOK_SIGNATURE = bytes.fromhex(
     "C4 C1 4A 59 CC C5 FA 59 C1 C5 FA 11 47 18 C5 E2 5C C6"
@@ -37,6 +44,31 @@ STEERING_OUTPUT_HOOK_SIGNATURE = bytes.fromhex(
 WET_SIDE_GRIP_CONSUMER = bytes.fromhex(
     "48 8B 47 48 C5 FA 10 80 C8 00 00 00 48 8B 44 24 50 "
     "C5 FA 59 08 C5 FA 11 08"
+)
+COFFIN_LINKED_OBJECT_TYPE_LIMIT = bytes.fromhex(
+    "41 8D 45 FF 83 F8 01 76 49"
+)
+COFFIN_PRESERVE_CARRIER_HOOK = bytes.fromhex(
+    "48 8B 8F A8 00 00 00 E8 DD BA EA FF 48 85 C0 "
+    "0F 84 4F 04 00 00"
+)
+CARRIER_DETACH_EVENT_GATE = bytes.fromhex(
+    "8B 42 10 4C 8B EA 4C 8B 61 48 48 8B F1 "
+    "3D E0 4F 75 13 0F 84 11 06 00 00"
+)
+CARRIER_WARNING_NOTIFICATION_GATE = bytes.fromhex(
+    "C7 44 24 50 B0 9B 66 16 89 44 24 58 E8 16 34 F1 FE"
+)
+RIDE_VEHICLE_CARRIER_GATE = bytes.fromhex(
+    "0F 85 87 00 00 00 48 8B 43 28 83 B8 48 75 00 00 01"
+)
+RIDE_VEHICLE_RESULT_GATE = bytes.fromhex(
+    "8B 4C 24 24 83 F9 01 0F 85 93 00 00 00 "
+    "81 BC 24 80 00 00 00 58 01 00 00"
+)
+RIDE_VEHICLE_FALLBACK_GATE = bytes.fromhex(
+    "84 C0 0F 84 AC FE FF FF 48 8B 44 24 30 "
+    "48 89 83 20 02 00 00"
 )
 
 STREAM_SIGNATURE = bytes.fromhex(
@@ -203,6 +235,48 @@ def main() -> int:
             len(WET_SIDE_GRIP_CONSUMER),
         ) == WET_SIDE_GRIP_CONSUMER
     )
+    checks["exact_coffin_linked_object_type_limit"] = (
+        pe.read_rva(
+            EXPECTED_COFFIN_LINKED_OBJECT_TYPE_LIMIT_RVA,
+            len(COFFIN_LINKED_OBJECT_TYPE_LIMIT),
+        ) == COFFIN_LINKED_OBJECT_TYPE_LIMIT
+    )
+    checks["exact_coffin_preserve_carrier_hook"] = (
+        pe.read_rva(
+            EXPECTED_COFFIN_PRESERVE_CARRIER_HOOK_RVA,
+            len(COFFIN_PRESERVE_CARRIER_HOOK),
+        ) == COFFIN_PRESERVE_CARRIER_HOOK
+    )
+    checks["exact_carrier_detach_event_gate"] = (
+        pe.read_rva(
+            EXPECTED_CARRIER_DETACH_EVENT_GATE_RVA,
+            len(CARRIER_DETACH_EVENT_GATE),
+        ) == CARRIER_DETACH_EVENT_GATE
+    )
+    checks["exact_carrier_warning_notification_gate"] = (
+        pe.read_rva(
+            EXPECTED_CARRIER_WARNING_NOTIFICATION_GATE_RVA,
+            len(CARRIER_WARNING_NOTIFICATION_GATE),
+        ) == CARRIER_WARNING_NOTIFICATION_GATE
+    )
+    checks["exact_ride_vehicle_carrier_gate"] = (
+        pe.read_rva(
+            EXPECTED_RIDE_VEHICLE_CARRIER_GATE_RVA,
+            len(RIDE_VEHICLE_CARRIER_GATE),
+        ) == RIDE_VEHICLE_CARRIER_GATE
+    )
+    checks["exact_ride_vehicle_result_gate"] = (
+        pe.read_rva(
+            EXPECTED_RIDE_VEHICLE_RESULT_GATE_RVA,
+            len(RIDE_VEHICLE_RESULT_GATE),
+        ) == RIDE_VEHICLE_RESULT_GATE
+    )
+    checks["exact_ride_vehicle_fallback_gate"] = (
+        pe.read_rva(
+            EXPECTED_RIDE_VEHICLE_FALLBACK_GATE_RVA,
+            len(RIDE_VEHICLE_FALLBACK_GATE),
+        ) == RIDE_VEHICLE_FALLBACK_GATE
+    )
     degrees_to_radians = struct.unpack(
         "<f", pe.read_rva(EXPECTED_DEGREES_TO_RADIANS_RVA, 4)
     )[0]
@@ -233,6 +307,28 @@ def main() -> int:
     print(
         f"Coffin wet side-grip +0xC8 consumer RVA: "
         f"0x{EXPECTED_WET_SIDE_GRIP_CONSUMER_RVA:X}"
+    )
+    print(
+        f"RideVehicle Floating Carrier gate RVA: "
+        f"0x{EXPECTED_RIDE_VEHICLE_CARRIER_GATE_RVA:X}"
+    )
+    print(
+        f"Coffin linked-object gate / carrier-preserve hook RVAs: "
+        f"0x{EXPECTED_COFFIN_LINKED_OBJECT_TYPE_LIMIT_RVA:X}, "
+        f"0x{EXPECTED_COFFIN_PRESERVE_CARRIER_HOOK_RVA:X}"
+    )
+    print(
+        f"Floating Carrier detach-event gate RVA: "
+        f"0x{EXPECTED_CARRIER_DETACH_EVENT_GATE_RVA:X}"
+    )
+    print(
+        f"Floating Carrier overextension-notification gate RVA: "
+        f"0x{EXPECTED_CARRIER_WARNING_NOTIFICATION_GATE_RVA:X}"
+    )
+    print(
+        f"RideVehicle result/fallback gates: "
+        f"0x{EXPECTED_RIDE_VEHICLE_RESULT_GATE_RVA:X}, "
+        f"0x{EXPECTED_RIDE_VEHICLE_FALLBACK_GATE_RVA:X}"
     )
 
     type_names = (

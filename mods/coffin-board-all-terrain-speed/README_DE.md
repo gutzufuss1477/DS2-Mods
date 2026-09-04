@@ -1,18 +1,17 @@
-# DS2 Coffin Board: All-Terrain Speed v1.0.0
+# Coffin Board Overdrive v1.1.0
 
 Buildgebundener ASI-Mod für **DEATH STRANDING 2: ON THE BEACH**, Steam-PC
 `1.10.89.0`.
 
 Der Mod gibt dem Coffin Board auf Land und Wasser dieselben erhöhten
-Geschwindigkeitslimits und verwendet die getestete schnellere Beschleunigung.
-Die finale Fassung verändert bewusst weder Lenkung noch Nasshaftung, generische
-Fahrzeugphysik, Archive oder Spielstände. Die Testtelemetrie ist deaktiviert.
+Geschwindigkeitslimits, verwendet die getestete schnellere Beschleunigung und
+erlaubt optional das Fahren mit einem angekoppelten, beladenen Lastenschweber.
+Die Verbindung bleibt auch bei schneller Fahrt, Wasserüberquerungen,
+Kollisionen und grossen Sprüngen erhalten, die normalerweise die native
+Distanzgrenze auslösen würden.
 
-Sobald der Patch der Coffin-Ressource abgeschlossen ist, entfernt der Worker
-den nativen Streaming-Listener sofort und beendet sich. Wird das Ziel nicht
-gefunden, wird der Listener nach einem begrenzten Suchfenster von 60 Sekunden
-entfernt. Damit nimmt der Mod am späteren Streaming-Shutdown von DS2 nicht mehr
-teil.
+Die finale Fassung verändert bewusst weder Lenkung noch Nasshaftung, generische
+Fahrzeugphysik, Fracht- oder Kollisionsschaden, Spielarchive oder Spielstände.
 
 ## Installation
 
@@ -22,9 +21,12 @@ Das Release-Archiv enthält genau zwei Dateien:
 - `ds2_coffin_board_all_terrain_speed.ini`
 
 Beide Dateien neben `DS2.exe` kopieren. Ein externer 64-Bit-ASI-Loader wird
-vorausgesetzt. Von einer früheren Testversion unbedingt beide Dateien ersetzen,
+vorausgesetzt. Von einer früheren Version unbedingt beide Dateien ersetzen,
 das Spiel vollständig neu starten und ein neues Coffin Board ausbringen, da
 eine bereits erzeugte Physikkomponente ihre alte Getriebetabelle behalten kann.
+
+Zum Deinstallieren das Spiel schliessen, beide Dateien entfernen und DS2 neu
+starten. Die ASI niemals bei laufendem Spiel ersetzen, entfernen oder entladen.
 
 ## Konfiguration
 
@@ -38,48 +40,67 @@ SpeedPercent=500
 
 ; Acceleration toward the new top speed. 400 = about 4x native (range: 100-500).
 AccelerationPercent=400
+
+; 1 lets you mount and ride the Coffin Board while a Floating Carrier is attached. 0 keeps the native restriction.
+AllowFloatingCarrier=1
 ```
 
 `SpeedPercent=500` ergibt auf Land und Wasser normale/Boost-Limits von
-`300/400 km/h` und ändert die Endübersetzung von `15` auf `3`. Gültiger
-Bereich: `100-1000`.
+`300/400 km/h` und ändert die Endübersetzung von `15` auf `3`.
+Gültiger Bereich: `100-1000`.
 
-`AccelerationPercent=400` setzt die Antriebskraft auf `20x`. Zusammen mit der
-Übersetzung von `0,2x` ergibt das nominell das getestete vierfache effektive
-Antriebsmoment. Gültiger Bereich: `100-500`.
+`AccelerationPercent=400` setzt die Antriebskraft auf `20x`. Zusammen mit
+der Übersetzung von `0,2x` ergibt das nominell das getestete vierfache
+effektive Antriebsmoment. Gültiger Bereich: `100-500`.
 
-Alle fehlenden optionalen Schlüssel fallen sicher auf native beziehungsweise
-inaktive Werte zurück: Lenkung `100 %`, Nasshaftung `100 %`, Telemetrie `0`.
-Der finale Antriebs-Trampolin ohne Telemetrie enthält keinen Messwertzugriff;
-ein Lenk-Hook wird nicht installiert.
+`AllowFloatingCarrier=1` aktiviert die ausschliesslich für das Coffin Board
+geltenden Aufstiegs- und Verbindungsschutz-Patches. Mit `0` bleibt die
+native Einschränkung bestehen. Nach jeder Änderung DS2 vollständig neu starten.
+
+## Verhalten des Lastenschwebers
+
+Bei aktivierter Unterstützung bleibt der aktuell verbundene, beladene
+Lastenschweber beim Aufsteigen an das Coffin Board gekoppelt. Solange genau
+dieses Board-/Schweber-Paar aktiv ist, verhindert der Mod die native
+Trenntransaktion bei zu grosser Distanz und unterdrückt die dadurch überflüssig
+gewordene HUD-Meldung sowie Sams Kommentar. Nach dem Absteigen lässt sich der
+Schweber weiterhin normal ab- und wieder ankoppeln und bei einer späteren Fahrt
+erneut verwenden.
+
+Die Spieltests umfassten schnelle Land- und Wasserfahrt, Kollisionen und grosse
+Sprünge. In einem bestätigten Lauf wurden alle 77 erzeugten nativen
+Überspannungswarnungen unterdrückt; der Schweber blieb angekoppelt und weder
+Warntext noch Sams Reaktion erschienen.
+
+Die Fracht wird dadurch nicht unzerstörbar. Fracht und Container können
+weiterhin den nativen Aufprall-, Sturz-, Wasser- und Kollisionsschaden erleiden.
 
 ## Sicherheit und Prüfung
 
-Der ASI akzeptiert ausschließlich die geprüfte Steam-Version. PE-Metadaten,
-StreamingManager-Anker, Identität und Layout der Coffin-Ressource,
-Antriebs-Hook-Signatur und Coffin-Physics-vtable müssen exakt passen. Der
-Antriebs-Hook filtert jeden Aufruf über genau diese Coffin-vtable; andere
-Fahrzeuge bleiben unverändert.
+Die ASI akzeptiert ausschliesslich die geprüfte Steam-Version. PE-Metadaten,
+StreamingSystem-Funktionen, Identität und Layout der Coffin-Ressource,
+Antriebs-Hook-Signatur, Coffin-Physics-vtable sowie die Coffin-spezifischen
+Lastenschweber-Instruktionsanker müssen exakt passen. Andere Fahrzeuge werden
+nicht erfasst.
 
-Die Ressourcentransaktion ändert nur die vier Geschwindigkeitslimits, die
-Endübersetzung und den für den erhöhten Geschwindigkeitsbereich nötigen
-Slip-Grenzwert. Der Antriebsfaktor bleibt neutral, bis alle Writes erfolgreich
-sind. Fehler rollen bereits ausgeführte Writes zurück. Beim Entladen der
-exakten Ressource wird der Faktor innerhalb des kurzen Suchfensters weiterhin
-neutralisiert. Nach der erfolgreichen One-shot-Entfernung existiert absichtlich
-kein Listener mehr, der ein späteres Entladen oder Neuladen verfolgt. Für diesen
-Release-Build DS2 neu starten, bevor nach einem Regionswechsel, der die
-Coffin-Physik neu erzeugt haben könnte, ein Ersatz-Board ausgebracht wird.
+Die Geschwindigkeits-Transaktion ändert nur die vier Limits, die
+Endübersetzung und den für den erhöhten Bereich nötigen Slip-Grenzwert. Die
+Antriebskraft bleibt neutral, bis alle Ressourcenänderungen erfolgreich sind;
+bei einem Fehler werden bereits ausgeführte Änderungen zurückgerollt.
 
-Synthetische Laufzeittests prüfen die finale Speed-only-Transaktion, native
-Lenkung und Nasshaftung, deaktivierte Lenk-/Telemetriepfade, den separaten
-Trampolin ohne Telemetrie, Rollback, idempotente Wiederholung und
-Neutralisierung beim Ressourcen-Unload. Zusätzliche Lifecycle-Tests prüfen die
-exakten nativen Add-/Remove-Slots, die Ablehnung eines falschen Remove-Slots,
-die atomare Übergabe vom Callback zum Worker, genau eine Entfernung außerhalb
-von Callbacks, idempotentes Cleanup und den begrenzten Pfad ohne gefundenes
-Ziel. `tools/validate_target.py` prüft das unterstützte Spielprogramm und die
-exakten Laufzeitanker unabhängig.
+Der Listener wird früh registriert und prüft die bereits geladene
+Coffin-Ressource während des begrenzten 60-Sekunden-Suchfensters alle 500 ms
+erneut. Damit wird die Start-Zeitlücke geschlossen, durch die
+`SpeedPercent=500` zuvor gelegentlich inaktiv bleiben konnte. Nach
+erfolgreichem Patch oder nach Ablauf des Suchfensters entfernt der Worker den
+Listener ausserhalb der Callbacks und verlässt den Streaming-Lebenszyklus.
 
-Den ASI niemals bei laufendem Spiel entladen. Zum Entfernen das Spiel beenden,
-beide Moddateien löschen und neu starten.
+Public v1.1.0 enthält weder den wirkungslosen experimentellen
+Follow-Step-Hook noch die verworfenen globalen „Distanz“-Writes. Die stabile
+Funktion verwendet ausschliesslich exakte Coffin-Aufstiegs-, Verbindungs-,
+Trennereignis- und Benachrichtigungsschutz-Patches.
+
+Extreme Geschwindigkeiten können Kamera, World-Streaming und Aufprallschäden
+beeinflussen. Vorher den Spielstand sichern und zunächst offline testen. Nach
+einem Spielupdate die ASI entfernen, bis eine passende buildgebundene Version
+verfügbar ist.
