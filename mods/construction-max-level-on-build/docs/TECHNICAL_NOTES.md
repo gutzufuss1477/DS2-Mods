@@ -1,4 +1,4 @@
-# Technical notes — v1.0.0
+# Technical notes — v1.0.1
 
 Validated target:
 
@@ -74,6 +74,20 @@ visibly and then perform exactly two native upgrades,
 `DebugLog=0`; the bounded foundation entry/post diagnostic sampler runs only
 when `DebugLog=1` is selected in the INI.
 
+v1.0.1 retains that state machine but removes stable and unrelated objects
+from its validated slow path. v1.0.0 acquired up to eight marker locks for
+every recognized construction Update. A saved-Max `COMPLETE` marker then
+repeated object/config metadata and gate validation on every Update. That work
+scaled with construction density in mature saves.
+
+The v1.0.1 fast reject uses aligned atomic loads of the fixed marker fields.
+An unrelated object performs no marker lock and no memory-region validation.
+A `COMPLETE` object whose live Current level still equals its stored expected
+Max level also returns without either operation. If the levels differ, it
+falls through to the original fully validated cleanup path, so stale markers
+do not retain downgrade protection. SetLevel uses the same lock-free presence
+filter before its infrequent validated marker handling.
+
 No spawn descriptor, Current, Applied, config level, archive, material table,
 or save field is directly patched.
 
@@ -145,6 +159,12 @@ resulting state (`point=1`) after it. It classifies only:
 
 Every other caller is forwarded without changing gift state. Normal
 Completion-to-Max arming and calling are explicitly primary-only.
+
+For the two recognized callers, the marker lookup is a non-mutating fast
+filter before the validated state machine. Only `CANDIDATE`, `ARMED`,
+`WAIT_ACK`, or an inconsistent `COMPLETE` marker enters runtime metadata and
+gate validation. Unrelated and consistent `COMPLETE` objects do not acquire a
+marker lock in this path.
 
 Safe House and Bridge VTables use RVA `0x1282570` at slot `+0x110`; that path
 invokes common Update with flags 0. Its streaming caller checks object byte
@@ -227,6 +247,13 @@ Update or SetLevel. Pointer reinitialization clears the previous marker first;
 table contention or saturation skips gifting rather than touching an
 unverified object.
 
+Marker keys and fast-filter fields use aligned acquire/release operations. A
+claim invalidates an existing same-pointer key before replacing metadata and
+publishes the object key last. Reset invalidates the key first. Readers sample
+the key, metadata, and key again; an active mutating match is then revalidated
+under the entry lock. This keeps the steady-state reject lock-free without
+using a mixed marker snapshot.
+
 A separate fixed diagnostic bank is available only for the four foundation
 targets and is inactive at the production default `DebugLog=0`. When
 `DebugLog=1`, it keeps at most eight distinct snapshots per target and uses a
@@ -256,7 +283,7 @@ The flags-0 call is produced by the repeated `MsgEntityConstantUpdate` handler
 at RVA `0x1376440`, not by Init. Before it reaches construction slot `+0x110`,
 the native handler checks its component/object attachment, resource/entity bit
 9, object `+0x3C8`, and a global-bit-15/object-`+0x3DE` condition; the message
-producer also gates constant updates on entity `+0x309`. Stable v1.0.0 does
+producer also gates constant updates on entity `+0x309`. Stable v1.0.1 does
 not bypass those native gates. With `DebugLog=1`, `TRACKED` followed by no
 `point=0` sample identifies a pre-hook Entity boundary rather than another
 silent post-Update state.

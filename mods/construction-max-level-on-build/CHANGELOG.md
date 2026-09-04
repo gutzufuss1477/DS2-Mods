@@ -1,5 +1,16 @@
 # Changelog
 
+## v1.0.1
+
+- Removed the mature-save performance regression from the shared construction
+  Update path. Untracked and stable `COMPLETE` objects now use an atomic,
+  lock-free marker reject without per-field `VirtualQuery` validation.
+- Kept the material-ledger downgrade shield for completed gifted structures;
+  a level mismatch still takes the fully validated path and clears stale state.
+- Added deterministic hot-path regressions covering 4,096 unrelated Updates,
+  4,096 saved-Max Updates, post-promotion steady state, stale COMPLETE cleanup,
+  and unmarked SetLevel forwarding.
+
 ## v1.0.0
 
 - Promoted the acknowledged native level state machine to stable after gameplay

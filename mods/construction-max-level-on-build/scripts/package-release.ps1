@@ -1,7 +1,7 @@
 $ErrorActionPreference = 'Stop'
 
 $root = Split-Path -Parent (Split-Path -Parent $MyInvocation.MyCommand.Path)
-$name = 'DS2_Construction_Max_Level_On_Build_v1.0.0'
+$name = 'DS2_Construction_Max_Level_On_Build_v1.0.1'
 $releaseRoot = Join-Path $root 'release'
 New-Item -ItemType Directory -Force -Path $releaseRoot | Out-Null
 
@@ -57,7 +57,7 @@ if ($stagedFiles.Count -ne $expectedStagedFiles.Count -or
 
 Add-Type -AssemblyName System.IO.Compression
 Add-Type -AssemblyName System.IO.Compression.FileSystem
-$fixedTimestamp = [DateTimeOffset]::new(2026, 9, 1, 0, 0, 0, [TimeSpan]::Zero)
+$fixedTimestamp = [DateTimeOffset]::new(2026, 9, 4, 0, 0, 0, [TimeSpan]::Zero)
 $zipStream = [System.IO.File]::Open(
     $fullZip,
     [System.IO.FileMode]::CreateNew,

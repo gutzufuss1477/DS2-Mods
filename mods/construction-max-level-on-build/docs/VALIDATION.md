@@ -1,4 +1,4 @@
-# Validation record — v1.0.0
+# Validation record — v1.0.1
 
 ## Exact target
 
@@ -8,12 +8,12 @@
 - image base: `0x140000000`
 - executable SHA-256:
   `BF3D1C665545930BC850D8F5DF486F7395885BB729D4FD408FDB03390DE0765B`
-- final v1.0.0 ASI SHA-256:
-  `074150110ACE040F1F6D57E0C761E2FA5A39FBCD3E26305130C4ECE4CB595672`
-- final v1.0.0 INI SHA-256:
+- final v1.0.1 ASI SHA-256:
+  `FD73C65DDA920CA60761922DAE1E5A16CF37A649CF26AE1114D717ADF493B6C5`
+- final v1.0.1 INI SHA-256:
   `18B2B8C4751964F05A6CE0538548D985AC828D97CB24102928A6926834F26228`
-- deterministic v1.0.0 ZIP SHA-256:
-  `D0F3986F9CD435FB98CFBFAC75C1B29524D62508A4CF514313DD2F0A5CEC779F`
+- deterministic v1.0.1 ZIP SHA-256:
+  `1803B5E7A62E020C684F0CACDFEB50639F562C4D0ACC8B16C6640E5ECE714DBF`
 
 The exact-target validator passes against the installed `ds2.exe`. It checks
 PE identity, all semantic regions used by this build, and the relevant VTables.
@@ -87,7 +87,18 @@ The test DLL compiles with `/W4 /WX` and passes. Coverage includes:
 - a material SetLevel re-entry during the locked native call observes the
   atomic in-progress reservation and cannot roll the promoted level back;
 - pointer reuse clears stale state and independent objects remain independent;
-- saved ordinary Max/intermediate levels resume the intended marker phases.
+- saved ordinary Max/intermediate levels resume the intended marker phases;
+- 4,096 unrelated recognized Updates, while another object is actively
+  tracked, forward to native Update with zero marker-lock attempts and zero
+  runtime readable checks;
+- 4,096 Updates of a saved-Max `COMPLETE` object and 4,096 Updates after a
+  normal promotion reaches `COMPLETE` likewise remain on that zero-lock,
+  zero-readable-check path;
+- both completed cases retain exact material downgrade protection;
+- a mismatched `COMPLETE` live level takes the validated slow path once,
+  clears the stale marker, and returns to the fast path;
+- an unmarked SetLevel call remains native and does not inspect runtime
+  metadata even when an unrelated marker exists.
 
 ## Package
 
@@ -98,14 +109,14 @@ The deterministic packaging check requires exactly:
 
 Two consecutive package builds produced the same ASI, ZIP, and sidecar hashes:
 
-- ASI size: `33792` bytes
+- ASI size: `34304` bytes
 - INI size: `131` bytes
-- ZIP size: `17252` bytes
+- ZIP size: `17503` bytes
 - deterministic rebuild result: `PASS`
 
 ## Confirmed gameplay validation
 
-The v0.1.5 state machine is promoted to stable v1.0.0 based on these in-game
+The v0.1.5 state machine was promoted to stable v1.0.0 based on these in-game
 results:
 
 - ordinary constructions build normally and reach Max through one native

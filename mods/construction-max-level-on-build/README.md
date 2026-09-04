@@ -1,4 +1,4 @@
-# DS2 Construction Max Level on Build v1.0.0
+# DS2 Construction Max Level on Build v1.0.1
 
 Stable, build-locked ASI mod for **DEATH STRANDING 2: ON THE BEACH** Steam PC
 `1.10.89.0`.
@@ -20,6 +20,15 @@ class-specific Completion step creates and acknowledges the required
 foundation state before the Max step. Removing that native transition is not
 safe: visual completion, level acknowledgement, and construction events share
 the same processing path.
+
+## Performance hotfix
+
+v1.0.1 removes a v1.0.0 steady-state cost that scaled with the number of
+loaded constructions in mature saves. Unrelated objects and structures that
+are already stably complete now leave the shared Update hook through an
+atomic, lock-free marker check. They do not acquire marker locks or repeat
+runtime memory-region validation every Update. Active construction transitions
+retain the full fail-closed validation described below.
 
 ## Supported constructions
 
@@ -95,6 +104,9 @@ metadata validation. The Update hook itself performs no file I/O.
 - **v1.0.0** promotes that state machine to stable after gameplay confirmed
   ordinary constructions and visible Safe House/Bunker and bridge completion,
   including exactly two native foundation upgrades to Max.
+- **v1.0.1** removes the object-count-dependent Update overhead for unrelated
+  and already-complete constructions while retaining active-transition checks
+  and the completed-level material shield.
 
 See `docs/TECHNICAL_NOTES.md` and `docs/VALIDATION.md` for the exact target,
 state machine, regression coverage, and release verification record.

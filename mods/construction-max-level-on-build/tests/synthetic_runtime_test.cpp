@@ -75,6 +75,8 @@ static void resetHarness(){
     memset((void*)g_promotionFailures,0,sizeof(g_promotionFailures));
     atomicStoreLong(&g_initHookObserved,0);
     atomicStoreLong(&g_updateHookObserved,0);
+    g_testMarkerLockAttempts=0u;
+    g_testReadableChecks=0u;
     g_testResolvedConfig=0;
     g_testSetLevel=&fakeSetLevel;
     g_testConstructionInit=&fakeConstructionInit;
@@ -603,6 +605,141 @@ extern "C" __declspec(dllexport) u32 RunSyntheticConstructionLevelTest(){
     if(g_setSequenceCount!=1u||g_setSequence[0]!=3u||
        object[OFF_OBJECT_LEVEL]!=3u||g_downgradesPrevented[0]!=1||
        markerPhase(object,22u,0u)!=GIFT_PHASE_WAIT_ACK)return 57u;
+
+    // The global Update hook must remain effectively free for unrelated
+    // constructions, even while a different object has an active marker.
+    // This is the steady-state path whose old eight-slot locking scan scaled
+    // with every loaded construction in mature saves.
+    resetHarness();
+    memset(object,0,sizeof(object));
+    memset(secondObject,0,sizeof(secondObject));
+    setMetadata(config,3u,1u,2u);
+    g_testResolvedConfig=config;
+    g_allowedConfigs[0]=(u64)config;
+    prepareDescriptor(descriptor,1u,CONSTRUCTION_NET_TYPE_PLAYER,23u);
+    hookedConstructionInit(secondObject,descriptor);
+    if(markerPhase(secondObject,23u,0u)!=GIFT_PHASE_CANDIDATE)return 63u;
+    g_debugLog=false;
+    u32 locksBefore=g_testMarkerLockAttempts;
+    u32 readsBefore=g_testReadableChecks;
+    static const u32 HOT_UPDATE_ITERATIONS=4096u;
+    for(u32 i=0;i<HOT_UPDATE_ITERATIONS;i++){
+        hookedConstructionUpdate(object,0.016f,1u);
+    }
+    if(g_updateCount!=HOT_UPDATE_ITERATIONS||
+       g_testMarkerLockAttempts!=locksBefore||
+       g_testReadableChecks!=readsBefore)return 64u;
+    if(markerPhase(secondObject,23u,0u)!=GIFT_PHASE_CANDIDATE)return 65u;
+
+    // A max-level construction restored from a save keeps its COMPLETE marker
+    // for the rare SetLevel material guard, but its per-frame Update path must
+    // reject that marker before locking it or validating runtime memory.
+    resetHarness();
+    memset(object,0,sizeof(object));
+    setMetadata(config,3u,1u,2u);
+    g_testResolvedConfig=config;
+    g_allowedConfigs[0]=(u64)config;
+    prepareDescriptor(descriptor,3u,CONSTRUCTION_NET_TYPE_PLAYER,24u);
+    hookedConstructionInit(object,descriptor);
+    makeStable(object,3u);
+    if(markerPhase(object,24u,0u)!=GIFT_PHASE_COMPLETE)return 66u;
+    g_debugLog=false;
+    locksBefore=g_testMarkerLockAttempts;
+    readsBefore=g_testReadableChecks;
+    for(u32 i=0;i<HOT_UPDATE_ITERATIONS;i++){
+        hookedConstructionUpdate(object,0.016f,1u);
+    }
+    if(g_updateCount!=HOT_UPDATE_ITERATIONS||
+       g_testMarkerLockAttempts!=locksBefore||
+       g_testReadableChecks!=readsBefore)return 67u;
+    hookedSetLevel(object,1u);
+    if(g_setSequenceCount!=0u||object[OFF_OBJECT_LEVEL]!=3u||
+       g_downgradesPrevented[0]!=1||
+       markerPhase(object,24u,0u)!=GIFT_PHASE_COMPLETE)return 68u;
+
+    // The active state machine still takes the validated slow path and reaches
+    // COMPLETE exactly once. Once complete, subsequent Updates use the same
+    // zero-lock/zero-readable-check fast path and the downgrade guard remains.
+    resetHarness();
+    memset(object,0,sizeof(object));
+    setMetadata(config,3u,1u,2u);
+    g_testResolvedConfig=config;
+    g_allowedConfigs[0]=(u64)config;
+    prepareDescriptor(descriptor,1u,CONSTRUCTION_NET_TYPE_PLAYER,25u);
+    hookedConstructionInit(object,descriptor);
+    makeStable(object,1u);
+    g_debugLog=false;
+    locksBefore=g_testMarkerLockAttempts;
+    readsBefore=g_testReadableChecks;
+    hookedConstructionUpdate(object,0.016f,1u);
+    hookedConstructionUpdate(object,0.016f,1u);
+    makeStable(object,3u);
+    hookedConstructionUpdate(object,0.016f,1u);
+    if(g_updateCount!=3u||g_setSequenceCount!=1u||g_setSequence[0]!=3u||
+       g_promotions[0]!=1||
+       g_testMarkerLockAttempts<=locksBefore||
+       g_testReadableChecks<=readsBefore)return 69u;
+    if(markerPhase(object,25u,0u)!=GIFT_PHASE_COMPLETE)return 72u;
+    locksBefore=g_testMarkerLockAttempts;
+    readsBefore=g_testReadableChecks;
+    for(u32 i=0;i<HOT_UPDATE_ITERATIONS;i++){
+        hookedConstructionUpdate(object,0.016f,1u);
+    }
+    if(g_updateCount!=HOT_UPDATE_ITERATIONS+3u||g_promotions[0]!=1||
+       g_setSequenceCount!=1u||
+       g_testMarkerLockAttempts!=locksBefore||
+       g_testReadableChecks!=readsBefore)return 70u;
+    hookedSetLevel(object,1u);
+    if(g_setSequenceCount!=1u||object[OFF_OBJECT_LEVEL]!=3u||
+       g_downgradesPrevented[0]!=1||
+       markerPhase(object,25u,0u)!=GIFT_PHASE_COMPLETE)return 71u;
+
+    // COMPLETE is a fast return only while the live level still matches the
+    // marker's expected Max. A direct external divergence must take the slow
+    // path once and discard the stale downgrade-protection marker.
+    resetHarness();
+    memset(object,0,sizeof(object));
+    setMetadata(config,3u,1u,2u);
+    g_testResolvedConfig=config;
+    g_allowedConfigs[0]=(u64)config;
+    prepareDescriptor(descriptor,3u,CONSTRUCTION_NET_TYPE_PLAYER,26u);
+    hookedConstructionInit(object,descriptor);
+    makeStable(object,3u);
+    if(markerPhase(object,26u,0u)!=GIFT_PHASE_COMPLETE)return 73u;
+    makeStable(object,2u);
+    g_debugLog=false;
+    locksBefore=g_testMarkerLockAttempts;
+    readsBefore=g_testReadableChecks;
+    hookedConstructionUpdate(object,0.016f,1u);
+    if(g_updateCount!=1u||g_testMarkerLockAttempts<=locksBefore||
+       g_testReadableChecks<=readsBefore)return 74u;
+    if(markerPhase(object,26u,0u)!=GIFT_PHASE_NONE)return 75u;
+    locksBefore=g_testMarkerLockAttempts;
+    readsBefore=g_testReadableChecks;
+    hookedConstructionUpdate(object,0.016f,1u);
+    if(g_updateCount!=2u||g_testMarkerLockAttempts!=locksBefore||
+       g_testReadableChecks!=readsBefore)return 76u;
+
+    // SetLevel for an unmarked object is an equally important global hook hot
+    // path. An unrelated active marker must not trigger a lock or metadata
+    // validation, while the original SetLevel call remains fully native.
+    resetHarness();
+    memset(object,0,sizeof(object));
+    memset(secondObject,0,sizeof(secondObject));
+    setMetadata(config,3u,1u,2u);
+    g_testResolvedConfig=config;
+    g_allowedConfigs[0]=(u64)config;
+    prepareDescriptor(descriptor,1u,CONSTRUCTION_NET_TYPE_PLAYER,27u);
+    hookedConstructionInit(secondObject,descriptor);
+    if(markerPhase(secondObject,27u,0u)!=GIFT_PHASE_CANDIDATE)return 77u;
+    locksBefore=g_testMarkerLockAttempts;
+    readsBefore=g_testReadableChecks;
+    hookedSetLevel(object,2u);
+    if(g_setSequenceCount!=1u||g_setSequence[0]!=2u||
+       object[OFF_OBJECT_LEVEL]!=2u||
+       g_testMarkerLockAttempts!=locksBefore||
+       g_testReadableChecks!=readsBefore)return 78u;
+    if(markerPhase(secondObject,27u,0u)!=GIFT_PHASE_CANDIDATE)return 79u;
 
     return 0u;
 }

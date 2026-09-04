@@ -20,7 +20,7 @@ extern "C" void* _ReturnAddress();
 #pragma intrinsic(_InterlockedCompareExchange64)
 #pragma intrinsic(_ReturnAddress)
 
-#define MOD_VERSION "1.0.0"
+#define MOD_VERSION "1.0.1"
 #define EXPECTED_TIMESTAMP 0x6A3DAE46u
 #define EXPECTED_IMAGE_SIZE 0x0B292000u
 
@@ -407,6 +407,8 @@ static ConstructionUpdateFn g_testConstructionUpdate=0;
 static EffectiveMaxLevelFn g_testEffectiveMaxLevel=0;
 static bool g_testMaterialCaller=true;
 static s32 g_testHookClass=0;
+static u32 g_testMarkerLockAttempts=0;
+static u32 g_testReadableChecks=0;
 #endif
 
 static bool bytesEqual(const u8* left,const u8* right,u32 count){
@@ -593,6 +595,9 @@ static void logFoundationDiagnostic(
 }
 
 static bool rangeReadable(const void* pointer,u64 length){
+#ifdef DS2_TESTING
+    g_testReadableChecks++;
+#endif
     if(!pointer||!length)return false;
     MEMORY_BASIC_INFORMATION_X64 info;
     if(VirtualQuery(pointer,&info,sizeof(info))<sizeof(info))return false;
@@ -641,6 +646,22 @@ static void atomicStoreU64(volatile u64* target,u64 value){
             (volatile s64*)target,(s64)value,(s64)before
         )==before)return;
     }
+}
+// These fields are naturally aligned in the fixed marker table. On x64,
+// aligned 32/64-bit reads are atomic. The lock-free reads are only a reject
+// filter; every mutating active-path match is revalidated under the marker
+// lock. A stable COMPLETE marker is read-only and returns before that lock.
+static __forceinline u32 markerLoadU32(const u32* target){
+    return __atomic_load_n(target,__ATOMIC_ACQUIRE);
+}
+static __forceinline u64 markerLoadU64(const u64* target){
+    return __atomic_load_n(target,__ATOMIC_ACQUIRE);
+}
+static __forceinline void markerStoreU32(u32* target,u32 value){
+    __atomic_store_n(target,value,__ATOMIC_RELEASE);
+}
+static __forceinline void markerStoreU64(u64* target,u64 value){
+    __atomic_store_n(target,value,__ATOMIC_RELEASE);
 }
 
 static bool readBuildMetadata(const u8* base,u32* timestamp,u32* imageSize){
@@ -937,11 +958,14 @@ static bool readEffectiveMaxLevel(u8* config,u32* levelOut){
     return *levelOut>0u&&*levelOut<32u;
 }
 
-static u32 giftMarkerStart(void* object){
+static __forceinline u32 giftMarkerStart(void* object){
     u64 value=(u64)object;
     return (u32)(((value>>4u)^(value>>13u)^(value>>22u))&(GIFT_MARKER_COUNT-1u));
 }
 static bool tryLockGiftMarker(GiftMarker* marker){
+#ifdef DS2_TESTING
+    g_testMarkerLockAttempts++;
+#endif
     return marker&&_InterlockedCompareExchange(&marker->lock,1,0)==0;
 }
 static void unlockGiftMarker(GiftMarker* marker){
@@ -950,11 +974,11 @@ static void unlockGiftMarker(GiftMarker* marker){
 static void resetLockedGiftMarker(GiftMarker* marker){
     if(!marker)return;
     atomicStoreLong(&marker->nativeCallInProgress,0);
-    marker->object=0;
-    marker->constructionId=0;
-    marker->targetIndex=0;
-    marker->phase=GIFT_PHASE_NONE;
-    marker->expectedLevel=0;
+    markerStoreU64(&marker->object,0);
+    markerStoreU32(&marker->constructionId,0);
+    markerStoreU32(&marker->targetIndex,0);
+    markerStoreU32(&marker->phase,GIFT_PHASE_NONE);
+    markerStoreU32(&marker->expectedLevel,0);
     marker->waitPolls=0;
     marker->reserved=0;
 }
@@ -963,6 +987,7 @@ static void clearGiftMarkerForObject(void* object){
     u32 start=giftMarkerStart(object);
     for(u32 probe=0;probe<GIFT_MARKER_PROBES;probe++){
         GiftMarker* marker=&g_giftMarkers[(start+probe)&(GIFT_MARKER_COUNT-1u)];
+        if(markerLoadU64(&marker->object)!=(u64)object)continue;
         if(!tryLockGiftMarker(marker))continue;
         if(marker->object==(u64)object)resetLockedGiftMarker(marker);
         unlockGiftMarker(marker);
@@ -977,14 +1002,17 @@ static bool claimGiftMarker(
         GiftMarker* marker=&g_giftMarkers[(start+probe)&(GIFT_MARKER_COUNT-1u)];
         if(!tryLockGiftMarker(marker))return false;
         if(!marker->object||marker->object==(u64)object){
-            marker->constructionId=constructionId;
-            marker->targetIndex=targetIndex;
-            marker->phase=phase;
-            marker->expectedLevel=expectedLevel;
+            // Invalidate an existing same-pointer key before replacing its
+            // metadata, then publish the object key last below.
+            markerStoreU64(&marker->object,0);
+            markerStoreU32(&marker->constructionId,constructionId);
+            markerStoreU32(&marker->targetIndex,targetIndex);
+            markerStoreU32(&marker->phase,phase);
+            markerStoreU32(&marker->expectedLevel,expectedLevel);
             marker->waitPolls=0;
             marker->reserved=flags;
             atomicStoreLong(&marker->nativeCallInProgress,0);
-            marker->object=(u64)object;
+            markerStoreU64(&marker->object,(u64)object);
             unlockGiftMarker(marker);
             return true;
         }
@@ -999,6 +1027,9 @@ static GiftMarker* lockMatchingGiftMarker(
     u32 start=giftMarkerStart(object);
     for(u32 probe=0;probe<GIFT_MARKER_PROBES;probe++){
         GiftMarker* marker=&g_giftMarkers[(start+probe)&(GIFT_MARKER_COUNT-1u)];
+        if(markerLoadU64(&marker->object)!=(u64)object||
+           markerLoadU32(&marker->constructionId)!=constructionId||
+           markerLoadU32(&marker->targetIndex)!=targetIndex)continue;
         if(!tryLockGiftMarker(marker))return 0;
         if(marker->object==(u64)object&&marker->constructionId==constructionId&&
            marker->targetIndex==targetIndex)return marker;
@@ -1018,6 +1049,16 @@ static bool readGiftMarkerState(
     *flagsOut=marker->reserved;
     unlockGiftMarker(marker);
     return true;
+}
+
+static bool giftMarkerMayExist(void* object){
+    if(!object)return false;
+    u32 start=giftMarkerStart(object);
+    for(u32 probe=0;probe<GIFT_MARKER_PROBES;probe++){
+        GiftMarker* marker=&g_giftMarkers[(start+probe)&(GIFT_MARKER_COUNT-1u)];
+        if(markerLoadU64(&marker->object)==(u64)object)return true;
+    }
+    return false;
 }
 
 static bool giftPromotionCallInProgress(
@@ -1397,11 +1438,23 @@ static void advanceTrackedConstruction(void* object,TrackedUpdateDispatch dispat
     u32 quickTarget=TARGET_COUNT;
     for(u32 probe=0;probe<GIFT_MARKER_PROBES;probe++){
         GiftMarker* marker=&g_giftMarkers[(start+probe)&(GIFT_MARKER_COUNT-1u)];
-        if(!tryLockGiftMarker(marker))continue;
-        if(marker->object==(u64)object&&marker->constructionId==quickConstructionId&&
-           marker->phase!=GIFT_PHASE_NONE)quickTarget=marker->targetIndex;
-        unlockGiftMarker(marker);
-        if(quickTarget<TARGET_COUNT)break;
+        u64 markerObject=markerLoadU64(&marker->object);
+        if(markerObject!=(u64)object)continue;
+        u32 markerConstructionId=markerLoadU32(&marker->constructionId);
+        u32 markerTarget=markerLoadU32(&marker->targetIndex);
+        u32 markerPhase=markerLoadU32(&marker->phase);
+        // Re-read the publication field so a concurrent reset/reuse cannot
+        // turn a mixed snapshot into a false active match.
+        if(markerLoadU64(&marker->object)!=markerObject)continue;
+        if(markerConstructionId!=quickConstructionId||markerTarget>=TARGET_COUNT||
+           markerPhase==GIFT_PHASE_NONE)return;
+        if(markerPhase==GIFT_PHASE_COMPLETE){
+            u32 expectedLevel=markerLoadU32(&marker->expectedLevel);
+            u8 currentLevel=*(volatile const u8*)((u8*)object+OFF_OBJECT_LEVEL);
+            if(currentLevel==expectedLevel)return;
+        }
+        quickTarget=markerTarget;
+        break;
     }
     if(quickTarget>=TARGET_COUNT)return;
 
@@ -1435,13 +1488,13 @@ static void advanceTrackedConstruction(void* object,TrackedUpdateDispatch dispat
             if(gate.currentLevel==state.metadata.effectiveMaxLevel){
                 clearMarker=true;
             }else{
-                marker->phase=GIFT_PHASE_ARMED;
-                marker->expectedLevel=gate.currentLevel;
+                markerStoreU32(&marker->phase,GIFT_PHASE_ARMED);
+                markerStoreU32(&marker->expectedLevel,gate.currentLevel);
                 marker->waitPolls=0;
             }
         }else if(foundationGateIsStable(&gate,&state.metadata,dispatch)){
-            marker->phase=GIFT_PHASE_ARMED;
-            marker->expectedLevel=gate.currentLevel;
+            markerStoreU32(&marker->phase,GIFT_PHASE_ARMED);
+            markerStoreU32(&marker->expectedLevel,gate.currentLevel);
             marker->waitPolls=0;
         }
     }else if(marker->phase==GIFT_PHASE_ARMED){
@@ -1450,8 +1503,8 @@ static void advanceTrackedConstruction(void* object,TrackedUpdateDispatch dispat
                 clearMarker=true;
             }else if(foundationGateIsStable(&gate,&state.metadata,dispatch)){
                 requestedLevel=state.metadata.completionLevel;
-                marker->phase=GIFT_PHASE_WAIT_ACK;
-                marker->expectedLevel=requestedLevel;
+                markerStoreU32(&marker->phase,GIFT_PHASE_WAIT_ACK);
+                markerStoreU32(&marker->expectedLevel,requestedLevel);
                 marker->waitPolls=0;
                 marker->reserved|=GIFT_FLAG_FOUNDATION_COMPLETION_PRESERVED;
                 callNextLevel=true;
@@ -1467,8 +1520,8 @@ static void advanceTrackedConstruction(void* object,TrackedUpdateDispatch dispat
             // required Completion milestone, then use that same native shape
             // to avoid replaying a full construction presentation per level.
             requestedLevel=state.metadata.effectiveMaxLevel;
-            marker->phase=GIFT_PHASE_WAIT_ACK;
-            marker->expectedLevel=requestedLevel;
+            markerStoreU32(&marker->phase,GIFT_PHASE_WAIT_ACK);
+            markerStoreU32(&marker->expectedLevel,requestedLevel);
             marker->waitPolls=0;
             callNextLevel=true;
         }else if(gate.currentLevel!=marker->expectedLevel){
@@ -1480,12 +1533,12 @@ static void advanceTrackedConstruction(void* object,TrackedUpdateDispatch dispat
             failed=true;
         }else if(constructionGateIsStable(&gate)){
             if(gate.currentLevel==state.metadata.effectiveMaxLevel){
-                marker->phase=GIFT_PHASE_COMPLETE;
+                markerStoreU32(&marker->phase,GIFT_PHASE_COMPLETE);
                 marker->waitPolls=0;
                 completed=true;
             }else{
-                marker->phase=GIFT_PHASE_CANDIDATE;
-                marker->expectedLevel=gate.currentLevel;
+                markerStoreU32(&marker->phase,GIFT_PHASE_CANDIDATE);
+                markerStoreU32(&marker->expectedLevel,gate.currentLevel);
                 marker->waitPolls=0;
             }
         }else if(gate.lifecycleState==3u&&marker->waitPolls<0xFFFFFFFFu){
@@ -1551,9 +1604,9 @@ static void __fastcall hookedConstructionUpdate(
         dispatch=TRACKED_UPDATE_FOUNDATION_SECONDARY;
     }
 #endif
-    recordFoundationDiagnostic(object,updateFlags,callerRva,dispatch,0u);
+    if(g_debugLog)recordFoundationDiagnostic(object,updateFlags,callerRva,dispatch,0u);
     if(!callOriginalConstructionUpdate(object,elapsedSeconds,updateFlags))return;
-    recordFoundationDiagnostic(object,updateFlags,callerRva,dispatch,1u);
+    if(g_debugLog)recordFoundationDiagnostic(object,updateFlags,callerRva,dispatch,1u);
     if(dispatch!=TRACKED_UPDATE_NONE)advanceTrackedConstruction(object,dispatch);
 }
 
@@ -1564,6 +1617,10 @@ static void __fastcall hookedSetLevel(void* object,u32 requestedLevel){
 #else
     materialCaller=_ReturnAddress()==(void*)(g_gameBase+RVA_MATERIAL_LEVEL_RETURN);
 #endif
+    if(!giftMarkerMayExist(object)){
+        callOriginalSetLevel(object,requestedLevel);
+        return;
+    }
     bool handled=false;
     bool clearAfterNative=false;
     TargetRuntimeState state;

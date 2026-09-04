@@ -1,4 +1,4 @@
-# DS2 Konstruktionen ohne manuelle Upgrades v1.0.0
+# DS2 Konstruktionen ohne manuelle Upgrades v1.0.1
 
 Stabiler, versionsgebundener ASI-Mod für **DEATH STRANDING 2: ON THE BEACH**,
 Steam-PC-Version `1.10.89.0`.
@@ -22,6 +22,16 @@ Der klassenspezifische Fertigstellungsschritt erzeugt und bestätigt zuerst den
 benötigten Fundamentzustand. Sichtbarkeit, Levelbestätigung und Bauereignisse
 verwenden denselben nativen Ablauf; dieser notwendige Zwischenschritt wird
 daher nicht unterdrückt.
+
+## Performance-Hotfix
+
+v1.0.1 entfernt eine Dauerlast aus v1.0.0, die bei weit fortgeschrittenen
+Spielständen mit der Anzahl geladener Konstruktionen anstieg. Nicht getrackte
+und bereits stabil abgeschlossene Bauwerke verlassen den gemeinsamen
+Update-Hook nun nach einer atomaren, lockfreien Markerprüfung. Sie nehmen dort
+weder Marker-Locks noch wiederholte Speicherbereichsprüfungen. Aktive
+Bauvorgänge behalten weiterhin sämtliche fail-closed Prüfungen des folgenden
+Sicherheitsmodells.
 
 ## Unterstützte Konstruktionen
 
@@ -104,6 +114,9 @@ selbst findet kein Datei-I/O statt.
 - **v1.0.0** macht diese Zustandsmaschine zur stabilen Version, nachdem im
   Spiel normale Konstruktionen sowie sichtbarer Bau und exakt zwei native
   Upgrades von Schutzhütte/Bunker und Brücke bis Max bestätigt wurden.
+- **v1.0.1** entfernt die objektzahlabhängige Update-Last für fremde und
+  bereits abgeschlossene Bauwerke. Die Prüfungen aktiver Übergänge und der
+  Materialschutz abgeschlossener geschenkter Level bleiben erhalten.
 
 Die exakte Zielversion, Zustandsmaschine, Regressionstests und finale
 Release-Prüfung stehen in `docs/TECHNICAL_NOTES.md` und `docs/VALIDATION.md`.
