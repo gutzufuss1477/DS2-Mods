@@ -1,4 +1,4 @@
-# Coffin Board Overdrive v1.1.0
+# Fast as Fuck Coffin Board + Floating Carrier v1.1.2
 
 Buildgebundener ASI-Mod für **DEATH STRANDING 2: ON THE BEACH**, Steam-PC
 `1.10.89.0`.
@@ -88,14 +88,16 @@ Endübersetzung und den für den erhöhten Bereich nötigen Slip-Grenzwert. Die
 Antriebskraft bleibt neutral, bis alle Ressourcenänderungen erfolgreich sind;
 bei einem Fehler werden bereits ausgeführte Änderungen zurückgerollt.
 
-Der Listener wird früh registriert und prüft die bereits geladene
-Coffin-Ressource während des begrenzten 60-Sekunden-Suchfensters alle 500 ms
-erneut. Damit wird die Start-Zeitlücke geschlossen, durch die
-`SpeedPercent=500` zuvor gelegentlich inaktiv bleiben konnte. Nach
-erfolgreichem Patch oder nach Ablauf des Suchfensters entfernt der Worker den
-Listener ausserhalb der Callbacks und verlässt den Streaming-Lebenszyklus.
+v1.1.2 verwendet wieder die im Spiel bestätigte Startreihenfolge: zuerst
+werden die Coffin-spezifischen Lastenschweber-Guards installiert, danach der
+Antriebs-Hook und anschliessend der Streaming-Listener. Der begrenzte
+Discovery-Worker sucht weiter nach der Coffin-Physics-Ressource, bis die
+Geschwindigkeitstransaktion abgeschlossen ist. Dadurch funktioniert
+`SpeedPercent=500` wieder zusammen mit der finalen Warnungsunterdrückung. Nach
+erfolgreichem Patch oder Ablauf des Suchfensters entfernt der Worker den
+Listener ausserhalb der Callbacks.
 
-Public v1.1.0 enthält weder den wirkungslosen experimentellen
+Public v1.1.2 enthält weder den wirkungslosen experimentellen
 Follow-Step-Hook noch die verworfenen globalen „Distanz“-Writes. Die stabile
 Funktion verwendet ausschliesslich exakte Coffin-Aufstiegs-, Verbindungs-,
 Trennereignis- und Benachrichtigungsschutz-Patches.

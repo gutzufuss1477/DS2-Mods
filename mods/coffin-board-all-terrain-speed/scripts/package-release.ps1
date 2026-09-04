@@ -11,7 +11,7 @@ if (!(Test-Path -LiteralPath $targetExe -PathType Leaf)) {
 & python (Join-Path $root 'tools\validate_target.py') $targetExe
 if ($LASTEXITCODE) { throw 'Offline DS2 target validation failed' }
 
-$name = 'DS2_Coffin_Board_All_Terrain_Speed_v1.1.0'
+$name = 'DS2_Coffin_Board_All_Terrain_Speed_v1.1.2'
 $releaseRoot = Join-Path $root 'release'
 $stage = Join-Path $releaseRoot $name
 $zip = Join-Path $releaseRoot "$name.zip"

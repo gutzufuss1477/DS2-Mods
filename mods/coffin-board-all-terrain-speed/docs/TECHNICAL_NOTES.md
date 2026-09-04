@@ -273,9 +273,9 @@ There is no `component+0x120` velocity load and no telemetry store. The older
 80-byte diagnostic trampoline remains dormant for compatibility and is chosen
 only by an explicitly enabled legacy telemetry key.
 
-## v1.1.0 Floating Carrier support
+## v1.1.2 Floating Carrier support
 
-The public v1.1.0 carrier implementation uses four narrowly scoped Coffin-only
+The public v1.1.2 carrier implementation uses four narrowly scoped Coffin-only
 changes. The linked-object type gate accepts the Floating Carrier case while
 mounting, the RideVehicle transition shim snapshots and preserves the exact
 linked carrier instead of running the native disconnect transaction, the
@@ -293,3 +293,8 @@ required for stable retention and are not installed by the public release. The
 unused follow-update executable anchor was also removed from final target
 validation so the release validator checks only instructions used by the
 shipping carrier path.
+
+
+## v1.1.2 startup-order regression resolution
+
+A later cleanup attempted to install the streaming listener before the Coffin-only carrier and drive hooks. In gameplay this produced a 60-second discovery timeout and left `SpeedPercent=500` inactive, even though the carrier mount/link hooks still worked. The final v1.1.2 release restores the order proven by the successful recovery build: carrier guards, drive hook, then streaming listener. The final warning guard remains in place, so the native Floating Carrier boundary HUD message and Sam reaction stay suppressed.

@@ -60,7 +60,7 @@ mount restriction. Restart DS2 after changing a setting.
   dialogue
 - Native manual detach and reattach behavior after dismounting
 - Native steering, wet grip, cargo damage, and collision damage
-- Startup reliability backfill for an already-loading Coffin resource
+- Gameplay-validated startup ordering for speed and Floating Carrier hooks
 - Exact executable, resource, vtable, and instruction-signature validation
 - No edits to `DS2.exe`, game archives, or save files on disk
 
@@ -84,7 +84,7 @@ This does not disable cargo damage. Hard impacts, falls, water, and collisions
 can still damage cargo normally. Extreme speeds can also affect camera comfort
 and world streaming. Back up your save and test offline first.
 
-Public v1.1.0 excludes the ineffective experimental carrier follow-step hook
+Public v1.1.2 excludes the ineffective experimental carrier follow-step hook
 and discarded global “distance” writes. After a game update, remove the ASI
 until a matching build-locked release is available.
 

@@ -1,4 +1,4 @@
-// DS2 Coffin Board All-Terrain Speed v1.1.0
+// DS2 Coffin Board All-Terrain Speed v1.1.2
 // Target: DEATH STRANDING 2: ON THE BEACH, Steam 1.10.89.0
 //
 // Event-driven resource patch. The normal-land limits are derived from the
@@ -3060,9 +3060,9 @@ static void run_carrier_trace() {
 static DWORD __stdcall worker(LPVOID) {
     read_configuration();
 #if defined(COFFIN_CARRIER_TRACE_BUILD)
-    log_line("DS2 Coffin Board All-Terrain Speed v1.1.0 carrier TRACE loaded.", true);
+    log_line("DS2 Coffin Board All-Terrain Speed v1.1.2 carrier TRACE loaded.", true);
 #else
-    log_line("DS2 Coffin Board All-Terrain Speed v1.1.0 loaded.", true);
+    log_line("DS2 Coffin Board All-Terrain Speed v1.1.2 loaded.", true);
 #endif
     if (!g_enabled) {
         log_line("Disabled in INI; no game memory was changed.", true);
@@ -3090,64 +3090,7 @@ static DWORD __stdcall worker(LPVOID) {
         return 0;
     }
 
-    // Install only the two hooks required by the speed transaction first, then
-    // subscribe immediately. Cached starts can finish loading the Coffin
-    // resource while the independent carrier/trace hooks are still being
-    // installed, so delaying registration until after those hooks creates a
-    // real startup race.
-    if (!install_drive_force_hook(executable)) {
-        if (drive_coupling_needed()) {
-            log_line("ERROR: Exact Coffin drive-force hook anchor/vtable did not match; coupled caps/gearing/force patch was not applied.", true);
-            return 0;
-        }
-        log_line("WARNING: Exact Coffin telemetry hook anchor/vtable did not match; cap patch will continue without telemetry.", true);
-    } else if (g_driveHookInstalled) {
-        LogBuffer hookMessage;
-        log_init(&hookMessage); log_prefix(&hookMessage);
-        log_text(&hookMessage, "Coffin-only drive-force hook installed neutral at 100%; requested ");
-        log_uint(&hookMessage, (UINT64)g_driveForcePercent);
-        log_text(&hookMessage, "% activates only after the resource patch, telemetry=");
-        log_uint(&hookMessage, (UINT64)(g_speedTelemetry != 0));
-        log_text(&hookMessage, ".\r\n"); append_log(&hookMessage);
-    }
-
-    if (!install_steering_response_hook(executable)) {
-        if (steering_coupling_needed()) {
-            log_line("ERROR: Exact Coffin steering-response hook anchor/vtable did not match; no resource patch was applied.", true);
-            return 0;
-        }
-    } else if (g_steeringHookInstalled) {
-        LogBuffer hookMessage;
-        log_init(&hookMessage); log_prefix(&hookMessage);
-        log_text(&hookMessage, "Coffin-only steering-response hook installed neutral at 100%; requested ");
-        log_uint(&hookMessage, (UINT64)g_steeringResponsePercent);
-        log_text(&hookMessage, "% activates from 80 to 220 km/h after the resource patch, steering telemetry=");
-        log_uint(&hookMessage, (UINT64)(g_speedTelemetry != 0));
-        log_text(&hookMessage, ".\r\n");
-        append_log(&hookMessage);
-    }
-
-    if (!register_streaming_listener(manager)) {
-        log_line("ERROR: Could not register resource listener; no speed patch was applied.", true);
-        return 0;
-    }
-    LogBuffer message;
-    log_init(&message); log_prefix(&message);
-    log_text(&message, "Listener registered early. profile=");
-    log_text(&message, g_simpleProfile ? "simple" : "legacy");
-    log_text(&message, ", land="); log_uint(&message, (UINT64)g_normalPercent);
-    log_text(&message, "% of water, boost="); log_uint(&message, (UINT64)g_boostPercent);
-    log_text(&message, "%, PatchStandardSpeed="); log_uint(&message, (UINT64)(g_patchStandardSpeed != 0));
-    log_text(&message, ", ScaleWaterCapsWithPercent="); log_uint(&message, (UINT64)(g_scaleWaterCaps != 0));
-    log_text(&message, ", DriveForcePercent="); log_uint(&message, (UINT64)g_driveForcePercent);
-    log_text(&message, ", GearRatioPercent="); log_uint(&message, (UINT64)g_gearRatioPercent);
-    log_text(&message, ", AccelerationPercent="); log_uint(&message, (UINT64)g_accelerationPercent);
-    log_text(&message, ", SteeringAnglePercent="); log_uint(&message, (UINT64)g_steeringAnglePercent);
-    log_text(&message, ", SteeringResponsePercent="); log_uint(&message, (UINT64)g_steeringResponsePercent);
-    log_text(&message, ", WetGripPercent="); log_uint(&message, (UINT64)g_wetGripPercent);
-    log_text(&message, ", RaiseSlipThreshold="); log_uint(&message, (UINT64)(g_raiseSlipThreshold != 0));
-    log_text(&message, ", targeted group/index lookup enabled.\r\n"); append_log(&message);
-
+    // Install the validated final Floating Carrier guards first.
     if (!install_floating_carrier_link_preserve(executable)) {
         return stop_worker_after_listener_error(
             "ERROR: Exact Coffin/Floating Carrier transition anchor did not match; no mount patch was applied."
@@ -3181,6 +3124,41 @@ static DWORD __stdcall worker(LPVOID) {
         log_line("Coffin-only Floating Carrier overextension HUD/voice notification guard installed.", true);
     }
 
+    // Match the gameplay-validated recovery ordering exactly: carrier guards first,
+    // then drive/steering hooks, then the streaming listener.
+    if (!install_drive_force_hook(executable)) {
+        if (drive_coupling_needed()) {
+            log_line("ERROR: Exact Coffin drive-force hook anchor/vtable did not match; coupled caps/gearing/force patch was not applied.", true);
+            return 0;
+        }
+        log_line("WARNING: Exact Coffin telemetry hook anchor/vtable did not match; cap patch will continue without telemetry.", true);
+    } else if (g_driveHookInstalled) {
+        LogBuffer hookMessage;
+        log_init(&hookMessage); log_prefix(&hookMessage);
+        log_text(&hookMessage, "Coffin-only drive-force hook installed neutral at 100%; requested ");
+        log_uint(&hookMessage, (UINT64)g_driveForcePercent);
+        log_text(&hookMessage, "% activates only after the resource patch, telemetry=");
+        log_uint(&hookMessage, (UINT64)(g_speedTelemetry != 0));
+        log_text(&hookMessage, ".\r\n"); append_log(&hookMessage);
+    }
+
+    if (!install_steering_response_hook(executable)) {
+        if (steering_coupling_needed()) {
+            log_line("ERROR: Exact Coffin steering-response hook anchor/vtable did not match; no resource patch was applied.", true);
+            return 0;
+        }
+    } else if (g_steeringHookInstalled) {
+        LogBuffer hookMessage;
+        log_init(&hookMessage); log_prefix(&hookMessage);
+        log_text(&hookMessage, "Coffin-only steering-response hook installed neutral at 100%; requested ");
+        log_uint(&hookMessage, (UINT64)g_steeringResponsePercent);
+        log_text(&hookMessage, "% activates from 80 to 220 km/h after the resource patch, steering telemetry=");
+        log_uint(&hookMessage, (UINT64)(g_speedTelemetry != 0));
+        log_text(&hookMessage, ".\r\n");
+        append_log(&hookMessage);
+    }
+
+
 #if defined(COFFIN_CARRIER_TRACE_BUILD)
     if (!install_direct_carrier_write_traces(executable)) {
         return stop_worker_after_listener_error(
@@ -3199,6 +3177,27 @@ static DWORD __stdcall worker(LPVOID) {
     }
     log_line("CARRIER TRACE: five direct carrier writes, three block stores, and action/component probes installed without callbacks.", true);
 #endif
+
+    if (!register_streaming_listener(manager)) {
+        log_line("ERROR: Could not register resource listener; no speed patch was applied.", true);
+        return 0;
+    }
+    LogBuffer message;
+    log_init(&message); log_prefix(&message);
+    log_text(&message, "Listener registered. profile=");
+    log_text(&message, g_simpleProfile ? "simple" : "legacy");
+    log_text(&message, ", land="); log_uint(&message, (UINT64)g_normalPercent);
+    log_text(&message, "% of water, boost="); log_uint(&message, (UINT64)g_boostPercent);
+    log_text(&message, "%, PatchStandardSpeed="); log_uint(&message, (UINT64)(g_patchStandardSpeed != 0));
+    log_text(&message, ", ScaleWaterCapsWithPercent="); log_uint(&message, (UINT64)(g_scaleWaterCaps != 0));
+    log_text(&message, ", DriveForcePercent="); log_uint(&message, (UINT64)g_driveForcePercent);
+    log_text(&message, ", GearRatioPercent="); log_uint(&message, (UINT64)g_gearRatioPercent);
+    log_text(&message, ", AccelerationPercent="); log_uint(&message, (UINT64)g_accelerationPercent);
+    log_text(&message, ", SteeringAnglePercent="); log_uint(&message, (UINT64)g_steeringAnglePercent);
+    log_text(&message, ", SteeringResponsePercent="); log_uint(&message, (UINT64)g_steeringResponsePercent);
+    log_text(&message, ", WetGripPercent="); log_uint(&message, (UINT64)g_wetGripPercent);
+    log_text(&message, ", RaiseSlipThreshold="); log_uint(&message, (UINT64)(g_raiseSlipThreshold != 0));
+    log_text(&message, ", targeted group/index lookup enabled.\r\n"); append_log(&message);
 
     // Keep this one-shot listener only for a bounded discovery window. A
     // completion published by a callback is observed with acquire semantics,
@@ -3226,7 +3225,7 @@ static DWORD __stdcall worker(LPVOID) {
     log_line("LIFECYCLE: worker no longer participates in streaming shutdown.", true);
 
     run_speed_telemetry();
-    run_carrier_gate_trace();
+    if (g_debugLog) run_carrier_gate_trace();
 #if defined(COFFIN_CARRIER_TRACE_BUILD)
     run_carrier_trace();
 #endif

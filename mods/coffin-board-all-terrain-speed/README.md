@@ -1,4 +1,4 @@
-# Coffin Board Overdrive v1.1.0
+# Fast as Fuck Coffin Board + Floating Carrier v1.1.2
 
 Build-locked ASI mod for **DEATH STRANDING 2: ON THE BEACH**, Steam PC
 `1.10.89.0`.
@@ -86,14 +86,15 @@ gearing, and the slip threshold required for the raised speed range. Drive
 force remains neutral until every resource write succeeds; failures roll back
 completed writes.
 
-The listener is registered early and checks the resident Coffin group every
-500 ms during its bounded 60-second discovery window. This closes the startup
-timing gap that could previously leave `SpeedPercent=500` inactive when the
-resource became resident around listener registration. After successful
-patching, or when the discovery window ends, the worker removes the listener
-outside callbacks and exits the streaming lifecycle.
+v1.1.2 uses the gameplay-validated startup order: the Coffin-only carrier
+guards are installed first, followed by the drive hook and then the streaming
+listener. The bounded discovery worker keeps checking for the Coffin physics
+resource until the speed transaction completes. This restores the proven
+`SpeedPercent=500` path while keeping the final carrier-warning suppression.
+After successful patching, or when the discovery window ends, the worker
+removes the listener outside callbacks and exits the streaming lifecycle.
 
-Public v1.1.0 does not include the ineffective experimental carrier follow-step
+Public v1.1.2 does not include the ineffective experimental carrier follow-step
 scaling hook or the discarded global “distance” writes. The stable feature is
 implemented by exact Coffin-only mount, link-preservation, detach-event, and
 notification guards.

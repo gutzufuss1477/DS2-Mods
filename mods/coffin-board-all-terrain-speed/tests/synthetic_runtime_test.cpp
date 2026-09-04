@@ -180,7 +180,7 @@ extern "C" __declspec(dllexport) UINT32 RunSyntheticCoffinSpeedTest() {
         if (CARRIER_WARNING_GUARD_TEMPLATE[index] != 0u) return 94u;
     }
 
-    // The public v1.1.0 path deliberately contains no carrier follow-step
+    // The public v1.1.2 path deliberately contains no carrier follow-step
     // scaling hook or global distance-limit writes. Carrier retention is
     // implemented only by the exact mount/link/detach/notification guards.
 
@@ -837,7 +837,7 @@ extern "C" __declspec(dllexport) UINT32 RunSyntheticCoffinSpeedTest() {
     if (!patch_coffin_physics(resource) ||
         !f_near(*(float*)(resource + OFF_WET_SIDE_GRIP), 0.4995f, 0.00001f)) return 70u;
 
-    // Full v1.1.0 packaged-profile speed transaction: only speed/caps/gearing/slip
+    // Full v1.1.2 packaged-profile speed transaction: only speed/caps/gearing/slip
     // and the required drive factor change. Steering, wet grip and telemetry
     // remain native/inactive, so no steering hook is required.
     *(float*)(resource + OFF_STEERING_DEGREE) = 50.0f;
