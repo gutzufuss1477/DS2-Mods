@@ -20,6 +20,7 @@ Source code, documentation and validated releases for my DEATH STRANDING 2 mods.
 - [Zipline Range and Speed](mods/zipline-range/)
 - [Chiral Bandwidth Costs](mods/chiral-bandwidth-costs/)
 - [Climbing Power Gloves Range](mods/climbing-power-gloves-range/)
+- [APAS Memory Costs](mods/apas-memory-costs/)
 
 
 * [High-Density Backpack Modules](mods/high-density-backpack-modules)
