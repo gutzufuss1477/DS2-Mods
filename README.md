@@ -5,7 +5,6 @@ Source code, documentation and validated releases for my DEATH STRANDING 2 mods.
 ## Mods
 
 * [Hill Assist and Speed Boost](mods/hill-assist-and-speed-boost/)
-
 - [Remote Orders Overlay](mods/remote-orders-overlay/)
 - [Pickup Cargo Capacity](mods/pickup-cargo-capacity/)
 - [Tri-Cruiser Cargo Capacity](mods/tri-cruiser-cargo-capacity/)
@@ -20,8 +19,7 @@ Source code, documentation and validated releases for my DEATH STRANDING 2 mods.
 - [Zipline Range and Speed](mods/zipline-range/)
 - [Chiral Bandwidth Costs](mods/chiral-bandwidth-costs/)
 - [Climbing Power Gloves Range](mods/climbing-power-gloves-range/)
-- [APAS Memory Costs](mods/apas-memory-costs/)
-
+- [Extended BT Cord Cutting Range](mods/extended-bt-cord-cutting-range/)
 
 * [High-Density Backpack Modules](mods/high-density-backpack-modules)
 
