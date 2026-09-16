@@ -1,0 +1,12 @@
+LIBRARY kernel32.dll
+EXPORTS
+GetModuleHandleW
+GetModuleFileNameW
+DisableThreadLibraryCalls
+CreateFileW
+WriteFile
+CloseHandle
+CreateThread
+Sleep
+VirtualQuery
+GetPrivateProfileStringW

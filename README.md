@@ -21,6 +21,7 @@ Source code, documentation and validated releases for my DEATH STRANDING 2 mods.
 - [Climbing Power Gloves Range](mods/climbing-power-gloves-range/)
 - [Extended BT Cord Cutting Range](mods/extended-bt-cord-cutting-range/)
 - [APAS Memory Costs](mods/apas-memory-costs/)
+- [Proficiency Bonus Multiplier](mods/proficiency-bonus-multiplier/)
 
 * [High-Density Backpack Modules](mods/high-density-backpack-modules)
 

@@ -18,3 +18,4 @@ mods/construction-max-level-on-build/release/DS2_Construction_Max_Level_On_Build
 mods/coffin-board-all-terrain-speed/config/ds2_coffin_board_all_terrain_speed.ini -text -diff
 mods/coffin-board-all-terrain-speed/release/DS2_Coffin_Board_All_Terrain_Speed_v1.0.0/ds2_coffin_board_all_terrain_speed.ini -text -diff
 mods/remote-orders-overlay/release/DS2_Remote_Orders_Overlay.ini -text -diff
+mods/proficiency-bonus-multiplier/release/DS2_ProficiencyBonusMultiplier.ini -text -diff
