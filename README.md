@@ -20,6 +20,7 @@ Source code, documentation and validated releases for my DEATH STRANDING 2 mods.
 - [Chiral Bandwidth Costs](mods/chiral-bandwidth-costs/)
 - [Climbing Power Gloves Range](mods/climbing-power-gloves-range/)
 - [Extended BT Cord Cutting Range](mods/extended-bt-cord-cutting-range/)
+- [APAS Memory Costs](mods/apas-memory-costs/)
 
 * [High-Density Backpack Modules](mods/high-density-backpack-modules)
 

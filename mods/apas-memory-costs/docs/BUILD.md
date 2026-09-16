@@ -1,33 +1,27 @@
-# Build
+# Build Notes
 
-The project is a freestanding x64 Windows ASI/DLL with no CRT dependency.
+The source in `src/ds2_apas_memory_costs.cpp` is the exact source stored with the
+promoted v1.0.3 performance build.
 
-The release binary was built with Clang/LLD targeting the Microsoft x64 ABI.
+It is a small x64 Windows ASI/DLL implementation using only Win32 APIs and no
+third-party runtime dependency.
 
-Example build flow:
-
-```bat
-clang++ -target x86_64-pc-windows-msvc -O2 -ffreestanding -fno-exceptions -fno-rtti -fno-stack-protector -c src\ds2_apas_memory_costs.cpp -o ds2_apas_memory_costs.obj
-lld-link /lib /machine:x64 /def:kernel32.def /out:kernel32.lib
-lld-link /machine:x64 /dll /entry:DllMain /nodefaultlib /subsystem:windows /out:ds2_apas_memory_costs.asi ds2_apas_memory_costs.obj kernel32.lib
-```
-
-`kernel32.def` only needs the imports referenced by the source:
+Important imports used by this source:
 
 ```text
-CloseHandle
-CreateFileW
-CreateMutexW
-CreateThread
-DisableThreadLibraryCalls
-GetLastError
-GetModuleFileNameW
 GetModuleHandleW
-GetPrivateProfileStringW
+GetModuleFileNameW
+CreateThread
+CloseHandle
+DisableThreadLibraryCalls
 Sleep
-VirtualProtect
 VirtualQuery
-WriteFile
+GetPrivateProfileIntW
 ```
 
-No third-party runtime library is required by the ASI itself.
+The Git release binary is intentionally the exact tested build and was not recompiled
+for this handover package.
+
+If rebuilding later, preserve a conventional PE layout because earlier ultra-minimal
+builds triggered Nexus antivirus quarantine even though the mod behaviour itself was
+legitimate.

@@ -1,10 +1,13 @@
 # DS2 APAS Memory Costs
 
-INI-configurable APAS Enhancement memory costs for **DEATH STRANDING 2: ON THE BEACH**.
+INI-configurable APAS Enhancement Memory costs for **DEATH STRANDING 2: ON THE BEACH**.
 
-## Release
+## Current release
 
-Current version: **v1.0.0**
+**v1.0.3**
+
+The v1.0.3 performance build has been promoted to the main release after testing showed
+significantly better runtime behaviour than the earlier continuously polling version.
 
 Default configuration:
 
@@ -12,14 +15,13 @@ Default configuration:
 [APASMemoryCosts]
 Enabled=1
 GlobalCost=1
-DebugLog=0
 ```
 
 `GlobalCost=1` makes every loaded APAS Enhancement cost one APAS Memory point.
 
 ## Installation
 
-Copy the files from `release/` beside `DS2.exe`:
+Copy these files from `release/` beside `DS2.exe`:
 
 - `ds2_apas_memory_costs.asi`
 - `ds2_apas_memory_costs.ini`
@@ -33,23 +35,39 @@ Restart the game after changing the INI.
 - `Enabled=1` enables the mod.
 - `GlobalCost=0` makes APAS Enhancements free.
 - `GlobalCost=1` makes every enhancement cost one point.
-- `GlobalCost=2..1000000` sets an exact global cost.
-- `DebugLog=1` enables detailed runtime logging.
+- `GlobalCost=2..1000000` sets the same custom cost for all APAS Enhancements.
 
-## Runtime behavior
+## v1.0.3 performance behaviour
 
-The mod continuously walks the game's APAS resource entries and overwrites
-`DSApasEnhancementResource::EnhancementPoint` with the configured value.
-Resources that become available later in the session are handled automatically.
+The worker no longer scans APAS resources permanently during normal gameplay.
 
-The modification is runtime-only. The executable and save files are not modified on disk.
+It:
 
-## Compatibility policy
+1. waits through initial process startup;
+2. patches the currently available APAS resources;
+3. polls lightly while the APAS table is still loading;
+4. remains for several stable passes to catch late startup resources;
+5. terminates completely once the normal APAS table is populated and stable.
 
-There is intentionally **no hard game-version check**.
+The number of `VirtualQuery` calls per pass was also reduced.
+
+This keeps the APAS cost behaviour while removing the permanent polling overhead present
+in the earlier implementation.
+
+## Runtime modification
+
+The mod changes the runtime `EnhancementPoint` field used by the APAS system.
+
+It does not modify:
+
+- `DS2.exe` on disk;
+- save files on disk.
+
+## Compatibility
+
+There is intentionally no hard game-version check.
 
 The current offsets were discovered and tested on Steam `DS2.exe 1.10.89.0`.
-If a later game update moves the APAS manager or changes the resource layout,
-the offsets in the source may need to be updated.
+A future game update may require the manager RVA or structure offsets to be updated.
 
-See `docs/TECHNICAL_NOTES.md` for the confirmed runtime path and research notes.
+See `docs/TECHNICAL_NOTES.md` and `docs/RESEARCH_HANDOVER.md` for maintenance details.

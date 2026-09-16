@@ -2,7 +2,7 @@
 
 ## Confirmed APAS runtime path
 
-Static analysis and runtime testing established the following chain:
+Static analysis and runtime testing established:
 
 ```text
 DS2.exe + 0x623E5D0
@@ -20,24 +20,27 @@ resource + 0x24
 
 The APAS manager contains `0x37` entry slots.
 
-## Why `resource + 0x24` is the real cost field
+## Why `resource + 0x24` is the real APAS cost field
 
-The APAS accounting function at the analyzed build's RVA `0xBE3D00`
-walks active APAS entries, resolves `entry + 0x70`, and adds
-`[resource + 0x24]` to the occupied APAS Memory total.
+The APAS accounting function identified at RVA `0xBE3D00` walks active APAS entries,
+resolves `entry + 0x70`, and adds `[resource + 0x24]` to occupied APAS Memory.
 
-The APAS activation path also reads the same field and compares it against:
+The activation path independently reads the same field and compares it against:
 
 ```text
 total APAS capacity - currently occupied APAS Memory
 ```
 
-Therefore the field is not only a UI value. It participates in both:
+The field therefore participates in both:
 
 1. occupied-memory accounting;
-2. the activation capacity check.
+2. the activation-capacity check.
 
-The reflected resource terminology found during static analysis includes:
+It is not merely a UI display value.
+
+## Confirmed reflection/resource terminology
+
+Static analysis identified:
 
 - `DSApasEnhancementResource`
 - `DSApasEnhancementResources`
@@ -48,40 +51,62 @@ The reflected resource terminology found during static analysis includes:
 - `AdditionalMemoryCapacityByHouseholdFriendshipLevel`
 - `apas_enhancement_array`
 
-## Current implementation
+## v1.0.3 implementation
 
-The release patches `EnhancementPoint` in memory for each loaded APAS resource.
-The worker repeats periodically so resources that appear after startup are covered.
-
-### Constants
+Constants:
 
 ```text
 Manager global RVA : 0x623E5D0
 Entry count        : 0x37
-Entry array offset : 0x30
-Resource ptr       : +0x70
-EnhancementPoint   : +0x24
+Entry array offset : +0x30
+Resource pointer   : entry +0x70
+EnhancementPoint   : resource +0x24
 ```
+
+The worker:
+
+```text
+startup
+  -> Sleep(3000 ms)
+  -> PatchPass()
+
+if fewer than 40 resources are available:
+  -> Sleep(5000 ms)
+  -> retry
+
+once 40+ resources are available:
+  -> check once per second
+  -> require five stable passes with no new writes
+  -> terminate worker thread
+```
+
+The patch pass validates the complete manager entry-array region once instead of calling
+`VirtualQuery` on every array slot.
+
+For each populated slot it only validates:
+
+- the small `entry +0x70` region needed to read the resource pointer;
+- the four-byte writable `resource +0x24` cost field.
+
+Writes use an atomic compare/exchange.
+
+## Performance rationale
+
+Earlier builds continued to walk the APAS resource table throughout gameplay.
+User feedback reported a severe FPS reduction with that implementation.
+
+v1.0.3 removes permanent gameplay polling. Once the APAS table has reached its normal
+populated/stable state, the worker returns and no further APAS scanning occurs.
 
 ## Version policy
 
-v1.0.0 deliberately does not perform a hard PE timestamp, image-size, or signature gate.
+There is deliberately no hard PE timestamp, image-size, or signature gate.
 
-The constants above were discovered and functionally tested on:
+The offsets above were discovered and functionally tested on:
 
 ```text
 Steam DS2.exe 1.10.89.0
 ```
 
-A future game update may require rediscovering only the manager RVA and/or structure offsets.
-The static discovery history is summarized here so later maintenance can resume from the
-confirmed data path instead of repeating the full investigation.
-
-## Safety characteristics
-
-- Pointer regions are checked with `VirtualQuery` before dereferencing.
-- Only 32-bit non-negative cost fields in the accepted range are changed.
-- `VirtualProtect` is used only around the four-byte cost write.
-- A compare/exchange write avoids replacing a value that changed between read and write.
-- The mod never writes to `DS2.exe` on disk.
-- The mod never writes to save files on disk.
+After a future game update, validate the runtime path before assuming the constants
+remain correct.
