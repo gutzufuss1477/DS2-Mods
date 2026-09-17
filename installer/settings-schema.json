@@ -10,15 +10,61 @@
             {
               "name": "HillAssist",
               "fields": [
-                { "key": "Enabled", "type": "bool" },
-                { "key": "GripPercent", "type": "int", "min": 100, "max": 600 },
-                { "key": "MinimumFrictionPercent", "type": "int", "min": 100, "max": 400 },
-                { "key": "AssistStartSlopeDegrees", "type": "int", "min": 0, "max": 60 },
-                { "key": "FullAssistSlopeDegrees", "type": "int", "min": 1, "max": 80 },
-                { "key": "MaximumFrictionPercent", "type": "int", "min": 100, "max": 2000 },
-                { "key": "StopAfterChangedEntries", "type": "int", "min": 0, "max": 256, "advanced": true },
-                { "key": "ScanStartGroup", "type": "int", "min": 0, "max": 20000, "advanced": true },
-                { "key": "ScanEndGroup", "type": "int", "min": 1, "max": 30000, "advanced": true }
+                {
+                  "key": "Enabled",
+                  "type": "bool"
+                },
+                {
+                  "key": "GripPercent",
+                  "type": "int",
+                  "min": 100,
+                  "max": 600
+                },
+                {
+                  "key": "MinimumFrictionPercent",
+                  "type": "int",
+                  "min": 100,
+                  "max": 400
+                },
+                {
+                  "key": "AssistStartSlopeDegrees",
+                  "type": "int",
+                  "min": 0,
+                  "max": 60
+                },
+                {
+                  "key": "FullAssistSlopeDegrees",
+                  "type": "int",
+                  "min": 1,
+                  "max": 80
+                },
+                {
+                  "key": "MaximumFrictionPercent",
+                  "type": "int",
+                  "min": 100,
+                  "max": 2000
+                },
+                {
+                  "key": "StopAfterChangedEntries",
+                  "type": "int",
+                  "min": 0,
+                  "max": 256,
+                  "advanced": true
+                },
+                {
+                  "key": "ScanStartGroup",
+                  "type": "int",
+                  "min": 0,
+                  "max": 20000,
+                  "advanced": true
+                },
+                {
+                  "key": "ScanEndGroup",
+                  "type": "int",
+                  "min": 1,
+                  "max": 30000,
+                  "advanced": true
+                }
               ]
             }
           ]
@@ -29,14 +75,61 @@
             {
               "name": "VehicleSpeedBoost",
               "fields": [
-                { "key": "Enabled", "type": "bool" },
-                { "key": "TruckNormalSpeedPercent", "type": "int", "min": 50, "max": 300, "aliases": ["TruckNormalRoadSpeedPercent"] },
-                { "key": "BikeNormalSpeedPercent", "type": "int", "min": 50, "max": 300, "aliases": ["BikeNormalRoadSpeedPercent"] },
-                { "key": "TruckBoostTopSpeedPercent", "type": "int", "min": 100, "max": 300 },
-                { "key": "BikeBoostTopSpeedPercent", "type": "int", "min": 100, "max": 300 },
-                { "key": "StopAfterProfiles", "type": "int", "min": 0, "max": 64, "advanced": true },
-                { "key": "ScanStartGroup", "type": "int", "min": 0, "max": 20000, "advanced": true },
-                { "key": "ScanEndGroup", "type": "int", "min": 1, "max": 30000, "advanced": true }
+                {
+                  "key": "Enabled",
+                  "type": "bool"
+                },
+                {
+                  "key": "TruckNormalSpeedPercent",
+                  "type": "int",
+                  "min": 50,
+                  "max": 300,
+                  "aliases": [
+                    "TruckNormalRoadSpeedPercent"
+                  ]
+                },
+                {
+                  "key": "BikeNormalSpeedPercent",
+                  "type": "int",
+                  "min": 50,
+                  "max": 300,
+                  "aliases": [
+                    "BikeNormalRoadSpeedPercent"
+                  ]
+                },
+                {
+                  "key": "TruckBoostTopSpeedPercent",
+                  "type": "int",
+                  "min": 100,
+                  "max": 300
+                },
+                {
+                  "key": "BikeBoostTopSpeedPercent",
+                  "type": "int",
+                  "min": 100,
+                  "max": 300
+                },
+                {
+                  "key": "StopAfterProfiles",
+                  "type": "int",
+                  "min": 0,
+                  "max": 64,
+                  "advanced": true
+                },
+                {
+                  "key": "ScanStartGroup",
+                  "type": "int",
+                  "min": 0,
+                  "max": 20000,
+                  "advanced": true
+                },
+                {
+                  "key": "ScanEndGroup",
+                  "type": "int",
+                  "min": 1,
+                  "max": 30000,
+                  "advanced": true
+                }
               ]
             }
           ]
@@ -52,8 +145,17 @@
             {
               "name": "PickupCargoCapacity",
               "fields": [
-                { "key": "Enabled", "type": "bool" },
-                { "key": "CapacityUnits", "type": "int", "min": 160, "max": 480, "multipleOf": 16 }
+                {
+                  "key": "Enabled",
+                  "type": "bool"
+                },
+                {
+                  "key": "CapacityUnits",
+                  "type": "int",
+                  "min": 160,
+                  "max": 480,
+                  "multipleOf": 16
+                }
               ]
             }
           ]
@@ -69,9 +171,22 @@
             {
               "name": "CoffinBoardAllTerrainSpeed",
               "fields": [
-                { "key": "SpeedPercent", "type": "int", "min": 100, "max": 1000 },
-                { "key": "AccelerationPercent", "type": "int", "min": 100, "max": 500 },
-                { "key": "AllowFloatingCarrier", "type": "bool" }
+                {
+                  "key": "SpeedPercent",
+                  "type": "int",
+                  "min": 100,
+                  "max": 1000
+                },
+                {
+                  "key": "AccelerationPercent",
+                  "type": "int",
+                  "min": 100,
+                  "max": 500
+                },
+                {
+                  "key": "AllowFloatingCarrier",
+                  "type": "bool"
+                }
               ]
             }
           ]
@@ -87,10 +202,27 @@
             {
               "name": "ClimbingGlovesRange",
               "fields": [
-                { "key": "Enabled", "type": "bool" },
-                { "key": "Level1RangeMeters", "type": "int", "min": 8, "max": 100 },
-                { "key": "Level2RangeMeters", "type": "int", "min": 10, "max": 100 },
-                { "key": "DebugLog", "type": "bool", "advanced": true }
+                {
+                  "key": "Enabled",
+                  "type": "bool"
+                },
+                {
+                  "key": "Level1RangeMeters",
+                  "type": "int",
+                  "min": 8,
+                  "max": 100
+                },
+                {
+                  "key": "Level2RangeMeters",
+                  "type": "int",
+                  "min": 10,
+                  "max": 100
+                },
+                {
+                  "key": "DebugLog",
+                  "type": "bool",
+                  "advanced": true
+                }
               ]
             }
           ]
@@ -106,26 +238,74 @@
             {
               "name": "SamStatsBooster",
               "fields": [
-                { "key": "Enabled", "type": "bool" },
-                { "key": "Multiplier", "type": "decimal", "min": 1.0, "max": 100.0 }
+                {
+                  "key": "Enabled",
+                  "type": "bool"
+                },
+                {
+                  "key": "Multiplier",
+                  "type": "decimal",
+                  "min": 1.0,
+                  "max": 100.0
+                }
               ]
             },
             {
               "name": "Stats",
               "fields": [
-                { "key": "TerrainTraversal", "type": "bool" },
-                { "key": "CarryingCapacity", "type": "bool" },
-                { "key": "Endurance", "type": "bool" },
-                { "key": "KOResistance", "type": "bool" },
-                { "key": "LungCapacity", "type": "bool" },
-                { "key": "StrandSkills", "type": "bool" },
-                { "key": "MeleeCombat", "type": "bool" },
-                { "key": "Handguns", "type": "bool" },
-                { "key": "AssaultRifles", "type": "bool" },
-                { "key": "SniperRifles", "type": "bool" },
-                { "key": "MachineGuns", "type": "bool" },
-                { "key": "Shotguns", "type": "bool" },
-                { "key": "StealthTakedown", "type": "bool", "advanced": true }
+                {
+                  "key": "TerrainTraversal",
+                  "type": "bool"
+                },
+                {
+                  "key": "CarryingCapacity",
+                  "type": "bool"
+                },
+                {
+                  "key": "Endurance",
+                  "type": "bool"
+                },
+                {
+                  "key": "KOResistance",
+                  "type": "bool"
+                },
+                {
+                  "key": "LungCapacity",
+                  "type": "bool"
+                },
+                {
+                  "key": "StrandSkills",
+                  "type": "bool"
+                },
+                {
+                  "key": "MeleeCombat",
+                  "type": "bool"
+                },
+                {
+                  "key": "Handguns",
+                  "type": "bool"
+                },
+                {
+                  "key": "AssaultRifles",
+                  "type": "bool"
+                },
+                {
+                  "key": "SniperRifles",
+                  "type": "bool"
+                },
+                {
+                  "key": "MachineGuns",
+                  "type": "bool"
+                },
+                {
+                  "key": "Shotguns",
+                  "type": "bool"
+                },
+                {
+                  "key": "StealthTakedown",
+                  "type": "bool",
+                  "advanced": true
+                }
               ]
             }
           ]
@@ -141,15 +321,52 @@
             {
               "name": "PorterGradeBooster",
               "fields": [
-                { "key": "Enabled", "type": "bool" },
-                { "key": "Mode", "type": "choice", "choices": ["Multiplier", "Additive", "Both"] },
-                { "key": "Multiplier", "type": "decimal", "min": 0.0, "max": 1000.0 },
-                { "key": "ExtraPoints", "type": "uint64", "min": 0, "max": 18446744073709551615, "advanced": true },
-                { "key": "Porter", "type": "bool" },
-                { "key": "Combat", "type": "bool" },
-                { "key": "Stealth", "type": "bool" },
-                { "key": "Service", "type": "bool" },
-                { "key": "BridgeLink", "type": "bool" }
+                {
+                  "key": "Enabled",
+                  "type": "bool"
+                },
+                {
+                  "key": "Mode",
+                  "type": "choice",
+                  "choices": [
+                    "Multiplier",
+                    "Additive",
+                    "Both"
+                  ]
+                },
+                {
+                  "key": "Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 1000.0
+                },
+                {
+                  "key": "ExtraPoints",
+                  "type": "uint64",
+                  "min": 0,
+                  "max": 18446744073709551615,
+                  "advanced": true
+                },
+                {
+                  "key": "Porter",
+                  "type": "bool"
+                },
+                {
+                  "key": "Combat",
+                  "type": "bool"
+                },
+                {
+                  "key": "Stealth",
+                  "type": "bool"
+                },
+                {
+                  "key": "Service",
+                  "type": "bool"
+                },
+                {
+                  "key": "BridgeLink",
+                  "type": "bool"
+                }
               ]
             }
           ]
@@ -165,7 +382,12 @@
             {
               "name": "LostCargoLikesBooster",
               "fields": [
-                { "key": "ExtraLikes", "type": "int", "min": 1, "max": 1000000 }
+                {
+                  "key": "ExtraLikes",
+                  "type": "int",
+                  "min": 1,
+                  "max": 1000000
+                }
               ]
             }
           ]
@@ -181,8 +403,15 @@
             {
               "name": "NoMagellanEvaluation",
               "fields": [
-                { "key": "Enabled", "type": "bool" },
-                { "key": "DebugLog", "type": "bool", "advanced": true }
+                {
+                  "key": "Enabled",
+                  "type": "bool"
+                },
+                {
+                  "key": "DebugLog",
+                  "type": "bool",
+                  "advanced": true
+                }
               ]
             }
           ]
@@ -198,11 +427,28 @@
             {
               "name": "ConstructionAnywhere",
               "fields": [
-                { "key": "Enabled", "type": "bool" },
-                { "key": "RemoveProximityLimit", "type": "bool" },
-                { "key": "AllowRestrictedAreas", "type": "bool" },
-                { "key": "IgnorePermittedAreaWhitelist", "type": "bool", "advanced": true },
-                { "key": "DebugLog", "type": "bool", "advanced": true }
+                {
+                  "key": "Enabled",
+                  "type": "bool"
+                },
+                {
+                  "key": "RemoveProximityLimit",
+                  "type": "bool"
+                },
+                {
+                  "key": "AllowRestrictedAreas",
+                  "type": "bool"
+                },
+                {
+                  "key": "IgnorePermittedAreaWhitelist",
+                  "type": "bool",
+                  "advanced": true
+                },
+                {
+                  "key": "DebugLog",
+                  "type": "bool",
+                  "advanced": true
+                }
               ]
             }
           ]
@@ -218,8 +464,15 @@
             {
               "name": "ConstructionMaxLevelOnBuild",
               "fields": [
-                { "key": "Enabled", "type": "bool" },
-                { "key": "DebugLog", "type": "bool", "advanced": true }
+                {
+                  "key": "Enabled",
+                  "type": "bool"
+                },
+                {
+                  "key": "DebugLog",
+                  "type": "bool",
+                  "advanced": true
+                }
               ]
             }
           ]
@@ -235,8 +488,15 @@
             {
               "name": "WeaponsAnywhere",
               "fields": [
-                { "key": "Enabled", "type": "bool" },
-                { "key": "DebugLog", "type": "bool", "advanced": true }
+                {
+                  "key": "Enabled",
+                  "type": "bool"
+                },
+                {
+                  "key": "DebugLog",
+                  "type": "bool",
+                  "advanced": true
+                }
               ]
             }
           ]
@@ -252,12 +512,39 @@
             {
               "name": "ZiplineRange",
               "fields": [
-                { "key": "Enabled", "type": "bool" },
-                { "key": "Level1RangeMeters", "type": "decimal", "min": 300.0, "max": 1000.0 },
-                { "key": "Level2RangeMeters", "type": "decimal", "min": 350.0, "max": 1000.0 },
-                { "key": "SpeedMultiplier", "type": "decimal", "min": 0.25, "max": 10.0 },
-                { "key": "IgnoreConnectionObstacles", "type": "bool", "default": "0", "advanced": true },
-                { "key": "DebugLog", "type": "bool", "advanced": true }
+                {
+                  "key": "Enabled",
+                  "type": "bool"
+                },
+                {
+                  "key": "Level1RangeMeters",
+                  "type": "decimal",
+                  "min": 300.0,
+                  "max": 1000.0
+                },
+                {
+                  "key": "Level2RangeMeters",
+                  "type": "decimal",
+                  "min": 350.0,
+                  "max": 1000.0
+                },
+                {
+                  "key": "SpeedMultiplier",
+                  "type": "decimal",
+                  "min": 0.25,
+                  "max": 10.0
+                },
+                {
+                  "key": "IgnoreConnectionObstacles",
+                  "type": "bool",
+                  "default": "0",
+                  "advanced": true
+                },
+                {
+                  "key": "DebugLog",
+                  "type": "bool",
+                  "advanced": true
+                }
               ]
             }
           ]
@@ -273,19 +560,82 @@
             {
               "name": "ChiralBandwidthCosts",
               "fields": [
-                { "key": "Enabled", "type": "bool" },
-                { "key": "DebugLog", "type": "bool", "advanced": true },
-                { "key": "Postbox", "type": "nativeOrInt", "min": 0, "max": 1000000 },
-                { "key": "SafeHouse", "type": "nativeOrInt", "min": 0, "max": 1000000 },
-                { "key": "Watchtower", "type": "nativeOrInt", "min": 0, "max": 1000000 },
-                { "key": "CargoCatapult", "type": "nativeOrInt", "min": 0, "max": 1000000 },
-                { "key": "Generator", "type": "nativeOrInt", "min": 0, "max": 1000000 },
-                { "key": "RainShelter", "type": "nativeOrInt", "min": 0, "max": 1000000 },
-                { "key": "Zipline", "type": "nativeOrInt", "min": 0, "max": 1000000 },
-                { "key": "Bridge", "type": "nativeOrInt", "min": 0, "max": 1000000 },
-                { "key": "ChiralBridge", "type": "nativeOrInt", "min": 0, "max": 1000000 },
-                { "key": "JumpRamp", "type": "nativeOrInt", "min": 0, "max": 1000000 },
-                { "key": "HotSpringDigger", "type": "nativeOrInt", "min": 0, "max": 1000000, "advanced": true }
+                {
+                  "key": "Enabled",
+                  "type": "bool"
+                },
+                {
+                  "key": "DebugLog",
+                  "type": "bool",
+                  "advanced": true
+                },
+                {
+                  "key": "Postbox",
+                  "type": "nativeOrInt",
+                  "min": 0,
+                  "max": 1000000
+                },
+                {
+                  "key": "SafeHouse",
+                  "type": "nativeOrInt",
+                  "min": 0,
+                  "max": 1000000
+                },
+                {
+                  "key": "Watchtower",
+                  "type": "nativeOrInt",
+                  "min": 0,
+                  "max": 1000000
+                },
+                {
+                  "key": "CargoCatapult",
+                  "type": "nativeOrInt",
+                  "min": 0,
+                  "max": 1000000
+                },
+                {
+                  "key": "Generator",
+                  "type": "nativeOrInt",
+                  "min": 0,
+                  "max": 1000000
+                },
+                {
+                  "key": "RainShelter",
+                  "type": "nativeOrInt",
+                  "min": 0,
+                  "max": 1000000
+                },
+                {
+                  "key": "Zipline",
+                  "type": "nativeOrInt",
+                  "min": 0,
+                  "max": 1000000
+                },
+                {
+                  "key": "Bridge",
+                  "type": "nativeOrInt",
+                  "min": 0,
+                  "max": 1000000
+                },
+                {
+                  "key": "ChiralBridge",
+                  "type": "nativeOrInt",
+                  "min": 0,
+                  "max": 1000000
+                },
+                {
+                  "key": "JumpRamp",
+                  "type": "nativeOrInt",
+                  "min": 0,
+                  "max": 1000000
+                },
+                {
+                  "key": "HotSpringDigger",
+                  "type": "nativeOrInt",
+                  "min": 0,
+                  "max": 1000000,
+                  "advanced": true
+                }
               ]
             }
           ]
@@ -301,14 +651,41 @@
             {
               "name": "InfrastructureOneUnit",
               "fields": [
-                { "key": "Enabled", "type": "bool" },
-                { "key": "RemainingUnits", "type": "int", "min": 1, "max": 1000000 },
-                { "key": "RoadConstruction", "type": "bool" },
-                { "key": "RoadUpgrades", "type": "bool" },
-                { "key": "MonorailConstruction", "type": "bool" },
-                { "key": "MineConstruction", "type": "bool" },
-                { "key": "MineUpgrades", "type": "bool" },
-                { "key": "DebugLog", "type": "bool", "advanced": true }
+                {
+                  "key": "Enabled",
+                  "type": "bool"
+                },
+                {
+                  "key": "RemainingUnits",
+                  "type": "int",
+                  "min": 1,
+                  "max": 1000000
+                },
+                {
+                  "key": "RoadConstruction",
+                  "type": "bool"
+                },
+                {
+                  "key": "RoadUpgrades",
+                  "type": "bool"
+                },
+                {
+                  "key": "MonorailConstruction",
+                  "type": "bool"
+                },
+                {
+                  "key": "MineConstruction",
+                  "type": "bool"
+                },
+                {
+                  "key": "MineUpgrades",
+                  "type": "bool"
+                },
+                {
+                  "key": "DebugLog",
+                  "type": "bool",
+                  "advanced": true
+                }
               ]
             }
           ]
@@ -327,7 +704,609 @@
                 {
                   "key": "Language",
                   "type": "choice",
-                  "choices": ["auto", "en", "de", "fr", "it", "es-ES", "es-419", "pt-PT", "pt-BR", "ar", "cs", "nl", "el", "ja", "ko", "pl", "ru", "zh-CN", "zh-TW"]
+                  "choices": [
+                    "auto",
+                    "en",
+                    "de",
+                    "fr",
+                    "it",
+                    "es-ES",
+                    "es-419",
+                    "pt-PT",
+                    "pt-BR",
+                    "ar",
+                    "cs",
+                    "nl",
+                    "el",
+                    "ja",
+                    "ko",
+                    "pl",
+                    "ru",
+                    "zh-CN",
+                    "zh-TW"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "modId": "extended-bt-cord-cutting-range",
+      "files": [
+        {
+          "target": "ds2_extended_bt_cord_cutting_range.ini",
+          "sections": [
+            {
+              "name": "Range",
+              "fields": [
+                {
+                  "key": "Enabled",
+                  "type": "bool"
+                },
+                {
+                  "key": "Multiplier",
+                  "type": "decimal",
+                  "min": 1.0,
+                  "max": 50.0
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "modId": "apas-memory-costs",
+      "files": [
+        {
+          "target": "ds2_apas_memory_costs.ini",
+          "sections": [
+            {
+              "name": "APASMemoryCosts",
+              "fields": [
+                {
+                  "key": "Enabled",
+                  "type": "bool"
+                },
+                {
+                  "key": "GlobalCost",
+                  "type": "int",
+                  "min": 0,
+                  "max": 1000000
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "modId": "proficiency-bonus-multiplier",
+      "files": [
+        {
+          "target": "DS2_ProficiencyBonusMultiplier.ini",
+          "sections": [
+            {
+              "name": "Safety",
+              "fields": [
+                {
+                  "key": "ClampReductionFactorsAtZero",
+                  "type": "bool"
+                }
+              ]
+            },
+            {
+              "name": "TerrainTraversal",
+              "fields": [
+                {
+                  "key": "Enabled",
+                  "type": "bool"
+                },
+                {
+                  "key": "Level1Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level2Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level3Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level4Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level5Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                }
+              ]
+            },
+            {
+              "name": "CarryingCapacity",
+              "fields": [
+                {
+                  "key": "Enabled",
+                  "type": "bool"
+                },
+                {
+                  "key": "Level1Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level2Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level3Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level4Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level5Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                }
+              ]
+            },
+            {
+              "name": "Endurance",
+              "fields": [
+                {
+                  "key": "Enabled",
+                  "type": "bool"
+                },
+                {
+                  "key": "Level1Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level2Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level3Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level4Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level5Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                }
+              ]
+            },
+            {
+              "name": "KOResistance",
+              "fields": [
+                {
+                  "key": "Enabled",
+                  "type": "bool"
+                },
+                {
+                  "key": "Level1Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level2Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level3Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level4Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level5Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                }
+              ]
+            },
+            {
+              "name": "LungCapacity",
+              "fields": [
+                {
+                  "key": "Enabled",
+                  "type": "bool"
+                },
+                {
+                  "key": "Level1Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level2Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level3Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level4Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level5Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                }
+              ]
+            },
+            {
+              "name": "StrandSkills",
+              "fields": [
+                {
+                  "key": "Enabled",
+                  "type": "bool"
+                },
+                {
+                  "key": "Level1Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level2Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level3Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level4Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level5Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                }
+              ]
+            },
+            {
+              "name": "MeleeCombat",
+              "fields": [
+                {
+                  "key": "Enabled",
+                  "type": "bool"
+                },
+                {
+                  "key": "Level1Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level2Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level3Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level4Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level5Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                }
+              ]
+            },
+            {
+              "name": "Handguns",
+              "fields": [
+                {
+                  "key": "Enabled",
+                  "type": "bool"
+                },
+                {
+                  "key": "Level1Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level2Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level3Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level4Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level5Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                }
+              ]
+            },
+            {
+              "name": "AssaultRifles",
+              "fields": [
+                {
+                  "key": "Enabled",
+                  "type": "bool"
+                },
+                {
+                  "key": "Level1Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level2Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level3Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level4Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level5Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                }
+              ]
+            },
+            {
+              "name": "SniperRifles",
+              "fields": [
+                {
+                  "key": "Enabled",
+                  "type": "bool"
+                },
+                {
+                  "key": "Level1Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level2Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level3Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level4Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level5Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                }
+              ]
+            },
+            {
+              "name": "MachineGuns",
+              "fields": [
+                {
+                  "key": "Enabled",
+                  "type": "bool"
+                },
+                {
+                  "key": "Level1Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level2Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level3Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level4Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level5Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                }
+              ]
+            },
+            {
+              "name": "Shotguns",
+              "fields": [
+                {
+                  "key": "Enabled",
+                  "type": "bool"
+                },
+                {
+                  "key": "Level1Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level2Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level3Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level4Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level5Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                }
+              ]
+            },
+            {
+              "name": "StealthTakedownInternal",
+              "fields": [
+                {
+                  "key": "Enabled",
+                  "type": "bool",
+                  "advanced": true
+                },
+                {
+                  "key": "Level1Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0,
+                  "advanced": true
+                },
+                {
+                  "key": "Level2Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0,
+                  "advanced": true
+                },
+                {
+                  "key": "Level3Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0,
+                  "advanced": true
+                },
+                {
+                  "key": "Level4Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0,
+                  "advanced": true
+                },
+                {
+                  "key": "Level5Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0,
+                  "advanced": true
                 }
               ]
             }

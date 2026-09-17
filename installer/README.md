@@ -1,4 +1,4 @@
-# DS2 Mod Suite v1.4.0
+# DS2 Mod Suite v1.5.0
 
 Clean all-in-one mod manager for **DEATH STRANDING 2: ON THE BEACH**.
 
@@ -71,6 +71,9 @@ Without administrator rights, backups and logs are stored below the LocalAppData
 - Chiral Bandwidth Costs 1.0.0
 - Infrastructure One Unit 1.0.0
 - Remote Orders Overlay 0.2.0
+- Extended BT Cord Cutting Range 1.0.0
+- APAS Memory Costs 1.0.3
+- Proficiency Bonus Multiplier 1.0.0
 
 TEST, TRACE, diagnostic and older reference builds are not included.
 

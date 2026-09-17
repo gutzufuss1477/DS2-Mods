@@ -17,12 +17,12 @@ namespace DS2ModSuite
             {
                 Catalog catalog = CatalogService.LoadAndValidate();
                 CatalogService.ValidatePayloads(catalog);
-                Assert(catalog.SuiteVersion == "1.4.0" && catalog.Mods.Count == 18,
+                Assert(catalog.SuiteVersion == "1.5.0" && catalog.Mods.Count == 21,
                     "suite version/mod count mismatch");
                 report.AppendLine("PASS catalog and all payload hashes");
 
                 List<ConfigFieldDefinition> definitions = ModConfigurationService.GetDefinitions(catalog);
-                Assert(definitions.Count == 90 && definitions.Select(field => field.Target).Distinct(StringComparer.OrdinalIgnoreCase).Count() == 16,
+                Assert(definitions.Count == 173 && definitions.Select(field => field.Target).Distinct(StringComparer.OrdinalIgnoreCase).Count() == 19,
                     "settings schema field/file coverage mismatch");
                 List<ModSpec> filteredSettingsMods = ModSettingsWindow.FilterInstalledConfigurableMods(
                     catalog,
@@ -123,7 +123,7 @@ namespace DS2ModSuite
                 Assert(catalog.Mods[0].LocalizedDescription == catalog.Mods[0].Description, "English catalog localization failed");
                 LoaderInspector.Relocalize(localizedLoader);
                 Assert(localizedLoader.DisplayText == "ASI Loader 9.7.2 is installed", "English loader relocalization failed");
-                report.AppendLine("PASS English/German localization, persistence and 85-field settings schema validation");
+                report.AppendLine("PASS English/German localization, persistence and 173-field settings schema validation");
 
                 string runningExecutable = System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName;
                 File.Copy(runningExecutable, Path.Combine(testRoot, catalog.Game.Executable), true);

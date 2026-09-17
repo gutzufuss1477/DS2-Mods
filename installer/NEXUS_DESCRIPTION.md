@@ -1,6 +1,6 @@
 **Description**
 
-DS2 Mod Suite is a clean, standalone all-in-one installer and manager for 18 DEATH STRANDING 2: ON THE BEACH mods.
+DS2 Mod Suite is a clean, standalone all-in-one installer and manager for 21 DEATH STRANDING 2: ON THE BEACH mods.
 
 Choose exactly which mods you want, review their current installation state and apply everything through one English or German interface. The manager detects the Steam game directory, verifies the supported game build, installs missing mods, updates or repairs known versions and safely removes deselected suite mods.
 
@@ -8,7 +8,7 @@ All stable mod files and the tested Ultimate ASI Loader are embedded in the appl
 
 This is more than a loose file bundle: the custom manager adds installation-state detection, centralized configuration, file validation, conflict protection, backups and transactional rollback.
 
-Version 1.4.0 adds Climbing Power Gloves Range 1.0.0, updates Construction Max Level on Build to 1.0.1 and updates Coffin Board All-Terrain Speed to 1.1.7. It supports the Steam PC executable version `DS2.exe 1.10.89.0`.
+Version 1.5.0 adds Extended BT Cord Cutting Range 1.0.0, APAS Memory Costs 1.0.3 and Proficiency Bonus Multiplier 1.0.0, and refreshes the Coffin Board All-Terrain Speed 1.1.7 configuration payload. It supports the Steam PC executable version `DS2.exe 1.10.89.0`.
 
 **Quick start**
 
@@ -27,14 +27,14 @@ This is a standalone installer. Do not install the downloaded archive through Vo
 
 **Main features**
 
-- Installs and manages 18 compatible DS2 mods from one application
+- Installs and manages 21 compatible DS2 mods from one application
 - Clean English and German interface
 - Automatic Steam game-directory detection
 - Verifies the exact supported `DS2.exe` build
 - Detects installed, outdated, incomplete and modified suite files
 - Installs the tested Ultimate ASI Loader x64 v9.7.2 automatically when required
-- Central settings interface for 15 configurable mods
-- Validates 90 settings across 16 individual INI files
+- Central settings interface for 18 configurable mods
+- Validates 173 settings across 19 individual INI files
 - Imports existing installed INI values
 - Hides advanced and experimental settings by default
 - Supports installation, update, repair and safe removal
@@ -62,6 +62,9 @@ The checkboxes represent the desired final state. Installed mods are selected au
 - Climbing Power Gloves Range 1.0.0 - increases the configurable magnetic cargo pickup range of both Climbing Power Gloves tiers
 - Sam Stats Booster 1.0.0 - provides a configurable boost to selected Sam-stat progression
 - Porter Grade Booster 1.0.0 - provides a configurable boost to delivery category points
+- Extended BT Cord Cutting Range 1.0.0 - increases the configurable BT umbilical cord cutting range
+- APAS Memory Costs 1.0.3 - sets a global APAS Memory cost for loaded APAS enhancements using the optimized performance build
+- Proficiency Bonus Multiplier 1.0.0 - scales supported level-dependent proficiency bonuses independently for levels 1 through 5
 
 **Deliveries and Rewards**
 

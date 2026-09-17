@@ -30,8 +30,8 @@ Additional DS2 mods can be added later as separate folders under `mods/`.
 ## All-in-one installer
 
 The bilingual Windows GUI, stable-mod catalog, transactional installer and
-release build are maintained under [installer](installer/). Version 1.3.0 adds
-Coffin Board All-Terrain Speed to the 17-mod catalog. The English/Deutsch
+release build are maintained under [installer](installer/). Version 1.5.0 manages
+21 validated stable mods, including Extended BT Cord Cutting Range, APAS Memory Costs and Proficiency Bonus Multiplier. The English/Deutsch
 interface includes one central **Mod Settings** menu while keeping
 the individual runtime INIs expected by each ASI plugin. The manager detects
 the Steam game directory and supported `DS2.exe`, reuses or installs the tested

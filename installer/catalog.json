@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "suiteVersion": "1.4.0",
+  "suiteVersion": "1.5.0",
   "game": {
     "name": "DEATH STRANDING 2: ON THE BEACH",
     "executable": "DS2.exe",
@@ -155,7 +155,7 @@
         {
           "payload": "payload/mods/coffin-board-all-terrain-speed/ds2_coffin_board_all_terrain_speed.ini",
           "target": "ds2_coffin_board_all_terrain_speed.ini",
-          "sha256": "84D0D3E2541E09369DBA5688630A6ABED4C915B3B81F93521B679B8C1CA71275",
+          "sha256": "4B19ED0DE108A925BF1F348DD94F51B78BADC540E61708347959F4FB4A36955C",
           "kind": "config"
         }
       ]
@@ -456,6 +456,75 @@
         {
           "target": "DS2_Remote_Orders_Overlay_LOCALIZED_TEST.asi",
           "sha256": "84A9ABCC0E048B4B7625C2B21EA14971ECF7CED5D4F26559BFA63187CE1A7E00"
+        }
+      ]
+    },
+    {
+      "id": "extended-bt-cord-cutting-range",
+      "name": "Extended BT Cord Cutting Range",
+      "version": "1.0.0",
+      "category": "Equipment & Progression",
+      "categoryDe": "Ausrüstung & Fortschritt",
+      "description": "Increases the configurable range for cutting BT umbilical cords.",
+      "descriptionDe": "Erhöht die konfigurierbare Reichweite zum Durchtrennen von BT-Nabelschnüren.",
+      "files": [
+        {
+          "payload": "payload/mods/extended-bt-cord-cutting-range/ds2_extended_bt_cord_cutting_range.asi",
+          "target": "ds2_extended_bt_cord_cutting_range.asi",
+          "sha256": "AF65DEC8FA5704D5C4D4DE52B337FE78D2811BD319A9DA8E640B8199669E490F",
+          "kind": "binary"
+        },
+        {
+          "payload": "payload/mods/extended-bt-cord-cutting-range/ds2_extended_bt_cord_cutting_range.ini",
+          "target": "ds2_extended_bt_cord_cutting_range.ini",
+          "sha256": "A0D154A4637E917E53792D2208EC56E468CAD9F0E89DA44FB8FEE7396EB6989F",
+          "kind": "config"
+        }
+      ]
+    },
+    {
+      "id": "apas-memory-costs",
+      "name": "APAS Memory Costs",
+      "version": "1.0.3",
+      "category": "Equipment & Progression",
+      "categoryDe": "Ausrüstung & Fortschritt",
+      "description": "Sets a configurable global APAS Memory cost for loaded APAS enhancements.",
+      "descriptionDe": "Setzt konfigurierbare globale APAS-Speicherkosten für geladene APAS-Verbesserungen.",
+      "files": [
+        {
+          "payload": "payload/mods/apas-memory-costs/ds2_apas_memory_costs.asi",
+          "target": "ds2_apas_memory_costs.asi",
+          "sha256": "D5845619B1C24C15270695BEF99C4FCA90B580727B9942CEFCBC6F10FD883A6F",
+          "kind": "binary"
+        },
+        {
+          "payload": "payload/mods/apas-memory-costs/ds2_apas_memory_costs.ini",
+          "target": "ds2_apas_memory_costs.ini",
+          "sha256": "18F57F374598B6B3B88DBB1AEBAAFDF6A80C9963EFC3CE2CC530EE8C0577396B",
+          "kind": "config"
+        }
+      ]
+    },
+    {
+      "id": "proficiency-bonus-multiplier",
+      "name": "Proficiency Bonus Multiplier",
+      "version": "1.0.0",
+      "category": "Equipment & Progression",
+      "categoryDe": "Ausrüstung & Fortschritt",
+      "description": "Configures the strength of supported level-dependent proficiency bonuses for levels 1 through 5.",
+      "descriptionDe": "Konfiguriert die Stärke unterstützter stufenabhängiger Fertigkeitsboni für Stufe 1 bis 5.",
+      "files": [
+        {
+          "payload": "payload/mods/proficiency-bonus-multiplier/DS2_ProficiencyBonusMultiplier.asi",
+          "target": "DS2_ProficiencyBonusMultiplier.asi",
+          "sha256": "D2CDD6D998163009D60257AF1D8ACF1274B30387A16846B0969DFB538D3013BD",
+          "kind": "binary"
+        },
+        {
+          "payload": "payload/mods/proficiency-bonus-multiplier/DS2_ProficiencyBonusMultiplier.ini",
+          "target": "DS2_ProficiencyBonusMultiplier.ini",
+          "sha256": "000837A2585E8F615BFA10F41BF0BE72289974D8D5DE31F3880D467EAF59D499",
+          "kind": "config"
         }
       ]
     }
