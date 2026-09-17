@@ -1,0 +1,65 @@
+﻿DS2 APAS Unlock Static Discovery v0.1
+=====================================
+
+Purpose:
+Prepare an optional UnlockAll extension for the existing DS2 APAS Memory Costs mod.
+
+Current public mod:
+- changes APAS EnhancementPoint / Memory cost only;
+- does not alter APAS unlock conditions.
+
+Confirmed existing runtime path:
+DS2.exe + 0x623E5D0 -> APAS manager
+manager + 0x30 + index*8 -> APAS entry
+entry + 0x70 -> DSApasEnhancementResource*
+resource + 0x24 -> EnhancementPoint
+
+Strong unlock candidates already identified in the executable:
+- DevConditionFact
+- DevelopmentCondition
+- IsApasEnhancementLocated
+- GetApasEnhancementLv
+- DebugActivateApasEnhancement
+- NotifyUnlockedApasEnhancementsForTelemetry
+- MissionClearOrFriendShipUILevel1..5
+- FriendShipUILevel1..5
+- UnlockedIdListBeforeEnding
+- UnlockedIdListBeforePlatinumTrophy
+
+Goal:
+Identify the central predicate/field used by the APAS menu to decide whether an
+Enhancement is unlocked/located.
+
+Desired optional INI:
+
+[APASMemoryCosts]
+Enabled=1
+GlobalCost=1
+
+[APASUnlocks]
+UnlockAll=1
+
+Important design constraint:
+Unlock only APAS Enhancements.
+Do NOT globally spoof story completion, facility friendship, Porter Grade, catalogue
+unlocks, or unrelated game facts.
+
+Preferred implementation order:
+1. Patch a central APAS "located/unlocked" predicate if one exists.
+2. Otherwise patch the per-entry APAS located/unlock state.
+3. Avoid modifying persistent story/facility facts.
+4. Keep the v1.0.3 performance behaviour (no permanent gameplay polling).
+
+DS2.exe:
+C:\program files (x86)\steam\steamapps\common\DEATH STRANDING 2 - ON THE BEACH\DS2.exe
+
+SHA-256:
+BF3D1C665545930BC850D8F5DF486F7395885BB729D4FD408FDB03390DE0765B
+
+PE timestamp:
+0x6A3DAE46
+
+Image size:
+0x0B292000
+
+Read-only scan. No game file was modified.

@@ -2,14 +2,13 @@
 
 INI-configurable APAS Enhancement Memory costs for **DEATH STRANDING 2: ON THE BEACH**.
 
-## Current release
+## Available versions
 
-**v1.0.3**
+### Main File - APAS Memory Costs v1.0.3
 
-The v1.0.3 performance build has been promoted to the main release after testing showed
-significantly better runtime behaviour than the earlier continuously polling version.
+Changes APAS Memory costs only.
 
-Default configuration:
+Default:
 
 ```ini
 [APASMemoryCosts]
@@ -19,55 +18,99 @@ GlobalCost=1
 
 `GlobalCost=1` makes every loaded APAS Enhancement cost one APAS Memory point.
 
-## Installation
+### Optional File - Unlock All v1.1.0
 
-Copy these files from `release/` beside `DS2.exe`:
+Replacement build that includes the complete APAS Memory Costs functionality plus:
+
+```ini
+[APASUnlocks]
+UnlockAll=1
+```
+
+It unlocks all valid APAS Enhancements through the game's native APAS unlock path.
+
+**Do not load the Main and Optional ASIs together.**
+The Optional version replaces the Main version and already includes `GlobalCost`.
+
+## Main File installation
+
+Copy from `release/`:
 
 - `ds2_apas_memory_costs.asi`
 - `ds2_apas_memory_costs.ini`
 
-A compatible 64-bit ASI loader is required.
+beside `DS2.exe`.
 
-Restart the game after changing the INI.
+## Optional Unlock All installation
+
+Copy from:
+
+`release/optional-unlock-all/`
+
+beside `DS2.exe`, replacing the normal APAS ASI/INI.
+
+A compatible 64-bit ASI loader is required.
 
 ## Configuration
 
-- `Enabled=1` enables the mod.
+Main cost settings:
+
+```ini
+[APASMemoryCosts]
+Enabled=1
+GlobalCost=1
+```
+
+- `Enabled=1` enables cost modification.
 - `GlobalCost=0` makes APAS Enhancements free.
-- `GlobalCost=1` makes every enhancement cost one point.
-- `GlobalCost=2..1000000` sets the same custom cost for all APAS Enhancements.
+- `GlobalCost=1` makes every Enhancement cost one point.
+- `GlobalCost=2..1000000` sets an exact global cost.
 
-## v1.0.3 performance behaviour
+Optional build only:
 
-The worker no longer scans APAS resources permanently during normal gameplay.
+```ini
+[APASUnlocks]
+UnlockAll=1
+```
 
-It:
+If you want Unlock All but vanilla APAS costs, set:
 
-1. waits through initial process startup;
-2. patches the currently available APAS resources;
-3. polls lightly while the APAS table is still loading;
-4. remains for several stable passes to catch late startup resources;
-5. terminates completely once the normal APAS table is populated and stable.
+```ini
+[APASMemoryCosts]
+Enabled=0
 
-The number of `VirtualQuery` calls per pass was also reduced.
+[APASUnlocks]
+UnlockAll=1
+```
 
-This keeps the APAS cost behaviour while removing the permanent polling overhead present
-in the earlier implementation.
+## Performance
 
-## Runtime modification
+Both versions use the v1.0.3 low-overhead APAS cost worker.
 
-The mod changes the runtime `EnhancementPoint` field used by the APAS system.
+It patches resources during loading and exits completely once the APAS resource table
+is populated and stable. There is no permanent 1-second gameplay scan.
 
-It does not modify:
+## Unlock All warning
 
-- `DS2.exe` on disk;
-- save files on disk.
+Unlock All intentionally bypasses normal APAS progression requirements.
+
+It does not globally complete missions, change facility friendship, modify Porter Grade
+or unlock unrelated game systems.
+
+Because it uses the game's native APAS unlock routine, unlocked Enhancements may be
+persisted in the save. Back up the save before first use if vanilla progression matters.
 
 ## Compatibility
 
-There is intentionally no hard game-version check.
+There is no hard global game-version gate.
 
-The current offsets were discovered and tested on Steam `DS2.exe 1.10.89.0`.
-A future game update may require the manager RVA or structure offsets to be updated.
+Known/tested research target:
 
-See `docs/TECHNICAL_NOTES.md` and `docs/RESEARCH_HANDOVER.md` for maintenance details.
+```text
+Steam DS2.exe 1.10.89.0
+```
+
+The cost path and Unlock All patch both use local/runtime validation where possible.
+Future game updates may still require updated offsets/signatures.
+
+See the files under `docs/` for full technical and research notes.

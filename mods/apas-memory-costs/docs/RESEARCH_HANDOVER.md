@@ -78,3 +78,60 @@ Check in this order:
 4. `EnhancementPoint` (`resource +0x24`).
 
 The structure offsets may remain stable even if the absolute manager RVA moves.
+
+# Unlock All research addendum
+
+## Confirmed optional Unlock All path
+
+The APAS updater contains a dedicated prerequisite branch driven by APAS
+`DevelopmentCondition` data.
+
+Confirmed patch point:
+
+```text
+RVA 0xBE39C9
+Expected bytes:
+33 DB 48 83 C7 2C 90 8B 37
+```
+
+Optional replacement:
+
+```text
+EB 23
+```
+
+This jumps to the native APAS unlock path at approximately:
+
+```text
+RVA 0xBE39EE
+```
+
+which then uses the existing native locate/unlock implementation, including the
+confirmed routine around:
+
+```text
+RVA 0xBE1640
+```
+
+The design intentionally avoids modifying global story/facility/Porter Grade facts.
+
+## Live validation
+
+On an Episode 9 save, the first Unlock All alpha exposed APAS Enhancements that were
+not yet available through normal progression. The Enhancements could be activated,
+while the existing `GlobalCost=1` functionality continued to work.
+
+The tested alpha and final release hashes are recorded in
+`UNLOCK_ALL_TEST_STATUS.md`.
+
+## Maintenance after a game update
+
+Check:
+
+1. `0xBE39C9` expected 9-byte signature;
+2. target native unlock path around `0xBE39EE`;
+3. native APAS locate/unlock routine around `0xBE1640`;
+4. existing cost offsets documented earlier.
+
+Do not replace this scoped APAS bypass with global mission/friendship-state spoofing
+unless no APAS-specific path remains available.
