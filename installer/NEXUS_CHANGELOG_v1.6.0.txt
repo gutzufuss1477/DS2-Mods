@@ -1,0 +1,8 @@
+Version 1.6.0
+
+- Updated Coffin Board Reworked to v1.83.0, including Chiral Network boundary crossing and remounting outside the network with Floating Carrier support.
+- Updated APAS Memory Costs to v1.1.0 with optional Unlock All, disabled by default and configurable in Mod Settings.
+- Added the new Coffin Board settings and safe migration of existing INI files.
+- Fixed INI payload checksum issues when building on Windows.
+
+Note: APAS unlocks may persist in your save even after disabling Unlock All. Back up your save before enabling it.
