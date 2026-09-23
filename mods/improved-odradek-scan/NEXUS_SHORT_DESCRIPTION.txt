@@ -1,0 +1,1 @@
+A configurable 360-degree Odradek scan with a tested 500 m default range. Reveals distant cargo, supports usable cargo you have carried and dropped, and shows the distance after the recipient and likes. Spent and destroyed items keep their normal nearby visibility.

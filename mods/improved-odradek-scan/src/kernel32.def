@@ -1,0 +1,30 @@
+LIBRARY KERNEL32.dll
+EXPORTS
+  CloseHandle
+  CreateFileW
+  CreateThread
+  AcquireSRWLockExclusive
+  AcquireSRWLockShared
+  DisableThreadLibraryCalls
+  FlushFileBuffers
+  FlushInstructionCache
+  GetCurrentProcess
+  GetModuleFileNameW
+  GetModuleHandleW
+  GetPrivateProfileStringW
+  GetSystemInfo
+  GetTickCount64
+  ReadProcessMemory
+  ReleaseSRWLockExclusive
+  ReleaseSRWLockShared
+  Sleep
+  VirtualAlloc
+  VirtualFree
+  VirtualProtect
+  VirtualQuery
+  WriteFile
+
+  TlsAlloc
+  TlsFree
+  TlsGetValue
+  TlsSetValue
