@@ -1,1 +1,1 @@
-Adds 500% Coffin Board speed, 400% acceleration, stable Floating Carrier support, and native-safe Pickup/Tri-Cruiser mounting.
+All-terrain Coffin Board with configurable speed, Floating Carrier support, Chiral Network boundary crossing, and verified remounting outside the network.

@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.83.0 — Coffin Board Reworked
+- Renamed the Nexus release to Coffin Board Reworked.
+- Added Coffin Board Chiral Network boundary crossing.
+- Added outside-network Coffin Board mounting and remounting.
+- Fixed the Coffin-only network availability veto that displayed the outside mount prompt in a disabled state.
+- Preserves the game's normal vehicle eligibility, target selection, activation, reservation, and RideOn sequence.
+- Verified in game: boundary crossing, dismounting outside, remounting outside, and the same sequence with an attached Floating Carrier.
+- Retains configurable all-terrain speed, acceleration, Floating Carrier support, carrier link preservation, and native-safe Pickup/Tri-Cruiser mounting.
+
 ## 1.1.7
 - Fixed the CTD when mounting the Tri-Cruiser while the v1.1.2 Floating Carrier RideVehicle preservation hook was active.
 - Reworked the carrier-preserve trampoline so the game's original vehicle resolver runs first with native register/call semantics.

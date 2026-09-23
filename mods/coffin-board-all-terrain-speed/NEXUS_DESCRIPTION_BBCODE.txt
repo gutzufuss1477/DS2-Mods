@@ -1,0 +1,64 @@
+[center][size=6][b]Coffin Board Reworked[/b][/size]
+[size=3]All-terrain speed, Floating Carrier support, Chiral Network boundary crossing, and verified remounting outside the network.[/size][/center]
+
+[b]Coffin Board Reworked[/b] expands the Coffin Board in [i]DEATH STRANDING 2: ON THE BEACH[/i] while keeping the game's normal driving, reservation, mounting, and cargo-damage systems in control.
+
+[size=4][b]What this version adds[/b][/size]
+[list]
+[*]Configurable Coffin Board speed on land and water. The included profile is 500% speed and 400% acceleration.
+[*]Ride with a loaded Floating Carrier attached.
+[*]Cross the Chiral Network boundary while riding the Coffin Board, including with the attached Floating Carrier.
+[*]Dismount outside the Chiral Network and mount the same Coffin Board again outside.
+[*]The outside remount path is verified in game with an attached Floating Carrier.
+[*]Pickup and Tri-Cruiser mounting stay on their native vehicle paths.
+[/list]
+
+[size=4][b]Version 1.83.0[/b][/size]
+This reworked release fixes the remaining outside-network mount block. The game presented the Coffin Board mount prompt outside the Chiral Network but disabled it. Version 1.83.0 removes that Coffin-only network veto while preserving the game's normal vehicle eligibility checks, mount target selection, activation, reservation, and RideOn sequence.
+
+[size=4][b]Installation[/b][/size]
+[list=1]
+[*]Close DEATH STRANDING 2 completely.
+[*]Install a compatible 64-bit ASI loader. If other .asi mods already load correctly, the existing loader is sufficient.
+[*]Extract this archive.
+[*]Copy [b]ds2_coffin_board_all_terrain_speed.asi[/b] and [b]ds2_coffin_board_all_terrain_speed.ini[/b] beside [b]DS2.exe[/b].
+[*]Replace both files when updating from an earlier release.
+[*]Start the game.
+[/list]
+
+The archive contains only those two files. Restart the game after changing the INI. Deploying a newly created Coffin Board is recommended after changing speed settings because an existing board can retain its previous physics gear table.
+
+[size=4][b]Configuration[/b][/size]
+[code][CoffinBoardAllTerrainSpeed]
+Enabled=1
+SpeedPercent=500
+AccelerationPercent=400
+AllowFloatingCarrier=1
+EnableNetworkTraversal=1
+EnableOutsideNetworkMount=1[/code]
+
+[list]
+[*][b]SpeedPercent[/b]: speed on land and water. 500 gives 300 km/h normal speed and 400 km/h boost speed. Range: 100-1000.
+[*][b]AccelerationPercent[/b]: acceleration toward the configured top speed. 400 is the tested default. Range: 100-500.
+[*][b]AllowFloatingCarrier[/b]: 1 allows Coffin Board riding with the linked Floating Carrier. 0 keeps the native restriction.
+[*][b]EnableNetworkTraversal[/b]: 1 enables the Coffin Board boundary-crossing behavior.
+[*][b]EnableOutsideNetworkMount[/b]: 1 enables mounting the Coffin Board outside the Chiral Network.
+[/list]
+
+[size=4][b]Compatibility and scope[/b][/size]
+[list]
+[*]Supported game build: Steam PC [b]DS2.exe 1.10.89.0[/b].
+[*]The ASI validates the supported executable and its required code/resource anchors before applying changes.
+[*]No game archives, save files, or DS2.exe files on disk are modified.
+[*]Native steering, wet grip, manual Floating Carrier detach/reattach, cargo damage, and collision damage remain in effect.
+[*]After a game update, remove the ASI until a compatible release is available.
+[/list]
+
+High speed can affect camera comfort, world streaming, and impact outcomes. Keep a save backup and test your chosen settings first.
+
+[size=4][b]Credits[/b][/size]
+Thanks to ShadelessFox for Odradek and the DS2 RTTI research tools, and to the testers who helped verify Coffin Board speed, carrier support, boundary crossing, and outside-network remounting.
+
+[size=4][b]Source and changelog[/b][/size]
+Source, release notes, build scripts, and native test coverage are maintained in the DS2-Mods repository:
+[url=https://github.com/gutzufuss1477/DS2-Mods/tree/main/mods/coffin-board-all-terrain-speed]GitHub: Coffin Board Reworked[/url]

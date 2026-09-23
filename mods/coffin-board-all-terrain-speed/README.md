@@ -1,69 +1,62 @@
-# Fast as Fuck Coffin Board + Floating Carrier v1.1.7
+# Coffin Board Reworked v1.83.0
 
-Build-locked ASI mod for DEATH STRANDING 2: ON THE BEACH, Steam PC `1.10.89.0`.
+Build-locked ASI mod for DEATH STRANDING 2: ON THE BEACH, Steam PC 1.10.89.0.
 
-The mod gives the Coffin Board the same raised speed limits on land and water, adds the tested acceleration multiplier, and optionally lets the player ride while a loaded Floating Carrier remains attached. The carrier link is preserved through high-speed travel, water crossings, collisions, and large jumps that would normally trigger the native separation boundary.
+The Coffin Board gets configurable all-terrain speed and acceleration, loaded
+Floating Carrier support, Chiral Network boundary crossing, and mounting after
+dismounting outside the Chiral Network. The outside remount workflow is
+verified in-game with an attached Floating Carrier.
 
-v1.1.7 fixes the crash introduced by the Floating Carrier RideVehicle preservation hook when mounting non-Coffin vehicles such as the Tri-Cruiser. The native vehicle resolver is now executed first with its original call semantics; Coffin-only carrier handling is applied only after that native resolver returns. Pickup and Tri-Cruiser mounting therefore remain on the native path.
+## Features
+
+- 500% speed and 400% acceleration defaults, configurable in the INI.
+- Same raised speed limits on land and water.
+- Ride with a loaded Floating Carrier attached.
+- Preserve the linked carrier through high-speed travel, water crossings,
+  collisions, and large jumps.
+- Cross the Chiral Network boundary while riding the Coffin Board.
+- Dismount and remount the Coffin Board outside the Chiral Network.
+- Keep Pickup and Tri-Cruiser mounting on their native paths.
 
 ## Installation
 
-The Nexus release archive contains exactly:
+The Nexus archive contains exactly these two root-level files:
 
 - `ds2_coffin_board_all_terrain_speed.asi`
 - `ds2_coffin_board_all_terrain_speed.ini`
 
-Copy both files beside `DS2.exe`. An external x64 ASI loader is required. Replace both files from any earlier version and fully restart the game. Deploying a newly created Coffin Board is recommended after changing speed settings because an existing physics component can retain its old gear table.
-
-To uninstall, close the game, remove both files, and restart. Never replace, remove, or unload the ASI while DS2 is running.
+Close the game, extract the archive, and place both files beside `DS2.exe`.
+A compatible external 64-bit ASI loader is required. Replace both files when
+updating. Restart DS2 after changing any INI setting.
 
 ## Configuration
 
 ```ini
 [CoffinBoardAllTerrainSpeed]
-
-; Top speed on land and water. 500 = 300 km/h normal / 400 km/h boost (range: 100-1000).
+Enabled=1
 SpeedPercent=500
-
-; Acceleration toward the new top speed. 400 = about 4x native (range: 100-500).
 AccelerationPercent=400
-
-; 1 lets you mount and ride the Coffin Board while a Floating Carrier is attached. 0 keeps the native restriction.
 AllowFloatingCarrier=1
+EnableNetworkTraversal=1
+EnableOutsideNetworkMount=1
 ```
 
-`SpeedPercent=500` derives normal/boost caps of `300/400 km/h` on land and water and changes the final gearing from `15` to `3`. Accepted values are `100-1000`.
+`SpeedPercent` accepts 100-1000. `AccelerationPercent` accepts 100-500.
+`AllowFloatingCarrier=1`, `EnableNetworkTraversal=1`, and
+`EnableOutsideNetworkMount=1` enable the corresponding reworked features.
 
-`AccelerationPercent=400` publishes 20x drive force to compensate the 0.2x gear ratio and then provide nominally 4x native effective drive moment. Accepted values are `100-500`.
+## Validation and compatibility
 
-`AllowFloatingCarrier=1` enables Coffin-only mount and link-preservation guards. Set it to `0` to keep the native restriction. Restart DS2 after changing any setting.
+The ASI validates the exact supported Steam executable, resource identity,
+vtable slots, and instruction anchors before applying changes. Version 1.83.0
+was tested in-game for boundary crossing, outside dismount/remount, and the
+same flow with an attached Floating Carrier.
 
-## Floating Carrier behavior
+Steering, wet grip, manual carrier detach/reattach, cargo damage, and
+collision damage stay native. The mod does not modify DS2.exe, game archives,
+or save files on disk. Remove the ASI after a game update until compatibility
+is confirmed.
 
-With carrier support enabled, the currently linked loaded carrier remains attached when mounting the Coffin Board. While that exact board/carrier pair is active, the mod prevents the native high-separation detach transaction and suppresses its obsolete HUD notification and Sam dialogue. The carrier can still be detached and reattached normally after dismounting.
-
-This feature does not make cargo invulnerable. Cargo and containers can still take native impact, fall, water, and collision damage.
-
-## v1.1.7 vehicle compatibility fix
-
-The v1.1.2 carrier-preserve trampoline altered the original RideVehicle resolver call semantics before the game had resolved the mounted vehicle. That happened to work for the Coffin Board but could crash the game when mounting the Tri-Cruiser.
-
-v1.1.7 replays the original resolver block first, preserving the native register/call state. Only after the native resolver has completed does the mod inspect Coffin-specific state and decide whether the carrier-disconnect transaction should be bypassed.
-
-Gameplay validation for v1.1.7 confirmed:
-
-- Pickup mount works normally
-- Tri-Cruiser mount works without CTD
-- Coffin Board mount works normally
-- Coffin Board can be mounted with a loaded Floating Carrier attached
-- High-speed profile remains active
-- Floating Carrier remains linked
-- Obsolete carrier boundary warning / Sam dialogue remain suppressed
-
-## Safety and validation
-
-The ASI accepts only the validated Steam executable. It requires exact PE metadata, StreamingSystem functions, Coffin resource identity/layout, drive-hook signature, Coffin physics vtable, and carrier instruction anchors.
-
-The speed-resource transaction changes only the four speed caps, final gearing, and the slip threshold required for the raised speed range. Drive force remains neutral until every resource write succeeds.
-
-Extreme speeds can affect camera comfort, world streaming, and impacts. Back up your save and test offline first. After a game update, remove the ASI until a matching build-locked release is available.
+See `NEXUS_DESCRIPTION_BBCODE.txt` for the publish-ready Nexus description,
+`CHANGELOG.md` for release history, and `docs/NEXUS_V1.83.0_UPLOAD.md` for the
+exact Nexus file metadata.

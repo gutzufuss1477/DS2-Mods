@@ -1,4 +1,9 @@
+param([switch]$Diagnostic, [switch]$MountTrace)
+
 $ErrorActionPreference = 'Stop'
+if ($Diagnostic) {
+    throw 'The AB diagnostic E0E230 wrapper corrupts the native XMM1 argument. Diagnostic builds are disabled.'
+}
 
 $root = Split-Path -Parent (Split-Path -Parent $MyInvocation.MyCommand.Path)
 $llvm = if ($env:LLVM_BIN) {
@@ -24,7 +29,7 @@ foreach ($inputFile in @($source, $definitions, $configuration)) {
     if (!(Test-Path -LiteralPath $inputFile)) { throw "Build input missing: $inputFile" }
 }
 
-$out = Join-Path $root 'build\public'
+$out = Join-Path $root $(if ($MountTrace) { 'build\mount-trace' } else { 'build\public' })
 New-Item -ItemType Directory -Force -Path $out | Out-Null
 
 $kernel32 = Join-Path $out 'kernel32.lib'
@@ -32,7 +37,9 @@ $kernel32 = Join-Path $out 'kernel32.lib'
 if ($LASTEXITCODE) { throw 'kernel32 import library creation failed' }
 
 $object = Join-Path $out 'coffin_board_all_terrain_speed.obj'
-& $clang --target=x86_64-pc-windows-msvc /nologo /c /O2 /Ob0 /GS- /GR- /EHs-c- /Zl /Oi /W4 /WX /clang:-fno-builtin /clang:-mcx16 "/I$root\src" /TP "/Fo$object" $source
+[string[]]$extraArgs = @()
+if ($MountTrace) { $extraArgs += '/DCOFFIN_MOUNT_TRACE=1' }
+& $clang @extraArgs --target=x86_64-pc-windows-msvc /nologo /c /O2 /Ob0 /GS- /GR- /EHs-c- /Zl /Oi /W4 /WX /clang:-fno-builtin /clang:-mcx16 /clang:-Wno-unused-variable /clang:-Wno-unused-function /clang:-Wno-unused-const-variable "/I$root\src" /TP "/Fo$object" $source
 if ($LASTEXITCODE) { throw 'compile failed' }
 
 $asi = Join-Path $out 'ds2_coffin_board_all_terrain_speed.asi'
