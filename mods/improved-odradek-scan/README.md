@@ -1,5 +1,7 @@
 # Improved Odradek Scan
 
+[Nexus Mods](https://www.nexusmods.com/deathstranding2onthebeach/mods/85) · [GitHub release](https://github.com/gutzufuss1477/DS2-Mods/releases/tag/improved-odradek-scan-v1.0.0)
+
 **Version 1.0.0** · by gutzufuss1477 · Steam PC 1.10.89.0 (Windows x64)
 
 A configurable **360-degree Odradek scan with a tested 500 m default radius**.

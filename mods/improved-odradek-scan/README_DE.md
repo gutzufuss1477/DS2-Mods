@@ -1,5 +1,7 @@
 # Improved Odradek Scan – 1.0.0
 
+[Nexus Mods](https://www.nexusmods.com/deathstranding2onthebeach/mods/85) · [GitHub release](https://github.com/gutzufuss1477/DS2-Mods/releases/tag/improved-odradek-scan-v1.0.0)
+
 360°-Odradek-Scan mit **500 m Standardreichweite**, im Spiel bestätigt.
 Entfernte unberührte und brauchbare abgelegte Fracht wird beim Scan markiert.
 Die Meterzahl steht hinter Empfänger und Likes und aktualisiert sich beim Gehen.
