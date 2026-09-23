@@ -1,116 +1,66 @@
-# DS2 APAS Memory Costs
+# DS2 APAS Memory Costs - unified edition
 
-INI-configurable APAS Enhancement Memory costs for **DEATH STRANDING 2: ON THE BEACH**.
+**3.0.0-rc.1: release candidate, user gameplay testing pending.**
 
-## Available versions
-
-### Main File - APAS Memory Costs v1.0.3
-
-Changes APAS Memory costs only.
-
-Default:
+One `ds2_apas_memory_costs.asi` and one `ds2_apas_memory_costs.ini` provide both
+configurable APAS Memory costs and optional early APAS unlocks. No separate
+Performance Hotfix or Unlock All build is needed.
 
 ```ini
 [APASMemoryCosts]
 Enabled=1
 GlobalCost=1
-```
-
-`GlobalCost=1` makes every loaded APAS Enhancement cost one APAS Memory point.
-
-### Optional File - Unlock All v1.1.0
-
-Replacement build that includes the complete APAS Memory Costs functionality plus:
-
-```ini
-[APASUnlocks]
-UnlockAll=1
-```
-
-It unlocks all valid APAS Enhancements through the game's native APAS unlock path.
-
-**Do not load the Main and Optional ASIs together.**
-The Optional version replaces the Main version and already includes `GlobalCost`.
-
-## Main File installation
-
-Copy from `release/`:
-
-- `ds2_apas_memory_costs.asi`
-- `ds2_apas_memory_costs.ini`
-
-beside `DS2.exe`.
-
-## Optional Unlock All installation
-
-Copy from:
-
-`release/optional-unlock-all/`
-
-beside `DS2.exe`, replacing the normal APAS ASI/INI.
-
-A compatible 64-bit ASI loader is required.
-
-## Configuration
-
-Main cost settings:
-
-```ini
-[APASMemoryCosts]
-Enabled=1
-GlobalCost=1
-```
-
-- `Enabled=1` enables cost modification.
-- `GlobalCost=0` makes APAS Enhancements free.
-- `GlobalCost=1` makes every Enhancement cost one point.
-- `GlobalCost=2..1000000` sets an exact global cost.
-
-Optional build only:
-
-```ini
-[APASUnlocks]
-UnlockAll=1
-```
-
-If you want Unlock All but vanilla APAS costs, set:
-
-```ini
-[APASMemoryCosts]
-Enabled=0
 
 [APASUnlocks]
-UnlockAll=1
+UnlockAll=0
 ```
 
-## Performance
+- `GlobalCost=0`: normally paid enhancements are free.
+- `GlobalCost=1..1000000`: exact global cost for normally paid enhancements.
+- Special base nodes (IDs 0..3) and natively free nodes retain their native costs.
+- `Enabled=0`: vanilla costs. This switch does not disable Unlock All.
+- `UnlockAll=0`: normal APAS progression; the safe default.
+- `UnlockAll=1`: bypass APAS prerequisites when the native APAS system is available.
+  Unlocks nodes without automatically equipping them or unlocking the APAS menu.
 
-Both versions use the v1.0.3 low-overhead APAS cost worker.
+Back up saves before enabling Unlock All. Native unlocks may persist in saves;
+turning the option off or uninstalling does not undo already saved unlocks.
 
-It patches resources during loading and exits completely once the APAS resource table
-is populated and stable. There is no permanent 1-second gameplay scan.
+## Install
 
-## Unlock All warning
+Close the game. Extract the single ZIP in `release/` and copy its ASI and INI beside
+`DS2.exe`. A compatible 64-bit ASI loader is required. Replace the old APAS files;
+remove additional or renamed APAS ASIs from loader folders. Restart after INI edits.
+The existing Mod Suite manager still embeds its older APAS build and can overwrite
+this standalone candidate during an APAS repair/update.
 
-Unlock All intentionally bypasses normal APAS progression requirements.
+## Implementation
 
-It does not globally complete missions, change facility friendship, modify Porter Grade
-or unlock unrelated game systems.
+Costs are applied on the native APAS node-construction path, before the game copies
+the cost into its node cache. Later-created nodes and loaded saves take the same
+path. There is no timer, recurring table scan, retained resource-pointer cache or
+permanent background worker.
 
-Because it uses the game's native APAS unlock routine, unlocked Enhancements may be
-persisted in the save. Back up the save before first use if vanilla progression matters.
+The exact supported research target is **Steam DS2.exe 1.10.89.0**. Code anchors,
+PE metadata, resource type and startup state are checked. Unknown builds and
+conflicting patches are rejected. The INI and startup result are recorded in the
+local `ds2_apas_memory_costs.log`; check for `READY`.
 
-## Compatibility
+## Verification and limits
 
-There is no hard global game-version gate.
+Automated checks cover strict INI parsing, all node IDs, base/free-node preservation,
+late node creation, native calling convention, executable relays, rollback, all four
+feature combinations, unsupported/conflicting targets, loader lifetime, and the
+actual game accounting/activation functions in an isolated mapped image.
 
-Known/tested research target:
+These checks do **not** establish that the specific Nexus purchasing report is fixed
+or measure gameplay FPS. Affected saves were not available. The user performs the
+new-game, UI, load/save and Unlock All gameplay tests before Nexus publication.
 
-```text
-Steam DS2.exe 1.10.89.0
-```
+- [German game-test instructions](docs/TESTANLEITUNG_DE.md)
+- [Current test status](docs/TEST_STATUS.md)
+- [Technical notes](docs/TECHNICAL_NOTES.md)
+- [Reproducible build](docs/BUILD.md)
+- [Prepared Nexus description and consolidation](docs/NEXUS_DESCRIPTION.md)
 
-The cost path and Unlock All patch both use local/runtime validation where possible.
-Future game updates may still require updated offsets/signatures.
-
-See the files under `docs/` for full technical and research notes.
+Older version notes remain historical evidence; Git history retains the old builds.

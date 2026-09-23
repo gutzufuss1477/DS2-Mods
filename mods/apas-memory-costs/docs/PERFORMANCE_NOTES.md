@@ -1,4 +1,7 @@
-# v1.0.3 Performance Notes
+# Historical v1.0.3 Performance Notes
+
+These notes describe the old build. The unified 3.0.0 candidate uses a node-creation
+hook and no resource polling; see `TECHNICAL_NOTES.md` and `TEST_STATUS.md`.
 
 ## Reason for the change
 

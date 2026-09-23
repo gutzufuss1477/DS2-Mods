@@ -1,112 +1,86 @@
-# Technical Notes
+# Unified APAS 3.0.0-rc.1 implementation
 
-## Confirmed APAS runtime path
+## Supported executable
 
-Static analysis and runtime testing established:
-
-```text
-DS2.exe + 0x623E5D0
-    -> global APAS manager pointer
-
-manager + 0x30 + index * 8
-    -> APAS entry pointer
-
-entry + 0x70
-    -> DSApasEnhancementResource*
-
-resource + 0x24
-    -> EnhancementPoint / APAS Memory cost
-```
-
-The APAS manager contains `0x37` entry slots.
-
-## Why `resource + 0x24` is the real APAS cost field
-
-The APAS accounting function identified at RVA `0xBE3D00` walks active APAS entries,
-resolves `entry + 0x70`, and adds `[resource + 0x24]` to occupied APAS Memory.
-
-The activation path independently reads the same field and compares it against:
+Steam DS2.exe 1.10.89.0:
 
 ```text
-total APAS capacity - currently occupied APAS Memory
+SHA-256       BF3D1C665545930BC850D8F5DF486F7395885BB729D4FD408FDB03390DE0765B
+PE timestamp  0x6A3DAE46
+Image size    0x0B292000
+Manager slot  0x0623E5D0
+Resource VT   0x032088B8
 ```
 
-The field therefore participates in both:
+Runtime verification checks PE metadata and exact independent APAS anchors, with
+ASLR-aware validation of resource virtual-function addresses. It deliberately
+refuses unknown builds instead of following unchecked fixed-address pointers.
 
-1. occupied-memory accounting;
-2. the activation-capacity check.
+## Cost consistency and base-node regression
 
-It is not merely a UI display value.
+Native node creation at RVA `BE0270` receives `(manager, position, resource, order)`.
+At `BE04D2`, it reads `resource+0x24` and copies the value into `entry+0x50` at
+`BE04DB`. The resource is retained at `entry+0x70`.
 
-## Confirmed reflection/resource terminology
+The old polling implementation changed only `resource+0x24` after construction.
+That could leave the native cached cost different. It also overwrote zero-cost
+resources and the special IDs 0..3. Native activation at `BE12E0` treats those IDs
+specially but still performs the Memory-capacity test. Isolated execution of that
+actual native check confirms that a nonzero base cost can fail at zero capacity,
+where the native zero cost passes. This is a demonstrated mechanism, not a proven
+reproduction of the Nexus user's whole new-game/UI failure.
 
-Static analysis identified:
+The new wrapper validates the resource vtable and ID, preserves IDs 0..3 and native
+zero/invalid costs, then changes valid positive costs before calling the native
+constructor. The game therefore uses the same configured value for the resource
+and its construction-time cache. No pointers to game resources are retained.
 
-- `DSApasEnhancementResource`
-- `DSApasEnhancementResources`
-- `EnhancementPoint`
-- `EnhancementCategory`
-- `EnhancementId`
-- `InitialMemoryCapacity`
-- `AdditionalMemoryCapacityByHouseholdFriendshipLevel`
-- `apas_enhancement_array`
+The game calls the constructor for later nodes and re-created nodes after loading;
+the hook does not stop after a table-count threshold. No gameplay polling is used.
+Installation after the APAS manager already exists is refused to avoid applying
+the new construction rule to only part of an already populated manager.
 
-## v1.0.3 implementation
+## Executable hook and lifetime
 
-Constants:
+The cost entry is 16-byte aligned. The first original instruction is exactly five
+bytes (`mov [rsp+10h],rdx`). Replace only that instruction with a relative jump to
+a nearby relay. Bytes 5..15 and all following native instruction boundaries stay
+unchanged. The relay makes an absolute tail jump to a normal Windows-x64 C++
+wrapper. A leaf trampoline executes the original five bytes and jumps back to
+`BE0275`. It changes no stack allocation, so it needs no non-leaf unwind record.
+The C++ wrapper has normal compiler-generated unwind metadata as needed.
 
-```text
-Manager global RVA : 0x623E5D0
-Entry count        : 0x37
-Entry array offset : +0x30
-Resource pointer   : entry +0x70
-EnhancementPoint   : resource +0x24
-```
+Aligned `cmpxchg16b` validates and changes each code block atomically. It never
+blindly overwrites a foreign patch. Preflight checks cover both features before
+any patch; a later failure rolls back changes still owned by this build. Page
+protections are restored and the instruction cache is flushed. Relay pages become
+RX before activation and are retained even after rollback in case a thread has
+already entered them. The ASI is pinned for process lifetime before installing
+callbacks. An interlocked initialization guard prevents repeat startup workers.
 
-The worker:
+## Unlock All in the same binary
 
-```text
-startup
-  -> Sleep(3000 ms)
-  -> PatchPass()
+Default: `[APASUnlocks] UnlockAll=0`. This is independent of cost `Enabled`.
 
-if fewer than 40 resources are available:
-  -> Sleep(5000 ms)
-  -> retry
+The optional code change is now at `BE39A9`, inside the APAS unlock updater. Its
+original four-byte resource-fact load is replaced with `EB 43 90 90`. The short
+jump lands at `BE39EE`, which invokes the native locate/unlock routine at `BE1640`.
+This bypasses this updater's APAS-specific fact and grade requirements, including
+the fact gate left intact by the old `BE39C9` patch. Earlier native system-availability
+guards remain. The entire surrounding 96-byte window is checked, so an older
+Unlock All patch in the same routine is detected as a conflict.
 
-once 40+ resources are available:
-  -> check once per second
-  -> require five stable passes with no new writes
-  -> terminate worker thread
-```
+No global mission, facility, or Porter Grade state is spoofed. Native unlocks can
+persist in saves. Turning the setting off changes future runtime behavior; it is
+not a rollback of already saved progression.
 
-The patch pass validates the complete manager entry-array region once instead of calling
-`VirtualQuery` on every array slot.
+## Diagnostics and performance limits
 
-For each populated slot it only validates:
+Only the bounded startup worker performs INI I/O, code checks, allocation and
+logging. It returns after installation or refusal. The gameplay hook performs
+constant bounded work once per native node-creation call; no `VirtualQuery`,
+`ReadProcessMemory`, logging or allocation occurs in that callback.
 
-- the small `entry +0x70` region needed to read the resource pointer;
-- the four-byte writable `resource +0x24` cost field.
-
-Writes use an atomic compare/exchange.
-
-## Performance rationale
-
-Earlier builds continued to walk the APAS resource table throughout gameplay.
-User feedback reported a severe FPS reduction with that implementation.
-
-v1.0.3 removes permanent gameplay polling. Once the APAS table has reached its normal
-populated/stable state, the worker returns and no further APAS scanning occurs.
-
-## Version policy
-
-There is deliberately no hard PE timestamp, image-size, or signature gate.
-
-The offsets above were discovered and functionally tested on:
-
-```text
-Steam DS2.exe 1.10.89.0
-```
-
-After a future game update, validate the runtime path before assuming the constants
-remain correct.
+This eliminates the old recurring scan by construction. It does not constitute a
+measured FPS result. New-game UI behavior and the reported Nexus regression still
+require the user gameplay checks in `TEST_STATUS.md`.

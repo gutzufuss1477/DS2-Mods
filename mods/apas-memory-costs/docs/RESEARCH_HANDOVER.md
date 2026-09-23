@@ -1,5 +1,9 @@
 # Research / Handover Notes
 
+Historical v1.0.3/v1.1.0 notes. Current implementation and validation are documented
+in `TECHNICAL_NOTES.md` and `TEST_STATUS.md`; the old polling builds are superseded
+by a unified release candidate, not yet a gameplay-validated stable release.
+
 ## Goal
 
 Make APAS Enhancement Memory requirements configurable through an INI file.

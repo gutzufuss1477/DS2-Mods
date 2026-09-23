@@ -1,0 +1,2 @@
+# Preserve release bytes so SHA256SUMS also matches after checkout/git archive.
+release/** -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol

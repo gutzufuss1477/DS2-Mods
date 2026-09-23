@@ -1,5 +1,25 @@
 # Changelog
 
+## 3.0.0-rc.1 - Unified release candidate
+
+- One ASI and one INI. Unlock All is now an independent INI option, off by default.
+- Replaced the polling worker with a native node-construction hook. No recurring
+  resource scans or permanent background worker; later nodes and reloads use the hook.
+- Changes costs before the native copy into the node's cached cost.
+- Preserves special base nodes (IDs 0..3) and natively free nodes.
+- Rejects unsupported executables, modified anchors and installation after the APAS
+  manager already exists. Supports the researched Steam 1.10.89.0 executable only.
+- Validates settings strictly and records startup results in a local log.
+- Uses aligned atomic code replacement, preserves native instruction boundaries,
+  rolls back owned changes on a partial installation failure, and retains callback
+  code for the process lifetime. Repeated initialization is ignored.
+- Unlock All skips this APAS updater's fact and grade prerequisites while retaining
+  native system availability guards and native unlock/creation behavior.
+- Added executable relay, mapped-image, actual native accounting/activation,
+  configuration and loader-lifetime regression tests.
+- Candidate only: the specific Nexus purchasing report, in-game UI, progression,
+  save reload and gameplay FPS still require user testing. No stable release claim.
+
 ## v1.1.0 - Optional Unlock All
 
 - Added optional replacement build with `UnlockAll=1`.

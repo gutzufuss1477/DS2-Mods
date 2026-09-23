@@ -1,5 +1,8 @@
 # Tested Unlock All Alpha
 
+Historical v1.1.0 evidence only; this is not a test result for the unified 3.0.0
+candidate. See `TEST_STATUS.md` for the current checks and remaining game tests.
+
 The first live Unlock All build was tested successfully before the release rebuild.
 
 Observed result:

@@ -1,5 +1,8 @@
 # APAS Unlock All - Technical Notes
 
+Historical v1.1.0 design only. The unified 3.0.0 candidate uses the INI toggle and
+the earlier APAS-specific branch at RVA BE39A9 described in `TECHNICAL_NOTES.md`.
+
 ## Purpose
 
 The optional Unlock All build extends the normal APAS Memory Costs mod without
