@@ -1,5 +1,5 @@
 DS2 APAS Memory Costs 3.0.0-rc.1
-Unified release candidate - gameplay validation pending
+Unified release candidate - limited gameplay coverage
 
 ONE ASI, ONE INI
 Copy ds2_apas_memory_costs.asi and ds2_apas_memory_costs.ini beside DS2.exe.
@@ -49,3 +49,8 @@ Automated INI, cost, executable relay, native accounting/activation, patch rollb
 and module-lifetime checks pass. The reported Nexus purchasing issue has not been
 reproduced from a user's affected save. New-game behavior, APAS UI, load transitions,
 Unlock All progression and actual gameplay FPS still need user verification.
+An Episode 9 save showed selectable enhancements and one-point costs on a
+preliminary build. The packaged build adds startup/lifetime protection; its final
+loader behavior has automated coverage but no completed gameplay verification.
+A fresh save just after the intro had no APAS menu yet. UnlockAll does not unlock
+the APAS menu itself. The original early-game purchasing report remains unconfirmed.

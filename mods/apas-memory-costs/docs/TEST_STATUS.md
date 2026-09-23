@@ -34,7 +34,23 @@ will perform game testing. The game was not subsequently controlled or closed by
 the agent. The preliminary installed ASI must be replaced with the packaged final
 candidate after the user fully exits the game.
 
-## Still required before stable publication
+## User report and publication scope - 2026-09-23
+
+The user started a fresh save but found no APAS menu just after the intro. Further
+early-game progression testing is unavailable. On an Episode 9 save, the user
+reported all enhancements selectable/unlocked and one-point costs. Read-only file
+inspection still found preliminary ASI SHA256
+`C6DE980E070F42B72B8BF5023092D506F6B8B280BF173E613DC645B46C5A7CC0`
+installed, with UnlockAll=0. This supports the preliminary cost behavior, not the
+final startup protection or optional unlock mode. Existing unlocked enhancements
+do not establish that UnlockAll was tested.
+
+The published candidate ASI SHA256 is
+`1E8176A00062342899B0A15F609F72B3C0EEB112F70791376D78CA7FB28D143F`.
+The user authorized a single Nexus main release now, without further progression
+testing. It retains the release-candidate version and discloses these limits.
+
+## Remaining gameplay checks
 
 - Actual final ASI startup reports READY with the user's loader.
 - Existing-save cost display, activation/deactivation and memory accounting.
@@ -45,5 +61,4 @@ candidate after the user fully exits the game.
 - Same-scene FPS comparison against no APAS mod.
 
 No affected Nexus save was available. The code-level findings are not sufficient
-to claim that the user's exact bug is reproduced or fixed. Nexus remains unchanged
-until the user's gameplay validation. See `TESTANLEITUNG_DE.md`.
+to claim that the user's exact bug is reproduced or fixed. See `TESTANLEITUNG_DE.md`.

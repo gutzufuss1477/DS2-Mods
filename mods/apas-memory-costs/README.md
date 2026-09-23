@@ -1,6 +1,6 @@
 # DS2 APAS Memory Costs - unified edition
 
-**3.0.0-rc.1: release candidate, user gameplay testing pending.**
+**3.0.0-rc.1: release candidate with limited gameplay coverage.**
 
 One `ds2_apas_memory_costs.asi` and one `ds2_apas_memory_costs.ini` provide both
 configurable APAS Memory costs and optional early APAS unlocks. No separate
@@ -54,8 +54,10 @@ feature combinations, unsupported/conflicting targets, loader lifetime, and the
 actual game accounting/activation functions in an isolated mapped image.
 
 These checks do **not** establish that the specific Nexus purchasing report is fixed
-or measure gameplay FPS. Affected saves were not available. The user performs the
-new-game, UI, load/save and Unlock All gameplay tests before Nexus publication.
+or measure gameplay FPS. Affected saves were not available. The user reported
+working one-point costs on an Episode 9 save with the preliminary build, and
+authorized Nexus publication with the remaining checks disclosed. Final startup,
+new-game, UI, load/save and Unlock All gameplay verification remains incomplete.
 
 - [German game-test instructions](docs/TESTANLEITUNG_DE.md)
 - [Current test status](docs/TEST_STATUS.md)

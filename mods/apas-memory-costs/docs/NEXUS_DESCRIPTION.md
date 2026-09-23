@@ -1,4 +1,4 @@
-# Prepared Nexus description - publish after gameplay validation
+# Nexus description - unified release candidate
 
 **Individual APAS Upgrade cost - Unified edition**
 
@@ -45,11 +45,23 @@ version in bug reports.
 
 The mod changes memory while the game runs; it does not modify DS2.exe on disk.
 
+## Release status: 3.0.0-rc.1
+
+This is a release candidate with limited gameplay coverage. An Episode 9 save
+showed selectable enhancements and one-point costs with a preliminary build.
+The packaged build adds startup/lifetime protection and passed automated checks;
+its final loader behavior and the Unlock All toggle still need gameplay confirmation.
+The APAS menu was not yet available in a fresh save just after the intro.
+UnlockAll does not unlock that menu. The reported early-game purchasing issue
+has not been reproduced from an affected save, and no measured FPS comparison
+is available. The performance rewrite removes recurring scans; a separate
+performance hotfix is no longer needed.
+
 ## Maintainer publication note (do not paste this section)
 
-Current artifact is **3.0.0-rc.1**. Automated checks pass; gameplay verification
-is pending. Do not describe the Nexus purchasing report or measured FPS as fixed
-until the user has tested it. After validation, make the final source/binary/version
-consistent, upload ONE Main File, and archive the three old active files (IDs
+The user authorized publication on 2026-09-23 with the limits above. Keep the
+**3.0.0-rc.1** designation and exact tested binary. Do not describe the Nexus
+purchasing report or measured FPS as fixed. Upload ONE Main File and archive
+the three old active files (IDs
 282, 283, 289) rather than deleting their history. Leave no active Optional files.
 Use matching title/version fields and set the new main file as the primary download.
