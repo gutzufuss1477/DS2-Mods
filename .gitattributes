@@ -19,3 +19,7 @@ mods/coffin-board-all-terrain-speed/config/ds2_coffin_board_all_terrain_speed.in
 mods/coffin-board-all-terrain-speed/release/DS2_Coffin_Board_All_Terrain_Speed_v1.0.0/ds2_coffin_board_all_terrain_speed.ini -text -diff
 mods/remote-orders-overlay/release/DS2_Remote_Orders_Overlay.ini -text -diff
 mods/proficiency-bonus-multiplier/release/DS2_ProficiencyBonusMultiplier.ini -text -diff
+mods/coffin-board-all-terrain-speed/release/DS2_Coffin_Board_Reworked_v1.83.0/ds2_coffin_board_all_terrain_speed.ini -text -diff
+mods/climbing-power-gloves-range/release/DS2_Climbing_Power_Gloves_Range_v1.0.0/ds2_climbing_gloves_range.ini -text -diff
+mods/construction-max-level-on-build/release/DS2_Construction_Max_Level_On_Build_v1.0.1/ds2_construction_max_level_on_build.ini -text -diff
+mods/extended-bt-cord-cutting-range/release/ds2_extended_bt_cord_cutting_range.ini -text -diff

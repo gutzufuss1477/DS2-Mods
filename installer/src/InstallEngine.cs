@@ -567,7 +567,7 @@ namespace DS2ModSuite
                                 }
                                 if (file.IsConfig && File.Exists(destination))
                                 {
-                                    if (ModConfigurationService.RequiresExactSectionKeys(mod.Id))
+                                    if (ModConfigurationService.RequiresIniMigration(mod.Id))
                                     {
                                         if (!ModConfigurationService.StableExistingIniMatches(catalog, mod.Id, file.Target, destination))
                                         {
@@ -735,7 +735,7 @@ namespace DS2ModSuite
                     {
                         if (!ModConfigurationService.ConfiguredIniMatches(catalog, configuration, file.Target, destination)) return true;
                     }
-                    else if (file.IsConfig && ModConfigurationService.RequiresExactSectionKeys(mod.Id))
+                    else if (file.IsConfig && ModConfigurationService.RequiresIniMigration(mod.Id))
                     {
                         if (!ModConfigurationService.StableExistingIniMatches(catalog, mod.Id, file.Target, destination)) return true;
                     }
@@ -785,7 +785,7 @@ namespace DS2ModSuite
                         if (!ModConfigurationService.ConfiguredIniMatches(catalog, configuration, file.Target, destination))
                             throw new IOException(Localization.T("Configured values could not be verified: ", "Konfigurierte Werte konnten nicht bestätigt werden: ") + file.Target);
                     }
-                    else if (file.IsConfig && ModConfigurationService.RequiresExactSectionKeys(mod.Id))
+                    else if (file.IsConfig && ModConfigurationService.RequiresIniMigration(mod.Id))
                     {
                         if (!ModConfigurationService.StableExistingIniMatches(catalog, mod.Id, file.Target, destination))
                             throw new IOException(Localization.T("The stable configuration migration could not be verified: ", "Die stabile Konfigurationsmigration konnte nicht bestätigt werden: ") + file.Target);

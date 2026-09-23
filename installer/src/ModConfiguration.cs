@@ -456,7 +456,9 @@ namespace DS2ModSuite
                 }
                 foreach (ConfigFieldDefinition field in fileGroup)
                 {
-                    string current = document.GetValue(field.Section, field.Key, field.Schema.Aliases) ?? field.DefaultValue;
+                    string current = document.GetValue(field.Section, field.Key, field.Schema.Aliases);
+                    if (current == null && RequiresIniMigration(field.ModId)) return true;
+                    current = current ?? field.DefaultValue;
                     string normalized;
                     string validationError;
                     if (!TryNormalize(field.Schema, current, out normalized, out validationError)
@@ -512,7 +514,9 @@ namespace DS2ModSuite
             }
             foreach (ConfigFieldDefinition field in definitions)
             {
-                string current = document.GetValue(field.Section, field.Key, field.Schema.Aliases) ?? field.DefaultValue;
+                string current = document.GetValue(field.Section, field.Key, field.Schema.Aliases);
+                if (current == null && RequiresIniMigration(field.ModId)) return false;
+                current = current ?? field.DefaultValue;
                 string normalized;
                 string error;
                 if (!TryNormalize(field.Schema, current, out normalized, out error)
@@ -523,14 +527,15 @@ namespace DS2ModSuite
 
         public static bool StableExistingIniMatches(Catalog catalog, string modId, string target, string path)
         {
-            if (!RequiresExactSectionKeys(modId) || !File.Exists(path)) return false;
+            if (!RequiresIniMigration(modId) || !File.Exists(path)) return false;
             List<ConfigFieldDefinition> definitions = GetDefinitions(catalog)
                 .Where(field => string.Equals(field.ModId, modId, StringComparison.OrdinalIgnoreCase)
                     && string.Equals(field.Target, target, StringComparison.OrdinalIgnoreCase)).ToList();
             if (definitions.Count == 0) throw new InvalidDataException("No strict settings schema exists for " + target);
             IniDocument document = ReadIni(path);
-            foreach (IGrouping<string, ConfigFieldDefinition> section in definitions.GroupBy(field => field.Section, StringComparer.OrdinalIgnoreCase))
-                if (!document.SectionHasOnlyKeys(section.Key, section.Select(field => field.Key))) return false;
+            if (RequiresExactSectionKeys(modId))
+                foreach (IGrouping<string, ConfigFieldDefinition> section in definitions.GroupBy(field => field.Section, StringComparer.OrdinalIgnoreCase))
+                    if (!document.SectionHasOnlyKeys(section.Key, section.Select(field => field.Key))) return false;
             foreach (ConfigFieldDefinition field in definitions)
             {
                 string current = document.GetValue(field.Section, field.Key, field.Schema.Aliases);
@@ -543,7 +548,7 @@ namespace DS2ModSuite
 
         public static byte[] BuildStableExistingIni(Catalog catalog, string modId, string target, string existingPath)
         {
-            if (!RequiresExactSectionKeys(modId)) throw new InvalidDataException("Strict INI normalization is not enabled for " + modId);
+            if (!RequiresIniMigration(modId)) throw new InvalidDataException("Strict INI normalization is not enabled for " + modId);
             List<ConfigFieldDefinition> definitions = GetDefinitions(catalog)
                 .Where(field => string.Equals(field.ModId, modId, StringComparison.OrdinalIgnoreCase)
                     && string.Equals(field.Target, target, StringComparison.OrdinalIgnoreCase)).ToList();
@@ -560,8 +565,9 @@ namespace DS2ModSuite
                     ? normalized
                     : field.DefaultValue;
             }
-            foreach (IGrouping<string, ConfigFieldDefinition> section in definitions.GroupBy(field => field.Section, StringComparer.OrdinalIgnoreCase))
-                document.NormalizeSection(section.Key, section.Select(field => field.Key));
+            if (RequiresExactSectionKeys(modId))
+                foreach (IGrouping<string, ConfigFieldDefinition> section in definitions.GroupBy(field => field.Section, StringComparer.OrdinalIgnoreCase))
+                    document.NormalizeSection(section.Key, section.Select(field => field.Key));
             foreach (ConfigFieldDefinition field in definitions)
             {
                 foreach (string alias in field.Schema.Aliases ?? new List<string>()) document.RemoveKeyEverywhere(alias);
@@ -573,6 +579,14 @@ namespace DS2ModSuite
         public static bool HasDefinitionForTarget(Catalog catalog, string target)
         {
             return GetDefinitions(catalog).Any(field => string.Equals(field.Target, target, StringComparison.OrdinalIgnoreCase));
+        }
+
+        // The optional APAS binary defaults missing UnlockAll to 1. Always write the
+        // suite's explicit opt-in value, including upgrades without a central profile.
+        public static bool RequiresIniMigration(string modId)
+        {
+            return RequiresExactSectionKeys(modId)
+                || string.Equals(modId, "apas-memory-costs", StringComparison.OrdinalIgnoreCase);
         }
 
         public static bool RequiresExactSectionKeys(string modId)

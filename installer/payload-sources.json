@@ -32,11 +32,11 @@
     "destination": "payload/mods/floating-carrier-cargo-capacity/DS2_FloatingCarrier_CargoCapacity_v1.0.0.asi"
   },
   {
-    "source": "../mods/coffin-board-all-terrain-speed/release/DS2_Coffin_Board_All_Terrain_Speed_v1.1.7/ds2_coffin_board_all_terrain_speed.asi",
+    "source": "../mods/coffin-board-all-terrain-speed/release/DS2_Coffin_Board_Reworked_v1.83.0/ds2_coffin_board_all_terrain_speed.asi",
     "destination": "payload/mods/coffin-board-all-terrain-speed/ds2_coffin_board_all_terrain_speed.asi"
   },
   {
-    "source": "../mods/coffin-board-all-terrain-speed/release/DS2_Coffin_Board_All_Terrain_Speed_v1.1.7/ds2_coffin_board_all_terrain_speed.ini",
+    "source": "../mods/coffin-board-all-terrain-speed/release/DS2_Coffin_Board_Reworked_v1.83.0/ds2_coffin_board_all_terrain_speed.ini",
     "destination": "payload/mods/coffin-board-all-terrain-speed/ds2_coffin_board_all_terrain_speed.ini"
   },
   {
@@ -148,11 +148,11 @@
     "destination": "payload/mods/extended-bt-cord-cutting-range/ds2_extended_bt_cord_cutting_range.ini"
   },
   {
-    "source": "../mods/apas-memory-costs/release/ds2_apas_memory_costs.asi",
+    "source": "../mods/apas-memory-costs/release/optional-unlock-all/ds2_apas_memory_costs.asi",
     "destination": "payload/mods/apas-memory-costs/ds2_apas_memory_costs.asi"
   },
   {
-    "source": "../mods/apas-memory-costs/release/ds2_apas_memory_costs.ini",
+    "source": "config/ds2_apas_memory_costs.ini",
     "destination": "payload/mods/apas-memory-costs/ds2_apas_memory_costs.ini"
   },
   {

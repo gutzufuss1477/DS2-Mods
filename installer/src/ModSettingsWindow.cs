@@ -278,6 +278,10 @@ namespace DS2ModSuite
                 13, Theme.TextPrimary, FontWeights.SemiBold);
             labelPanel.Children.Add(label);
             string detail = string.IsNullOrWhiteSpace(field.Description) ? RangeHint(field) : field.Description;
+            if (field.ModId == "apas-memory-costs" && field.Key == "UnlockAll")
+                detail = Localization.T(
+                    "Optional; off by default. Bypasses APAS progression. Unlocks may persist in the save even after disabling this option. Back up your save before enabling.",
+                    "Optional; standardmäßig aus. Umgeht den APAS-Fortschritt. Freischaltungen können auch nach dem Ausschalten im Spielstand bleiben. Vor dem Aktivieren den Spielstand sichern.");
             if (!string.IsNullOrWhiteSpace(detail))
             {
                 TextBlock help = Theme.Text(detail, 11.5, Theme.TextSecondary, FontWeights.Normal);

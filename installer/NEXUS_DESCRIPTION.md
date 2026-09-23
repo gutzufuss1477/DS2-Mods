@@ -8,7 +8,7 @@ All stable mod files and the tested Ultimate ASI Loader are embedded in the appl
 
 This is more than a loose file bundle: the custom manager adds installation-state detection, centralized configuration, file validation, conflict protection, backups and transactional rollback.
 
-Version 1.5.0 adds Extended BT Cord Cutting Range 1.0.0, APAS Memory Costs 1.0.3 and Proficiency Bonus Multiplier 1.0.0, and refreshes the Coffin Board All-Terrain Speed 1.1.7 configuration payload. It supports the Steam PC executable version `DS2.exe 1.10.89.0`.
+Version 1.6.0 updates Coffin Board Reworked to 1.83.0 and APAS Memory Costs to the 1.1.0 replacement build with optional Unlock All disabled by default. It supports the Steam PC executable version `DS2.exe 1.10.89.0`.
 
 **Quick start**
 
@@ -34,7 +34,7 @@ This is a standalone installer. Do not install the downloaded archive through Vo
 - Detects installed, outdated, incomplete and modified suite files
 - Installs the tested Ultimate ASI Loader x64 v9.7.2 automatically when required
 - Central settings interface for 18 configurable mods
-- Validates 173 settings across 19 individual INI files
+- Validates 177 settings across 19 individual INI files
 - Imports existing installed INI values
 - Hides advanced and experimental settings by default
 - Supports installation, update, repair and safe removal
@@ -54,7 +54,7 @@ The checkboxes represent the desired final state. Installed mods are selected au
 - Pickup Cargo Capacity 1.0.1 - increases the configurable cargo capacity of the Off-road Pickup
 - Tri-Cruiser Cargo Capacity 1.1.0 - increases the Tri-Cruiser's usable cargo capacity
 - Floating Carrier Cargo Capacity 1.0.0 - increases the Floating Carrier's usable cargo capacity
-- Coffin Board All-Terrain Speed 1.1.7 - adds configurable land and water speed limits and acceleration, supports mounting and riding the board with a linked Floating Carrier, and retains native steering and wet grip
+- Coffin Board Reworked 1.83.0 - configurable all-terrain speed and acceleration, loaded Floating Carrier support, Chiral Network boundary crossing and remounting outside the network
 
 **Equipment and Progression**
 
@@ -63,7 +63,7 @@ The checkboxes represent the desired final state. Installed mods are selected au
 - Sam Stats Booster 1.0.0 - provides a configurable boost to selected Sam-stat progression
 - Porter Grade Booster 1.0.0 - provides a configurable boost to delivery category points
 - Extended BT Cord Cutting Range 1.0.0 - increases the configurable BT umbilical cord cutting range
-- APAS Memory Costs 1.0.3 - sets a global APAS Memory cost for loaded APAS enhancements using the optimized performance build
+- APAS Memory Costs 1.1.0 - optimized configurable memory costs and optional Unlock All, disabled by default in the suite
 - Proficiency Bonus Multiplier 1.0.0 - scales supported level-dependent proficiency bonuses independently for levels 1 through 5
 
 **Deliveries and Rewards**
@@ -101,6 +101,12 @@ The central interface does not replace the individual INI files used by the ASI 
 - Customized INIs are retained when a mod is removed
 
 For a newly selected mod, install it first. It will then appear in **Mod Settings** if it provides configurable options.
+
+**APAS optional Unlock All**
+
+The suite bundles the APAS 1.1.0 replacement ASI, which includes both cost settings and optional Unlock All. Only one APAS ASI is installed. Unlock All is **off by default**. To enable it, install APAS, open **Mod Settings → APAS Memory Costs → APASUnlocks → Unlock All**, save, apply changes and restart the game. Unlocks may persist in the save; disabling the option does not undo saved unlocks. Back up your save before enabling. Set APASMemoryCosts / Enabled to off if you want Unlock All with vanilla costs.
+
+Old cost-only INIs receive an explicit UnlockAll=0 during updates, including updates without a saved central profile. Existing explicit UnlockAll values and valid cost settings are retained. Coffin Board updates preserve valid existing settings and add missing reworked options with the release defaults.
 
 **Updating and repairing**
 

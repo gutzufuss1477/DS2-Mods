@@ -17,12 +17,12 @@ namespace DS2ModSuite
             {
                 Catalog catalog = CatalogService.LoadAndValidate();
                 CatalogService.ValidatePayloads(catalog);
-                Assert(catalog.SuiteVersion == "1.5.0" && catalog.Mods.Count == 21,
+                Assert(catalog.SuiteVersion == "1.6.0" && catalog.Mods.Count == 21,
                     "suite version/mod count mismatch");
                 report.AppendLine("PASS catalog and all payload hashes");
 
                 List<ConfigFieldDefinition> definitions = ModConfigurationService.GetDefinitions(catalog);
-                Assert(definitions.Count == 173 && definitions.Select(field => field.Target).Distinct(StringComparer.OrdinalIgnoreCase).Count() == 19,
+                Assert(definitions.Count == 177 && definitions.Select(field => field.Target).Distinct(StringComparer.OrdinalIgnoreCase).Count() == 19,
                     "settings schema field/file coverage mismatch");
                 List<ModSpec> filteredSettingsMods = ModSettingsWindow.FilterInstalledConfigurableMods(
                     catalog,
@@ -47,7 +47,7 @@ namespace DS2ModSuite
                 List<ConfigFieldDefinition> coffinBoardSettings = definitions
                     .Where(field => field.ModId == "coffin-board-all-terrain-speed")
                     .ToList();
-                Assert(coffinBoardSettings.Count == 3
+                Assert(coffinBoardSettings.Count == 6
                     && coffinBoardSettings.Any(field => field.Key == "SpeedPercent"
                         && field.Schema.Min == 100 && field.Schema.Max == 1000 && field.DefaultValue == "500")
                     && coffinBoardSettings.Any(field => field.Key == "AccelerationPercent"
@@ -55,6 +55,9 @@ namespace DS2ModSuite
                     && coffinBoardSettings.Any(field => field.Key == "AllowFloatingCarrier"
                         && field.DefaultValue == "1"),
                     "Coffin Board settings schema mismatch");
+                Assert(new[] { "Enabled", "EnableNetworkTraversal", "EnableOutsideNetworkMount" }
+                    .All(key => coffinBoardSettings.Any(field => field.Key == key && field.DefaultValue == "1")),
+                    "Coffin Board Reworked switches are missing or disabled by default");
                 List<ModSpec> coffinBoardFilteredSettings = ModSettingsWindow.FilterInstalledConfigurableMods(
                     catalog,
                     definitions,
@@ -123,10 +126,12 @@ namespace DS2ModSuite
                 Assert(catalog.Mods[0].LocalizedDescription == catalog.Mods[0].Description, "English catalog localization failed");
                 LoaderInspector.Relocalize(localizedLoader);
                 Assert(localizedLoader.DisplayText == "ASI Loader 9.7.2 is installed", "English loader relocalization failed");
-                report.AppendLine("PASS English/German localization, persistence and 173-field settings schema validation");
+                report.AppendLine("PASS English/German localization, persistence and 177-field settings schema validation");
 
                 string runningExecutable = System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName;
                 File.Copy(runningExecutable, Path.Combine(testRoot, catalog.Game.Executable), true);
+                TestApasOptIn(catalog, testRoot, runningExecutable);
+                report.AppendLine("PASS APAS default-off fresh install, legacy migration with/without profile, explicit opt-in/out, preservation and idempotence");
 
                 string noProfileUpgradeRoot = Path.Combine(testRoot, "coffin-no-profile-upgrade");
                 Directory.CreateDirectory(noProfileUpgradeRoot);
@@ -150,6 +155,9 @@ namespace DS2ModSuite
                     "Coffin Board no-profile TEST upgrade failed: " + noProfileUpgrade.Message);
                 Assert(noProfileMigratedText.Contains("SpeedPercent=650")
                     && noProfileMigratedText.Contains("AccelerationPercent=400")
+                    && noProfileMigratedText.Contains("Enabled=1")
+                    && noProfileMigratedText.Contains("EnableNetworkTraversal=1")
+                    && noProfileMigratedText.Contains("EnableOutsideNetworkMount=1")
                     && !noProfileMigratedText.Contains("SteeringPercent=")
                     && !noProfileMigratedText.Contains("WetGripPercent=")
                     && !noProfileMigratedText.Contains("Telemetry=")
@@ -358,6 +366,79 @@ namespace DS2ModSuite
             {
                 try { Directory.Delete(testRoot, true); } catch { }
                 try { Directory.Delete(AppPaths.UserDirectory, true); } catch { }
+            }
+        }
+
+        private static void TestApasOptIn(Catalog catalog, string testRoot, string runningExecutable)
+        {
+            const string modId = "apas-memory-costs";
+            const string target = "ds2_apas_memory_costs.ini";
+            ModSpec apas = catalog.Mods.First(mod => mod.Id == modId);
+            ModFileSpec binary = apas.Files.Single(file => !file.IsConfig);
+            ConfigFieldDefinition unlock = ModConfigurationService.GetDefinitions(catalog)
+                .Single(field => field.ModId == modId && field.Key == "UnlockAll");
+            Assert(apas.Version == "1.1.0" && unlock.DefaultValue == "0" && !unlock.Schema.Advanced,
+                "APAS optional unlock must be visible and off by default");
+
+            foreach (bool withProfile in new[] { false, true })
+            foreach (string previous in new[] { "fresh", "legacy", "0", "1" })
+            {
+                string gameRoot = Path.Combine(testRoot, "apas-" + withProfile + "-" + previous);
+                Directory.CreateDirectory(gameRoot);
+                File.Copy(runningExecutable, Path.Combine(gameRoot, catalog.Game.Executable));
+                string iniPath = Path.Combine(gameRoot, target);
+                if (previous != "fresh")
+                {
+                    File.WriteAllText(Path.Combine(gameRoot, binary.Target), "old APAS binary");
+                    File.WriteAllText(iniPath, "; custom cost\r\n[APASMemoryCosts]\r\nEnabled=0\r\nGlobalCost=7\r\nCustomKey=42\r\n"
+                        + (previous == "legacy" ? "" : "[APASUnlocks]\r\nUnlockAll=" + previous + "\r\n")
+                        + "[Unrelated]\r\nKeep=1\r\n");
+                }
+                ModConfigurationProfile profile = withProfile
+                    ? ModConfigurationService.LoadEffectiveProfile(catalog, gameRoot) : null;
+                if (withProfile && previous == "legacy")
+                {
+                    Assert(ModConfigurationService.HasDifferences(catalog, profile, new[] { modId }, gameRoot),
+                        "missing APAS opt-in must be detected as a configuration change");
+                    Assert(!ModConfigurationService.ConfiguredIniMatches(catalog, profile, target, iniPath),
+                        "missing APAS opt-in must not be treated as the safe default on disk");
+                }
+                ApplyPlan plan = new ApplyPlan
+                {
+                    GamePath = gameRoot, SelectedModIds = new List<string> { modId },
+                    ConfigurationProfile = profile, Language = "en"
+                };
+                ApplyResult applied = new InstallEngine(catalog, true).Apply(plan, new DirectProgress());
+                Assert(applied.Success, "APAS install/migration failed: " + applied.Message);
+                string installedText = File.ReadAllText(iniPath);
+                IniDocument installed = IniDocument.Parse(installedText);
+                Assert(installed.GetValue("APASUnlocks", "UnlockAll", null) == (previous == "1" ? "1" : "0"),
+                    "APAS install changed or implicitly enabled the unlock choice");
+                Assert(HashUtil.EqualsHash(HashUtil.FileSha256(Path.Combine(gameRoot, binary.Target)), binary.Sha256)
+                    && Directory.GetFiles(gameRoot, "*.asi").Length == 1,
+                    "APAS must use exactly one replacement ASI");
+                if (previous != "fresh")
+                    Assert(installed.GetValue("APASMemoryCosts", "Enabled", null) == "0"
+                        && installed.GetValue("APASMemoryCosts", "GlobalCost", null) == "7"
+                        && installedText.Contains("CustomKey=42") && installedText.Contains("Keep=1")
+                        && installedText.Contains("; custom cost"), "APAS migration lost custom values/comments");
+                byte[] before = File.ReadAllBytes(iniPath);
+                ApplyResult repeated = new InstallEngine(catalog, true).Apply(plan, new DirectProgress());
+                Assert(repeated.Success && repeated.ConfigurationsUpdated == 0 && repeated.Updated == 0
+                    && repeated.Installed == 0 && repeated.Repaired == 0 && before.SequenceEqual(File.ReadAllBytes(iniPath)),
+                    "APAS migration was not idempotent");
+
+                if (withProfile)
+                {
+                    foreach (string choice in new[] { "1", "0" })
+                    {
+                        ModConfigurationService.SetValue(profile, unlock.Id, choice);
+                        ApplyResult toggled = new InstallEngine(catalog, true).Apply(plan, new DirectProgress());
+                        Assert(toggled.Success && IniDocument.Parse(File.ReadAllText(iniPath))
+                            .GetValue("APASUnlocks", "UnlockAll", null) == choice,
+                            "explicit APAS opt-in/out failed");
+                    }
+                }
             }
         }
 

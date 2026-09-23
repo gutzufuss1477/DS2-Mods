@@ -172,6 +172,10 @@
               "name": "CoffinBoardAllTerrainSpeed",
               "fields": [
                 {
+                  "key": "Enabled",
+                  "type": "bool"
+                },
+                {
                   "key": "SpeedPercent",
                   "type": "int",
                   "min": 100,
@@ -185,6 +189,14 @@
                 },
                 {
                   "key": "AllowFloatingCarrier",
+                  "type": "bool"
+                },
+                {
+                  "key": "EnableNetworkTraversal",
+                  "type": "bool"
+                },
+                {
+                  "key": "EnableOutsideNetworkMount",
                   "type": "bool"
                 }
               ]
@@ -775,6 +787,16 @@
                   "type": "int",
                   "min": 0,
                   "max": 1000000
+                }
+              ]
+            },
+            {
+              "name": "APASUnlocks",
+              "fields": [
+                {
+                  "key": "UnlockAll",
+                  "type": "bool",
+                  "default": "0"
                 }
               ]
             }

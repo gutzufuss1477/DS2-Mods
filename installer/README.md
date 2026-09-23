@@ -1,4 +1,4 @@
-# DS2 Mod Suite v1.5.0
+# DS2 Mod Suite v1.6.0
 
 Clean all-in-one mod manager for **DEATH STRANDING 2: ON THE BEACH**.
 
@@ -37,6 +37,12 @@ The manager language and central settings profile are stored under:
 
 Customized INIs are retained when a mod is removed so personal settings are not lost.
 
+## APAS optional Unlock All
+
+The suite bundles the APAS 1.1.0 replacement ASI, which includes both cost settings and optional Unlock All. Only one APAS ASI is installed. Unlock All is **off by default**. To enable it, install APAS, open **Mod Settings → APAS Memory Costs → APASUnlocks → Unlock All**, save, apply changes and restart the game. Unlocks may persist in the save; disabling the option does not undo saved unlocks. Back up your save before enabling. Set APASMemoryCosts / Enabled to off if you want Unlock All with vanilla costs.
+
+Old cost-only INIs receive an explicit UnlockAll=0 during updates, including updates without a saved central profile. Existing explicit UnlockAll values and valid cost settings are retained. Coffin Board updates preserve valid existing settings and add missing reworked options with the release defaults.
+
 ## Safety
 
 - Supports only the verified Steam build `DS2.exe 1.10.89.0`.
@@ -57,7 +63,7 @@ Without administrator rights, backups and logs are stored below the LocalAppData
 - Pickup Cargo Capacity 1.0.1
 - Tri-Cruiser Cargo Capacity 1.1.0
 - Floating Carrier Cargo Capacity 1.0.0
-- Coffin Board All-Terrain Speed 1.1.7
+- Coffin Board Reworked 1.83.0
 - High-Density Backpack Modules 1.0.0
 - Climbing Power Gloves Range 1.0.0
 - Sam Stats Booster 1.0.0
@@ -72,7 +78,7 @@ Without administrator rights, backups and logs are stored below the LocalAppData
 - Infrastructure One Unit 1.0.0
 - Remote Orders Overlay 0.2.0
 - Extended BT Cord Cutting Range 1.0.0
-- APAS Memory Costs 1.0.3
+- APAS Memory Costs 1.1.0 (optional Unlock All, off by default)
 - Proficiency Bonus Multiplier 1.0.0
 
 TEST, TRACE, diagnostic and older reference builds are not included.
@@ -88,6 +94,8 @@ TEST, TRACE, diagnostic and older reference builds are not included.
 7. Erneut **Änderungen anwenden**, um die gespeicherten Werte in den Spielordner zu schreiben.
 
 Das zentrale Menü zeigt ausschließlich installierte Mods mit konfigurierbarer INI. Nicht installierte Mods und Mods ohne INI werden ausgeblendet. Es ersetzt die mod-eigenen INIs nicht, sondern verwaltet sie sicher an einer Stelle. **Einstellungen speichern** legt zunächst nur das zentrale Profil ab. Erst **Änderungen anwenden** schreibt die einzelnen INIs mit Sicherung, Prüfung und Rollback-Schutz in den Spielordner. Änderungen werden nach einem Neustart des Spiels aktiv. Eigene INIs bleiben beim Entfernen einer Mod erhalten.
+
+APAS enthält die Ersatzversion 1.1.0 mit optionalem **Unlock All**, das im Manager standardmäßig **ausgeschaltet** ist. Aktivierung: **Mod-Einstellungen → APAS Memory Costs → APASUnlocks → Unlock All**, speichern, Änderungen anwenden und das Spiel neu starten. Freischaltungen können im Spielstand bleiben; Ausschalten macht sie nicht rückgängig. Vor dem Aktivieren den Spielstand sichern. Ältere INIs ohne diese Option erhalten beim Update ausdrücklich `UnlockAll=0`.
 
 ## Build
 
