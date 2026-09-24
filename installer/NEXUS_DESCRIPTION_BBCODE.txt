@@ -1,0 +1,195 @@
+[b]Description[/b]
+
+DS2 Mod Suite is a clean, standalone all-in-one installer and manager for 22 DEATH STRANDING 2: ON THE BEACH mods.
+
+Choose exactly which mods you want, review their current installation state and apply everything through one English or German interface. The manager detects the Steam game directory, verifies the supported game build, installs missing mods, updates or repairs known versions and safely removes deselected suite mods.
+
+All bundled mod files and the tested Ultimate ASI Loader are embedded in the application. No additional downloads are required while the manager is running, and it does not connect to the internet.
+
+This is more than a loose file bundle: the custom manager adds installation-state detection, centralized configuration, file validation, conflict protection, backups and transactional rollback.
+
+Version 1.7.0 adds Improved Odradek Scan 1.0.0, updates High-Density Backpack Modules to 1.1.0 and integrates APAS Unified 3.0.0-rc.1, with optional Unlock All disabled by default. APAS is a release candidate with limited gameplay coverage. It supports the Steam PC executable version [font=Courier New]DS2.exe 1.10.89.0[/font].
+
+[b]Quick start[/b]
+
+[list=1]
+[*]Close the game completely.
+[*]Download the archive manually and extract the complete ZIP to any folder.
+[*]Start [font=Courier New]DS2ModManager.exe[/font]. Do not run it directly from inside the ZIP.
+[*]Select [font=Courier New]DS2.exe[/font] manually if the Steam installation was not detected automatically.
+[*]Choose English or German and check that the supported game version was detected.
+[*]Select the mods you want and choose [b]Apply changes[/b].
+[*]To customize an installed mod, open [b]Mod Settings[/b], save the desired values and choose [b]Apply changes[/b] again.
+[*]Fully restart the game.
+[/list]
+
+A Windows UAC prompt may appear when the game is installed in a protected directory.
+
+This is a standalone installer. Do not install the downloaded archive through Vortex or another mod manager.
+
+[b]Main features[/b]
+
+[list]
+[*]Installs and manages 22 DS2 mods from one application
+[*]Clean English and German interface
+[*]Automatic Steam game-directory detection
+[*]Verifies the exact supported [font=Courier New]DS2.exe[/font] build
+[*]Detects installed, outdated, incomplete and modified suite files
+[*]Installs the tested Ultimate ASI Loader x64 v9.7.2 automatically when required
+[*]Central settings interface for 19 configurable mods
+[*]Validates 184 settings across 20 individual INI files
+[*]Imports existing installed INI values
+[*]Hides advanced and experimental settings by default
+[*]Supports installation, update, repair and safe removal
+[*]Creates backups before replacing or removing files
+[*]Uses SHA-256 verification, atomic replacement and rollback protection
+[*]Preserves customized INI files when a mod is removed
+[*]Does not require an internet connection
+[*]Does not directly edit [font=Courier New]DS2.exe[/font], game archives or save files
+[/list]
+
+The checkboxes represent the desired final state. Installed mods are selected automatically. Deselecting a managed mod removes its verified suite binary after [b]Apply changes[/b].
+
+[b]Included mods[/b]
+
+[b]Vehicles and Cargo[/b]
+
+[list]
+[*]Hill Assist & Speed Boost 1.1.0 - improves uphill driving and provides configurable Pickup and Tri-Cruiser speed settings
+[*]Pickup Cargo Capacity 1.0.1 - increases the configurable cargo capacity of the Off-road Pickup
+[*]Tri-Cruiser Cargo Capacity 1.1.0 - increases the Tri-Cruiser's usable cargo capacity
+[*]Floating Carrier Cargo Capacity 1.0.0 - increases the Floating Carrier's usable cargo capacity
+[*]Coffin Board Reworked 1.83.0 - configurable all-terrain speed and acceleration, loaded Floating Carrier support, Chiral Network boundary crossing and remounting outside the network
+[/list]
+
+[b]Equipment and Progression[/b]
+
+[list]
+[*]High-Density Backpack Modules 1.1.0 - up to 30 modules, automatic placement, hidden excess models and eight charm slots (two visible, six invisible)
+[*]Climbing Power Gloves Range 1.0.0 - increases the configurable magnetic cargo pickup range of both Climbing Power Gloves tiers
+[*]Sam Stats Booster 1.0.0 - provides a configurable boost to selected Sam-stat progression
+[*]Porter Grade Booster 1.0.0 - provides a configurable boost to delivery category points
+[*]Extended BT Cord Cutting Range 1.0.0 - increases the configurable BT umbilical cord cutting range
+[*]APAS Memory Costs 3.0.0-rc.1 - unified release candidate with native cost initialization, no recurring scan, preserved base/free-node costs and optional Unlock All disabled by default
+[*]Proficiency Bonus Multiplier 1.0.0 - scales supported level-dependent proficiency bonuses independently for levels 1 through 5
+[/list]
+
+[b]Deliveries and Rewards[/b]
+
+[list]
+[*]Lost Cargo Likes Booster 1.1.1 - awards a configurable Like bonus when returning lost cargo
+[*]No Magellan Evaluation Penalty 1.0.0 - removes the Like penalty from Magellan deliveries
+[/list]
+
+[b]Construction and World[/b]
+
+[list]
+[*]Construction Anywhere 1.0.0 - loosens general PCC distance limits and tested restricted construction zones
+[*]Construction Max Level on Build 1.0.1 - upgrades newly built supported Player PCC structures through the native flow to their maximum level
+[*]Weapons Anywhere 1.0.0 - removes selected weapon restrictions in protected areas
+[*]Zipline Range & Speed 1.0.0 - configures Zipline connection range and actual travel speed
+[*]Chiral Bandwidth Costs 1.0.0 - sets exact bandwidth costs for supported constructions
+[*]Infrastructure One Unit 1.0.0 - reduces remaining material requirements for supported infrastructure
+[/list]
+
+[b]Exploration[/b]
+
+[list]
+[*]Improved Odradek Scan 1.0.0 - configurable 360-degree scan, tested 500 m radius, eligible distant cargo markers and distance after recipient/likes
+[/list]
+
+[b]Interface[/b]
+
+[list]
+[*]Remote Orders Overlay 0.2.0 - displays a facility's available orders directly on the world map
+[/list]
+
+APAS Unified 3.0.0-rc.1 is a release candidate with limited gameplay coverage, as disclosed on its standalone release. Other bundled mods use their published releases. TEST, TRACE and obsolete builds are excluded.
+
+[b]Central mod settings[/b]
+
+The [b]Mod Settings[/b] window lists only currently installed mods that provide configurable settings. Installed mods without an INI and all uninstalled mods remain hidden.
+
+The central interface does not replace the individual INI files used by the ASI plugins. It validates and safely manages those files in one place.
+
+[list]
+[*]Existing installed INIs can be imported
+[*]Comments, blank lines, unknown keys and unrelated sections are preserved whenever supported
+[*][b]Save settings[/b] stores the central profile
+[*]The game files are changed only after [b]Apply changes[/b]
+[*]INI writes use the same backup, verification and rollback protection as mod installation
+[*]Settings take effect after restarting the game
+[*]Customized INIs are retained when a mod is removed
+[/list]
+
+For a newly selected mod, install it first. It will then appear in [b]Mod Settings[/b] if it provides configurable options.
+
+[b]APAS optional Unlock All[/b]
+
+The suite bundles the APAS Unified 3.0.0-rc.1 ASI, which includes both cost settings and optional Unlock All. Only one APAS ASI is installed. Unlock All is [b]off by default[/b]. To enable it, install APAS, open [b]Mod Settings → APAS Memory Costs → APASUnlocks → Unlock All[/b], save, apply changes and restart the game. Unlocks may persist in the save; disabling the option does not undo saved unlocks. Back up your save before enabling. Set APASMemoryCosts / Enabled to off if you want Unlock All with vanilla costs.
+
+Old cost-only INIs receive an explicit UnlockAll=0 during updates, including updates without a saved central profile. Existing explicit UnlockAll values and valid cost settings are retained. Coffin Board updates preserve valid existing settings and add missing reworked options with the release defaults.
+
+[b]Changes and compatibility in 1.7.0[/b]
+
+APAS Unified applies costs when native nodes are created, without a recurring scan. Base nodes and natively free nodes keep their native costs. This candidate has extensive offline checks but limited gameplay coverage; the reported early-game purchasing issue, FPS, final startup and full save/load/Unlock All behavior are not all verified in game.
+
+Backpack 1.1.0 replaces the known 1.0.0 ASI automatically. Its automatically created [font=Courier New]DS2_HighDensityBackpackModules.charms.ini[/font] is preserved; select charms in the game's customization menu. Before removing Backpack, unequip extra charms and reduce modules to a vanilla-compatible layout, save, then close the game. Unknown modified legacy binaries require manual review.
+
+Improved Odradek Scan starts at the tested 500 m radius. Its central settings accept 50-1000 m; higher values do not guarantee full-radius detection. Keep VisualWaveScale=1 for the tested appearance. Advanced scan modes and diagnostic logging are hidden by default.
+
+[b]Updating and repairing[/b]
+
+Extract a newer suite release, start the manager and apply the desired selection again. Known older or incomplete suite files are updated or repaired automatically.
+
+Modified or unknown files are never silently overwritten. The manager reports conflicts and stops when it cannot determine that a replacement is safe.
+
+[b]Removing mods[/b]
+
+Deselect a suite mod and choose [b]Apply changes[/b]. Only binaries matching known suite versions are removed. Customized INI files are retained so personal settings are not lost.
+
+The automatically installed ASI Loader is intentionally retained because other ASI mods may still depend on it.
+
+To remove the manager itself, delete the folder to which the downloaded ZIP was extracted. Remove [font=Courier New]winmm.dll[/font] manually only when you are certain that no remaining ASI mod requires it.
+
+[b]Requirements[/b]
+
+[list]
+[*]DEATH STRANDING 2: ON THE BEACH for PC / Steam
+[*]Supported executable version: [font=Courier New]DS2.exe 1.10.89.0[/font]
+[*]64-bit Windows
+[*]Microsoft .NET Framework 4.8
+[*]Permission to write to the game directory
+[/list]
+
+A separate ASI Loader download is not required.
+
+[b]Safety and compatibility[/b]
+
+The manager validates the embedded catalog and settings schema, then verifies every mod payload and the ASI Loader with SHA-256 before installation. Unknown or multiple proxy DLLs are not overwritten and block potentially unsafe operations.
+
+Every replacement is backed up and verified. If an installation step fails, the manager attempts to restore the previous state automatically. Removal is limited to exact known suite binaries; modified and foreign files are retained and reported.
+
+The manager itself does not directly edit save files. Some included gameplay mods can nevertheless create results that the game stores normally. Back up an important save before using construction, infrastructure or experimental settings.
+
+After a game update, do not assume compatibility. The manager refuses unsupported game executables. Wait for a release that explicitly supports the new build.
+
+[b]Windows SmartScreen[/b]
+
+The application is not digitally code-signed, so Windows SmartScreen may display an unknown-publisher warning. This is expected for the current release. Download the archive only from the official Nexus page and verify the published SHA-256 checksum when desired.
+
+[b]Source code[/b]
+
+The installer source and build scripts are available at:
+
+https://github.com/gutzufuss1477/DS2-Mods/tree/main/installer
+
+[b]Shout outs[/b]
+
+Thanks to ThirteenAG for Ultimate ASI Loader:
+
+https://github.com/ThirteenAG/Ultimate-ASI-Loader
+
+Thanks to ShadelessFox for Odradek and the DS2 RTTI research tools, and to everyone who proposed, tested and documented the individual mods included in this suite.
+
+This is an unofficial community project and is not affiliated with KOJIMA PRODUCTIONS or 505 Games.
