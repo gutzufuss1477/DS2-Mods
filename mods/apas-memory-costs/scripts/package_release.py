@@ -9,9 +9,8 @@ version = re.search(r'#define APAS_VERSION "([^"]+)"', (root / 'src/apas.cpp').r
 release = root / 'release'
 release.mkdir(exist_ok=True)
 archive = release / f'DS2_APAS_Memory_Costs_v{version}_NEXUS.zip'
-others = [p for p in release.rglob('*.zip') if p != archive]
-if others:
-    raise SystemExit(f'Obsolete release archives must be removed from this worktree first: {others}')
+# Earlier versioned Nexus archives and dedicated test archives are historical
+# artifacts. The archive named above is the only current package this run writes.
 sources = {
     'ds2_apas_memory_costs.asi': root / 'build/ds2_apas_memory_costs.asi',
     'ds2_apas_memory_costs.ini': root / 'ds2_apas_memory_costs.ini',

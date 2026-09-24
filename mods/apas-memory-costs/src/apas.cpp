@@ -2,7 +2,7 @@
 #include "target.h"
 
 // One binary, one immutable startup configuration. No timer or gameplay worker.
-#define APAS_VERSION "3.0.0-rc.1"
+#define APAS_VERSION "3.0.0-rc.2"
 constexpr u32 kConstructorRva = 0xBE0270;
 constexpr u32 kUnlockBlockRva = 0xBE39A0;
 constexpr u32 kResourceVtableRva = 0x32088B8;
@@ -47,6 +47,21 @@ static void LogNumber(const char* label, u32 number) {
     char digits[10]; u32 count = 0;
     do { digits[count++] = (char)('0' + number % 10); number /= 10; } while (number);
     while (count) buffer[n++] = digits[--count];
+    buffer[n] = 0;
+    Log(buffer);
+}
+static void LogHexNumber(const char* label, u64 number) {
+    char buffer[96]; u32 n = 0;
+    while (label[n] && n < 64) { buffer[n] = label[n]; ++n; }
+    buffer[n++] = '0'; buffer[n++] = 'x';
+    bool emitted = false;
+    for (i32 shift = 60; shift >= 0; shift -= 4) {
+        u8 digit = (u8)((number >> shift) & 15);
+        if (digit || emitted || shift == 0) {
+            buffer[n++] = (char)(digit < 10 ? '0' + digit : 'A' + digit - 10);
+            emitted = true;
+        }
+    }
     buffer[n] = 0;
     Log(buffer);
 }
@@ -111,17 +126,36 @@ static bool ValidateImage(u8* base) {
         !Read(base + pe + 4, &machine, 2) || machine != 0x8664 ||
         !Read(base + pe + 8, &timestamp, 4) || timestamp != kTimestamp ||
         !Read(base + pe + 24, &magic, 2) || magic != 0x20b ||
-        !Read(base + pe + 24 + 56, &imageSize, 4) || imageSize != kImageSize) return false;
-    for (const auto& anchor : kAnchors) {
+        !Read(base + pe + 24 + 56, &imageSize, 4) || imageSize != kImageSize) {
+        Log("TARGET_METADATA_MISMATCH");
+        return false;
+    }
+    for (u32 anchorIndex = 0; anchorIndex < sizeof(kAnchors) / sizeof(kAnchors[0]); ++anchorIndex) {
+        const auto& anchor = kAnchors[anchorIndex];
         u8 bytes[128];
-        if (!Read(base + anchor.rva, bytes, anchor.length)) return false;
+        if (!Read(base + anchor.rva, bytes, anchor.length)) {
+            Log("TARGET_ANCHOR_READ_FAILURE");
+            LogHexNumber("AnchorRva=", anchor.rva);
+            return false;
+        }
         if (anchor.relocatedPointers) {
             for (u32 i = 0; i < anchor.length; i += 8) {
                 u64 actual, native;
                 memcpy(&actual, bytes + i, 8); memcpy(&native, anchor.bytes + i, 8);
-                if (actual != (u64)base + native - 0x140000000ull) return false;
+                if (actual != (u64)base + native - 0x140000000ull) {
+                    Log("TARGET_RELOCATED_POINTER_MISMATCH");
+                    LogHexNumber("AnchorRva=", anchor.rva);
+                    LogNumber("PointerIndex=", i / 8);
+                    LogHexNumber("Found=", actual);
+                    return false;
+                }
             }
-        } else if (!Equal(bytes, anchor.bytes, anchor.length)) return false;
+        } else if (!Equal(bytes, anchor.bytes, anchor.length)) {
+            Log("TARGET_ANCHOR_BYTES_MISMATCH");
+            LogHexNumber("AnchorRva=", anchor.rva);
+            LogNumber("AnchorIndex=", anchorIndex);
+            return false;
+        }
     }
     return true;
 }

@@ -1,4 +1,14 @@
-# 3.0.0-rc.1 validation - 2026-09-23
+# 3.0.0-rc.2 validation - 2026-09-24
+
+## Episode-2 menu attempt
+
+The user opened the ring menu at the first Episode-2 facility and APAS was absent.
+This is not an UnlockAll or UI result: the installed `ds2_apas_memory_costs.log`
+reported `UNSUPPORTED_OR_CONFLICT`, which means rc.1 installed no hook or patch.
+The installed `DS2.exe` still has the exact supported SHA-256 and version
+(`BF3D...D143F`, Steam 1.10.89.0). At the later read-only inspection there were no
+other `.asi` files beside `DS2.exe`; the next candidate preserves refusal behavior
+and adds the exact rejected target component to the log.
 
 ## Passed
 

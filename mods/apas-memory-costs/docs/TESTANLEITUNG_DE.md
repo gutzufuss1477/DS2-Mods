@@ -1,7 +1,9 @@
-# APAS 3.0.0-rc.1: kurzer Spieltest
+# APAS 3.0.0-rc.2: kurzer Spieltest
 
 Dies ist eine vereinheitlichte Testversion, noch keine auf Nexus veroeffentlichte
 stabile Version. Ich steuere das Spiel nicht weiter; der Spieltest erfolgt durch dich.
+Wenn der Start abgelehnt wird, nennt die Logdatei jetzt die genaue Pruefadresse;
+in diesem Fall keinen Funktions- oder Menutest bewerten.
 
 1. Spiel vollstaendig beenden. ZIP entpacken und die ASI/INI neben `DS2.exe`
    kopieren. Alte oder umbenannte APAS-ASIs entfernen; genau eine APAS-ASI laden.

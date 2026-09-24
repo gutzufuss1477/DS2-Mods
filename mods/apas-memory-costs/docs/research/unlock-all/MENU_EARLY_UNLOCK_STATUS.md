@@ -31,7 +31,9 @@ Do not add an `UnlockMenu` INI key until that call site is identified.  A generi
 fact write or a broad UI patch could alter unrelated tutorial/story state and would
 not meet the mod's safety requirements.
 
-The existing `UnlockAll=1` remains the only supported test configuration.  It is
-independent of `GlobalCost` and uses the native APAS creation path.  A fresh-save
-test with the final package is still needed to establish whether native node
-creation alone causes the ring-menu item to appear on this game build.
+The existing `UnlockAll=1` remains the only supported test configuration. It is
+independent of `GlobalCost` and uses the native APAS creation path. The first
+Episode-2 attempt did not reach this code: rc.1 rejected startup with
+`UNSUPPORTED_OR_CONFLICT`. A fresh-save test is only valid after the local log says
+`READY`; it is still needed to establish whether native node creation alone causes
+the ring-menu item to appear on this game build.

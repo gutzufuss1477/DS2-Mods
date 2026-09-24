@@ -1,10 +1,13 @@
-DS2 APAS Memory Costs 3.0.0-rc.1 - Episode-2 menu test
+DS2 APAS Memory Costs 3.0.0-rc.2 - Episode-2 menu test
 ==========================================================
 
 Purpose
 -------
-This package tests whether the existing APAS-specific native UnlockAll path creates
-the APAS state required by the ring-menu item on a new Episode-2 save.
+The earlier Episode-2 attempt was invalid: its log said
+UNSUPPORTED_OR_CONFLICT, so the ASI installed no hook or UnlockAll patch. This
+package first identifies the rejected target component while preserving that safe
+refusal. If startup says READY, it also tests whether the native UnlockAll path
+creates the APAS state required by the ring-menu item on a new Episode-2 save.
 
 It does NOT patch the UI or a story fact. It uses the same verified executable
 anchors and native APAS node-creation route as the unified release candidate.
@@ -20,14 +23,16 @@ Install
 Expected startup check
 ----------------------
 ds2_apas_memory_costs.log must report READY and UnlockAll=1.
-LATE_LOAD, UNSUPPORTED_OR_CONFLICT, or CONFLICT means do not evaluate the test.
+LATE_LOAD or CONFLICT means do not evaluate the test. If it reports
+UNSUPPORTED_OR_CONFLICT, send the complete log: rc.2 adds TARGET_* and AnchorRva
+details needed to locate the conflict without changing game code.
 
 Test result to report
 ---------------------
-Open the ring device menu at the first facility in Episode 2 and report only:
+First report the complete ds2_apas_memory_costs.log. Only if it says READY, also
+open the ring device menu at the first facility in Episode 2 and report:
 - APAS item visible: yes/no
 - if visible, can the APAS screen be opened: yes/no
-- ds2_apas_memory_costs.log
 
 Interpretation
 --------------
@@ -39,4 +44,4 @@ specific UI predicate.
 Files
 -----
 ds2_apas_memory_costs.asi
-  SHA-256: 1E8176A00062342899B0A15F609F72B3C0EEB112F70791376D78CA7FB28D143F
+  SHA-256: 3C0A06AFA16012F63B4284F571D90E44BC64EFF6DBC458EE78F411298F897ACC

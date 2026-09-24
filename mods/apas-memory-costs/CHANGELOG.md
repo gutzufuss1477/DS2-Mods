@@ -1,5 +1,14 @@
 # Changelog
 
+## 3.0.0-rc.2 - Startup diagnostic candidate
+
+- Kept the same exact Steam 1.10.89.0 target and reject-on-conflict behavior.
+- When startup refuses to patch, the local log now identifies whether PE metadata,
+  an anchor read, a code anchor, or a relocated vtable pointer failed. Code bytes
+  are never accepted or modified after a failed check.
+- The first Episode-2 menu attempt was invalid: its log reported
+  `UNSUPPORTED_OR_CONFLICT`, so no APAS hook or UnlockAll patch was installed.
+
 ## 3.0.0-rc.1 - Unified release candidate
 
 - One ASI and one INI. Unlock All is now an independent INI option, off by default.
