@@ -40,8 +40,8 @@
     "destination": "payload/mods/coffin-board-all-terrain-speed/ds2_coffin_board_all_terrain_speed.ini"
   },
   {
-    "source": "../mods/high-density-backpack-modules/reference/DS2_HighDensityBackpackModules_v1.0.0.asi",
-    "destination": "payload/mods/high-density-backpack-modules/DS2_HighDensityBackpackModules_v1.0.0.asi"
+    "source": "../mods/high-density-backpack-modules/reference/DS2_HighDensityBackpackModules_v1.1.0.asi",
+    "destination": "payload/mods/high-density-backpack-modules/DS2_HighDensityBackpackModules_v1.1.0.asi"
   },
   {
     "source": "../mods/climbing-power-gloves-range/release/DS2_Climbing_Power_Gloves_Range_v1.0.0/ds2_climbing_gloves_range.asi",
@@ -148,11 +148,11 @@
     "destination": "payload/mods/extended-bt-cord-cutting-range/ds2_extended_bt_cord_cutting_range.ini"
   },
   {
-    "source": "../mods/apas-memory-costs/release/optional-unlock-all/ds2_apas_memory_costs.asi",
+    "source": "../mods/apas-memory-costs/release/ds2_apas_memory_costs.asi",
     "destination": "payload/mods/apas-memory-costs/ds2_apas_memory_costs.asi"
   },
   {
-    "source": "config/ds2_apas_memory_costs.ini",
+    "source": "../mods/apas-memory-costs/release/ds2_apas_memory_costs.ini",
     "destination": "payload/mods/apas-memory-costs/ds2_apas_memory_costs.ini"
   },
   {
@@ -162,5 +162,13 @@
   {
     "source": "../mods/proficiency-bonus-multiplier/release/DS2_ProficiencyBonusMultiplier.ini",
     "destination": "payload/mods/proficiency-bonus-multiplier/DS2_ProficiencyBonusMultiplier.ini"
+  },
+  {
+    "source": "../mods/improved-odradek-scan/release/ds2_odradek_scan.asi",
+    "destination": "payload/mods/improved-odradek-scan/ds2_odradek_scan.asi"
+  },
+  {
+    "source": "../mods/improved-odradek-scan/release/ds2_odradek_scan.ini",
+    "destination": "payload/mods/improved-odradek-scan/ds2_odradek_scan.ini"
   }
 ]

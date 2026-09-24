@@ -32,8 +32,8 @@ Additional DS2 mods can be added later as separate folders under `mods/`.
 ## All-in-one installer
 
 The bilingual Windows GUI, stable-mod catalog, transactional installer and
-release build are maintained under [installer](installer/). Version 1.6.0 manages
-21 validated stable mods, including Coffin Board Reworked 1.83.0 and APAS Memory Costs 1.1.0 with optional Unlock All disabled by default. The English/Deutsch
+release build are maintained under [installer](installer/). Version 1.7.0 manages
+22 mods, adding Improved Odradek Scan 1.0.0, updating High-Density Backpack Modules to 1.1.0 and integrating APAS Unified 3.0.0-rc.1 (release candidate; optional Unlock All disabled by default). The English/Deutsch
 interface includes one central **Mod Settings** menu while keeping
 the individual runtime INIs expected by each ASI plugin. The manager detects
 the Steam game directory and supported `DS2.exe`, reuses or installs the tested

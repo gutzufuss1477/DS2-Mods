@@ -1,0 +1,8 @@
+Version 1.7.0
+
+- Added Improved Odradek Scan 1.0.0 with a tested 500 m preset, 360-degree scanning and central configuration.
+- Updated High-Density Backpack Modules to 1.1.0: up to 30 modules, cleaner visuals and eight charm slots. Known old ASIs are replaced; charm selections are preserved.
+- Updated APAS to Unified 3.0.0-rc.1: native cost initialization without recurring scans, preserved base/free-node costs and optional Unlock All off by default.
+- Now includes 22 mods and 184 settings across 20 INI files.
+
+APAS remains a release candidate with limited gameplay coverage. Unlock All may persist in saves; back up your save before enabling it.

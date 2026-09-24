@@ -31,8 +31,8 @@ turning the option off or uninstalling does not undo already saved unlocks.
 Close the game. Extract the single ZIP in `release/` and copy its ASI and INI beside
 `DS2.exe`. A compatible 64-bit ASI loader is required. Replace the old APAS files;
 remove additional or renamed APAS ASIs from loader folders. Restart after INI edits.
-The existing Mod Suite manager still embeds its older APAS build and can overwrite
-this standalone candidate during an APAS repair/update.
+Mod Suite 1.7.0 embeds this unified candidate. Older suite versions still contain
+older APAS builds and can overwrite this candidate during an APAS repair/update.
 
 ## Implementation
 

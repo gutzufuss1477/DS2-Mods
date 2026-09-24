@@ -1,14 +1,14 @@
 **Description**
 
-DS2 Mod Suite is a clean, standalone all-in-one installer and manager for 21 DEATH STRANDING 2: ON THE BEACH mods.
+DS2 Mod Suite is a clean, standalone all-in-one installer and manager for 22 DEATH STRANDING 2: ON THE BEACH mods.
 
 Choose exactly which mods you want, review their current installation state and apply everything through one English or German interface. The manager detects the Steam game directory, verifies the supported game build, installs missing mods, updates or repairs known versions and safely removes deselected suite mods.
 
-All stable mod files and the tested Ultimate ASI Loader are embedded in the application. No additional downloads are required while the manager is running, and it does not connect to the internet.
+All bundled mod files and the tested Ultimate ASI Loader are embedded in the application. No additional downloads are required while the manager is running, and it does not connect to the internet.
 
 This is more than a loose file bundle: the custom manager adds installation-state detection, centralized configuration, file validation, conflict protection, backups and transactional rollback.
 
-Version 1.6.0 updates Coffin Board Reworked to 1.83.0 and APAS Memory Costs to the 1.1.0 replacement build with optional Unlock All disabled by default. It supports the Steam PC executable version `DS2.exe 1.10.89.0`.
+Version 1.7.0 adds Improved Odradek Scan 1.0.0, updates High-Density Backpack Modules to 1.1.0 and integrates APAS Unified 3.0.0-rc.1, with optional Unlock All disabled by default. APAS is a release candidate with limited gameplay coverage. It supports the Steam PC executable version `DS2.exe 1.10.89.0`.
 
 **Quick start**
 
@@ -27,14 +27,14 @@ This is a standalone installer. Do not install the downloaded archive through Vo
 
 **Main features**
 
-- Installs and manages 21 compatible DS2 mods from one application
+- Installs and manages 22 DS2 mods from one application
 - Clean English and German interface
 - Automatic Steam game-directory detection
 - Verifies the exact supported `DS2.exe` build
 - Detects installed, outdated, incomplete and modified suite files
 - Installs the tested Ultimate ASI Loader x64 v9.7.2 automatically when required
-- Central settings interface for 18 configurable mods
-- Validates 177 settings across 19 individual INI files
+- Central settings interface for 19 configurable mods
+- Validates 184 settings across 20 individual INI files
 - Imports existing installed INI values
 - Hides advanced and experimental settings by default
 - Supports installation, update, repair and safe removal
@@ -58,12 +58,12 @@ The checkboxes represent the desired final state. Installed mods are selected au
 
 **Equipment and Progression**
 
-- High-Density Backpack Modules 1.0.0 - allows significantly more functional backpack modules
+- High-Density Backpack Modules 1.1.0 - up to 30 modules, automatic placement, hidden excess models and eight charm slots (two visible, six invisible)
 - Climbing Power Gloves Range 1.0.0 - increases the configurable magnetic cargo pickup range of both Climbing Power Gloves tiers
 - Sam Stats Booster 1.0.0 - provides a configurable boost to selected Sam-stat progression
 - Porter Grade Booster 1.0.0 - provides a configurable boost to delivery category points
 - Extended BT Cord Cutting Range 1.0.0 - increases the configurable BT umbilical cord cutting range
-- APAS Memory Costs 1.1.0 - optimized configurable memory costs and optional Unlock All, disabled by default in the suite
+- APAS Memory Costs 3.0.0-rc.1 - unified release candidate with native cost initialization, no recurring scan, preserved base/free-node costs and optional Unlock All disabled by default
 - Proficiency Bonus Multiplier 1.0.0 - scales supported level-dependent proficiency bonuses independently for levels 1 through 5
 
 **Deliveries and Rewards**
@@ -80,11 +80,15 @@ The checkboxes represent the desired final state. Installed mods are selected au
 - Chiral Bandwidth Costs 1.0.0 - sets exact bandwidth costs for supported constructions
 - Infrastructure One Unit 1.0.0 - reduces remaining material requirements for supported infrastructure
 
+**Exploration**
+
+- Improved Odradek Scan 1.0.0 - configurable 360-degree scan, tested 500 m radius, eligible distant cargo markers and distance after recipient/likes
+
 **Interface**
 
 - Remote Orders Overlay 0.2.0 - displays a facility's available orders directly on the world map
 
-Only stable release builds are included. TEST, TRACE, diagnostic and obsolete reference builds are excluded.
+APAS Unified 3.0.0-rc.1 is a release candidate with limited gameplay coverage, as disclosed on its standalone release. Other bundled mods use their published releases. TEST, TRACE and obsolete builds are excluded.
 
 **Central mod settings**
 
@@ -104,9 +108,17 @@ For a newly selected mod, install it first. It will then appear in **Mod Setting
 
 **APAS optional Unlock All**
 
-The suite bundles the APAS 1.1.0 replacement ASI, which includes both cost settings and optional Unlock All. Only one APAS ASI is installed. Unlock All is **off by default**. To enable it, install APAS, open **Mod Settings → APAS Memory Costs → APASUnlocks → Unlock All**, save, apply changes and restart the game. Unlocks may persist in the save; disabling the option does not undo saved unlocks. Back up your save before enabling. Set APASMemoryCosts / Enabled to off if you want Unlock All with vanilla costs.
+The suite bundles the APAS Unified 3.0.0-rc.1 ASI, which includes both cost settings and optional Unlock All. Only one APAS ASI is installed. Unlock All is **off by default**. To enable it, install APAS, open **Mod Settings → APAS Memory Costs → APASUnlocks → Unlock All**, save, apply changes and restart the game. Unlocks may persist in the save; disabling the option does not undo saved unlocks. Back up your save before enabling. Set APASMemoryCosts / Enabled to off if you want Unlock All with vanilla costs.
 
 Old cost-only INIs receive an explicit UnlockAll=0 during updates, including updates without a saved central profile. Existing explicit UnlockAll values and valid cost settings are retained. Coffin Board updates preserve valid existing settings and add missing reworked options with the release defaults.
+
+**Changes and compatibility in 1.7.0**
+
+APAS Unified applies costs when native nodes are created, without a recurring scan. Base nodes and natively free nodes keep their native costs. This candidate has extensive offline checks but limited gameplay coverage; the reported early-game purchasing issue, FPS, final startup and full save/load/Unlock All behavior are not all verified in game.
+
+Backpack 1.1.0 replaces the known 1.0.0 ASI automatically. Its automatically created `DS2_HighDensityBackpackModules.charms.ini` is preserved; select charms in the game's customization menu. Before removing Backpack, unequip extra charms and reduce modules to a vanilla-compatible layout, save, then close the game. Unknown modified legacy binaries require manual review.
+
+Improved Odradek Scan starts at the tested 500 m radius. Its central settings accept 50-1000 m; higher values do not guarantee full-radius detection. Keep VisualWaveScale=1 for the tested appearance. Advanced scan modes and diagnostic logging are hidden by default.
 
 **Updating and repairing**
 

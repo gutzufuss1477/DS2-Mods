@@ -17,12 +17,12 @@ namespace DS2ModSuite
             {
                 Catalog catalog = CatalogService.LoadAndValidate();
                 CatalogService.ValidatePayloads(catalog);
-                Assert(catalog.SuiteVersion == "1.6.0" && catalog.Mods.Count == 21,
+                Assert(catalog.SuiteVersion == "1.7.0" && catalog.Mods.Count == 22,
                     "suite version/mod count mismatch");
                 report.AppendLine("PASS catalog and all payload hashes");
 
                 List<ConfigFieldDefinition> definitions = ModConfigurationService.GetDefinitions(catalog);
-                Assert(definitions.Count == 177 && definitions.Select(field => field.Target).Distinct(StringComparer.OrdinalIgnoreCase).Count() == 19,
+                Assert(definitions.Count == 184 && definitions.Select(field => field.Target).Distinct(StringComparer.OrdinalIgnoreCase).Count() == 20,
                     "settings schema field/file coverage mismatch");
                 List<ModSpec> filteredSettingsMods = ModSettingsWindow.FilterInstalledConfigurableMods(
                     catalog,
@@ -126,10 +126,14 @@ namespace DS2ModSuite
                 Assert(catalog.Mods[0].LocalizedDescription == catalog.Mods[0].Description, "English catalog localization failed");
                 LoaderInspector.Relocalize(localizedLoader);
                 Assert(localizedLoader.DisplayText == "ASI Loader 9.7.2 is installed", "English loader relocalization failed");
-                report.AppendLine("PASS English/German localization, persistence and 177-field settings schema validation");
+                report.AppendLine("PASS English/German localization, persistence and 184-field settings schema validation");
 
                 string runningExecutable = System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName;
                 File.Copy(runningExecutable, Path.Combine(testRoot, catalog.Game.Executable), true);
+                TestBackpackUpgrade(catalog, testRoot, runningExecutable);
+                report.AppendLine("PASS Backpack legacy filename migration, conflict guard, idempotence, removal and charm-state preservation");
+                TestOdradekSettings(catalog, testRoot, runningExecutable);
+                report.AppendLine("PASS Odradek defaults, bounds/modes, profile upgrade, install/adoption, settings, idempotence and removal");
                 TestApasOptIn(catalog, testRoot, runningExecutable);
                 report.AppendLine("PASS APAS default-off fresh install, legacy migration with/without profile, explicit opt-in/out, preservation and idempotence");
 
@@ -369,6 +373,129 @@ namespace DS2ModSuite
             }
         }
 
+        private static void TestBackpackUpgrade(Catalog catalog, string testRoot, string runningExecutable)
+        {
+            ModSpec mod = catalog.Mods.Single(item => item.Id == "high-density-backpack-modules");
+            ObsoleteFileSpec old = mod.ObsoleteFiles.Single();
+            ModFileSpec current = mod.Files.Single();
+            Assert(mod.Version == "1.1.0" && old.Target == "DS2_HighDensityBackpackModules_v1.0.0.asi"
+                && old.Sha256 == "C4C5CC2B525BEB88AEF264521B56C00E6616ABF6DFB0C2F6970C92379D719C1C"
+                && current.Target == "DS2_HighDensityBackpackModules_v1.1.0.asi",
+                "Backpack release/migration metadata mismatch");
+            string gameRoot = Path.Combine(testRoot, "backpack-upgrade");
+            Directory.CreateDirectory(gameRoot);
+            File.Copy(runningExecutable, Path.Combine(gameRoot, catalog.Game.Executable));
+            string oldPath = Path.Combine(gameRoot, old.Target);
+            File.WriteAllText(oldPath, "synthetic known legacy backpack");
+            string charms = Path.Combine(gameRoot, "DS2_HighDensityBackpackModules.charms.ini");
+            File.WriteAllText(charms, "; player's extra charm selections\r\n[Charms]\r\nSlot0=42\r\n");
+            byte[] charmBytes = File.ReadAllBytes(charms);
+            string releasedHash = old.Sha256;
+            try
+            {
+                old.Sha256 = HashUtil.FileSha256(oldPath);
+                ApplyPlan plan = new ApplyPlan { GamePath = gameRoot, SelectedModIds = new List<string> { mod.Id } };
+                ModRuntimeState state = GameInspector.InspectMods(GameInspector.Inspect(catalog, gameRoot, false), catalog)
+                    .Single(item => item.Spec.Id == mod.Id);
+                Assert(state.HasObsoleteBinary && !state.HasUnknownObsoleteBinary, "old Backpack was not recognized");
+                ApplyResult upgraded = new InstallEngine(catalog, true).Apply(plan, new DirectProgress());
+                Assert(upgraded.Success && upgraded.Updated == 1 && !File.Exists(oldPath)
+                    && Directory.GetFiles(gameRoot, "*.asi").Length == 1
+                    && HashUtil.EqualsHash(HashUtil.FileSha256(Path.Combine(gameRoot, current.Target)), current.Sha256)
+                    && charmBytes.SequenceEqual(File.ReadAllBytes(charms)), "Backpack upgrade lost state or left two ASIs");
+                ApplyResult repeated = new InstallEngine(catalog, true).Apply(plan, new DirectProgress());
+                Assert(repeated.Success && repeated.Updated == 0 && repeated.Installed == 0 && repeated.Repaired == 0,
+                    "Backpack upgrade was not idempotent");
+                File.WriteAllText(oldPath, "unknown changed backpack");
+                ApplyResult conflict = new InstallEngine(catalog, true).Apply(plan, new DirectProgress());
+                Assert(!conflict.Success && File.ReadAllText(oldPath) == "unknown changed backpack"
+                    && charmBytes.SequenceEqual(File.ReadAllBytes(charms)), "unknown legacy Backpack was overwritten");
+                File.Delete(oldPath);
+                plan.SelectedModIds.Clear();
+                ApplyResult removed = new InstallEngine(catalog, true).Apply(plan, new DirectProgress());
+                Assert(removed.Success && !File.Exists(Path.Combine(gameRoot, current.Target))
+                    && charmBytes.SequenceEqual(File.ReadAllBytes(charms)), "Backpack removal lost charm preferences");
+            }
+            finally { old.Sha256 = releasedHash; }
+        }
+
+        private static void TestOdradekSettings(Catalog catalog, string testRoot, string runningExecutable)
+        {
+            const string modId = "improved-odradek-scan";
+            List<ConfigFieldDefinition> fields = ModConfigurationService.GetDefinitions(catalog)
+                .Where(field => field.ModId == modId).ToList();
+            ConfigFieldDefinition range = fields.Single(field => field.Key == "RangeMeters");
+            ConfigFieldDefinition scale = fields.Single(field => field.Key == "VisualWaveScale");
+            ConfigFieldDefinition mode = fields.Single(field => field.Key == "FullCircleMode");
+            Assert(fields.Count == 7 && range.DefaultValue == "500" && scale.DefaultValue == "1"
+                && mode.DefaultValue == "Sphere" && mode.Schema.Advanced && scale.Schema.Advanced
+                && fields.Single(field => field.Key == "DebugLog").DefaultValue == "0",
+                "Odradek release defaults mismatch");
+            ModConfigurationProfile profile = ModConfigurationService.LoadEffectiveProfile(catalog, null);
+            string error;
+            foreach (string invalid in new[] { "49", "1001", "NaN" })
+            {
+                ModConfigurationService.SetValue(profile, range.Id, invalid);
+                Assert(!ModConfigurationService.TryValidateProfile(catalog, profile, out error), "invalid Odradek range accepted");
+            }
+            ModConfigurationService.SetValue(profile, range.Id, "725.5");
+            foreach (string invalid in new[] { "0.24", "1.01" })
+            {
+                ModConfigurationService.SetValue(profile, scale.Id, invalid);
+                Assert(!ModConfigurationService.TryValidateProfile(catalog, profile, out error), "invalid visual scale accepted");
+            }
+            ModConfigurationService.SetValue(profile, scale.Id, "0.5");
+            ModConfigurationService.SetValue(profile, mode.Id, "unsupported");
+            Assert(!ModConfigurationService.TryValidateProfile(catalog, profile, out error), "invalid scan mode accepted");
+            foreach (string valid in new[] { "Sphere", "Fan360", "Spherical" })
+            {
+                ModConfigurationService.SetValue(profile, mode.Id, valid);
+                Assert(ModConfigurationService.TryValidateProfile(catalog, profile, out error), "valid Odradek mode rejected");
+            }
+
+            // Loading a v1.6 profile must add the seven new defaults and preserve APAS opt-in.
+            ModConfigurationProfile legacy = ModConfigurationService.CloneProfile(profile);
+            legacy.Values.RemoveAll(value => value.Id.StartsWith(modId + "|", StringComparison.Ordinal));
+            ConfigFieldDefinition unlock = ModConfigurationService.GetDefinitions(catalog)
+                .Single(field => field.ModId == "apas-memory-costs" && field.Key == "UnlockAll");
+            ModConfigurationService.SetValue(legacy, unlock.Id, "1");
+            JsonStore.Write(ModConfigurationService.ProfilePath, legacy);
+            try
+            {
+                ModConfigurationProfile migrated = ModConfigurationService.LoadStoredProfile(catalog);
+                Assert(ModConfigurationService.TryValidateProfile(catalog, migrated, out error)
+                    && ModConfigurationService.GetValue(migrated, range.Id) == "500"
+                    && ModConfigurationService.GetValue(migrated, unlock.Id) == "1", "v1.6 profile migration lost settings");
+            }
+            finally { File.Delete(ModConfigurationService.ProfilePath); }
+
+            foreach (bool adopting in new[] { false, true })
+            {
+                string gameRoot = Path.Combine(testRoot, "odradek-" + adopting);
+                Directory.CreateDirectory(gameRoot);
+                File.Copy(runningExecutable, Path.Combine(gameRoot, catalog.Game.Executable));
+                string ini = Path.Combine(gameRoot, "ds2_odradek_scan.ini");
+                if (adopting) File.WriteAllText(ini, "; custom scan\r\n[OdradekScan]\r\nEnabled=1\r\nRangeMeters=650\r\n[Unrelated]\r\nKeep=1\r\n");
+                ApplyPlan plan = new ApplyPlan { GamePath = gameRoot, SelectedModIds = new List<string> { modId } };
+                ApplyResult installed = new InstallEngine(catalog, true).Apply(plan, new DirectProgress());
+                Assert(installed.Success && ModConfigurationService.StableExistingIniMatches(catalog, modId, "ds2_odradek_scan.ini", ini)
+                    && File.ReadAllText(ini).Contains(adopting ? "RangeMeters=650" : "RangeMeters=500"),
+                    "Odradek install/adoption failed");
+                plan.ConfigurationProfile = profile;
+                ApplyResult configured = new InstallEngine(catalog, true).Apply(plan, new DirectProgress());
+                Assert(configured.Success && File.ReadAllText(ini).Contains("RangeMeters=725.5")
+                    && File.ReadAllText(ini).Contains("FullCircleMode=Spherical")
+                    && (!adopting || File.ReadAllText(ini).Contains("Keep=1")), "Odradek settings write failed");
+                ApplyResult repeated = new InstallEngine(catalog, true).Apply(plan, new DirectProgress());
+                Assert(repeated.Success && repeated.ConfigurationsUpdated == 0 && repeated.Updated == 0, "Odradek reapply changed files");
+                byte[] configuredBytes = File.ReadAllBytes(ini);
+                plan.SelectedModIds.Clear();
+                ApplyResult removed = new InstallEngine(catalog, true).Apply(plan, new DirectProgress());
+                Assert(removed.Success && !File.Exists(Path.Combine(gameRoot, "ds2_odradek_scan.asi"))
+                    && configuredBytes.SequenceEqual(File.ReadAllBytes(ini)), "Odradek removal lost custom INI");
+            }
+        }
+
         private static void TestApasOptIn(Catalog catalog, string testRoot, string runningExecutable)
         {
             const string modId = "apas-memory-costs";
@@ -377,7 +504,7 @@ namespace DS2ModSuite
             ModFileSpec binary = apas.Files.Single(file => !file.IsConfig);
             ConfigFieldDefinition unlock = ModConfigurationService.GetDefinitions(catalog)
                 .Single(field => field.ModId == modId && field.Key == "UnlockAll");
-            Assert(apas.Version == "1.1.0" && unlock.DefaultValue == "0" && !unlock.Schema.Advanced,
+            Assert(apas.Version == "3.0.0-rc.1" && unlock.DefaultValue == "0" && !unlock.Schema.Advanced,
                 "APAS optional unlock must be visible and off by default");
 
             foreach (bool withProfile in new[] { false, true })

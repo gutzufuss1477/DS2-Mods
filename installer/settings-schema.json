@@ -1335,6 +1335,61 @@
           ]
         }
       ]
+    },
+    {
+      "modId": "improved-odradek-scan",
+      "files": [
+        {
+          "target": "ds2_odradek_scan.ini",
+          "sections": [
+            {
+              "name": "OdradekScan",
+              "fields": [
+                {
+                  "key": "Enabled",
+                  "type": "bool"
+                },
+                {
+                  "key": "RangeMeters",
+                  "type": "decimal",
+                  "min": 50,
+                  "max": 1000
+                },
+                {
+                  "key": "VisualWaveScale",
+                  "type": "decimal",
+                  "min": 0.25,
+                  "max": 1,
+                  "advanced": true
+                },
+                {
+                  "key": "FullCircle",
+                  "type": "bool"
+                },
+                {
+                  "key": "FullCircleMode",
+                  "type": "choice",
+                  "choices": [
+                    "Sphere",
+                    "Fan360",
+                    "Spherical"
+                  ],
+                  "advanced": true
+                },
+                {
+                  "key": "ExtendCargoMarkers",
+                  "type": "bool"
+                },
+                {
+                  "key": "DebugLog",
+                  "type": "bool",
+                  "advanced": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
     }
   ]
 }

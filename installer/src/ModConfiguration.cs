@@ -581,12 +581,13 @@ namespace DS2ModSuite
             return GetDefinitions(catalog).Any(field => string.Equals(field.Target, target, StringComparison.OrdinalIgnoreCase));
         }
 
-        // The optional APAS binary defaults missing UnlockAll to 1. Always write the
-        // suite's explicit opt-in value, including upgrades without a central profile.
+        // Keep the APAS opt-in explicit across legacy upgrades. Odradek also needs
+        // required keys populated when adopting an incomplete standalone INI.
         public static bool RequiresIniMigration(string modId)
         {
             return RequiresExactSectionKeys(modId)
-                || string.Equals(modId, "apas-memory-costs", StringComparison.OrdinalIgnoreCase);
+                || string.Equals(modId, "apas-memory-costs", StringComparison.OrdinalIgnoreCase)
+                || string.Equals(modId, "improved-odradek-scan", StringComparison.OrdinalIgnoreCase);
         }
 
         public static bool RequiresExactSectionKeys(string modId)
