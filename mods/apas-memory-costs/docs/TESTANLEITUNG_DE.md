@@ -1,4 +1,4 @@
-# APAS 3.0.0-rc.3: kurzer Spieltest
+# APAS 3.0.0-rc.4: kurzer Spieltest
 
 Dies ist eine vereinheitlichte Testversion, noch keine auf Nexus veroeffentlichte
 stabile Version. Ich steuere das Spiel nicht weiter; der Spieltest erfolgt durch dich.

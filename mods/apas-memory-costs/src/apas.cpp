@@ -2,7 +2,7 @@
 #include "target.h"
 
 // One binary, one immutable startup configuration. No timer or gameplay worker.
-#define APAS_VERSION "3.0.0-rc.3"
+#define APAS_VERSION "3.0.0-rc.4"
 constexpr u32 kConstructorRva = 0xBE0270;
 constexpr u32 kUnlockBlockRva = 0xBE39A0;
 constexpr u32 kResourceVtableRva = 0x32088B8;
@@ -19,9 +19,26 @@ static bool Equal(const void* a, const void* b, SIZE_T size) {
     for (SIZE_T i = 0; i < size; ++i) if (((const u8*)a)[i] != ((const u8*)b)[i]) return false;
     return true;
 }
+static bool g_usedProtectedRead = false;
 static bool Read(const void* src, void* dst, SIZE_T size) {
     SIZE_T got = 0;
-    return ReadProcessMemory(GetCurrentProcess(), src, dst, size, &got) && got == size;
+    if (ReadProcessMemory(GetCurrentProcess(), src, dst, size, &got) && got == size) return true;
+    // Ultimate ASI Loader marks this game's executable pages execute-only. Do
+    // not weaken the anchor check: permit reads from just the queried 4 KiB page,
+    // retry, and restore the exact original protection before returning.
+    MemoryInfo info;
+    u64 address = (u64)src;
+    u64 page = address & ~0xfffull;
+    if (!VirtualQuery(src, &info, sizeof(info)) || info.state != kCommit ||
+        address < (u64)info.base || size > (u64)info.base + info.size - address ||
+        page < (u64)info.base || 0x1000 > (u64)info.base + info.size - page) return false;
+    DWORD previous, ignored;
+    if (!VirtualProtect((void*)page, 0x1000, kExecuteRead, &previous)) return false;
+    got = 0;
+    bool result = ReadProcessMemory(GetCurrentProcess(), src, dst, size, &got) && got == size;
+    bool restored = VirtualProtect((void*)page, 0x1000, previous, &ignored) != 0;
+    if (result && restored) g_usedProtectedRead = true;
+    return result && restored;
 }
 
 struct Settings { bool enabled; bool unlockAll; i32 cost; };
@@ -118,6 +135,7 @@ static bool LoadSettings() {
 }
 
 static bool ValidateImage(u8* base) {
+    g_usedProtectedRead = false;
     u16 magic = 0, machine = 0;
     u32 pe = 0, signature = 0, timestamp = 0, imageSize = 0;
     if (!Read(base, &magic, 2) || magic != 0x5A4D ||
@@ -165,6 +183,8 @@ static bool ValidateImage(u8* base) {
             return false;
         }
     }
+    if (g_usedProtectedRead)
+        Log("TARGET_EXECUTE_ONLY_READ: exact anchors verified; protection restored.");
     return true;
 }
 

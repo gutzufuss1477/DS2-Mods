@@ -1,15 +1,16 @@
 # Changelog
 
-## 3.0.0-rc.3 - Loader-compatible anchored candidate
+## 3.0.0-rc.4 - Execute-only loader compatibility
 
-- The rc.2 Episode-2 attempt established that the ASI loader changes the PE
-  timestamp/image-size metadata in memory while the installed EXE file remains the
-  exact reviewed Steam target.
-- The image format and all seven exact code/vtable anchors remain mandatory.
-  Metadata-only runtime changes are logged and no longer reject an otherwise exact
-  target. Any anchor read, code mismatch, or relocated vtable-pointer mismatch
-  still rejects the install before code is changed.
-- Added a mapped-image regression test for metadata-only changes and patch restore.
+- The rc.3 Episode-2 attempt reached the executable but showed that Ultimate ASI
+  Loader marks its code pages execute-only, so `ReadProcessMemory` could not read
+  the first APAS code anchor.
+- For a failed read only, the validation path changes the containing 4 KiB page to
+  Execute+Read, retries the read, and restores the exact previous protection before
+  continuing. It never makes a page writable during validation.
+- The image format and all seven exact code/vtable anchors remain mandatory; any
+  read, code, or relocated vtable-pointer mismatch still rejects before code is
+  changed. Successful fallback use is recorded in the local log.
 
 ## 3.0.0-rc.1 - Unified release candidate
 
