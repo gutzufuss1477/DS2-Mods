@@ -1,18 +1,64 @@
-group	rva	original	replacement	purpose
-replacement_collection	0x00B400F9	2B 48 28	83 E9 01	orientation 3, logical width 1
-replacement_collection	0x00B40102	41 2B 41 24	83 E8 01 90	orientation 3, logical height 1
-replacement_collection	0x00B40112	2B 48 24	83 E9 01	orientation 2, logical width 1
-replacement_collection	0x00B4011A	8B 40 28	6A 01 58	orientation 2, logical height 1
-replacement_collection	0x00B40122	8B 48 28	6A 01 59	orientation 1, logical width 1
-replacement_collection	0x00B4012A	8B 40 24	6A 01 58	orientation 1, logical height 1
-replacement_collection	0x00B40137	8B 48 24	6A 01 59	orientation 0, logical width 1
-replacement_collection	0x00B40145	41 2B 41 28	83 E8 01 90	orientation 0, logical height 1
-grid_validate_commit	0x00B40389	2B 48 28	83 E9 01	orientation 3, logical width 1
-grid_validate_commit	0x00B4038F	2B 50 24	83 EA 01	orientation 3, logical height 1
-grid_validate_commit	0x00B4039F	8B 50 28	6A 01 5A	orientation 2, logical height 1
-grid_validate_commit	0x00B403B3	2B 48 24	83 E9 01	orientation 2, logical width 1
-grid_validate_commit	0x00B403C4	8B 48 28	6A 01 59	orientation 1, logical width 1
-grid_validate_commit	0x00B403CD	8B 50 24	6A 01 5A	orientation 1, logical height 1
-grid_validate_commit	0x00B403E3	8B 48 24	6A 01 59	orientation 0, logical width 1
-grid_validate_commit	0x00B403FD	2B 50 28	83 EA 01	orientation 0, logical height 1
-detour_callsite	0x00B43043	E8 A8 D6 FF FF	dynamic CALL rel32	Auto-Anchor wrapper before replacement collection
+kind	rva	original	replacement	description
+instruction	0x01524D19	83 C3 02	83 C3 08	accessory_menu: remove_index_eight_slots
+instruction	0x01528EDB	BA 02 00 00 00	BA 08 00 00 00	accessory_menu: eight_slots
+instruction	0x01E1B63B	83 F9 02	83 F9 08	charm_iteration: likes_eight_ids
+instruction	0x00DACA8F	83 FB 02	83 FB 08	charm_iteration: eight_ids
+instruction	0x00E5205A	83 FF 02	83 FF 08	charm_iteration: eight_ids
+instruction	0x00E6C61A	83 F9 02	83 F9 08	charm_iteration: eight_ids
+instruction	0x01058FDE	83 F9 02	83 F9 08	charm_iteration: eight_ids
+instruction	0x019C374F	83 FA 02	83 FA 08	charm_iteration: eight_ids
+instruction	0x01A6FF1D	83 FA 02	83 FA 08	charm_iteration: eight_ids
+instruction	0x01D14C21	83 F9 02	83 F9 08	charm_iteration: eight_ids
+instruction	0x00B3FD69	2B 4E 28	83 E9 01	reference_collection: one_cell_0
+instruction	0x00B3FD73	2B 46 24	83 E8 01	reference_collection: one_cell_1
+instruction	0x00B3FD7B	8B 46 28	6A 01 58	reference_collection: one_cell_2
+instruction	0x00B3FD81	2B 4E 24	83 E9 01	reference_collection: one_cell_3
+instruction	0x00B3FD96	8B 4E 28	6A 01 59	reference_collection: one_cell_4
+instruction	0x00B3FD9F	8B 46 24	6A 01 58	reference_collection: one_cell_5
+instruction	0x00B3FDAD	8B 4E 24	6A 01 59	reference_collection: one_cell_6
+instruction	0x00B3FDBB	2B 46 28	83 E8 01	reference_collection: one_cell_7
+instruction	0x00B400F9	2B 48 28	83 E9 01	replacement_collection: orientation3_sub_x_by_1
+instruction	0x00B40102	41 2B 41 24	83 E8 01 90	replacement_collection: orientation3_sub_y_by_1
+instruction	0x00B40112	2B 48 24	83 E9 01	replacement_collection: orientation2_sub_x_by_1
+instruction	0x00B4011A	8B 40 28	6A 01 58	replacement_collection: orientation2_load_y_1
+instruction	0x00B40122	8B 48 28	6A 01 59	replacement_collection: orientation1_load_x_1
+instruction	0x00B4012A	8B 40 24	6A 01 58	replacement_collection: orientation1_load_y_1
+instruction	0x00B40137	8B 48 24	6A 01 59	replacement_collection: orientation0_load_x_1
+instruction	0x00B40145	41 2B 41 28	83 E8 01 90	replacement_collection: orientation0_sub_y_by_1
+instruction	0x00B40389	2B 48 28	83 E9 01	grid_validate_commit: orientation3_sub_x_by_1
+instruction	0x00B4038F	2B 50 24	83 EA 01	grid_validate_commit: orientation3_sub_y_by_1
+instruction	0x00B4039F	8B 50 28	6A 01 5A	grid_validate_commit: orientation2_load_y_1
+instruction	0x00B403B3	2B 48 24	83 E9 01	grid_validate_commit: orientation2_sub_x_by_1
+instruction	0x00B403C4	8B 48 28	6A 01 59	grid_validate_commit: orientation1_load_x_1
+instruction	0x00B403CD	8B 50 24	6A 01 5A	grid_validate_commit: orientation1_load_y_1
+instruction	0x00B403E3	8B 48 24	6A 01 59	grid_validate_commit: orientation0_load_x_1
+instruction	0x00B403FD	2B 50 28	83 EA 01	grid_validate_commit: orientation0_sub_y_by_1
+call_wrapper	0x00B43043	E8 A8 D6 FF FF	E8 <near relay>	auto_anchor_reference_check; original target 0x00B406F0
+call_wrapper	0x00B42E79	E8 92 D4 FF FF	E8 <near relay>	auto_anchor_grid; original target 0x00B40310
+call_wrapper	0x00B431A8	E8 63 D1 FF FF	E8 <near relay>	auto_anchor_grid; original target 0x00B40310
+call_wrapper	0x00B431D4	E8 37 D1 FF FF	E8 <near relay>	auto_anchor_grid; original target 0x00B40310
+call_wrapper	0x00B3D386	E8 F5 E0 7F FF	E8 <near relay>	module_visual_update; original target 0x0033B480
+call_wrapper	0x00B3D9D7	E8 04 C6 FF FF	E8 <near relay>	backpack_preview_update; original target 0x00B39FE0
+call_wrapper	0x00B3CFC6	E8 A5 14 00 00	E8 <near relay>	battery_capacity; original target 0x00B3E470
+call_wrapper	0x00EA8633	E8 38 5E C9 FF	E8 <near relay>	battery_capacity; original target 0x00B3E470
+call_wrapper	0x00EA7214	E8 57 72 C9 FF	E8 <near relay>	battery_capacity; original target 0x00B3E470
+call_wrapper	0x017C8F49	E8 32 B9 6B FF	E8 <near relay>	has_virtual_charm; original target 0x00E84880
+call_wrapper	0x015285F7	E8 94 08 00 00	E8 <near relay>	build_charm_category; original target 0x01528E90
+call_wrapper	0x01523706	E8 15 4E FF FF	E8 <near relay>	menu_charm_index; original target 0x01518520
+call_wrapper	0x015270F6	E8 85 14 FF FF	E8 <near relay>	charm_already_equipped; original target 0x01518580
+call_wrapper	0x01529510	E8 6B F0 FE FF	E8 <near relay>	charm_already_equipped; original target 0x01518580
+call_wrapper	0x01527139	E8 82 34 FF FF	E8 <near relay>	set_menu_charm; original target 0x0151A5C0
+tail_wrapper	0x015272AC	E9 0F 33 FF FF	E9 <near relay>	set_menu_charm; original target 0x0151A5C0
+call_wrapper	0x01524DF6	E8 E5 45 61 FF	E8 <near relay>	remove_menu_charms; original target 0x00B393E0
+call_wrapper	0x015189BA	E8 A1 90 62 FF	E8 <near relay>	close_charm_menu; original target 0x00B41A60
+call_wrapper	0x00B3AA9C	E8 6F 52 00 00	E8 <near relay>	visual_reference; original target 0x00B3FD10
+call_wrapper	0x00B3AB46	E8 C5 51 00 00	E8 <near relay>	visual_reference; original target 0x00B3FD10
+inline_adapter	0x01523742	0F B6 8C 3B 98 44 00 00	E8 <near relay> 90 90 90	charm_menu_read
+inline_adapter	0x01E1B657	48 05 8C 04 00 00	E8 <near relay> 90	charm_full_snapshot_rax
+inline_adapter	0x00DACA7F	48 05 FC 01 00 00	E8 <near relay> 90	charm_snapshot_rax
+inline_adapter	0x00E52048	48 05 FC 01 00 00	E8 <near relay> 90	charm_snapshot_rax
+inline_adapter	0x00E6C605	48 05 FC 01 00 00	E8 <near relay> 90	charm_snapshot_rax
+inline_adapter	0x01058FC5	48 05 FC 01 00 00	E8 <near relay> 90	charm_snapshot_rax
+inline_adapter	0x019C373E	48 8D 88 FC 01 00 00	E8 <near relay> 90 90	charm_snapshot_rcx
+inline_adapter	0x01A6FF0C	48 8D 88 FC 01 00 00	E8 <near relay> 90 90	charm_snapshot_rcx
+inline_adapter	0x01D14C10	41 8B CE 49 0F 44 C0	E8 <near relay> 90 90	charm_crypto_rax

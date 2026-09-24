@@ -1,73 +1,37 @@
-# DS2 High-Density Backpack Modules v1.0.0
+# High-Density Backpack Modules v1.1.0
 
-Mod für eine deutlich höhere Anzahl funktionaler Rucksackkomponenten in **DEATH STRANDING 2: ON THE BEACH**.
 
-Der Mod reduziert den logischen Rasterbedarf funktionaler Rucksackmodule auf einen Ankerplatz und verschiebt blockierte Platzierungen automatisch auf einen nahegelegenen freien, formgültigen Anker. Die sichtbare Originalgrösse bleibt erhalten. Dadurch dürfen sich die Modelle optisch überlappen, während sie als getrennte native Einträge mit ihren normalen Effekten bestehen bleiben.
+Mehr Rucksackmodule, eine aufgeräumte Darstellung und acht Accessoire-Plätze für **DEATH STRANDING 2: ON THE BEACH**.
 
 ## Funktionen
 
-- Jedes funktionale Rucksackmodul benötigt logisch nur einen Rasteranker.
-- Belegte Anker werden automatisch auf einen nahegelegenen freien Anker umgelegt.
-- Die vollständige native Modulform bleibt für die Randprüfung erhalten.
-- Grosse Komponenten werden nicht mehr mit sichtbaren Teilen ausserhalb des Rucksacks gespeichert.
-- Komponenten-ID, Stufe, Effekt, Objektliste sowie Speichern und Laden bleiben nativ.
-- Gemischte Konfigurationen mit Akkus, Granatentaschen, Munitionsbehältern, Vorratstaschen, Solargeneratoren, Stabilisatoren und weiteren funktionalen Modulen werden unterstützt.
-- Bei einer unbekannten oder veränderten EXE-Struktur bleibt der Mod inaktiv.
+- Bis zu **30 funktionale Module**, unabhängig von ihrer ursprünglichen Rastergrösse. Jedes benötigt einen logischen Platz.
+- Belegte Positionen werden automatisch auf einen freien Platz verschoben. Bei 30 Modulen gilt weiterhin der normale Ersetzen-Dialog.
+- Sichtbare Modelle behalten ihre Originalgrösse und werden separat angeordnet. Was optisch nicht mehr passt, wird in Rucksackanpassung, Frachtverwaltung und normalem Gameplay ausgeblendet, bleibt aber montiert.
+- **Acht Accessoire-Plätze:** Die letzten beiden Zeilen sind sichtbar, die ersten sechs unsichtbar. Nur freigeschaltete und tatsächlich ausgerüstete Charms werden für zusätzliche Effekte berücksichtigt.
+- Die spielinternen Wirkungsgrenzen einzelner Module bleiben bestehen. Nicht jede Effektkombination wurde im Spiel vermessen.
 
-## Praktische Kapazität
+## Installation und Update
 
-DS2 verwendet ein natives `5 x 6`-Raster mit 30 eindeutigen logischen Ankerfeldern. Derselbe exakte Anker wird nicht mehrfach belegt.
+1. Spiel vollständig beenden. Ein kompatibler externer 64-Bit-ASI-Loader wird benötigt.
+2. Frühere Backpack-ASIs aus allen aktiven Loader-Ordnern entfernen. **Nur eine Version gleichzeitig aktiv lassen**, sonst kann weiterhin eine ältere Version geladen werden.
+3. `DS2_HighDensityBackpackModules_v1.1.0.asi` neben `DS2.exe` kopieren.
+4. Eine bereits vorhandene `DS2_HighDensityBackpackModules.charms.ini` behalten.
+5. Im Log `DS2_HighDensityBackpackModules.log` die Version **v1.1.0** und `status=PATCH_APPLIED` prüfen.
 
-Die praktische Grenze hängt von der Zusammenstellung ab:
+Das Download-ZIP enthält genau eine ASI, keinen Loader und keinen Installer. Die sechs zusätzlichen Charm-Plätze beginnen leer. Ihre Auswahl wird beim Verlassen der Anpassung automatisch in der INI neben der Spiel-EXE gespeichert. Diese Einstellung gilt für die gesamte Installation, also auch bei einem Spielstandwechsel; nur aktuell verfügbare Charms werden berücksichtigt. Die zwei sichtbaren Charms bleiben im normalen Spielstand.
 
-- Kleine Komponenten können viele Anker verwenden.
-- Grosse Akkus und Stabilisatoren benötigen einen Anker, von dem aus ihre vollständige sichtbare Form innerhalb des Rucksacks bleibt.
-- Ist kein freier und formgültiger Anker mehr vorhanden, kann DS2 wieder den normalen Ersetzen-Dialog anzeigen.
+## Bekannte Einschränkungen
 
-Der Mod erhöht die Kapazität daher stark, ist aber technisch nicht wörtlich unbegrenzt.
+- Die Darstellung in Gameplay, Rucksackanpassung und Frachtverwaltung wurde vom Nutzer bestätigt, auch für den gemeldeten Fall mit einem vorhandenen Spielstand. Ungewöhnliche Modellformen und Animationen können weiterhin Clipping verursachen.
+- Die Grenze bleibt bei 30 Modulen. Welche davon sichtbar sind, hängt von Bestückung und verfügbarem Platz ab.
+- Im Spieltest konnten alle sieben aktuell verfügbaren Charms gleichzeitig montiert werden. Der achte Platz bleibt für den noch nicht verfügbaren Charm frei. Acht Menüplätze sind lokal geprüft.
+- Nicht alle Charm-Effekte, Neustart-/Spielstandwechsel und Menüwege wurden im Spiel vollständig geprüft. Details: [Validierung](docs/VALIDATION.md).
 
-## Validierter Stand
+## Unterstützte Spielversion
 
-Im Entwicklungstest wurden bestätigt:
-
-- 16 gemischte funktionale Komponenten gleichzeitig;
-- Menü schliessen und erneut öffnen mit erhaltener Konfiguration;
-- speichern, Spiel vollständig neu starten und laden;
-- deutlich grössere Akkukapazität mit mehreren montierten Akkus;
-- automatische Umlegung belegter Anker;
-- grosse sichtbare Modelle bleiben innerhalb der nativen Rucksackgrenze.
-
-Optische Überschneidungen und Clipping zwischen Modulen sind beabsichtigt.
-
-## Unterstützte Version
-
-- `DS2.exe v1.10.89.0`
-- SHA-256: `BF3D1C665545930BC850D8F5DF486F7395885BB729D4FD408FDB03390DE0765B`
-
-## Installation
-
-1. Einen kompatiblen externen 64-Bit-ASI-Loader für Death Stranding 2 installieren.
-2. `DS2_HighDensityBackpackModules_v1.0.0.asi` in denselben Spiel-/ASI-Ordner wie die anderen DS2-ASIs kopieren.
-3. Spiel starten.
-4. Prüfen, ob `DS2_HighDensityBackpackModules.log` erstellt wurde und `status=PATCH_APPLIED` enthält.
-
-Der ASI-Loader ist nicht enthalten.
-
-## Hinweise
-
-- Komponenten werden regulär an einem Einrichtungsterminal über die Rucksackanpassung montiert.
-- Bei einem belegten Anker kann der Mod die neue Komponente beim Bestätigen auf einen nahegelegenen gültigen Anker verschieben.
-- Die sichtbaren Modelle können stark überlappen. Massgebend ist die Objektliste im Menü.
-- Erscheint wegen fehlender gültiger Anker der native Ersetzen-Dialog, `Abbrechen` wählen, ausser eine vorhandene Komponente soll absichtlich ersetzt werden.
-- Die Akkukapazität mehrerer Akkus wurde ausdrücklich geprüft. Nicht jede denkbare Kombination aller Spezialeffekte wurde einzeln vermessen.
+`DS2.exe v1.10.89.0`, PC / Steam. Andere EXE-Versionen werden nicht zugesichert. Bei nicht passenden Versions- oder Codeprüfungen bleibt die Mod inaktiv.
 
 ## Deinstallation
 
-Vor dem Entfernen des Mods:
-
-1. Mit aktivem Mod den Rucksack auf eine Konfiguration reduzieren, die auch mit den ursprünglichen Modulgrössen passt.
-2. Änderungen anwenden und neu speichern.
-3. `DS2_HighDensityBackpackModules_v1.0.0.asi` entfernen.
-4. Die Logdatei kann ebenfalls gelöscht werden.
-
-Eine Deinstallation mit weiterhin gespeicherter High-Density-Konfiguration wird nicht empfohlen.
+Mit aktiver Mod die zusätzlichen Charms entfernen und die Module auf eine mit den Originalgrössen passende Bestückung reduzieren. Anwenden, speichern und das Spiel beenden. Anschliessend die ASI entfernen; INI und Log können ebenfalls entfernt werden.

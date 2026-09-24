@@ -2,10 +2,10 @@
 setlocal EnableExtensions
 chcp 65001 >nul
 
-title DS2 High-Density Backpack Modules v1.0.0 - Uninstall
+title DS2 High-Density Backpack Modules v1.1.0 - Uninstall
 set "ROOT=%~dp0..\"
 
-echo DS2 High-Density Backpack Modules v1.0.0 - Uninstall
+echo DS2 High-Density Backpack Modules v1.1.0 - Uninstall
 echo.
 echo IMPORTANT:
 echo Before uninstalling, reduce the backpack to a layout that fits the original
@@ -33,7 +33,7 @@ if not exist "%GAME_DIR%\DS2.exe" (
 del /q "%GAME_DIR%\DS2_HighDensityBackpackModules_v*.asi" 2>nul
 del /q "%GAME_DIR%\DS2_HighDensityBackpackModules.log" 2>nul
 
-if exist "%GAME_DIR%\DS2_HighDensityBackpackModules_v1.0.0.asi" (
+if exist "%GAME_DIR%\DS2_HighDensityBackpackModules_v1.1.0.asi" (
     echo [ERROR] The ASI could not be removed.
     pause
     exit /b 1

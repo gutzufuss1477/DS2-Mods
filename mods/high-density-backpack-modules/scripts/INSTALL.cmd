@@ -2,12 +2,12 @@
 setlocal EnableExtensions
 chcp 65001 >nul
 
-title DS2 High-Density Backpack Modules v1.0.0 - Install
+title DS2 High-Density Backpack Modules v1.1.0 - Install
 set "ROOT=%~dp0..\"
-set "SOURCE=%ROOT%reference\DS2_HighDensityBackpackModules_v1.0.0.asi"
-set "EXPECTED=C4C5CC2B525BEB88AEF264521B56C00E6616ABF6DFB0C2F6970C92379D719C1C"
+set "SOURCE=%ROOT%reference\DS2_HighDensityBackpackModules_v1.1.0.asi"
+set "EXPECTED=4FAE089E17D86D8DA0DAE61C6F91A383864944C5918C94725A0C758947E35747"
 
-echo DS2 High-Density Backpack Modules v1.0.0
+echo DS2 High-Density Backpack Modules v1.1.0
 echo.
 
 if not exist "%SOURCE%" (
@@ -51,7 +51,7 @@ del /q "%GAME_DIR%\DS2_UnlimitedBackpack_*Prototype.log" 2>nul
 del /q "%GAME_DIR%\DS2_HighDensityBackpackModules_v*.asi" 2>nul
 del /q "%GAME_DIR%\DS2_HighDensityBackpackModules.log" 2>nul
 
-copy /y "%SOURCE%" "%GAME_DIR%\DS2_HighDensityBackpackModules_v1.0.0.asi" >nul
+copy /y "%SOURCE%" "%GAME_DIR%\DS2_HighDensityBackpackModules_v1.1.0.asi" >nul
 if errorlevel 1 (
     echo [ERROR] The ASI could not be copied. Try running the installer as administrator.
     echo.
@@ -60,13 +60,13 @@ if errorlevel 1 (
 )
 
 set "INSTALLED_HASH="
-for /f "tokens=*" %%H in ('powershell.exe -NoProfile -Command "(Get-FileHash -Algorithm SHA256 -LiteralPath '%GAME_DIR%\DS2_HighDensityBackpackModules_v1.0.0.asi').Hash"') do set "INSTALLED_HASH=%%H"
+for /f "tokens=*" %%H in ('powershell.exe -NoProfile -Command "(Get-FileHash -Algorithm SHA256 -LiteralPath '%GAME_DIR%\DS2_HighDensityBackpackModules_v1.1.0.asi').Hash"') do set "INSTALLED_HASH=%%H"
 
 if /I not "%INSTALLED_HASH%"=="%EXPECTED%" (
     echo [ERROR] The installed ASI SHA-256 does not match.
     echo Expected: %EXPECTED%
     echo Found:    %INSTALLED_HASH%
-    del /q "%GAME_DIR%\DS2_HighDensityBackpackModules_v1.0.0.asi" 2>nul
+    del /q "%GAME_DIR%\DS2_HighDensityBackpackModules_v1.1.0.asi" 2>nul
     echo.
     pause
     exit /b 1

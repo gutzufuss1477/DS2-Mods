@@ -1,106 +1,51 @@
-# DS2 High-Density Backpack Modules v1.0.0
+# High-Density Backpack Modules v1.1.0
 
-High-capacity backpack-component mod for **DEATH STRANDING 2: ON THE BEACH**.
 
-The mod reduces the logical grid footprint of functional backpack components to one anchor cell and automatically relocates blocked placements to a nearby free, shape-valid anchor. The original visible model size is retained, so components may overlap visually while remaining separate native entries with their normal effects.
+More backpack equipment, cleaner visuals and eight accessory slots for **DEATH STRANDING 2: ON THE BEACH**.
 
 ## Features
 
-- Functional backpack components use one logical grid anchor instead of their original multi-cell footprint.
-- Automatically searches for the nearest free anchor when the selected anchor is occupied.
-- Keeps the complete native component shape for backpack-boundary checks.
-- Prevents large components from being stored with their visible model hanging outside the backpack.
-- Preserves native component IDs, levels, effects, list entries and save/load handling.
-- Supports mixed layouts containing batteries, grenade pouches, ammo containers, utility pouches, solar generators, stabilizers and other functional modules.
-- Fails closed when the supported executable or validated patch sites do not match.
+- Up to **30 functional modules**, each using one logical grid cell, independent of its original footprint.
+- Occupied placements automatically move to a nearby free cell. At 30 modules, the native replacement dialog still applies.
+- Visible modules keep their original size and are packed into a separate layout. Excess models are hidden in backpack customization, cargo management and normal gameplay; their equipment entries remain installed.
+- **Eight accessory slots:** the last two rows display physical charms; the first six are invisible equipment slots. Equip only charms you have unlocked. Unlocking a charm does not equip it automatically.
+- Equipped additional charms are included in effect checks. Native module-specific effect limits remain; not every charm effect or combination has been measured in game.
 
-## Practical capacity
+## Installation and updating
 
-DS2 uses a native `5 x 6` backpack grid, giving 30 unique logical anchor cells. The mod does not virtualize multiple owners for the exact same anchor.
+1. Close the game and install a compatible external 64-bit ASI loader if needed.
+2. Remove previous High-Density Backpack ASI versions from every active loader folder. **Keep exactly one Backpack ASI active.** Multiple versions can cause an older build to load instead.
+3. Copy `DS2_HighDensityBackpackModules_v1.1.0.asi` beside `DS2.exe`.
+4. Keep any existing `DS2_HighDensityBackpackModules.charms.ini` when updating from a test build.
+5. Start the game. `DS2_HighDensityBackpackModules.log` should identify **v1.1.0** and contain `status=PATCH_APPLIED`.
 
-The practical maximum depends on the selected component mix:
+The download contains one ASI only; no loader, installer or configuration file is bundled. The six additional charm selections are saved automatically on leaving the customization menu to the INI beside the game executable. They are installation-wide preferences shared across saves and filtered by current unlock availability. The two visible charms use the normal game save. Additional slots start empty.
 
-- Small components have many valid anchors.
-- Large batteries and stabilizers need an anchor from which their complete visible shape still fits inside the backpack.
-- Once no free and shape-valid anchor remains, DS2 can show its normal replacement dialog.
+## Known limitations
 
-This is therefore a high-density capacity mod, not a literal unlimited-slot implementation.
-
-## Validated behaviour
-
-Development testing confirmed:
-
-- 16 mixed functional components installed simultaneously in one layout;
-- menu close and reopen with the compact layout intact;
-- save, full game restart and load with the compact layout intact;
-- substantially increased battery capacity from multiple installed batteries;
-- automatic relocation of blocked anchors;
-- large visible models kept within the native backpack boundary.
-
-Visual clipping and overlap between modules are expected and intentional.
-
-## Supported target
-
-- `DS2.exe v1.10.89.0`
-- SHA-256: `BF3D1C665545930BC850D8F5DF486F7395885BB729D4FD408FDB03390DE0765B`
-- PE timestamp: `0x6A3DAE46`
-- Image size: `0x0B292000`
-
-The ASI verifies the executable header, native reference scan, component-shape lookup, conflict branch, occupancy flag and every modified instruction before activating.
-
-## Installation
-
-1. Install a compatible external 64-bit ASI loader for Death Stranding 2.
-2. Copy `DS2_HighDensityBackpackModules_v1.0.0.asi` into the same game/ASI-loader directory used by your other DS2 ASI mods.
-3. Start the game.
-4. Confirm that `DS2_HighDensityBackpackModules.log` is created and contains `status=PATCH_APPLIED`.
-
-A ready end-user package is available at `release/DS2_High_Density_Backpack_Modules_v1.0.0.zip`.
-
-The ASI loader itself is not included.
-
-## Usage notes
-
-- Place components normally in the backpack-customization menu at a facility terminal.
-- When the selected anchor is occupied, the mod may move the new component to a nearby valid anchor during confirmation.
-- Visible modules can overlap heavily. This does not indicate that a component was lost; use the object list to verify installed entries.
-- When the native replacement dialog appears because no valid anchor remains, choose **Cancel** unless you intentionally want to replace existing equipment.
-- Component classes still use their own native effect logic. Battery-capacity stacking was explicitly validated; not every possible component combination has been measured individually.
+- Clean module rendering in gameplay, customization and cargo management was confirmed by the user, including the reported existing-save load case. The layout uses native footprints; unusual geometry and animations may still clip.
+- The module limit is 30, not unlimited. The visible subset changes with the installed equipment and available visual space.
+- Seven currently unlocked charms were equipped together in the user's game test; the eighth slot is available when its charm is unlocked. All eight menu rows are covered by local tests.
+- Actual charm effect magnitudes, full restart persistence of extra slots and every menu entry/exit route have not all been validated in game. See [validation](docs/VALIDATION.md).
 
 ## Compatibility
 
-The mod changes only the backpack-component placement path documented in `docs/TECHNICAL_NOTES.md`.
+Supported executable: **DS2.exe v1.10.89.0** (PC / Steam).
 
-Another mod that patches the same replacement-collection, grid-validation/commit or reference-check call sites may conflict. On a mismatch, this mod remains inactive rather than applying an uncertain patch.
+SHA-256: `BF3D1C665545930BC850D8F5DF486F7395885BB729D4FD408FDB03390DE0765B`.
 
-## Uninstall
+The mod checks executable metadata and instruction/data signatures before patching and remains inactive on a mismatch. It modifies the running process, not the executable on disk. Compatibility with other mods that patch the same functions is not established.
 
-Before removing the mod:
+## Removal
 
-1. With the mod still installed, reduce the backpack to a layout that fits under the original component footprints.
-2. Apply the layout and create a new save.
-3. Remove `DS2_HighDensityBackpackModules_v1.0.0.asi`.
-4. The generated log may also be deleted.
+With the mod still active, remove additional charms and reduce the modules to a layout that fits their original footprints. Apply the changes and save, then close the game and remove the ASI. The INI and log may also be removed.
 
-Removing the mod while a save still contains a high-density layout is not recommended.
+## Source and verification
 
-## Build
+[Technical notes](docs/TECHNICAL_NOTES.md), [changelog](CHANGELOG.md), [German instructions](README_DE.md).
 
-Use either:
+Build with `scripts/build-llvm.ps1` or `build.sh`. Run `tests/run.ps1`, then `tests/verify_baseline.py path/to/DS2.exe` and `tests/native_menu.py build/runtime_tests.dll path/to/DS2.exe`. Package with `scripts/package-release.py`.
 
-- `scripts/build-llvm.ps1` on Windows; or
-- `build.sh` on Linux with `clang-cl` and `lld-link` available.
+Tests include original native menu and Cryptobiosis instructions, patch/branch checks and isolated fixtures for placement, visibility, effects and state-file handling. They do not replace an in-game test. Historical v1.0.0 artifacts are retained separately.
 
-The release ASI is built from the included source without the default C/C++ runtime libraries. It imports only `KERNEL32.dll`.
-
-## Reference ASI SHA-256
-
-`C4C5CC2B525BEB88AEF264521B56C00E6616ABF6DFB0C2F6970C92379D719C1C`
-
-## Source / licence
-
-Source is published for transparency, auditing and reproducible build verification. No separate open-source licence is granted unless explicitly stated otherwise.
-
-## Version
-
-`v1.0.0`
+No separate open-source licence is granted unless explicitly stated otherwise.

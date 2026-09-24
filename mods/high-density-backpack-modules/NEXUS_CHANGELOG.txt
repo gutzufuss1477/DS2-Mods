@@ -1,0 +1,7 @@
+Version 1.1.0
+- Up to 30 modules with uniform one-cell logical placement and automatic free-cell selection.
+- New visual layout: models retain their original size; excess models are hidden in customization, cargo management and normal gameplay.
+- Eight accessory slots: two visible and six invisible, with effects based on equipped and unlocked charms.
+- Extra charm selections saved automatically in an installation-wide INI.
+- Clean module rendering in gameplay and cargo management, including direct loading of an existing save without first opening customization.
+- Updating: keep only one Backpack ASI active and retain the existing charm INI.

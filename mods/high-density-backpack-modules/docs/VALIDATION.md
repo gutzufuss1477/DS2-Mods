@@ -1,31 +1,29 @@
-# Validation
+# Validation - v1.1.0
 
-## Runtime validation completed
+Date: 2026-09-24. Release based on the user's successful Test5 run.
 
-The release logic is behaviour-identical to the validated v0.15.0 prototype except for release naming, version strings, filenames and documentation.
+## In-game evidence
 
-Confirmed in the live game:
+The user confirmed correct appearance in gameplay and all tested menus after installing Test5. The reported case involved loading an existing save. The game log identifies Test5, `status=PATCH_APPLIED`, `GAMEPLAY_BACKPACK_VISIBILITY=ACTIVE` and `EQUIPMENT_PREVIEW_VISIBILITY=ACTIVE`. Earlier runs established 30 modules and seven currently available charms equipped through the eight-row menu.
 
-- supported executable accepted and all patch-site checks passed;
-- mixed high-density layout reached 16 installed components;
-- backpack menu closed and reopened successfully;
-- save completed successfully;
-- game was fully restarted and the save loaded successfully;
-- the compact component list remained present after load;
-- multiple installed batteries produced substantially higher battery capacity;
-- occupied anchors were automatically remapped;
-- visible components were kept within the backpack boundary.
+The release changes Test5's version/log identity and introductory comment only. Gameplay, placement, rendering, charm and persistence code are unchanged. The final release-named binary was built and locally tested, but was not separately run in game.
 
-## Known and intentional behaviour
+## Local checks
 
-- Visible models can overlap and clip.
-- The exact same logical anchor is not stored twice.
-- The theoretical grid maximum is 30 unique anchors.
-- Large shapes can exhaust their valid anchor set before all 30 cells are used.
-- At capacity, the native replacement dialog can reappear.
+- Windows x64 LLVM build with warnings as errors.
+- Placement, visual packing, full-footprint bone references and byte-identical logical module records.
+- Independent live gameplay/menu contexts with an empty customization-manager cache, alternating different layouts, null/teardown cases and exclusion of unrelated actors.
+- Eight accessory rows, equipped/unlocked effect masks, battery deduplication, adapter register preservation and INI roundtrip/invalid data.
+- 771 original native Cryptobiosis loop cases and original category-builder instructions for 256 equipment masks.
+- Exact EXE hash, 92 byte/call guards, 63 non-overlapping patch windows and 1,938 direct branches.
+- One-ASI ZIP: CRC, extracted bytes and reference ASI verified.
 
-## Not exhaustively measured
+Actual charm effect magnitudes/triggers, restart persistence of extra slots across every save scenario, all animation/geometry cases and other-mod compatibility remain unmeasured or incomplete. Additional charm preferences apply installation-wide, filtered by unlock availability.
 
-- Every individual special effect from every module class
-- Every possible mixed layout near the 30-anchor theoretical limit
-- Compatibility with third-party mods that patch the same backpack-placement functions
+## Artifact
+
+`DS2_HighDensityBackpackModules_v1.1.0.asi`
+
+SHA-256: `4FAE089E17D86D8DA0DAE61C6F91A383864944C5918C94725A0C758947E35747`
+
+Historical results: [Test3](VALIDATION-test3.md), [Test4](VALIDATION-test4.md), [Test5 development checks](VALIDATION-test5.md). The Test4 menu correction is retained together with Test5's live-player lookup.

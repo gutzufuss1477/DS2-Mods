@@ -15,3 +15,8 @@ VirtualAlloc
 VirtualFree
 VirtualProtect
 WriteFile
+VirtualQuery
+GetModuleHandleExW
+GetTickCount64
+GetPrivateProfileStringW
+WritePrivateProfileStringW
