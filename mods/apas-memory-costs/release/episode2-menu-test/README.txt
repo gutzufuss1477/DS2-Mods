@@ -1,13 +1,14 @@
-DS2 APAS Memory Costs 3.0.0-rc.2 - Episode-2 menu test
+DS2 APAS Memory Costs 3.0.0-rc.3 - Episode-2 menu test
 ==========================================================
 
 Purpose
 -------
 The earlier Episode-2 attempt was invalid: its log said
-UNSUPPORTED_OR_CONFLICT, so the ASI installed no hook or UnlockAll patch. This
-package first identifies the rejected target component while preserving that safe
-refusal. If startup says READY, it also tests whether the native UnlockAll path
-creates the APAS state required by the ring-menu item on a new Episode-2 save.
+UNSUPPORTED_OR_CONFLICT, so the ASI installed no hook or UnlockAll patch. rc.2
+identified a loader-only PE metadata change. rc.3 accepts that metadata-only
+change but still requires the exact image format and every code/vtable anchor. If
+startup says READY, it tests whether the native UnlockAll path creates the APAS
+state required by the ring-menu item on a new Episode-2 save.
 
 It does NOT patch the UI or a story fact. It uses the same verified executable
 anchors and native APAS node-creation route as the unified release candidate.
@@ -24,8 +25,8 @@ Expected startup check
 ----------------------
 ds2_apas_memory_costs.log must report READY and UnlockAll=1.
 LATE_LOAD or CONFLICT means do not evaluate the test. If it reports
-UNSUPPORTED_OR_CONFLICT, send the complete log: rc.2 adds TARGET_* and AnchorRva
-details needed to locate the conflict without changing game code.
+UNSUPPORTED_OR_CONFLICT, send the complete log: it names the failing image-format
+or exact code/vtable anchor without changing game code.
 
 Test result to report
 ---------------------
@@ -44,4 +45,4 @@ specific UI predicate.
 Files
 -----
 ds2_apas_memory_costs.asi
-  SHA-256: 3C0A06AFA16012F63B4284F571D90E44BC64EFF6DBC458EE78F411298F897ACC
+  SHA-256: DB1D9FDBC612E90452AD008B1CDAD926712A771F7F744BF9F563C7B1F3C3076F

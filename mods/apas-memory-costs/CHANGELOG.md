@@ -1,13 +1,15 @@
 # Changelog
 
-## 3.0.0-rc.2 - Startup diagnostic candidate
+## 3.0.0-rc.3 - Loader-compatible anchored candidate
 
-- Kept the same exact Steam 1.10.89.0 target and reject-on-conflict behavior.
-- When startup refuses to patch, the local log now identifies whether PE metadata,
-  an anchor read, a code anchor, or a relocated vtable pointer failed. Code bytes
-  are never accepted or modified after a failed check.
-- The first Episode-2 menu attempt was invalid: its log reported
-  `UNSUPPORTED_OR_CONFLICT`, so no APAS hook or UnlockAll patch was installed.
+- The rc.2 Episode-2 attempt established that the ASI loader changes the PE
+  timestamp/image-size metadata in memory while the installed EXE file remains the
+  exact reviewed Steam target.
+- The image format and all seven exact code/vtable anchors remain mandatory.
+  Metadata-only runtime changes are logged and no longer reject an otherwise exact
+  target. Any anchor read, code mismatch, or relocated vtable-pointer mismatch
+  still rejects the install before code is changed.
+- Added a mapped-image regression test for metadata-only changes and patch restore.
 
 ## 3.0.0-rc.1 - Unified release candidate
 

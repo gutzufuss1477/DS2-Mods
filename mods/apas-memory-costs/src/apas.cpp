@@ -2,7 +2,7 @@
 #include "target.h"
 
 // One binary, one immutable startup configuration. No timer or gameplay worker.
-#define APAS_VERSION "3.0.0-rc.2"
+#define APAS_VERSION "3.0.0-rc.3"
 constexpr u32 kConstructorRva = 0xBE0270;
 constexpr u32 kUnlockBlockRva = 0xBE39A0;
 constexpr u32 kResourceVtableRva = 0x32088B8;
@@ -124,12 +124,20 @@ static bool ValidateImage(u8* base) {
         !Read(base + 0x3c, &pe, 4) || pe < 0x40 || pe > 0x1000 ||
         !Read(base + pe, &signature, 4) || signature != 0x4550 ||
         !Read(base + pe + 4, &machine, 2) || machine != 0x8664 ||
-        !Read(base + pe + 8, &timestamp, 4) || timestamp != kTimestamp ||
-        !Read(base + pe + 24, &magic, 2) || magic != 0x20b ||
-        !Read(base + pe + 24 + 56, &imageSize, 4) || imageSize != kImageSize) {
-        Log("TARGET_METADATA_MISMATCH");
+        !Read(base + pe + 24, &magic, 2) || magic != 0x20b) {
+        Log("TARGET_IMAGE_FORMAT_MISMATCH");
         return false;
     }
+    if (!Read(base + pe + 8, &timestamp, 4) ||
+        !Read(base + pe + 24 + 56, &imageSize, 4)) {
+        Log("TARGET_METADATA_READ_FAILURE");
+        return false;
+    }
+    // The user's ASI loader changes these two PE fields in memory. They are not
+    // patch targets. The image format plus every exact code/vtable anchor below
+    // remain mandatory, so a metadata-only change cannot widen a patch site.
+    if (timestamp != kTimestamp || imageSize != kImageSize)
+        Log("TARGET_METADATA_CHANGED: exact code anchors still required.");
     for (u32 anchorIndex = 0; anchorIndex < sizeof(kAnchors) / sizeof(kAnchors[0]); ++anchorIndex) {
         const auto& anchor = kAnchors[anchorIndex];
         u8 bytes[128];

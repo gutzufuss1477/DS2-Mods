@@ -1,4 +1,4 @@
-DS2 APAS Memory Costs 3.0.0-rc.2
+DS2 APAS Memory Costs 3.0.0-rc.3
 Unified release candidate - limited gameplay coverage
 
 ONE ASI, ONE INI
@@ -36,9 +36,10 @@ Other executables or conflicting code changes are rejected without installing ho
 The local ds2_apas_memory_costs.log records settings and startup status.
 READY means installation succeeded; it is not proof of a completed gameplay test.
 LATE_LOAD means restart the game with the ASI loader loading the mod at startup.
-UNSUPPORTED_OR_CONFLICT means the executable or expected code does not match.
-The log then names TARGET_METADATA_MISMATCH, or the exact AnchorRva, so a
-conflict can be investigated without weakening the safety checks.
+UNSUPPORTED_OR_CONFLICT means the image format or an expected code anchor does
+not match. The image format plus all exact code/vtable anchors must match. The
+loader may change PE metadata in memory; this is logged but does not replace the
+code-anchor checks. A rejected log names the exact AnchorRva when applicable.
 
 WHAT CHANGED
 No recurring APAS scans or persistent background worker.

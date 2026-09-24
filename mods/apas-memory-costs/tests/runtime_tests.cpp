@@ -147,14 +147,17 @@ extern "C" __declspec(dllexport) u32 TestMappedInstall(void* image) {
     base[0xBE39C9] = 0x33; base[0xBE39CA] = 0xdb;
     VirtualProtect(base + 0xBE39C0, 16, old, &ignored);
     if (conflictInstalled || !ValidateImage(base)) return 43;
-    // Different PE metadata, despite all local code signatures still matching.
+    // The ASI loader can alter runtime PE metadata. Exact image format and all
+    // code/vtable anchors retain acceptance, and the installed patches restore.
     u32 pe = *(u32*)(base + 0x3c);
     VirtualProtect(base, 4096, kReadWrite, &old);
     *(u32*)(base + pe + 8) ^= 1;
-    bool unknownInstalled = Install(base);
+    bool metadataInstalled = Install(base);
     *(u32*)(base + pe + 8) ^= 1;
     VirtualProtect(base, 4096, old, &ignored);
-    if (unknownInstalled || !ValidateImage(base)) return 44;
+    if (!metadataInstalled ||
+        !RestoreBlock(base + kConstructorRva, kConstructorBytes) ||
+        !RestoreBlock(base + kUnlockBlockRva, kUnlockBytes) || !ValidateImage(base)) return 44;
     MemoryInfo info;
     VirtualQuery(base + kConstructorRva, &info, sizeof(info));
     if (info.protect & (0x04 | 0x08 | 0x40 | 0x80)) return 45;

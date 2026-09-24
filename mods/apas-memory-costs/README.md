@@ -1,6 +1,6 @@
 # DS2 APAS Memory Costs - unified edition
 
-**3.0.0-rc.2: release candidate with limited gameplay coverage.**
+**3.0.0-rc.3: release candidate with limited gameplay coverage.**
 
 One `ds2_apas_memory_costs.asi` and one `ds2_apas_memory_costs.ini` provide both
 configurable APAS Memory costs and optional early APAS unlocks. No separate
@@ -44,8 +44,9 @@ permanent background worker.
 The exact supported research target is **Steam DS2.exe 1.10.89.0**. Code anchors,
 PE metadata, resource type and startup state are checked. Unknown builds and
 conflicting patches are rejected. The INI and startup result are recorded in the
-local `ds2_apas_memory_costs.log`; check for `READY`. A rejected startup records
-the exact failed target component without applying any change.
+local `ds2_apas_memory_costs.log`; check for `READY`. The image format and exact
+code/vtable anchors are mandatory. A rejected startup records the failed target
+component without applying any change.
 
 ## Verification and limits
 

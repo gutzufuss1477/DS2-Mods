@@ -1,14 +1,15 @@
-# 3.0.0-rc.2 validation - 2026-09-24
+# 3.0.0-rc.3 validation - 2026-09-24
 
 ## Episode-2 menu attempt
 
 The user opened the ring menu at the first Episode-2 facility and APAS was absent.
-This is not an UnlockAll or UI result: the installed `ds2_apas_memory_costs.log`
-reported `UNSUPPORTED_OR_CONFLICT`, which means rc.1 installed no hook or patch.
-The installed `DS2.exe` still has the exact supported SHA-256 and version
-(`BF3D...D143F`, Steam 1.10.89.0). At the later read-only inspection there were no
-other `.asi` files beside `DS2.exe`; the next candidate preserves refusal behavior
-and adds the exact rejected target component to the log.
+This remains not an UnlockAll or UI result: rc.1 rejected startup, and rc.2 then
+identified `TARGET_METADATA_MISMATCH`. The on-disk `DS2.exe` remains the exact
+supported SHA-256 and version (`BF3D...D143F`, Steam 1.10.89.0). The user has the
+Ultimate ASI Loader, which changes PE timestamp/image-size metadata in memory.
+rc.3 logs that metadata-only change and requires the image format and all exact
+code/vtable anchors before installing anything. The first valid UI result requires
+an rc.3 log that says `READY`.
 
 ## Passed
 
