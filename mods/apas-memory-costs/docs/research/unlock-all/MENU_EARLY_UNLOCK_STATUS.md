@@ -17,14 +17,17 @@ changing global story or facility facts.
   locate/unlock function at `0xBE1640`.  The current `UnlockAll` option safely skips
   each APAS node's own EnableFact/grade prerequisite while preserving manager and
   resource guards.
+- The APAS script predicate `IsApasEnhancementLocated` is native code at
+  `0xBE4B10`.  It returns true only when the APAS manager contains a live entry for
+  the requested APAS ID.  It does not read a story fact.
 
 ## Conclusion
 
 The early ring-menu gate is not an editable APAS resource property.  It is in the
-native UI/graph invocation path and has not yet been isolated to a single,
-version-checked APAS-only predicate.
+native UI/graph invocation path and has not yet been isolated to the exact APAS ID
+or additional predicate it evaluates.
 
-Do not add an `UnlockMenu` INI key until that predicate is identified.  A generic
+Do not add an `UnlockMenu` INI key until that call site is identified.  A generic
 fact write or a broad UI patch could alter unrelated tutorial/story state and would
 not meet the mod's safety requirements.
 
