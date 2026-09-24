@@ -1,0 +1,126 @@
+SOURCE: DECOMPILE_0096.txt
+FUNCTION RVA 0xAD6050
+NAME: FUN_140ad6050
+SIZE: 630
+SIGNATURE: undefined FUN_140ad6050(void)
+================================================================
+
+/* WARNING: Function: __security_check_cookie replaced with injection: security_check_cookie */
+/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+
+ulonglong FUN_140ad6050(undefined8 param_1,undefined4 param_2,undefined8 *param_3)
+
+{
+  undefined4 uVar1;
+  undefined8 uVar2;
+  undefined8 uVar3;
+  undefined8 uVar4;
+  ulonglong uVar5;
+  undefined8 *puVar6;
+  undefined1 auVar7 [16];
+  undefined1 auVar8 [16];
+  undefined1 auStack_178 [32];
+  undefined8 local_158;
+  undefined8 uStack_150;
+  undefined8 uStack_148;
+  undefined8 uStack_140;
+  undefined8 uStack_138;
+  undefined8 uStack_130;
+  undefined8 uStack_128;
+  undefined4 uStack_120;
+  undefined4 uStack_11c;
+  undefined4 local_118;
+  undefined4 local_114;
+  undefined4 local_110;
+  undefined4 local_10c;
+  undefined4 local_108;
+  undefined4 local_104;
+  undefined4 local_100;
+  undefined4 local_fc;
+  undefined4 local_f8;
+  undefined4 local_f4;
+  undefined4 local_f0;
+  undefined4 local_ec;
+  undefined4 local_e8;
+  undefined4 local_e4;
+  undefined4 local_e0;
+  undefined4 local_dc;
+  undefined1 local_d8 [16];
+  undefined1 local_c8 [16];
+  undefined8 local_b8;
+  undefined8 uStack_b0;
+  undefined8 uStack_a8;
+  undefined8 uStack_a0;
+  undefined1 local_98 [64];
+  undefined8 local_58;
+  undefined8 uStack_50;
+  undefined1 local_48 [16];
+  undefined1 local_38 [16];
+  undefined8 local_28;
+  ulonglong local_18;
+  
+  local_18 = DAT_1439b9800 ^ (ulonglong)auStack_178;
+  local_158 = 0;
+  uStack_150 = 0;
+  uStack_140 = _DAT_1441be7e0;
+  uStack_138 = _DAT_1441be7e8;
+  uStack_130 = _DAT_1441be7f0;
+  uStack_128 = _DAT_1441be7f8;
+  local_28 = 0;
+  uStack_120 = DAT_1441be800;
+  uStack_148 = 0;
+  uVar5 = FUN_140ad4620(param_2,&local_158);
+  if ((param_3 != (undefined8 *)0x0) && ((char)uVar5 != '\0')) {
+    local_118 = (undefined4)uStack_140;
+    local_f8 = (undefined4)uStack_128;
+    local_108 = uStack_138._4_4_;
+    local_114 = uStack_140._4_4_;
+    local_104 = (undefined4)uStack_130;
+    local_f4 = uStack_128._4_4_;
+    local_110 = (undefined4)uStack_138;
+    local_100 = uStack_130._4_4_;
+    local_dc = DAT_1434613ac;
+    local_f0 = uStack_120;
+    local_e8 = 0;
+    local_e4 = 0;
+    local_e0 = 0;
+    local_10c = 0;
+    local_fc = 0;
+    local_ec = 0;
+    local_58 = _DAT_143465c50;
+    uStack_50 = _UNK_143465c58;
+    FUN_1400d11c0(&local_58,local_38,local_48);
+    auVar7._4_8_ = SUB128(ZEXT812(0),4);
+    auVar7._0_4_ = local_48._0_4_;
+    auVar7._12_4_ = 0;
+    local_d8 = vblendps_avx(auVar7,local_38,2);
+    auVar8._4_8_ = SUB128(ZEXT812(0),4);
+    auVar8._0_4_ = local_38._0_4_ ^ DAT_143466c60;
+    auVar8._12_4_ = 0;
+    local_c8 = vblendps_avx(auVar8,local_48,2);
+    local_b8 = _DAT_143469840;
+    uStack_b0 = _UNK_143469848;
+    uStack_a8 = _UNK_143469850;
+    uStack_a0 = _UNK_143469858;
+    puVar6 = (undefined8 *)FUN_1400d1420(&local_118,local_98,local_d8);
+    uVar2 = *puVar6;
+    uVar3 = puVar6[4];
+    uVar4 = *(undefined8 *)((longlong)puVar6 + 0x14);
+    uStack_138 = CONCAT44(*(undefined4 *)(puVar6 + 2),*(undefined4 *)(puVar6 + 1));
+    uVar1 = *(undefined4 *)(puVar6 + 5);
+    *param_3 = local_158;
+    param_3[1] = uStack_150;
+    param_3[2] = uStack_148;
+    param_3[3] = uVar2;
+    param_3[4] = uStack_138;
+    param_3[5] = uVar4;
+    param_3[6] = uVar3;
+    param_3[7] = CONCAT44(uStack_11c,uVar1);
+    uVar5 = uVar5 & 0xff;
+  }
+  return uVar5;
+}
+
+
+
+================================================================

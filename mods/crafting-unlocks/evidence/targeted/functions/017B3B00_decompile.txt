@@ -1,0 +1,81 @@
+RVA=0x17B3B00 NAME=FUN_1417b3b00 SIZE=305
+
+ulonglong FUN_1417b3b00(int param_1)
+
+{
+  longlong *plVar1;
+  byte bVar2;
+  longlong lVar3;
+  int *piVar4;
+  ulonglong uVar5;
+  longlong lVar6;
+  longlong *plVar7;
+  ulonglong uVar8;
+  int local_res10 [2];
+  
+  if (param_1 == 1) {
+    piVar4 = (int *)(*(longlong *)(DAT_14623e540 + 400) + 0x90);
+  }
+  else if (param_1 == 2) {
+    piVar4 = (int *)(*(longlong *)(DAT_14623e540 + 400) + 0xe0);
+  }
+  else {
+    piVar4 = &DAT_14a1bb4e0;
+  }
+  plVar7 = *(longlong **)(piVar4 + 2);
+  uVar5 = (ulonglong)*piVar4;
+  plVar1 = plVar7 + uVar5;
+  lVar6 = DAT_14623e540;
+  do {
+    if (plVar7 == plVar1) {
+      return uVar5 & 0xffffffffffffff00;
+    }
+    lVar3 = *plVar7;
+    bVar2 = *(byte *)(lVar3 + 0x74);
+    uVar5 = 0;
+    if ((bVar2 & 1) == 0) {
+LAB_1417b3b90:
+      if (*(longlong *)(lVar3 + 0x38) == 0) {
+        uVar5 = 1;
+      }
+      else {
+        uVar5 = FUN_140182510(DAT_1462473c8,lVar6 + 0x140);
+        lVar6 = DAT_14623e540;
+      }
+LAB_1417b3bb7:
+      if ((char)uVar5 != '\0') {
+        uVar5 = *(ulonglong *)(lVar6 + 0x40);
+        uVar8 = (longlong)*(int *)(lVar6 + 0x38) * 0x10 + uVar5;
+        if (uVar5 == uVar8) {
+LAB_1417b3bfe:
+          return CONCAT71((int7)(uVar5 >> 8),1);
+        }
+        while (*(int *)(lVar3 + 0x20) !=
+               *(int *)(*(longlong *)
+                         (*(longlong *)(lVar6 + 0x10) +
+                         (ulonglong)(*(uint *)(uVar5 + 8) & 0xfff) * 8) + 0x20)) {
+          uVar5 = uVar5 + 0x10;
+          if (uVar5 == uVar8) goto LAB_1417b3bfe;
+        }
+        if ((*(uint *)(uVar5 + 8) >> 0x10 & 1) == 0) goto LAB_1417b3bfe;
+      }
+    }
+    else {
+      if ((bVar2 & 4) != 0) {
+        uVar5 = FUN_140b29e30(local_res10,lVar3);
+        if (local_res10[0] == 0) {
+          uVar5 = uVar5 & 0xffffffffffffff00;
+        }
+        else {
+          uVar5 = FUN_140b29c30();
+          lVar6 = DAT_14623e540;
+        }
+        goto LAB_1417b3bb7;
+      }
+      if ((bVar2 & 2) != 0) goto LAB_1417b3b90;
+    }
+    plVar7 = plVar7 + 1;
+  } while( true );
+}
+
+

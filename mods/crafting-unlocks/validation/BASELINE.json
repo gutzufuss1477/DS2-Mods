@@ -1,0 +1,7 @@
+{
+  "baseline_source_zip": "DS2_Crafting_Unlocks_v0.2.0-alpha_SOURCE.zip",
+  "baseline_asi_sha256": "92263c03df81c6e7aeb2aaa645f3cd394defd0b8b080778bda01fed59140ec39",
+  "release_version": "1.0.0",
+  "user_confirmed": "Early normal menu at the first Episode 2 terminal; Battle Guitar crafted and in inventory; all backpack modules, rain covers and charms reported unlocked.",
+  "not_explicitly_confirmed": "Every item fabricated/equipped; material deduction; persistence after save/reload; all later story reward notifications; other-mod/storefront compatibility."
+}

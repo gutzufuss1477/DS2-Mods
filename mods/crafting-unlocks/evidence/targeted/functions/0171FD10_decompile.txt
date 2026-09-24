@@ -1,0 +1,52 @@
+RVA=0x171FD10 NAME=FUN_14171fd10 SIZE=213
+
+void FUN_14171fd10(longlong param_1)
+
+{
+  int *piVar1;
+  int iVar2;
+  longlong *plVar3;
+  int iVar4;
+  ulonglong uVar5;
+  longlong lVar6;
+  ulonglong uVar7;
+  
+  if (((*(int *)(param_1 + 0x14c) < *(int *)(param_1 + 0x188)) &&
+      (iVar2 = *(int *)(param_1 + 0x150 + (longlong)*(int *)(param_1 + 0x14c) * 4), iVar2 != 0xe))
+     && (*(int *)(param_1 + 0x144) < 0x200)) {
+    lVar6 = *(longlong *)
+             (param_1 + 0x41f8 + ((longlong)iVar2 * 0x201 + (longlong)*(int *)(param_1 + 0x144)) * 8
+             );
+  }
+  else {
+    lVar6 = 0;
+  }
+  uVar5 = 0;
+  piVar1 = (int *)(param_1 + 0x12268);
+  iVar2 = *piVar1;
+  if (0 < iVar2) {
+    plVar3 = *(longlong **)(param_1 + 0x12270);
+    uVar7 = uVar5;
+    do {
+      if (*plVar3 == lVar6) {
+        if (-1 < (int)uVar7) {
+          return;
+        }
+        break;
+      }
+      uVar7 = (ulonglong)((int)uVar7 + 1);
+      uVar5 = uVar5 + 1;
+      plVar3 = plVar3 + 1;
+    } while ((longlong)uVar5 < (longlong)iVar2);
+  }
+  iVar4 = iVar2 + 1;
+  *piVar1 = iVar4;
+  if (*(int *)(param_1 + 0x1226c) < iVar4) {
+    FUN_1400ba2b0(piVar1,((int)((iVar4 >> 0x1f & 7U) + iVar4) >> 3) + iVar2 + 3);
+  }
+  *(longlong *)(*(longlong *)(param_1 + 0x12270) + (longlong)iVar2 * 8) = lVar6;
+  FUN_14171fea0(param_1,1);
+  return;
+}
+
+

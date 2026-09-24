@@ -1,0 +1,25 @@
+SOURCE: DECOMPILE_0104.txt
+FUNCTION RVA 0xBE73F0
+NAME: FUN_140be73f0
+SIZE: 92
+SIGNATURE: undefined FUN_140be73f0(void)
+================================================================
+
+undefined8 * FUN_140be73f0(undefined8 *param_1,ulonglong param_2)
+
+{
+  FUN_1426e4e60(param_1 + 5);
+  *param_1 = RTTIObject::vftable;
+  if ((param_2 & 1) != 0) {
+    if ((param_2 & 4) == 0) {
+      FUN_1400a0d10();
+      return param_1;
+    }
+    AK::TempAlloc::DumpTempAllocsToFile((Type)param_1,(wchar_t *)&DAT_00000030);
+  }
+  return param_1;
+}
+
+
+
+================================================================

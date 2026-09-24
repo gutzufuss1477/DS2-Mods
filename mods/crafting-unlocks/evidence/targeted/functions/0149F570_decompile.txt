@@ -1,0 +1,20 @@
+RVA=0x149F570 NAME=FUN_14149f570 SIZE=98
+
+/* WARNING: Function: __security_check_cookie replaced with injection: security_check_cookie */
+
+void FUN_14149f570(longlong param_1,undefined1 param_2,undefined8 param_3,undefined1 param_4)
+
+{
+  undefined1 auStack_58 [32];
+  undefined1 local_38;
+  undefined1 local_28 [16];
+  ulonglong local_18;
+  
+  local_18 = DAT_1439b9800 ^ (ulonglong)auStack_58;
+  FUN_14149ace0(param_1,local_28,param_2);
+  local_38 = param_4;
+  FUN_1414a72e0(*(undefined8 *)(param_1 + 0x19b8),local_28,0,0);
+  return;
+}
+
+

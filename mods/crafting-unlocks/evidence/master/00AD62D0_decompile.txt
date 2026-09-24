@@ -1,0 +1,29 @@
+SOURCE: DECOMPILE_0096.txt
+FUNCTION RVA 0xAD62D0
+NAME: FUN_140ad62d0
+SIZE: 93
+SIGNATURE: undefined FUN_140ad62d0(void)
+================================================================
+
+undefined8 * FUN_140ad62d0(undefined8 *param_1,undefined8 param_2)
+
+{
+  undefined2 *_Dst;
+  
+  param_1[1] = 0;
+  param_1[2] = 0;
+  *(undefined4 *)(param_1 + 3) = 0;
+  _Dst = (undefined2 *)((longlong)param_1 + 0x1c);
+  *_Dst = 0;
+  *(undefined1 *)((longlong)param_1 + 0x1e) = 0;
+  if (_Dst <= (undefined2 *)((longlong)param_1 + 0x1f)) {
+    memset(_Dst,0,3);
+  }
+  param_1[4] = param_2;
+  *param_1 = DSGameMenuCommandWishlistBuyCatalogueItem::vftable;
+  return param_1;
+}
+
+
+
+================================================================

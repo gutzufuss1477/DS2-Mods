@@ -1,0 +1,55 @@
+RVA=0xBE8C90 NAME=FUN_140be8c90 SIZE=203
+
+/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+
+undefined8 * FUN_140be8c90(longlong param_1)
+
+{
+  undefined8 *puVar1;
+  uint uVar2;
+  short *psVar3;
+  uint uVar4;
+  bool bVar5;
+  
+  puVar1 = *(undefined8 **)(param_1 + 0x50);
+  if (puVar1 == (undefined8 *)0x0) {
+    return (undefined8 *)0x0;
+  }
+  psVar3 = (short *)(**(code **)*puVar1)(puVar1);
+  if (((*(byte *)((longlong)psVar3 + 5) | DAT_144333715) & 1) == 0) {
+    if ((char)psVar3[2] == '\x04') {
+      uVar4 = (uint)(ushort)psVar3[7];
+    }
+    else {
+      uVar4 = 0;
+    }
+    if (DAT_144333714 == '\x04') {
+      uVar2 = (uint)DAT_14433371e;
+    }
+    else {
+      uVar2 = 0;
+    }
+    if ((char)(uVar2 >> 0xf) == '\0' && (char)(uVar4 >> 0xf) == '\0') {
+      bVar5 = (ushort)(*psVar3 - _DAT_144333710) <= DAT_144333712;
+      goto LAB_140be8d46;
+    }
+  }
+  else if (((char)psVar3[2] == '\x04') && (DAT_144333714 == '\x04')) {
+    for (; psVar3 != (short *)&DAT_144333710; psVar3 = (short *)**(undefined8 **)(psVar3 + 0x2c)) {
+      if ((char)psVar3[3] == '\0') {
+        bVar5 = false;
+        goto LAB_140be8d46;
+      }
+    }
+    bVar5 = true;
+    goto LAB_140be8d46;
+  }
+  bVar5 = psVar3 == (short *)&DAT_144333710;
+LAB_140be8d46:
+  if (!bVar5) {
+    return (undefined8 *)0x0;
+  }
+  return puVar1;
+}
+
+

@@ -1,0 +1,51 @@
+RVA=0x1829620 NAME=FUN_141829620 SIZE=306
+
+void FUN_141829620(longlong param_1)
+
+{
+  int iVar1;
+  longlong lVar2;
+  longlong lVar3;
+  longlong lVar4;
+  
+  lVar4 = 0;
+  lVar3 = *(longlong *)(param_1 + 0xc0);
+  if ((*(longlong *)(param_1 + 0xc0) < 1) && (lVar3 = lVar4, *(longlong *)(param_1 + 0xb8) < 0)) {
+    lVar3 = *(longlong *)(param_1 + 0xb8);
+  }
+  *(longlong *)(param_1 + 200) = lVar3;
+  lVar3 = *(longlong *)(param_1 + 0x1b8);
+  if ((*(int *)(lVar3 + 0x14c) < *(int *)(lVar3 + 0x188)) &&
+     (iVar1 = *(int *)(lVar3 + 0x150 + (longlong)*(int *)(lVar3 + 0x14c) * 4), iVar1 != 0xe)) {
+    lVar2 = lVar4;
+    if (*(int *)(lVar3 + 0x144) < 0x200) {
+      lVar2 = *(longlong *)
+               (lVar3 + 0x41f8 + ((longlong)iVar1 * 0x201 + (longlong)*(int *)(lVar3 + 0x144)) * 8);
+    }
+    if ((lVar2 != 0) && (*(int *)(lVar2 + 8) != 0)) {
+      *(undefined4 *)(lVar2 + 8) = 0;
+      *(undefined1 *)(lVar2 + 0x11) = 1;
+      FUN_14171cf70(lVar3);
+      *(uint *)(lVar3 + 0x134) = *(uint *)(lVar3 + 0x134) | 0xf;
+      lVar3 = *(longlong *)(param_1 + 0x1b8);
+      iVar1 = *(int *)(lVar3 + 0x14c);
+      if (iVar1 < *(int *)(lVar3 + 0x188)) {
+        if (*(int *)(lVar3 + 0x150 + (longlong)iVar1 * 4) == 0xd) {
+          return;
+        }
+        iVar1 = *(int *)(lVar3 + 0x150 + (longlong)iVar1 * 4);
+        if ((iVar1 != 0xe) && (*(int *)(lVar3 + 0x144) < 0x200)) {
+          lVar4 = *(longlong *)
+                   (lVar3 + 0x41f8 +
+                   ((longlong)iVar1 * 0x201 + (longlong)*(int *)(lVar3 + 0x144)) * 8);
+        }
+      }
+      FUN_14171fdf0(lVar3,lVar4);
+      return;
+    }
+  }
+  FUN_141878110(param_1);
+  return;
+}
+
+

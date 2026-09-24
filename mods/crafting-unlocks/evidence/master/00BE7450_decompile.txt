@@ -1,0 +1,29 @@
+SOURCE: DECOMPILE_0104.txt
+FUNCTION RVA 0xBE7450
+NAME: FUN_140be7450
+SIZE: 116
+SIGNATURE: undefined FUN_140be7450(void)
+================================================================
+
+undefined8 * FUN_140be7450(undefined8 *param_1,ulonglong param_2)
+
+{
+  *param_1 = DSAreaSettings::vftable;
+  if (param_1[6] != 0) {
+    FUN_140109d80();
+  }
+  FUN_14013f8d0(param_1 + 4);
+  *param_1 = RTTIObject::vftable;
+  if ((param_2 & 1) != 0) {
+    if ((param_2 & 4) == 0) {
+      FUN_1400a0d10();
+      return param_1;
+    }
+    AK::TempAlloc::DumpTempAllocsToFile((Type)param_1,(wchar_t *)&DAT_00000038);
+  }
+  return param_1;
+}
+
+
+
+================================================================

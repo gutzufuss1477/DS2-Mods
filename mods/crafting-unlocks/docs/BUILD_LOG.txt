@@ -1,0 +1,5 @@
+Release validation: bash tools/validate.sh
+Exit code: 0
+All three host suites and all three ASan/UBSan repeats passed.
+PE validation passed. Runtime source delta is the startup version text only.
+No Windows/DS2 execution in this build environment.

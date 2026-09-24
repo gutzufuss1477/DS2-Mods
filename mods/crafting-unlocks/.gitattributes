@@ -1,0 +1,7 @@
+# Preserve exact bytes for the tracked release and analysis fixtures.
+release/** -text
+validation/** -text
+evidence/** -text
+config/** -text
+tests/fixtures/** -text
+*.asi binary

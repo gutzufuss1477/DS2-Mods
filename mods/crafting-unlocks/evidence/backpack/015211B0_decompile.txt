@@ -1,0 +1,214 @@
+================================================================
+FUNCTION RVA 0x15211B0
+NAME: FUN_1415211b0
+SIZE: 2761
+SIGNATURE: undefined FUN_1415211b0(void)
+================================================================
+
+void FUN_1415211b0(longlong param_1)
+
+{
+  longlong lVar1;
+  
+  FUN_1400ab550(param_1 + 0x18);
+  FUN_1400ab480(param_1 + 0x18);
+  *(char **)(param_1 + 0x10) = "DSUIBackpackMenuFunctionSymbols";
+  FUN_1400a6a60(param_1,2,&DAT_1443c3480,"DSUIBackpackMenuFunction","DSUIBackpackMenuFunction",0,0,0
+                ,0,1,0);
+  FUN_1400a7350(param_1,&DAT_1443c3480,"UUIDRef_DSUIBackpackMenuFunction",1);
+  lVar1 = FUN_141580030(param_1,"OnMouseClick3DModel","DSUIBackpackMenuFunction_OnMouseClick3DModel"
+                       );
+  *(undefined1 *)(lVar1 + 0x28) = 0;
+  lVar1 = FUN_141580030(param_1,"OnMouseOver3DModelClickZone",
+                        "DSUIBackpackMenuFunction_OnMouseOver3DModelClickZone");
+  *(undefined1 *)(lVar1 + 0x28) = 0;
+  lVar1 = FUN_14157fb60(param_1,"OnMouseOverCatalogListItem",
+                        "DSUIBackpackMenuFunction_OnMouseOverCatalogListItem");
+  *(undefined1 *)(lVar1 + 0x28) = 0;
+  lVar1 = FUN_141580030(param_1,"OnPressCancelDialog","DSUIBackpackMenuFunction_OnPressCancelDialog"
+                       );
+  *(undefined1 *)(lVar1 + 0x28) = 0;
+  lVar1 = FUN_141580030(param_1,"OnPressOKDialog","DSUIBackpackMenuFunction_OnPressOKDialog");
+  *(undefined1 *)(lVar1 + 0x28) = 0;
+  lVar1 = FUN_141580030(param_1,"OnCancelEditPanel","DSUIBackpackMenuFunction_OnCancelEditPanel");
+  *(undefined1 *)(lVar1 + 0x28) = 0;
+  lVar1 = FUN_141580030(param_1,"OnAcceptEditPanel","DSUIBackpackMenuFunction_OnAcceptEditPanel");
+  *(undefined1 *)(lVar1 + 0x28) = 0;
+  lVar1 = FUN_141580030(param_1,"OnPressR2EditPanel","DSUIBackpackMenuFunction_OnPressR2EditPanel");
+  *(undefined1 *)(lVar1 + 0x28) = 0;
+  lVar1 = FUN_141580030(param_1,"OnPressL2EditPanel","DSUIBackpackMenuFunction_OnPressL2EditPanel");
+  *(undefined1 *)(lVar1 + 0x28) = 0;
+  lVar1 = FUN_141580030(param_1,"OnPressDownEditPanel",
+                        "DSUIBackpackMenuFunction_OnPressDownEditPanel");
+  *(undefined1 *)(lVar1 + 0x28) = 0;
+  lVar1 = FUN_141580030(param_1,"OnPressUpEditPanel","DSUIBackpackMenuFunction_OnPressUpEditPanel");
+  *(undefined1 *)(lVar1 + 0x28) = 0;
+  lVar1 = FUN_141580030(param_1,"OnPressRightEditPanel",
+                        "DSUIBackpackMenuFunction_OnPressRightEditPanel");
+  *(undefined1 *)(lVar1 + 0x28) = 0;
+  lVar1 = FUN_141580030(param_1,"OnPressLeftEditPanel",
+                        "DSUIBackpackMenuFunction_OnPressLeftEditPanel");
+  *(undefined1 *)(lVar1 + 0x28) = 0;
+  lVar1 = FUN_141580030(param_1,"OnUnfocusEditPanel","DSUIBackpackMenuFunction_OnUnfocusEditPanel");
+  *(undefined1 *)(lVar1 + 0x28) = 0;
+  lVar1 = FUN_141580030(param_1,"OnFocusEditPanel","DSUIBackpackMenuFunction_OnFocusEditPanel");
+  *(undefined1 *)(lVar1 + 0x28) = 0;
+  lVar1 = FUN_141580030(param_1,"OnAcceptPaymentResultDialog",
+                        "DSUIBackpackMenuFunction_OnAcceptPaymentResultDialog");
+  *(undefined1 *)(lVar1 + 0x28) = 0;
+  lVar1 = FUN_141580030(param_1,"OnCancelPaymentResultDialog",
+                        "DSUIBackpackMenuFunction_OnCancelPaymentResultDialog");
+  *(undefined1 *)(lVar1 + 0x28) = 0;
+  lVar1 = FUN_14157fb60(param_1,"OnMouseOverPaymentSelect",
+                        "DSUIBackpackMenuFunction_OnMouseOverPaymentSelect");
+  *(undefined1 *)(lVar1 + 0x28) = 0;
+  lVar1 = FUN_141580030(param_1,"OnAcceptPaymentDialog",
+                        "DSUIBackpackMenuFunction_OnAcceptPaymentDialog");
+  *(undefined1 *)(lVar1 + 0x28) = 0;
+  lVar1 = FUN_141580030(param_1,"OnCancelPaymentDialog",
+                        "DSUIBackpackMenuFunction_OnCancelPaymentDialog");
+  *(undefined1 *)(lVar1 + 0x28) = 0;
+  lVar1 = FUN_141580030(param_1,"OnAcceptRecycleResultDialog",
+                        "DSUIBackpackMenuFunction_OnAcceptRecycleResultDialog");
+  *(undefined1 *)(lVar1 + 0x28) = 0;
+  lVar1 = FUN_141580030(param_1,"OnAcceptRecycleDialog",
+                        "DSUIBackpackMenuFunction_OnAcceptRecycleDialog");
+  *(undefined1 *)(lVar1 + 0x28) = 0;
+  lVar1 = FUN_141580030(param_1,"OnCancelRecycleDialog",
+                        "DSUIBackpackMenuFunction_OnCancelRecycleDialog");
+  *(undefined1 *)(lVar1 + 0x28) = 0;
+  lVar1 = FUN_14157fb60(param_1,"OnMouseOverOnPaletteListItem",
+                        "DSUIBackpackMenuFunction_OnMouseOverOnPaletteListItem");
+  *(undefined1 *)(lVar1 + 0x28) = 0;
+  lVar1 = FUN_141580030(param_1,"OnMouseAcceptPaletteListItem",
+                        "DSUIBackpackMenuFunction_OnMouseAcceptPaletteListItem");
+  *(undefined1 *)(lVar1 + 0x28) = 0;
+  lVar1 = FUN_141580030(param_1,"OnReleaseAcceptColorSelectionListItem",
+                        "DSUIBackpackMenuFunction_OnReleaseAcceptColorSelectionListItem");
+  *(undefined1 *)(lVar1 + 0x28) = 0;
+  lVar1 = FUN_141580030(param_1,"OnFocusColorSelectionListItem",
+                        "DSUIBackpackMenuFunction_OnFocusColorSelectionListItem");
+  *(undefined1 *)(lVar1 + 0x28) = 0;
+  lVar1 = FUN_141580030(param_1,"OnPressRightColorPaletteListItem",
+                        "DSUIBackpackMenuFunction_OnPressRightColorPaletteListItem");
+  *(undefined1 *)(lVar1 + 0x28) = 0;
+  lVar1 = FUN_141580030(param_1,"OnPressLeftColorPaletteListItem",
+                        "DSUIBackpackMenuFunction_OnPressLeftColorPaletteListItem");
+  *(undefined1 *)(lVar1 + 0x28) = 0;
+  lVar1 = FUN_141580030(param_1,"OnPressDownColorPaletteListItem",
+                        "DSUIBackpackMenuFunction_OnPressDownColorPaletteListItem");
+  *(undefined1 *)(lVar1 + 0x28) = 0;
+  lVar1 = FUN_141580030(param_1,"OnPressUpColorPaletteListItem",
+                        "DSUIBackpackMenuFunction_OnPressUpColorPaletteListItem");
+  *(undefined1 *)(lVar1 + 0x28) = 0;
+  lVar1 = FUN_141580030(param_1,"OnUnfocusColorPaletteListItem",
+                        "DSUIBackpackMenuFunction_OnUnfocusColorPaletteListItem");
+  *(undefined1 *)(lVar1 + 0x28) = 0;
+  lVar1 = FUN_141580030(param_1,"OnFocusColorPaletteListItem",
+                        "DSUIBackpackMenuFunction_OnFocusColorPaletteListItem");
+  *(undefined1 *)(lVar1 + 0x28) = 0;
+  lVar1 = FUN_141580030(param_1,"OnCloseColorPalette","DSUIBackpackMenuFunction_OnCloseColorPalette"
+                       );
+  *(undefined1 *)(lVar1 + 0x28) = 0;
+  lVar1 = FUN_141580030(param_1,"OnInboxColorPalette","DSUIBackpackMenuFunction_OnInboxColorPalette"
+                       );
+  *(undefined1 *)(lVar1 + 0x28) = 0;
+  lVar1 = FUN_141580030(param_1,"OpenColorPalette","DSUIBackpackMenuFunction_OpenColorPalette");
+  *(undefined1 *)(lVar1 + 0x28) = 0;
+  lVar1 = FUN_141580030(param_1,"OnUnfocusCatalog","DSUIBackpackMenuFunction_OnUnfocusCatalog");
+  *(undefined1 *)(lVar1 + 0x28) = 0;
+  lVar1 = FUN_141580030(param_1,"OnFocusCatalog","DSUIBackpackMenuFunction_OnFocusCatalog");
+  *(undefined1 *)(lVar1 + 0x28) = 0;
+  lVar1 = FUN_14157fb60(param_1,"OnMouseOverOnCommandListItem",
+                        "DSUIBackpackMenuFunction_OnMouseOverOnCommandListItem");
+  *(undefined1 *)(lVar1 + 0x28) = 0;
+  lVar1 = FUN_141580030(param_1,"CloseCommandList","DSUIBackpackMenuFunction_CloseCommandList");
+  *(undefined1 *)(lVar1 + 0x28) = 0;
+  lVar1 = FUN_14157fb60(param_1,"OnAcceptCommandListItem",
+                        "DSUIBackpackMenuFunction_OnAcceptCommandListItem");
+  *(undefined1 *)(lVar1 + 0x28) = 0;
+  lVar1 = FUN_14157fb60(param_1,"SkipPanelAnimation","DSUIBackpackMenuFunction_SkipPanelAnimation");
+  *(undefined1 *)(lVar1 + 0x28) = 0;
+  lVar1 = FUN_14157fb60(param_1,"OpenSecondListCorpus",
+                        "DSUIBackpackMenuFunction_OpenSecondListCorpus");
+  *(undefined1 *)(lVar1 + 0x28) = 0;
+  lVar1 = FUN_141580030(param_1,"CloseSecondList","DSUIBackpackMenuFunction_CloseSecondList");
+  *(undefined1 *)(lVar1 + 0x28) = 0;
+  lVar1 = FUN_14157fb60(param_1,"DecideSecondListItem",
+                        "DSUIBackpackMenuFunction_DecideSecondListItem");
+  *(undefined1 *)(lVar1 + 0x28) = 0;
+  lVar1 = FUN_14157fb60(param_1,"OnUnfocusedSecondListItem",
+                        "DSUIBackpackMenuFunction_OnUnfocusedSecondListItem");
+  *(undefined1 *)(lVar1 + 0x28) = 0;
+  lVar1 = FUN_14157fb60(param_1,"OnFocusSecondListItem",
+                        "DSUIBackpackMenuFunction_OnFocusSecondListItem");
+  *(undefined1 *)(lVar1 + 0x28) = 0;
+  lVar1 = FUN_14157fb60(param_1,"FocusSecondListItem","DSUIBackpackMenuFunction_FocusSecondListItem"
+                       );
+  *(undefined1 *)(lVar1 + 0x28) = 0;
+  lVar1 = FUN_14157fb60(param_1,"OnMouseOverOnBackpackListItemCheckbox",
+                        "DSUIBackpackMenuFunction_OnMouseOverOnBackpackListItemCheckbox");
+  *(undefined1 *)(lVar1 + 0x28) = 0;
+  lVar1 = FUN_14157fb60(param_1,"OnMouseAcceptBackpackListItemCheckbox",
+                        "DSUIBackpackMenuFunction_OnMouseAcceptBackpackListItemCheckbox");
+  *(undefined1 *)(lVar1 + 0x28) = 0;
+  lVar1 = FUN_14157fb60(param_1,"OnMouseAcceptBackpackListItem",
+                        "DSUIBackpackMenuFunction_OnMouseAcceptBackpackListItem");
+  *(undefined1 *)(lVar1 + 0x28) = 0;
+  lVar1 = FUN_14157fb60(param_1,"OnMouseOverBackpackListItem",
+                        "DSUIBackpackMenuFunction_OnMouseOverBackpackListItem");
+  *(undefined1 *)(lVar1 + 0x28) = 0;
+  lVar1 = FUN_141580030(param_1,"OnDpadInputBackpackList",
+                        "DSUIBackpackMenuFunction_OnDpadInputBackpackList");
+  *(undefined1 *)(lVar1 + 0x28) = 0;
+  lVar1 = FUN_14157fb60(param_1,"OnDownAndOptionBackpackListItem",
+                        "DSUIBackpackMenuFunction_OnDownAndOptionBackpackListItem");
+  *(undefined1 *)(lVar1 + 0x28) = 0;
+  lVar1 = FUN_14157fb60(param_1,"OnUpAndOptionBackpackListItem",
+                        "DSUIBackpackMenuFunction_OnUpAndOptionBackpackListItem");
+  *(undefined1 *)(lVar1 + 0x28) = 0;
+  lVar1 = FUN_141580030(param_1,"EndMultipleSelectMode",
+                        "DSUIBackpackMenuFunction_EndMultipleSelectMode");
+  *(undefined1 *)(lVar1 + 0x28) = 0;
+  lVar1 = FUN_14157fb60(param_1,"StartMultipleSelectMode",
+                        "DSUIBackpackMenuFunction_StartMultipleSelectMode");
+  *(undefined1 *)(lVar1 + 0x28) = 0;
+  lVar1 = FUN_141580030(param_1,"UnselectItemIndex","DSUIBackpackMenuFunction_UnselectItemIndex");
+  *(undefined1 *)(lVar1 + 0x28) = 0;
+  lVar1 = FUN_14157fb60(param_1,"OpenBackpackListCorpus",
+                        "DSUIBackpackMenuFunction_OpenBackpackListCorpus");
+  *(undefined1 *)(lVar1 + 0x28) = 0;
+  lVar1 = FUN_14157fb60(param_1,"SelectBackpackListItem",
+                        "DSUIBackpackMenuFunction_SelectBackpackListItem");
+  *(undefined1 *)(lVar1 + 0x28) = 0;
+  lVar1 = FUN_14157fb60(param_1,"ToggleSelectedBackpackListItem",
+                        "DSUIBackpackMenuFunction_ToggleSelectedBackpackListItem");
+  *(undefined1 *)(lVar1 + 0x28) = 0;
+  lVar1 = FUN_14157fb60(param_1,"OnAcceptBackpackListItem",
+                        "DSUIBackpackMenuFunction_OnAcceptBackpackListItem");
+  *(undefined1 *)(lVar1 + 0x28) = 0;
+  lVar1 = FUN_14157fb60(param_1,"OnUnfocusedBackpackListItem",
+                        "DSUIBackpackMenuFunction_OnUnfocusedBackpackListItem");
+  *(undefined1 *)(lVar1 + 0x28) = 0;
+  lVar1 = FUN_14157fb60(param_1,"OnFocusBackpackListItem",
+                        "DSUIBackpackMenuFunction_OnFocusBackpackListItem");
+  *(undefined1 *)(lVar1 + 0x28) = 0;
+  lVar1 = FUN_14157fb60(param_1,"OnUnFocusBackpackList",
+                        "DSUIBackpackMenuFunction_OnUnFocusBackpackList");
+  *(undefined1 *)(lVar1 + 0x28) = 0;
+  lVar1 = FUN_14157fb60(param_1,"OnFocusBackpackList","DSUIBackpackMenuFunction_OnFocusBackpackList"
+                       );
+  *(undefined1 *)(lVar1 + 0x28) = 0;
+  lVar1 = FUN_141580030(param_1,"OnCancelBackpackMenu",
+                        "DSUIBackpackMenuFunction_OnCancelBackpackMenu");
+  *(undefined1 *)(lVar1 + 0x28) = 0;
+  lVar1 = FUN_14157fe10(param_1);
+  *(undefined1 *)(lVar1 + 0x28) = 0;
+  lVar1 = FUN_14157fb60(param_1,"SaveFocus","DSUIBackpackMenuFunction_SaveFocus");
+  *(undefined1 *)(lVar1 + 0x28) = 0;
+  FUN_1400ab3a0(param_1 + 0x18);
+  return;
+}
+
+
+

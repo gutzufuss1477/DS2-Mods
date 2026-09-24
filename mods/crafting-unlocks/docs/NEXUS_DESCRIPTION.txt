@@ -1,0 +1,42 @@
+TITLE
+Crafting Unlocks - Equipment, Backpack and Charms
+
+SHORT DESCRIPTION
+Get early access to equipment, backpack modules, covers and charms. Includes 119 configurable entries, all enabled by default. Exclude individual items with a compact English INI while keeping normal progression unlocks and material costs.
+
+DESCRIPTION
+Make supported equipment available without waiting for its usual progression unlock. Fabricate it at a suitable terminal as soon as normal fabrication is available. Backpack modules, covers and charms appear in the native backpack customization menu once that menu becomes accessible.
+
+All included selections are enabled by default. To leave an item on normal progression, find its English name in ds2_crafting_unlocks.ini and change the existing value from 1 to 0. Restart the game after editing.
+
+A value of 0 never bans an item: once the game normally unlocks it, it remains available. The mod adds menu-local recipe copies instead of globally setting story facts or original recipe unlock bits.
+
+MAIN FEATURES
+119 individual settings: 90 equipment/weapon entries, 19 backpack modules, 2 covers and 8 charms.
+Separate controls for equipment levels and variants.
+Compact English INI with every entry enabled by default.
+Normal material costs, placement checks, backpack space and charm-slot limits remain in place.
+
+NOT INCLUDED
+Vehicle and costume customization, backpack patches, quest-only objects and protected DLC-only recipes. This does not unlock the backpack menu itself, add charm slots, give free materials or place equipment directly into inventory.
+
+INSTALLATION
+Close the game and back up your save. Use a working compatible 64-bit ASI loader; the loader is not included. Copy ds2_crafting_unlocks.asi and ds2_crafting_unlocks.ini beside DS2.exe. Keep only one Crafting Unlocks ASI installed. Reuse your existing loader rather than replacing it.
+
+UPDATING
+The same 119 settings from 0.2.0-alpha are supported. Keep your customized INI or transfer its 0 exceptions into the supplied default INI. Version 1.0.0 changes the runtime version label, not the tested hook/selection logic.
+
+REQUIREMENTS AND COMPATIBILITY
+Windows x64 and the supported DS2.exe 1.10.89.0 binary. The full SHA-256 and hook signatures are checked; a different executable is not automatically supported. Other storefronts and every combination of mods have not been certified. Do not bypass version checks.
+
+PROGRESSION AND SAVES
+Normal recipe progression is retained. Crafting and applying equipment are still real game actions: inventory, equipment, material use and native purchase/manufacture flags can be saved. Removing the mod does not undo those actions. Every later story reward and unlock notification has not been exhaustively tested.
+
+TESTING
+The user confirmed early fabrication at the first Episode 2 terminal, successfully crafted the Battle Guitar, and confirmed that the backpack equipment, covers and charms were unlocked with the candidate build. Version 1.0.0 preserves that runtime logic and passed offline regression checks. This is not a claim that every item, payment or save/reward sequence has been individually tested.
+
+UNINSTALLATION
+Close the game and remove this mod's ASI and INI. Previously saved equipment and spent materials are not rolled back. Leave a shared ASI loader installed while other mods need it.
+
+CREDITS
+Thanks to the testers and the DEATH STRANDING 2 modding community. ASI loader support is provided separately by its respective authors.

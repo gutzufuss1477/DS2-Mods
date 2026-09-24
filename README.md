@@ -4,6 +4,8 @@ Source code, documentation and validated releases for my DEATH STRANDING 2 mods.
 
 ## Mods
 
+- [Crafting Unlocks - Equipment, Backpack and Charms](mods/crafting-unlocks/)
+
 - [Improved Odradek Scan](mods/improved-odradek-scan/)
 
 * [Hill Assist and Speed Boost](mods/hill-assist-and-speed-boost/)

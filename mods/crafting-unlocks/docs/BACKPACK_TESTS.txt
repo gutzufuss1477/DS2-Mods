@@ -1,0 +1,2 @@
+PASS 13675 backpack/config assertions; 119 INI keys; 19 modules + 2 covers + 8 charms.
+Native progression was supplied as policy input. No Windows loader, engine-copy, or in-game test.

@@ -1,0 +1,25 @@
+SOURCE: DECOMPILE_0104.txt
+FUNCTION RVA 0xBE80B0
+NAME: FUN_140be80b0
+SIZE: 239
+SIGNATURE: undefined FUN_140be80b0(void)
+================================================================
+
+void FUN_140be80b0(longlong param_1)
+
+{
+  FUN_1400ab550(param_1 + 0x18);
+  FUN_1400ab480(param_1 + 0x18);
+  *(char **)(param_1 + 0x10) = "DSGameRawMaterialListItemSymbols";
+  FUN_1400a6a60(param_1,2,&DAT_144334170,"DSGameRawMaterialListItem","DSGameRawMaterialListItem",0,0
+                ,0,0,1,0);
+  FUN_1400a7350(param_1,&DAT_144334170,"UUIDRef_DSGameRawMaterialListItem",1);
+  FUN_1400a6a60(param_1,1,&DAT_143d7b8f0,"EDSGameRawMaterialListItem_Type",
+                "EDSGameRawMaterialListItem_Type",0,0,FUN_1400b12d0,0,1,&DAT_143b50c00);
+  FUN_1400ab3a0(param_1 + 0x18);
+  return;
+}
+
+
+
+================================================================

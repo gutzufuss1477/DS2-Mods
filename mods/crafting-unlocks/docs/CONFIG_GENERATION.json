@@ -1,0 +1,10 @@
+{
+  "output": "/mnt/data/DS2_Crafting_Unlocks_v1.0.0_GIT/mods/crafting-unlocks/release/ds2_crafting_unlocks.ini",
+  "recipe_count": 119,
+  "line_count": 155,
+  "bytes": 5261,
+  "sha256": "f3fbc996a17b64a83d198066f41ea48c66a6d66788f1d698f67f1423af2a9ea9",
+  "catalogue_sha256": "52bb35971b49649aecc16dc8400cc89fa3280dc4cf5e92606072d8153da29d52",
+  "all_item_values": 1,
+  "encoding": "ASCII (UTF-8 compatible), CRLF, no BOM"
+}

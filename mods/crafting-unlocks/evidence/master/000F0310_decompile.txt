@@ -1,0 +1,16 @@
+SOURCE: DECOMPILE_0008.txt
+FUNCTION RVA 0xF0310
+NAME: FUN_1400f0310
+SIZE: 6
+SIGNATURE: undefined FUN_1400f0310(void)
+================================================================
+
+undefined8 FUN_1400f0310(void)
+
+{
+  return 1;
+}
+
+
+
+================================================================

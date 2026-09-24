@@ -1,0 +1,38 @@
+RVA=0xC21EA0 NAME=FUN_140c21ea0 SIZE=178
+
+undefined8 FUN_140c21ea0(void)
+
+{
+  longlong lVar1;
+  int iVar2;
+  int iVar3;
+  int iVar4;
+  undefined8 local_res10;
+  
+  lVar1 = DAT_14623e620;
+  local_res10 = *(undefined8 *)(DAT_14623e620 + 8);
+  iVar2 = FUN_140c1d7c0(DAT_14623e628,&local_res10,2);
+  iVar3 = FUN_140c21c60(lVar1,2);
+  iVar4 = 0;
+  if (0 < iVar2 - iVar3) {
+    iVar4 = iVar2 - iVar3;
+  }
+  if (iVar4 < 1) {
+    local_res10 = *(undefined8 *)(lVar1 + 8);
+    iVar2 = FUN_140c1d7c0(DAT_14623e628,&local_res10,0);
+    iVar3 = FUN_140c21c60(lVar1,0);
+    iVar4 = 0;
+    if (0 < iVar2 - iVar3) {
+      iVar4 = iVar2 - iVar3;
+    }
+    if (iVar4 < 1) {
+      return 0;
+    }
+  }
+  if (*(longlong *)(lVar1 + 0x10) == 0) {
+    return 0;
+  }
+  return 1;
+}
+
+

@@ -1,0 +1,58 @@
+SOURCE: DECOMPILE_0175.txt
+FUNCTION RVA 0x182C190
+NAME: FUN_14182c190
+SIZE: 313
+SIGNATURE: undefined FUN_14182c190(void)
+================================================================
+
+void FUN_14182c190(longlong param_1)
+
+{
+  int *piVar1;
+  uint *puVar2;
+  int iVar3;
+  undefined8 *puVar4;
+  longlong lVar5;
+  
+  lVar5 = DAT_1462473f8;
+  FUN_1422e2350(*(undefined8 *)(DAT_1462473f8 + 0xa0),*(undefined8 *)(param_1 + 600),1);
+  if (*(longlong *)(lVar5 + 0x100) != 0) {
+    puVar4 = *(undefined8 **)(lVar5 + 0x108);
+    if (puVar4 == (undefined8 *)0x0) {
+      (**(code **)(lVar5 + 0x100))(0);
+    }
+    else {
+      LOCK();
+      *(int *)(puVar4 + 1) = *(int *)(puVar4 + 1) + 1;
+      UNLOCK();
+      (**(code **)(lVar5 + 0x100))();
+      LOCK();
+      piVar1 = (int *)(puVar4 + 1);
+      iVar3 = *piVar1;
+      *piVar1 = *piVar1 + -1;
+      UNLOCK();
+      if (iVar3 == 1) {
+        (**(code **)*puVar4)(puVar4,1);
+      }
+    }
+  }
+  FUN_1422e1cd0(*(undefined8 *)(DAT_1462473f8 + 0xa0),*(undefined8 *)(param_1 + 0x260),0);
+  (**(code **)(**(longlong **)(param_1 + 0x260) + 0xc0))(*(longlong **)(param_1 + 0x260),0,0,0,1);
+  *(undefined4 *)(param_1 + 0x2a4) = *(undefined4 *)(*(longlong *)(param_1 + 0x1b8) + 0x14c);
+  *(undefined1 *)(*(longlong *)(param_1 + 0x1b8) + 0x13c) = 3;
+  lVar5 = *(longlong *)(param_1 + 0x1b8);
+  puVar2 = (uint *)(lVar5 + 0x134);
+  *(undefined4 *)(lVar5 + 0x148) = *(undefined4 *)(lVar5 + 0x144);
+  *(undefined4 *)(lVar5 + 0x144) = 0;
+  if (*(char *)(lVar5 + 0x13c) != '\x03') {
+    *puVar2 = *puVar2 | 2;
+  }
+  FUN_14171cfc0(lVar5,lVar5 + 0x141,lVar5 + 0x1da,*(char *)(lVar5 + 0x13c) == '\x01');
+  *puVar2 = *puVar2 | 4;
+  *puVar2 = *puVar2 | 0x208;
+  return;
+}
+
+
+
+================================================================

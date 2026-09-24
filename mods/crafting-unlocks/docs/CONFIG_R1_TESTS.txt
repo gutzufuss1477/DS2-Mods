@@ -1,0 +1,3 @@
+PASS 9295 config/progression-policy assertions; 90 shipped recipe keys.
+Original production core used unchanged. Native progression was supplied as test input.
+No Windows/game execution; no claim that all story rewards or notifications were tested.

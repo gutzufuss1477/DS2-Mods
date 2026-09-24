@@ -1,0 +1,51 @@
+RVA=0xB63F20 NAME=FUN_140b63f20 SIZE=448
+
+void FUN_140b63f20(undefined8 param_1,longlong param_2)
+
+{
+  longlong lVar1;
+  uint uVar2;
+  undefined8 local_res8;
+  
+  lVar1 = DAT_14623e538;
+  local_res8 = param_1;
+  FUN_142653420(param_2,0x1375aee6,4);
+  (**(code **)(**(longlong **)(param_2 + 0x1188) + 8))
+            (*(longlong **)(param_2 + 0x1188),lVar1 + 0x238,4);
+  (**(code **)(**(longlong **)(param_2 + 0x1188) + 8))
+            (*(longlong **)(param_2 + 0x1188),lVar1 + 0x2f0,1);
+  local_res8._0_1_ = *(undefined1 *)(lVar1 + 0x31a);
+  (**(code **)(**(longlong **)(param_2 + 0x1188) + 8))
+            (*(longlong **)(param_2 + 0x1188),&local_res8,1);
+  local_res8 = CONCAT71(local_res8._1_7_,*(undefined1 *)(lVar1 + 0x31c));
+  (**(code **)(**(longlong **)(param_2 + 0x1188) + 8))
+            (*(longlong **)(param_2 + 0x1188),&local_res8,1);
+  FUN_142653420(param_2,0x649e4440,0);
+  FUN_142652b10(param_2,0);
+  (**(code **)(**(longlong **)(param_2 + 0x1188) + 8))
+            (*(longlong **)(param_2 + 0x1188),lVar1 + 0x10,1);
+  (**(code **)(**(longlong **)(param_2 + 0x1188) + 8))
+            (*(longlong **)(param_2 + 0x1188),lVar1 + 0x11,1);
+  (**(code **)(**(longlong **)(param_2 + 0x1188) + 8))
+            (*(longlong **)(param_2 + 0x1188),lVar1 + 0x14,4);
+  local_res8 = *(undefined8 *)(lVar1 + 0x18);
+  (**(code **)(**(longlong **)(param_2 + 0x1188) + 8))
+            (*(longlong **)(param_2 + 0x1188),&local_res8,8);
+  uVar2 = (**(code **)(**(longlong **)(param_2 + 0x1188) + 0x30))();
+  if (*(uint *)(param_2 + 0x1648) < 0x96) {
+    *(ulonglong *)(param_2 + 0x1198 + (ulonglong)*(uint *)(param_2 + 0x1648) * 8) =
+         (ulonglong)uVar2 | 0x2066c15000000000;
+    *(int *)(param_2 + 0x1648) = *(int *)(param_2 + 0x1648) + 1;
+  }
+  FUN_142653420(param_2,0x2066c150,0);
+  uVar2 = (**(code **)(**(longlong **)(param_2 + 0x1188) + 0x30))();
+  if (*(uint *)(param_2 + 0x1648) < 0x96) {
+    *(ulonglong *)(param_2 + 0x1198 + (ulonglong)*(uint *)(param_2 + 0x1648) * 8) =
+         (ulonglong)uVar2 | 0x3c92e2c000000000;
+    *(int *)(param_2 + 0x1648) = *(int *)(param_2 + 0x1648) + 1;
+  }
+  FUN_142653420(param_2,0x3c92e2c0,0);
+  return;
+}
+
+

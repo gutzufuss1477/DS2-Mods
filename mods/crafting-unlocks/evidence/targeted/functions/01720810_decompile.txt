@@ -1,0 +1,57 @@
+RVA=0x1720810 NAME=FUN_141720810 SIZE=282
+
+/* WARNING: Function: __chkstk replaced with injection: alloca_probe */
+/* WARNING: Function: __security_check_cookie replaced with injection: security_check_cookie */
+
+void FUN_141720810(longlong param_1)
+
+{
+  longlong lVar1;
+  undefined *puVar2;
+  undefined **ppuVar3;
+  undefined **ppuVar4;
+  undefined8 uStack_12038;
+  undefined8 uStack_12030;
+  ulonglong uStack_12028;
+  undefined1 auStack_12020 [73752];
+  
+  uStack_12030 = 0;
+  uStack_12028 = 0;
+  lVar1 = FUN_1412699d0(DAT_14623ead8,*(undefined4 *)(param_1 + 0x1e8));
+  if (lVar1 == 0) {
+    uStack_12038 = 0xffffffffffffffff;
+  }
+  else {
+    uStack_12038 = *(undefined8 *)(lVar1 + 0x68);
+  }
+  FUN_1414805b0(&uStack_12030,auStack_12020,&uStack_12038);
+  FUN_141480ad0(&uStack_12030,auStack_12020,param_1 + 0x18c,param_1 + 0x1a4);
+  ppuVar4 = DAT_14a1b8970;
+  if (uStack_12028 == 0) {
+    return;
+  }
+  if ((uStack_12028 < DAT_1441c1500) || (DAT_1441c1508 <= uStack_12028)) {
+    ppuVar3 = *(undefined ***)(&DAT_00001a68 + *(longlong *)ThreadLocalStoragePointer);
+    if (*(undefined ***)(&DAT_00001a68 + *(longlong *)ThreadLocalStoragePointer) ==
+        (undefined **)0x0) {
+      *(undefined ***)(&DAT_00001a68 + *(longlong *)ThreadLocalStoragePointer) = DAT_14a1b8970;
+      ppuVar3 = ppuVar4;
+    }
+    if (ppuVar3 != &PTR_vftable_1441c07e0) goto LAB_1417208fb;
+  }
+  else {
+    ppuVar3 = &PTR_vftable_1441c07e0;
+LAB_1417208fb:
+    if (ppuVar3 != ppuVar4) {
+      puVar2 = *ppuVar3;
+      ppuVar4 = ppuVar3;
+      goto LAB_14172090b;
+    }
+  }
+  puVar2 = *ppuVar4;
+LAB_14172090b:
+  (**(code **)(puVar2 + 0x90))(ppuVar4);
+  return;
+}
+
+

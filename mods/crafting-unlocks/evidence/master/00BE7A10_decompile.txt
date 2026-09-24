@@ -1,0 +1,24 @@
+SOURCE: DECOMPILE_0104.txt
+FUNCTION RVA 0xBE7A10
+NAME: FUN_140be7a10
+SIZE: 78
+SIGNATURE: undefined FUN_140be7a10(void)
+================================================================
+
+undefined8 FUN_140be7a10(undefined8 param_1,ulonglong param_2)
+
+{
+  FUN_140be7a60();
+  if ((param_2 & 1) != 0) {
+    if ((param_2 & 4) == 0) {
+      FUN_1400a0d10();
+      return param_1;
+    }
+    AK::TempAlloc::DumpTempAllocsToFile((Type)param_1,(wchar_t *)&DAT_000000c0);
+  }
+  return param_1;
+}
+
+
+
+================================================================

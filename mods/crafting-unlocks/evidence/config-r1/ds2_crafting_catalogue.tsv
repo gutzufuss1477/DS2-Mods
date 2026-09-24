@@ -1,0 +1,904 @@
+recipe_key	name	usage	bag_namecode	master_flags	status_at_this_facility
+0x6E7D4315	Transportstiefel	All	0x45711B80	0x00008000	eligible
+0x2F256E9F	Zusatzakku St.1	BackPackCustomize	0x0429360A	0x00000001	separate_native_path
+0x3C759D6B	Vorratstasche	BackPackCustomize	0x1779C5FE	0x00000002	separate_native_path
+0x4E1E1E68	Granatentasche	BackPackCustomize	0x651246FD	0x00000003	separate_native_path
+0x529CA1CA	Kampf-Krafthandschuhe St.1	All	0x7990F95F	0x00000004	eligible
+0x20F722C9	Kletter-Krafthandschuhe St.1	All	0x0BFB7A5C	0x00000005	eligible
+0x68BFF980	Chirales Antischwerkraftgerät	BackPackCustomize	0x43B3A115	0x00000006	separate_native_path
+0x7D2DB0E1	Wanderstiefel	All	0x5621E874	0x00000007	eligible
+0x0F4633E2	Kampfstiefel	All	0x244A6B77	0x00000008	eligible
+0x7DDFDB62	Kampfskelett St.1	All	0x56D383F7	0x00000009	eligible
+0x6E8F2896	Kampfskelett St.2	All	0x45837003	0x0000000A	eligible
+0x1CE4AB95	Kampfskelett St.3	All	0x37E8F300	0x0000000B	eligible
+0x493873FB	Bokka-Skelett St.1	All	0x62342B6E	0x0000000C	eligible
+0x5A68800F	Bokka-Skelett St.2	All	0x7164D89A	0x0000000D	eligible
+0x2803030C	Bokka-Skelett St.3	All	0x030F5B99	0x0000000E	eligible
+0x5A9AEB8C	Boost-Skelett St.1	All	0x7196B319	0x0000000F	eligible
+0x49CA1878	Boost-Skelett St.2	All	0x62C640ED	0x00000010	eligible
+0x3BA19B7B	Boost-Skelett St.3	All	0x10ADC3EE	0x00000011	eligible
+0x7BEF0A74	Automatische Reanimationshilfe	BackPackCustomize	0x50E352E1	0x00000012	separate_native_path
+0x09848977	Elektrischer Stoßdämpfer	BackPackCustomize	0x2288D1E2	0x00000013	separate_native_path
+0x5797B553	Mini-Zusatzakku	BackPackCustomize	0x7C9BEDC6	0x00000014	separate_native_path
+0x25FC3650	Rückenprotektor	BackPackCustomize	0x0EF06EC5	0x00000015	separate_native_path
+0x4EEC75EB	Solargenerator	BackPackCustomize	0x65E02D7E	0x00000016	separate_native_path
+0x3C87F6E8	Große Granatentasche	BackPackCustomize	0x178BAE7D	0x00000017	separate_native_path
+0x1C16C016	Stiefel des Pizzabäckers	All	0x371A9883	0x00000018	eligible
+0x5DBC861F	Stabilisator St.1	BackPackCustomize	0x76B0DE8A	0x00000019	separate_native_path
+0x0976E2F4	Stabilisator St.2	BackPackCustomize	0x227ABA61	0x0000001A	separate_native_path
+0x7B1D61F7	Stabilisator St.3	BackPackCustomize	0x50113962	0x0000001B	separate_native_path
+0x684D9203	Großer Reservemunitionsbehälter St.1	BackPackCustomize	0x4341CA96	0x0000001C	separate_native_path
+0x1A261100	Großer Reservemunitionsbehälter St.2	BackPackCustomize	0x312A4995	0x0000001D	separate_native_path
+0x44352D24	Reservemunitionsbehälter	BackPackCustomize	0x6F3975B1	0x0000001E	separate_native_path
+0x365EAE27	Rucksackregenschutz St.1	BackPackCustomize	0x1D52F6B2	0x0000001F	separate_native_path
+0x7A0BDD72	Rucksackregenschutz St.2	BackPackCustomize	0x510785E7	0x00000020	separate_native_path
+0x780F7FE2	Kryptobiot	BackPackCustomize	0x53032777	0x00000021	separate_native_path
+0x0A64FCE1	Liebesknoten	BackPackCustomize	0x2168A474	0x00000022	separate_native_path
+0x19340F15	Glocke	BackPackCustomize	0x32385780	0x00000023	separate_native_path
+0x6B5F8C16	Chiraler Tee	BackPackCustomize	0x4053D483	0x00000024	separate_native_path
+0x3F95E8FD	Quokka	BackPackCustomize	0x1499B068	0x00000025	separate_native_path
+0x4DFE6BFE	Bote	BackPackCustomize	0x66F2336B	0x00000026	separate_native_path
+0x5EAE980A	Elektrobiot	BackPackCustomize	0x75A2C09F	0x00000027	separate_native_path
+0x2CC51B09	Boxende Kängurus	BackPackCustomize	0x07C9439C	0x00000028	separate_native_path
+0x33A7D13D	Kampf-Krafthandschuhe St.2	All	0x18AB89A8	0x00000029	eligible
+0x08605E71	Zusatzakku St.2	BackPackCustomize	0x236C06E4	0x0000002A	separate_native_path
+0x1B30AD85	Zusatzakku St.3	BackPackCustomize	0x303CF510	0x0000002B	separate_native_path
+0x695B2E86	Zusatzakku St.4	BackPackCustomize	0x42577613	0x0000002C	separate_native_path
+0x5B8C5709	Schleichstiefel	All	0x70800F9C	0x0000002D	eligible
+0x29E7D40A	Banditenstiefel	None	0x02EB8C9F	0x0000002E	separate_native_path
+0x3AB727FE	Brigand-Stiefel	None	0x11BB7F6B	0x0000002F	separate_native_path
+0x48DCA4FD	Waffennarren-Stiefel	None	0x63D0FC68	0x00000030	separate_native_path
+0x16CF98D9	Allround-Stiefel	All	0x3DC3C04C	0x00000031	eligible
+0x64A41BDA	MULE-Stiefel	None	0x4FA8434F	0x00000032	separate_native_path
+0x41CC523E	Kletter-Krafthandschuhe St.2	All	0x6AC00AAB	0x00000033	eligible
+0x413E39BD	Wärmepad	All	0x6A326128	0x00000034	eligible
+0x3355BABE	Sauerstoffmaske	All	0x1859E22B	0x00000035	eligible
+0x1221BF91	Flicken 1: Ludens	BackPackCustomize	0x392DE704	0x00000036	separate_native_path
+0x604A3C92	Flicken 2: KOJIMA PRODUCTIONS	BackPackCustomize	0x4B466407	0x00000037	separate_native_path
+0x731ACF66	Flicken 3: APAS	BackPackCustomize	0x581697F3	0x00000038	separate_native_path
+0x01714C65	Flicken 4: Drawbridge	BackPackCustomize	0x2A7D14F0	0x00000039	separate_native_path
+0x55BB288E	Flicken 5: Fragile Express	BackPackCustomize	0x7EB7701B	0x0000003A	separate_native_path
+0x27D0AB8D	Flicken 6: Bridges (A)	BackPackCustomize	0x0CDCF318	0x0000803B	separate_native_path
+0x34805879	Flicken 7: Bridges (B)	BackPackCustomize	0x1F8C00EC	0x0000803C	separate_native_path
+0x46EBDB7A	Flicken 8: Bridges (C)	BackPackCustomize	0x6DE783EF	0x0000803D	separate_native_path
+0x18F8E75E	Flicken 9: Bote	BackPackCustomize	0x33F4BFCB	0x0000003E	separate_native_path
+0x6A93645D	Flicken 10: Pizza Atami	BackPackCustomize	0x419F3CC8	0x0000003F	separate_native_path
+0x018327E6	Flicken 11: Zertifizierter Bote	BackPackCustomize	0x2A8F7F73	0x00000040	separate_native_path
+0x73E8A4E5	Flicken 12: Fortgeschrittener Bote	BackPackCustomize	0x58E4FC70	0x00000041	separate_native_path
+0x60B85711	Flicken 13: Meisterbote	BackPackCustomize	0x4BB40F84	0x00000042	separate_native_path
+0x12D3D412	Flicken 14: A-	BackPackCustomize	0x39DF8C87	0x00008043	separate_native_path
+0x4619B0F9	Flicken 15: A+	BackPackCustomize	0x6D15E86C	0x00008044	separate_native_path
+0x347233FA	Flicken 16: B-	BackPackCustomize	0x1F7E6B6F	0x00008045	separate_native_path
+0x2722C00E	Flicken 17: B+	BackPackCustomize	0x0C2E989B	0x00008046	separate_native_path
+0x5549430D	Flicken 18: O-	BackPackCustomize	0x7E451B98	0x00008047	separate_native_path
+0x0B5A7F29	Flicken 19: O+	BackPackCustomize	0x205627BC	0x00008048	separate_native_path
+0x7931FC2A	Flicken 20: AB-	BackPackCustomize	0x523DA4BF	0x00008049	separate_native_path
+0x35648F7F	Flicken 21: AB+	BackPackCustomize	0x1E68D7EA	0x0000804A	separate_native_path
+0x470F0C7C	Flicken 22: Goldener Giftpilz (S)	BackPackCustomize	0x6C0354E9	0x0000804B	separate_native_path
+0x545FFF88	Flicken 23: Goldener Giftpilz (M)	BackPackCustomize	0x7F53A71D	0x0000804C	separate_native_path
+0x26347C8B	Flicken 24: Goldener Giftpilz (L)	BackPackCustomize	0x0D38241E	0x0000804D	separate_native_path
+0x72FE1860	Flicken 25: Lächeln	BackPackCustomize	0x59F240F5	0x0000004E	separate_native_path
+0x00959B63	Flicken 26: !	BackPackCustomize	0x2B99C3F6	0x0000004F	separate_native_path
+0x13C56897	Flicken 27: Gefällt mir!	BackPackCustomize	0x38C93002	0x00000050	separate_native_path
+0x61AEEB94	Flicken 28: Tier	BackPackCustomize	0x4AA2B301	0x00000051	separate_native_path
+0x3FBDD7B0	Flicken 29: Heiße Quelle	BackPackCustomize	0x14B18F25	0x00000052	separate_native_path
+0x4DD654B3	Flicken 30: Amerikanischer Kryptobiot	BackPackCustomize	0x66DA0C26	0x00008053	separate_native_path
+0x26C61708	Flicken 31: Mexikanischer Kryptobiot	BackPackCustomize	0x0DCA4F9D	0x00000054	separate_native_path
+0x54AD940B	Flicken 32: Australischer Kryptobiot	BackPackCustomize	0x7FA1CC9E	0x00000055	separate_native_path
+0x47FD67FF	Flicken 33: Elektrobiot	BackPackCustomize	0x6CF13F6A	0x00000056	separate_native_path
+0x3596E4FC	Flicken 34: Chlorobiot	BackPackCustomize	0x1E9ABC69	0x00000057	separate_native_path
+0x615C8017	Flicken 35: Nekrobiot	BackPackCustomize	0x4A50D882	0x00000058	separate_native_path
+0x13370314	Flicken 36: Chronobiot	BackPackCustomize	0x383B5B81	0x00000059	separate_native_path
+0x0067F0E0	Flicken 37: Ich liebe BB	BackPackCustomize	0x2B6BA875	0x0000005A	separate_native_path
+0x720C73E3	Flicken 38: BB in Kapsel	BackPackCustomize	0x59002B76	0x0000005B	separate_native_path
+0x2C1F4FC7	Flicken 39: Tentakel in BB-Kapsel	BackPackCustomize	0x07131752	0x0000005C	separate_native_path
+0x5E74CCC4	Flicken 40: Holzblöcke	BackPackCustomize	0x75789451	0x0000005D	separate_native_path
+0x5CABDE4D	Flicken 41: Erwachsener Kryptobiot	BackPackCustomize	0x77A786D8	0x0000005E	separate_native_path
+0x2EC05D4E	Flicken 42: Bote	BackPackCustomize	0x05CC05DB	0x0000005F	separate_native_path
+0x3D90AEBA	Flicken 43: Like	BackPackCustomize	0x169CF62F	0x00000060	separate_native_path
+0x4FFB2DB9	Flicken 44: Handabdruck	BackPackCustomize	0x64F7752C	0x00000061	separate_native_path
+0x1B314952	Flicken 45: GD Octopoid	BackPackCustomize	0x303D11C7	0x00000062	separate_native_path
+0x695ACA51	Flicken 46: GD Bestia	BackPackCustomize	0x425692C4	0x00000063	separate_native_path
+0x7A0A39A5	Flicken 47: GD Gigas	BackPackCustomize	0x51066130	0x00000064	separate_native_path
+0x0861BAA6	Flicken 48: GD Walfisch	BackPackCustomize	0x236DE233	0x00000065	separate_native_path
+0x56728682	Flicken 49: GD Magniceps	BackPackCustomize	0x7D7EDE17	0x00000066	separate_native_path
+0x24190581	Flicken 50: GD Kheir	BackPackCustomize	0x0F155D14	0x00000067	separate_native_path
+0x4F09463A	Flicken 51: GD Raia	BackPackCustomize	0x64051EAF	0x00000068	separate_native_path
+0x3D62C539	Flicken 52: GD Megalocarcinus	BackPackCustomize	0x166E9DAC	0x00000069	separate_native_path
+0x2E3236CD	Flicken 53: Chiralsäugetier	BackPackCustomize	0x053E6E58	0x0000006A	separate_native_path
+0x5C59B5CE	Flicken 54: Chiralnagetier	BackPackCustomize	0x7755ED5B	0x0000006B	separate_native_path
+0x0893D125	Flicken 55: Chiralspinne	BackPackCustomize	0x239F89B0	0x0000006C	separate_native_path
+0x7AF85226	Flicken 56: DHV Magellan	BackPackCustomize	0x51F40AB3	0x0000006D	separate_native_path
+0x69A8A1D2	Flicken 57: Tri-Cruiser	BackPackCustomize	0x42A4F947	0x0000006E	separate_native_path
+0x1BC322D1	Flicken 58: Pick-up-Geländewagen	BackPackCustomize	0x30CF7A44	0x0000006F	separate_native_path
+0x45D01EF5	Flicken 59: Surfsarg	BackPackCustomize	0x6EDC4660	0x00000070	separate_native_path
+0x37BB9DF6	Flicken 60: Monobike	BackPackCustomize	0x1CB7C563	0x00000071	separate_native_path
+0x7BEEEEA3	Flicken 61: Monobahn	BackPackCustomize	0x50E2B636	0x00000072	separate_native_path
+0x09856DA0	Flicken 62: Frachtkatapult	BackPackCustomize	0x22893535	0x00000073	separate_native_path
+0x1AD59E54	Flicken 63: Otterkapuze	BackPackCustomize	0x31D9C6C1	0x00000074	separate_native_path
+0x68BE1D57	Flicken 64: Kamelkapuze	BackPackCustomize	0x43B245C2	0x00000075	separate_native_path
+0x3C7479BC	Flicken 65: Blutbumerang	BackPackCustomize	0x17782129	0x00000076	separate_native_path
+0x4E1FFABF	Flicken 66: Higgs‘ Gitarre	BackPackCustomize	0x6513A22A	0x00000077	separate_native_path
+0x5D4F094B	Flicken 67: Unmögliche Form	BackPackCustomize	0x764351DE	0x00000078	separate_native_path
+0x2F248A48	Flicken 68: Regenbogenlori	BackPackCustomize	0x0428D2DD	0x00000079	separate_native_path
+0x7137B66C	Flicken 69: Boxende Kängurus	BackPackCustomize	0x5A3BEEF9	0x0000007A	separate_native_path
+0x035C356F	Flicken 70: Quokka	BackPackCustomize	0x28506DFA	0x0000007B	separate_native_path
+0x684C76D4	Flicken 71: Chiralkatze	BackPackCustomize	0x43402E41	0x0000007C	separate_native_path
+0x1A27F5D7	Flicken 72: Why Me?	BackPackCustomize	0x312BAD42	0x0000007D	separate_native_path
+0x482ECF7E	Kampfskelett: Gold St.1	All	0x632297EB	0x0000007E	dlc_native_only
+0x3A454C7D	Kampfskelett: Gold St.2	All	0x114914E8	0x0000007F	dlc_native_only
+0x2915BF89	Kampfskelett: Gold St.3	All	0x0219E71C	0x00000080	dlc_native_only
+0x5B7E3C8A	Kampfskelett: Silber St.1	All	0x7072641F	0x00000081	dlc_native_only
+0x056D00AE	Kampfskelett: Silber St.2	All	0x2E61583B	0x00000082	dlc_native_only
+0x770683AD	Kampfskelett: Silber St.3	All	0x5C0ADB38	0x00000083	dlc_native_only
+0x7CC967E7	Bokka-Skelett: Gold St.1	All	0x57C53F72	0x00000084	dlc_native_only
+0x0EA2E4E4	Bokka-Skelett: Gold St.2	All	0x25AEBC71	0x00000085	dlc_native_only
+0x1DF21710	Bokka-Skelett: Gold St.3	All	0x36FE4F85	0x00000086	dlc_native_only
+0x6F999413	Bokka-Skelett: Silber St.1	All	0x4495CC86	0x00000087	dlc_native_only
+0x318AA837	Bokka-Skelett: Silber St.2	All	0x1A86F0A2	0x00000088	dlc_native_only
+0x43E12B34	Bokka-Skelett: Silber St.3	All	0x68ED73A1	0x00000089	dlc_native_only
+0x6F6BFF90	Boost-Skelett: Gold St.1	All	0x4467A705	0x0000008A	dlc_native_only
+0x1D007C93	Boost-Skelett: Gold St.2	All	0x360C2406	0x0000008B	dlc_native_only
+0x0E508F67	Boost-Skelett: Gold St.3	All	0x255CD7F2	0x0000008C	dlc_native_only
+0x7C3B0C64	Boost-Skelett: Silber St.1	All	0x573754F1	0x0000008D	dlc_native_only
+0x22283040	Boost-Skelett: Silber St.2	All	0x092468D5	0x0000008E	dlc_native_only
+0x5043B343	Boost-Skelett: Silber St.3	All	0x7B4FEBD6	0x0000008F	dlc_native_only
+0x75D99124	Omnireflektor-Stiefel	None	0x5ED5C9B1	0x00000090	separate_native_path
+0x07B21227	Chirale Stiefel	None	0x2CBE4AB2	0x00000091	separate_native_path
+0x09770623	Flicken: Verknüpfen	BackPackCustomize	0x227B5EB6	0x00000092	separate_native_path
+0x7B1C8520	Flicken: Krebs	BackPackCustomize	0x5010DDB5	0x00000093	separate_native_path
+0x2FD6E1CB	Flicken: TTW	BackPackCustomize	0x04DAB95E	0x00000094	separate_native_path
+0x5CCBD2CD	Blutbeutel	All	0x77C78A58	0x00008095	eligible
+0x4F9B2139	Hochleistungsblutbeutel	All	0x649779AC	0x00000096	eligible
+0x4F694ABA	Feldflasche St.2	None	0x6465122F	0x00000097	separate_native_path
+0x3D02C9B9	Feldflasche	None	0x160E912C	0x00040098	separate_native_path
+0x4D19FD3A	GD-Kristall (Delfin)	None	0x432022C1	0x00000099	separate_native_path
+0x5E490ECE	GD-Kristall (Octopoid)	None	0x5070D135	0x0000009A	separate_native_path
+0x2C228DCD	GD-Kristall (Bestia)	None	0x221B5236	0x0000009B	separate_native_path
+0x78E8E926	GD-Kristall (Kheir)	None	0x76D136DD	0x0000009C	separate_native_path
+0x0A836A25	GD-Kristall (Raia)	None	0x04BAB5DE	0x0000009D	separate_native_path
+0x19D399D1	GD-Kristall (Gigas)	None	0x17EA462A	0x0000009E	separate_native_path
+0x6BB81AD2	GD-Kristall (Walfisch)	None	0x6581C529	0x0000009F	separate_native_path
+0x35AB26F6	GD-Kristall (Megalocarcinus)	None	0x3B92F90D	0x000000A0	separate_native_path
+0x1E7ECEC5	Metalle [{0}]	All	0x641752E3	0x000080A1	eligible
+0x2D34005C	« 	None	0x132DEC97	0x000000A2	separate_native_path
+0x2258B68D	Metalle [{0}]	All	0x58312AAB	0x000080A3	eligible
+0x11127814	« 	None	0x2F0B94DF	0x000000A4	separate_native_path
+0x5033358E	Metalle [{0}]	All	0x2A5AA9A8	0x000080A5	eligible
+0x53A9F55B	Metalle [{0}]	All	0x55CFF5F1	0x000080A6	eligible
+0x40B04616	Resine [{0}]	All	0x3AD9DA30	0x000080A7	eligible
+0x72D8EA43	« 	None	0x4CC10688	0x000000A8	separate_native_path
+0x7C963E5E	Resine [{0}]	All	0x06FFA278	0x000080A9	eligible
+0x4EFE920B	« 	None	0x70E77EC0	0x000000AA	separate_native_path
+0x0EFDBD5D	Resine [{0}]	All	0x7494217B	0x000080AB	eligible
+0x13F4298C	Resine [{0}]	All	0x15922926	0x000080AC	eligible
+0x7EEF7EE6	Keramik [{0}]	All	0x37408578	0x000080AD	eligible
+0x7D10ACB5	« 	None	0x7E44A2BA	0x000000AE	separate_native_path
+0x42C906AE	Keramik [{0}]	All	0x0B66FD30	0x000080AF	eligible
+0x4136D4FD	« 	None	0x4262DAF2	0x000000B0	separate_native_path
+0x30A285AD	Keramik [{0}]	All	0x790D7E33	0x000080B1	eligible
+0x60A419C1	Keramik [{0}]	All	0x5EBDF50A	0x000080B2	eligible
+0x066DC4C7	Chemikalien [{0}]	All	0x5C5750D4	0x000080B3	eligible
+0x5B049584	« 	None	0x1005230A	0x000000B4	separate_native_path
+0x3A4BBC8F	Chemikalien [{0}]	All	0x6071289C	0x000080B5	eligible
+0x6722EDCC	« 	None	0x2C235B42	0x000000B6	separate_native_path
+0x48203F8C	Chemikalien [{0}]	All	0x121AAB9F	0x000080B7	eligible
+0x328A96A6	Chemikalien [{0}]	All	0x31DE98A9	0x000080B8	eligible
+0x23A3B41C	Spezielle Legierungen [{0}]	All	0x0D6631F5	0x000080B9	eligible
+0x6537ACE3	« 	None	0x05B63D72	0x000000BA	separate_native_path
+0x1F85CC54	Spezielle Legierungen [{0}]	All	0x314049BD	0x000080BB	eligible
+0x5911D4AB	« 	None	0x3990453A	0x000000BC	separate_native_path
+0x6DEE4F57	Spezielle Legierungen [{0}]	All	0x432BCABE	0x000080BD	eligible
+0x78751246	Spezielle Legierungen [{0}]	All	0x63D9A415	0x000080BE	eligible
+0x09C6799F	[name unavailable]	All	0x42C7CF11	0x000080BF	resource_not_validated
+0x4708E49F	<letter case=default>Lastenschweber St.1</letter><letter case=lower>Lastenschweber St.1</letter>	All	0x6C04BC0A	0x000000C0	eligible
+0x5458176B	<letter case=default>Lastenschweber St.2</letter><letter case=lower>Lastenschweber St.2</letter>	All	0x7F544FFE	0x000000C1	eligible
+0x26C1FFEB	<letter case=default>Tri-Cruiser</letter><letter case=lower>Tri-Cruiser</letter>	Vehicle	0x0DCDA77E	0x000000C2	separate_native_path
+0x12265772	<letter case=default>Pick-up-Geländewagen</letter><letter case=lower>Pick-up-Geländewagen</letter>	Vehicle	0x392A0FE7	0x000000C3	separate_native_path
+0x3821EB66	<letter case=default>Chirale Brücke</letter><letter case=lower>chirale Brücke</letter>	None	0x1FD30F35	0x000000C4	separate_native_path
+0x1022F5E2	[name unavailable]	None	0x3B2EAD77	0x000000C5	separate_native_path
+0x409330AA	<letter case=default>Wachturm</letter><letter case=lower>Wachturm</letter>	None	0x6761D4F9	0x000000C6	separate_native_path
+0x53C3C35E	<letter case=default>Generator</letter><letter case=lower>Generator</letter>	None	0x7431270D	0x000000C7	separate_native_path
+0x21A8405D	<letter case=default>Brücke</letter><letter case=lower>Brücke</letter>	None	0x065AA40E	0x000000C8	separate_native_path
+0x756224B6	<letter case=default>Zeitregen-Unterstand</letter><letter case=lower>Zeitregen-Unterstand</letter>	None	0x5290C0E5	0x000000C9	separate_native_path
+0x0709A7B5	<letter case=default>Briefkasten</letter><letter case=lower>Briefkasten</letter>	None	0x20FB43E6	0x000000CA	separate_native_path
+0x14595441	<letter case=default>Brücke (Fundament)</letter><letter case=lower>Brücke (Fundament)</letter>	None	0x33ABB012	0x000000CB	separate_native_path
+0x6632D742	<letter case=default>Sprungrampe</letter><letter case=lower>Sprungrampe</letter>	None	0x41C03311	0x000000CC	separate_native_path
+0x4A4A6865	<letter case=default>Frachtkatapult</letter><letter case=lower>Frachtkatapult</letter>	None	0x6DB88C36	0x000000CD	separate_native_path
+0x215A2BDE	<letter case=default>Transponder</letter><letter case=lower>Transponder</letter>	None	0x06A8CF8D	0x000000CE	separate_native_path
+0x5331A8DD	<letter case=default>Schutzhütte (Fundament)</letter><letter case=lower>Schutzhütte (Fundament)</letter>	None	0x74C34C8E	0x000000CF	separate_native_path
+0x40615B29	<letter case=default>Schutzhütte</letter><letter case=lower>Schutzhütte</letter>	None	0x6793BF7A	0x000000D0	separate_native_path
+0x320AD82A	<letter case=default>Seilrutsche</letter><letter case=lower>Seilrutsche</letter>	None	0x15F83C79	0x000000D1	separate_native_path
+0x26339468	« 	None	0x0D3FCCFD	0x000000D2	separate_native_path
+0x44F6F4EE	« 	None	0x0DC9C87D	0x000000D3	separate_native_path
+0x5DDC69D6	null	None	0x2D88EADC	0x000000D4	separate_native_path
+0x50DA3A90	null	None	0x2D88EADC	0x000000D5	separate_native_path
+0x22B1B993	Sandalenkraut	None	0x05435DC0	0x000000D6	separate_native_path
+0x31E14A67	Kryptobiot	None	0x1613AE34	0x000000D7	separate_native_path
+0x3CE71921	null	None	0x2D88EADC	0x000000D8	separate_native_path
+0x682D7DCA	null	None	0x2D88EADC	0x000000D9	separate_native_path
+0x1A46FEC9	null	None	0x2D88EADC	0x000000DA	separate_native_path
+0x248588EF	null	None	0x2D88EADC	0x000000DB	separate_native_path
+0x45BEF818	Zusätzliche Panzerung	VehicleCustomize	0x624C1C4B	0x000000DC	separate_native_path
+0x11749CF3	Akkueinheit St.1	VehicleCustomize	0x368678A0	0x000000DD	separate_native_path
+0x631F1FF0	Akkueinheit St.2	VehicleCustomize	0x44EDFBA3	0x000000DE	separate_native_path
+0x704FEC04	Chirale Kanone	VehicleCustomize	0x57BD0857	0x000000DF	separate_native_path
+0x02246F07	Raketenwerfer	VehicleCustomize	0x25D68B54	0x000000E0	separate_native_path
+0x5C375323	Mörser	VehicleCustomize	0x7BC5B770	0x000000E1	separate_native_path
+0x2E5CD020	Aktives Verteidigungssystem	VehicleCustomize	0x09AE3473	0x000000E2	separate_native_path
+0x454C939B	Elektrische Verteidigungseinheit	VehicleCustomize	0x62BE77C8	0x000000E3	separate_native_path
+0x37271098	[name unavailable]	VehicleCustomize	0x10D5F4CB	0x000000E4	separate_native_path
+0x2477E36C	Antischwerkraft-Einheit	VehicleCustomize	0x0385073F	0x000000E5	separate_native_path
+0x66C0BCC1	<letter case=default>„Heiße Quellen“-Gräber</letter><letter case=lower>„Heiße Quellen“-Gräber</letter>	None	0x41325892	0x000000E6	separate_native_path
+0x1C21B955	Chirales Gold	None	0x66482573	0x000000E7	separate_native_path
+0x28C611CC	Notfallgelb	None	0x52AF8DEA	0x000000E8	separate_native_path
+0x3B6489BB	Sandbeige	None	0x410D159D	0x000000E9	separate_native_path
+0x410940FE	Kojotenbraun	None	0x3B60DCD8	0x000000EA	separate_native_path
+0x52ABD889	Braunoliv	None	0x28C244AF	0x000000EB	separate_native_path
+0x664C7010	Express-Violett	None	0x1C25EC36	0x000000EC	separate_native_path
+0x75EEE867	Grasgrün	None	0x0F877441	0x000000ED	separate_native_path
+0x1297E29A	Kühles Blau	None	0x68FE7EBC	0x000000EE	separate_native_path
+0x01357AED	Omnireflektor	None	0x7B5CE6CB	0x000000EF	separate_native_path
+0x2AC2B35C	Marineblau	None	0x50AB2F7A	0x000000F0	separate_native_path
+0x39602B2B	Marsrot	None	0x4309B70D	0x000000F1	separate_native_path
+0x0D8783B2	Wüstenrosa	None	0x77EE1F94	0x000000F2	separate_native_path
+0x1E251BC5	Wolfsgrau	None	0x644C87E3	0x000000F3	separate_native_path
+0x6448D280	Schneeweiß	None	0x1E214EA6	0x000000F4	separate_native_path
+0x77EA4AF7	Tarnschwarz	None	0x0D83D6D1	0x000000F5	separate_native_path
+0x430DE26E	Bridges-Orange	None	0x39647E48	0x000000F6	separate_native_path
+0x37D670E4	Blutrot	None	0x4DBFECC2	0x000000F7	separate_native_path
+0x2474E893	Vulkanorange	None	0x5E1D74B5	0x000000F8	separate_native_path
+0x40EC732F	Strahlendes Gelb	None	0x3A85EF09	0x000000F9	separate_native_path
+0x534EEB58	Geistergrün	None	0x2927777E	0x000000FA	separate_native_path
+0x67A943C1	Signalgrün	None	0x1DC0DFE7	0x000000FB	separate_native_path
+0x740BDBB6	Blitzblau	None	0x0E624790	0x000000FC	separate_native_path
+0x0E6612F3	Regenbogenviolett	None	0x740F8ED5	0x000000FD	separate_native_path
+0x1DC48A84	Rosapink	None	0x67AD16A2	0x000000FE	separate_native_path
+0x0184CF05	<letter case=default>Surfsarg</letter><letter case=lower>Surfsarg</letter>	All	0x2A889790	0x000000FF	eligible
+0x561C606F	Schweres MG	VehicleCustomize	0x71EE843C	0x00000100	separate_native_path
+0x2BF80B63	„Why Me?“-Kappe	CostumeCustomize	0x0C0AEF30	0x00008101	separate_native_path
+0x59938860	Drawbridge-Kappe	CostumeCustomize	0x7E616C33	0x00000102	separate_native_path
+0x4AC37B94	Weihnachtsmannmütze	CostumeCustomize	0x6D319FC7	0x00000103	separate_native_path
+0x38A8F897	„Ludens-Maske“-Sonnenbrille	CostumeCustomize	0x1F5A1CC4	0x00008104	separate_native_path
+0x6C629C7C	„Sam“-Sonnenbrille	CostumeCustomize	0x4B90782F	0x00008105	separate_native_path
+0x710F5581	Schwarze Tarnung	CostumeCustomize	0x48700DB9	0x00008106	separate_native_path
+0x625FA675	Anzug des Pizzabäckers	CostumeCustomize	0x5B20FE4D	0x00000107	separate_native_path
+0x7A1AE505	Normal	CostumeCustomize	0x4365BD3D	0x00000108	separate_native_path
+0x0BC6F247	Zusätzliche Panzerung	VehicleCustomize	0x2C341614	0x00000109	separate_native_path
+0x79AD7144	Akkueinheit St.1	VehicleCustomize	0x5E5F9517	0x0000010A	separate_native_path
+0x6AFD82B0	Akkueinheit St.2	VehicleCustomize	0x4D0F66E3	0x0000010B	separate_native_path
+0x189601B3	Elektrische Verteidigungseinheit	VehicleCustomize	0x3F64E5E0	0x0000010C	separate_native_path
+0x4C5C6558	Antischwerkraft-Einheit	VehicleCustomize	0x6BAE810B	0x0000010D	separate_native_path
+0x618C848F	minus sixty one	None	0x467E60DC	0x0000010E	separate_native_path
+0x13E7078C	Rome	None	0x3415E3DF	0x0000010F	separate_native_path
+0x00B7F478	Dancing Ghosts (ft. Patrick Watson)	None	0x2745102B	0x00000110	separate_native_path
+0x02D60484	Haftkanone	VehicleCustomize	0x2524E0D7	0x00000111	separate_native_path
+0x0364D682	Wüstengelb	CostumeCustomize	0x3A1B8EBA	0x00000112	separate_native_path
+0x57AEB269	Schnee	CostumeCustomize	0x6ED1EA51	0x00000113	separate_native_path
+0x25C5316A	KI-Tarnung	CostumeCustomize	0x1CBA6952	0x00000114	separate_native_path
+0x3695C29E	Vierecke	CostumeCustomize	0x0FEA9AA6	0x00000115	separate_native_path
+0x44FE419D	Wald	CostumeCustomize	0x7D8119A5	0x00000116	separate_native_path
+0x1AED7DB9	Wüstenrot	CostumeCustomize	0x23922581	0x00000117	separate_native_path
+0x6886FEBA	Wüstengrün	CostumeCustomize	0x51F9A682	0x00000118	separate_native_path
+0x10342576	Normal	CostumeCustomize	0x294B7D4E	0x00000119	separate_native_path
+0x31DE8A69	Ludens-Enten	None	0x162C6E3A	0x0000011A	separate_native_path
+0x43B5096A	Äpfel	None	0x6447ED39	0x0000011B	separate_native_path
+0x50E5FA9E	Mandarinen	None	0x77171ECD	0x0000011C	separate_native_path
+0x228E799D	Yuzu	None	0x057C9DCE	0x0000011D	separate_native_path
+0x76441D76	Kalmusblätter	None	0x51B6F925	0x0000011E	separate_native_path
+0x042F9E75	Chiraler Tee	None	0x23DD7A26	0x0000011F	separate_native_path
+0x177F6D81	Eukalyptus-Quast	None	0x308D89D2	0x00000120	separate_native_path
+0x3C9D7941	minus sixty one	None	0x1B6F9D12	0x00000121	separate_native_path
+0x4EF6FA42	minus sixty one	None	0x69041E11	0x00000122	separate_native_path
+0x5DA609B6	Rome	None	0x7A54EDE5	0x00000123	separate_native_path
+0x2FCD8AB5	Dancing Ghosts (ft. Patrick Watson)	None	0x083F6EE6	0x00000124	separate_native_path
+0x7B07EE5E	Just How It Goes	None	0x5CF50A0D	0x00000125	separate_native_path
+0x096C6D5D	null	None	0x2E9E890E	0x00000126	separate_native_path
+0x1A3C9EA9	[name unavailable]	None	0x3DCE7AFA	0x00000127	separate_native_path
+0x68571DAA	Sayonara	None	0x4FA5F9F9	0x00000128	separate_native_path
+0x3644218E	Horizon Dreamer	None	0x11B6C5DD	0x00000129	separate_native_path
+0x442FA28D	Polytope	None	0x63DD46DE	0x0000012A	separate_native_path
+0x2F3FE136	Give Up	None	0x08CD0565	0x0000012B	separate_native_path
+0x5D546235	Famous Men	None	0x7AA68666	0x0000012C	separate_native_path
+0x4E0491C1	to the wilder	None	0x69F67592	0x0000012D	separate_native_path
+0x3C6F12C2	to the wilder	None	0x1B9DF691	0x0000012E	separate_native_path
+0x68A57629	Cliffhanger	None	0x4F57927A	0x0000012F	separate_native_path
+0x1ACEF52A	The Bride & the Bachelor	None	0x3D3C1179	0x00000130	separate_native_path
+0x14AB3FC2	Neuer Brückentyp verfügbar	None	0x23D6AD08	0x00000131	separate_native_path
+0x76BDA1DB	  	None	0x514F4588	0x00000132	separate_native_path
+0x04D622D8	  	None	0x2324C68B	0x00000133	separate_native_path
+0x1E091F7F	Otterkapuze	CostumeCustomize	0x39FBFB2C	0x00000134	separate_native_path
+0x099E06DE	Are You Leaving	None	0x2E6CE28D	0x00000135	separate_native_path
+0x651F39AC	  	None	0x42EDDDFF	0x00000136	separate_native_path
+0x1774BAAF	  	None	0x30865EFC	0x00000137	separate_native_path
+0x1786D12C	  	None	0x3074357F	0x00000138	separate_native_path
+0x0D59EC8B	Kamelkapuze	CostumeCustomize	0x2AAB08D8	0x00000139	separate_native_path
+0x7F326F88	Goldene Maske	CostumeCustomize	0x58C08BDB	0x0000013A	separate_native_path
+0x212153AC	Schutzbrille	CostumeCustomize	0x06D3B7FF	0x0000013B	separate_native_path
+0x534AD0AF	Rote Maske	CostumeCustomize	0x74B834FC	0x0000013C	separate_native_path
+0x385A9314	Mütze des Pizzabäckers	CostumeCustomize	0x1FA87747	0x0000013D	separate_native_path
+0x4A311017	Chiralspinne-Hut	CostumeCustomize	0x6DC3F444	0x0000013E	separate_native_path
+0x5961E3E3	Chiralnagetier-Hut	CostumeCustomize	0x7E9307B0	0x0000013F	separate_native_path
+0x2B0A60E0	Nousagi Hat	CostumeCustomize	0x0CF884B3	0x00000140	separate_native_path
+0x7FC0040B	Strickmütze	CostumeCustomize	0x5832E058	0x00000141	separate_native_path
+0x0424495B	Neuer Brückentyp verfügbar	None	0x23D6AD08	0x00000142	separate_native_path
+0x764FCA58	Verbesserte Sprungrampen	None	0x51BD2E0B	0x00000143	separate_native_path
+0x2285AEB3	Verbesserte Frachtkatapulte	None	0x05774AE0	0x00000144	separate_native_path
+0x50EE2DB0	Straßenverbesserung verfügbar	None	0x771CC9E3	0x00000145	separate_native_path
+0x43BEDE44	DHV-Magellan-Farbanpassung	None	0x644C3A17	0x00000146	separate_native_path
+0x31D55D47	Wetterberichte jetzt verfügbar	None	0x1627B914	0x00000147	separate_native_path
+0x6FC66163	Sofortbildkamera	None	0x48348530	0x00000148	separate_native_path
+0x1DADE260	« 	None	0x3A5F0633	0x00000149	separate_native_path
+0x51F89135	Geheimnisse des Pizza-Do-Akrobatik-Karate: Schlagen	None	0x760A7566	0x0000014A	separate_native_path
+0x23931236	Geheimnisse des Pizza-Do-Akrobatik-Karate: Treten	None	0x0461F665	0x0000014B	separate_native_path
+0x30C3E1C2	Geheimnisse des Pizza-Do-Akrobatik-Karate: Slammen	None	0x17310591	0x0000014C	separate_native_path
+0x42A862C1	Verbesserte Gummipizza	None	0x655A8692	0x0000014D	separate_native_path
+0x49B12A9C	Norberto Puente	None	0x6E43CECF	0x0000014E	separate_native_path
+0x3BDAA99F	La Madre	None	0x1C284DCC	0x0000014F	separate_native_path
+0x288A5A6B	Benjamin Rivera	None	0x0F78BE38	0x00000150	separate_native_path
+0x5AE1D968	Alex Weatherstone	None	0x7D133D3B	0x00000151	separate_native_path
+0x0E2BBD83	Deadman	None	0x29D959D0	0x00000152	separate_native_path
+0x7C403E80	<letter case=default>Bokka</letter><letter case=lower>Bokka</letter>	None	0x5BB2DAD3	0x00000153	separate_native_path
+0x6F10CD74	Lauren Tsai	None	0x48E22927	0x00000154	separate_native_path
+0x1D7B4E77	Der alte Oz	None	0x3A89AA24	0x00000155	separate_native_path
+0x43687253	Peter Gates	None	0x649A9600	0x00000156	separate_native_path
+0x3103F150	<letter case=default>Kommandeur ohne Einheit</letter><letter case=lower>Kommandeur ohne Einheit</letter>	None	0x16F11503	0x00000157	separate_native_path
+0x7D568205	Gen Hoshino	None	0x5AA46656	0x00000158	separate_native_path
+0x0F3D0106	Olivia Westbury	None	0x28CFE555	0x00000159	separate_native_path
+0x1C6DF2F2	Glenn Rain	None	0x3B9F16A1	0x0000015A	separate_native_path
+0x6E0671F1	Regenbogenlori	None	0x49F495A2	0x0000015B	separate_native_path
+0x3ACC151A	Rainy	None	0x1D3EF149	0x0000015C	separate_native_path
+0x48A79619	<letter case=default>Mitarbeiter des Tierheims</letter><letter case=lower>Mitarbeiter des Tierheims</letter>	None	0x6F55724A	0x0000015D	separate_native_path
+0x5BF765ED	Quokka	None	0x7C0581BE	0x0000015E	separate_native_path
+0x299CE6EE	Mike Northcote	None	0x0E6E02BD	0x0000015F	separate_native_path
+0x778FDACA	Samson Hook	None	0x507D3E99	0x00000160	separate_native_path
+0x05E459C9	<letter case=default>Erfinder</letter><letter case=lower>Erfinder</letter>	None	0x2216BD9A	0x00000161	separate_native_path
+0x6EF41A72	<letter case=default>Rutengängerin</letter><letter case=lower>Rutengängerin</letter>	None	0x4906FE21	0x00000162	separate_native_path
+0x1C9F9971	Känguru	None	0x3B6D7D22	0x00000163	separate_native_path
+0x0FCF6A85	Hydrologin	None	0x283D8ED6	0x00000164	separate_native_path
+0x7DA4E986	Heartman	None	0x5A560DD5	0x00000165	separate_native_path
+0x296E8D6D	<letter case=default>Pizzabäcker</letter><letter case=lower>Pizzabäcker</letter>	None	0x0E9C693E	0x00000166	separate_native_path
+0x5B050E6E	<letter case=default>Datenwissenschaftlerin</letter><letter case=lower>Datenwissenschaftlerin</letter>	None	0x7CF7EA3D	0x00000167	separate_native_path
+0x4855FD9A	Samson Hook	None	0x6FA719C9	0x00000168	separate_native_path
+0x3A3E7E99	<letter case=default>Ärztin</letter><letter case=lower>Ärztin</letter>	None	0x1DCC9ACA	0x00000169	separate_native_path
+0x642D42BD	<letter case=default>Pionier</letter><letter case=lower>Pionier</letter>	None	0x43DFA6EE	0x0000016A	separate_native_path
+0x1646C1BE	<letter case=default>Mechaniker</letter><letter case=lower>Mechaniker</letter>	None	0x31B425ED	0x0000016B	separate_native_path
+0x1499D337	Leon Easton	None	0x336B3764	0x0000016C	separate_native_path
+0x66F25034	<letter case=default>Chronobiologin</letter><letter case=lower>Chronobiologin</letter>	None	0x4100B467	0x0000016D	separate_native_path
+0x75A2A3C0	<letter case=default>Geisterjäger</letter><letter case=lower>Geisterjäger</letter>	None	0x52504793	0x0000016E	separate_native_path
+0x07C920C3	<letter case=default>Metagenomikerin</letter><letter case=lower>Metagenomikerin</letter>	None	0x203BC490	0x0000016F	separate_native_path
+0x53034428	Viktor Frank	None	0x74F1A07B	0x00000170	separate_native_path
+0x2168C72B	<letter case=default>Angler</letter><letter case=lower>Angler</letter>	None	0x069A2378	0x00000171	separate_native_path
+0x323834DF	<letter case=default>Abenteurer</letter><letter case=lower>Abenteurer</letter>	None	0x15CAD08C	0x00000172	separate_native_path
+0x4053B7DC	Ridge Frost	None	0x67A1538F	0x00000173	separate_native_path
+0x1E408BF8	<letter case=default>Phantomschmied</letter><letter case=lower>Phantomschmied</letter>	None	0x39B26FAB	0x00000174	separate_native_path
+0x6C2B08FB	Pierre Southern	None	0x4BD9ECA8	0x00000175	separate_native_path
+0x073B4B40	<letter case=default>Luftfahrtingenieur</letter><letter case=lower>Luftfahrtingenieur</letter>	None	0x20C9AF13	0x00000176	separate_native_path
+0x7550C843	<letter case=default>Teertherapeut</letter><letter case=lower>Teertherapeut</letter>	None	0x52A22C10	0x00000177	separate_native_path
+0x66003BB7	Gregory Southall	None	0x41F2DFE4	0x00000178	separate_native_path
+0x146BB8B4	Bianca North	None	0x33995CE7	0x00000179	separate_native_path
+0x40A1DC5F	BPAS	None	0x6753380C	0x0000017A	separate_native_path
+0x32CA5F5C	James Ender	None	0x1538BB0F	0x0000017B	separate_native_path
+0x219AACA8	Die-Hard Man	None	0x066848FB	0x0000017C	separate_native_path
+0x53F12FAB	Die-Hard Man	None	0x7403CBF8	0x0000017D	separate_native_path
+0x0DE2138F	Roter Samurai	None	0x2A10F7DC	0x0000017E	separate_native_path
+0x7F89908C	Higgs	None	0x587B74DF	0x0000017F	separate_native_path
+0x33DCE3D9	Mr. Impossible	None	0x707B0EA0	0x00000180	separate_native_path
+0x41B760DA	Tarman	None	0x66458489	0x00000181	separate_native_path
+0x52E7932E	Fragile	None	0x7515777D	0x00000182	separate_native_path
+0x208C102D	Tomorrow	None	0x077EF47E	0x00000183	separate_native_path
+0x744674C6	Nendoroid Jumbo Ludens	None	0x53B49095	0x00000184	separate_native_path
+0x062DF7C5	Ludens-Ente	None	0x21DF1396	0x00000185	separate_native_path
+0x157D0431	Ludens-Ente	None	0x328FE062	0x00000186	separate_native_path
+0x67168732	Ludens-Ente	None	0x40E46361	0x00000187	separate_native_path
+0x3905BB16	Ludens-Ente	None	0x1EF75F45	0x00000188	separate_native_path
+0x4B6E3815	Ludens-Ente	None	0x6C9CDC46	0x00000189	separate_native_path
+0x207E7BAE	Ludens-Ente	None	0x078C9FFD	0x0000018A	separate_native_path
+0x5215F8AD	Ludens-Ente	None	0x75E71CFE	0x0000018B	separate_native_path
+0x41450B59	Ludens-Ente	None	0x66B7EF0A	0x0000018C	separate_native_path
+0x21D52174	Boost für die Ausbeute chiraler Kristalle	None	0x18AA794C	0x0000018D	separate_native_path
+0x7BF585DD	Little Nest	None	0x5C07618E	0x0000018E	separate_native_path
+0x25E6B9F9	Asylums For The Feeling feat. Leila Adu	None	0x02145DAA	0x0000018F	separate_native_path
+0x578D3AFA	are you there	None	0x707FDEA9	0x00000190	separate_native_path
+0x1BD849AF	are you there	None	0x3C2AADFC	0x00000191	separate_native_path
+0x69B3CAAC	Tell The Truth	None	0x4E412EFF	0x00000192	separate_native_path
+0x7AE33958	Afraid	None	0x5D11DD0B	0x00000193	separate_native_path
+0x0888BA5B	Not Around	None	0x2F7A5E08	0x00000194	separate_native_path
+0x0C2FB2CC	[name unavailable]	None	0x2BDD569F	0x00000195	separate_native_path
+0x1F7F4138	[name unavailable]	None	0x388DA56B	0x00000196	separate_native_path
+0x3285D280	Baugeschwindigkeitsboost	None	0x0BFA8AB8	0x00000197	separate_native_path
+0x64098529	Bewegungsscanner	None	0x43FB617A	0x00000198	separate_native_path
+0x72BB6496	Chirales Gold	None	0x554980C5	0x00000199	separate_native_path
+0x465CCC0F	Notfallgelb	None	0x61AE285C	0x0000019A	separate_native_path
+0x55FE5478	Sandbeige	None	0x720CB02B	0x0000019B	separate_native_path
+0x2F939D3D	Kojotenbraun	None	0x0861796E	0x0000019C	separate_native_path
+0x3C31054A	Braunoliv	None	0x1BC3E119	0x0000019D	separate_native_path
+0x08D6ADD3	Express-Violett	None	0x2F244980	0x0000019E	separate_native_path
+0x1B7435A4	Grasgrün	None	0x3C86D1F7	0x0000019F	separate_native_path
+0x7C0D3F59	Kühles Blau	None	0x5BFFDB0A	0x000001A0	separate_native_path
+0x6FAFA72E	Omnireflektor	None	0x485D437D	0x000001A1	separate_native_path
+0x44586E9F	Marineblau	None	0x63AA8ACC	0x000001A2	separate_native_path
+0x57FAF6E8	Marsrot	None	0x700812BB	0x000001A3	separate_native_path
+0x631D5E71	Wüstenrosa	None	0x44EFBA22	0x000001A4	separate_native_path
+0x70BFC606	Wolfsgrau	None	0x574D2255	0x000001A5	separate_native_path
+0x0AD20F43	Schneeweiß	None	0x2D20EB10	0x000001A6	separate_native_path
+0x19709734	Tarnschwarz	None	0x3E827367	0x000001A7	separate_native_path
+0x2D973FAD	Bridges-Orange	None	0x0A65DBFE	0x000001A8	separate_native_path
+0x3E35A7DA	Blutrot	None	0x19C74389	0x000001A9	separate_native_path
+0x594CAD27	Vulkanorange	None	0x7EBE4974	0x000001AA	separate_native_path
+0x4AEE3550	Strahlendes Gelb	None	0x6D1CD103	0x000001AB	separate_native_path
+0x2E76AEEC	Geistergrün	None	0x09844ABF	0x000001AC	separate_native_path
+0x3DD4369B	Signalgrün	None	0x1A26D2C8	0x000001AD	separate_native_path
+0x09339E02	Blitzblau	None	0x2EC17A51	0x000001AE	separate_native_path
+0x1A910675	Regenbogenviolett	None	0x3D63E226	0x000001AF	separate_native_path
+0x60FCCF30	Rosapink	None	0x470E2B63	0x000001B0	separate_native_path
+0x775976DD	In dieser Einrichtung ausruhen	None	0x50AB928E	0x000001B1	separate_native_path
+0x4D2297BF	In dieser Einrichtung ausruhen	None	0x50AB928E	0x000001B2	separate_native_path
+0x3F4914BC	In dieser Einrichtung ausruhen	None	0x50AB928E	0x000001B3	separate_native_path
+0x2C19E748	In dieser Einrichtung ausruhen	None	0x50AB928E	0x000001B4	separate_native_path
+0x5E72644B	In dieser Einrichtung ausruhen	None	0x50AB928E	0x000001B5	separate_native_path
+0x0AB800A0	In dieser Einrichtung ausruhen	None	0x50AB928E	0x000001B6	separate_native_path
+0x78D383A3	In dieser Einrichtung ausruhen	None	0x50AB928E	0x000001B7	separate_native_path
+0x6B837057	In dieser Einrichtung ausruhen	None	0x50AB928E	0x000001B8	separate_native_path
+0x19E8F354	In dieser Einrichtung ausruhen	None	0x50AB928E	0x000001B9	separate_native_path
+0x47FBCF70	In dieser Einrichtung ausruhen	None	0x50AB928E	0x000001BA	separate_native_path
+0x35904C73	In dieser Einrichtung ausruhen	None	0x50AB928E	0x000001BB	separate_native_path
+0x5E800FC8	In dieser Einrichtung ausruhen	None	0x50AB928E	0x000001BC	separate_native_path
+0x2CEB8CCB	In dieser Einrichtung ausruhen	None	0x50AB928E	0x000001BD	separate_native_path
+0x3FBB7F3F	In dieser Einrichtung ausruhen	None	0x50AB928E	0x000001BE	separate_native_path
+0x4DD0FC3C	In dieser Einrichtung ausruhen	None	0x50AB928E	0x000001BF	separate_native_path
+0x191A98D7	In dieser Einrichtung ausruhen	None	0x50AB928E	0x000001C0	separate_native_path
+0x6B711BD4	In dieser Einrichtung ausruhen	None	0x50AB928E	0x000001C1	separate_native_path
+0x7821E820	In dieser Einrichtung ausruhen	None	0x50AB928E	0x000001C2	separate_native_path
+0x0A4A6B23	In dieser Einrichtung ausruhen	None	0x50AB928E	0x000001C3	separate_native_path
+0x54595707	In dieser Einrichtung ausruhen	None	0x50AB928E	0x000001C4	separate_native_path
+0x2632D404	In dieser Einrichtung ausruhen	None	0x50AB928E	0x000001C5	separate_native_path
+0x6A67A751	In dieser Einrichtung ausruhen	None	0x50AB928E	0x000001C6	separate_native_path
+0x180C2452	In dieser Einrichtung ausruhen	None	0x50AB928E	0x000001C7	separate_native_path
+0x0B5CD7A6	In dieser Einrichtung ausruhen	None	0x50AB928E	0x000001C8	separate_native_path
+0x793754A5	In dieser Einrichtung ausruhen	None	0x50AB928E	0x000001C9	separate_native_path
+0x2DFD304E	In dieser Einrichtung ausruhen	None	0x50AB928E	0x000001CA	separate_native_path
+0x5F96B34D	In dieser Einrichtung ausruhen	None	0x50AB928E	0x000001CB	separate_native_path
+0x4CC640B9	In dieser Einrichtung ausruhen	None	0x50AB928E	0x000001CC	separate_native_path
+0x3EADC3BA	In dieser Einrichtung ausruhen	None	0x50AB928E	0x000001CD	separate_native_path
+0x60BEFF9E	In dieser Einrichtung ausruhen	None	0x50AB928E	0x000001CE	separate_native_path
+0x12D57C9D	In dieser Einrichtung ausruhen	None	0x50AB928E	0x000001CF	separate_native_path
+0x79C53F26	In dieser Einrichtung ausruhen	None	0x50AB928E	0x000001D0	separate_native_path
+0x0774C69C	Super-EM-Plasma	None	0x3E0B9EA4	0x000001D1	separate_native_path
+0x751F459F	« 	None	0x4C601DA7	0x000001D2	separate_native_path
+0x664FB66B	Superbalance-Unterstützung	None	0x5F30EE53	0x000001D3	separate_native_path
+0x14243568	Super-Chiralium-Sammler	None	0x2D5B6D50	0x000001D4	separate_native_path
+0x40EE5183	Super-Zielhilfe	None	0x799109BB	0x000001D5	separate_native_path
+0x39E4B181	Norberto Puente	None	0x697BB66A	0x000001D6	separate_native_path
+0x2AB44275	Norberto Puente	None	0x7A2B459E	0x000001D7	separate_native_path
+0x58DFC176	Norberto Puente	None	0x0840C69D	0x000001D8	separate_native_path
+0x1CA523FF	La Madre	None	0x4C3A2414	0x000001D9	separate_native_path
+0x0FF5D00B	La Madre	None	0x5F6AD7E0	0x000001DA	separate_native_path
+0x7D9E5308	La Madre	None	0x2D0154E3	0x000001DB	separate_native_path
+0x768BE38C	Benjamin Rivera	None	0x2614E467	0x000001DC	separate_native_path
+0x65DB1078	Benjamin Rivera	None	0x35441793	0x000001DD	separate_native_path
+0x17B0937B	Benjamin Rivera	None	0x472F9490	0x000001DE	separate_native_path
+0x53CA71F2	Alex Weatherstone	None	0x03557619	0x000001DF	separate_native_path
+0x409A8206	Alex Weatherstone	None	0x100585ED	0x000001E0	separate_native_path
+0x32F10105	Alex Weatherstone	None	0x626E06EE	0x000001E1	separate_native_path
+0x273A159B	Deadman	None	0x77A51270	0x000001E2	separate_native_path
+0x346AE66F	Deadman	None	0x64F5E184	0x000001E3	separate_native_path
+0x027B87E5	<letter case=default>Bokka</letter><letter case=lower>Bokka</letter>	None	0x52E4800E	0x000001E4	separate_native_path
+0x112B7411	<letter case=default>Bokka</letter><letter case=lower>Bokka</letter>	None	0x41B473FA	0x000001E5	separate_native_path
+0x6340F712	<letter case=default>Bokka</letter><letter case=lower>Bokka</letter>	None	0x33DFF0F9	0x000001E6	separate_native_path
+0x68554796	Lauren Tsai	None	0x38CA407D	0x000001E7	separate_native_path
+0x7B05B462	Lauren Tsai	None	0x2B9AB389	0x000001E8	separate_native_path
+0x096E3761	Lauren Tsai	None	0x59F1308A	0x000001E9	separate_native_path
+0x4D14D5E8	Der alte Oz	None	0x1D8BD203	0x000001EA	separate_native_path
+0x5E44261C	Der alte Oz	None	0x0EDB21F7	0x000001EB	separate_native_path
+0x2C2FA51F	Der alte Oz	None	0x7CB0A2F4	0x000001EC	separate_native_path
+0x39BFA0C5	« 	None	0x1E4D4496	0x000001ED	separate_native_path
+0x4BD423C6	« 	None	0x6C26C795	0x000001EE	separate_native_path
+0x735E5747	Kohlenstoff	CostumeCustomize	0x54ACB314	0x000001EF	separate_native_path
+0x47B9FFDE	Holzmaserung	CostumeCustomize	0x604B1B8D	0x000001F0	separate_native_path
+0x541B67A9	Schillernd	CostumeCustomize	0x73E983FA	0x000001F1	separate_native_path
+0x33626D54	Kariert	CostumeCustomize	0x14908907	0x000001F2	separate_native_path
+0x20C0F523	Sticker	CostumeCustomize	0x07321170	0x000001F3	separate_native_path
+0x0B373C92	Leder	CostumeCustomize	0x2CC5D8C1	0x000001F4	separate_native_path
+0x7E87AAC6	Olivia Westbury	None	0x2E18AD2D	0x000001F5	separate_native_path
+0x6DD75932	Olivia Westbury	None	0x3D485ED9	0x000001F6	separate_native_path
+0x1FBCDA31	Olivia Westbury	None	0x4F23DDDA	0x000001F7	separate_native_path
+0x60590EDC	<letter case=default>Mitarbeiter des Tierheims</letter><letter case=lower>Mitarbeiter des Tierheims</letter>	None	0x30C60937	0x000001F8	separate_native_path
+0x6397067D	Samson Hook	None	0x33080196	0x000001F9	separate_native_path
+0x70C7F589	Samson Hook	None	0x2058F262	0x000001FA	separate_native_path
+0x02AC768A	Samson Hook	None	0x52337161	0x000001FB	separate_native_path
+0x0532F5DE	Verbesserter Pick-up-Geländewagen	None	0x22C0118D	0x000001FC	separate_native_path
+0x5B21C9FA	Mundharmonika	None	0x7CD32DA9	0x000001FD	separate_native_path
+0x185D361A	<letter case=default>Pizzabäcker</letter><letter case=lower>Pizzabäcker</letter>	None	0x48C231F1	0x000001FE	separate_native_path
+0x0B0DC5EE	<letter case=default>Pizzabäcker</letter><letter case=lower>Pizzabäcker</letter>	None	0x5B92C205	0x000001FF	separate_native_path
+0x796646ED	<letter case=default>Pizzabäcker</letter><letter case=lower>Pizzabäcker</letter>	None	0x29F94106	0x00000200	separate_native_path
+0x5BC638B8	Gen Hoshino	None	0x0B593F53	0x00000201	separate_native_path
+0x4896CB4C	Gen Hoshino	None	0x1809CCA7	0x00000202	separate_native_path
+0x3AFD484F	Gen Hoshino	None	0x6A624FA4	0x00000203	separate_native_path
+0x7273F669	<letter case=default>Ärztin</letter><letter case=lower>Ärztin</letter>	None	0x22ECF182	0x00000204	separate_native_path
+0x6123059D	<letter case=default>Ärztin</letter><letter case=lower>Ärztin</letter>	None	0x31BC0276	0x00000205	separate_native_path
+0x1348869E	<letter case=default>Ärztin</letter><letter case=lower>Ärztin</letter>	None	0x43D78175	0x00000206	separate_native_path
+0x3AC2B8B4	<letter case=default>Chronobiologin</letter><letter case=lower>Chronobiologin</letter>	None	0x6A5DBF5F	0x00000207	separate_native_path
+0x29924B40	<letter case=default>Chronobiologin</letter><letter case=lower>Chronobiologin</letter>	None	0x790D4CAB	0x00000208	separate_native_path
+0x5BF9C843	<letter case=default>Chronobiologin</letter><letter case=lower>Chronobiologin</letter>	None	0x0B66CFA8	0x00000209	separate_native_path
+0x015D8ED0	Viktor Frank	None	0x51C2893B	0x0000020A	separate_native_path
+0x120D7D24	Viktor Frank	None	0x42927ACF	0x0000020B	separate_native_path
+0x6066FE27	Viktor Frank	None	0x30F9F9CC	0x0000020C	separate_native_path
+0x6CAD5273	Heartman	None	0x5A560DD5	0x0000020D	separate_native_path
+0x7FFDA187	Heartman	None	0x5A560DD5	0x0000020E	separate_native_path
+0x3D1CA464	<letter case=default>Datenwissenschaftlerin</letter><letter case=lower>Datenwissenschaftlerin</letter>	None	0x6D83A38F	0x0000020F	separate_native_path
+0x2E4C5790	<letter case=default>Datenwissenschaftlerin</letter><letter case=lower>Datenwissenschaftlerin</letter>	None	0x7ED3507B	0x00000210	separate_native_path
+0x5C27D493	<letter case=default>Datenwissenschaftlerin</letter><letter case=lower>Datenwissenschaftlerin</letter>	None	0x0CB8D378	0x00000211	separate_native_path
+0x5C42DEB0	Field Of Dreams	None	0x7BB03AE3	0x00000212	separate_native_path
+0x2E295DB3	Indigo	None	0x09DBB9E0	0x00000213	separate_native_path
+0x3D79AE47	Death Stranding	None	0x1A8B4A14	0x00000214	separate_native_path
+0x4F122D44	Indigo	None	0x68E0C917	0x00000215	separate_native_path
+0x11011160	Death Stranding	None	0x36F3F533	0x00000216	separate_native_path
+0x636A9263	Nightmares	None	0x44987630	0x00000217	separate_native_path
+0x087AD1D8	to the wilder FEAT ELLE FANNING	None	0x2F88358B	0x00000218	separate_native_path
+0x7A1152DB	to the wilder FEAT ELLE FANNING	None	0x5DE3B688	0x00000219	separate_native_path
+0x6941A12F	Rolling Over	None	0x4EB3457C	0x0000021A	separate_native_path
+0x06839200	<letter case=default>Rutengängerin</letter><letter case=lower>Rutengängerin</letter>	None	0x561C95EB	0x0000021B	separate_native_path
+0x15D361F4	<letter case=default>Rutengängerin</letter><letter case=lower>Rutengängerin</letter>	None	0x454C661F	0x0000021C	separate_native_path
+0x67B8E2F7	<letter case=default>Rutengängerin</letter><letter case=lower>Rutengängerin</letter>	None	0x3727E51C	0x0000021D	separate_native_path
+0x72DC777B	Just How It Goes	None	0x552E9328	0x0000021E	separate_native_path
+0x26161390	any love of any kind FEAT BRYCE DESSNER	None	0x01E4F7C3	0x0000021F	separate_native_path
+0x472D6367	Horizon Dreamer	None	0x60DF8734	0x00000220	separate_native_path
+0x193E5F43	Famous Men	None	0x3ECCBB10	0x00000221	separate_native_path
+0x00459FFB	Cliffhanger	None	0x27B77BA8	0x00000222	separate_native_path
+0x13156C0F	The Bride & the Bachelor	None	0x34E7885C	0x00000223	separate_native_path
+0x617EEF0C	Are You Leaving	None	0x468C0B5F	0x00000224	separate_native_path
+0x35B48BE7	Little Nest	None	0x12466FB4	0x00000225	separate_native_path
+0x47DF08E4	Asylums For The Feeling feat. Leila Adu	None	0x602DECB7	0x00000226	separate_native_path
+0x548FFB10	Tell The Truth	None	0x737D1F43	0x00000227	separate_native_path
+0x0A9CC734	Field Of Dreams	None	0x2D6E2367	0x00000228	separate_native_path
+0x34A23762	Death Stranding	None	0x1350D331	0x00000229	separate_native_path
+0x27F2C496	Nightmares	None	0x000020C5	0x0000022A	separate_native_path
+0x556B2C16	MIIRA NO SAKEBI	None	0x7299C845	0x0000022B	separate_native_path
+0x01B58F44	Peter Gates	None	0x512A88AF	0x0000022C	separate_native_path
+0x12E57CB0	Peter Gates	None	0x427A7B5B	0x0000022D	separate_native_path
+0x608EFFB3	Peter Gates	None	0x3011F858	0x0000022E	separate_native_path
+0x24F41D3A	<letter case=default>Kommandeur ohne Einheit</letter><letter case=lower>Kommandeur ohne Einheit</letter>	None	0x746B1AD1	0x0000022F	separate_native_path
+0x37A4EECE	<letter case=default>Kommandeur ohne Einheit</letter><letter case=lower>Kommandeur ohne Einheit</letter>	None	0x673BE925	0x00000230	separate_native_path
+0x45CF6DCD	<letter case=default>Kommandeur ohne Einheit</letter><letter case=lower>Kommandeur ohne Einheit</letter>	None	0x15506A26	0x00000231	separate_native_path
+0x14A96AB5	Glenn Rain	None	0x44366D5E	0x00000232	separate_native_path
+0x07F99941	Glenn Rain	None	0x57669EAA	0x00000233	separate_native_path
+0x75921A42	Glenn Rain	None	0x250D1DA9	0x00000234	separate_native_path
+0x7309FD28	<letter case=default>Mitarbeiter des Tierheims</letter><letter case=lower>Mitarbeiter des Tierheims</letter>	None	0x2396FAC3	0x00000235	separate_native_path
+0x01627E2B	<letter case=default>Mitarbeiter des Tierheims</letter><letter case=lower>Mitarbeiter des Tierheims</letter>	None	0x51FD79C0	0x00000236	separate_native_path
+0x2F365CD1	Mike Northcote	None	0x7FA95B3A	0x00000237	separate_native_path
+0x3C66AF25	Mike Northcote	None	0x6CF9A8CE	0x00000238	separate_native_path
+0x4E0D2C26	Mike Northcote	None	0x1E922BCD	0x00000239	separate_native_path
+0x46D69403	<letter case=default>Erfinder</letter><letter case=lower>Erfinder</letter>	None	0x164993E8	0x0000023A	separate_native_path
+0x558667F7	<letter case=default>Erfinder</letter><letter case=lower>Erfinder</letter>	None	0x0519601C	0x0000023B	separate_native_path
+0x27EDE4F4	<letter case=default>Erfinder</letter><letter case=lower>Erfinder</letter>	None	0x7772E31F	0x0000023C	separate_native_path
+0x49ECC00D	Hydrologin	None	0x1973C7E6	0x0000023D	separate_native_path
+0x5ABC33F9	Hydrologin	None	0x0A233412	0x0000023E	separate_native_path
+0x28D7B0FA	Hydrologin	None	0x7848B711	0x0000023F	separate_native_path
+0x57326417	Samson Hook	None	0x07AD63FC	0x00000240	separate_native_path
+0x446297E3	Samson Hook	None	0x14FD9008	0x00000241	separate_native_path
+0x360914E0	Samson Hook	None	0x6696130B	0x00000242	separate_native_path
+0x3ED2ACC5	<letter case=default>Pionier</letter><letter case=lower>Pionier</letter>	None	0x6E4DAB2E	0x00000243	separate_native_path
+0x2D825F31	<letter case=default>Pionier</letter><letter case=lower>Pionier</letter>	None	0x7D1D58DA	0x00000244	separate_native_path
+0x5FE9DC32	<letter case=default>Pionier</letter><letter case=lower>Pionier</letter>	None	0x0F76DBD9	0x00000245	separate_native_path
+0x1B933EBB	<letter case=default>Mechaniker</letter><letter case=lower>Mechaniker</letter>	None	0x4B0C3950	0x00000246	separate_native_path
+0x08C3CD4F	<letter case=default>Mechaniker</letter><letter case=lower>Mechaniker</letter>	None	0x585CCAA4	0x00000247	separate_native_path
+0x7AA84E4C	<letter case=default>Mechaniker</letter><letter case=lower>Mechaniker</letter>	None	0x2A3749A7	0x00000248	separate_native_path
+0x1F832ACA	Leon Easton	None	0x4F1C2D21	0x00000249	separate_native_path
+0x0CD3D93E	Leon Easton	None	0x5C4CDED5	0x0000024A	separate_native_path
+0x7EB85A3D	Leon Easton	None	0x2E275DD6	0x0000024B	separate_native_path
+0x50EC78C7	<letter case=default>Geisterjäger</letter><letter case=lower>Geisterjäger</letter>	None	0x00737F2C	0x0000024C	separate_native_path
+0x43BC8B33	<letter case=default>Geisterjäger</letter><letter case=lower>Geisterjäger</letter>	None	0x13238CD8	0x0000024D	separate_native_path
+0x31D70830	<letter case=default>Geisterjäger</letter><letter case=lower>Geisterjäger</letter>	None	0x61480FDB	0x0000024E	separate_native_path
+0x241C1CAE	<letter case=default>Angler</letter><letter case=lower>Angler</letter>	None	0x74831B45	0x0000024F	separate_native_path
+0x374CEF5A	<letter case=default>Angler</letter><letter case=lower>Angler</letter>	None	0x67D3E8B1	0x00000250	separate_native_path
+0x45276C59	<letter case=default>Angler</letter><letter case=lower>Angler</letter>	None	0x15B86BB2	0x00000251	separate_native_path
+0x4E32DCDD	<letter case=default>Abenteurer</letter><letter case=lower>Abenteurer</letter>	None	0x1EADDB36	0x00000252	separate_native_path
+0x5D622F29	<letter case=default>Abenteurer</letter><letter case=lower>Abenteurer</letter>	None	0x0DFD28C2	0x00000253	separate_native_path
+0x2F09AC2A	<letter case=default>Abenteurer</letter><letter case=lower>Abenteurer</letter>	None	0x7F96ABC1	0x00000254	separate_native_path
+0x6B734EA3	Ridge Frost	None	0x3BEC4948	0x00000255	separate_native_path
+0x7823BD57	Ridge Frost	None	0x28BCBABC	0x00000256	separate_native_path
+0x0A483E54	Ridge Frost	None	0x5AD739BF	0x00000257	separate_native_path
+0x27D2140F	<letter case=default>Phantomschmied</letter><letter case=lower>Phantomschmied</letter>	None	0x774D13E4	0x00000258	separate_native_path
+0x3482E7FB	<letter case=default>Phantomschmied</letter><letter case=lower>Phantomschmied</letter>	None	0x641DE010	0x00000259	separate_native_path
+0x46E964F8	<letter case=default>Phantomschmied</letter><letter case=lower>Phantomschmied</letter>	None	0x16766313	0x0000025A	separate_native_path
+0x02938671	Pierre Southern	None	0x520C819A	0x0000025B	separate_native_path
+0x11C37585	Pierre Southern	None	0x415C726E	0x0000025C	separate_native_path
+0x63A8F686	Pierre Southern	None	0x3337F16D	0x0000025D	separate_native_path
+0x42C68072	<letter case=default>Luftfahrtingenieur</letter><letter case=lower>Luftfahrtingenieur</letter>	None	0x12598799	0x0000025E	separate_native_path
+0x51967386	<letter case=default>Luftfahrtingenieur</letter><letter case=lower>Luftfahrtingenieur</letter>	None	0x0109746D	0x0000025F	separate_native_path
+0x23FDF085	<letter case=default>Luftfahrtingenieur</letter><letter case=lower>Luftfahrtingenieur</letter>	None	0x7362F76E	0x00000260	separate_native_path
+0x6787120C	<letter case=default>Teertherapeut</letter><letter case=lower>Teertherapeut</letter>	None	0x371815E7	0x00000261	separate_native_path
+0x74D7E1F8	<letter case=default>Teertherapeut</letter><letter case=lower>Teertherapeut</letter>	None	0x2448E613	0x00000262	separate_native_path
+0x06BC62FB	<letter case=default>Teertherapeut</letter><letter case=lower>Teertherapeut</letter>	None	0x56236510	0x00000263	separate_native_path
+0x0DA9D27F	Gregory Southall	None	0x5D36D594	0x00000264	separate_native_path
+0x1EF9218B	Gregory Southall	None	0x4E662660	0x00000265	separate_native_path
+0x6C92A288	Gregory Southall	None	0x3C0DA563	0x00000266	separate_native_path
+0x28E84001	Bianca North	None	0x787747EA	0x00000267	separate_native_path
+0x3BB8B3F5	Bianca North	None	0x6B27B41E	0x00000268	separate_native_path
+0x49D330F6	Bianca North	None	0x194C371D	0x00000269	separate_native_path
+0x5C182468	BPAS	None	0x0C872383	0x0000026A	separate_native_path
+0x4F48D79C	BPAS	None	0x1FD7D077	0x0000026B	separate_native_path
+0x3D23549F	BPAS	None	0x6DBC5374	0x0000026C	separate_native_path
+0x7959B616	James Ender	None	0x29C6B1FD	0x0000026D	separate_native_path
+0x6A0945E2	James Ender	None	0x3A964209	0x0000026E	separate_native_path
+0x1862C6E1	James Ender	None	0x48FDC10A	0x0000026F	separate_native_path
+0x20E4094B	Mr. Impossible	None	0x632BFD54	0x00000270	separate_native_path
+0x33B4FABF	Mr. Impossible	None	0x11407E57	0x00000271	separate_native_path
+0x41DF79BC	Mr. Impossible	None	0x142E078A	0x00000272	separate_native_path
+0x75ADEAB9	<letter case=default>Metagenomikerin</letter><letter case=lower>Metagenomikerin</letter>	None	0x2532ED52	0x00000273	separate_native_path
+0x66FD194D	<letter case=default>Metagenomikerin</letter><letter case=lower>Metagenomikerin</letter>	None	0x36621EA6	0x00000274	separate_native_path
+0x14969A4E	<letter case=default>Metagenomikerin</letter><letter case=lower>Metagenomikerin</letter>	None	0x44099DA5	0x00000275	separate_native_path
+0x550DDB2C	Phantom-Grau	None	0x72FF3F7F	0x00000276	separate_native_path
+0x0DAB8708	Heartmans Brille (Normal)	CostumeCustomize	0x2A59635B	0x00000277	separate_native_path
+0x1EFB74FC	Heartmans herzförmige Brille	CostumeCustomize	0x390990AF	0x00000278	separate_native_path
+0x6C90F7FF	Heartmans sternförmige Brille	CostumeCustomize	0x4B6213AC	0x00000279	separate_native_path
+0x3283CBDB	Heartmans Brille (Blende)	CostumeCustomize	0x15712F88	0x0000027A	separate_native_path
+0x40E848D8	Deadmans Brille	CostumeCustomize	0x671AAC8B	0x0000027B	separate_native_path
+0x0CBD3B8D	PINO-01	CostumeCustomize	0x2B4FDFDE	0x0000027C	separate_native_path
+0x7ED6B88E	TTL-02	CostumeCustomize	0x59245CDD	0x0000027D	separate_native_path
+0x1B2A222C	PEKORANDOMBRAIN	None	0x3CD8C67F	0x0000027E	separate_native_path
+0x70BD8787	Spike-Reifen für Abhänge	VehicleCustomize	0x574F63D4	0x0000027F	separate_native_path
+0x34505CE1	ULTRA SAKUSEN DAI ICHIGOU	None	0x13A2B8B2	0x00000280	separate_native_path
+0x6D864B7A	Yōtei-Maske	CostumeCustomize	0x4A74AF29	0x00000281	separate_native_path
+0x45189CA2	Rainy	None	0x15879B49	0x00000282	separate_native_path
+0x56486F56	Rainy	None	0x06D768BD	0x00000283	separate_native_path
+0x13777665	Die-Hard Man	None	0x43E8718E	0x00000284	separate_native_path
+0x00278591	Die-Hard Man	None	0x50B8827A	0x00000285	separate_native_path
+0x7A97BEB7	Roter Samurai	None	0x2A10F7DC	0x00000286	separate_native_path
+0x69C74D43	Roter Samurai	None	0x2A10F7DC	0x00000287	separate_native_path
+0x5FD62CC9	Higgs	None	0x587B74DF	0x00000288	separate_native_path
+0x4C86DF3D	Higgs	None	0x587B74DF	0x00000289	separate_native_path
+0x05A59B35	Tarman	None	0x553A9CDE	0x0000028A	separate_native_path
+0x16F568C1	Tarman	None	0x466A6F2A	0x0000028B	separate_native_path
+0x6F8B5B46	Fragile	None	0x3F145CAD	0x0000028C	separate_native_path
+0x7CDBA8B2	Fragile	None	0x2C44AF59	0x0000028D	separate_native_path
+0x4ACAC938	Tomorrow	None	0x1A55CED3	0x0000028E	separate_native_path
+0x599A3ACC	Tomorrow	None	0x09053D27	0x0000028F	separate_native_path
+0x0642F61A	Standard	VehicleCustomize	0x7C2B6A3C	0x00008290	separate_native_path
+0x151205EE	Fragile	VehicleCustomize	0x6F7B99C8	0x00000291	separate_native_path
+0x677986ED	Rainy	VehicleCustomize	0x1D101ACB	0x00000292	separate_native_path
+0x33B3E206	Tomorrow	VehicleCustomize	0x49DA7E20	0x00000293	separate_native_path
+0x41D86105	Bridges	VehicleCustomize	0x3BB1FD23	0x00008294	separate_native_path
+0x528892F1	Fragile Express	VehicleCustomize	0x28E10ED7	0x00008295	separate_native_path
+0x20E311F2	Bote	VehicleCustomize	0x5A8A8DD4	0x00008296	separate_native_path
+0x7EF02DD6	KOJIMA PRODUCTIONS	VehicleCustomize	0x0499B1F0	0x00008297	separate_native_path
+0x0C9BAED5	Null	VehicleCustomize	0x76F232F3	0x00008298	separate_native_path
+0x678BED6E	Eins	VehicleCustomize	0x1DE27148	0x00008299	separate_native_path
+0x15E06E6D	Zwei	VehicleCustomize	0x6F89F24B	0x0000829A	separate_native_path
+0x06B09D99	Drei	VehicleCustomize	0x7CD901BF	0x0000829B	separate_native_path
+0x74DB1E9A	APAC	VehicleCustomize	0x0EB282BC	0x0000829C	separate_native_path
+0x20117A71	DHV Magellan	VehicleCustomize	0x5A78E657	0x0000029D	separate_native_path
+0x527AF972	Drawbridge	VehicleCustomize	0x28136554	0x0000029E	separate_native_path
+0x425A0942	Chirale Skulptur	None	0x65A8ED11	0x0000029F	separate_native_path
+0x30318A41	Leckstab	None	0x17C36E12	0x000002A0	separate_native_path
+0x0396BD01	Junji Ito	CostumeCustomize	0x3AE9E539	0x000002A1	separate_native_path
+0x71FD3E02	Rettung	CostumeCustomize	0x4882663A	0x000002A2	separate_native_path
+0x547D9093	Sayonara	None	0x738F74C0	0x000002A3	separate_native_path
+0x3546E064	Polytope	None	0x12B40437	0x000002A4	separate_native_path
+0x6B55DC40	Give Up	None	0x4CA73813	0x000002A5	separate_native_path
+0x722E1CF8	to the wilder	None	0x55DCF8AB	0x000002A6	separate_native_path
+0x26E47813	Afraid	None	0x01169C40	0x000002A7	separate_native_path
+0x78F74437	Not Around	None	0x5F05A064	0x000002A8	separate_native_path
+0x46C9B461	Indigo	None	0x613B5032	0x000002A9	separate_native_path
+0x55994795	PEKORANDOMBRAIN	None	0x726BA3C6	0x000002AA	separate_native_path
+0x0153237E	to the wilder FEAT ELLE FANNING	None	0x26A1C72D	0x000002AB	separate_native_path
+0x7338A07D	Rolling Over	None	0x54CA442E	0x000002AC	separate_native_path
+0x60685389	Raindrops Keep Fallin' on My Head	None	0x479AB7DA	0x000002AD	separate_native_path
+0x1203D08A	On The Beach	None	0x35F134D9	0x000002AE	separate_native_path
+0x4C10ECAE	Pop Virus	None	0x6BE208FD	0x000002AF	separate_native_path
+0x3E7B6FAD	Fushigi	None	0x19898BFE	0x000002B0	separate_native_path
+0x2700AF15	KAIJU MUHOU CHITAI	None	0x00F24B46	0x000002B1	separate_native_path
+0x1FEDC879	KJP-Kappe	CostumeCustomize	0x381F2C2A	0x000002B2	separate_native_path
+0x69B87D72	Dollmans Outfit	CostumeCustomize	0x50C7254A	0x000002B3	separate_native_path
+0x4FE046C7	to the wilder FEAT ELLE FANNING	None	0x6812A294	0x000002B4	separate_native_path
+0x3D8BC5C4	Rolling Over	None	0x1A792197	0x000002B5	separate_native_path
+0x2EDB3630	Raindrops Keep Fallin' on My Head	None	0x0929D263	0x000002B6	separate_native_path
+0x5CB0B533	On The Beach	None	0x7B425160	0x000002B7	separate_native_path
+0x02A38917	Pop Virus	None	0x25516D44	0x000002B8	separate_native_path
+0x70C80A14	Fushigi	None	0x573AEE47	0x000002B9	separate_native_path
+0x41D6CB10	Splittertarn: Urban	None	0x66242F43	0x000002BA	separate_native_path
+0x33BD4813	Splittertarn: Multi	None	0x144FAC40	0x000002BB	separate_native_path
+0x20EDBBE7	Splittertarn: Nacht	None	0x071F5FB4	0x000002BC	separate_native_path
+0x528638E4	Wald	None	0x7574DCB7	0x000002BD	separate_native_path
+0x064C5C0F	Wüste	None	0x21BEB85C	0x000002BE	separate_native_path
+0x7427DF0C	Marineblau	None	0x53D53B5F	0x000002BF	separate_native_path
+0x67772CF8	Zebra-Tarnmuster	None	0x4085C8AB	0x000002C0	separate_native_path
+0x151CAFFB	Tiger-Tarnmuster	None	0x32EE4BA8	0x000002C1	separate_native_path
+0x4B0F93DF	Skorpion-Tarnmuster	None	0x6CFD778C	0x000002C2	separate_native_path
+0x396410DC	Junji Ito	None	0x1E96F48F	0x000002C3	separate_native_path
+0x52745367	DHV Magellan: Normal	None	0x7586B734	0x000002C4	separate_native_path
+0x007C9B9E	KAIJU MUHOU CHITAI	None	0x278E7FCD	0x000002C5	separate_native_path
+0x7217189D	ULTRA SAKUSEN DAI ICHIGOU	None	0x55E5FCCE	0x000002C6	separate_native_path
+0x6147EB69	YUUSEIKARA KITA KYOUDAI	None	0x46B50F3A	0x000002C7	separate_native_path
+0x358D8F82	Without You	None	0x127F6BD1	0x000002C8	separate_native_path
+0x47E60C81	Chariot I Plead feat. Tim Smith	None	0x6014E8D2	0x000002C9	separate_native_path
+0x54B6FF75	story of rainy	None	0x73441B26	0x000002CA	separate_native_path
+0x26DD7C76	Geese	None	0x012F9825	0x000002CB	separate_native_path
+0x78CE4052	Let's Not Say Another Word	None	0x5F3CA401	0x000002CC	separate_native_path
+0x0AA5C351	Low Roar	None	0x2D572702	0x000002CD	separate_native_path
+0x61B580EA	Please Don't Stop (Chapter 2)	None	0x464764B9	0x000002CE	separate_native_path
+0x13DE03E9	Patience	None	0x342CE7BA	0x000002CF	separate_native_path
+0x008EF01D	Breathe In	None	0x277C144E	0x000002D0	separate_native_path
+0x72E5731E	Hummingbird	None	0x5517974D	0x000002D1	separate_native_path
+0x262F17F5	Hope feat. Denise Sherwood	None	0x01DDF3A6	0x000002D2	separate_native_path
+0x463BDFE2	YUUSEIKARA KITA KYOUDAI	None	0x61C93BB1	0x000002D3	separate_native_path
+0x12F1BB09	Without You	None	0x35035F5A	0x000002D4	separate_native_path
+0x609A380A	Chariot I Plead feat. Tim Smith	None	0x4768DC59	0x000002D5	separate_native_path
+0x73CACBFE	story of rainy	None	0x54382FAD	0x000002D6	separate_native_path
+0x01A148FD	Geese	None	0x2653ACAE	0x000002D7	separate_native_path
+0x5FB274D9	Let's Not Say Another Word	None	0x7840908A	0x000002D8	separate_native_path
+0x2DD9F7DA	Low Roar	None	0x0A2B1389	0x000002D9	separate_native_path
+0x2F06E553	Please Don't Stop (Chapter 2)	None	0x08F40100	0x000002DA	separate_native_path
+0x5D6D6650	Patience	None	0x7A9F8203	0x000002DB	separate_native_path
+0x4E3D95A4	Breathe In	None	0x69CF71F7	0x000002DC	separate_native_path
+0x3C5616A7	Hummingbird	None	0x1BA4F2F4	0x000002DD	separate_native_path
+0x689C724C	Hope feat. Denise Sherwood	None	0x4F6E961F	0x000002DE	separate_native_path
+0x544494F6	BB's Theme	None	0x73B670A5	0x000002DF	separate_native_path
+0x132C686A	MIIRA NO SAKEBI	None	0x34DE8C39	0x000002E0	separate_native_path
+0x4B27AC92	Goldene Maske	None	0x6CD548C1	0x000002E1	separate_native_path
+0x394C2F91	Rote Maske	None	0x1EBECBC2	0x000002E2	separate_native_path
+0x1AF7F14F	BB's Theme	None	0x3D05151C	0x000002E3	separate_native_path
+0x357FE401	any love of any kind CHOIR VERSION	None	0x128D0052	0x000002E4	separate_native_path
+0x6B6CD825	tmrrw	None	0x4C9E3C76	0x000002E5	separate_native_path
+0x19075B26	to the wilder PIANO VERSION	None	0x3EF5BF75	0x000002E6	separate_native_path
+0x7BCC81B8	any love of any kind CHOIR VERSION	None	0x5C3E65EB	0x000002E7	separate_native_path
+0x25DFBD9C	tmrrw	None	0x022D59CF	0x000002E8	separate_native_path
+0x57B43E9F	to the wilder PIANO VERSION	None	0x7046DACC	0x000002E9	separate_native_path
+0x56661261	Samson Hook	None	0x06F9158A	0x000002EA	separate_native_path
+0x2DAC2206	<letter case=default>Pizzabäcker</letter><letter case=lower>Pizzabäcker</letter>	None	0x7D3325ED	0x000002EB	separate_native_path
+0x1895A4E5	BB-Kapsel-Muster	None	0x3F6740B6	0x000002EC	separate_native_path
+0x128C3E8B	  	None	0x2324C68B	0x000002ED	separate_native_path
+0x236179B5	Neue Rucksackobjekte verfügbar	None	0x04939DE6	0x000002EE	separate_native_path
+0x47146702	Woods	None	0x60E68351	0x000002EF	separate_native_path
+0x55522873	Deathly	None	0x72A0CC20	0x000002F0	separate_native_path
+0x2739AB70	Mothers	None	0x00CB4F23	0x000002F1	separate_native_path
+0x34695884	amekara nijie	None	0x139BBCD7	0x000002F2	separate_native_path
+0x4602DB87	fragile things	None	0x61F03FD4	0x000002F3	separate_native_path
+0x12C8BF6C	black drift	None	0x353A5B3F	0x000002F4	separate_native_path
+0x60A33C6F	quiet strike	None	0x4751D83C	0x000002F5	separate_native_path
+0x73F3CF9B	asphalt maelstrom	None	0x54012BC8	0x000002F6	separate_native_path
+0x09A702BB	Woods	None	0x2E55E6E8	0x000002F7	separate_native_path
+0x3CA47D24	Deathly	None	0x1B569977	0x000002F8	separate_native_path
+0x4ECFFE27	Mothers	None	0x693D1A74	0x000002F9	separate_native_path
+0x5D9F0DD3	amekara nijie	None	0x7A6DE980	0x000002FA	separate_native_path
+0x2FF48ED0	fragile things	None	0x08066A83	0x000002FB	separate_native_path
+0x7B3EEA3B	black drift	None	0x5CCC0E68	0x000002FC	separate_native_path
+0x09556938	quiet strike	None	0x2EA78D6B	0x000002FD	separate_native_path
+0x1A059ACC	asphalt maelstrom	None	0x3DF77E9F	0x000002FE	separate_native_path
+0x686E19CF	are you there	None	0x4F9CFD9C	0x000002FF	separate_native_path
+0x438AC964	Chronobiot	None	0x64782D37	0x00000300	separate_native_path
+0x1740AD8F	Elektrobiot	None	0x30B249DC	0x00000301	separate_native_path
+0x652B2E8C	Chlorobiot	None	0x42D9CADF	0x00000302	separate_native_path
+0x767BDD78	Nekrobiot	None	0x5189392B	0x00000303	separate_native_path
+0x66F4ABE1	Odradek-Licht	None	0x41064FB2	0x00000304	separate_native_path
+0x2A1CDC65	ROG-Kappe	CostumeCustomize	0x0DEE3836	0x00000305	separate_native_path
+0x58775F66	Neils Bandana	CostumeCustomize	0x7F85BB35	0x00000306	separate_native_path
+0x06646342	Blaues Bandana	CostumeCustomize	0x21968711	0x00000307	separate_native_path
+0x740FE041	Rotes Bandana	CostumeCustomize	0x53FD0412	0x00000308	separate_native_path
+0x1F1FA3FA	Erfolgsbandana	CostumeCustomize	0x38ED47A9	0x00000309	separate_native_path
+0x62ADCDF6	ROG	CostumeCustomize	0x5BD295CE	0x0000030A	separate_native_path
+0x10C64EF5	Verknüpfen	CostumeCustomize	0x29B916CD	0x0000030B	separate_native_path
+0x440C2A1E	Tag der Toten	CostumeCustomize	0x7D737226	0x0000030C	separate_native_path
+0x201FD064	Republic of Gamers	None	0x07ED3437	0x0000030D	separate_native_path
+0x334F2390	Día de Muertos	None	0x14BDC7C3	0x0000030E	separate_native_path
+0x412A0A86	ROG	VehicleCustomize	0x3B4396A0	0x0000030F	separate_native_path
+0x510AFAB6	Bandana-Set	None	0x76F81EE5	0x00000310	separate_native_path
+0x20731CB3	Granatwerfer [MZ]	All	0x0781F8E0	0x00000311	eligible
+0x14018FB6	Köder-Hologranate	All	0x33F36BE5	0x00000312	eligible
+0x2B66AC37	LE Sturmgewehr [MZ] St.1	All	0x0C944864	0x00000313	eligible
+0x1775256B	Schrotflinte [MZ] St.1	All	0x3087C138	0x00000314	eligible
+0x3234B715	Betäubungsscharfschützengewehr	All	0x15C65346	0x00000315	eligible
+0x32A0685E	Schockbombe	All	0x15528C0D	0x00000316	eligible
+0x40CBEB5D	MZ-Granate	All	0x67390F0E	0x00000317	eligible
+0x287F55F9	Packseil	None	0x0F8DB1AA	0x00040318	separate_native_path
+0x5A14D6FA	Urinieren	None	0x7DE632A9	0x00000319	separate_native_path
+0x4944250E	TCK St.1	All	0x6EB6C15D	0x0000031A	eligible
+0x3B2FA60D	TCK St.2	All	0x1CDD425E	0x0000031B	eligible
+0x6FE5C2E6	Behälter-Reparaturspray	All	0x481726B5	0x0000831C	eligible
+0x1D8E41E5	Leiter	All	0x3A7CA5B6	0x0004831D	eligible
+0x0EDEB211	Kletterverankerung	All	0x292C5642	0x0000831E	eligible
+0x38365FC3	Sturmgewehr [MZ] St.1	All	0x1FC4BB90	0x0004831F	eligible
+0x590D2F34	LE Sturmgewehr [MZ] St.2	All	0x7EFFCB67	0x00000320	eligible
+0x581A7766	Modifizierter Elektrostab	All	0x7FE89335	0x00000321	eligible
+0x17187678	Maschinenpistole [MZ]	All	0x30EA922B	0x00000322	eligible
+0x6573F57B	SG Maschinenpistole [MZ]	All	0x42811128	0x00000323	eligible
+0x385B0CD0	Maser-Handfeuerwaffe	All	0x1FA9E883	0x00048324	eligible
+0x3259E406	Bola-Gun	All	0x15AB0055	0x00000325	eligible
+0x753AFF41	Rauchgranate	All	0x52C81B12	0x00000326	eligible
+0x07517C42	Granate	None	0x20A39811	0x00000327	separate_native_path
+0x666A0CB5	Globingranate St.1	All	0x4198E8E6	0x00000328	eligible
+0x6C3A478B	Sturmgewehr [GG] St.1	None	0x4BC8A3D8	0x00000329	separate_native_path
+0x1E51C488	Schrotflinte [GP] St.1	None	0x39A320DB	0x0000032A	separate_native_path
+0x0D01377C	Sturmgewehr St.1	None	0x2AF3D32F	0x0000032B	separate_native_path
+0x7F6AB47F	Schrotflinte St.1	None	0x5898502C	0x0000032C	separate_native_path
+0x2BA0D094	Sturmgewehr [MZ] St.1	None	0x0C5234C7	0x0000032D	separate_native_path
+0x59CB5397	LE Sturmgewehr [MZ] St.2	None	0x7E39B7C4	0x0000032E	separate_native_path
+0x4A9BA063	Schrotflinte [MZ] St.1	None	0x6D694430	0x0000032F	separate_native_path
+0x38F02360	Betäubungsgranatwerfer	None	0x1F02C733	0x00000330	separate_native_path
+0x66E31F44	Schweres MG [MZ]	None	0x4111FB17	0x00000331	separate_native_path
+0x14889C47	Elektrostab	None	0x337A7814	0x00000332	separate_native_path
+0x7F98DFFC	« 	None	0x586A3BAF	0x00000333	separate_native_path
+0x0DF35CFF	« 	None	0x2A01B8AC	0x00000334	separate_native_path
+0x1D77CDBD	Haftwaffe	All	0x3A8529EE	0x00000335	eligible
+0x405F3416	LE Betäubungsscharfschützengewehr	All	0x67ADD045	0x00000336	eligible
+0x7623068F	Handfeuerwaffe mit großem Kaliber [MZ]	All	0x51D1E2DC	0x00000337	eligible
+0x40326705	Bola-Schockkanone	All	0x67C08356	0x00000338	eligible
+0x58772475	SG Betäubungshandfeuerwaffe	All	0x7F85C026	0x00000339	eligible
+0x7FE3A78E	Ferngezündete Schockbombe	All	0x581143DD	0x0000033A	eligible
+0x0D88248D	GD-Hologranate	All	0x2A7AC0DE	0x0000033B	eligible
+0x66986736	Tarn-Hologranate	All	0x416A8365	0x0000033C	eligible
+0x1E2ABCFA	Globingranate St.2	All	0x39D858A9	0x0000033D	eligible
+0x6F711DAD	Blutbumerang	None	0x4883F9FE	0x0000033E	separate_native_path
+0x21F09BAA	EX-Fanggranate	All	0x06027FF9	0x0000033F	eligible
+0x77590DCE	LE Siebenfach-Raketenwerfer	All	0x50ABE99D	0x00000340	eligible
+0x7FACC8DC	Sturmgewehr [MZ] St.2	All	0x585E2C8F	0x00000341	eligible
+0x22A60D36	Geister-Wachhund-Mine	None	0x0554E965	0x00000342	separate_native_path
+0x50CD8E35	« 	None	0x773F6A66	0x00000343	separate_native_path
+0x3BDDCD8E	Kampfgitarre	All	0x1C2F29DD	0x00000344	eligible
+0x539B18A9	EX-Granate	All	0x7469FCFA	0x00000345	eligible
+0x49B64E8D	Elektrofalle	All	0x6E44AADE	0x00000346	eligible
+0x5AE6BD79	TCK St.3	All	0x7D14592A	0x00000347	eligible
+0x764E559C	LE Schrotflinte [MZ] St.1	All	0x51BCB1CF	0x00000348	eligible
+0x0425D69F	LE Schrotflinte [MZ] St.2	All	0x23D732CC	0x00000349	eligible
+0x22843177	Schrotflinte [MZ] St.2	All	0x0576D524	0x0000034A	eligible
+0x7CB53112	Raketenpaket [MZ]	All	0x5B47D541	0x0000034B	eligible
+0x43793D23	Geister-Wachhund-Mine	None	0x648BD970	0x0000034C	separate_native_path
+0x0A4CBAE9	Teerkanone	All	0x73719C89	0x0000034D	eligible
+0x782739EA	Chirale Schockkanone	All	0x011A1F8A	0x0000034E	eligible
+0x6B77CA1E	Teerkanone	None	0x124AEC7E	0x0000034F	separate_native_path
+0x191C491D	Chirale Schockkanone	None	0x60216F7D	0x00000350	separate_native_path
+0x6CFC3B28	SG-LE Sturmgewehr [MZ] St.1	All	0x4B0EDF7B	0x00000351	eligible
+0x1E97B82B	SG-LE Sturmgewehr [MZ] St.2	All	0x39655C78	0x00000352	eligible
+0x05328ECD	Vierfach-Raketenwerfer	All	0x22C06A9E	0x00000353	eligible
+0x6409FE3A	Multiraketenwerfer	All	0x43FB1A69	0x00000354	eligible
+0x16627D39	LE Multiraketenwerfer	All	0x3190996A	0x00000355	eligible
+0x7D5BE518	Maschinengewehr [MZ] St.1	All	0x5AA9014B	0x00000356	dlc_native_only
+0x0F30661B	LE Maschinengewehr [MZ] St.1	All	0x28C28248	0x00000357	eligible
+0x1C6095EF	Maschinengewehr [MZ] St.2	All	0x49F9F2BF	0x00000358	eligible
+0x6E0B16EC	LE Maschinengewehr [MZ] St.2	All	0x1D339654	0x00000359	eligible
+0x41486C44	LE Granatwerfer [MZ]	All	0x66BA8817	0x0000035A	eligible
+0x3323EF47	FG Granatwerfer [MZ]	All	0x14D10B14	0x0000035B	eligible
+0x67E98BAC	LE-FG Granatwerfer [MZ]	All	0x401B6FFF	0x0000035C	eligible
+0x2A71F465	Modifizierter Hochspannungsstab	All	0x0D831036	0x0000035D	eligible
+0x39210791	Modifizierter Doppelstab	All	0x1ED3E3C2	0x0000035E	eligible
+0x288D3E7A	Wachhund-Mine	All	0x0F7FDA29	0x0000035F	eligible
+0x7C475A91	Schwebendes Wachgeschütz	All	0x5BB5BEC2	0x00000360	eligible
+0x7D51E614	Wegweiser	All	0x5AA30247	0x00000361	eligible
+0x055FDDDE	Granatenpistole [MZ]	All	0x22AD398D	0x00000362	eligible
+0x1EA3AF0B	Sturmgewehr [GG] St.2	None	0x39514B58	0x00000363	separate_native_path
+0x6CC82C08	Sturmgewehr [GG] St.3	None	0x4B3AC85B	0x00000364	separate_native_path
+0x380248E3	Schrotflinte [GP] St.2	None	0x1FF0ACB0	0x00000365	separate_native_path
+0x4A69CBE0	Schrotflinte [GP] St.3	None	0x6D9B2FB3	0x00000366	separate_native_path
+0x59393814	Sturmgewehr St.2	None	0x7ECBDC47	0x00000367	separate_native_path
+0x2B52BB17	[name unavailable]	None	0x0CA05F44	0x00000368	separate_native_path
+0x75418733	Schrotflinte St.2	None	0x52B36360	0x00000369	separate_native_path
+0x072A0430	Schrotflinte St.3	None	0x20D8E063	0x0000036A	separate_native_path
+0x4B7F7765	Hochspannungsstab	None	0x6C8D9336	0x0000036B	separate_native_path
+0x3914F466	Doppelstab	None	0x1EE61035	0x0000036C	separate_native_path
+0x2A440792	Granatwerfer [MZ]	None	0x0DB6E3C1	0x0000036D	separate_native_path
+0x0CE5E07A	Geisterklinge	None	0x2B170429	0x0000036E	separate_native_path
+0x1741324B	Sturmgewehr [MZ] St.2	None	0x30B3D618	0x0000036F	separate_native_path
+0x0411C1BF	Schrotflinte [MZ] St.2	None	0x23E325EC	0x00000370	separate_native_path
+0x767A42BC	Sturmgewehr [MZ] St.1	None	0x5188A6EF	0x00000371	separate_native_path
+0x28697E98	Schrotflinte [MZ] St.1	None	0x0F9B9ACB	0x00000372	separate_native_path
+0x5A02FD9B	Sturmgewehr [MZ] St.2	None	0x7DF019C8	0x00000373	separate_native_path
+0x3112BE20	Schrotflinte [MZ] St.2	None	0x16E05A73	0x00000374	separate_native_path
+0x04E3AA3C	Granatwerfer [MZ]	None	0x23114E6F	0x00000375	separate_native_path
+0x527FCFAF	Phantomgasgranate	All	0x758D2BFC	0x00000376	eligible
+0x1D7C2A66	Mobiler Schild	All	0x3A8ECE35	0x00000377	eligible
+0x6F17A965	Chirale Streubombe	None	0x48E54D36	0x00000378	separate_native_path
+0x31049541	Chirale Streubombe	None	0x16F67112	0x00000379	separate_native_path
+0x436F1642	Goldene Jäger	None	0x649DF211	0x0000037A	separate_native_path
+0x1C6A96E3	Feuerwerk	None	0x3B9872B0	0x0000037B	separate_native_path
+0x20144CAC	Gummipizza	All	0x07E6A8FF	0x0000037C	eligible
+0x17B359C8	Schweres MG [MZ]	None	0x3041BD9B	0x0000037D	separate_native_path
+0x5EECC31F	Blutbumerang	None	0x3AE87AFD	0x0000037E	separate_native_path
+0x65D8DACB	[name unavailable]	None	0x422A3E98	0x0000037F	separate_native_path
+0x530FC7E2	SG-LE Betäubungsscharfschützengewehr	All	0x74FD23B1	0x00000380	eligible
+0x64CE664E	Geisterklinge	None	0x433C821D	0x00000381	separate_native_path
+0x22B02657	Krieger-Sturmgewehr	None	0x0542C204	0x00000382	separate_native_path
+0x5029CED7	Krieger-Granatwerfer	None	0x77DB2A84	0x00000383	separate_native_path
+0x22424DD4	Krieger-Schrotflinte	None	0x05B0A987	0x00000384	separate_native_path
+0x7688293F	Maschinengewehr [MZ] St.2	None	0x517ACD6C	0x00000385	separate_native_path
+0x6E0115E0	Dollman-Kamera	None	0x49F3F1B3	0x00000386	separate_native_path

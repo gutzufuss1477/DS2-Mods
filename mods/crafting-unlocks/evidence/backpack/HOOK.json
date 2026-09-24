@@ -1,0 +1,8 @@
+{
+  "site": "0x01529896",
+  "expected_bytes": "E8 85 63 64 FF",
+  "original_target": "0x00B6FC20",
+  "abi": "void(manager:RCX, usage:DL, outVector:R8)",
+  "native_copy": "0x00B7E950",
+  "call_bytes_origin": "Computed from verified E8 rel32 callsite and target in the master disassembly; verified in memory at install; not a raw-byte capture."
+}

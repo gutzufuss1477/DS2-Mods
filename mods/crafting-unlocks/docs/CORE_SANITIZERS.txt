@@ -1,0 +1,1 @@
+PASS 335426 host assertions (policy/layout/selection/SHA); Windows/game hook NOT executed

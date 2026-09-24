@@ -1,0 +1,102 @@
+RVA=0x17BFE10 NAME=FUN_1417bfe10 SIZE=583
+
+void FUN_1417bfe10(longlong param_1,undefined1 param_2)
+
+{
+  longlong lVar1;
+  undefined8 uVar2;
+  byte bVar3;
+  uint uVar4;
+  undefined8 uVar5;
+  
+  *(undefined1 *)(param_1 + 0x40) = param_2;
+  *(undefined1 *)(param_1 + 0x41) = 0;
+  switch(param_2) {
+  case 0:
+  case 9:
+    FUN_1417bf4d0(param_1);
+    FUN_1417bf4d0(param_1 + 0x20);
+    uVar4 = 0;
+    do {
+      bVar3 = 0;
+      do {
+        FUN_1417bf640((longlong)(char)uVar4 * 0x20 + param_1,uVar4 & 0xff,bVar3,
+                      *(undefined1 *)(param_1 + 0x40));
+        bVar3 = bVar3 + 1;
+      } while (bVar3 < 0x18);
+      uVar4 = uVar4 + 1;
+    } while ((int)uVar4 < 2);
+    break;
+  case 1:
+    FUN_1417bf4d0(param_1);
+    bVar3 = 0;
+    do {
+      FUN_1417bf640(param_1,0,bVar3,*(undefined1 *)(param_1 + 0x40));
+      bVar3 = bVar3 + 1;
+    } while (bVar3 < 0x18);
+    break;
+  case 2:
+  case 3:
+  case 4:
+    FUN_1417bf4d0(param_1);
+    bVar3 = 0;
+    do {
+      FUN_1417bf640(param_1,0,bVar3,*(undefined1 *)(param_1 + 0x40));
+      bVar3 = bVar3 + 1;
+    } while (bVar3 < 0x18);
+    break;
+  case 5:
+  case 7:
+  case 10:
+    FUN_1417bf4d0(param_1);
+    bVar3 = 0;
+    do {
+      FUN_1417bf640(param_1,0,bVar3,*(undefined1 *)(param_1 + 0x40));
+      bVar3 = bVar3 + 1;
+    } while (bVar3 < 0x16);
+    break;
+  case 6:
+    FUN_1417bf4d0(param_1);
+    bVar3 = 0;
+    do {
+      FUN_1417bf640(param_1,0,bVar3,*(undefined1 *)(param_1 + 0x40));
+      bVar3 = bVar3 + 1;
+    } while (bVar3 < 0x18);
+    FUN_1417bf4d0(param_1 + 0x20);
+    FUN_1417bf640(param_1 + 0x20,1,0x1f,*(undefined1 *)(param_1 + 0x40));
+    FUN_1417bf640(param_1 + 0x20,1,0x20,*(undefined1 *)(param_1 + 0x40));
+    FUN_1417bf640(param_1 + 0x20,1,0x21,*(undefined1 *)(param_1 + 0x40));
+    FUN_1417bf640(param_1 + 0x20,1,0x22,*(undefined1 *)(param_1 + 0x40));
+    uVar5 = 0x23;
+    lVar1 = param_1 + 0x20;
+    uVar2 = 1;
+    goto LAB_1417c0038;
+  case 8:
+    FUN_1417bf4d0(param_1);
+    FUN_1417bf4d0(param_1 + 0x20);
+    uVar4 = 0;
+    do {
+      bVar3 = 0;
+      do {
+        if (uVar4 == 1) {
+          while (bVar3 == 3) {
+            FUN_1417bf640(param_1 + 0x20,1,0x24,*(undefined1 *)(param_1 + 0x40));
+            bVar3 = 4;
+          }
+        }
+        FUN_1417bf640((longlong)(char)uVar4 * 0x20 + param_1,uVar4 & 0xff,bVar3,
+                      *(undefined1 *)(param_1 + 0x40));
+        bVar3 = bVar3 + 1;
+      } while (bVar3 < 0x18);
+      uVar4 = uVar4 + 1;
+    } while ((int)uVar4 < 2);
+    uVar5 = 0x1e;
+    uVar2 = 0;
+    lVar1 = param_1;
+LAB_1417c0038:
+    FUN_1417bf640(lVar1,uVar2,uVar5,*(undefined1 *)(param_1 + 0x40));
+  }
+  return;
+}
+
+

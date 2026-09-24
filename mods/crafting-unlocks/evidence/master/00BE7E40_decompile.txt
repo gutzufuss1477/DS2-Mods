@@ -1,0 +1,20 @@
+SOURCE: DECOMPILE_0104.txt
+FUNCTION RVA 0xBE7E40
+NAME: FUN_140be7e40
+SIZE: 35
+SIGNATURE: undefined FUN_140be7e40(void)
+================================================================
+
+void FUN_140be7e40(undefined8 param_1,undefined8 *param_2)
+
+{
+  if (param_2 != (undefined8 *)0x0) {
+    FUN_140be7970(param_2);
+    *param_2 = DSGameCommodityListItem::vftable;
+  }
+  return;
+}
+
+
+
+================================================================

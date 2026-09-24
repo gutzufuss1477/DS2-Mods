@@ -1,0 +1,24 @@
+SOURCE: DECOMPILE_0096.txt
+FUNCTION RVA 0xAD6330
+NAME: FUN_140ad6330
+SIZE: 62
+SIGNATURE: undefined FUN_140ad6330(void)
+================================================================
+
+undefined8 * FUN_140ad6330(undefined8 *param_1,ulonglong param_2)
+
+{
+  *param_1 = DSGameMenuCommand::vftable;
+  if ((param_2 & 1) != 0) {
+    if ((param_2 & 4) == 0) {
+      FUN_1400a0d10();
+      return param_1;
+    }
+    AK::TempAlloc::DumpTempAllocsToFile((Type)param_1,(wchar_t *)&DAT_00000028);
+  }
+  return param_1;
+}
+
+
+
+================================================================

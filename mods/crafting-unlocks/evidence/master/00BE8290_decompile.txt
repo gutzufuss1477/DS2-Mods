@@ -1,0 +1,22 @@
+SOURCE: DECOMPILE_0104.txt
+FUNCTION RVA 0xBE8290
+NAME: FUN_140be8290
+SIZE: 54
+SIGNATURE: undefined FUN_140be8290(void)
+================================================================
+
+void FUN_140be8290(undefined8 param_1,undefined8 *param_2)
+
+{
+  *param_2 = DSGameBaggageListItem::vftable;
+  if (param_2[10] != 0) {
+    FUN_140109d80();
+  }
+  param_2[10] = 0;
+  FUN_140be7580(param_2);
+  return;
+}
+
+
+
+================================================================

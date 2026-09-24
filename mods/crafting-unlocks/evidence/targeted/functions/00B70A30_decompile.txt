@@ -1,0 +1,28 @@
+RVA=0xB70A30 NAME=FUN_140b70a30 SIZE=84
+
+ulonglong FUN_140b70a30(undefined8 param_1,longlong param_2)
+
+{
+  int iVar1;
+  ulonglong uVar2;
+  longlong lVar3;
+  ulonglong *puVar4;
+  
+  iVar1 = *(int *)(DAT_14623e540 + 0x88);
+  uVar2 = (longlong)iVar1;
+  if (0 < iVar1) {
+    puVar4 = *(ulonglong **)(DAT_14623e540 + 0x90);
+    lVar3 = 0;
+    do {
+      uVar2 = *puVar4;
+      if ((*(ushort *)(param_2 + 8) & 0xfff) == (*(ushort *)(uVar2 + 8) & 0xfff)) {
+        return CONCAT71((int7)(uVar2 >> 8),1);
+      }
+      lVar3 = lVar3 + 1;
+      puVar4 = puVar4 + 1;
+    } while (lVar3 < iVar1);
+  }
+  return uVar2 & 0xffffffffffffff00;
+}
+
+

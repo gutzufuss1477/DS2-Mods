@@ -1,0 +1,22 @@
+RVA=0xB70A90 NAME=FUN_140b70a90 SIZE=54
+
+undefined8 FUN_140b70a90(undefined8 param_1,undefined1 param_2)
+
+{
+  switch(param_2) {
+  case 0:
+  case 6:
+    return 6;
+  default:
+    return 0;
+  case 2:
+  case 7:
+    return 2;
+  case 5:
+    return 1;
+  case 8:
+    return 3;
+  }
+}
+
+

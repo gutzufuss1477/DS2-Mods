@@ -1,0 +1,18 @@
+SOURCE: DECOMPILE_0104.txt
+FUNCTION RVA 0xBE7350
+NAME: FUN_140be7350
+SIZE: 34
+SIGNATURE: undefined FUN_140be7350(void)
+================================================================
+
+void FUN_140be7350(undefined8 param_1,undefined8 *param_2)
+
+{
+  FUN_1426e4e60(param_2 + 5);
+  *param_2 = RTTIObject::vftable;
+  return;
+}
+
+
+
+================================================================

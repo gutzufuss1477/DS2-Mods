@@ -1,0 +1,41 @@
+RVA=0x1491210 NAME=FUN_141491210 SIZE=190
+
+void FUN_141491210(longlong param_1)
+
+{
+  longlong lVar1;
+  longlong lVar2;
+  longlong lVar3;
+  undefined8 local_18;
+  longlong local_10;
+  
+  lVar1 = FUN_141491410();
+  lVar2 = DAT_14623e540;
+  if ((lVar1 != 0) && (*(char *)(lVar1 + 0x20) != '\0')) {
+    *(undefined1 *)(lVar1 + 0x20) = 0;
+    local_18 = 0;
+    local_10 = 0;
+    FUN_140b6fc20(lVar2,8,&local_18);
+    lVar2 = (longlong)(int)local_18 * 0x10 + local_10;
+    if (local_10 != lVar2) {
+      lVar3 = local_10;
+      do {
+        if (*(int *)(*(longlong *)
+                      (*(longlong *)(DAT_14623e540 + 0x10) +
+                      (ulonglong)(*(uint *)(lVar3 + 8) & 0xfff) * 8) + 0x20) ==
+            *(int *)(*(longlong *)
+                      (*(longlong *)(DAT_14623e540 + 0x10) +
+                      (ulonglong)(*(uint *)(lVar1 + 0x38) & 0xfff) * 8) + 0x20)) {
+          FUN_140b6f900();
+          *(uint *)(param_1 + 800) = *(uint *)(param_1 + 800) | 2;
+          break;
+        }
+        lVar3 = lVar3 + 0x10;
+      } while (lVar3 != lVar2);
+    }
+    FUN_1402180d0(&local_18);
+  }
+  return;
+}
+
+

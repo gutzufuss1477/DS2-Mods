@@ -1,0 +1,12 @@
+state=CAPTURE_COMPLETE
+tasks=164
+existing_functions_decompiled=151
+pseudo_decoded_targets=13
+issues=0
+decode_failures=0
+limits=0
+raw_bytes=430048
+game_started=false
+database_writes=false
+mod_built=false
+This is an evidence capture, not a validated mod or complete callgraph.

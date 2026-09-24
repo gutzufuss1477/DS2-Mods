@@ -1,0 +1,121 @@
+RVA=0x1484C00 NAME=FUN_141484c00 SIZE=808
+
+undefined8 * FUN_141484c00(undefined8 *param_1,undefined1 param_2)
+
+{
+  undefined *puVar1;
+  int *piVar2;
+  
+  puVar1 = PTR_DAT_1441bdb58;
+  switch(param_2) {
+  case 0:
+    FUN_141483f90(param_1,0xb7);
+    return param_1;
+  case 1:
+    FUN_141483f90(param_1,0xb8);
+    return param_1;
+  case 2:
+    FUN_141483f90(param_1,0xb9);
+    return param_1;
+  case 3:
+    FUN_141483f90(param_1,0xba);
+    return param_1;
+  case 4:
+    FUN_141483f90(param_1,0xbb);
+    return param_1;
+  case 5:
+    FUN_141483f90(param_1,0xbc);
+    return param_1;
+  case 6:
+    FUN_141483f90(param_1,0xbd);
+    return param_1;
+  case 7:
+    FUN_141483f90(param_1,0xbe);
+    return param_1;
+  case 8:
+    FUN_141483f90(param_1,0xbf);
+    return param_1;
+  case 9:
+    FUN_141483f90(param_1,0xc0);
+    return param_1;
+  case 10:
+    FUN_141483f90(param_1,0xc1);
+    return param_1;
+  case 0xb:
+    FUN_141483f90(param_1,0xc2);
+    return param_1;
+  case 0xc:
+    FUN_141483f90(param_1,0xc3);
+    return param_1;
+  case 0xd:
+    FUN_141483f90(param_1,0xc4);
+    return param_1;
+  case 0xe:
+    FUN_141483f90(param_1,0xc5);
+    return param_1;
+  case 0xf:
+    FUN_141483f90(param_1,0xc6);
+    return param_1;
+  case 0x10:
+    FUN_141483f90(param_1,199);
+    return param_1;
+  case 0x11:
+    FUN_141483f90(param_1,200);
+    return param_1;
+  case 0x12:
+    FUN_141483f90(param_1,0xc9);
+    return param_1;
+  case 0x13:
+    FUN_141483f90(param_1,0xca);
+    return param_1;
+  case 0x14:
+    FUN_141483f90(param_1,0xcb);
+    return param_1;
+  case 0x15:
+    FUN_141483f90(param_1,0xcc);
+    return param_1;
+  case 0x16:
+    FUN_141483f90(param_1,0xcd);
+    return param_1;
+  case 0x17:
+    FUN_141483f90(param_1,0xce);
+    return param_1;
+  case 0x18:
+    FUN_141483f90(param_1,0xcf);
+    return param_1;
+  case 0x19:
+    FUN_141483f90(param_1,0xd0);
+    return param_1;
+  case 0x1a:
+    FUN_141483f90(param_1,0xd1);
+    return param_1;
+  case 0x1b:
+    FUN_141483f90(param_1,0xd2);
+    return param_1;
+  case 0x1c:
+    FUN_141483f90(param_1,0xd3);
+    return param_1;
+  case 0x1d:
+    FUN_141483f90(param_1,0xd4);
+    return param_1;
+  case 0x1e:
+    FUN_141483f90(param_1,0xd5);
+    return param_1;
+  case 0x1f:
+    FUN_141483f90(param_1,0xd6);
+    return param_1;
+  case 0x20:
+    FUN_141483f90(param_1,0xd7);
+    return param_1;
+  }
+  piVar2 = (int *)(PTR_DAT_1441bdb58 + -0x10);
+  if (piVar2 != &DAT_143b34c90) {
+    LOCK();
+    *piVar2 = *piVar2 + 1;
+    UNLOCK();
+  }
+  *param_1 = puVar1;
+  return param_1;
+}
+
+

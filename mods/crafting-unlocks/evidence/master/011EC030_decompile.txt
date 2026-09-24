@@ -1,0 +1,109 @@
+SOURCE: DECOMPILE_0135.txt
+FUNCTION RVA 0x11EC030
+NAME: FUN_1411ec030
+SIZE: 595
+SIGNATURE: undefined FUN_1411ec030(void)
+================================================================
+
+void FUN_1411ec030(longlong param_1)
+
+{
+  longlong lVar1;
+  char cVar2;
+  longlong lVar3;
+  longlong lVar4;
+  longlong lVar5;
+  longlong lVar6;
+  ulonglong uVar7;
+  PSRWLOCK local_28;
+  char local_20;
+  char local_1f;
+  
+  lVar6 = *(longlong *)(param_1 + 0x28);
+  lVar5 = (longlong)*(int *)(param_1 + 0x20) * 0xf0 + lVar6;
+  if (lVar6 != lVar5) {
+    do {
+      lVar1 = DAT_14623ea48;
+      *(undefined1 *)(lVar6 + 0xb0) = 1;
+      if (*(longlong *)(lVar1 + 0x10) == 0) {
+        uVar7 = 0xffffffffffffffff;
+      }
+      else {
+        cVar2 = FUN_1411ca860(lVar1);
+        if ((cVar2 == '\0') || (*(char *)(lVar1 + 0x121c1) != '\0')) {
+          FUN_1411e9b80(&local_28,lVar1 + 0x36738);
+          if (*(int *)(lVar1 + 0x50) == 0) {
+            if (local_20 == '\0') {
+              ReleaseSRWLockExclusive(local_28);
+              uVar7 = 0xffffffffffffffff;
+            }
+            else {
+              if (local_1f != '\0') {
+                ReleaseSRWLockExclusive(local_28);
+                LOCK();
+                *(char *)(DAT_14623ea48 + 0x36729) = *(char *)(DAT_14623ea48 + 0x36729) + -1;
+                UNLOCK();
+              }
+              uVar7 = 0xffffffffffffffff;
+            }
+          }
+          else {
+            if (*(char *)(lVar1 + 0x242c8) != '\0') {
+              while( true ) {
+                uVar7 = *(ulonglong *)(lVar1 + 0x242c0);
+                if (0x1fffffffffe < (longlong)*(ulonglong *)(lVar1 + 0x242c0)) {
+                  *(undefined8 *)(lVar1 + 0x242c0) = 0;
+                  uVar7 = 0;
+                }
+                lVar3 = *(longlong *)(lVar1 + 0x38);
+                lVar4 = (longlong)*(int *)(lVar1 + 0x30) * 0x160 + lVar3;
+                for (; lVar3 != lVar4; lVar3 = lVar3 + 0x160) {
+                  if (uVar7 == (*(ulonglong *)(lVar3 + 0x18) & 0x1ffffffffff)) goto LAB_1411ec225;
+                }
+                lVar3 = *(longlong *)(lVar1 + 0x12170);
+                lVar4 = (longlong)*(int *)(lVar1 + 0x12168) * 0xf0 + lVar3;
+                if (lVar3 == lVar4) break;
+                while (*(ulonglong *)(lVar1 + 0x242c0) !=
+                       (*(ulonglong *)(lVar3 + 0xe8) & 0x1ffffffffff)) {
+                  lVar3 = lVar3 + 0xf0;
+                  if (lVar3 == lVar4) goto LAB_1411ec1bb;
+                }
+LAB_1411ec225:
+                *(longlong *)(lVar1 + 0x242c0) = *(longlong *)(lVar1 + 0x242c0) + 1;
+              }
+            }
+LAB_1411ec1bb:
+            uVar7 = (ulonglong)**(uint **)(lVar1 + 0x58) << 0x29 | *(ulonglong *)(lVar1 + 0x242c0);
+            FUN_1402385d0(lVar1 + 0x50,0,2);
+            *(longlong *)(lVar1 + 0x242c0) = *(longlong *)(lVar1 + 0x242c0) + 1;
+            if (0x1fffffffffe < *(longlong *)(lVar1 + 0x242c0)) {
+              *(undefined1 *)(lVar1 + 0x242c8) = 1;
+              *(undefined8 *)(lVar1 + 0x242c0) = 0;
+            }
+            *(ulonglong *)(lVar6 + 0xe8) = uVar7;
+            FUN_140ad7110(lVar1 + 0x12168,lVar6);
+            if (local_20 == '\0') {
+              ReleaseSRWLockExclusive(local_28);
+            }
+            else if (local_1f != '\0') {
+              ReleaseSRWLockExclusive(local_28);
+              LOCK();
+              *(char *)(DAT_14623ea48 + 0x36729) = *(char *)(DAT_14623ea48 + 0x36729) + -1;
+              UNLOCK();
+            }
+          }
+        }
+        else {
+          uVar7 = 0xffffffffffffffff;
+        }
+      }
+      *(ulonglong *)(lVar6 + 0xe8) = uVar7;
+      lVar6 = lVar6 + 0xf0;
+    } while (lVar6 != lVar5);
+  }
+  return;
+}
+
+
+
+================================================================

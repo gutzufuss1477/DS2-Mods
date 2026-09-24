@@ -1,0 +1,40 @@
+RVA=0x14A6840 NAME=FUN_1414a6840 SIZE=275
+
+void FUN_1414a6840(longlong param_1,char param_2,byte param_3)
+
+{
+  undefined8 uVar1;
+  byte bVar2;
+  undefined4 uVar3;
+  undefined1 *local_res20;
+  
+  if (DAT_1462473f8 == 0) {
+    *(byte *)(param_1 + 0x133) = param_3;
+    return;
+  }
+  bVar2 = *(byte *)(param_1 + 0x139) & param_3;
+  if (param_2 == '\0') {
+    if (bVar2 == param_3) {
+      uVar1 = *DAT_14623ebf8;
+      local_res20 = &DAT_143b34ca0;
+      FUN_1400a42c0(&local_res20,0,"DSUIRootMenuController_LockInput: Type[%d]",param_3);
+      uVar3 = FUN_1400a4600(&local_res20);
+      FUN_14149fea0(uVar1,uVar3);
+      FUN_1400a38a0(&local_res20);
+      *(byte *)(param_1 + 0x139) = *(byte *)(param_1 + 0x139) & ~param_3;
+    }
+  }
+  else if (bVar2 != param_3) {
+    uVar1 = *DAT_14623ebf8;
+    local_res20 = &DAT_143b34ca0;
+    FUN_1400a42c0(&local_res20,0,"DSUIRootMenuController_LockInput: Type[%d]",param_3);
+    uVar3 = FUN_1400a4600(&local_res20);
+    FUN_14149ff80(uVar1,uVar3);
+    FUN_1400a38a0(&local_res20);
+    *(byte *)(param_1 + 0x139) = *(byte *)(param_1 + 0x139) | param_3;
+    return;
+  }
+  return;
+}
+
+

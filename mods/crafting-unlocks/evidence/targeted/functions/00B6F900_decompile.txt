@@ -1,0 +1,23 @@
+RVA=0xB6F900 NAME=FUN_140b6f900 SIZE=82
+
+void FUN_140b6f900(undefined8 param_1,longlong param_2)
+
+{
+  longlong lVar1;
+  longlong lVar2;
+  
+  lVar1 = *(longlong *)(DAT_14623e540 + 0x40);
+  lVar2 = (longlong)*(int *)(DAT_14623e540 + 0x38) * 0x10 + lVar1;
+  if (lVar1 != lVar2) {
+    while ((*(uint *)(lVar1 + 8) & 0xfff) != (*(uint *)(param_2 + 8) & 0xfff)) {
+      lVar1 = lVar1 + 0x10;
+      if (lVar1 == lVar2) {
+        return;
+      }
+    }
+    *(uint *)(lVar1 + 8) = *(uint *)(lVar1 + 8) | 0x10000;
+  }
+  return;
+}
+
+

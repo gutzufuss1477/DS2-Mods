@@ -1,0 +1,56 @@
+SOURCE: DECOMPILE_0006.txt
+FUNCTION RVA 0xA38A0
+NAME: FUN_1400a38a0
+SIZE: 155
+SIGNATURE: undefined FUN_1400a38a0(void)
+================================================================
+
+void FUN_1400a38a0(longlong *param_1)
+
+{
+  uint uVar1;
+  undefined **ppuVar2;
+  undefined **ppuVar3;
+  uint *puVar4;
+  
+  puVar4 = (uint *)(*param_1 + -0x10);
+  if (puVar4 == &DAT_143b34c90) {
+    return;
+  }
+  LOCK();
+  uVar1 = *puVar4;
+  *puVar4 = *puVar4 - 1;
+  ppuVar2 = DAT_14a1b8970;
+  UNLOCK();
+  if ((uVar1 & 0x7fffffff) != 1) {
+    return;
+  }
+  if (puVar4 == (uint *)0x0) {
+    return;
+  }
+  if ((puVar4 < DAT_1441c1500) || (DAT_1441c1508 <= puVar4)) {
+    ppuVar3 = *(undefined ***)(&DAT_00001a68 + *(longlong *)ThreadLocalStoragePointer);
+    if (*(undefined ***)(&DAT_00001a68 + *(longlong *)ThreadLocalStoragePointer) ==
+        (undefined **)0x0) {
+      *(undefined ***)(&DAT_00001a68 + *(longlong *)ThreadLocalStoragePointer) = DAT_14a1b8970;
+      ppuVar3 = ppuVar2;
+    }
+    if (ppuVar3 == &PTR_vftable_1441c07e0) goto LAB_1400a392d;
+  }
+  else {
+    ppuVar3 = &PTR_vftable_1441c07e0;
+  }
+  if (ppuVar3 != ppuVar2) {
+    (**(code **)(*ppuVar3 + 0x90))();
+    return;
+  }
+LAB_1400a392d:
+                    /* WARNING: Could not recover jumptable at 0x0001400a3933. Too many branches */
+                    /* WARNING: Treating indirect jump as call */
+  (**(code **)(*ppuVar2 + 0x90))(ppuVar2);
+  return;
+}
+
+
+
+================================================================

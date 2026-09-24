@@ -1,0 +1,49 @@
+RVA=0x14A7DC0 NAME=FUN_1414a7dc0 SIZE=335
+
+void FUN_1414a7dc0(longlong param_1,undefined1 *param_2,undefined1 param_3)
+
+{
+  undefined8 uVar1;
+  undefined4 uVar2;
+  longlong lVar3;
+  undefined1 *puVar4;
+  undefined1 *local_res8;
+  
+  lVar3 = FUN_14148db40(param_1 + 0x20);
+  *(undefined1 *)(lVar3 + 0x22) = 5;
+  *(undefined1 *)(lVar3 + 0x21) = param_3;
+  *(undefined1 *)(param_1 + 0x136) = 1;
+  puVar4 = param_2 + *(int *)(param_2 + 8);
+  for (; param_2 != puVar4; param_2 = param_2 + 1) {
+    *(undefined1 *)((longlong)*(int *)(lVar3 + 0x1c) + 0x14 + lVar3) = *param_2;
+    *(int *)(lVar3 + 0x1c) = *(int *)(lVar3 + 0x1c) + 1;
+  }
+  if (DAT_1462473f8 == 0) {
+    *(undefined1 *)(param_1 + 0x133) = 8;
+  }
+  else if ((*(byte *)(param_1 + 0x139) & 8) == 0) {
+    uVar1 = *DAT_14623ebf8;
+    local_res8 = &DAT_143b34ca0;
+    FUN_1400a42c0(&local_res8,0,"DSUIRootMenuController_LockInput: Type[%d]",8);
+    uVar2 = FUN_1400a4600(&local_res8);
+    FUN_14149ff80(uVar1,uVar2);
+    FUN_1400a38a0(&local_res8);
+    *(byte *)(param_1 + 0x139) = *(byte *)(param_1 + 0x139) | 8;
+  }
+  if (DAT_1462473f8 != 0) {
+    if ((*(byte *)(param_1 + 0x139) & 2) == 0) {
+      uVar1 = *DAT_14623ebf8;
+      local_res8 = &DAT_143b34ca0;
+      FUN_1400a42c0(&local_res8,0,"DSUIRootMenuController_LockInput: Type[%d]",2);
+      uVar2 = FUN_1400a4600(&local_res8);
+      FUN_14149ff80(uVar1,uVar2);
+      FUN_1400a38a0(&local_res8);
+      *(byte *)(param_1 + 0x139) = *(byte *)(param_1 + 0x139) | 2;
+    }
+    return;
+  }
+  *(undefined1 *)(param_1 + 0x133) = 2;
+  return;
+}
+
+

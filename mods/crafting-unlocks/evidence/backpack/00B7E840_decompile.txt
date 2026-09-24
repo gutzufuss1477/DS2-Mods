@@ -1,0 +1,64 @@
+================================================================
+FUNCTION RVA 0xB7E840
+NAME: FUN_140b7e840
+SIZE: 262
+SIGNATURE: undefined FUN_140b7e840(void)
+================================================================
+
+void FUN_140b7e840(int *param_1,ulonglong param_2)
+
+{
+  undefined8 *puVar1;
+  undefined *puVar2;
+  undefined **ppuVar3;
+  undefined **ppuVar4;
+  undefined8 *puVar5;
+  undefined8 *puVar6;
+  longlong lVar7;
+  
+  puVar1 = *(undefined8 **)(param_1 + 2);
+  if (((param_2 >> 3 & 1) == 0) &&
+     (lVar7 = (longlong)*param_1, puVar5 = puVar1, puVar6 = (undefined8 *)0x0, 0 < lVar7)) {
+    do {
+      (**(code **)*puVar5)(puVar1 + (longlong)(int)puVar6 * 2,0);
+      lVar7 = lVar7 + -1;
+      puVar5 = puVar5 + 2;
+      puVar6 = (undefined8 *)(ulonglong)((int)puVar6 + 1);
+    } while (lVar7 != 0);
+  }
+  ppuVar4 = DAT_14a1b8970;
+  if ((param_2 >> 1 & 1) != 0) goto LAB_140b7e927;
+  if (puVar1 != (undefined8 *)0x0) {
+    if ((puVar1 < DAT_1441c1500) || (DAT_1441c1508 <= puVar1)) {
+      ppuVar3 = *(undefined ***)(&DAT_00001a68 + *(longlong *)ThreadLocalStoragePointer);
+      if (*(undefined ***)(&DAT_00001a68 + *(longlong *)ThreadLocalStoragePointer) ==
+          (undefined **)0x0) {
+        *(undefined ***)(&DAT_00001a68 + *(longlong *)ThreadLocalStoragePointer) = DAT_14a1b8970;
+        ppuVar3 = ppuVar4;
+      }
+      if (ppuVar3 != &PTR_vftable_1441c07e0) goto LAB_140b7e909;
+LAB_140b7e913:
+      puVar2 = *ppuVar4;
+    }
+    else {
+      ppuVar3 = &PTR_vftable_1441c07e0;
+LAB_140b7e909:
+      if (ppuVar3 == ppuVar4) goto LAB_140b7e913;
+      puVar2 = *ppuVar3;
+      ppuVar4 = ppuVar3;
+    }
+    (**(code **)(puVar2 + 0x90))(ppuVar4,puVar1);
+  }
+  param_1[1] = 0;
+LAB_140b7e927:
+  *param_1 = 0;
+  puVar5 = (undefined8 *)0x0;
+  if ((param_2 >> 1 & 1) != 0) {
+    puVar5 = puVar1;
+  }
+  *(undefined8 **)(param_1 + 2) = puVar5;
+  return;
+}
+
+
+

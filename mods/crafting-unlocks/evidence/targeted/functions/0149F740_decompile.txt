@@ -1,0 +1,26 @@
+RVA=0x149F740 NAME=FUN_14149f740 SIZE=142
+
+void FUN_14149f740(void)
+
+{
+  undefined8 *puVar1;
+  longlong lVar2;
+  undefined8 *puVar3;
+  
+  lVar2 = DAT_1462473f8;
+  if (DAT_146282040 != '\0') {
+    DAT_146282040 = '\0';
+    DAT_14628200c = 0;
+  }
+  if ((DAT_1462473f8 != 0) && (*(int *)(DAT_1462473f8 + 0x7c) == 0)) {
+    puVar3 = *(undefined8 **)(DAT_1462473f8 + 0x90);
+    puVar1 = puVar3 + *(int *)(DAT_1462473f8 + 0x88);
+    for (; puVar3 != puVar1; puVar3 = puVar3 + 1) {
+      (**(code **)(*(longlong *)*puVar3 + 0x18))((longlong *)*puVar3,2);
+    }
+    *(undefined4 *)(lVar2 + 0x7c) = 2;
+  }
+  return;
+}
+
+

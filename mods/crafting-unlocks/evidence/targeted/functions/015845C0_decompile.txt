@@ -1,0 +1,19 @@
+RVA=0x15845C0 NAME=FUN_1415845c0 SIZE=121
+
+void FUN_1415845c0(ulonglong *param_1,ulonglong *param_2,undefined8 param_3,undefined8 param_4)
+
+{
+  longlong lVar1;
+  longlong local_res8;
+  
+  if (*param_1 < *param_2) {
+    lVar1 = FUN_141589320();
+    local_res8 = lVar1 + -0x10;
+    FUN_1415845c0(param_1,&local_res8,param_3,param_4);
+    local_res8 = lVar1 + 0x10;
+    FUN_1415845c0(&local_res8,param_2,param_3,param_4);
+  }
+  return;
+}
+
+

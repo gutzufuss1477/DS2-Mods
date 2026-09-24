@@ -1,0 +1,27 @@
+RVA=0xB70380 NAME=FUN_140b70380 SIZE=167
+
+void FUN_140b70380(longlong param_1,longlong param_2,int param_3)
+
+{
+  int iVar1;
+  
+  if (*(longlong *)
+       (*(longlong *)
+         (*(longlong *)(DAT_14623e540 + 0x10) + (ulonglong)(*(uint *)(param_2 + 8) & 0xfff) * 8) +
+       0x28) != 0) {
+    FUN_140b7e6f0(param_1 + 0x48);
+    if ((*(uint *)(param_2 + 8) >> 0xf & 1) != 0) {
+      if (*(char *)(*(longlong *)
+                     (*(longlong *)(DAT_14623e540 + 0x10) +
+                     (ulonglong)(*(uint *)(param_2 + 8) & 0xfff) * 8) + 0x52) != '\0') {
+        iVar1 = FUN_140b70a90();
+        if ((iVar1 != 6) && ((param_3 == 5 || (iVar1 == param_3)))) {
+          FUN_140b7e6f0((longlong)iVar1 * 0x30 + 0x68 + param_1,param_2);
+        }
+      }
+    }
+  }
+  return;
+}
+
+

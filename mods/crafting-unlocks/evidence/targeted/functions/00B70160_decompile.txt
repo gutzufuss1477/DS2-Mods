@@ -1,0 +1,100 @@
+RVA=0xB70160 NAME=FUN_140b70160 SIZE=544
+
+void FUN_140b70160(longlong param_1)
+
+{
+  PSRWLOCK SRWLock;
+  uint uVar1;
+  BOOLEAN BVar2;
+  char cVar3;
+  int iVar4;
+  uint uVar5;
+  ulonglong uVar6;
+  longlong lVar7;
+  ulonglong uVar8;
+  longlong lVar9;
+  int *piVar10;
+  
+  SRWLock = (PSRWLOCK)(param_1 + 0x138);
+  BVar2 = TryAcquireSRWLockExclusive(SRWLock);
+  if (BVar2 == '\0') {
+    AcquireSRWLockExclusive(SRWLock);
+  }
+  uVar6 = 0;
+  uVar8 = uVar6;
+  do {
+    while( true ) {
+      iVar4 = (int)uVar8;
+      FUN_140b7e840((longlong)iVar4 * 0x30 + 0x68 + param_1,2);
+      if (iVar4 != 0) break;
+      FUN_140b7e840(param_1 + 0x48,2);
+      FUN_140b7e840(param_1 + 0x128,2);
+      uVar8 = 1;
+    }
+    uVar8 = (ulonglong)(iVar4 + 1U);
+  } while ((int)(iVar4 + 1U) < 4);
+  *(undefined4 *)(param_1 + 0x88) = 0;
+  *(undefined4 *)(param_1 + 0xb8) = 0;
+  *(undefined4 *)(param_1 + 0xe8) = 0;
+  *(undefined4 *)(param_1 + 0x118) = 0;
+  uVar8 = uVar6;
+  if (0 < *(int *)(param_1 + 0x38)) {
+    do {
+      lVar9 = *(longlong *)(param_1 + 0x40);
+      uVar5 = *(uint *)(lVar9 + 8 + uVar8);
+      if (*(char *)(*(longlong *)
+                     (*(longlong *)(DAT_14623e540 + 0x10) + (ulonglong)(uVar5 & 0xfff) * 8) + 0x52)
+          == '\0') {
+        uVar1 = uVar5 & 0xffff7fff;
+      }
+      else {
+        cVar3 = FUN_140be91a0();
+        uVar5 = *(uint *)(lVar9 + 8 + uVar8);
+        uVar1 = uVar5 & 0xffff7fff;
+        if (cVar3 != '\0') {
+          uVar1 = uVar5 | 0x8000;
+        }
+      }
+      *(uint *)(lVar9 + 8 + uVar8) = uVar1;
+      lVar9 = *(longlong *)(param_1 + 0x40) + uVar8;
+      if (*(longlong *)
+           (*(longlong *)
+             (*(longlong *)(DAT_14623e540 + 0x10) + (ulonglong)(*(uint *)(lVar9 + 8) & 0xfff) * 8) +
+           0x28) != 0) {
+        FUN_140b7e6f0(param_1 + 0x48,lVar9);
+        if ((((*(uint *)(lVar9 + 8) >> 0xf & 1) != 0) &&
+            (*(char *)(*(longlong *)
+                        (*(longlong *)(DAT_14623e540 + 0x10) +
+                        (ulonglong)(*(uint *)(lVar9 + 8) & 0xfff) * 8) + 0x52) != '\0')) &&
+           (iVar4 = FUN_140b70a90(), iVar4 != 6)) {
+          FUN_140b7e6f0((longlong)iVar4 * 0x30 + 0x68 + param_1,lVar9);
+        }
+      }
+      uVar5 = (int)uVar6 + 1;
+      uVar6 = (ulonglong)uVar5;
+      uVar8 = uVar8 + 0x10;
+    } while ((int)uVar5 < *(int *)(param_1 + 0x38));
+  }
+  lVar7 = 4;
+  piVar10 = (int *)(param_1 + 0x68);
+  lVar9 = 4;
+  do {
+    FUN_140b80850(*(longlong *)(piVar10 + 2),(longlong)*piVar10 * 0x10 + *(longlong *)(piVar10 + 2))
+    ;
+    piVar10 = piVar10 + 0xc;
+    lVar9 = lVar9 + -1;
+  } while (lVar9 != 0);
+  do {
+    FUN_140b70430();
+    lVar7 = lVar7 + -1;
+  } while (lVar7 != 0);
+  if (SRWLock == (PSRWLOCK)0x0) {
+    return;
+  }
+                    /* WARNING: Could not recover jumptable at 0x000140b70372. Too many branches */
+                    /* WARNING: Treating indirect jump as call */
+  ReleaseSRWLockExclusive(SRWLock);
+  return;
+}
+
+

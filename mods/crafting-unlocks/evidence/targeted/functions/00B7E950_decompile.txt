@@ -1,0 +1,74 @@
+RVA=0xB7E950 NAME=FUN_140b7e950 SIZE=350
+
+void FUN_140b7e950(int *param_1,void *param_2,int param_3)
+
+{
+  longlong *plVar1;
+  longlong lVar2;
+  undefined8 *puVar3;
+  longlong *plVar4;
+  longlong lVar5;
+  longlong lVar6;
+  longlong lVar7;
+  int iVar8;
+  
+  lVar7 = (longlong)*param_1;
+  lVar6 = (longlong)param_3;
+  if (param_3 <= *param_1) goto LAB_140b7ea92;
+  lVar2 = *(longlong *)(param_1 + 2);
+  if (param_1[1] < param_3) {
+    iVar8 = ((int)((param_3 >> 0x1f & 7U) + param_3) >> 3) + 2 + param_3;
+    lVar5 = (longlong)iVar8 << 4;
+    if (lVar2 == 0) {
+      if (lVar5 == 0) goto LAB_140b7ea2b;
+      lVar2 = *(longlong *)ThreadLocalStoragePointer;
+      if (*(char *)(lVar2 + 0x18a8) == '\0') {
+        __dyn_tls_on_demand_init();
+      }
+      plVar1 = DAT_14a1b8970;
+      plVar4 = *(longlong **)(&DAT_00001a68 + lVar2);
+      if (*(longlong **)(&DAT_00001a68 + lVar2) == (longlong *)0x0) {
+        *(longlong **)(&DAT_00001a68 + lVar2) = DAT_14a1b8970;
+        plVar4 = plVar1;
+      }
+      lVar2 = (**(code **)(*plVar4 + 0xa0))(plVar4,lVar5,0x10);
+      if (lVar2 == 0) {
+        FUN_1400f1820();
+      }
+LAB_140b7ea26:
+      if (lVar2 == 0) goto LAB_140b7ea2b;
+    }
+    else {
+      if (lVar5 != 0) {
+        lVar2 = FUN_1400e1d70(lVar2,lVar5);
+        goto LAB_140b7ea26;
+      }
+      FUN_1400a0d10();
+      lVar2 = 0;
+LAB_140b7ea2b:
+      if (0 < iVar8) {
+        lVar2 = 0;
+        goto LAB_140b7ea42;
+      }
+    }
+    param_1[1] = iVar8;
+  }
+LAB_140b7ea42:
+  *param_1 = param_3;
+  if (lVar7 < lVar6) {
+    puVar3 = (undefined8 *)(lVar7 * 0x10 + lVar2);
+    lVar7 = lVar6 - lVar7;
+    do {
+      *puVar3 = DSGameCatalogueListItemInstance::vftable;
+      *(undefined4 *)(puVar3 + 1) = 0x8000;
+      puVar3 = puVar3 + 2;
+      lVar7 = lVar7 + -1;
+    } while (lVar7 != 0);
+  }
+  *(longlong *)(param_1 + 2) = lVar2;
+LAB_140b7ea92:
+  memcpy(*(void **)(param_1 + 2),param_2,lVar6 << 4);
+  return;
+}
+
+

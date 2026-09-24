@@ -1,0 +1,60 @@
+{
+  "status": "PASS_OFFLINE_RELEASE_AUDIT",
+  "version": "1.0.0",
+  "source_delta": "startup version string only",
+  "production_source_comparison": [
+    {
+      "file": "src/backpack.hpp",
+      "identical": true,
+      "only_version_banner_changed": false,
+      "sha256": "19f6179cac0d0377931a0049f93d1119edf2422e602ecf518f13929059b56411"
+    },
+    {
+      "file": "src/core.hpp",
+      "identical": true,
+      "only_version_banner_changed": false,
+      "sha256": "6de236bced1653a8967fe8dc3ec7806932e1501441f54fb08ff651e9677941a9"
+    },
+    {
+      "file": "src/kernel32.def",
+      "identical": true,
+      "only_version_banner_changed": false,
+      "sha256": "d839da15ea5e13ad157940d4e17af0caf52dde1f0fe9b5a14e57a3d7f330f76d"
+    },
+    {
+      "file": "src/mod.cpp",
+      "identical": false,
+      "only_version_banner_changed": true,
+      "sha256": "5767f679393fa4708c8a9e7e72dc5255ceafba8491eb343999069fe85ad34ae3"
+    },
+    {
+      "file": "src/sha256.hpp",
+      "identical": true,
+      "only_version_banner_changed": false,
+      "sha256": "25495dad499a92368cb28ce3c7325f795033e58202ef2d09f10b7e92a286982a"
+    },
+    {
+      "file": "src/win_api.hpp",
+      "identical": true,
+      "only_version_banner_changed": false,
+      "sha256": "0f8170c59c903b0e49d6dd7003a9f6189777cb0b28367adc4700cf54aa905f1a"
+    }
+  ],
+  "config_semantics_identical_to_tested_candidate": true,
+  "item_rules": 119,
+  "all_defaults": 1,
+  "normal_recipe_rules": 90,
+  "modules": 19,
+  "covers": 2,
+  "charms": 8,
+  "asi_sha256": "c2bffb715a8d6c2acdc6820c13298a2e5167a0a551670f01378569d46b59ae61",
+  "ini_sha256": "f3fbc996a17b64a83d198066f41ea48c66a6d66788f1d698f67f1423af2a9ea9",
+  "host_assertions": 358396,
+  "sanitized_repeat_of_all_three_suites": "PASS",
+  "pe_check": "PASS_STRUCTURAL_ONLY",
+  "game_test_of_new_release_binary": false,
+  "user_report_of_candidate": "Normal fabrication including Battle Guitar inventory; backpack gear, covers and charms unlocked",
+  "full_story_or_payment_regression_proven": false,
+  "github_or_nexus_upload_performed": false,
+  "manager_modified": false
+}

@@ -1,0 +1,160 @@
+RVA=0xC1ED10 NAME=FUN_140c1ed10 SIZE=811
+
+/* WARNING: Function: __chkstk replaced with injection: alloca_probe */
+/* WARNING: Function: __security_check_cookie replaced with injection: security_check_cookie */
+/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+
+void FUN_140c1ed10(undefined8 param_1,longlong param_2)
+
+{
+  char cVar1;
+  ushort uVar2;
+  char *pcVar3;
+  PSRWLOCK SRWLock;
+  BOOLEAN BVar4;
+  uint uVar5;
+  undefined8 *puVar6;
+  char *pcVar7;
+  ushort uVar8;
+  longlong lVar9;
+  short sVar10;
+  PSRWLOCK pRVar11;
+  undefined4 *puVar12;
+  longlong lVar13;
+  undefined4 uVar14;
+  PVOID apvStack_400a8 [2];
+  undefined8 uStack_40098;
+  undefined8 uStack_40090;
+  undefined8 uStack_40088;
+  undefined8 uStack_40080;
+  undefined8 uStack_40078;
+  undefined8 uStack_40070;
+  undefined8 uStack_40068;
+  undefined8 uStack_40060;
+  undefined8 uStack_40058;
+  undefined8 uStack_40050;
+  undefined8 uStack_40048;
+  undefined8 uStack_40040;
+  undefined8 uStack_40038;
+  undefined8 uStack_40030;
+  undefined8 uStack_40028;
+  undefined8 uStack_40020;
+  undefined1 auStack_40018 [16];
+  undefined8 auStack_40008 [5];
+  undefined4 auStack_3ffdc [65525];
+  
+  SRWLock = DAT_14623e628;
+  FUN_142653420(param_2,0x20d6f0e6,0);
+  FUN_142652b10(param_2,0x134da80);
+  BVar4 = TryAcquireSRWLockShared(SRWLock);
+  if (BVar4 == '\0') {
+    AcquireSRWLockShared(SRWLock);
+  }
+  lVar13 = 0x1000;
+  puVar6 = auStack_40008;
+  lVar9 = 0x1000;
+  do {
+    puVar6[-2] = 0xffffffffffffffff;
+    *(undefined1 *)(puVar6 + -1) = 4;
+    *puVar6 = 0;
+    *(undefined1 *)(puVar6 + 1) = 0;
+    *(undefined8 *)((longlong)puVar6 + 0xc) = 0;
+    puVar6[5] = 0;
+    puVar6 = puVar6 + 8;
+    lVar9 = lVar9 + -1;
+  } while (lVar9 != 0);
+  puVar12 = auStack_3ffdc;
+  pRVar11 = SRWLock + 5;
+  do {
+    uVar5 = *(uint *)((longlong)&pRVar11[-3].Ptr + 4);
+    uVar2 = *(ushort *)&pRVar11[-3].Ptr;
+    *(PVOID *)(puVar12 + -0xf) = pRVar11[-4].Ptr;
+    *(undefined1 *)(puVar12 + -0xd) = *(undefined1 *)&pRVar11[1].Ptr;
+    *(PVOID *)(puVar12 + -0xb) = pRVar11[2].Ptr;
+    *(undefined1 *)(puVar12 + -9) = *(undefined1 *)&pRVar11[4].Ptr;
+    sVar10 = (short)(uVar5 >> 0x10);
+    uVar8 = sVar10 + 0xe;
+    if (sVar10 == 0) {
+      uVar8 = (ushort)uVar5 >> 0xc;
+    }
+    puVar12[-8] = ((uint)(ushort)(uVar8 << 0xc) | uVar5 & 0xfff) << 0x10 | (uint)uVar2;
+    puVar12[-7] = *(undefined4 *)&pRVar11[-2].Ptr;
+    pcVar3 = pRVar11[-1].Ptr;
+    pcVar7 = pcVar3;
+    do {
+      cVar1 = *pcVar7;
+      pcVar7[(longlong)puVar12 + (-0x18 - (longlong)pcVar3)] = cVar1;
+      pcVar7 = pcVar7 + 1;
+    } while (cVar1 != '\0');
+    puVar12[-1] = *(undefined4 *)&pRVar11->Ptr;
+    if ((uVar2 & 0xf) == 0) {
+      uVar14 = 0;
+    }
+    else {
+      uVar14 = *(undefined4 *)((longlong)&pRVar11[-2].Ptr + 4);
+    }
+    *puVar12 = uVar14;
+    pRVar11 = pRVar11 + 10;
+    puVar12 = puVar12 + 0x10;
+    lVar13 = lVar13 + -1;
+  } while (lVar13 != 0);
+  (**(code **)(**(longlong **)(param_2 + 0x1188) + 8))
+            (*(longlong **)(param_2 + 0x1188),auStack_40018,0x40000);
+  if (SRWLock != (PSRWLOCK)0x0) {
+    ReleaseSRWLockShared(SRWLock);
+  }
+  FUN_141f20c80(SRWLock + 0xa009,param_2);
+  FUN_142652b10(param_2,0xffffffff);
+  pRVar11 = SRWLock + 0xa047;
+  BVar4 = TryAcquireSRWLockShared(pRVar11);
+  if (BVar4 == '\0') {
+    AcquireSRWLockShared(pRVar11);
+  }
+  uStack_40098 = _DAT_14346a780;
+  uStack_40090 = _UNK_14346a788;
+  uStack_40088 = _UNK_14346a790;
+  uStack_40080 = _UNK_14346a798;
+  uStack_40078 = _DAT_14346a780;
+  uStack_40070 = _UNK_14346a788;
+  uStack_40068 = _UNK_14346a790;
+  uStack_40060 = _UNK_14346a798;
+  uStack_40058 = _DAT_14346a780;
+  uStack_40050 = _UNK_14346a788;
+  uStack_40048 = _UNK_14346a790;
+  uStack_40040 = _UNK_14346a798;
+  uStack_40038 = _DAT_14346a780;
+  uStack_40030 = _UNK_14346a788;
+  uStack_40028 = _UNK_14346a790;
+  uStack_40020 = _UNK_14346a798;
+  if (0 < (longlong)*(int *)&SRWLock[0xa058].Ptr) {
+    memcpy(&uStack_40098,SRWLock + 0xa048,(longlong)*(int *)&SRWLock[0xa058].Ptr << 3);
+  }
+  (**(code **)(**(longlong **)(param_2 + 0x1188) + 8))
+            (*(longlong **)(param_2 + 0x1188),&uStack_40098,0x80);
+  if (pRVar11 != (PSRWLOCK)0x0) {
+    ReleaseSRWLockShared(pRVar11);
+  }
+  apvStack_400a8[0] = SRWLock[0xa007].Ptr;
+  (**(code **)(**(longlong **)(param_2 + 0x1188) + 8))
+            (*(longlong **)(param_2 + 0x1188),apvStack_400a8,8);
+  pRVar11 = SRWLock + 0xa00d;
+  lVar9 = 2;
+  do {
+    FUN_141f20c80(pRVar11,param_2);
+    pRVar11 = pRVar11 + 4;
+    lVar9 = lVar9 + -1;
+  } while (lVar9 != 0);
+  apvStack_400a8[0] = SRWLock[0xa008].Ptr;
+  (**(code **)(**(longlong **)(param_2 + 0x1188) + 8))
+            (*(longlong **)(param_2 + 0x1188),apvStack_400a8,8);
+  uVar5 = (**(code **)(**(longlong **)(param_2 + 0x1188) + 0x30))();
+  if (*(uint *)(param_2 + 0x1648) < 0x96) {
+    *(ulonglong *)(param_2 + 0x1198 + (ulonglong)*(uint *)(param_2 + 0x1648) * 8) =
+         (ulonglong)uVar5 | 0x6cb31c8100000000;
+    *(int *)(param_2 + 0x1648) = *(int *)(param_2 + 0x1648) + 1;
+  }
+  FUN_142653420(param_2,0x6cb31c81,0);
+  return;
+}
+
+

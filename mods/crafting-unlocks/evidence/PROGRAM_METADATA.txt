@@ -1,0 +1,16 @@
+program=DS2.exe
+image_base=140000000
+language=x86:LE:64:default
+format=Portable Executable (PE)
+imported_executable_sha256=bf3d1c665545930bc850d8f5df486f7395885bb729d4fd408fdb03390de0765b
+Hash is Ghidra import metadata; it is not a fresh hash of the installed game.
+Three known direct-call anchors matched.
+Headers	0x0	1024	false
+.text	0x1000	46223360	true
+.rdata	0x2C16000	14290432	false
+.data	0x39B7000	111357080	false
+.pdata	0xA3EA000	2308096	false
+_RDATA	0xA61E000	59392	false
+.rsrc	0xA62D000	11741696	false
+.reloc	0xB160000	1251328	false
+tdb	0xFDC0000000	6224	false

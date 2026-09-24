@@ -1,0 +1,33 @@
+RVA=0x1720380 NAME=FUN_141720380 SIZE=144
+
+void FUN_141720380(longlong param_1)
+
+{
+  int iVar1;
+  longlong lVar2;
+  int iVar3;
+  longlong lVar4;
+  
+  iVar1 = *(int *)(param_1 + 0x41f0);
+  iVar3 = 0;
+  if (0 < iVar1) {
+    lVar4 = param_1 + 0x1f0;
+    do {
+      lVar2 = 0;
+      if (iVar3 < *(int *)(param_1 + 0x41f0)) {
+        lVar2 = lVar4;
+      }
+      *(undefined1 *)(lVar2 + 0x11) = 1;
+      if (*(int *)(lVar2 + 8) == 0) {
+        FUN_14171fdf0(param_1);
+      }
+      iVar3 = iVar3 + 1;
+      lVar4 = lVar4 + 0x20;
+    } while (iVar3 < iVar1);
+  }
+  FUN_14171fea0(param_1,1);
+  *(uint *)(param_1 + 0x134) = *(uint *)(param_1 + 0x134) | 0x10;
+  return;
+}
+
+

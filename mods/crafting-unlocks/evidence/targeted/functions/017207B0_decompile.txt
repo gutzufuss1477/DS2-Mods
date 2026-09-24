@@ -1,0 +1,36 @@
+RVA=0x17207B0 NAME=FUN_1417207b0 SIZE=84
+
+ulonglong FUN_1417207b0(longlong param_1)
+
+{
+  longlong *plVar1;
+  bool bVar2;
+  uint uVar3;
+  ulonglong uVar4;
+  uint uVar5;
+  longlong *plVar6;
+  
+  plVar6 = *(longlong **)(param_1 + 0x12270);
+  bVar2 = false;
+  uVar4 = (ulonglong)*(int *)(param_1 + 0x12268);
+  uVar5 = 0;
+  plVar1 = plVar6 + uVar4;
+  if (plVar6 != plVar1) {
+    do {
+      uVar4 = (ulonglong)(uVar5 + 1);
+      uVar3 = uVar5 + 1;
+      if (*(int *)(*plVar6 + 0xc) == 0x9c6799f) {
+        bVar2 = true;
+        uVar3 = uVar5;
+      }
+      uVar5 = uVar3;
+      plVar6 = plVar6 + 1;
+    } while (plVar6 != plVar1);
+    if ((bVar2) && (uVar5 == 0)) {
+      return 1;
+    }
+  }
+  return uVar4 & 0xffffffffffffff00;
+}
+
+

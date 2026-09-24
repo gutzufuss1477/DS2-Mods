@@ -1,0 +1,162 @@
+RVA=0xC21970 NAME=FUN_140c21970 SIZE=752
+
+void FUN_140c21970(ulonglong param_1)
+
+{
+  undefined2 *puVar1;
+  int *piVar2;
+  int iVar3;
+  undefined8 uVar4;
+  longlong lVar5;
+  undefined8 *puVar6;
+  undefined8 *puVar7;
+  undefined8 *puVar8;
+  undefined8 *puVar9;
+  undefined8 *puVar10;
+  undefined8 *local_res8;
+  
+  lVar5 = DAT_14623e620;
+  puVar9 = (undefined8 *)0x0;
+  local_res8 = (undefined8 *)(param_1 & 0xffffffff00000000);
+  puVar6 = (undefined8 *)FUN_1400a19d0(0x28);
+  if (puVar6 != (undefined8 *)0x0) {
+    uVar4 = *(undefined8 *)(lVar5 + 8);
+    puVar1 = (undefined2 *)((longlong)puVar6 + 0x1c);
+    puVar6[1] = 0;
+    puVar6[2] = 0;
+    *(undefined4 *)(puVar6 + 3) = 0;
+    *puVar1 = 0;
+    *(undefined1 *)((longlong)puVar6 + 0x1e) = 0;
+    if (puVar1 <= (undefined2 *)((longlong)puVar6 + 0x1f)) {
+      memset(puVar1,0,3);
+    }
+    *puVar6 = DSParkingMenuCommandUpdateOnline::vftable;
+    puVar6[4] = uVar4;
+  }
+  FUN_140399830();
+  puVar6 = (undefined8 *)FUN_1400a19d0(0x28);
+  if (puVar6 != (undefined8 *)0x0) {
+    uVar4 = *(undefined8 *)(lVar5 + 8);
+    puVar1 = (undefined2 *)((longlong)puVar6 + 0x1c);
+    puVar6[1] = 0;
+    puVar6[2] = 0;
+    *(undefined4 *)(puVar6 + 3) = 0;
+    *puVar1 = 0;
+    *(undefined1 *)((longlong)puVar6 + 0x1e) = 0;
+    if (puVar1 <= (undefined2 *)((longlong)puVar6 + 0x1f)) {
+      memset(puVar1,0,3);
+    }
+    *puVar6 = DSParkingMenuCommandMoveVehiclesToSafePlaceIfNeeded::vftable;
+    puVar6[4] = uVar4;
+  }
+  FUN_140399830();
+  puVar7 = (undefined8 *)FUN_1400a19d0(0x58);
+  puVar6 = local_res8;
+  puVar10 = local_res8;
+  if (puVar7 != (undefined8 *)0x0) {
+    puVar6 = (undefined8 *)FUN_1400a19d0(0x18);
+    puVar10 = puVar9;
+    if (puVar6 != (undefined8 *)0x0) {
+      *(undefined4 *)(puVar6 + 1) = 0;
+      *puVar6 = ClosureParameterSet<`public:_void___cdecl_DSParkingMenuInfo::OnAllMenuSequenceDecided(void)___ptr64'::`2'::<lambda_3>&___ptr64>
+                ::vftable;
+      puVar6[2] = lVar5;
+      LOCK();
+      *(int *)(puVar6 + 1) = *(int *)(puVar6 + 1) + 1;
+      UNLOCK();
+      puVar10 = puVar6;
+    }
+    puVar6 = (undefined8 *)FUN_1400a19d0(0x18);
+    local_res8 = puVar9;
+    if (puVar6 != (undefined8 *)0x0) {
+      *(undefined4 *)(puVar6 + 1) = 0;
+      *puVar6 = ClosureParameterSet<`public:_void___cdecl_DSParkingMenuInfo::OnAllMenuSequenceDecided(void)___ptr64'::`2'::<lambda_2>&___ptr64>
+                ::vftable;
+      LOCK();
+      *(int *)(puVar6 + 1) = *(int *)(puVar6 + 1) + 1;
+      UNLOCK();
+      local_res8 = puVar6;
+    }
+    puVar8 = (undefined8 *)FUN_1400a19d0(0x18);
+    puVar6 = puVar9;
+    if (puVar8 != (undefined8 *)0x0) {
+      *(undefined4 *)(puVar8 + 1) = 0;
+      *puVar8 = ClosureParameterSet<`public:_void___cdecl_DSParkingMenuInfo::OnAllMenuSequenceDecided(void)___ptr64'::`2'::<lambda_1>&___ptr64>
+                ::vftable;
+      puVar8[2] = lVar5;
+      LOCK();
+      *(int *)(puVar8 + 1) = *(int *)(puVar8 + 1) + 1;
+      UNLOCK();
+      puVar6 = puVar8;
+    }
+    puVar1 = (undefined2 *)((longlong)puVar7 + 0x1c);
+    puVar7[1] = 0;
+    puVar7[2] = 0;
+    *(undefined4 *)(puVar7 + 3) = 0;
+    *puVar1 = 0;
+    *(undefined1 *)((longlong)puVar7 + 0x1e) = 0;
+    if (puVar1 <= (undefined2 *)((longlong)puVar7 + 0x1f)) {
+      memset(puVar1,0,3);
+    }
+    *puVar7 = DSGameMenuCommandCallable<int>::vftable;
+    puVar7[4] = FUN_140c31f60;
+    puVar7[5] = puVar6;
+    if (puVar6 != (undefined8 *)0x0) {
+      LOCK();
+      *(int *)(puVar6 + 1) = *(int *)(puVar6 + 1) + 1;
+      UNLOCK();
+    }
+    puVar7[6] = FUN_1400bd100;
+    puVar7[7] = local_res8;
+    if (local_res8 != (undefined8 *)0x0) {
+      LOCK();
+      *(int *)(local_res8 + 1) = *(int *)(local_res8 + 1) + 1;
+      UNLOCK();
+    }
+    puVar7[9] = puVar10;
+    puVar7[8] = FUN_140c31f80;
+    if (puVar10 != (undefined8 *)0x0) {
+      LOCK();
+      *(int *)(puVar10 + 1) = *(int *)(puVar10 + 1) + 1;
+      UNLOCK();
+    }
+    puVar9 = (undefined8 *)0x7;
+  }
+  if ((((ulonglong)puVar9 & 4) != 0) &&
+     (puVar9 = (undefined8 *)(ulonglong)((uint)puVar9 & 0xfffffffb), puVar6 != (undefined8 *)0x0)) {
+    LOCK();
+    piVar2 = (int *)(puVar6 + 1);
+    iVar3 = *piVar2;
+    *piVar2 = *piVar2 + -1;
+    UNLOCK();
+    if (iVar3 == 1) {
+      (**(code **)*puVar6)(puVar6,1);
+    }
+  }
+  if ((((ulonglong)puVar9 & 2) != 0) &&
+     (puVar9 = (undefined8 *)(ulonglong)((uint)puVar9 & 0xfffffffd), local_res8 != (undefined8 *)0x0
+     )) {
+    LOCK();
+    piVar2 = (int *)(local_res8 + 1);
+    iVar3 = *piVar2;
+    *piVar2 = *piVar2 + -1;
+    UNLOCK();
+    if (iVar3 == 1) {
+      (**(code **)*local_res8)(local_res8,1);
+    }
+  }
+  if ((((ulonglong)puVar9 & 1) != 0) && (puVar10 != (undefined8 *)0x0)) {
+    LOCK();
+    piVar2 = (int *)(puVar10 + 1);
+    iVar3 = *piVar2;
+    *piVar2 = *piVar2 + -1;
+    UNLOCK();
+    if (iVar3 == 1) {
+      (**(code **)*puVar10)(puVar10,1);
+    }
+  }
+  FUN_140399830();
+  return;
+}
+
+

@@ -1,0 +1,16 @@
+SOURCE: DECOMPILE_0096.txt
+FUNCTION RVA 0xAD5BB0
+NAME: FUN_140ad5bb0
+SIZE: 6
+SIGNATURE: undefined FUN_140ad5bb0(void)
+================================================================
+
+undefined8 FUN_140ad5bb0(void)
+
+{
+  return 0x7ce45104;
+}
+
+
+
+================================================================

@@ -1,0 +1,91 @@
+recipe_key	label_en	category	source_line
+0x6E7D4315	Porter Boots	Boots	2
+0x7D2DB0E1	Trekking Boots	Boots	9
+0x0F4633E2	Combat Boots	Boots	10
+0x1C16C016	Pizza Chef's Boots	Boots	26
+0x5B8C5709	Stealth Boots	Boots	47
+0x16CF98D9	All-Terrain Boots	Boots	51
+0x7DDFDB62	Battle Skeleton Lv.1	Skeletons	11
+0x6E8F2896	Battle Skeleton Lv.2	Skeletons	12
+0x1CE4AB95	Battle Skeleton Lv.3	Skeletons	13
+0x493873FB	Bokka Skeleton Lv.1	Skeletons	14
+0x5A68800F	Bokka Skeleton Lv.2	Skeletons	15
+0x2803030C	Bokka Skeleton Lv.3	Skeletons	16
+0x5A9AEB8C	Boost Skeleton Lv.1	Skeletons	17
+0x49CA1878	Boost Skeleton Lv.2	Skeletons	18
+0x3BA19B7B	Boost Skeleton Lv.3	Skeletons	19
+0x529CA1CA	Combat Power Gloves Lv.1	Gloves and protection	6
+0x33A7D13D	Combat Power Gloves Lv.2	Gloves and protection	43
+0x20F722C9	Climbing Power Gloves Lv.1	Gloves and protection	7
+0x41CC523E	Climbing Power Gloves Lv.2	Gloves and protection	53
+0x413E39BD	Thermal Pad	Gloves and protection	54
+0x3355BABE	Oxygen Mask	Gloves and protection	55
+0x5CCBD2CD	Blood Bag	Supplies and tools	151
+0x4F9B2139	High-Capacity Blood Bag	Supplies and tools	152
+0x4944250E	PCC Lv.1	Supplies and tools	796
+0x3B2FA60D	PCC Lv.2	Supplies and tools	797
+0x5AE6BD79	PCC Lv.3	Supplies and tools	841
+0x6FE5C2E6	Container Repair Spray	Supplies and tools	798
+0x1D8E41E5	Ladder	Supplies and tools	799
+0x0EDEB211	Climbing Anchor	Supplies and tools	800
+0x7D51E614	Signpost	Supplies and tools	867
+0x4708E49F	Floating Carrier Lv.1	Transport equipment	194
+0x5458176B	Floating Carrier Lv.2	Transport equipment	195
+0x0184CF05	Coffin Board	Transport equipment	257
+0x385B0CD0	Maser Handgun	Handguns and rifles	806
+0x17187678	Machine Pistol [MP]	Handguns and rifles	804
+0x6573F57B	SL Machine Pistol [MP]	Handguns and rifles	805
+0x7623068F	Big-Bore Handgun [MP]	Handguns and rifles	825
+0x58772475	SL Tranq Handgun	Handguns and rifles	827
+0x055FDDDE	Grenade Pistol [MP]	Handguns and rifles	868
+0x38365FC3	Assault Rifle [MP] Lv.1	Handguns and rifles	801
+0x7FACC8DC	Assault Rifle [MP] Lv.2	Handguns and rifles	835
+0x2B66AC37	LW Assault Rifle [MP] Lv.1	Handguns and rifles	789
+0x590D2F34	LW Assault Rifle [MP] Lv.2	Handguns and rifles	802
+0x6CFC3B28	SL-LW Assault Rifle [MP] Lv.1	Handguns and rifles	851
+0x1E97B82B	SL-LW Assault Rifle [MP] Lv.2	Handguns and rifles	852
+0x1775256B	Shotgun [MP] Lv.1	Handguns and rifles	790
+0x22843177	Shotgun [MP] Lv.2	Handguns and rifles	844
+0x764E559C	LW Shotgun [MP] Lv.1	Handguns and rifles	842
+0x0425D69F	LW Shotgun [MP] Lv.2	Handguns and rifles	843
+0x3234B715	Tranq Sniper Rifle	Handguns and rifles	791
+0x405F3416	LW Tranq Sniper Rifle	Handguns and rifles	824
+0x530FC7E2	SL-LW Tranq Sniper Rifle	Handguns and rifles	898
+0x3259E406	Bola Gun	Handguns and rifles	807
+0x40326705	Bola Stun Gun	Handguns and rifles	826
+0x1D77CDBD	Sticky Gun	Handguns and rifles	823
+0x1C6095EF	Machine Gun [MP] Lv.2	Heavy weapons	858
+0x0F30661B	LW Machine Gun [MP] Lv.1	Heavy weapons	857
+0x6E0B16EC	LW Machine Gun [MP] Lv.2	Heavy weapons	859
+0x20731CB3	Grenade Launcher [MP]	Heavy weapons	787
+0x41486C44	LW Grenade Launcher [MP]	Heavy weapons	860
+0x3323EF47	RD Grenade Launcher [MP]	Heavy weapons	861
+0x67E98BAC	LW-RD Grenade Launcher [MP]	Heavy weapons	862
+0x05328ECD	Quadruple Rocket Launcher	Heavy weapons	853
+0x6409FE3A	Multirocket Launcher	Heavy weapons	854
+0x16627D39	LW Multirocket Launcher	Heavy weapons	855
+0x77590DCE	LW Seven-Rocket Launcher	Heavy weapons	834
+0x7CB53112	Rocket Box [MP]	Heavy weapons	845
+0x0A4CBAE9	Tar Cannon	Heavy weapons	847
+0x782739EA	Chiral Shock Cannon	Heavy weapons	848
+0x32A0685E	Stun Bomb	Grenades, mines and traps	792
+0x7FE3A78E	Remote Stun Bomb	Grenades, mines and traps	828
+0x40CBEB5D	MP Grenade	Grenades, mines and traps	793
+0x666A0CB5	Blood Grenade Lv.1	Grenades, mines and traps	810
+0x1E2ABCFA	Blood Grenade Lv.2	Grenades, mines and traps	831
+0x753AFF41	Smoke Grenade	Grenades, mines and traps	808
+0x539B18A9	EX Grenade	Grenades, mines and traps	839
+0x21F09BAA	EX Capture Grenade	Grenades, mines and traps	833
+0x14018FB6	Decoy Hologrenade	Grenades, mines and traps	788
+0x0D88248D	BT Hologrenade	Grenades, mines and traps	829
+0x66986736	Stealth Hologrenade	Grenades, mines and traps	830
+0x527FCFAF	Phantom Gas Grenade	Grenades, mines and traps	888
+0x288D3E7A	Dog Mine	Grenades, mines and traps	865
+0x49B64E8D	Electric Trap	Grenades, mines and traps	840
+0x581A7766	Custom Electric Rod	Melee and special equipment	803
+0x2A71F465	Custom High-Voltage Rod	Melee and special equipment	863
+0x39210791	Custom Twin Rod	Melee and special equipment	864
+0x3BDDCD8E	Battle Guitar	Melee and special equipment	838
+0x20144CAC	Rubber Pizza	Melee and special equipment	894
+0x1D7C2A66	Deployable Shield	Melee and special equipment	889
+0x7C475A91	Floating Sentry Gun	Melee and special equipment	866

@@ -1,0 +1,22 @@
+SOURCE: DECOMPILE_0104.txt
+FUNCTION RVA 0xBE73B0
+NAME: FUN_140be73b0
+SIZE: 58
+SIGNATURE: undefined FUN_140be73b0(void)
+================================================================
+
+void FUN_140be73b0(undefined8 param_1,undefined8 *param_2)
+
+{
+  *param_2 = DSAreaSettings::vftable;
+  if (param_2[6] != 0) {
+    FUN_140109d80();
+  }
+  FUN_14013f8d0(param_2 + 4);
+  *param_2 = RTTIObject::vftable;
+  return;
+}
+
+
+
+================================================================

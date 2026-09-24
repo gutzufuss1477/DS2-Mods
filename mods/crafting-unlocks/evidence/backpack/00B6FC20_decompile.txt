@@ -1,0 +1,153 @@
+================================================================
+FUNCTION RVA 0xB6FC20
+NAME: FUN_140b6fc20
+SIZE: 697
+SIGNATURE: undefined FUN_140b6fc20(void)
+================================================================
+
+void FUN_140b6fc20(longlong param_1,char param_2,undefined8 param_3)
+
+{
+  byte bVar1;
+  char cVar2;
+  int iVar3;
+  undefined8 *puVar4;
+  uint uVar5;
+  longlong lVar6;
+  undefined8 *puVar7;
+  int iVar8;
+  undefined8 *puVar9;
+  uint uVar10;
+  longlong lVar11;
+  undefined8 *puVar12;
+  undefined8 *puVar13;
+  undefined8 *puVar14;
+  undefined8 *puVar15;
+  uint local_res8;
+  uint local_res20;
+  uint local_58;
+  int local_54 [5];
+  
+  FUN_140b7e840(param_3,2);
+  puVar9 = (undefined8 *)0x0;
+  uVar10 = 0;
+  local_res20 = 0;
+  local_res8 = 0;
+  local_58 = 0;
+  puVar7 = puVar9;
+  puVar15 = puVar9;
+  if (0 < *(int *)(param_1 + 0x38)) {
+    iVar8 = 1;
+    puVar4 = puVar9;
+    puVar12 = puVar9;
+    puVar13 = puVar9;
+    do {
+      uVar5 = (uint)puVar4;
+      lVar6 = *(longlong *)
+               (*(longlong *)(DAT_14623e540 + 0x10) +
+               (ulonglong)(*(uint *)(*(longlong *)(param_1 + 0x40) + 8 + (longlong)puVar13) & 0xfff)
+               * 8);
+      if (*(char *)(lVar6 + 0x52) == param_2) {
+        bVar1 = *(byte *)(lVar6 + 0x74);
+        if ((bVar1 & 1) == 0) {
+LAB_140b6fd07:
+          if (*(longlong *)(lVar6 + 0x38) == 0) {
+            cVar2 = '\x01';
+          }
+          else {
+            cVar2 = FUN_140182510(DAT_1462473c8,DAT_14623e540 + 0x140);
+            puVar12 = (undefined8 *)(ulonglong)local_res8;
+          }
+        }
+        else {
+          if ((bVar1 & 4) == 0) {
+            if ((bVar1 & 2) == 0) goto LAB_140b6fe04;
+            goto LAB_140b6fd07;
+          }
+          FUN_140b29e30(local_54,lVar6);
+          if (local_54[0] == 0) {
+            cVar2 = '\0';
+          }
+          else {
+            cVar2 = FUN_140b29c30();
+            puVar12 = (undefined8 *)(ulonglong)local_res8;
+          }
+        }
+        if (cVar2 == '\0') {
+          puVar7 = (undefined8 *)(ulonglong)local_res20;
+        }
+        else {
+          lVar6 = *(longlong *)(param_1 + 0x40);
+          puVar4 = puVar15;
+          puVar14 = puVar15;
+          if ((int)puVar12 < iVar8) {
+            iVar3 = iVar8;
+            if (iVar8 < 0) {
+              iVar3 = iVar8 + 7;
+            }
+            uVar10 = (iVar3 >> 3) + 2 + iVar8;
+            uVar5 = local_58;
+            if ((((puVar15 == (undefined8 *)0x0) ||
+                 (FUN_1400b6b80(), puVar4 = puVar9, (uVar10 & 0xfffffff) != 0)) &&
+                (puVar4 = (undefined8 *)FUN_1400b6ad0(uVar10 * 0x10), puVar4 != (undefined8 *)0x0))
+               || ((int)uVar10 < 1)) {
+              puVar12 = (undefined8 *)(ulonglong)uVar10;
+              puVar14 = puVar4;
+              local_res8 = uVar10;
+              if (puVar4 != (undefined8 *)0x0) goto LAB_140b6fdc2;
+            }
+            else {
+              puVar12 = (undefined8 *)(ulonglong)local_res8;
+              puVar4 = puVar9;
+            }
+            puVar14 = puVar4;
+            if (0 < iVar8) {
+              puVar4 = puVar9;
+              puVar14 = puVar15;
+            }
+          }
+LAB_140b6fdc2:
+          lVar11 = (longlong)(int)local_res20;
+          iVar8 = iVar8 + 1;
+          local_res20 = local_res20 + 1;
+          puVar7 = (undefined8 *)(ulonglong)local_res20;
+          puVar4[lVar11 * 2] = DSGameCatalogueListItemInstance::vftable;
+          *(undefined4 *)(puVar4 + lVar11 * 2 + 1) = *(undefined4 *)(lVar6 + 8 + (longlong)puVar13);
+          *(uint *)(puVar14 + lVar11 * 2 + 1) = *(uint *)(puVar14 + lVar11 * 2 + 1) | 0x8000;
+          puVar15 = puVar14;
+        }
+      }
+LAB_140b6fe04:
+      uVar10 = (uint)puVar12;
+      local_58 = uVar5 + 1;
+      puVar4 = (undefined8 *)(ulonglong)local_58;
+      puVar13 = puVar13 + 2;
+    } while ((int)local_58 < *(int *)(param_1 + 0x38));
+  }
+  FUN_1402ada50(param_3,puVar7);
+  lVar6 = (longlong)(int)local_res20;
+  FUN_140b7e950(param_3,puVar15,local_res20);
+  puVar7 = puVar15;
+  if (0 < (int)local_res20) {
+    do {
+      (**(code **)*puVar7)(puVar15 + (longlong)(int)puVar9 * 2,0);
+      puVar9 = (undefined8 *)(ulonglong)((int)puVar9 + 1);
+      lVar6 = lVar6 + -1;
+      puVar7 = puVar7 + 2;
+    } while (lVar6 != 0);
+  }
+  lVar6 = *(longlong *)ThreadLocalStoragePointer;
+  if (*(char *)(lVar6 + 0x18a8) == '\0') {
+    __dyn_tls_on_demand_init();
+  }
+  *(longlong *)(lVar6 + 0x1a00) =
+       *(longlong *)(lVar6 + 0x1a00) + (ulonglong)(uVar10 & 0xfffffff) * -0x10;
+  if (*(char *)(lVar6 + 0x18a8) != '\0') {
+    return;
+  }
+  __dyn_tls_on_demand_init();
+  return;
+}
+
+
+

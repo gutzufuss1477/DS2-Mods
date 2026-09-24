@@ -1,0 +1,83 @@
+RVA=0xB707E0 NAME=FUN_140b707e0 SIZE=428
+
+void FUN_140b707e0(longlong param_1,int param_2)
+
+{
+  PSRWLOCK SRWLock;
+  uint uVar1;
+  longlong lVar2;
+  longlong lVar3;
+  BOOLEAN BVar4;
+  char cVar5;
+  int iVar6;
+  longlong lVar7;
+  int iVar8;
+  uint uVar9;
+  longlong lVar10;
+  
+  SRWLock = (PSRWLOCK)(param_1 + 0x138);
+  BVar4 = TryAcquireSRWLockExclusive(SRWLock);
+  if (BVar4 == '\0') {
+    AcquireSRWLockExclusive(SRWLock);
+  }
+  FUN_140b709b0(param_1,param_2);
+  iVar8 = 0;
+  lVar10 = (longlong)param_2 * 0x30 + param_1;
+  *(undefined4 *)(lVar10 + 0x88) = 0;
+  if (0 < *(int *)(param_1 + 0x38)) {
+    lVar7 = 0;
+    do {
+      lVar2 = *(longlong *)(param_1 + 0x40);
+      uVar1 = *(uint *)(lVar2 + 8 + lVar7);
+      lVar3 = *(longlong *)(*(longlong *)(DAT_14623e540 + 0x10) + (ulonglong)(uVar1 & 0xfff) * 8);
+      cVar5 = *(char *)(lVar3 + 0x52);
+      switch(cVar5) {
+      case '\0':
+      case '\x06':
+        iVar6 = 6;
+        break;
+      default:
+        iVar6 = 0;
+        break;
+      case '\x02':
+      case '\a':
+        iVar6 = 2;
+        break;
+      case '\x05':
+        iVar6 = 1;
+        break;
+      case '\b':
+        iVar6 = 3;
+      }
+      if (iVar6 == param_2) {
+        if (cVar5 == '\0') {
+          uVar9 = uVar1 & 0xffff7fff;
+        }
+        else {
+          cVar5 = FUN_140be91a0(lVar3);
+          uVar1 = *(uint *)(lVar2 + 8 + lVar7);
+          uVar9 = uVar1 & 0xffff7fff;
+          if (cVar5 != '\0') {
+            uVar9 = uVar1 | 0x8000;
+          }
+        }
+        *(uint *)(lVar2 + 8 + lVar7) = uVar9;
+        FUN_140b70380(param_1,(longlong)iVar8 * 0x10 + *(longlong *)(param_1 + 0x40),param_2);
+      }
+      iVar8 = iVar8 + 1;
+      lVar7 = lVar7 + 0x10;
+    } while (iVar8 < *(int *)(param_1 + 0x38));
+  }
+  FUN_140b80850(*(longlong *)(lVar10 + 0x70),
+                (longlong)*(int *)(lVar10 + 0x68) * 0x10 + *(longlong *)(lVar10 + 0x70));
+  FUN_140b70430();
+  if (SRWLock != (PSRWLOCK)0x0) {
+                    /* WARNING: Could not recover jumptable at 0x000140b7097e. Too many branches */
+                    /* WARNING: Treating indirect jump as call */
+    ReleaseSRWLockExclusive(SRWLock);
+    return;
+  }
+  return;
+}
+
+

@@ -1,0 +1,27 @@
+RVA=0x147D7A0 NAME=FUN_14147d7a0 SIZE=120
+
+bool FUN_14147d7a0(undefined4 param_1)
+
+{
+  int iVar1;
+  longlong lVar2;
+  
+  if (DAT_14623e698 != (undefined8 *)0x0) {
+    lVar2 = FUN_140c72520(*DAT_14623e698,param_1);
+    if (lVar2 != 0) {
+LAB_14147d803:
+      return *(char *)(lVar2 + 0x60) == '\x02';
+    }
+    lVar2 = FUN_141269580();
+    if (lVar2 != 0) {
+      iVar1 = FUN_140c764d0();
+      if (iVar1 != -1) {
+        lVar2 = FUN_140c72520(*DAT_14623e698,iVar1);
+        if (lVar2 != 0) goto LAB_14147d803;
+      }
+    }
+  }
+  return false;
+}
+
+

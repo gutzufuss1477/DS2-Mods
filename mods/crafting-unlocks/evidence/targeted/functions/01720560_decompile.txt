@@ -1,0 +1,68 @@
+RVA=0x1720560 NAME=FUN_141720560 SIZE=212
+
+ulonglong FUN_141720560(longlong param_1)
+
+{
+  longlong lVar1;
+  longlong *plVar2;
+  longlong *plVar3;
+  ulonglong uVar4;
+  longlong lVar5;
+  uint uVar6;
+  uint uVar8;
+  longlong lVar9;
+  uint uVar10;
+  ulonglong uVar7;
+  ulonglong uVar11;
+  
+  lVar9 = (longlong)*(int *)(param_1 + 0x12268);
+  uVar4 = 0;
+  uVar6 = 0;
+  if (*(char *)(param_1 + 0x130) == '\x02') {
+    if (0 < lVar9) {
+      plVar3 = *(longlong **)(param_1 + 0x12270);
+      do {
+        plVar2 = (longlong *)*plVar3;
+        plVar3 = plVar3 + 1;
+        uVar4 = (ulonglong)
+                (uint)((int)uVar4 +
+                      *(int *)(*(longlong *)
+                                (*(longlong *)
+                                  (*(longlong *)(DAT_14623e540 + 0x10) +
+                                  (ulonglong)(*(uint *)(*plVar2 + 8) & 0xfff) * 8) + 0x28) + 0x58) *
+                      (int)plVar2[1]);
+        lVar9 = lVar9 + -1;
+      } while (lVar9 != 0);
+    }
+    return uVar4;
+  }
+  uVar10 = 0;
+  if (lVar9 < 2) {
+    uVar8 = uVar6;
+    if (lVar9 < 1) goto LAB_141720628;
+    lVar5 = *(longlong *)(param_1 + 0x12270);
+    uVar10 = 0;
+    uVar6 = 0;
+  }
+  else {
+    lVar5 = *(longlong *)(param_1 + 0x12270);
+    uVar7 = uVar4;
+    uVar11 = uVar4;
+    do {
+      uVar6 = (int)uVar7 + *(int *)(*(longlong *)(lVar5 + uVar4 * 8) + 8);
+      uVar7 = (ulonglong)uVar6;
+      lVar1 = uVar4 * 8;
+      uVar4 = uVar4 + 2;
+      uVar10 = (int)uVar11 + *(int *)(*(longlong *)(lVar5 + 8 + lVar1) + 8);
+      uVar11 = (ulonglong)uVar10;
+    } while ((longlong)uVar4 < lVar9 + -1);
+    if (lVar9 <= (longlong)uVar4) {
+      return (ulonglong)(uVar10 + uVar6);
+    }
+  }
+  uVar8 = *(uint *)(*(longlong *)(lVar5 + uVar4 * 8) + 8);
+LAB_141720628:
+  return (ulonglong)(uVar10 + uVar6 + uVar8);
+}
+
+

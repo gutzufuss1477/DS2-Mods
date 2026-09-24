@@ -1,0 +1,49 @@
+SOURCE: DECOMPILE_0104.txt
+FUNCTION RVA 0xBE7D90
+NAME: FUN_140be7d90
+SIZE: 171
+SIGNATURE: undefined FUN_140be7d90(void)
+================================================================
+
+undefined8 * FUN_140be7d90(longlong param_1,undefined8 *param_2)
+
+{
+  int *piVar1;
+  bool bVar2;
+  bool bVar3;
+  longlong *plVar4;
+  undefined4 local_res8;
+  undefined4 uStackX_c;
+  
+  bVar3 = false;
+  local_res8 = 0;
+  if (*(longlong *)(param_1 + 0xa0) != 0) {
+    plVar4 = (longlong *)FUN_140be95c0(*(longlong *)(param_1 + 0xa0),&local_res8);
+    bVar3 = true;
+    if (*plVar4 != 0) {
+      bVar2 = true;
+      goto LAB_140be7dd4;
+    }
+  }
+  bVar2 = false;
+LAB_140be7dd4:
+  if ((bVar3) && (CONCAT44(uStackX_c,local_res8) != 0)) {
+    FUN_140109d80();
+  }
+  if (bVar2) {
+    FUN_140be95c0(*(undefined8 *)(param_1 + 0xa0),param_2);
+    return param_2;
+  }
+  *param_2 = *(undefined8 *)(param_1 + 0x98);
+  if (*(longlong *)(param_1 + 0x98) != 0) {
+    LOCK();
+    piVar1 = (int *)(*(longlong *)(param_1 + 0x98) + 8);
+    *piVar1 = *piVar1 + 1;
+    UNLOCK();
+  }
+  return param_2;
+}
+
+
+
+================================================================

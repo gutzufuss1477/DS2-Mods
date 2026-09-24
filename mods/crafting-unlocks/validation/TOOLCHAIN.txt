@@ -1,0 +1,11 @@
+clang version 17.0.0 (https://github.com/swiftlang/llvm-project.git 10999b6d034fe318f3d56c83bddb6572593a8bb0)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /usr/local/swift/usr/bin
+clang version 17.0.0 (https://github.com/swiftlang/llvm-project.git 10999b6d034fe318f3d56c83bddb6572593a8bb0)
+Target: x86_64-pc-windows-msvc
+Thread model: posix
+InstalledDir: /usr/local/swift/usr/bin
+LLD 17.0.0 (https://github.com/swiftlang/llvm-project.git 10999b6d034fe318f3d56c83bddb6572593a8bb0)
+Runtime compile flags: --target=x86_64-pc-windows-msvc /std:c++17 /O2 /GS- /GR- /EHs-c- /Zl
+Link flags: /dll /entry:DllMain /machine:x64 /nodefaultlib /dynamicbase /nxcompat /opt:ref /opt:icf

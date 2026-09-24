@@ -1,0 +1,509 @@
+RVA=0x149ACE0 NAME=FUN_14149ace0 SIZE=3540
+
+longlong FUN_14149ace0(longlong param_1,longlong param_2,undefined1 param_3)
+
+{
+  undefined2 *puVar1;
+  undefined1 *puVar2;
+  undefined1 local_68;
+  undefined1 local_67;
+  undefined1 local_66;
+  undefined1 local_65;
+  undefined1 local_64;
+  undefined1 local_63;
+  undefined1 local_62;
+  undefined1 local_61;
+  undefined1 local_60;
+  undefined1 local_5f;
+  undefined1 local_5e;
+  undefined1 local_5d;
+  undefined1 local_5c;
+  undefined1 local_5b;
+  undefined1 local_5a;
+  undefined1 local_59;
+  undefined1 local_58;
+  undefined1 local_57;
+  undefined1 local_56;
+  undefined1 local_55;
+  undefined1 local_54;
+  undefined1 local_53;
+  undefined1 local_52;
+  undefined1 local_51;
+  undefined1 local_50;
+  undefined1 local_4f;
+  undefined1 local_4e;
+  undefined1 local_4d;
+  undefined1 local_4c;
+  undefined1 local_4b;
+  undefined1 local_4a [2];
+  undefined2 local_48;
+  undefined2 local_46;
+  undefined2 local_44;
+  undefined2 local_42;
+  undefined2 local_40;
+  undefined2 local_3e;
+  undefined2 local_3c;
+  undefined2 local_3a;
+  undefined2 local_38;
+  undefined2 local_36;
+  undefined2 local_34;
+  undefined2 local_32;
+  undefined2 local_30;
+  undefined2 local_2e;
+  undefined2 local_2c;
+  undefined2 local_2a;
+  undefined2 local_28;
+  undefined2 local_26;
+  undefined2 local_24;
+  undefined2 local_22;
+  undefined2 local_20;
+  undefined2 local_1e;
+  undefined2 local_1c;
+  undefined2 local_1a;
+  undefined2 local_18;
+  undefined1 local_16;
+  undefined2 local_15 [6];
+  
+  switch(param_3) {
+  case 1:
+    local_68 = 4;
+    *(undefined4 *)(param_2 + 8) = 0;
+    puVar2 = &local_68;
+    do {
+      puVar2[param_2 - (longlong)&local_68] = *puVar2;
+      puVar2 = puVar2 + 1;
+    } while (puVar2 != &local_67);
+    *(int *)(param_2 + 8) = (int)&local_67 - (int)&local_68;
+    return param_2;
+  case 2:
+    local_67 = 5;
+    *(undefined4 *)(param_2 + 8) = 0;
+    puVar2 = &local_67;
+    do {
+      puVar2[param_2 - (longlong)&local_67] = *puVar2;
+      puVar2 = puVar2 + 1;
+    } while (puVar2 != &local_66);
+    *(int *)(param_2 + 8) = (int)&local_66 - (int)&local_67;
+    return param_2;
+  case 3:
+    local_48 = 0x602;
+    *(undefined4 *)(param_2 + 8) = 0;
+    puVar1 = &local_48;
+    do {
+      *(undefined1 *)((param_2 - (longlong)&local_48) + (longlong)puVar1) = *(undefined1 *)puVar1;
+      puVar1 = (undefined2 *)((longlong)puVar1 + 1);
+    } while (puVar1 != &local_46);
+    *(int *)(param_2 + 8) = (int)&local_46 - (int)&local_48;
+    return param_2;
+  case 4:
+    local_44 = 0x802;
+    *(undefined4 *)(param_2 + 8) = 0;
+    puVar1 = &local_44;
+    do {
+      *(undefined1 *)((param_2 - (longlong)&local_44) + (longlong)puVar1) = *(undefined1 *)puVar1;
+      puVar1 = (undefined2 *)((longlong)puVar1 + 1);
+    } while (puVar1 != &local_42);
+    *(int *)(param_2 + 8) = (int)&local_42 - (int)&local_44;
+    return param_2;
+  case 5:
+    local_66 = 10;
+    *(undefined4 *)(param_2 + 8) = 0;
+    puVar2 = &local_66;
+    do {
+      puVar2[param_2 - (longlong)&local_66] = *puVar2;
+      puVar2 = puVar2 + 1;
+    } while (puVar2 != &local_65);
+    *(int *)(param_2 + 8) = (int)&local_65 - (int)&local_66;
+    return param_2;
+  case 6:
+    local_65 = 0xb;
+    *(undefined4 *)(param_2 + 8) = 0;
+    puVar2 = &local_65;
+    do {
+      puVar2[param_2 - (longlong)&local_65] = *puVar2;
+      puVar2 = puVar2 + 1;
+    } while (puVar2 != &local_64);
+    *(int *)(param_2 + 8) = (int)&local_64 - (int)&local_65;
+    return param_2;
+  case 7:
+    local_64 = 0xf;
+    *(undefined4 *)(param_2 + 8) = 0;
+    puVar2 = &local_64;
+    do {
+      puVar2[param_2 - (longlong)&local_64] = *puVar2;
+      puVar2 = puVar2 + 1;
+    } while (puVar2 != &local_63);
+    *(int *)(param_2 + 8) = (int)&local_63 - (int)&local_64;
+    return param_2;
+  case 8:
+    local_63 = 7;
+    *(undefined4 *)(param_2 + 8) = 0;
+    puVar2 = &local_63;
+    do {
+      puVar2[param_2 - (longlong)&local_63] = *puVar2;
+      puVar2 = puVar2 + 1;
+    } while (puVar2 != &local_62);
+    *(int *)(param_2 + 8) = (int)&local_62 - (int)&local_63;
+    return param_2;
+  case 9:
+    local_62 = 9;
+    *(undefined4 *)(param_2 + 8) = 0;
+    puVar2 = &local_62;
+    do {
+      puVar2[param_2 - (longlong)&local_62] = *puVar2;
+      puVar2 = puVar2 + 1;
+    } while (puVar2 != &local_61);
+    *(int *)(param_2 + 8) = (int)&local_61 - (int)&local_62;
+    return param_2;
+  case 10:
+    local_61 = 0xd;
+    *(undefined4 *)(param_2 + 8) = 0;
+    puVar2 = &local_61;
+    break;
+  case 0xb:
+    local_18 = 0x1002;
+    local_16 = 0x1c;
+    *(undefined4 *)(param_2 + 8) = 0;
+    puVar1 = &local_18;
+    do {
+      *(undefined1 *)((longlong)puVar1 + (param_2 - (longlong)&local_18)) = *(undefined1 *)puVar1;
+      puVar1 = (undefined2 *)((longlong)puVar1 + 1);
+    } while (puVar1 != local_15);
+    *(int *)(param_2 + 8) = (int)local_15 - (int)&local_18;
+    return param_2;
+  case 0xc:
+    local_60 = 0x11;
+    *(undefined4 *)(param_2 + 8) = 0;
+    puVar2 = &local_60;
+    do {
+      puVar2[param_2 - (longlong)&local_60] = *puVar2;
+      puVar2 = puVar2 + 1;
+    } while (puVar2 != &local_5f);
+    *(int *)(param_2 + 8) = (int)&local_5f - (int)&local_60;
+    return param_2;
+  case 0xd:
+    local_5f = 0x17;
+    *(undefined4 *)(param_2 + 8) = 0;
+    puVar2 = &local_5f;
+    do {
+      puVar2[param_2 - (longlong)&local_5f] = *puVar2;
+      puVar2 = puVar2 + 1;
+    } while (puVar2 != &local_5e);
+    *(int *)(param_2 + 8) = (int)&local_5e - (int)&local_5f;
+    return param_2;
+  case 0xe:
+    local_5e = 0x18;
+    *(undefined4 *)(param_2 + 8) = 0;
+    puVar2 = &local_5e;
+    do {
+      puVar2[param_2 - (longlong)&local_5e] = *puVar2;
+      puVar2 = puVar2 + 1;
+    } while (puVar2 != &local_5d);
+    *(int *)(param_2 + 8) = (int)&local_5d - (int)&local_5e;
+    return param_2;
+  case 0xf:
+    local_3c = 0x1602;
+    *(undefined4 *)(param_2 + 8) = 0;
+    puVar1 = &local_3c;
+    do {
+      *(undefined1 *)((longlong)puVar1 + (param_2 - (longlong)&local_3c)) = *(undefined1 *)puVar1;
+      puVar1 = (undefined2 *)((longlong)puVar1 + 1);
+    } while (puVar1 != &local_3a);
+    *(int *)(param_2 + 8) = (int)&local_3a - (int)&local_3c;
+    return param_2;
+  case 0x10:
+    local_38 = 0x1e02;
+    *(undefined4 *)(param_2 + 8) = 0;
+    puVar1 = &local_38;
+    do {
+      *(undefined1 *)((longlong)puVar1 + (param_2 - (longlong)&local_38)) = *(undefined1 *)puVar1;
+      puVar1 = (undefined2 *)((longlong)puVar1 + 1);
+    } while (puVar1 != &local_36);
+    *(int *)(param_2 + 8) = (int)&local_36 - (int)&local_38;
+    return param_2;
+  case 0x11:
+    local_34 = 0x1f02;
+    *(undefined4 *)(param_2 + 8) = 0;
+    puVar1 = &local_34;
+    do {
+      *(undefined1 *)((longlong)puVar1 + (param_2 - (longlong)&local_34)) = *(undefined1 *)puVar1;
+      puVar1 = (undefined2 *)((longlong)puVar1 + 1);
+    } while (puVar1 != &local_32);
+    *(int *)(param_2 + 8) = (int)&local_32 - (int)&local_34;
+    return param_2;
+  case 0x12:
+    local_5d = 0x14;
+    *(undefined4 *)(param_2 + 8) = 0;
+    puVar2 = &local_5d;
+    do {
+      puVar2[param_2 - (longlong)&local_5d] = *puVar2;
+      puVar2 = puVar2 + 1;
+    } while (puVar2 != &local_5c);
+    *(int *)(param_2 + 8) = (int)&local_5c - (int)&local_5d;
+    return param_2;
+  case 0x13:
+    local_30 = 0x1d02;
+    *(undefined4 *)(param_2 + 8) = 0;
+    puVar1 = &local_30;
+    do {
+      *(undefined1 *)((longlong)puVar1 + (param_2 - (longlong)&local_30)) = *(undefined1 *)puVar1;
+      puVar1 = (undefined2 *)((longlong)puVar1 + 1);
+    } while (puVar1 != &local_2e);
+    *(int *)(param_2 + 8) = (int)&local_2e - (int)&local_30;
+    return param_2;
+  case 0x14:
+    local_5c = 0x13;
+    *(undefined4 *)(param_2 + 8) = 0;
+    puVar2 = &local_5c;
+    do {
+      puVar2[param_2 - (longlong)&local_5c] = *puVar2;
+      puVar2 = puVar2 + 1;
+    } while (puVar2 != &local_5b);
+    *(int *)(param_2 + 8) = (int)&local_5b - (int)&local_5c;
+    return param_2;
+  case 0x15:
+    local_5b = 0x20;
+    *(undefined4 *)(param_2 + 8) = 0;
+    puVar2 = &local_5b;
+    do {
+      puVar2[param_2 - (longlong)&local_5b] = *puVar2;
+      puVar2 = puVar2 + 1;
+    } while (puVar2 != &local_5a);
+    *(int *)(param_2 + 8) = (int)&local_5a - (int)&local_5b;
+    return param_2;
+  case 0x16:
+    local_5a = 0x25;
+    *(undefined4 *)(param_2 + 8) = 0;
+    puVar2 = &local_5a;
+    do {
+      puVar2[param_2 - (longlong)&local_5a] = *puVar2;
+      puVar2 = puVar2 + 1;
+    } while (puVar2 != &local_59);
+    *(int *)(param_2 + 8) = (int)&local_59 - (int)&local_5a;
+    return param_2;
+  case 0x17:
+    local_2c = 0x2902;
+    *(undefined4 *)(param_2 + 8) = 0;
+    puVar1 = &local_2c;
+    do {
+      *(undefined1 *)((longlong)puVar1 + (param_2 - (longlong)&local_2c)) = *(undefined1 *)puVar1;
+      puVar1 = (undefined2 *)((longlong)puVar1 + 1);
+    } while (puVar1 != &local_2a);
+    *(int *)(param_2 + 8) = (int)&local_2a - (int)&local_2c;
+    return param_2;
+  case 0x18:
+    local_59 = 0x29;
+    *(undefined4 *)(param_2 + 8) = 0;
+    puVar2 = &local_59;
+    do {
+      puVar2[param_2 - (longlong)&local_59] = *puVar2;
+      puVar2 = puVar2 + 1;
+    } while (puVar2 != &local_58);
+    *(int *)(param_2 + 8) = (int)&local_58 - (int)&local_59;
+    return param_2;
+  case 0x19:
+    local_58 = 0x2b;
+    *(undefined4 *)(param_2 + 8) = 0;
+    puVar2 = &local_58;
+    do {
+      puVar2[param_2 - (longlong)&local_58] = *puVar2;
+      puVar2 = puVar2 + 1;
+    } while (puVar2 != &local_57);
+    *(int *)(param_2 + 8) = (int)&local_57 - (int)&local_58;
+    return param_2;
+  case 0x1a:
+    local_57 = 0x2c;
+    *(undefined4 *)(param_2 + 8) = 0;
+    puVar2 = &local_57;
+    do {
+      puVar2[param_2 - (longlong)&local_57] = *puVar2;
+      puVar2 = puVar2 + 1;
+    } while (puVar2 != &local_56);
+    *(int *)(param_2 + 8) = (int)&local_56 - (int)&local_57;
+    return param_2;
+  case 0x1b:
+    local_28 = 0x2f02;
+    *(undefined4 *)(param_2 + 8) = 0;
+    puVar1 = &local_28;
+    do {
+      *(undefined1 *)((longlong)puVar1 + (param_2 - (longlong)&local_28)) = *(undefined1 *)puVar1;
+      puVar1 = (undefined2 *)((longlong)puVar1 + 1);
+    } while (puVar1 != &local_26);
+    *(int *)(param_2 + 8) = (int)&local_26 - (int)&local_28;
+    return param_2;
+  case 0x1c:
+    local_56 = 0x21;
+    *(undefined4 *)(param_2 + 8) = 0;
+    puVar2 = &local_56;
+    do {
+      puVar2[param_2 - (longlong)&local_56] = *puVar2;
+      puVar2 = puVar2 + 1;
+    } while (puVar2 != &local_55);
+    *(int *)(param_2 + 8) = (int)&local_55 - (int)&local_56;
+    return param_2;
+  case 0x1d:
+    local_24 = 0x2125;
+    *(undefined4 *)(param_2 + 8) = 0;
+    puVar1 = &local_24;
+    do {
+      *(undefined1 *)((longlong)puVar1 + (param_2 - (longlong)&local_24)) = *(undefined1 *)puVar1;
+      puVar1 = (undefined2 *)((longlong)puVar1 + 1);
+    } while (puVar1 != &local_22);
+    *(int *)(param_2 + 8) = (int)&local_22 - (int)&local_24;
+    return param_2;
+  case 0x1e:
+    local_55 = 0x2e;
+    *(undefined4 *)(param_2 + 8) = 0;
+    puVar2 = &local_55;
+    do {
+      puVar2[param_2 - (longlong)&local_55] = *puVar2;
+      puVar2 = puVar2 + 1;
+    } while (puVar2 != &local_54);
+    *(int *)(param_2 + 8) = (int)&local_54 - (int)&local_55;
+    return param_2;
+  case 0x1f:
+    local_54 = 0x30;
+    *(undefined4 *)(param_2 + 8) = 0;
+    puVar2 = &local_54;
+    do {
+      puVar2[param_2 - (longlong)&local_54] = *puVar2;
+      puVar2 = puVar2 + 1;
+    } while (puVar2 != &local_53);
+    *(int *)(param_2 + 8) = (int)&local_53 - (int)&local_54;
+    return param_2;
+  case 0x20:
+    local_40 = 0x302;
+    *(undefined4 *)(param_2 + 8) = 0;
+    puVar1 = &local_40;
+    do {
+      *(undefined1 *)((longlong)puVar1 + (param_2 - (longlong)&local_40)) = *(undefined1 *)puVar1;
+      puVar1 = (undefined2 *)((longlong)puVar1 + 1);
+    } while (puVar1 != &local_3e);
+    *(int *)(param_2 + 8) = (int)&local_3e - (int)&local_40;
+    return param_2;
+  case 0x21:
+    local_53 = 0x32;
+    *(undefined4 *)(param_2 + 8) = 0;
+    puVar2 = &local_53;
+    do {
+      puVar2[param_2 - (longlong)&local_53] = *puVar2;
+      puVar2 = puVar2 + 1;
+    } while (puVar2 != &local_52);
+    *(int *)(param_2 + 8) = (int)&local_52 - (int)&local_53;
+    return param_2;
+  case 0x22:
+    local_52 = 0x33;
+    *(undefined4 *)(param_2 + 8) = 0;
+    puVar2 = &local_52;
+    do {
+      puVar2[param_2 - (longlong)&local_52] = *puVar2;
+      puVar2 = puVar2 + 1;
+    } while (puVar2 != &local_51);
+    *(int *)(param_2 + 8) = (int)&local_51 - (int)&local_52;
+    return param_2;
+  case 0x23:
+    local_51 = 0x34;
+    *(undefined4 *)(param_2 + 8) = 0;
+    puVar2 = &local_51;
+    do {
+      puVar2[param_2 - (longlong)&local_51] = *puVar2;
+      puVar2 = puVar2 + 1;
+    } while (puVar2 != &local_50);
+    *(int *)(param_2 + 8) = (int)&local_50 - (int)&local_51;
+    return param_2;
+  case 0x24:
+    local_50 = 0x19;
+    *(undefined4 *)(param_2 + 8) = 0;
+    puVar2 = &local_50;
+    do {
+      puVar2[param_2 - (longlong)&local_50] = *puVar2;
+      puVar2 = puVar2 + 1;
+    } while (puVar2 != &local_4f);
+    *(int *)(param_2 + 8) = (int)&local_4f - (int)&local_50;
+    return param_2;
+  case 0x25:
+    local_4f = 0x36;
+    *(undefined4 *)(param_2 + 8) = 0;
+    puVar2 = &local_4f;
+    do {
+      puVar2[param_2 - (longlong)&local_4f] = *puVar2;
+      puVar2 = puVar2 + 1;
+    } while (puVar2 != &local_4e);
+    *(int *)(param_2 + 8) = (int)&local_4e - (int)&local_4f;
+    return param_2;
+  case 0x26:
+    local_4e = 0x37;
+    *(undefined4 *)(param_2 + 8) = 0;
+    puVar2 = &local_4e;
+    do {
+      puVar2[param_2 - (longlong)&local_4e] = *puVar2;
+      puVar2 = puVar2 + 1;
+    } while (puVar2 != &local_4d);
+    *(int *)(param_2 + 8) = (int)&local_4d - (int)&local_4e;
+    return param_2;
+  case 0x27:
+    local_20 = 0x3802;
+    *(undefined4 *)(param_2 + 8) = 0;
+    puVar1 = &local_20;
+    do {
+      *(undefined1 *)((longlong)puVar1 + (param_2 - (longlong)&local_20)) = *(undefined1 *)puVar1;
+      puVar1 = (undefined2 *)((longlong)puVar1 + 1);
+    } while (puVar1 != &local_1e);
+    *(int *)(param_2 + 8) = (int)&local_1e - (int)&local_20;
+    return param_2;
+  case 0x28:
+    local_4d = 0x1a;
+    *(undefined4 *)(param_2 + 8) = 0;
+    puVar2 = &local_4d;
+    do {
+      puVar2[param_2 - (longlong)&local_4d] = *puVar2;
+      puVar2 = puVar2 + 1;
+    } while (puVar2 != &local_4c);
+    *(int *)(param_2 + 8) = (int)&local_4c - (int)&local_4d;
+    return param_2;
+  case 0x29:
+    local_1c = 0x2325;
+    *(undefined4 *)(param_2 + 8) = 0;
+    puVar1 = &local_1c;
+    do {
+      *(undefined1 *)((longlong)puVar1 + (param_2 - (longlong)&local_1c)) = *(undefined1 *)puVar1;
+      puVar1 = (undefined2 *)((longlong)puVar1 + 1);
+    } while (puVar1 != &local_1a);
+    *(int *)(param_2 + 8) = (int)&local_1a - (int)&local_1c;
+    return param_2;
+  default:
+    *(undefined4 *)(param_2 + 8) = 0;
+    return param_2;
+  case 0x2b:
+    local_4c = 0x3a;
+    *(undefined4 *)(param_2 + 8) = 0;
+    puVar2 = &local_4c;
+    do {
+      puVar2[param_2 - (longlong)&local_4c] = *puVar2;
+      puVar2 = puVar2 + 1;
+    } while (puVar2 != &local_4b);
+    *(int *)(param_2 + 8) = (int)&local_4b - (int)&local_4c;
+    return param_2;
+  case 0x2c:
+    local_4b = 0x3b;
+    *(undefined4 *)(param_2 + 8) = 0;
+    puVar2 = &local_4b;
+    do {
+      puVar2[param_2 - (longlong)&local_4b] = *puVar2;
+      puVar2 = puVar2 + 1;
+    } while (puVar2 != local_4a);
+    *(int *)(param_2 + 8) = (int)local_4a - (int)&local_4b;
+    return param_2;
+  case 0x2d:
+    FUN_1414aae80(param_2,param_1 + 0x19fc);
+    return param_2;
+  }
+  do {
+    puVar2[param_2 - (longlong)&local_61] = *puVar2;
+    puVar2 = puVar2 + 1;
+  } while (puVar2 != &local_60);
+  *(int *)(param_2 + 8) = (int)&local_60 - (int)&local_61;
+  return param_2;
+}
+
+

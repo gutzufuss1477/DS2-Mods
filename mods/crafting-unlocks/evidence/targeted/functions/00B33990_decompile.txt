@@ -1,0 +1,110 @@
+RVA=0xB33990 NAME=FUN_140b33990 SIZE=829
+
+void FUN_140b33990(undefined8 param_1,longlong param_2)
+
+{
+  int iVar1;
+  longlong *plVar2;
+  ulonglong uVar3;
+  longlong lVar4;
+  uint uVar5;
+  longlong lVar6;
+  longlong lVar7;
+  int iVar8;
+  int iVar9;
+  byte *pbVar10;
+  byte *pbVar11;
+  undefined8 local_res8;
+  undefined4 local_res10 [2];
+  undefined4 local_res18 [2];
+  undefined4 local_res20 [2];
+  undefined8 local_48 [2];
+  
+  lVar4 = DAT_14623e4d8;
+  local_res8 = param_1;
+  FUN_142653420(param_2,0x669756fc,3);
+  local_res10[0] = *(undefined4 *)(lVar4 + 0x80);
+  (**(code **)(**(longlong **)(param_2 + 0x1188) + 8))
+            (*(longlong **)(param_2 + 0x1188),local_res10,4);
+  local_res20[0] = 0;
+  iVar8 = 0;
+  local_48[0] = 0;
+  iVar1 = *(int *)(lVar4 + 0x84);
+  if (0 < iVar1) {
+    lVar6 = *(longlong *)(lVar4 + 0x78);
+    lVar7 = 0;
+    do {
+      if (*(int *)(lVar6 + 0x10) != 0) break;
+      iVar8 = iVar8 + 1;
+      lVar7 = lVar7 + 1;
+      lVar6 = lVar6 + 0x18;
+    } while (lVar7 < iVar1);
+  }
+  do {
+    if (iVar8 == iVar1) {
+      uVar5 = (**(code **)(**(longlong **)(param_2 + 0x1188) + 0x30))();
+      if (*(uint *)(param_2 + 0x1648) < 0x96) {
+        *(ulonglong *)(param_2 + 0x1198 + (ulonglong)*(uint *)(param_2 + 0x1648) * 8) =
+             (ulonglong)uVar5 | 0x3ecab54300000000;
+        *(int *)(param_2 + 0x1648) = *(int *)(param_2 + 0x1648) + 1;
+      }
+      FUN_142653420(param_2,0x3ecab543,0);
+      return;
+    }
+    plVar2 = *(longlong **)(*(longlong *)(lVar4 + 0x78) + (longlong)iVar8 * 0x18);
+    local_res18[0] = *(undefined4 *)(*plVar2 + 0x28);
+    (**(code **)(**(longlong **)(param_2 + 0x1188) + 8))
+              (*(longlong **)(param_2 + 0x1188),local_res18,4);
+    (**(code **)(**(longlong **)(param_2 + 0x1188) + 8))
+              (*(longlong **)(param_2 + 0x1188),plVar2 + 1,4);
+    (**(code **)(**(longlong **)(param_2 + 0x1188) + 8))
+              (*(longlong **)(param_2 + 0x1188),(longlong)plVar2 + 0xc,4);
+    (**(code **)(**(longlong **)(param_2 + 0x1188) + 8))
+              (*(longlong **)(param_2 + 0x1188),plVar2 + 3,8);
+    (**(code **)(**(longlong **)(param_2 + 0x1188) + 8))
+              (*(longlong **)(param_2 + 0x1188),plVar2 + 4,8);
+    (**(code **)(**(longlong **)(param_2 + 0x1188) + 8))
+              (*(longlong **)(param_2 + 0x1188),plVar2 + 5,1);
+    FUN_142652b10(param_2,(int)plVar2[6]);
+    pbVar10 = (byte *)((longlong)plVar2 + 0x2c);
+    pbVar11 = pbVar10 + (int)plVar2[6];
+    for (; pbVar10 != pbVar11; pbVar10 = pbVar10 + 1) {
+      uVar3 = (ulonglong)local_res8 >> 0x10;
+      local_res8 = CONCAT62((int6)uVar3,(ushort)*pbVar10);
+      (**(code **)(**(longlong **)(param_2 + 0x1188) + 8))
+                (*(longlong **)(param_2 + 0x1188),&local_res8,2);
+    }
+    (**(code **)(**(longlong **)(param_2 + 0x1188) + 8))
+              (*(longlong **)(param_2 + 0x1188),plVar2 + 7,8);
+    (**(code **)(**(longlong **)(param_2 + 0x1188) + 8))
+              (*(longlong **)(param_2 + 0x1188),plVar2 + 8,4);
+    (**(code **)(**(longlong **)(param_2 + 0x1188) + 8))
+              (*(longlong **)(param_2 + 0x1188),(longlong)plVar2 + 0x44,4);
+    (**(code **)(**(longlong **)(param_2 + 0x1188) + 8))
+              (*(longlong **)(param_2 + 0x1188),plVar2 + 2,4);
+    (**(code **)(**(longlong **)(param_2 + 0x1188) + 8))
+              (*(longlong **)(param_2 + 0x1188),local_res20,4);
+    (**(code **)(**(longlong **)(param_2 + 0x1188) + 8))
+              (*(longlong **)(param_2 + 0x1188),local_48,8);
+    (**(code **)(**(longlong **)(param_2 + 0x1188) + 8))
+              (*(longlong **)(param_2 + 0x1188),local_48,8);
+    local_res8 = CONCAT44(local_res8._4_4_,(int)plVar2[9]);
+    (**(code **)(**(longlong **)(param_2 + 0x1188) + 8))
+              (*(longlong **)(param_2 + 0x1188),&local_res8,4);
+    iVar9 = 0;
+    if (0 < (int)plVar2[9]) {
+      do {
+        (**(code **)(**(longlong **)(param_2 + 0x1188) + 8))
+                  (*(longlong **)(param_2 + 0x1188),plVar2[10] + (longlong)iVar9 * 4,4);
+        iVar9 = iVar9 + 1;
+      } while (iVar9 < (int)plVar2[9]);
+    }
+    do {
+      lVar6 = (longlong)iVar8;
+      iVar8 = iVar8 + 1;
+      if (*(int *)(lVar4 + 0x84) <= iVar8) break;
+    } while (*(int *)(*(longlong *)(lVar4 + 0x78) + 0x28 + lVar6 * 0x18) == 0);
+  } while( true );
+}
+
+

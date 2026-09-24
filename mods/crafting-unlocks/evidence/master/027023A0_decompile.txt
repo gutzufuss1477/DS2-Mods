@@ -1,0 +1,32 @@
+SOURCE: DECOMPILE_0270.txt
+FUNCTION RVA 0x27023A0
+NAME: FUN_1427023a0
+SIZE: 164
+SIGNATURE: undefined FUN_1427023a0(void)
+================================================================
+
+undefined8 * FUN_1427023a0(longlong param_1,undefined8 *param_2)
+
+{
+  undefined1 *local_res8;
+  
+  (**(code **)(PTR_vftable_1441c1960 + 0xa0))(&PTR_vftable_1441c1960);
+  local_res8 = &DAT_143b34ca0;
+  if (*(longlong *)(param_1 + 0x20) != 0) {
+    FUN_1400a4100(&local_res8,*(longlong *)(param_1 + 0x20),*(undefined2 *)(param_1 + 0x28));
+  }
+  if (*(int *)(local_res8 + -8) == 0) {
+    FUN_1400a3660(param_2,DAT_14a1b44e0,*(undefined4 *)(DAT_14a1b44e0 + -8),
+                  " No translated or source text",0x1d);
+  }
+  else {
+    *param_2 = local_res8;
+    local_res8 = &DAT_143b34ca0;
+  }
+  FUN_1400a38a0(&local_res8);
+  return param_2;
+}
+
+
+
+================================================================

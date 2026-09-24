@@ -1,0 +1,29 @@
+{
+  "status": "PASS_STRUCTURAL_ONLY",
+  "file": "ds2_crafting_unlocks.asi",
+  "bytes": 43520,
+  "sha256": "92263c03df81c6e7aeb2aaa645f3cd394defd0b8b080778bda01fed59140ec39",
+  "machine": "AMD64",
+  "pe_format": "PE32+",
+  "is_dll": true,
+  "imports": [
+    "KERNEL32.dll"
+  ],
+  "relocations_present": true,
+  "unwind_directory_present": true,
+  "analysed_exe_sha256": "bf3d1c665545930bc850d8f5df486f7395885bb729d4fd408fdb03390de0765b",
+  "callsite_rva": "0x0171DB1D",
+  "version": "0.2.0-alpha",
+  "backpack_callsite_rva": "0x01529896",
+  "backpack_callsite_expected_bytes": "E8 85 63 64 FF",
+  "backpack_original_target_rva": "0x00B6FC20",
+  "native_vector_copy_rva": "0x00B7E950",
+  "new_call_bytes_origin": "Computed from master CALL rel32 and verified at runtime, not a raw capture",
+  "config_keys": 119,
+  "new_backpack_keys": 29,
+  "callsite_expected_bytes": "E8 9E 1E 45 FF",
+  "original_target_rva": "0x00B6F9C0",
+  "windows_loader_test": false,
+  "windows_patch_test": false,
+  "game_test": false
+}

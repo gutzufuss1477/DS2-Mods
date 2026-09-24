@@ -1,0 +1,52 @@
+================================================================
+FUNCTION RVA 0xB43390
+NAME: FUN_140b43390
+SIZE: 251
+SIGNATURE: undefined FUN_140b43390(void)
+================================================================
+
+void FUN_140b43390(undefined8 param_1,char param_2,int param_3,char param_4)
+
+{
+  longlong lVar1;
+  longlong lVar2;
+  int iVar3;
+  
+  lVar2 = DAT_14623e4e0;
+  FUN_140b413f0(DAT_14623e4e0,0);
+  FUN_140b39500(lVar2 + 0x22d8,*(undefined8 *)(lVar2 + 0x45b0));
+  *(char *)(lVar2 + 0x44a0) = param_2;
+  if (param_2 == '\0') {
+    *(undefined8 *)(lVar2 + 0x44a4) = 0;
+  }
+  else {
+    if (param_3 < 0) {
+      iVar3 = 0;
+    }
+    else {
+      iVar3 = param_3;
+      if (2 < param_3) {
+        iVar3 = 2;
+      }
+    }
+    *(int *)(lVar2 + 0x44a4) = iVar3;
+    if (param_4 != '\0') {
+      lVar1 = *(longlong *)(DAT_14623e5b0 + 0x40);
+      if (param_3 == 0) {
+        *(undefined4 *)(lVar2 + 0x44a8) = *(undefined4 *)(lVar1 + 0x20);
+      }
+      else if (param_3 == 1) {
+        *(undefined4 *)(lVar2 + 0x44a8) = *(undefined4 *)(lVar1 + 0x24);
+      }
+      else {
+        *(undefined4 *)(lVar2 + 0x44a8) = *(undefined4 *)(lVar1 + 0x28);
+      }
+    }
+  }
+  FUN_140b393e0(*(undefined8 *)(lVar2 + 0x45b0),lVar2 + 0x22d8);
+  FUN_140b3b170(*(undefined8 *)(lVar2 + 0x45b0),0,0);
+  return;
+}
+
+
+

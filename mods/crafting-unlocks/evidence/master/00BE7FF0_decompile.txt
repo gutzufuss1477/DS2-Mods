@@ -1,0 +1,25 @@
+SOURCE: DECOMPILE_0104.txt
+FUNCTION RVA 0xBE7FF0
+NAME: FUN_140be7ff0
+SIZE: 88
+SIGNATURE: undefined FUN_140be7ff0(void)
+================================================================
+
+undefined8 * FUN_140be7ff0(undefined8 *param_1,ulonglong param_2)
+
+{
+  *param_1 = DSGameEquipmentListItem::vftable;
+  FUN_140be7a60();
+  if ((param_2 & 1) != 0) {
+    if ((param_2 & 4) == 0) {
+      FUN_1400a0d10();
+      return param_1;
+    }
+    AK::TempAlloc::DumpTempAllocsToFile((Type)param_1,(wchar_t *)&DAT_000000c0);
+  }
+  return param_1;
+}
+
+
+
+================================================================

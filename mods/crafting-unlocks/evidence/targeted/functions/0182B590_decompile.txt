@@ -1,0 +1,19 @@
+RVA=0x182B590 NAME=FUN_14182b590 SIZE=97
+
+void FUN_14182b590(longlong param_1)
+
+{
+  char cVar1;
+  
+  cVar1 = *(char *)(*(longlong *)(param_1 + 0x1b8) + 0x131);
+  if (*(longlong *)(*(longlong *)(DAT_1462473f8 + 0xa0) + 0x48) != 0) {
+    FUN_1422e23f0();
+  }
+  if (cVar1 == '\v') {
+    *(undefined1 *)(param_1 + 0x2e4) = 1;
+    FUN_14149ff80(*DAT_14623ebf8,0x42cd1542);
+  }
+  return;
+}
+
+

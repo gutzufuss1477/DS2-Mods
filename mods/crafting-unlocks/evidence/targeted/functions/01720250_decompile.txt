@@ -1,0 +1,41 @@
+RVA=0x1720250 NAME=FUN_141720250 SIZE=174
+
+void FUN_141720250(longlong param_1,int param_2,char param_3)
+
+{
+  longlong lVar1;
+  int iVar2;
+  
+  if ((*(int *)(param_1 + 0x14c) < *(int *)(param_1 + 0x188)) &&
+     (iVar2 = *(int *)(param_1 + 0x150 + (longlong)*(int *)(param_1 + 0x14c) * 4), iVar2 != 0xe)) {
+    if (*(int *)(param_1 + 0x144) < 0x200) {
+      lVar1 = *(longlong *)
+               (param_1 + 0x41f8 +
+               ((longlong)iVar2 * 0x201 + (longlong)*(int *)(param_1 + 0x144)) * 8);
+    }
+    else {
+      lVar1 = 0;
+    }
+    if ((lVar1 != 0) && (*(int *)(lVar1 + 8) != param_2)) {
+      if ((param_2 == 0) && (param_3 != '\0')) {
+        *(undefined1 *)(lVar1 + 0x11) = 0;
+      }
+      iVar2 = 0;
+      if (0 < param_2) {
+        iVar2 = param_2;
+      }
+      *(int *)(lVar1 + 8) = iVar2;
+      FUN_14171cf70(param_1);
+      if (*(char *)(param_1 + 0x13c) == '\x02') {
+        *(uint *)(param_1 + 0x134) = *(uint *)(param_1 + 0x134) | 0x100;
+        return;
+      }
+      if (*(char *)(param_1 + 0x13c) == '\x03') {
+        *(uint *)(param_1 + 0x134) = *(uint *)(param_1 + 0x134) | 8;
+      }
+    }
+  }
+  return;
+}
+
+

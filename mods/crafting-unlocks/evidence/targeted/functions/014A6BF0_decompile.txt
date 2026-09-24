@@ -1,0 +1,38 @@
+RVA=0x14A6BF0 NAME=FUN_1414a6bf0 SIZE=204
+
+ulonglong FUN_1414a6bf0(longlong *param_1,longlong param_2)
+
+{
+  int iVar1;
+  longlong lVar2;
+  longlong *plVar3;
+  byte bVar4;
+  char cVar5;
+  int iVar6;
+  ulonglong in_RAX;
+  longlong lVar7;
+  undefined1 local_res8 [8];
+  
+  if (*(char *)((longlong)param_1 + 0x122) != '\0') {
+    return in_RAX & 0xffffffffffffff00;
+  }
+  lVar2 = *DAT_14623ebf8;
+  bVar4 = (**(code **)(*param_1 + 0xc0))();
+  if ((bVar4 != 0) && (iVar1 = *(int *)(param_2 + 8), 0 < iVar1)) {
+    lVar7 = 0;
+    do {
+      local_res8[0] = *(undefined1 *)(lVar7 + param_2);
+      iVar6 = FUN_140843bf0(lVar2 + 0x19c0,local_res8);
+      if (((iVar6 != -1) &&
+          (plVar3 = *(longlong **)(*(longlong *)(lVar2 + 0x19c0) + (longlong)iVar6 * 0x18),
+          plVar3 != (longlong *)0x0)) && (cVar5 = (**(code **)(*plVar3 + 0xc0))(), cVar5 == '\0')) {
+        bVar4 = 0;
+        break;
+      }
+      lVar7 = lVar7 + 1;
+    } while (lVar7 < iVar1);
+  }
+  return (ulonglong)bVar4;
+}
+
+

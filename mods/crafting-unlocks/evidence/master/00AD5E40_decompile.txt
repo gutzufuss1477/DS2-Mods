@@ -1,0 +1,92 @@
+SOURCE: DECOMPILE_0096.txt
+FUNCTION RVA 0xAD5E40
+NAME: FUN_140ad5e40
+SIZE: 523
+SIGNATURE: undefined FUN_140ad5e40(void)
+================================================================
+
+undefined8 * FUN_140ad5e40(void)
+
+{
+  undefined2 *_Dst;
+  int iVar1;
+  char cVar2;
+  longlong lVar3;
+  undefined8 *puVar4;
+  undefined8 *puVar5;
+  undefined8 *puVar6;
+  int iVar7;
+  undefined8 *puVar8;
+  undefined1 local_78 [16];
+  undefined1 local_68 [8];
+  undefined1 local_60 [72];
+  
+  lVar3 = FUN_1400a19d0(0x30);
+  puVar8 = (undefined8 *)0x0;
+  puVar4 = puVar8;
+  if (lVar3 != 0) {
+    puVar4 = (undefined8 *)FUN_140ad5b50(lVar3);
+  }
+  if ((*(int *)(*(longlong *)(DAT_14623e540 + 400) + 0x40) < 3) ||
+     (*(longlong *)(*(longlong *)(*(longlong *)(DAT_14623e540 + 400) + 0x48) + 0x10) == 0)) {
+    puVar4 = (undefined8 *)0x0;
+  }
+  else {
+    lVar3 = FUN_1400a19d0(0x28);
+    puVar5 = puVar8;
+    if (lVar3 != 0) {
+      puVar5 = (undefined8 *)FUN_140ad62d0(lVar3);
+    }
+    iVar1 = *(int *)(puVar4 + 4);
+    iVar7 = iVar1 + 1;
+    *(int *)(puVar4 + 4) = iVar7;
+    if (*(int *)((longlong)puVar4 + 0x24) < iVar7) {
+      FUN_1400ba2b0(puVar4 + 4);
+    }
+    *(undefined8 **)(puVar4[5] + (longlong)iVar1 * 8) = puVar5;
+    puVar6 = (undefined8 *)FUN_1400a19d0(0x48);
+    puVar5 = puVar8;
+    if (puVar6 != (undefined8 *)0x0) {
+      _Dst = (undefined2 *)((longlong)puVar6 + 0x1c);
+      puVar6[1] = 0;
+      puVar6[2] = 0;
+      *(undefined4 *)(puVar6 + 3) = 0;
+      *_Dst = 0;
+      *(undefined1 *)((longlong)puVar6 + 0x1e) = 0;
+      if (_Dst <= (undefined2 *)((longlong)puVar6 + 0x1f)) {
+        memset(_Dst,0,3);
+      }
+      *puVar6 = DSGameMenuCommandCreateVehicleCoffin::vftable;
+      puVar6[4] = DSGameMenuCommandCreateVehicleCoffin::vftable;
+      puVar6[5] = 0;
+      puVar6[6] = 0;
+      puVar6[7] = 0;
+      puVar6[8] = puVar6 + 5;
+      cVar2 = FUN_140ad6050();
+      puVar5 = puVar6;
+      if (cVar2 != '\0') {
+        FUN_141f209f0(local_78,3,1);
+        FUN_141f26af0();
+        FUN_140c53bf0(local_60);
+        FUN_1400a38a0(local_68);
+      }
+    }
+    iVar1 = *(int *)(puVar4 + 4);
+    iVar7 = iVar1 + 1;
+    *(int *)(puVar4 + 4) = iVar7;
+    if (*(int *)((longlong)puVar4 + 0x24) < iVar7) {
+      FUN_1400ba2b0(puVar4 + 4,((int)((iVar7 >> 0x1f & 7U) + iVar7) >> 3) + iVar1 + 3);
+    }
+    *(undefined8 **)(puVar4[5] + (longlong)iVar1 * 8) = puVar5;
+    FUN_140399930();
+    puVar4 = (undefined8 *)(puVar5[5] + -0x20);
+    if (puVar5[5] == 0) {
+      puVar4 = puVar8;
+    }
+  }
+  return puVar4;
+}
+
+
+
+================================================================

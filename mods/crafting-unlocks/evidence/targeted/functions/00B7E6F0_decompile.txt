@@ -1,0 +1,73 @@
+RVA=0xB7E6F0 NAME=FUN_140b7e6f0 SIZE=321
+
+void FUN_140b7e6f0(int *param_1,longlong param_2)
+
+{
+  longlong lVar1;
+  longlong *plVar2;
+  longlong lVar3;
+  longlong *plVar4;
+  longlong lVar5;
+  int iVar6;
+  longlong lVar7;
+  int iVar8;
+  
+  lVar1 = *(longlong *)(param_1 + 2);
+  iVar6 = *param_1 + 1;
+  lVar3 = lVar1;
+  if (iVar6 <= param_1[1]) goto LAB_140b7e807;
+  lVar7 = 0;
+  iVar8 = ((int)((iVar6 >> 0x1f & 7U) + iVar6) >> 3) + 2 + iVar6;
+  lVar5 = (longlong)iVar8 << 4;
+  if (lVar1 == 0) {
+    lVar3 = lVar7;
+    if (lVar5 == 0) goto LAB_140b7e7d4;
+    lVar3 = *(longlong *)ThreadLocalStoragePointer;
+    if (*(char *)(lVar3 + 0x18a8) == '\0') {
+      __dyn_tls_on_demand_init();
+    }
+    plVar2 = DAT_14a1b8970;
+    plVar4 = *(longlong **)(&DAT_00001a68 + lVar3);
+    if (*(longlong **)(&DAT_00001a68 + lVar3) == (longlong *)0x0) {
+      *(longlong **)(&DAT_00001a68 + lVar3) = DAT_14a1b8970;
+      plVar4 = plVar2;
+    }
+    lVar3 = (**(code **)(*plVar4 + 0xa0))(plVar4,lVar5,0x10);
+    if (lVar3 == 0) {
+      FUN_1400f1820();
+    }
+LAB_140b7e7cf:
+    if (lVar3 == 0) goto LAB_140b7e7d4;
+LAB_140b7e7de:
+    param_1[1] = iVar8;
+    lVar5 = lVar3;
+    if (lVar3 == 0) goto LAB_140b7e7e7;
+  }
+  else {
+    if (lVar5 != 0) {
+      lVar3 = FUN_1400e1d70(lVar1,lVar5);
+      goto LAB_140b7e7cf;
+    }
+    FUN_1400a0d10();
+    lVar3 = 0;
+LAB_140b7e7d4:
+    lVar5 = lVar7;
+    if (iVar8 < 1) goto LAB_140b7e7de;
+LAB_140b7e7e7:
+    lVar3 = lVar5;
+    if (0 < iVar6) {
+      *(longlong *)(param_1 + 2) = lVar1;
+      lVar3 = lVar7;
+      goto LAB_140b7e807;
+    }
+  }
+  *(longlong *)(param_1 + 2) = lVar3;
+LAB_140b7e807:
+  iVar6 = *param_1;
+  *(undefined ***)(lVar3 + (longlong)iVar6 * 0x10) = DSGameCatalogueListItemInstance::vftable;
+  *(undefined4 *)(lVar3 + 8 + (longlong)iVar6 * 0x10) = *(undefined4 *)(param_2 + 8);
+  *param_1 = *param_1 + 1;
+  return;
+}
+
+

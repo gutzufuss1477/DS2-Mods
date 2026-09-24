@@ -1,0 +1,38 @@
+RVA=0x180BBC0 NAME=FUN_14180bbc0 SIZE=135
+
+longlong FUN_14180bbc0(longlong param_1,undefined1 param_2)
+
+{
+  int iVar1;
+  undefined8 *puVar2;
+  longlong lVar3;
+  undefined1 local_res8 [8];
+  undefined1 local_res10 [24];
+  undefined1 local_18 [16];
+  
+  switch(param_2) {
+  default:
+    local_res8[0] = 0;
+    break;
+  case 4:
+  case 5:
+  case 6:
+  case 7:
+    local_res8[0] = 1;
+    break;
+  case 8:
+  case 9:
+  case 10:
+    local_res8[0] = 2;
+  }
+  local_res10[0] = param_2;
+  iVar1 = FUN_140846bb0((longlong *)(param_1 + 0x28),local_res8);
+  if ((iVar1 != -1) && (lVar3 = (longlong)iVar1 * 0x20 + *(longlong *)(param_1 + 0x28), lVar3 != 0))
+  {
+    puVar2 = (undefined8 *)FUN_141819270(lVar3,local_18,local_res10);
+    return (longlong)*(int *)(puVar2 + 1) * 0x50 + *(longlong *)*puVar2;
+  }
+  return 0;
+}
+
+

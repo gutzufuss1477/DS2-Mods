@@ -1,0 +1,64 @@
+SOURCE: DECOMPILE_0135.txt
+FUNCTION RVA 0x11EC530
+NAME: FUN_1411ec530
+SIZE: 278
+SIGNATURE: undefined FUN_1411ec530(void)
+================================================================
+
+undefined8 FUN_1411ec530(longlong param_1)
+
+{
+  char cVar1;
+  longlong lVar2;
+  longlong lVar3;
+  longlong lVar4;
+  longlong lVar5;
+  PSRWLOCK local_18;
+  char local_10;
+  char local_f;
+  
+  lVar5 = *(longlong *)(param_1 + 0x28);
+  lVar4 = (longlong)*(int *)(param_1 + 0x20) * 0xf0 + lVar5;
+  lVar3 = DAT_14623ea48;
+  do {
+    if (lVar5 == lVar4) {
+      DAT_14623ea48 = lVar3;
+      return 1;
+    }
+    lVar2 = *(longlong *)(lVar5 + 0xe8);
+    DAT_14623ea48 = lVar3;
+    FUN_1411e9c70(&local_18,lVar3 + 0x36738);
+    if (lVar2 != -1) {
+      lVar3 = (ulonglong)((uint)(lVar2 >> 0x29) & 0x7fff) * 0x160 + *(longlong *)(lVar3 + 0x38);
+      cVar1 = *(char *)(lVar3 + 0x83);
+      if (((cVar1 != '\0') && (cVar1 != '\x03')) && (*(longlong *)(lVar3 + 0x18) == lVar2)) {
+        if (local_10 == '\0') {
+          ReleaseSRWLockShared(local_18);
+          return 0;
+        }
+        if (local_f != '\0') {
+          ReleaseSRWLockShared(local_18);
+          LOCK();
+          *(char *)(DAT_14623ea48 + 0x3672a) = *(char *)(DAT_14623ea48 + 0x3672a) + -1;
+          UNLOCK();
+        }
+        return 0;
+      }
+    }
+    if (local_10 == '\0') {
+      ReleaseSRWLockShared(local_18);
+    }
+    else if (local_f != '\0') {
+      ReleaseSRWLockShared(local_18);
+      LOCK();
+      *(char *)(DAT_14623ea48 + 0x3672a) = *(char *)(DAT_14623ea48 + 0x3672a) + -1;
+      UNLOCK();
+    }
+    lVar5 = lVar5 + 0xf0;
+    lVar3 = DAT_14623ea48;
+  } while( true );
+}
+
+
+
+================================================================

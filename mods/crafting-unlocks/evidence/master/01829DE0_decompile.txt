@@ -1,0 +1,114 @@
+SOURCE: DECOMPILE_0175.txt
+FUNCTION RVA 0x1829DE0
+NAME: FUN_141829de0
+SIZE: 732
+SIGNATURE: undefined FUN_141829de0(void)
+================================================================
+
+/* WARNING: Function: __security_check_cookie replaced with injection: security_check_cookie */
+
+void FUN_141829de0(longlong param_1)
+
+{
+  ushort *puVar1;
+  byte bVar2;
+  longlong lVar3;
+  longlong *plVar4;
+  char cVar5;
+  int iVar6;
+  ulonglong uVar7;
+  ulonglong uVar8;
+  longlong lVar9;
+  undefined1 auStack_58 [32];
+  undefined1 local_38;
+  undefined1 local_28 [8];
+  undefined1 local_20 [16];
+  ulonglong local_10;
+  
+  local_10 = DAT_1439b9800 ^ (ulonglong)auStack_58;
+  bVar2 = *(byte *)(*(longlong *)(param_1 + 0x1b8) + 0x140);
+  if ((bVar2 & 1) == 0) {
+    if (((bVar2 & 6) == 4) || ((bVar2 & 8) != 0)) {
+      if ((((*(char *)(*(longlong *)(param_1 + 0x1b8) + 0x130) == '\0') &&
+           (1 < *(int *)(DAT_14623eb50 + 0x30))) &&
+          (plVar4 = *(longlong **)(*(longlong *)(DAT_14623eb50 + 0x38) + 8),
+          plVar4 != (longlong *)0x0)) && (cVar5 = (**(code **)(*plVar4 + 0x10))(), cVar5 != '\0')) {
+        lVar3 = *(longlong *)(DAT_1462473f8 + 0xd0);
+        *(undefined8 *)(lVar3 + 0x40) = 0;
+        *(undefined1 *)(lVar3 + 0x48) = 1;
+      }
+      else {
+        if (*(longlong *)(*(longlong *)(DAT_1462473f8 + 0xa0) + 0x48) != 0) {
+          FUN_1422e23f0();
+        }
+        *(undefined4 *)(*(longlong *)(param_1 + 0x1b8) + 0x14c) = *(undefined4 *)(param_1 + 0x2a4);
+        FUN_141720380(*(undefined8 *)(param_1 + 0x1b8));
+        plVar4 = *(longlong **)(*(longlong *)(param_1 + 600) + 0x98);
+        if ((plVar4 != (longlong *)0x0) && (*(char *)((longlong)plVar4 + 0xd6) != '\0')) {
+          *(undefined1 *)((longlong)plVar4 + 0xd6) = 0;
+          (**(code **)(*plVar4 + 200))();
+        }
+        FUN_14149f920(*DAT_14623ebf8);
+        local_28[0] = 5;
+        lVar3 = *DAT_14623ebf8;
+        iVar6 = FUN_140843bf0(lVar3 + 0x19c0,local_28);
+        uVar7 = 0;
+        uVar8 = uVar7;
+        if (iVar6 != -1) {
+          uVar8 = *(ulonglong *)(*(longlong *)(lVar3 + 0x19c0) + (longlong)iVar6 * 0x18);
+        }
+        *(undefined1 *)(uVar8 + 0xc30) = 0x13;
+        lVar3 = *DAT_14623ebf8;
+        FUN_14149ace0(lVar3,local_20,2);
+        local_38 = 0;
+        FUN_1414a72e0(*(undefined8 *)(lVar3 + 0x19b8),local_20,0,0);
+        local_28[0] = 5;
+        lVar3 = *DAT_14623ebf8;
+        iVar6 = FUN_140843bf0(lVar3 + 0x19c0,local_28);
+        uVar8 = uVar7;
+        if (iVar6 != -1) {
+          uVar8 = *(ulonglong *)(*(longlong *)(lVar3 + 0x19c0) + (longlong)iVar6 * 0x18);
+        }
+        *(uint *)(uVar8 + 0xc34) = *(uint *)(uVar8 + 0xc34) | 0x4000;
+        lVar3 = *(longlong *)(*DAT_14623ebf8 + 0x19b8);
+        lVar9 = (longlong)*(int *)(lVar3 + 0x70);
+        uVar8 = uVar7;
+        if (0 < lVar9) {
+          do {
+            if (*(char *)(lVar3 + 0x68 + uVar7) == '\x05') {
+              if ((int)uVar8 != -1) goto LAB_14182a090;
+              break;
+            }
+            uVar7 = uVar7 + 1;
+            uVar8 = (ulonglong)((int)uVar8 + 1);
+          } while ((longlong)uVar7 < lVar9);
+        }
+        *(undefined1 *)(lVar9 + 0x68 + lVar3) = 5;
+        *(int *)(lVar3 + 0x70) = *(int *)(lVar3 + 0x70) + 1;
+LAB_14182a090:
+        FUN_14171e150(*(undefined8 *)(param_1 + 0x1b8));
+      }
+      return;
+    }
+    iVar6 = FUN_141720560();
+    if (iVar6 != 0) {
+      if (*(longlong *)(*(longlong *)(DAT_1462473f8 + 0xa0) + 0x48) != 0) {
+        FUN_1422e23f0();
+      }
+      FUN_14171e640(*(undefined8 *)(param_1 + 0x1b8));
+      puVar1 = (ushort *)(*(longlong *)(param_1 + 0x1b8) + 0x13e);
+      *puVar1 = *puVar1 | 8;
+      FUN_14149ff80(*DAT_14623ebf8,0x59c21e1d);
+      lVar3 = *(longlong *)(DAT_1462473f8 + 0xd0);
+      *(undefined8 *)(lVar3 + 0x40) = *(undefined8 *)(*(longlong *)(param_1 + 0x1c0) + 0x1f0);
+      *(undefined1 *)(lVar3 + 0x48) = 1;
+      return;
+    }
+  }
+  FUN_141878110(param_1);
+  return;
+}
+
+
+
+================================================================

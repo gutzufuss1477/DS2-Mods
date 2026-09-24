@@ -1,0 +1,16 @@
+SOURCE: DECOMPILE_0104.txt
+FUNCTION RVA 0xBE80A0
+NAME: FUN_140be80a0
+SIZE: 8
+SIGNATURE: undefined FUN_140be80a0(void)
+================================================================
+
+undefined * FUN_140be80a0(void)
+
+{
+  return &DAT_144332da0;
+}
+
+
+
+================================================================

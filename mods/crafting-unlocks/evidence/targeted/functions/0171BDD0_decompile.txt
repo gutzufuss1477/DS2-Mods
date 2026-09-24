@@ -1,0 +1,28 @@
+RVA=0x171BDD0 NAME=FUN_14171bdd0 SIZE=110
+
+int FUN_14171bdd0(longlong *param_1,short param_2)
+
+{
+  short *psVar1;
+  longlong lVar2;
+  short *psVar3;
+  int iVar4;
+  
+  iVar4 = 0;
+  lVar2 = *(longlong *)
+           (*(longlong *)(DAT_14623e540 + 0x10) + (ulonglong)(*(uint *)(*param_1 + 8) & 0xfff) * 8);
+  psVar3 = *(short **)(lVar2 + 0x60);
+  psVar1 = psVar3 + (longlong)*(int *)(lVar2 + 0x58) * 4;
+  if (psVar3 != psVar1) {
+    while (*psVar3 != param_2) {
+      psVar3 = psVar3 + 4;
+      if (psVar3 == psVar1) {
+        return 0;
+      }
+    }
+    iVar4 = *(int *)(psVar3 + 2);
+  }
+  return iVar4 * (int)param_1[1];
+}
+
+

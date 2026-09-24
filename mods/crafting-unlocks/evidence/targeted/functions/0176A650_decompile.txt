@@ -1,0 +1,64 @@
+RVA=0x176A650 NAME=FUN_14176a650 SIZE=363
+
+void FUN_14176a650(ulonglong *param_1,ulonglong *param_2,undefined8 param_3,uint *param_4)
+
+{
+  undefined4 uVar1;
+  longlong lVar2;
+  uint uVar3;
+  longlong lVar4;
+  ulonglong uVar5;
+  ulonglong uVar6;
+  ulonglong uVar7;
+  ulonglong uVar8;
+  longlong local_res8;
+  
+  uVar6 = *param_1;
+  uVar7 = *param_2;
+  if (uVar6 < uVar7) {
+    uVar3 = *param_4 * 0x19660d + 0x3c6ef35f;
+    *param_4 = uVar3;
+    lVar2 = DAT_14623e540;
+    lVar4 = (longlong)(ulonglong)(uVar3 >> 8) % ((longlong)(uVar7 - uVar6) >> 4);
+    uVar1 = *(undefined4 *)(uVar7 + 8);
+    *(undefined4 *)(uVar7 + 8) = *(undefined4 *)(uVar6 + 8 + lVar4 * 0x10);
+    *(undefined4 *)(uVar6 + 8 + lVar4 * 0x10) = uVar1;
+    uVar6 = *param_2;
+    uVar7 = *param_1 - 0x10;
+    while (uVar7 < uVar6) {
+      lVar4 = *(longlong *)(lVar2 + 0x10);
+      do {
+        uVar8 = uVar7;
+        uVar7 = uVar8 + 0x10;
+        if (*(uint *)(*(longlong *)(lVar4 + (ulonglong)(*(uint *)(*param_2 + 8) & 0xfff) * 8) + 0x24
+                     ) <=
+            *(uint *)(*(longlong *)(lVar4 + (ulonglong)(*(uint *)(uVar8 + 0x18) & 0xfff) * 8) + 0x24
+                     )) break;
+      } while (uVar7 < uVar6);
+      if (uVar6 <= uVar7) break;
+      lVar4 = *(longlong *)(lVar2 + 0x10);
+      do {
+        uVar5 = uVar6;
+        uVar6 = uVar5 - 0x10;
+        if (*(uint *)(*(longlong *)(lVar4 + (ulonglong)(*(uint *)(uVar5 - 8) & 0xfff) * 8) + 0x24)
+            <= *(uint *)(*(longlong *)(lVar4 + (ulonglong)(*(uint *)(*param_2 + 8) & 0xfff) * 8) +
+                        0x24)) break;
+      } while (uVar7 < uVar6);
+      if (uVar6 <= uVar7) break;
+      uVar1 = *(undefined4 *)(uVar8 + 0x18);
+      *(undefined4 *)(uVar8 + 0x18) = *(undefined4 *)(uVar5 - 8);
+      *(undefined4 *)(uVar5 - 8) = uVar1;
+    }
+    uVar6 = *param_2;
+    uVar1 = *(undefined4 *)(uVar7 + 8);
+    *(undefined4 *)(uVar7 + 8) = *(undefined4 *)(uVar6 + 8);
+    *(undefined4 *)(uVar6 + 8) = uVar1;
+    local_res8 = uVar7 - 0x10;
+    FUN_14176a650(param_1,&local_res8,param_3,param_4);
+    local_res8 = uVar7 + 0x10;
+    FUN_14176a650(&local_res8,param_2,param_3,param_4);
+  }
+  return;
+}
+
+

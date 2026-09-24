@@ -1,0 +1,107 @@
+RVA=0x171E990 NAME=FUN_14171e990 SIZE=865
+
+/* WARNING: Removing unreachable block (ram,0x00014171ebd4) */
+/* WARNING: Removing unreachable block (ram,0x00014171ebdc) */
+/* WARNING: Removing unreachable block (ram,0x00014171ebe6) */
+/* WARNING: Removing unreachable block (ram,0x00014171ebf7) */
+/* WARNING: Removing unreachable block (ram,0x00014171ec04) */
+/* WARNING: Removing unreachable block (ram,0x00014171ec16) */
+/* WARNING: Removing unreachable block (ram,0x00014171ec10) */
+/* WARNING: Removing unreachable block (ram,0x00014171ec18) */
+/* WARNING: Removing unreachable block (ram,0x00014171ec29) */
+/* WARNING: Removing unreachable block (ram,0x00014171ec1c) */
+/* WARNING: Removing unreachable block (ram,0x00014171ec37) */
+/* WARNING: Removing unreachable block (ram,0x00014171eb80) */
+/* WARNING: Removing unreachable block (ram,0x00014171ebb0) */
+/* WARNING: Removing unreachable block (ram,0x00014171ec6c) */
+/* WARNING: Removing unreachable block (ram,0x00014171ec7c) */
+/* WARNING: Removing unreachable block (ram,0x00014171ec8e) */
+/* WARNING: Removing unreachable block (ram,0x00014171eca8) */
+/* WARNING: Removing unreachable block (ram,0x00014171ecaf) */
+/* WARNING: Removing unreachable block (ram,0x00014171ec85) */
+/* WARNING: Removing unreachable block (ram,0x00014171ecbb) */
+/* WARNING: Removing unreachable block (ram,0x00014171ecc5) */
+/* WARNING: Removing unreachable block (ram,0x00014171ecc0) */
+/* WARNING: Removing unreachable block (ram,0x00014171eccb) */
+
+void FUN_14171e990(longlong param_1)
+
+{
+  undefined4 uVar1;
+  undefined4 *puVar2;
+  char cVar3;
+  uint uVar4;
+  
+  uVar4 = 0;
+  *(undefined2 *)(param_1 + 0x12280) = 0xff;
+  *(undefined8 *)(param_1 + 0x12284) = 0;
+  puVar2 = (undefined4 *)(param_1 + 0x12284);
+  *(undefined8 *)(param_1 + 0x1228c) = 0;
+  *(undefined8 *)(param_1 + 0x12294) = 0;
+  *(undefined4 *)(param_1 + 0x1229c) = 0;
+  *(undefined1 *)(param_1 + 0x12282) = 0;
+  *(undefined2 *)(param_1 + 0x122a0) = 0xff;
+  *(undefined1 *)(param_1 + 0x122a2) = 0;
+  *(undefined8 *)(param_1 + 0x122a4) = 0;
+  *(undefined8 *)(param_1 + 0x122ac) = 0;
+  *(undefined8 *)(param_1 + 0x122b4) = 0;
+  *(undefined4 *)(param_1 + 0x122bc) = 0;
+  *(undefined2 *)(param_1 + 0x122c0) = 0xff;
+  *(undefined1 *)(param_1 + 0x122c2) = 0;
+  *(undefined8 *)(param_1 + 0x122c4) = 0;
+  *(undefined8 *)(param_1 + 0x122cc) = 0;
+  *(undefined8 *)(param_1 + 0x122d4) = 0;
+  *(undefined4 *)(param_1 + 0x122dc) = 0;
+  *(undefined2 *)(param_1 + 0x122e0) = 0xff;
+  *(undefined1 *)(param_1 + 0x122e2) = 0;
+  *(undefined8 *)(param_1 + 0x122e4) = 0;
+  *(undefined8 *)(param_1 + 0x122ec) = 0;
+  *(undefined8 *)(param_1 + 0x122f4) = 0;
+  *(undefined4 *)(param_1 + 0x122fc) = 0;
+  *(undefined2 *)(param_1 + 0x12300) = 0xff;
+  *(undefined1 *)(param_1 + 0x12302) = 0;
+  *(undefined8 *)(param_1 + 0x12304) = 0;
+  *(undefined8 *)(param_1 + 0x1230c) = 0;
+  *(undefined8 *)(param_1 + 0x12314) = 0;
+  *(undefined4 *)(param_1 + 0x1231c) = 0;
+  *(undefined2 *)(param_1 + 0x12320) = 0xff;
+  *(undefined1 *)(param_1 + 0x12322) = 0;
+  *(undefined8 *)(param_1 + 0x12324) = 0;
+  *(undefined8 *)(param_1 + 0x1232c) = 0;
+  *(undefined8 *)(param_1 + 0x12334) = 0;
+  *(undefined4 *)(param_1 + 0x1233c) = 0;
+  *(undefined2 *)(param_1 + 0x12340) = 0xff;
+  *(undefined1 *)(param_1 + 0x12342) = 0;
+  *(undefined8 *)(param_1 + 0x12344) = 0;
+  *(undefined8 *)(param_1 + 0x1234c) = 0;
+  *(undefined8 *)(param_1 + 0x12354) = 0;
+  *(undefined4 *)(param_1 + 0x1235c) = 0;
+  *(undefined2 *)(param_1 + 0x12360) = 0xff;
+  *(undefined1 *)(param_1 + 0x12362) = 0;
+  *(undefined8 *)(param_1 + 0x12364) = 0;
+  *(undefined8 *)(param_1 + 0x1236c) = 0;
+  *(undefined8 *)(param_1 + 0x12374) = 0;
+  *(undefined4 *)(param_1 + 0x1237c) = 0;
+  do {
+    cVar3 = (char)uVar4;
+    *(char *)(puVar2 + -1) = cVar3;
+    if (cVar3 == '\a') {
+      puVar2[5] = 99999;
+      uVar1 = FUN_14147ec50();
+      puVar2[3] = uVar1;
+    }
+    else {
+      FUN_14171edf0();
+      if (((cVar3 == '\0') || ((uVar4 & 0xff) == 1)) || ((uVar4 & 0xff) == 5)) {
+        puVar2[2] = 1;
+        *puVar2 = 0;
+      }
+    }
+    uVar4 = uVar4 + 1;
+    puVar2 = puVar2 + 8;
+  } while ((int)uVar4 < 8);
+  FUN_14171f250(param_1);
+  return;
+}
+
+

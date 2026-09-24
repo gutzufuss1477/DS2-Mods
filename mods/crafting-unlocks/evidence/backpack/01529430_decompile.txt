@@ -1,0 +1,38 @@
+================================================================
+FUNCTION RVA 0x1529430
+NAME: FUN_141529430
+SIZE: 103
+SIGNATURE: undefined FUN_141529430(void)
+================================================================
+
+void FUN_141529430(longlong *param_1,ulonglong *param_2)
+
+{
+  short *psVar1;
+  longlong lVar2;
+  short *psVar3;
+  int iVar4;
+  
+  if (*param_1 != 0) {
+    iVar4 = 0;
+    lVar2 = *(longlong *)
+             (*(longlong *)(DAT_14623e540 + 0x10) + (ulonglong)(*(uint *)(*param_1 + 8) & 0xfff) * 8
+             );
+    do {
+      *param_2 = 0;
+      psVar3 = *(short **)(lVar2 + 0x60);
+      psVar1 = psVar3 + (longlong)*(int *)(lVar2 + 0x58) * 4;
+      for (; psVar3 != psVar1; psVar3 = psVar3 + 4) {
+        if ((short)iVar4 == *psVar3) {
+          *param_2 = (ulonglong)*(uint *)(psVar3 + 2);
+        }
+      }
+      iVar4 = iVar4 + 1;
+      param_2 = param_2 + 1;
+    } while (iVar4 < 6);
+  }
+  return;
+}
+
+
+

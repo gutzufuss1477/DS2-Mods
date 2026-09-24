@@ -1,0 +1,43 @@
+RVA=0x149F920 NAME=FUN_14149f920 SIZE=139
+
+/* WARNING: Function: __security_check_cookie replaced with injection: security_check_cookie */
+
+void FUN_14149f920(longlong param_1)
+
+{
+  int iVar1;
+  longlong lVar2;
+  int iVar3;
+  int iVar4;
+  char *pcVar5;
+  undefined1 auStack_48 [32];
+  char local_28 [8];
+  int local_20;
+  ulonglong local_18;
+  
+  local_18 = DAT_1439b9800 ^ (ulonglong)auStack_48;
+  iVar3 = 0;
+  local_20 = 0;
+  iVar4 = 0;
+  iVar1 = *(int *)(*(longlong *)(param_1 + 0x19b8) + 0x50);
+  if (0 < iVar1) {
+    lVar2 = 0;
+    pcVar5 = (char *)(*(longlong *)(param_1 + 0x19b8) + 0x30);
+    do {
+      if ((-1 < lVar2) && (iVar4 < iVar1)) {
+        if (*pcVar5 != '\0') {
+          local_28[iVar3] = *pcVar5;
+          iVar3 = local_20 + 1;
+          local_20 = iVar3;
+        }
+      }
+      iVar4 = iVar4 + 1;
+      lVar2 = lVar2 + 1;
+      pcVar5 = pcVar5 + 2;
+    } while (lVar2 < iVar1);
+  }
+  FUN_14149f9b0(param_1,0,local_28);
+  return;
+}
+
+

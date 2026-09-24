@@ -1,0 +1,26 @@
+================================================================
+FUNCTION RVA 0x151A5C0
+NAME: FUN_14151a5c0
+SIZE: 117
+SIGNATURE: undefined FUN_14151a5c0(void)
+================================================================
+
+void FUN_14151a5c0(longlong param_1,undefined1 param_2)
+
+{
+  uint uVar1;
+  longlong lVar2;
+  
+  lVar2 = DAT_14623e4e0;
+  uVar1 = *(uint *)(param_1 + 0x2704);
+  FUN_140b413f0(DAT_14623e4e0,0);
+  FUN_140b39500(lVar2 + 0x22d8,*(undefined8 *)(lVar2 + 0x45b0));
+  if (uVar1 < 2) {
+    *(undefined1 *)((ulonglong)uVar1 + 0x4498 + lVar2) = param_2;
+  }
+  FUN_140b393e0(*(undefined8 *)(lVar2 + 0x45b0),lVar2 + 0x22d8);
+  return;
+}
+
+
+

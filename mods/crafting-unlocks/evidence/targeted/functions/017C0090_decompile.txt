@@ -1,0 +1,39 @@
+RVA=0x17C0090 NAME=FUN_1417c0090 SIZE=135
+
+undefined8 FUN_1417c0090(longlong param_1)
+
+{
+  undefined1 *puVar1;
+  byte bVar2;
+  undefined1 *puVar3;
+  longlong lVar4;
+  int *piVar5;
+  byte bVar6;
+  
+  lVar4 = 0;
+  piVar5 = (int *)(param_1 + 0x10);
+  do {
+    if ((char)piVar5[-4] != '\0') {
+      puVar3 = *(undefined1 **)(piVar5 + 2);
+      bVar6 = 0;
+      puVar1 = puVar3 + (longlong)*piVar5 * 0x18;
+      if (puVar3 != puVar1) {
+        do {
+          bVar2 = FUN_1417c0120(*puVar3);
+          bVar6 = bVar6 | bVar2;
+          puVar3 = puVar3 + 0x18;
+        } while (puVar3 != puVar1);
+        if (bVar6 != 0) {
+          return 1;
+        }
+      }
+    }
+    lVar4 = lVar4 + 1;
+    piVar5 = piVar5 + 8;
+    if (1 < lVar4) {
+      return 0;
+    }
+  } while( true );
+}
+
+

@@ -1,0 +1,30 @@
+recipe_key	kind	english_label	runtime_german_label
+0x2F256E9F	Module	Extra Battery Lv.1	Zusatzakku St.1
+0x08605E71	Module	Extra Battery Lv.2	Zusatzakku St.2
+0x1B30AD85	Module	Extra Battery Lv.3	Zusatzakku St.3
+0x695B2E86	Module	Extra Battery Lv.4	Zusatzakku St.4
+0x5797B553	Module	Mini Extra Battery	Mini-Zusatzakku
+0x3C759D6B	Module	Utility Pouch	Vorratstasche
+0x4E1E1E68	Module	Grenade Pouch	Granatentasche
+0x3C87F6E8	Module	Large Grenade Pouch	Grosse Granatentasche
+0x44352D24	Module	Spare Ammo Container	Reservemunitionsbehälter
+0x684D9203	Module	Large Spare Ammo Container Lv.1	Grosser Reservemunitionsbehälter St.1
+0x1A261100	Module	Large Spare Ammo Container Lv.2	Grosser Reservemunitionsbehälter St.2
+0x5DBC861F	Module	Stabilizer Lv.1	Stabilisator St.1
+0x0976E2F4	Module	Stabilizer Lv.2	Stabilisator St.2
+0x7B1D61F7	Module	Stabilizer Lv.3	Stabilisator St.3
+0x68BFF980	Module	Chiral Anti-Gravity Device	Chirales Antischwerkraftgerät
+0x7BEF0A74	Module	Auto Revive Device	Automatische Reanimationshilfe
+0x09848977	Module	Electric Shock Absorber	Elektrischer Stossdämpfer
+0x25FC3650	Module	Back Protector	Rückenprotektor
+0x4EEC75EB	Module	Solar Generator	Solargenerator
+0x365EAE27	Cover	Backpack Cover Lv.1	Rucksackregenschutz St.1
+0x7A0BDD72	Cover	Backpack Cover Lv.2	Rucksackregenschutz St.2
+0x780F7FE2	Charm	Cryptobiote	Kryptobiot
+0x0A64FCE1	Charm	Love Knot	Liebesknoten
+0x19340F15	Charm	Bell	Glocke
+0x6B5F8C16	Charm	Chiral Tea	Chiraler Tee
+0x3F95E8FD	Charm	Quokka	Quokka
+0x4DFE6BFE	Charm	Porter	Bote
+0x5EAE980A	Charm	Electrobiote	Elektrobiot
+0x2CC51B09	Charm	Boxing Kangaroos	Boxende Kängurus
