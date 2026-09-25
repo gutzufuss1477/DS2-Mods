@@ -22,12 +22,12 @@ config_test.argtypes = [W.LPCWSTR, W.DWORD]
 config_test.restype = W.DWORD
 ini = root / 'build' / 'test-settings.ini'
 cases = [
-    ('', 5),
-    ('[APASMemoryCosts]\nEnabled=0\n[APASUnlocks]\nUnlockAll=0\n', 4),
-    ('[APASMemoryCosts]\nEnabled=0\n[APASUnlocks]\nUnlockAll=1\n', 6),
-    ('[APASMemoryCosts]\nGlobalCost=0\n[APASUnlocks]\nUnlockAll=1\n', 3),
-    ('[APASMemoryCosts]\nGlobalCost=25\n', 101),
-    ('[APASMemoryCosts]\nGlobalCost=1000000\n', 4000001),
+    ('', 9),
+    ('[APASMemoryCosts]\nEnabled=0\n[APASUnlocks]\nUnlockAll=0\nEarlyAccess=0\n', 8),
+    ('[APASMemoryCosts]\nEnabled=0\n[APASUnlocks]\nUnlockAll=1\n', 10),
+    ('[APASMemoryCosts]\nGlobalCost=0\n[APASUnlocks]\nUnlockAll=1\nEarlyAccess=1\n', 7),
+    ('[APASMemoryCosts]\nGlobalCost=25\n', 201),
+    ('[APASMemoryCosts]\nGlobalCost=1000000\n', 8000001),
     ('[APASMemoryCosts]\nGlobalCost=-1\n', 0xffffffff),
     ('[APASMemoryCosts]\nGlobalCost=1000001\n', 0xffffffff),
     ('[APASMemoryCosts]\nGlobalCost=4294967296\n', 0xffffffff),
@@ -35,6 +35,8 @@ cases = [
     ('[APASMemoryCosts]\nEnabled=2\n', 0xffffffff),
     ('[APASUnlocks]\nUnlockAll=-1\n', 0xffffffff),
     ('[APASUnlocks]\nUnlockAll=true\n', 0xffffffff),
+    ('[APASUnlocks]\nEarlyAccess=-1\n', 0xffffffff),
+    ('[APASUnlocks]\nEarlyAccess=true\n', 0xffffffff),
     ('[APASUnlocks]\nUnlockAll=\n', 0xffffffff),
     ('[APASMemoryCosts]\nGlobalCost=' + '0' * 64 + '1\n', 0xffffffff),
 ]
@@ -45,9 +47,9 @@ try:
         assert result == 0, (i, result)
     print(f'INI parsing/defaults/limits/invalid settings: PASS ({len(cases)} cases)', flush=True)
     for path in [root / 'ds2_apas_memory_costs.ini', root / 'release/ds2_apas_memory_costs.ini']:
-        assert config_test(str(path), 5) == 0, f'Packaged defaults differ: {path}'
-    print('Source and packaged INIs: Enabled=1, GlobalCost=1, UnlockAll=0: PASS', flush=True)
-    for name in ['TestCostRules', 'TestRelay', 'TestMappedInstall', 'TestNativeCosts']:
+        assert config_test(str(path), 9) == 0, f'Packaged defaults differ: {path}'
+    print('Source and packaged INIs: Enabled=1, GlobalCost=1, UnlockAll=0, EarlyAccess=0: PASS', flush=True)
+    for name in ['TestCostRules', 'TestEarlyAccessState', 'TestRelay', 'TestRingRelay', 'TestMappedInstall', 'TestNativeCosts']:
         function = getattr(tests, name)
         function.argtypes = [W.HMODULE]
         function.restype = W.DWORD

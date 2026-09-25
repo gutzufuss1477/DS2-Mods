@@ -42,5 +42,5 @@ time.sleep(0.1)
 assert log.read_bytes() == before and log.stat().st_mtime_ns == stamp, 'Duplicate initialization rewrote log'
 assert k.FreeLibrary(module)
 assert k.GetModuleHandleW(str(asi)) == module, 'Callback module was not retained for process lifetime'
-assert b'UnlockAll=0' in before
-print('Actual ASI: unsupported-host refusal, default UnlockAll=0, repeated attach guard, module pin: PASS')
+assert b'UnlockAll=0' in before and b'EarlyAccess=0' in before
+print('Actual ASI: unsupported-host refusal, default UnlockAll=0/EarlyAccess=0, repeated attach guard, module pin: PASS')

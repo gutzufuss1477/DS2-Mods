@@ -18,7 +18,7 @@ extern "C" __declspec(dllexport) u32 TestConfiguration(const wchar_t* path, u32 
     bool loaded = LoadSettings();
     if (expected == 0xffffffff) return loaded ? 1 : 0;
     if (!loaded) return 2;
-    u32 actual = (u32)g_settings.cost * 4 + (g_settings.enabled ? 1u : 0u) + (g_settings.unlockAll ? 2u : 0u);
+    u32 actual = (u32)g_settings.cost * 8 + (g_settings.enabled ? 1u : 0u) + (g_settings.unlockAll ? 2u : 0u) + (g_settings.earlyAccess ? 4u : 0u);
     return actual == expected ? 0 : 3;
 }
 
@@ -27,7 +27,7 @@ extern "C" __declspec(dllexport) u32 TestCostRules(void* image) {
     alignas(16) u8 resource[0x60];
     for (u32 mode = 0; mode < 4; ++mode) {
         const i32 targets[] = {1, 0, 25, 1000000};
-        g_settings = {true, false, targets[mode]};
+        g_settings = {true, false, false, targets[mode]};
         for (u32 id = 0; id < 56; ++id) {
             memset(resource, 0x7a, sizeof(resource));
             *(u64*)resource = (u64)g_base + kResourceVtableRva;
@@ -46,7 +46,7 @@ extern "C" __declspec(dllexport) u32 TestCostRules(void* image) {
             if (*(i32*)(resource + 0x24) != native) return 82;
         }
     }
-    g_settings = {false, false, 1};
+    g_settings = {false, false, false, 1};
     *(i32*)(resource + 0x24) = 40;
     CostConstructor(nullptr, 0, resource, 0);
     if (*(i32*)(resource + 0x24) != 40) return 83;
@@ -55,6 +55,68 @@ extern "C" __declspec(dllexport) u32 TestCostRules(void* image) {
     CostConstructor(nullptr, 0, resource, 0);
     if (*(i32*)(resource + 0x24) != 40) return 84;
     if (CostConstructor(nullptr, 0, nullptr, 0) != g_entry) return 85;
+    return 0;
+}
+
+static u32 g_apasLocateCalls = 0;
+static u32 g_lastLocatedId = 0xffffffffu;
+static u8 CaptureApasLocate(void* manager, u8 id) {
+    ++g_apasLocateCalls;
+    g_lastLocatedId = id;
+    *(void**)((u8*)manager + 0x30 + (u32)id * 8) = g_entry;
+    return 1;
+}
+
+extern "C" __declspec(dllexport) u32 TestEarlyAccessState(void* image) {
+    alignas(16) u8 state[0x100] = {};
+    g_settings = {false, false, false, 1};
+    if (ApplyEarlyAccessState(state) || state[kEarlyApasPrimaryOffset] || state[kEarlyApasSecondaryOffset]) return 1;
+
+    g_settings.earlyAccess = true;
+    if (!ApplyEarlyAccessState(state)) return 2;
+    if (state[kEarlyApasPrimaryOffset] != 1 || state[kEarlyApasSecondaryOffset] != 1) return 3;
+    if (ApplyEarlyAccessState(state)) return 4;
+    state[kRingSpecialRestrictionOffset] = 1;
+    if (!ApplyEarlyAccessState(state) || state[kEarlyApasPrimaryOffset] != 1 ||
+        state[kEarlyApasSecondaryOffset] != 0) return 5;
+    if (ApplyEarlyAccessState(nullptr)) return 6;
+
+    u8* base = (u8*)image;
+    alignas(16) u8 manager[0x200] = {};
+    alignas(16) u8 resourceRoot[0x2D0] = {};
+    alignas(16) u8 systemResource[0x200] = {};
+    void* oldManager = *(void**)(base + kManagerRva);
+    void* oldRoot = *(void**)(base + kApasResourceRootRva);
+    u32 oldGate = *(u32*)(base + kApasRuntimeGateRva);
+    *(void**)(base + kManagerRva) = manager;
+    *(void**)(base + kApasResourceRootRva) = resourceRoot;
+    *(void**)(resourceRoot + 0x2C0) = systemResource;
+    *(void**)(systemResource + 0x30 + 4 * 8) = g_entry;
+    *(void**)(systemResource + 0x30 + 7 * 8) = g_entry;
+    *(u32*)(base + kApasRuntimeGateRva) = 1;
+
+    g_base = base;
+    g_apasLocate = CaptureApasLocate;
+    g_apasLocateCalls = 0;
+    g_lastLocatedId = 0xffffffffu;
+    g_earlySeedState = 0;
+    g_settings = {false, true, true, 1};
+    if (!TrySeedEarlyApasNodes() || g_apasLocateCalls != 2 || g_lastLocatedId != 7 ||
+        g_earlySeedState != 2) return 7;
+    if (*(void**)(manager + 0x30 + 4 * 8) != g_entry ||
+        *(void**)(manager + 0x30 + 7 * 8) != g_entry) return 8;
+    if (!TrySeedEarlyApasNodes() || g_apasLocateCalls != 2) return 9;
+
+    g_earlySeedState = 0;
+    *(void**)(manager + 0x30 + 4 * 8) = nullptr;
+    *(u32*)(base + kApasRuntimeGateRva) = 0;
+    if (TrySeedEarlyApasNodes() || g_apasLocateCalls != 2 || g_earlySeedState != 0) return 10;
+
+    *(void**)(base + kManagerRva) = oldManager;
+    *(void**)(base + kApasResourceRootRva) = oldRoot;
+    *(u32*)(base + kApasRuntimeGateRva) = oldGate;
+    g_apasLocate = nullptr;
+    g_earlySeedState = 0;
     return 0;
 }
 
@@ -80,7 +142,7 @@ extern "C" __declspec(dllexport) u32 TestRelay(void* image) {
     if (!PrepareCost((u8*)((u64)native - kConstructorRva), page + 0x200, &patch)) return 2;
     DWORD old;
     if (!VirtualProtect(page, 4096, kExecuteReadWrite, &old)) return 3;
-    g_base = (u8*)image; g_settings = {true, false, 1};
+    g_base = (u8*)image; g_settings = {true, false, false, 1};
     g_original = (Constructor)(page + 0x220);
     if (!Exchange(patch, true)) return 4;
     if (!Equal(native + 5, kConstructorBytes + 5, 11)) return 5;
@@ -108,6 +170,36 @@ extern "C" __declspec(dllexport) u32 TestRelay(void* image) {
     return 0;
 }
 
+extern "C" __declspec(dllexport) u32 TestRingRelay(void* image) {
+    u8* page = (u8*)VirtualAlloc(nullptr, 4096, kReserve | kCommit, kReadWrite);
+    if (!page) return 1;
+    u8* native = page + 0x100;
+    u8* relay = page + 0x300;
+    memcpy(native, kRingBuildBytes, 16);
+    const u8 tail[] = {
+        0x5f,0x48,0x8b,0x74,0x24,0x18,0x48,0x8b,0x6c,0x24,0x10,
+        0x48,0x8b,0x5c,0x24,0x08,0xc3
+    };
+    memcpy(native + 16, tail, sizeof(tail));
+    Patch patch;
+    if (!PrepareEarlyAccess((u8*)((u64)native - kRingBuildRva), relay, &patch)) return 2;
+    DWORD old;
+    if (!VirtualProtect(page, 4096, kExecuteReadWrite, &old)) return 3;
+    g_base = (u8*)image;
+    g_settings = {false, false, true, 1};
+    g_earlySeedState = 0;
+    if (!Exchange(patch, true)) return 4;
+    FlushInstructionCache(GetCurrentProcess(), page, 4096);
+    alignas(16) u8 state[0x100] = {};
+    ((RingBuild)native)(state);
+    if (state[kEarlyApasPrimaryOffset] != 1 || state[kEarlyApasSecondaryOffset] != 1) return 5;
+    if (!Exchange(patch, false) || !Equal(native, kRingBuildBytes, 16)) return 6;
+    FlushInstructionCache(GetCurrentProcess(), page, 4096);
+    VirtualFree(page, 0, kRelease);
+    g_ringBuildOriginal = nullptr;
+    return 0;
+}
+
 static bool RestoreBlock(u8* address, const u8* original) {
     Patch patch; patch.address = address;
     memcpy(patch.before.bytes, original, 16);
@@ -123,21 +215,34 @@ static bool RestoreBlock(u8* address, const u8* original) {
 extern "C" __declspec(dllexport) u32 TestMappedInstall(void* image) {
     u8* base = (u8*)image;
     if (!ValidateImage(base)) return 1;
-    // Four independent INI combinations; all return to the exact native bytes.
-    for (u32 flags = 0; flags < 4; ++flags) {
-        g_settings = {(flags & 1) != 0, (flags & 2) != 0, 1};
+    // All eight feature combinations return to the exact native bytes.
+    for (u32 flags = 0; flags < 8; ++flags) {
+        g_settings = {(flags & 1) != 0, (flags & 2) != 0, (flags & 4) != 0, 1};
         if (!Install(base)) return 10 + flags;
         if ((base[kConstructorRva] == 0xe9) != g_settings.enabled) return 20 + flags;
         if ((base[kUnlockBlockRva + 9] == 0xeb) != g_settings.unlockAll) return 30 + flags;
+        if (((base[kRingBuildRva] == 0xff) && (base[kRingBuildRva + 1] == 0x25)) != g_settings.earlyAccess) return 50 + flags;
         if (g_settings.unlockAll && kUnlockBlockRva + 9 + 2 + base[kUnlockBlockRva + 10] != 0xBE39EE) return 40;
         if (!RestoreBlock(base + kConstructorRva, kConstructorBytes) ||
-            !RestoreBlock(base + kUnlockBlockRva, kUnlockBytes) || !ValidateImage(base)) return 41;
+            !RestoreBlock(base + kUnlockBlockRva, kUnlockBytes) ||
+            !RestoreBlock(base + kRingBuildRva, kRingBuildBytes) || !ValidateImage(base)) return 41;
     }
-    g_settings = {true, true, 1};
-    *(void**)(base + kManagerRva) = g_entry;
-    bool lateInstalled = Install(base);
+    g_settings = {true, true, true, 1};
+    alignas(16) u8 earlyManager[0x200] = {};
+    *(void**)(earlyManager + 0x30) = g_entry; // base slot 0 is explicitly allowed
+    *(void**)(base + kManagerRva) = earlyManager;
+    bool safeLateInstalled = Install(base);
     *(void**)(base + kManagerRva) = nullptr;
-    if (lateInstalled || !ValidateImage(base)) return 42;
+    if (!safeLateInstalled) return 42;
+    if (!RestoreBlock(base + kConstructorRva, kConstructorBytes) ||
+        !RestoreBlock(base + kUnlockBlockRva, kUnlockBytes) ||
+        !RestoreBlock(base + kRingBuildRva, kRingBuildBytes) || !ValidateImage(base)) return 46;
+
+    *(void**)(earlyManager + 0x30 + 4 * 8) = g_entry; // first paid slot must remain fail-closed
+    *(void**)(base + kManagerRva) = earlyManager;
+    bool unsafeLateInstalled = Install(base);
+    *(void**)(base + kManagerRva) = nullptr;
+    if (unsafeLateInstalled || !ValidateImage(base)) return 47;
     // An older Unlock All patch must be detected even when the new patch is at
     // an earlier site. A failed preflight must leave the cost hook untouched.
     DWORD old, ignored;
@@ -157,7 +262,8 @@ extern "C" __declspec(dllexport) u32 TestMappedInstall(void* image) {
     VirtualProtect(base, 4096, old, &ignored);
     if (!metadataInstalled ||
         !RestoreBlock(base + kConstructorRva, kConstructorBytes) ||
-        !RestoreBlock(base + kUnlockBlockRva, kUnlockBytes) || !ValidateImage(base)) return 44;
+        !RestoreBlock(base + kUnlockBlockRva, kUnlockBytes) ||
+        !RestoreBlock(base + kRingBuildRva, kRingBuildBytes) || !ValidateImage(base)) return 44;
     MemoryInfo info;
     VirtualQuery(base + kConstructorRva, &info, sizeof(info));
     if (info.protect & (0x04 | 0x08 | 0x40 | 0x80)) return 45;

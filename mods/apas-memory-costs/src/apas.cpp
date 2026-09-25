@@ -2,10 +2,17 @@
 #include "target.h"
 
 // One binary, one immutable startup configuration. No gameplay worker.
-#define APAS_VERSION "3.0.0-rc.8"
+#define APAS_VERSION "3.0.0-rc.11"
 constexpr u32 kConstructorRva = 0xBE0270;
 constexpr u32 kUnlockBlockRva = 0xBE39A0;
+constexpr u32 kApasLocateRva = 0xBE1640;
+constexpr u32 kRingBuildRva = 0x16E5120;
+constexpr u32 kApasResourceRootRva = 0x623E310;
+constexpr u32 kApasRuntimeGateRva = 0x623E5E8;
 constexpr u32 kResourceVtableRva = 0x32088B8;
+constexpr u32 kEarlyApasPrimaryOffset = 0x2F;
+constexpr u32 kEarlyApasSecondaryOffset = 0x38;
+constexpr u32 kRingSpecialRestrictionOffset = 0x43;
 
 extern "C" void* memcpy(void* dst, const void* src, SIZE_T size) {
     for (SIZE_T i = 0; i < size; ++i) ((u8*)dst)[i] = ((const u8*)src)[i];
@@ -58,15 +65,22 @@ static bool Read(const void* src, void* dst, SIZE_T size) {
     return true;
 }
 
-struct Settings { bool enabled; bool unlockAll; i32 cost; };
-static Settings g_settings = {true, false, 1};
+struct Settings { bool enabled; bool unlockAll; bool earlyAccess; i32 cost; };
+static Settings g_settings = {true, false, false, 1};
 static u8* g_base = nullptr;
 static HMODULE g_self = nullptr;
 static HANDLE g_log = (HANDLE)(i64)-1;
 static wchar_t g_ini[1024];
 using Constructor = void* (*)(void*, u64, void*, i32);
+using RingBuild = void (*)(void*);
+using ApasLocate = u8 (*)(void*, u8);
 static Constructor g_original = nullptr;
+static RingBuild g_ringBuildOriginal = nullptr;
+static ApasLocate g_apasLocate = nullptr;
 static volatile long g_started = 0;
+static volatile long g_earlySeedState = 0;
+static volatile long g_runtimeDiagnosticState = 0;
+static bool Sibling(wchar_t* out, const wchar_t* name);
 
 static void Log(const char* message) {
     if (g_log == (HANDLE)(i64)-1) return;
@@ -74,6 +88,18 @@ static void Log(const char* message) {
     while (message[length]) ++length;
     WriteFile(g_log, message, length, &written, nullptr);
     WriteFile(g_log, "\r\n", 2, &written, nullptr);
+}
+static bool AppendRuntimeLog(const char* message) {
+    wchar_t path[1024];
+    if (!Sibling(path, L"ds2_apas_memory_costs.log")) return false;
+    HANDLE file = CreateFileW(path, 0x00000004, 1, nullptr, 4, 0x80, nullptr);
+    if (file == (HANDLE)(i64)-1) return false;
+    DWORD length = 0, written = 0;
+    while (message[length]) ++length;
+    bool ok = WriteFile(file, message, length, &written, nullptr) != 0 && written == length;
+    if (ok) ok = WriteFile(file, "\r\n", 2, &written, nullptr) != 0 && written == 2;
+    CloseHandle(file);
+    return ok;
 }
 static void LogNumber(const char* label, u32 number) {
     char buffer[96]; u32 n = 0;
@@ -155,7 +181,7 @@ static bool Setting(const wchar_t* section, const wchar_t* key, const wchar_t* f
     return n < 63 && ParseNumber(text, maximum, value);
 }
 static bool LoadSettings() {
-    u32 enabled, cost, unlock;
+    u32 enabled, cost, unlock, early;
     if (!Setting(L"APASMemoryCosts", L"Enabled", L"1", 1, &enabled)) {
         Log("ERROR: Enabled must be 0 or 1. No changes installed."); return false;
     }
@@ -165,10 +191,14 @@ static bool LoadSettings() {
     if (!Setting(L"APASUnlocks", L"UnlockAll", L"0", 1, &unlock)) {
         Log("ERROR: UnlockAll must be 0 or 1. No changes installed."); return false;
     }
-    g_settings = {enabled != 0, unlock != 0, (i32)cost};
+    if (!Setting(L"APASUnlocks", L"EarlyAccess", L"0", 1, &early)) {
+        Log("ERROR: EarlyAccess must be 0 or 1. No changes installed."); return false;
+    }
+    g_settings = {enabled != 0, unlock != 0, early != 0, (i32)cost};
     LogNumber("Enabled=", enabled);
     LogNumber("GlobalCost=", cost);
     LogNumber("UnlockAll=", unlock);
+    LogNumber("EarlyAccess=", early);
     return true;
 }
 
@@ -243,9 +273,79 @@ static bool WaitForTarget(u8* base) {
     return false;
 }
 
-// This is called only on the game's native node-creation path, with its live
-// resource argument. Set the source cost BEFORE the native copy into entry+0x50.
-// Preserve the four special base IDs and all natively free resources.
+// EarlyAccess changes only Ring Device slot 4 (APAS). Vanilla computes all
+// menu state first; the wrapper then bypasses only APAS' story predicate while
+// preserving the Ring Device's contextual restriction at state+0x43.
+static bool ApplyEarlyAccessState(void* statePointer) {
+    if (!g_settings.earlyAccess || !statePointer) return false;
+    u8* state = (u8*)statePointer;
+    const u8 primary = 1;
+    const u8 secondary = state[kRingSpecialRestrictionOffset] == 0 ? 1 : 0;
+    bool changed = false;
+    if (state[kEarlyApasPrimaryOffset] != primary) {
+        state[kEarlyApasPrimaryOffset] = primary;
+        changed = true;
+    }
+    if (state[kEarlyApasSecondaryOffset] != secondary) {
+        state[kEarlyApasSecondaryOffset] = secondary;
+        changed = true;
+    }
+    return changed;
+}
+static bool HasMissingApasNodes(void* manager, void* systemResource) {
+    for (u32 id = 0; id < 55; ++id) {
+        void* source = *(void**)((u8*)systemResource + 0x30 + id * 8);
+        void* entry = *(void**)((u8*)manager + 0x30 + id * 8);
+        if (source && !entry) return true;
+    }
+    return false;
+}
+
+static bool TrySeedEarlyApasNodes() {
+    if (!g_settings.earlyAccess || !g_settings.unlockAll || !g_base || !g_apasLocate) return false;
+    if (_InterlockedCompareExchange(&g_earlySeedState, 1, 0) != 0) return g_earlySeedState == 2;
+
+    void* manager = *(void**)(g_base + kManagerRva);
+    void* resourceRoot = *(void**)(g_base + kApasResourceRootRva);
+    u32 runtimeGate = *(u32*)(g_base + kApasRuntimeGateRva);
+    void* systemResource = resourceRoot ? *(void**)((u8*)resourceRoot + 0x2C0) : nullptr;
+    if (!manager || !resourceRoot || !systemResource || runtimeGate == 0) {
+        _InterlockedCompareExchange(&g_earlySeedState, 0, 1);
+        return false;
+    }
+
+    if (!HasMissingApasNodes(manager, systemResource)) {
+        _InterlockedCompareExchange(&g_earlySeedState, 2, 1);
+        return true;
+    }
+
+    bool created = false;
+    for (u32 id = 0; id < 55; ++id) {
+        void* source = *(void**)((u8*)systemResource + 0x30 + id * 8);
+        void* entry = *(void**)((u8*)manager + 0x30 + id * 8);
+        if (source && !entry && g_apasLocate(manager, (u8)id) != 0) created = true;
+    }
+    bool complete = !HasMissingApasNodes(manager, systemResource);
+    _InterlockedCompareExchange(&g_earlySeedState, complete ? 2 : 0, 1);
+    return created || complete;
+}
+static void RingBuildHook(void* state) {
+    g_ringBuildOriginal(state);
+    bool seeded = TrySeedEarlyApasNodes();
+    ApplyEarlyAccessState(state);
+    if (g_settings.earlyAccess && state &&
+        _InterlockedCompareExchange(&g_runtimeDiagnosticState, 1, 0) == 0) {
+        const bool selectable = ((u8*)state)[kEarlyApasSecondaryOffset] != 0;
+        const char* message = seeded
+            ? (selectable ? "EARLY_RUNTIME: APAS nodes ready; Ring slot selectable."
+                          : "EARLY_RUNTIME: APAS nodes ready; Ring slot context-restricted.")
+            : (selectable ? "EARLY_RUNTIME: APAS node seeding pending/failed; Ring slot selectable."
+                          : "EARLY_RUNTIME: APAS node seeding pending/failed; Ring slot context-restricted.");
+        if (!AppendRuntimeLog(message))
+            _InterlockedCompareExchange(&g_runtimeDiagnosticState, 0, 1);
+    }
+}
+
 static void* CostConstructor(void* manager, u64 position, void* resource, i32 order) {
     if (g_settings.enabled && resource && *(u64*)resource == (u64)(g_base + kResourceVtableRva)) {
         u8 id = *((u8*)resource + 0x20);
@@ -316,6 +416,27 @@ static bool PrepareCost(u8* base, u8* relay, Patch* patch) {
     AbsoluteJump(relay + 37, patch->address + 5);
     return true;
 }
+static bool PrepareEarlyAccess(u8* base, u8* relay, Patch* patch) {
+    patch->address = base + kRingBuildRva;
+    memcpy(patch->before.bytes, kRingBuildBytes, 16);
+    patch->after = patch->before;
+    AbsoluteJump(patch->after.bytes, (void*)&RingBuildHook);
+    patch->after.bytes[14] = 0x90; patch->after.bytes[15] = 0x90;
+    memcpy(relay + 96, kRingBuildBytes, 16);
+    AbsoluteJump(relay + 112, patch->address + 16);
+    g_ringBuildOriginal = (RingBuild)(relay + 96);
+    return true;
+}
+
+static bool LateManagerIsSafe(void* manager) {
+    if (!manager) return true;
+    for (u32 id = 4; id < 55; ++id) {
+        void* entry = nullptr;
+        if (!Read((u8*)manager + 0x30 + id * 8, &entry, sizeof(entry)) || entry) return false;
+    }
+    return true;
+}
+
 static void PrepareUnlock(u8* base, Patch* patch) {
     patch->address = base + kUnlockBlockRva;
     memcpy(patch->before.bytes, kUnlockBytes, 16);
@@ -328,35 +449,56 @@ static void PrepareUnlock(u8* base, Patch* patch) {
 }
 
 static bool Install(u8* base, bool targetValidated = false) {
-    if (!g_settings.enabled && !g_settings.unlockAll) { Log("OFF: both features disabled."); return true; }
+    if (!g_settings.enabled && !g_settings.unlockAll && !g_settings.earlyAccess) { Log("OFF: all features disabled."); return true; }
     if (!targetValidated && !ValidateImage(base)) {
         Log("UNSUPPORTED_OR_CONFLICT: executable/anchors differ. Nothing patched."); return false;
     }
-    // ASI startup only. Avoid partially changing an already loaded manager/save.
+    // A manager may already exist by the time an execute-only loader makes all
+    // target pages readable. Base slots 0..3 are natively special and are never
+    // cost-patched, so late startup is still safe while paid slots 4..54 are empty.
     void* manager = nullptr;
-    if (!Read(base + kManagerRva, &manager, sizeof(manager)) || manager) {
-        Log("LATE_LOAD: APAS manager already exists. Restart using an ASI loader; nothing patched."); return false;
+    if (!Read(base + kManagerRva, &manager, sizeof(manager))) {
+        Log("LATE_LOAD_READ_FAILURE: APAS manager state could not be verified. Nothing patched."); return false;
     }
+    if (manager && !LateManagerIsSafe(manager)) {
+        Log("LATE_LOAD: paid APAS nodes already exist. Restart using an ASI loader; nothing patched."); return false;
+    }
+    if (manager) Log("LATE_LOAD_SAFE: APAS manager exists but paid slots 4..54 are empty; proceeding.");
     g_base = base;
-    Patch patches[2]; u32 count = 0;
+    Patch patches[3]; u32 count = 0;
     u8* relay = nullptr;
-    if (g_settings.enabled) {
+    if (g_settings.enabled || g_settings.earlyAccess) {
         relay = AllocateRelay(base);
-        if (!relay || !PrepareCost(base, relay, &patches[count])) {
-            if (relay) VirtualFree(relay, 0, kRelease);
-            Log("ERROR: could not prepare cost hook. Nothing patched."); return false;
-        }
-        DWORD previous;
-        if (!VirtualProtect(relay, 4096, kExecuteRead, &previous) ||
-            !FlushInstructionCache(GetCurrentProcess(), relay, 64)) {
+        if (!relay) { Log("ERROR: could not allocate hook relay. Nothing patched."); return false; }
+    }
+    if (g_settings.enabled) {
+        if (!PrepareCost(base, relay, &patches[count])) {
             VirtualFree(relay, 0, kRelease);
-            Log("ERROR: could not finalize executable relay. Nothing patched."); return false;
+            Log("ERROR: could not prepare cost hook. Nothing patched."); return false;
         }
         g_original = (Constructor)(relay + 32);
         ++count;
     }
     if (g_settings.unlockAll) PrepareUnlock(base, &patches[count++]);
-    DWORD protection[2]; u32 opened = 0;
+    if (g_settings.earlyAccess) {
+        if (!PrepareEarlyAccess(base, relay, &patches[count])) {
+            VirtualFree(relay, 0, kRelease);
+            Log("ERROR: could not prepare EarlyAccess hook. Nothing patched."); return false;
+        }
+        g_apasLocate = (ApasLocate)(base + kApasLocateRva);
+        g_earlySeedState = 0;
+        g_runtimeDiagnosticState = 0;
+        ++count;
+    }
+    if (relay) {
+        DWORD previous;
+        if (!VirtualProtect(relay, 4096, kExecuteRead, &previous) ||
+            !FlushInstructionCache(GetCurrentProcess(), relay, 160)) {
+            VirtualFree(relay, 0, kRelease);
+            Log("ERROR: could not finalize executable relay. Nothing patched."); return false;
+        }
+    }
+    DWORD protection[3]; u32 opened = 0;
     for (; opened < count; ++opened) {
         if (!VirtualProtect(patches[opened].address, 16, kExecuteReadWrite, &protection[opened])) break;
     }
@@ -382,8 +524,9 @@ static bool Install(u8* base, bool targetValidated = false) {
     if (!restored) Log("ERROR: protection/cache finalization failed; restart the game.");
     if (!success) Log("CONFLICT: installation aborted and owned changes rolled back.");
     if (success && restored) {
-        Log("READY: native APAS creation hook installed. No gameplay polling.");
+        Log("READY: APAS hooks installed. No gameplay worker or background polling.");
         if (g_settings.unlockAll) Log("UnlockAll active: APAS prerequisite bypass; saved unlocks may persist.");
+        if (g_settings.earlyAccess) Log("EarlyAccess active: only the APAS Ring Device story gate is bypassed; special Ring restrictions remain; native APAS nodes are located once when ready; no story fact is written.");
     }
     return success && restored;
 }
@@ -401,7 +544,7 @@ static DWORD __stdcall Worker(void*) {
         if (GetModuleHandleExW(0x5, (const wchar_t*)&Worker, &pinned)) {
             u8* base = (u8*)GetModuleHandleW(nullptr);
             if (!base) Log("ERROR: main module was not found. Nothing patched.");
-            else if (!g_settings.enabled && !g_settings.unlockAll) Install(base);
+            else if (!g_settings.enabled && !g_settings.unlockAll && !g_settings.earlyAccess) Install(base);
             else if (!IsDs2Process()) Install(base);
             else if (WaitForTarget(base)) Install(base, true);
             else Log("UNSUPPORTED_OR_CONFLICT: executable/anchors differ. Nothing patched.");
