@@ -1,4 +1,4 @@
-DS2 APAS Memory Costs 3.0.0-rc.6
+DS2 APAS Memory Costs 3.0.0-rc.7
 Unified release candidate - limited gameplay coverage
 
 ONE ASI, ONE INI

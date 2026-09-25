@@ -1,4 +1,4 @@
-DS2 APAS Memory Costs 3.0.0-rc.6 - Episode-2 menu test
+DS2 APAS Memory Costs 3.0.0-rc.7 - Episode-2 menu test
 ==========================================================
 
 Purpose
@@ -6,12 +6,13 @@ Purpose
 The earlier Episode-2 attempt was invalid: its log said
 UNSUPPORTED_OR_CONFLICT, so the ASI installed no hook or UnlockAll patch. rc.2
 identified a loader-only PE metadata change and rc.3 identified execute-only code
-pages. rc.4's second system read was still blocked and rc.5's loader-specific
-region check rejected before the read. rc.6 requires only a committed 4 KiB page,
-then copies the anchor bytes after temporarily adding read permission and restores
-the exact protection. It still requires the exact image format and every
-code/vtable anchor. If startup says READY, it tests whether the native UnlockAll
-path creates the APAS state required by the ring-menu item on a new Episode-2 save.
+pages. rc.4's second system read was still blocked, rc.5's region check rejected,
+and rc.6's page state was nonstandard. rc.7 requires only a queried and bounded
+4 KiB page, then copies the anchor bytes after temporarily adding read permission
+and restores the exact protection. It still requires the exact image format and
+every code/vtable anchor. If startup says READY, it tests whether the native
+UnlockAll path creates the APAS state required by the ring-menu item on a new
+Episode-2 save.
 
 It does NOT patch the UI or a story fact. It uses the same verified executable
 anchors and native APAS node-creation route as the unified release candidate.
@@ -48,4 +49,4 @@ specific UI predicate.
 Files
 -----
 ds2_apas_memory_costs.asi
-  SHA-256: 63E2DA44AC82E06E83FF232E162F76EA756BFFC79EFE767B1E6991AF11A264B9
+  SHA-256: 9B37432C26539523A1E58890FE49539FC584ADE34FF23F3174E163C099AC973D

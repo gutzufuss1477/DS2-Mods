@@ -1,11 +1,12 @@
 # Changelog
 
-## 3.0.0-rc.6 - Loader-region-independent anchor read
+## 3.0.0-rc.7 - Protectable-page anchor read
 
-- rc.5 identified its rejected preflight as a loader-specific `VirtualQuery` region
-  boundary check, before it attempted to make the page readable.
-- The fallback now requires only a committed page and an anchor that stays inside
-  that 4 KiB page. It does not depend on the loader's reported region boundaries.
+- rc.6 showed that the loader also reports a nonstandard page state, before any
+  protection change is attempted.
+- The fallback now requires only a successful page query and an anchor that stays
+  inside that 4 KiB page. It does not rely on the loader's region state; Windows
+  `VirtualProtect` remains the authority and rejects non-protectable pages.
 - It changes that single page to Execute+Read, copies the bounded bytes directly,
   and restores the exact previous protection before continuing. It never makes a
   page writable during validation.
