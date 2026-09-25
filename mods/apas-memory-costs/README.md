@@ -40,9 +40,8 @@ Close the game and copy `ds2_apas_memory_costs.asi` and
 required. Replace older APAS files and do not keep separate Performance Hotfix or
 Unlock All ASIs installed. Restart the game after INI changes.
 
-Mod Suite 1.7.0 still embeds the previous unified APAS release candidate. An APAS
-repair/update through that suite can overwrite this standalone v3.0.0; reinstall
-the standalone v3.0.0 package afterwards until the suite is updated.
+Mod Suite 1.8.0 embeds this stable APAS 3.0.0 release. Older suites still contain
+previous APAS builds and may overwrite standalone v3.0.0 during repair/update.
 
 ## Compatibility
 
