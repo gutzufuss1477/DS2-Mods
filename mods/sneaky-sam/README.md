@@ -1,8 +1,6 @@
-# DS2 Sneaky Sam v1.0.0
+# DS2 Sneaky Sam v1.0.1
 
 Cosmetic cargo-visibility mod for **DEATH STRANDING 2: ON THE BEACH**.
-
-## What it does
 
 Sneaky Sam hides cargo attached to Sam's four body cargo slots:
 
@@ -11,7 +9,7 @@ Sneaky Sam hides cargo attached to Sam's four body cargo slots:
 - right hip
 - left hip
 
-The cargo remains fully carried and functional. Moving an item back to the backpack makes it visible again through the game's normal rendering path.
+The cargo remains fully carried and functional. Moving it back to the backpack or another unaffected cargo position makes it visible again through the game's normal rendering path.
 
 ## What it does not change
 
@@ -19,6 +17,7 @@ The cargo remains fully carried and functional. Moving an item back to the backp
 - weight or capacity
 - cargo condition
 - slot assignment
+- save data
 - movement or gameplay stats
 - enemy or BT detection / stealth calculations
 
@@ -27,7 +26,7 @@ This is a visual mod only.
 ## Installation
 
 1. Install a working 64-bit ASI loader.
-2. Copy `DS2_SneakySam_v1.0.0.asi` into the same game directory used by your other DS2 ASI mods.
+2. Copy `DS2_SneakySam_v1.0.1.asi` into the DS2 game / ASI loader directory.
 3. Start the game normally.
 
 To uninstall, remove the ASI file.
@@ -36,39 +35,47 @@ To uninstall, remove the ASI file.
 
 - Built and validated for **DS2.exe v1.10.89.0**.
 - Supported executable SHA-256: `BF3D1C665545930BC850D8F5DF486F7395885BB729D4FD408FDB03390DE0765B`.
-- The mod validates the supported PE baseline and the exact native visibility callsite before patching. If the expected executable layout is not present, it fails closed.
+- The mod validates the expected PE baseline and exact native visibility callsite before patching. If the expected executable layout is not present, it fails closed.
+
+## v1.0.1
+
+v1.0.1 keeps the proven v1.0.0 gameplay hook unchanged but rebuilds the ASI using the Microsoft Visual C++ toolchain and Windows SDK.
+
+Changes:
+
+- standard MSVC-generated PE layout;
+- Windows version resource;
+- explicit `InitializeASI` and version exports;
+- relay memory is allocated read/write and then changed to read/execute;
+- no executable memory is allocated as RWX;
+- no change to cargo or visibility behaviour.
+
+This build was accepted by the Nexus archive scanner after the v1.0.0 binary produced a false-positive archive warning.
 
 ## Technical summary
 
-DS2 already has native baggage visibility handling inside `DSPlayerEquipmentManageComponent`.
+Native player baggage visibility refresh: RVA `0xF6BF30`.
 
-The mod hooks the native baggage visibility call at RVA `0xF6C09D`. The original call targets RVA `0x1194520`.
+Hooked callsite: RVA `0xF6C09D`.
 
-For baggage entities whose native slot type is one of:
+Original native target: RVA `0x1194520`.
 
-- `4` = RightArm / right shoulder
-- `5` = LeftArm / left shoulder
-- `6` = RightWaist / right hip
-- `7` = LeftWaist / left hip
+Target baggage slot types:
 
-the visibility argument is forced to false before calling the original game function.
+- `4` RightArm / right shoulder
+- `5` LeftArm / left shoulder
+- `6` RightWaist / right hip
+- `7` LeftWaist / left hip
 
-No baggage entity is removed or modified.
+For those four slot types only, the native visibility argument is forced to false before the original game function is called.
 
 ## Validation
 
-The v0.1.0 test build was tested in-game on the supported executable.
+Confirmed in-game on the supported executable:
 
-Confirmed:
+- all four shoulder/hip cargo positions are hidden;
+- cargo remains functional;
+- moving cargo back to the backpack restores normal visibility;
+- inventory, weight and gameplay state remain native.
 
-- all four shoulder/hip cargo slots are hidden;
-- cargo remains carried and functional;
-- moving cargo back to the backpack makes it visible again;
-- all four target slot types were observed in the runtime test log;
-- inventory, weight and gameplay state are left native.
-
-The v1.0.0 release keeps the same proven hook and filter while removing per-slot development telemetry.
-
-## Source
-
-Source is retained with the development project for auditing and reproducible builds.
+The v1.0.1 archive and ASI were also scanned locally with Microsoft Defender with no detections.

@@ -1,4 +1,4 @@
-// DS2 Sneaky Sam v1.0.0
+// DS2 Sneaky Sam v1.0.1
 // Target: DEATH STRANDING 2 v1.10.89.0
 // Hides only baggage attached to RightArm, LeftArm, RightWaist and LeftWaist.
 extern "C" {
@@ -41,6 +41,7 @@ __declspec(dllimport) DWORD WINAPI GetLastError(void);
 }
 
 static const DWORD DLL_PROCESS_ATTACH_VALUE=1u;
+static const DWORD PAGE_READWRITE_VALUE=0x04u;
 static const DWORD PAGE_EXECUTE_READ_VALUE=0x20u;
 static const DWORD PAGE_EXECUTE_READWRITE_VALUE=0x40u;
 static const DWORD MEM_COMMIT_VALUE=0x1000u;
@@ -146,7 +147,7 @@ static u8* allocate_near_relay(u8* callSite,u8* destination) {
     const u64 imageEnd=(u64)g_imageBase+(u64)EXPECTED_SIZE_OF_IMAGE;
     const u64 first=(imageEnd+granularity-1ull)&~(granularity-1ull);
     u8* memory=(u8*)VirtualAlloc((LPVOID)first,0x1000u,MEM_RESERVE_VALUE|MEM_COMMIT_VALUE,
-                                 PAGE_EXECUTE_READWRITE_VALUE);
+                                 PAGE_READWRITE_VALUE);
     memory=finalize_relay(memory,callSite,destination);
     if (memory) return memory;
     const u64 aligned=((u64)callSite)&~(granularity-1ull);
@@ -156,7 +157,7 @@ static u8* allocate_near_relay(u8* callSite,u8* destination) {
             if (!candidates[i] || candidates[i]==first) continue;
             memory=(u8*)VirtualAlloc((LPVOID)candidates[i],0x1000u,
                                      MEM_RESERVE_VALUE|MEM_COMMIT_VALUE,
-                                     PAGE_EXECUTE_READWRITE_VALUE);
+                                     PAGE_READWRITE_VALUE);
             memory=finalize_relay(memory,callSite,destination);
             if (memory) return memory;
         }
@@ -208,7 +209,7 @@ static DWORD WINAPI worker_thread(LPVOID) {
     g_imageBase=(u8*)GetModuleHandleW((const wchar_t*)0);
     HANDLE log=open_log_create();
     if (log==(HANDLE)(s64)-1) return 1u;
-    write_text(log,"DS2 Sneaky Sam v1.0.0\r\n");
+    write_text(log,"DS2 Sneaky Sam v1.0.1\r\n");
     write_text(log,"mode=HIDE_SHOULDER_AND_WAIST_BAGGAGE_VISUALS_ONLY\r\n");
     write_text(log,"target=DS2.exe v1.10.89.0\r\n");
     write_text(log,"expected_sha256=BF3D1C665545930BC850D8F5DF486F7395885BB729D4FD408FDB03390DE0765B\r\n");
@@ -229,10 +230,13 @@ static DWORD WINAPI worker_thread(LPVOID) {
     CloseHandle(log);
     return 0u;
 }
+extern "C" __declspec(dllexport) void InitializeASI() {}
+extern "C" __declspec(dllexport) const char* SneakySamVersion() { return "1.0.1"; }
+
 extern "C" BOOL WINAPI DllMain(HMODULE module,DWORD reason,LPVOID) {
     if (reason==DLL_PROCESS_ATTACH_VALUE) {
         DisableThreadLibraryCalls(module);
-        g_mutex=CreateMutexW(0,0,L"Local\\DS2_SneakySam_v1_0_0");
+        g_mutex=CreateMutexW(0,0,L"Local\\DS2_SneakySam_v1_0_1");
         if (!g_mutex) return 1;
         if (GetLastError()==ERROR_ALREADY_EXISTS_VALUE) {
             CloseHandle(g_mutex); g_mutex=0; return 1;

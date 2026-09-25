@@ -37,6 +37,8 @@ The wrapper reads the baggage slot byte at entity offset 0. For slot 4..7 only, 
 - exact callsite validation before patching;
 - PE timestamp and SizeOfImage validation;
 - near relay only;
+- v1.0.1 allocates relay memory as RW and then switches it to RX before use;
+- no RWX relay allocation;
 - no breakpoint/PAGE_GUARD/single-step mechanism;
 - no inventory mutation;
 - no save-data writes;

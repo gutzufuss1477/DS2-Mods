@@ -1,4 +1,4 @@
-# DS2 Sneaky Sam v1.0.0
+# DS2 Sneaky Sam v1.0.1
 
 Kosmetischer Fracht-Sichtbarkeitsmod für **DEATH STRANDING 2: ON THE BEACH**.
 
@@ -13,10 +13,18 @@ Die Fracht bleibt vollständig erhalten und funktioniert normal. Wird sie wieder
 
 Nicht verändert werden Inventar, Gewicht, Kapazität, Frachtzustand, Slot-Zuordnung, Save-Daten oder Gegner-/BT-Erkennung.
 
+## v1.0.1
+
+Die Funktion ist gegenüber v1.0.0 unverändert. Der Binary-Build wurde auf Microsoft Visual C++ / Windows SDK umgestellt und verwendet jetzt eine normale Windows-Versionsressource.
+
+Der Near-Relay wird als RW-Speicher erzeugt und danach auf RX gesetzt. Es wird kein RWX-Speicher mehr angelegt.
+
+Diese Variante wurde vom Nexus-Archivscanner akzeptiert.
+
 ## Installation
 
 1. Einen funktionierenden x64-ASI-Loader installieren.
-2. `DS2_SneakySam_v1.0.0.asi` ins DS2-Spielverzeichnis bzw. in das vom ASI-Loader verwendete Verzeichnis kopieren.
+2. `DS2_SneakySam_v1.0.1.asi` ins DS2-Spielverzeichnis bzw. in das vom ASI-Loader verwendete Verzeichnis kopieren.
 3. Spiel starten.
 
 Deinstallation: ASI-Datei entfernen.
