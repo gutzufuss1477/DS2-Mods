@@ -21,6 +21,12 @@ Mehr Rucksackmodule, eine aufgeräumte Darstellung und acht Accessoire-Plätze f
 
 Das Download-ZIP enthält genau eine ASI, keinen Loader und keinen Installer. Die sechs zusätzlichen Charm-Plätze beginnen leer. Ihre Auswahl wird beim Verlassen der Anpassung automatisch in der INI neben der Spiel-EXE gespeichert. Diese Einstellung gilt für die gesamte Installation, also auch bei einem Spielstandwechsel; nur aktuell verfügbare Charms werden berücksichtigt. Die zwei sichtbaren Charms bleiben im normalen Spielstand.
 
+## Optionale Variante: Classic Overlap
+
+`DS2_HighDensityBackpackModules_v1.1.0_Classic_Overlap.asi` bietet ebenfalls 30 logische Modulplätze und acht Charm-Plätze. Die Modulmodelle bleiben an ihren gewählten Positionen sichtbar und dürfen sich optisch überlappen. Den freien Rasterplatz wählst du selbst; eine belegte Zelle wird nicht automatisch umgangen. Module auf verschiedenen Zellen können sich durch ihre Originalgröße trotzdem überdecken.
+
+Installiere **entweder** die normale 1.1.0-ASI **oder** Classic Overlap. Beide verwenden dieselbe Charm-INI; beim Wechsel bleiben die Zusatz-Charms erhalten. Die Variante besteht die lokalen Bau- und Codeprüfungen. Darstellung und Menüverhalten müssen noch im Spiel geprüft werden. [Details zur Variante](docs/CLASSIC_OVERLAP.md).
+
 ## Bekannte Einschränkungen
 
 - Die Darstellung in Gameplay, Rucksackanpassung und Frachtverwaltung wurde vom Nutzer bestätigt, auch für den gemeldeten Fall mit einem vorhandenen Spielstand. Ungewöhnliche Modellformen und Animationen können weiterhin Clipping verursachen.

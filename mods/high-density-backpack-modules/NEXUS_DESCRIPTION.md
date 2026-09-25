@@ -16,6 +16,12 @@ Close the game. Remove previous Backpack ASI versions from your active loader fo
 
 Requires an external compatible 64-bit ASI loader and `DS2.exe v1.10.89.0` (PC / Steam). The ZIP contains one ASI only. The log should show v1.1.0 and `status=PATCH_APPLIED`.
 
+## Optional file: Classic Overlap
+
+Prefer the older, crowded backpack look? Download **v1.1.0 Classic Overlap** from Optional files. It retains the 30 one-cell module slots and all eight charm slots, but leaves all module models visible at their manually chosen positions, even when the meshes overlap. It does not automatically move your choice to another free cell; a logical cell can still contain only one module.
+
+Install one variant at a time and keep the charm INI when switching. The optional variant has passed local build and code checks, but has not yet been confirmed in game.
+
 ## Charms and saves
 
 The last two accessory rows are visible charms; the first six are invisible slots. Extra slots start empty. Their selections are written automatically when leaving customization and are shared across saves in this installation, filtered by current unlock availability. The two physical charms stay in the native save.

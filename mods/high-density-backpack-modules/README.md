@@ -21,6 +21,12 @@ More backpack equipment, cleaner visuals and eight accessory slots for **DEATH S
 
 The download contains one ASI only; no loader, installer or configuration file is bundled. The six additional charm selections are saved automatically on leaving the customization menu to the INI beside the game executable. They are installation-wide preferences shared across saves and filtered by current unlock availability. The two visible charms use the normal game save. Additional slots start empty.
 
+## Optional Classic Overlap variant
+
+`DS2_HighDensityBackpackModules_v1.1.0_Classic_Overlap.asi` keeps the 30 one-cell module limit and all eight charm slots, but leaves module models at their native placements and visible even when they overlap. You select a free logical cell yourself; this variant does not move a chosen position automatically. A cell that already contains a module is still occupied. The original module meshes can overlap across different cells.
+
+Install the Classic Overlap ASI **instead of** the standard 1.1.0 ASI. It uses the same charm INI and exclusive loader mutex, so switching variants does not require resetting extra charms. This variant passes the local build and instruction checks; its appearance and menu behavior still need an in-game check. See [variant details](docs/CLASSIC_OVERLAP.md).
+
 ## Known limitations
 
 - Clean module rendering in gameplay, customization and cargo management was confirmed by the user, including the reported existing-save load case. The layout uses native footprints; unusual geometry and animations may still clip.

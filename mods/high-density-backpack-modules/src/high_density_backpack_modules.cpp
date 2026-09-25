@@ -73,20 +73,28 @@ static const u32 SHAPE_LOOKUP_RVA = 0x00BAD600u;
 static const u32 REFERENCE_CHECK_CALLSITE_RVA = 0x00B43043u;
 static const u32 MANAGER_POINTER_RVA = 0x0623E4E0u;
 static const u32 MANAGER_LOAD_INSTRUCTION_RVA = 0x00B42ED1u;
+#ifndef HDB_OVERLAP_VISUALS
 static const u32 GRID_OFFSET = 0x000022D8u;
 static const u32 STAGED_X_OFFSET = 0x000045E4u;
 static const u32 STAGED_Y_OFFSET = 0x000045E8u;
+#endif
 static const u32 OCCUPANCY_FLAG_IMMEDIATE_RVA = 0x00B404BCu;
 static const u8 EXPECTED_NATIVE_OCCUPANCY_FLAG = 0x40u;
 static const u32 CONFLICT_BRANCH_RVA = 0x01525D18u;
 static const u8 EXPECTED_NATIVE_CONFLICT_BRANCH[2] = {0x74u, 0x0Cu};
 
 
+#ifndef HDB_OVERLAP_VISUALS
 static const u32 CANDIDATE_X_OFFSET = 0x8u;
 static const u32 CANDIDATE_Y_OFFSET = 0xCu;
+#endif
+#ifndef HDB_OVERLAP_VISUALS
 static const u32 SHAPE_EXTENT_A_OFFSET = 0x24u;
 static const u32 SHAPE_EXTENT_B_OFFSET = 0x28u;
+#endif
+#ifndef HDB_OVERLAP_VISUALS
 static const s32 INVALID_COORDINATE_SENTINEL = -1;
+#endif
 
 struct Patch {
     u32 rva;
@@ -162,14 +170,20 @@ static const u32 NATIVE_REFERENCE_SHAPE_READ_RVAS[8] = {
 static u8* g_imageBase = 0;
 static HANDLE g_mutex = 0;
 static volatile long g_patchApplied = 0;
+#ifndef HDB_OVERLAP_VISUALS
 static volatile u32 g_eventSequence = 0u;
+#endif
+#ifndef HDB_OVERLAP_VISUALS
 static volatile u32 g_wrapperHits = 0u;
+#endif
 static wchar_t g_logPath[MAX_PATH_CHARS];
 static volatile long g_ready = 0;
 
+#ifndef HDB_OVERLAP_VISUALS
 typedef u8 (FASTCALL *ReferenceCheckFn)(u8* candidate);
-typedef u8* (FASTCALL *ShapeLookupFn)(LPVOID unused, u32 type);
 static ReferenceCheckFn g_originalReferenceCheck = 0;
+#endif
+typedef u8* (FASTCALL *ShapeLookupFn)(LPVOID unused, u32 type);
 static ShapeLookupFn g_shapeLookup = 0;
 
 static bool bytes_equal(const void* first, const void* second, SIZE_T count) {
@@ -295,6 +309,7 @@ static void log_patch_bytes(HANDLE log, const char* prefix, const Patch& patch, 
     write_text(log, line);
 }
 
+#ifndef HDB_OVERLAP_VISUALS
 static bool get_shape_extents(u8 type, s32* extentA, s32* extentB) {
     if (!g_shapeLookup || !extentA || !extentB) return false;
     u8* shape = g_shapeLookup((LPVOID)0, (u32)type);
@@ -306,7 +321,9 @@ static bool get_shape_extents(u8 type, s32* extentA, s32* extentB) {
     *extentB = b;
     return true;
 }
+#endif
 
+#ifndef HDB_OVERLAP_VISUALS
 // Exact equivalent of the native full-shape cell walk in DS2.exe+0xB3FD10.
 static void force_local_candidate_rejection(u8* candidate) {
     if (!candidate) return;
@@ -377,16 +394,22 @@ static bool relocate(u8* grid, u8* candidate) {
 }
 static u8 FASTCALL auto_anchor_reference_check(u8* candidate) {
     if (!g_ready) return g_originalReferenceCheck(candidate);
+#ifndef HDB_OVERLAP_VISUALS
     u8* manager=*(u8**)(g_imageBase+MANAGER_POINTER_RVA);
     if (manager && !relocate(manager+GRID_OFFSET,candidate)) return 0;
+#endif
     return g_originalReferenceCheck(candidate);
 }
 using GridFn=u8* (FASTCALL *)(u8*,u8*,u8*,u8);
 static u8* FASTCALL auto_anchor_grid(u8* grid,u8* result,u8* candidate,u8 validateOnly) {
+#ifndef HDB_OVERLAP_VISUALS
     if (g_ready) relocate(grid,candidate);
+#endif
     return ((GridFn)(g_imageBase+0xB40310))(grid,result,candidate,validateOnly);
 }
+#endif // HDB_OVERLAP_VISUALS
 
+#ifndef HDB_OVERLAP_VISUALS
 #include "backpack_visuals.inl"
 
 // Runs inside the native per-module visual update, with the owning info and
@@ -441,6 +464,7 @@ static void FASTCALL module_visual_update(u8* model,u8 shadow,u8* info,u64 slotO
         if (log!=(HANDLE)(s64)-1) CloseHandle(log);
     }
 }
+#endif // HDB_OVERLAP_VISUALS
 
 #include "backpack_charms.inl"
 #include "backpack_menu.inl"
@@ -596,11 +620,15 @@ struct Hook {
 };
 static Hook HOOKS[] = {
 
+#ifndef HDB_OVERLAP_VISUALS
     {0xB43043,0xB406F0,(void*)&auto_anchor_reference_check,false,0,{},false},
     {0xB42E79,0xB40310,(void*)&auto_anchor_grid,false,0,{},false},
     {0xB431A8,0xB40310,(void*)&auto_anchor_grid,false,0,{},false},
     {0xB431D4,0xB40310,(void*)&auto_anchor_grid,false,0,{},false},
+#endif
+#ifndef HDB_OVERLAP_VISUALS
     {0xB3D386,0x33B480,(void*)&module_visual_update,true,0,{},false},
+#endif
     {0xB3D9D7,0xB39FE0,(void*)&backpack_preview_update,false,0,{},false},
     {0xB3CFC6,0xB3E470,(void*)&battery_capacity,false,0,{},false},
     {0xEA8633,0xB3E470,(void*)&battery_capacity,false,0,{},false},
@@ -614,8 +642,10 @@ static Hook HOOKS[] = {
     {0x15272AC,0x151A5C0,(void*)&set_menu_charm,false,0,{},false,true},
     {0x1524DF6,0xB393E0,(void*)&remove_menu_charms,false,0,{},false},
     {0x15189BA,0xB41A60,(void*)&close_charm_menu,false,0,{},false},
+#ifndef HDB_OVERLAP_VISUALS
     {0xB3AA9C,0xB3FD10,(void*)&visual_reference,false,0,{},false},
     {0xB3AB46,0xB3FD10,(void*)&visual_reference,false,0,{},false},
+#endif
 };
 static const u32 HOOK_COUNT=sizeof(HOOKS)/sizeof(HOOKS[0]);
 
@@ -758,7 +788,11 @@ static bool find_image() {
 static DWORD WINAPI worker_thread(LPVOID) {
     HANDLE log=open_log_create();
     if (log==(HANDLE)(s64)-1) return 1;
+#ifdef HDB_OVERLAP_VISUALS
+    write_text(log,"DS2 High-Density Backpack Modules v1.1.0 Classic Overlap\r\n");
+#else
     write_text(log,"DS2 High-Density Backpack Modules v1.1.0\r\n");
+#endif
     write_text(log,"target=DS2.exe v1.10.89.0; PE timestamp=6A3DAE46\r\n");
     write_text(log,"expected_sha256=BF3D1C665545930BC850D8F5DF486F7395885BB729D4FD408FDB03390DE0765B\r\n");
     Sleep(1200); // Match the stable loader startup delay.
@@ -768,7 +802,9 @@ static DWORD WINAPI worker_thread(LPVOID) {
         Sleep(1000);
     }
     if (!found) { write_text(log,"status=BASELINE_REJECTED\r\n"); CloseHandle(log); return 2; }
+#ifndef HDB_OVERLAP_VISUALS
     g_originalReferenceCheck=(ReferenceCheckFn)(g_imageBase+NATIVE_REFERENCE_CHECK_RVA);
+#endif
     g_shapeLookup=(ShapeLookupFn)(g_imageBase+SHAPE_LOOKUP_RVA);
     if (!validate_static_context(log) || !prepare_hooks(log)) {
         write_text(log,"status=CONTEXT_REJECTED_NO_PATCHES\r\n"); CloseHandle(log); return 3;
@@ -786,7 +822,12 @@ static DWORD WINAPI worker_thread(LPVOID) {
     }
     _InterlockedExchange(&g_ready,1);
     write_text(log,"status=PATCH_APPLIED\r\nlogical_grid=5x6; all_module_footprints=1x1\r\n");
+#ifdef HDB_OVERLAP_VISUALS
+    write_text(log,"visibility=CLASSIC_OVERLAP; native_visual_calls\r\n");
+    write_text(log,"placement=MANUAL_ONE_CELL; no_auto_anchor\r\n");
+#else
     write_text(log,"visibility=NONOVERLAPPING_NATIVE_FOOTPRINTS; render_mesh_only\r\n");
+#endif
     write_text(log,"charms=EIGHT_EQUIPMENT_SLOTS; visible_slots=2; invisible_slots=6\r\n");
     CloseHandle(log); return 0;
 }

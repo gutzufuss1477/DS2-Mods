@@ -1,5 +1,13 @@
 # Changelog
 
+## v1.1.0 Classic Overlap (optional) - 2026-09-25
+
+- Adds a separate ASI with the 1.1.0 eight-charm system and 30 one-cell module slots.
+- Leaves native model placement and visibility active so modules on different cells can overlap.
+- Uses manual placement: occupied cells are not automatically redirected to another free cell.
+- Shares the same charm INI and loader mutex with standard 1.1.0. Install one variant at a time.
+- Built and checked locally; this optional variant has not yet been confirmed in game.
+
 ## v1.1.0 - 2026-09-24
 
 - Uniform one-cell logical placement supports up to 30 modules; occupied anchors automatically move to free cells.
