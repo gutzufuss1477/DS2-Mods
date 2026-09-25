@@ -9,8 +9,8 @@ using System.Windows;
 [assembly: AssemblyCompany("SimonMods")]
 [assembly: AssemblyProduct("DS2 Mod Suite")]
 [assembly: AssemblyCopyright("Unofficial community mod manager")]
-[assembly: AssemblyVersion("1.7.0.0")]
-[assembly: AssemblyFileVersion("1.7.0.0")]
+[assembly: AssemblyVersion("1.8.0.0")]
+[assembly: AssemblyFileVersion("1.8.0.0")]
 
 namespace DS2ModSuite
 {
@@ -150,13 +150,10 @@ namespace DS2ModSuite
                     : new List<string>(selectedText.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries));
                 ModConfigurationProfile configuration = null;
                 string encodedConfiguration;
-                if (arguments.TryGetValue("--config-profile", out encodedConfiguration)
+                if (arguments.TryGetValue("--config-profile-gzip", out encodedConfiguration)
                     && !string.IsNullOrWhiteSpace(encodedConfiguration))
                 {
-                    if (encodedConfiguration.Length > 65536) throw new InvalidDataException("The mod settings payload is too large.");
-                    byte[] configurationBytes = Convert.FromBase64String(encodedConfiguration);
-                    if (configurationBytes.Length > 49152) throw new InvalidDataException("The mod settings payload is too large.");
-                    configuration = JsonStore.FromBytes<ModConfigurationProfile>(configurationBytes);
+                    configuration = ConfigurationTransport.Decode(encodedConfiguration);
                 }
                 ApplyPlan plan = new ApplyPlan
                 {

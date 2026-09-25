@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -455,6 +456,17 @@ namespace DS2ModSuite
                 }
 
                 HashSet<string> selected = new HashSet<string>(plan.SelectedModIds ?? new List<string>(), StringComparer.OrdinalIgnoreCase);
+                foreach (ModSpec chosen in catalog.Mods.Where(mod => selected.Contains(mod.Id) && !string.IsNullOrWhiteSpace(mod.ExclusiveGroup)))
+                foreach (ModSpec other in catalog.Mods.Where(mod => mod.Id != chosen.Id
+                    && string.Equals(mod.ExclusiveGroup, chosen.ExclusiveGroup, StringComparison.OrdinalIgnoreCase)))
+                foreach (ModFileSpec file in other.Files.Where(item => !item.IsConfig))
+                {
+                    string path = PathGuard.ResolveUnderRoot(game.GamePath, file.Target);
+                    if (File.Exists(path) && !IsExactFile(path, file.Sha256))
+                        throw new InvalidOperationException(Localization.T(
+                            "An unknown variant file blocks the safe switch: ",
+                            "Eine unbekannte Varianten-Datei verhindert den sicheren Wechsel: ") + file.Target);
+                }
                 bool needsPayloadChange = DesiredStateNeedsPayload(game, selected, plan.ConfigurationProfile);
                 if (!allowUnsupportedBuild && !game.Supported && needsPayloadChange)
                 {
@@ -698,6 +710,12 @@ namespace DS2ModSuite
             {
                 if (!validIds.Contains(id)) throw new InvalidDataException(Localization.T("Unknown mod ID in the installation plan: ", "Unbekannte Mod-ID im Installationsplan: ") + id);
             }
+            if (catalog.Mods.Where(mod => (plan.SelectedModIds ?? new List<string>()).Contains(mod.Id)
+                    && !string.IsNullOrWhiteSpace(mod.ExclusiveGroup))
+                .GroupBy(mod => mod.ExclusiveGroup, StringComparer.OrdinalIgnoreCase).Any(group => group.Count() > 1))
+                throw new InvalidDataException(Localization.T(
+                    "Select only one variant of the same mod.",
+                    "Wähle nur eine Variante desselben Mods."));
             return gamePath;
         }
 
@@ -798,6 +816,14 @@ namespace DS2ModSuite
                     }
                 }
             }
+            foreach (ModSpec chosen in catalog.Mods.Where(mod => selected.Contains(mod.Id) && !string.IsNullOrWhiteSpace(mod.ExclusiveGroup)))
+            foreach (ModSpec other in catalog.Mods.Where(mod => mod.Id != chosen.Id
+                && string.Equals(mod.ExclusiveGroup, chosen.ExclusiveGroup, StringComparison.OrdinalIgnoreCase)))
+            foreach (ModFileSpec file in other.Files.Where(item => !item.IsConfig))
+                if (File.Exists(PathGuard.ResolveUnderRoot(game.GamePath, file.Target)))
+                    throw new IOException(Localization.T(
+                        "A conflicting mod variant remains after installation: ",
+                        "Nach der Installation ist eine konkurrierende Mod-Variante vorhanden: ") + file.Target);
         }
 
         private static void Report(IProgress<ProgressInfo> progress, int percent, string message)
@@ -833,6 +859,47 @@ namespace DS2ModSuite
         }
     }
 
+    internal static class ConfigurationTransport
+    {
+        private const int MaximumProfileBytes = 49152;
+        private const int MaximumEncodedChars = 20000;
+
+        public static string Encode(ModConfigurationProfile profile)
+        {
+            byte[] bytes = JsonStore.ToBytes(profile);
+            if (bytes.Length > MaximumProfileBytes) throw new InvalidDataException("The mod settings payload is too large.");
+            using (MemoryStream output = new MemoryStream())
+            {
+                using (GZipStream gzip = new GZipStream(output, CompressionMode.Compress, true))
+                    gzip.Write(bytes, 0, bytes.Length);
+                string encoded = Convert.ToBase64String(output.ToArray());
+                if (encoded.Length > MaximumEncodedChars) throw new InvalidDataException("The compressed mod settings payload is too large.");
+                return encoded;
+            }
+        }
+
+        public static ModConfigurationProfile Decode(string encoded)
+        {
+            if (string.IsNullOrWhiteSpace(encoded) || encoded.Length > MaximumEncodedChars)
+                throw new InvalidDataException("The compressed mod settings payload is invalid.");
+            byte[] compressed = Convert.FromBase64String(encoded);
+            using (MemoryStream input = new MemoryStream(compressed, false))
+            using (GZipStream gzip = new GZipStream(input, CompressionMode.Decompress))
+            using (MemoryStream output = new MemoryStream())
+            {
+                byte[] buffer = new byte[4096];
+                int count;
+                while ((count = gzip.Read(buffer, 0, buffer.Length)) > 0)
+                {
+                    if (output.Length + count > MaximumProfileBytes)
+                        throw new InvalidDataException("The decompressed mod settings payload is too large.");
+                    output.Write(buffer, 0, count);
+                }
+                return JsonStore.FromBytes<ModConfigurationProfile>(output.ToArray());
+            }
+        }
+    }
+
     internal static class ApplyCoordinator
     {
         public static async Task<ApplyResult> ApplyAsync(Catalog catalog, ApplyPlan plan, IProgress<ProgressInfo> progress)
@@ -862,9 +929,7 @@ namespace DS2ModSuite
             string language = string.IsNullOrWhiteSpace(plan.Language) ? Localization.CurrentLanguageCode : plan.Language;
             string encodedConfiguration = plan.ConfigurationProfile == null
                 ? null
-                : Convert.ToBase64String(JsonStore.ToBytes(plan.ConfigurationProfile));
-            if (encodedConfiguration != null && encodedConfiguration.Length > 65536)
-                throw new InvalidDataException(Localization.T("The mod settings payload is too large.", "Die Mod-Einstellungen sind zu groß."));
+                : ConfigurationTransport.Encode(plan.ConfigurationProfile);
             string executable = Process.GetCurrentProcess().MainModule.FileName;
             ProcessStartInfo startInfo = new ProcessStartInfo
             {
@@ -874,12 +939,14 @@ namespace DS2ModSuite
                     + " --game-path " + QuoteArgument(plan.GamePath)
                     + " --selected-mods " + QuoteArgument(selected)
                     + " --language " + QuoteArgument(language)
-                    + (encodedConfiguration == null ? string.Empty : " --config-profile " + QuoteArgument(encodedConfiguration)),
+                    + (encodedConfiguration == null ? string.Empty : " --config-profile-gzip " + QuoteArgument(encodedConfiguration)),
                 UseShellExecute = true,
                 Verb = "runas",
                 WorkingDirectory = AppPaths.BaseDirectory,
                 WindowStyle = ProcessWindowStyle.Hidden
             };
+            if (startInfo.Arguments.Length > 30000)
+                throw new InvalidDataException(Localization.T("The installation request is too large.", "Die Installationsanfrage ist zu groß."));
 
             Process child;
             try { child = Process.Start(startInfo); }

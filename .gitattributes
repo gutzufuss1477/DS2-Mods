@@ -24,3 +24,5 @@ mods/climbing-power-gloves-range/release/DS2_Climbing_Power_Gloves_Range_v1.0.0/
 mods/construction-max-level-on-build/release/DS2_Construction_Max_Level_On_Build_v1.0.1/ds2_construction_max_level_on_build.ini -text -diff
 mods/extended-bt-cord-cutting-range/release/ds2_extended_bt_cord_cutting_range.ini -text -diff
 mods/improved-odradek-scan/release/ds2_odradek_scan.ini -text -diff
+mods/crafting-unlocks/release/ds2_crafting_unlocks.ini -text -diff
+mods/apas-memory-costs/release/ds2_apas_memory_costs.ini -text -diff

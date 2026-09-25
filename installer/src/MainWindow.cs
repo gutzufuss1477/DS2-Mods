@@ -689,6 +689,23 @@ namespace DS2ModSuite
             }
 
             state.DesiredEnabled = enabled;
+            if (enabled && !string.IsNullOrWhiteSpace(state.Spec.ExclusiveGroup))
+            {
+                suppressSelectionEvents = true;
+                foreach (ModRuntimeState other in modStates.Where(item => item != state
+                    && string.Equals(item.Spec.ExclusiveGroup, state.Spec.ExclusiveGroup, StringComparison.OrdinalIgnoreCase)))
+                {
+                    other.DesiredEnabled = false;
+                    GameInspector.UpdateStatus(other);
+                    ModRowControls otherRow;
+                    if (modRows.TryGetValue(other, out otherRow))
+                    {
+                        otherRow.CheckBox.IsChecked = false;
+                        UpdateModRow(other);
+                    }
+                }
+                suppressSelectionEvents = false;
+            }
             GameInspector.UpdateStatus(state);
             UpdateModRow(state);
             UpdateChangeSummary();
@@ -710,14 +727,20 @@ namespace DS2ModSuite
         private void SetAllSelections(bool enabled)
         {
             suppressSelectionEvents = true;
+            HashSet<string> selectedGroups = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+            HashSet<string> installedGroups = new HashSet<string>(modStates.Where(item => item.IsInstalled
+                && !string.IsNullOrWhiteSpace(item.Spec.ExclusiveGroup))
+                .Select(item => item.Spec.ExclusiveGroup), StringComparer.OrdinalIgnoreCase);
             foreach (ModRuntimeState state in modStates)
             {
-                state.DesiredEnabled = enabled;
+                state.DesiredEnabled = enabled && (string.IsNullOrWhiteSpace(state.Spec.ExclusiveGroup)
+                    || ((!installedGroups.Contains(state.Spec.ExclusiveGroup) || state.IsInstalled)
+                        && selectedGroups.Add(state.Spec.ExclusiveGroup)));
                 GameInspector.UpdateStatus(state);
                 ModRowControls row;
                 if (modRows.TryGetValue(state, out row))
                 {
-                    row.CheckBox.IsChecked = enabled;
+                    row.CheckBox.IsChecked = state.DesiredEnabled;
                     UpdateModRow(state);
                 }
             }
@@ -728,9 +751,12 @@ namespace DS2ModSuite
         private void ResetSelection()
         {
             suppressSelectionEvents = true;
+            HashSet<string> selectedGroups = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             foreach (ModRuntimeState state in modStates)
             {
-                state.DesiredEnabled = state.IsInstalled || state.HasObsoleteBinary;
+                state.DesiredEnabled = (state.IsInstalled || state.HasObsoleteBinary)
+                    && (string.IsNullOrWhiteSpace(state.Spec.ExclusiveGroup)
+                        || selectedGroups.Add(state.Spec.ExclusiveGroup));
                 GameInspector.UpdateStatus(state);
                 ModRowControls row;
                 if (modRows.TryGetValue(state, out row))

@@ -170,5 +170,17 @@
   {
     "source": "../mods/improved-odradek-scan/release/ds2_odradek_scan.ini",
     "destination": "payload/mods/improved-odradek-scan/ds2_odradek_scan.ini"
+  },
+  {
+    "source": "../mods/high-density-backpack-modules/reference/DS2_HighDensityBackpackModules_v1.1.0_Classic_Overlap.asi",
+    "destination": "payload/mods/high-density-backpack-classic/DS2_HighDensityBackpackModules_v1.1.0_Classic_Overlap.asi"
+  },
+  {
+    "source": "../mods/crafting-unlocks/release/ds2_crafting_unlocks.asi",
+    "destination": "payload/mods/crafting-unlocks/ds2_crafting_unlocks.asi"
+  },
+  {
+    "source": "../mods/crafting-unlocks/release/ds2_crafting_unlocks.ini",
+    "destination": "payload/mods/crafting-unlocks/ds2_crafting_unlocks.ini"
   }
 ]

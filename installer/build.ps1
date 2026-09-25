@@ -8,7 +8,7 @@ $installerRoot = [System.IO.Path]::GetFullPath($PSScriptRoot)
 $workspaceRoot = [System.IO.Path]::GetFullPath((Join-Path $installerRoot '..'))
 $distRoot = [System.IO.Path]::GetFullPath((Join-Path $installerRoot 'dist'))
 $appRoot = [System.IO.Path]::GetFullPath((Join-Path $distRoot 'DS2-Mod-Suite'))
-$zipPath = Join-Path $distRoot 'DS2_Mod_Suite_v1.7.0.zip'
+$zipPath = Join-Path $distRoot 'DS2_Mod_Suite_v1.8.0.zip'
 $zipHashPath = "$zipPath.sha256.txt"
 
 function Assert-ChildPath([string]$parent, [string]$candidate) {
@@ -174,7 +174,8 @@ $references = @(
     (Find-Assembly 'PresentationCore.dll'),
     (Find-Assembly 'WindowsBase.dll'),
     (Find-Assembly 'System.Xaml.dll'),
-    (Find-Assembly 'System.Runtime.Serialization.dll')
+    (Find-Assembly 'System.Runtime.Serialization.dll'),
+    (Find-Assembly 'System.IO.Compression.dll')
 )
 $outputExe = Join-Path $appRoot 'DS2ModManager.exe'
 $iconPath = Join-Path $appRoot 'DS2ModSuite.ico'

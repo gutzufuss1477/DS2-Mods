@@ -1,6 +1,6 @@
 [b]Description[/b]
 
-DS2 Mod Suite is a clean, standalone all-in-one installer and manager for 22 DEATH STRANDING 2: ON THE BEACH mods.
+DS2 Mod Suite is a clean, standalone all-in-one installer and manager for 23 DEATH STRANDING 2: ON THE BEACH mods, with two exclusive Backpack variants.
 
 Choose exactly which mods you want, review their current installation state and apply everything through one English or German interface. The manager detects the Steam game directory, verifies the supported game build, installs missing mods, updates or repairs known versions and safely removes deselected suite mods.
 
@@ -8,7 +8,7 @@ All bundled mod files and the tested Ultimate ASI Loader are embedded in the app
 
 This is more than a loose file bundle: the custom manager adds installation-state detection, centralized configuration, file validation, conflict protection, backups and transactional rollback.
 
-Version 1.7.0 adds Improved Odradek Scan 1.0.0, updates High-Density Backpack Modules to 1.1.0 and integrates APAS Unified 3.0.0-rc.1, with optional Unlock All disabled by default. APAS is a release candidate with limited gameplay coverage. It supports the Steam PC executable version [font=Courier New]DS2.exe 1.10.89.0[/font].
+Version 1.8.0 adds Crafting Overhaul 1.3.0, adds the optional Backpack Classic Overlap variant and updates APAS Unified to stable 3.0.0. APAS Unlock All and Episode 2 Early Access are disabled by default. It supports the Steam PC executable version [font=Courier New]DS2.exe 1.10.89.0[/font].
 
 [b]Quick start[/b]
 
@@ -30,14 +30,14 @@ This is a standalone installer. Do not install the downloaded archive through Vo
 [b]Main features[/b]
 
 [list]
-[*]Installs and manages 22 DS2 mods from one application
+[*]Installs and manages 23 DS2 mods with 24 selectable entries (two exclusive Backpack variants)
 [*]Clean English and German interface
 [*]Automatic Steam game-directory detection
 [*]Verifies the exact supported [font=Courier New]DS2.exe[/font] build
 [*]Detects installed, outdated, incomplete and modified suite files
 [*]Installs the tested Ultimate ASI Loader x64 v9.7.2 automatically when required
-[*]Central settings interface for 19 configurable mods
-[*]Validates 184 settings across 20 individual INI files
+[*]Central settings interface for 20 configurable mods
+[*]Validates 312 settings across 21 individual INI files
 [*]Imports existing installed INI values
 [*]Hides advanced and experimental settings by default
 [*]Supports installation, update, repair and safe removal
@@ -66,12 +66,14 @@ The checkboxes represent the desired final state. Installed mods are selected au
 
 [list]
 [*]High-Density Backpack Modules 1.1.0 - up to 30 modules, automatic placement, hidden excess models and eight charm slots (two visible, six invisible)
+[*]High-Density Backpack Classic Overlap 1.1.0 - alternative build with visible overlapping meshes and manual one-cell placement; choose instead of the standard build
 [*]Climbing Power Gloves Range 1.0.0 - increases the configurable magnetic cargo pickup range of both Climbing Power Gloves tiers
 [*]Sam Stats Booster 1.0.0 - provides a configurable boost to selected Sam-stat progression
 [*]Porter Grade Booster 1.0.0 - provides a configurable boost to delivery category points
 [*]Extended BT Cord Cutting Range 1.0.0 - increases the configurable BT umbilical cord cutting range
-[*]APAS Memory Costs 3.0.0-rc.1 - unified release candidate with native cost initialization, no recurring scan, preserved base/free-node costs and optional Unlock All disabled by default
+[*]APAS Memory Costs 3.0.0 - stable unified release with native cost initialization, optional Unlock All and Episode 2 Early Access, both disabled by default
 [*]Proficiency Bonus Multiplier 1.0.0 - scales supported level-dependent proficiency bonuses independently for levels 1 through 5
+[*]Crafting Overhaul 1.3.0 - 120 individual item unlock choices, optional Free Crafting, Omnireflector Boots and equipment durability settings
 [/list]
 
 [b]Deliveries and Rewards[/b]
@@ -104,7 +106,7 @@ The checkboxes represent the desired final state. Installed mods are selected au
 [*]Remote Orders Overlay 0.2.0 - displays a facility's available orders directly on the world map
 [/list]
 
-APAS Unified 3.0.0-rc.1 is a release candidate with limited gameplay coverage, as disclosed on its standalone release. Other bundled mods use their published releases. TEST, TRACE and obsolete builds are excluded.
+Backpack Classic Overlap passed local checks but its appearance and menu behavior have not yet been tested in game. Only published releases are bundled; TEST, TRACE and obsolete builds are excluded.
 
 [b]Central mod settings[/b]
 
@@ -124,19 +126,19 @@ The central interface does not replace the individual INI files used by the ASI 
 
 For a newly selected mod, install it first. It will then appear in [b]Mod Settings[/b] if it provides configurable options.
 
-[b]APAS optional Unlock All[/b]
+[b]APAS optional progression[/b]
 
-The suite bundles the APAS Unified 3.0.0-rc.1 ASI, which includes both cost settings and optional Unlock All. Only one APAS ASI is installed. Unlock All is [b]off by default[/b]. To enable it, install APAS, open [b]Mod Settings → APAS Memory Costs → APASUnlocks → Unlock All[/b], save, apply changes and restart the game. Unlocks may persist in the save; disabling the option does not undo saved unlocks. Back up your save before enabling. Set APASMemoryCosts / Enabled to off if you want Unlock All with vanilla costs.
+The suite bundles APAS Unified 3.0.0. Unlock All and Episode 2 Early Access are [b]off by default[/b]. Install APAS, open [b]Mod Settings → APAS Memory Costs → APASUnlocks[/b] and select either option. Save, apply changes and restart the game. Early Access exposes the APAS Ring Device menu before its normal story unlock. Unlock All bypasses node prerequisites independently. Located nodes and unlocks may persist in the save; back up your save before enabling either option. Set APASMemoryCosts / Enabled to off for vanilla costs.
 
-Old cost-only INIs receive an explicit UnlockAll=0 during updates, including updates without a saved central profile. Existing explicit UnlockAll values and valid cost settings are retained. Coffin Board updates preserve valid existing settings and add missing reworked options with the release defaults.
+Old INIs receive explicit UnlockAll=0 and EarlyAccess=0 during updates, including updates without a saved central profile. Existing explicit choices and valid cost settings are retained. Coffin Board updates preserve valid existing settings and add missing reworked options with the release defaults.
 
-[b]Changes and compatibility in 1.7.0[/b]
+[b]Changes and compatibility in 1.8.0[/b]
 
-APAS Unified applies costs when native nodes are created, without a recurring scan. Base nodes and natively free nodes keep their native costs. This candidate has extensive offline checks but limited gameplay coverage; the reported early-game purchasing issue, FPS, final startup and full save/load/Unlock All behavior are not all verified in game.
+APAS Unified 3.0.0 retains native cost initialization without gameplay polling. The Early Access menu and APAS purchases/unlocks were verified live in Episode 2. Both progression switches remain off by default.
 
-Backpack 1.1.0 replaces the known 1.0.0 ASI automatically. Its automatically created [font=Courier New]DS2_HighDensityBackpackModules.charms.ini[/font] is preserved; select charms in the game's customization menu. Before removing Backpack, unequip extra charms and reduce modules to a vanilla-compatible layout, save, then close the game. Unknown modified legacy binaries require manual review.
+Backpack 1.1.0 offers the standard clean-visual build and the optional Classic Overlap build. The manager allows only one variant and safely switches between known binaries. The generated [font=Courier New]DS2_HighDensityBackpackModules.charms.ini[/font] is preserved. Classic Overlap has passed local checks but has not been tested in game. Before removing Backpack, unequip extra charms and reduce modules to a vanilla-compatible layout, save, then close the game. Unknown modified binaries require manual review.
 
-Improved Odradek Scan starts at the tested 500 m radius. Its central settings accept 50-1000 m; higher values do not guarantee full-radius detection. Keep VisualWaveScale=1 for the tested appearance. Advanced scan modes and diagnostic logging are hidden by default.
+Crafting Overhaul 1.3.0 supports 120 per-item unlock choices. The item list is shown under advanced settings; Free Crafting and durability changes are disabled by default. The manager preserves existing item choices and INI comments on update.
 
 [b]Updating and repairing[/b]
 

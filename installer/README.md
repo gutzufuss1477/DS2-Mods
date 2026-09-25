@@ -1,4 +1,4 @@
-# DS2 Mod Suite v1.7.0
+# DS2 Mod Suite v1.8.0
 
 Clean all-in-one mod manager for **DEATH STRANDING 2: ON THE BEACH**.
 
@@ -37,19 +37,19 @@ The manager language and central settings profile are stored under:
 
 Customized INIs are retained when a mod is removed so personal settings are not lost.
 
-## APAS optional Unlock All
+## APAS optional progression
 
-The suite bundles the APAS Unified 3.0.0-rc.1 ASI, which includes both cost settings and optional Unlock All. Only one APAS ASI is installed. Unlock All is **off by default**. To enable it, install APAS, open **Mod Settings → APAS Memory Costs → APASUnlocks → Unlock All**, save, apply changes and restart the game. Unlocks may persist in the save; disabling the option does not undo saved unlocks. Back up your save before enabling. Set APASMemoryCosts / Enabled to off if you want Unlock All with vanilla costs.
+The suite bundles the stable APAS Unified 3.0.0 ASI. Unlock All and Early Access are **off by default**. Install APAS, open **Mod Settings → APAS Memory Costs → APASUnlocks** and select either option, save, apply changes and restart the game. Early Access exposes the APAS menu in Episode 2; Unlock All bypasses node prerequisites. They can be used independently. Located nodes and unlocks may persist in the save after disabling the options. Back up your save before enabling them. Set APASMemoryCosts / Enabled to off if you want vanilla costs.
 
-Old cost-only INIs receive an explicit UnlockAll=0 during updates, including updates without a saved central profile. Existing explicit UnlockAll values and valid cost settings are retained. Coffin Board updates preserve valid existing settings and add missing reworked options with the release defaults.
+Old INIs receive explicit UnlockAll=0 and EarlyAccess=0 during updates, including updates without a saved central profile. Existing explicit progression choices and valid cost settings are retained. Coffin Board updates preserve valid existing settings and add missing reworked options with the release defaults.
 
-## Changes and compatibility in 1.7.0
+## Changes and compatibility in 1.8.0
 
-APAS Unified applies costs when native nodes are created, without a recurring scan. Base nodes and natively free nodes keep their native costs. This candidate has extensive offline checks but limited gameplay coverage; the reported early-game purchasing issue, FPS, final startup and full save/load/Unlock All behavior are not all verified in game.
+APAS Unified 3.0.0 retains native cost initialization without gameplay polling. The Early Access menu and APAS purchases/unlocks were verified live in Episode 2. Both progression switches remain off by default.
 
-Backpack 1.1.0 replaces the known 1.0.0 ASI automatically. Its automatically created `DS2_HighDensityBackpackModules.charms.ini` is preserved; select charms in the game's customization menu. Before removing Backpack, unequip extra charms and reduce modules to a vanilla-compatible layout, save, then close the game. Unknown modified legacy binaries require manual review.
+Backpack 1.1.0 offers standard clean visuals or the optional Classic Overlap build with visible overlapping module meshes and manual one-cell placement. Select exactly one variant; the manager removes the other known ASI when switching. Classic Overlap passed local checks but has not yet been tested in game. Its automatically created `DS2_HighDensityBackpackModules.charms.ini` is preserved. Before removing Backpack, unequip extra charms and reduce modules to a vanilla-compatible layout, save, then close the game. Unknown modified binaries require manual review.
 
-Improved Odradek Scan starts at the tested 500 m radius. Its central settings accept 50-1000 m; higher values do not guarantee full-radius detection. Keep VisualWaveScale=1 for the tested appearance. Advanced scan modes and diagnostic logging are hidden by default.
+Crafting Overhaul 1.3.0 adds 120 per-item unlock choices, optional Free Crafting and equipment durability settings. The 120 item choices are available under advanced settings. Free Crafting and durability changes start off. The manager preserves custom item settings and INI comments.
 
 ## Safety
 
@@ -73,6 +73,7 @@ Without administrator rights, backups and logs are stored below the LocalAppData
 - Floating Carrier Cargo Capacity 1.0.0
 - Coffin Board Reworked 1.83.0
 - High-Density Backpack Modules 1.1.0
+- High-Density Backpack Modules 1.1.0 Classic Overlap (alternative to the standard build)
 - Climbing Power Gloves Range 1.0.0
 - Sam Stats Booster 1.0.0
 - Porter Grade Booster 1.0.0
@@ -86,11 +87,12 @@ Without administrator rights, backups and logs are stored below the LocalAppData
 - Infrastructure One Unit 1.0.0
 - Remote Orders Overlay 0.2.0
 - Extended BT Cord Cutting Range 1.0.0
-- APAS Memory Costs 3.0.0-rc.1 (optional Unlock All, off by default)
+- APAS Memory Costs 3.0.0 (optional Unlock All and Early Access, both off by default)
 - Proficiency Bonus Multiplier 1.0.0
 - Improved Odradek Scan 1.0.0
+- Crafting Overhaul 1.3.0
 
-APAS Unified 3.0.0-rc.1 is a release candidate with limited gameplay coverage. Other bundled mods use their published releases. TEST, TRACE and older reference builds are not included.
+The list contains 23 distinct mods and 24 selectable entries because Backpack has two exclusive variants. Central settings cover 20 mods, 21 INI files and 312 fields. Only released files are bundled; TEST, TRACE and older reference builds are excluded.
 
 ## Deutsch
 
@@ -104,7 +106,7 @@ APAS Unified 3.0.0-rc.1 is a release candidate with limited gameplay coverage. O
 
 Das zentrale Menü zeigt ausschließlich installierte Mods mit konfigurierbarer INI. Nicht installierte Mods und Mods ohne INI werden ausgeblendet. Es ersetzt die mod-eigenen INIs nicht, sondern verwaltet sie sicher an einer Stelle. **Einstellungen speichern** legt zunächst nur das zentrale Profil ab. Erst **Änderungen anwenden** schreibt die einzelnen INIs mit Sicherung, Prüfung und Rollback-Schutz in den Spielordner. Änderungen werden nach einem Neustart des Spiels aktiv. Eigene INIs bleiben beim Entfernen einer Mod erhalten.
 
-APAS enthält den Unified-Release-Candidate 3.0.0-rc.1 mit optionalem **Unlock All**, das im Manager standardmäßig **ausgeschaltet** ist. Aktivierung: **Mod-Einstellungen → APAS Memory Costs → APASUnlocks → Unlock All**, speichern, Änderungen anwenden und das Spiel neu starten. Freischaltungen können im Spielstand bleiben; Ausschalten macht sie nicht rückgängig. Vor dem Aktivieren den Spielstand sichern. Ältere INIs ohne diese Option erhalten beim Update ausdrücklich `UnlockAll=0`.
+APAS Unified 3.0.0 bietet optional **Unlock All** und **Early Access**. Beide Optionen sind standardmäßig ausgeschaltet. Aktivierung: **Mod-Einstellungen → APAS Memory Costs → APASUnlocks**, speichern, Änderungen anwenden und das Spiel neu starten. Freischaltungen und gefundene Knoten können im Spielstand bleiben. Vor dem Aktivieren den Spielstand sichern. Ältere INIs erhalten fehlende Optionen ausdrücklich mit Wert `0`.
 
 ## Build
 

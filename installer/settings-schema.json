@@ -797,6 +797,11 @@
                   "key": "UnlockAll",
                   "type": "bool",
                   "default": "0"
+                },
+                {
+                  "key": "EarlyAccess",
+                  "type": "bool",
+                  "default": "0"
                 }
               ]
             }
@@ -1383,6 +1388,782 @@
                 {
                   "key": "DebugLog",
                   "type": "bool",
+                  "advanced": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "modId": "crafting-unlocks",
+      "files": [
+        {
+          "target": "ds2_crafting_unlocks.ini",
+          "sections": [
+            {
+              "name": "CraftingUnlocks",
+              "fields": [
+                {
+                  "key": "Enabled",
+                  "type": "bool"
+                },
+                {
+                  "key": "DefaultUnlock",
+                  "type": "bool"
+                },
+                {
+                  "key": "FreeCrafting",
+                  "type": "bool"
+                },
+                {
+                  "key": "ExportCatalogue",
+                  "type": "bool",
+                  "advanced": true
+                }
+              ]
+            },
+            {
+              "name": "Durability",
+              "fields": [
+                {
+                  "key": "Enabled",
+                  "type": "bool"
+                },
+                {
+                  "key": "Multiplier",
+                  "type": "decimal",
+                  "min": 1,
+                  "max": 1000
+                },
+                {
+                  "key": "Unbreakable",
+                  "type": "bool"
+                }
+              ]
+            },
+            {
+              "name": "Items",
+              "fields": [
+                {
+                  "key": "0x6E7D4315",
+                  "type": "bool",
+                  "label": "Porter Boots",
+                  "advanced": true
+                },
+                {
+                  "key": "0x7D2DB0E1",
+                  "type": "bool",
+                  "label": "Trekking Boots",
+                  "advanced": true
+                },
+                {
+                  "key": "0x0F4633E2",
+                  "type": "bool",
+                  "label": "Combat Boots",
+                  "advanced": true
+                },
+                {
+                  "key": "0x1C16C016",
+                  "type": "bool",
+                  "label": "Pizza Chef's Boots",
+                  "advanced": true
+                },
+                {
+                  "key": "0x5B8C5709",
+                  "type": "bool",
+                  "label": "Stealth Boots",
+                  "advanced": true
+                },
+                {
+                  "key": "0x16CF98D9",
+                  "type": "bool",
+                  "label": "All-Terrain Boots",
+                  "advanced": true
+                },
+                {
+                  "key": "0x75D99124",
+                  "type": "bool",
+                  "label": "Omnireflector Boots",
+                  "advanced": true
+                },
+                {
+                  "key": "0x7DDFDB62",
+                  "type": "bool",
+                  "label": "Battle Skeleton Lv.1",
+                  "advanced": true
+                },
+                {
+                  "key": "0x6E8F2896",
+                  "type": "bool",
+                  "label": "Battle Skeleton Lv.2",
+                  "advanced": true
+                },
+                {
+                  "key": "0x1CE4AB95",
+                  "type": "bool",
+                  "label": "Battle Skeleton Lv.3",
+                  "advanced": true
+                },
+                {
+                  "key": "0x493873FB",
+                  "type": "bool",
+                  "label": "Bokka Skeleton Lv.1",
+                  "advanced": true
+                },
+                {
+                  "key": "0x5A68800F",
+                  "type": "bool",
+                  "label": "Bokka Skeleton Lv.2",
+                  "advanced": true
+                },
+                {
+                  "key": "0x2803030C",
+                  "type": "bool",
+                  "label": "Bokka Skeleton Lv.3",
+                  "advanced": true
+                },
+                {
+                  "key": "0x5A9AEB8C",
+                  "type": "bool",
+                  "label": "Boost Skeleton Lv.1",
+                  "advanced": true
+                },
+                {
+                  "key": "0x49CA1878",
+                  "type": "bool",
+                  "label": "Boost Skeleton Lv.2",
+                  "advanced": true
+                },
+                {
+                  "key": "0x3BA19B7B",
+                  "type": "bool",
+                  "label": "Boost Skeleton Lv.3",
+                  "advanced": true
+                },
+                {
+                  "key": "0x529CA1CA",
+                  "type": "bool",
+                  "label": "Combat Power Gloves Lv.1",
+                  "advanced": true
+                },
+                {
+                  "key": "0x33A7D13D",
+                  "type": "bool",
+                  "label": "Combat Power Gloves Lv.2",
+                  "advanced": true
+                },
+                {
+                  "key": "0x20F722C9",
+                  "type": "bool",
+                  "label": "Climbing Power Gloves Lv.1",
+                  "advanced": true
+                },
+                {
+                  "key": "0x41CC523E",
+                  "type": "bool",
+                  "label": "Climbing Power Gloves Lv.2",
+                  "advanced": true
+                },
+                {
+                  "key": "0x413E39BD",
+                  "type": "bool",
+                  "label": "Thermal Pad",
+                  "advanced": true
+                },
+                {
+                  "key": "0x3355BABE",
+                  "type": "bool",
+                  "label": "Oxygen Mask",
+                  "advanced": true
+                },
+                {
+                  "key": "0x5CCBD2CD",
+                  "type": "bool",
+                  "label": "Blood Bag",
+                  "advanced": true
+                },
+                {
+                  "key": "0x4F9B2139",
+                  "type": "bool",
+                  "label": "High-Capacity Blood Bag",
+                  "advanced": true
+                },
+                {
+                  "key": "0x4944250E",
+                  "type": "bool",
+                  "label": "PCC Lv.1",
+                  "advanced": true
+                },
+                {
+                  "key": "0x3B2FA60D",
+                  "type": "bool",
+                  "label": "PCC Lv.2",
+                  "advanced": true
+                },
+                {
+                  "key": "0x5AE6BD79",
+                  "type": "bool",
+                  "label": "PCC Lv.3",
+                  "advanced": true
+                },
+                {
+                  "key": "0x6FE5C2E6",
+                  "type": "bool",
+                  "label": "Container Repair Spray",
+                  "advanced": true
+                },
+                {
+                  "key": "0x1D8E41E5",
+                  "type": "bool",
+                  "label": "Ladder",
+                  "advanced": true
+                },
+                {
+                  "key": "0x0EDEB211",
+                  "type": "bool",
+                  "label": "Climbing Anchor",
+                  "advanced": true
+                },
+                {
+                  "key": "0x7D51E614",
+                  "type": "bool",
+                  "label": "Signpost",
+                  "advanced": true
+                },
+                {
+                  "key": "0x4708E49F",
+                  "type": "bool",
+                  "label": "Floating Carrier Lv.1",
+                  "advanced": true
+                },
+                {
+                  "key": "0x5458176B",
+                  "type": "bool",
+                  "label": "Floating Carrier Lv.2",
+                  "advanced": true
+                },
+                {
+                  "key": "0x0184CF05",
+                  "type": "bool",
+                  "label": "Coffin Board",
+                  "advanced": true
+                },
+                {
+                  "key": "0x385B0CD0",
+                  "type": "bool",
+                  "label": "Maser Handgun",
+                  "advanced": true
+                },
+                {
+                  "key": "0x17187678",
+                  "type": "bool",
+                  "label": "Machine Pistol [MP]",
+                  "advanced": true
+                },
+                {
+                  "key": "0x6573F57B",
+                  "type": "bool",
+                  "label": "SL Machine Pistol [MP]",
+                  "advanced": true
+                },
+                {
+                  "key": "0x7623068F",
+                  "type": "bool",
+                  "label": "Big-Bore Handgun [MP]",
+                  "advanced": true
+                },
+                {
+                  "key": "0x58772475",
+                  "type": "bool",
+                  "label": "SL Tranq Handgun",
+                  "advanced": true
+                },
+                {
+                  "key": "0x055FDDDE",
+                  "type": "bool",
+                  "label": "Grenade Pistol [MP]",
+                  "advanced": true
+                },
+                {
+                  "key": "0x38365FC3",
+                  "type": "bool",
+                  "label": "Assault Rifle [MP] Lv.1",
+                  "advanced": true
+                },
+                {
+                  "key": "0x7FACC8DC",
+                  "type": "bool",
+                  "label": "Assault Rifle [MP] Lv.2",
+                  "advanced": true
+                },
+                {
+                  "key": "0x2B66AC37",
+                  "type": "bool",
+                  "label": "LW Assault Rifle [MP] Lv.1",
+                  "advanced": true
+                },
+                {
+                  "key": "0x590D2F34",
+                  "type": "bool",
+                  "label": "LW Assault Rifle [MP] Lv.2",
+                  "advanced": true
+                },
+                {
+                  "key": "0x6CFC3B28",
+                  "type": "bool",
+                  "label": "SL-LW Assault Rifle [MP] Lv.1",
+                  "advanced": true
+                },
+                {
+                  "key": "0x1E97B82B",
+                  "type": "bool",
+                  "label": "SL-LW Assault Rifle [MP] Lv.2",
+                  "advanced": true
+                },
+                {
+                  "key": "0x1775256B",
+                  "type": "bool",
+                  "label": "Shotgun [MP] Lv.1",
+                  "advanced": true
+                },
+                {
+                  "key": "0x22843177",
+                  "type": "bool",
+                  "label": "Shotgun [MP] Lv.2",
+                  "advanced": true
+                },
+                {
+                  "key": "0x764E559C",
+                  "type": "bool",
+                  "label": "LW Shotgun [MP] Lv.1",
+                  "advanced": true
+                },
+                {
+                  "key": "0x0425D69F",
+                  "type": "bool",
+                  "label": "LW Shotgun [MP] Lv.2",
+                  "advanced": true
+                },
+                {
+                  "key": "0x3234B715",
+                  "type": "bool",
+                  "label": "Tranq Sniper Rifle",
+                  "advanced": true
+                },
+                {
+                  "key": "0x405F3416",
+                  "type": "bool",
+                  "label": "LW Tranq Sniper Rifle",
+                  "advanced": true
+                },
+                {
+                  "key": "0x530FC7E2",
+                  "type": "bool",
+                  "label": "SL-LW Tranq Sniper Rifle",
+                  "advanced": true
+                },
+                {
+                  "key": "0x3259E406",
+                  "type": "bool",
+                  "label": "Bola Gun",
+                  "advanced": true
+                },
+                {
+                  "key": "0x40326705",
+                  "type": "bool",
+                  "label": "Bola Stun Gun",
+                  "advanced": true
+                },
+                {
+                  "key": "0x1D77CDBD",
+                  "type": "bool",
+                  "label": "Sticky Gun",
+                  "advanced": true
+                },
+                {
+                  "key": "0x1C6095EF",
+                  "type": "bool",
+                  "label": "Machine Gun [MP] Lv.2",
+                  "advanced": true
+                },
+                {
+                  "key": "0x0F30661B",
+                  "type": "bool",
+                  "label": "LW Machine Gun [MP] Lv.1",
+                  "advanced": true
+                },
+                {
+                  "key": "0x6E0B16EC",
+                  "type": "bool",
+                  "label": "LW Machine Gun [MP] Lv.2",
+                  "advanced": true
+                },
+                {
+                  "key": "0x20731CB3",
+                  "type": "bool",
+                  "label": "Grenade Launcher [MP]",
+                  "advanced": true
+                },
+                {
+                  "key": "0x41486C44",
+                  "type": "bool",
+                  "label": "LW Grenade Launcher [MP]",
+                  "advanced": true
+                },
+                {
+                  "key": "0x3323EF47",
+                  "type": "bool",
+                  "label": "RD Grenade Launcher [MP]",
+                  "advanced": true
+                },
+                {
+                  "key": "0x67E98BAC",
+                  "type": "bool",
+                  "label": "LW-RD Grenade Launcher [MP]",
+                  "advanced": true
+                },
+                {
+                  "key": "0x05328ECD",
+                  "type": "bool",
+                  "label": "Quadruple Rocket Launcher",
+                  "advanced": true
+                },
+                {
+                  "key": "0x6409FE3A",
+                  "type": "bool",
+                  "label": "Multirocket Launcher",
+                  "advanced": true
+                },
+                {
+                  "key": "0x16627D39",
+                  "type": "bool",
+                  "label": "LW Multirocket Launcher",
+                  "advanced": true
+                },
+                {
+                  "key": "0x77590DCE",
+                  "type": "bool",
+                  "label": "LW Seven-Rocket Launcher",
+                  "advanced": true
+                },
+                {
+                  "key": "0x7CB53112",
+                  "type": "bool",
+                  "label": "Rocket Box [MP]",
+                  "advanced": true
+                },
+                {
+                  "key": "0x0A4CBAE9",
+                  "type": "bool",
+                  "label": "Tar Cannon",
+                  "advanced": true
+                },
+                {
+                  "key": "0x782739EA",
+                  "type": "bool",
+                  "label": "Chiral Shock Cannon",
+                  "advanced": true
+                },
+                {
+                  "key": "0x32A0685E",
+                  "type": "bool",
+                  "label": "Stun Bomb",
+                  "advanced": true
+                },
+                {
+                  "key": "0x7FE3A78E",
+                  "type": "bool",
+                  "label": "Remote Stun Bomb",
+                  "advanced": true
+                },
+                {
+                  "key": "0x40CBEB5D",
+                  "type": "bool",
+                  "label": "MP Grenade",
+                  "advanced": true
+                },
+                {
+                  "key": "0x666A0CB5",
+                  "type": "bool",
+                  "label": "Blood Grenade Lv.1",
+                  "advanced": true
+                },
+                {
+                  "key": "0x1E2ABCFA",
+                  "type": "bool",
+                  "label": "Blood Grenade Lv.2",
+                  "advanced": true
+                },
+                {
+                  "key": "0x753AFF41",
+                  "type": "bool",
+                  "label": "Smoke Grenade",
+                  "advanced": true
+                },
+                {
+                  "key": "0x539B18A9",
+                  "type": "bool",
+                  "label": "EX Grenade",
+                  "advanced": true
+                },
+                {
+                  "key": "0x21F09BAA",
+                  "type": "bool",
+                  "label": "EX Capture Grenade",
+                  "advanced": true
+                },
+                {
+                  "key": "0x14018FB6",
+                  "type": "bool",
+                  "label": "Decoy Hologrenade",
+                  "advanced": true
+                },
+                {
+                  "key": "0x0D88248D",
+                  "type": "bool",
+                  "label": "BT Hologrenade",
+                  "advanced": true
+                },
+                {
+                  "key": "0x66986736",
+                  "type": "bool",
+                  "label": "Stealth Hologrenade",
+                  "advanced": true
+                },
+                {
+                  "key": "0x527FCFAF",
+                  "type": "bool",
+                  "label": "Phantom Gas Grenade",
+                  "advanced": true
+                },
+                {
+                  "key": "0x288D3E7A",
+                  "type": "bool",
+                  "label": "Dog Mine",
+                  "advanced": true
+                },
+                {
+                  "key": "0x49B64E8D",
+                  "type": "bool",
+                  "label": "Electric Trap",
+                  "advanced": true
+                },
+                {
+                  "key": "0x581A7766",
+                  "type": "bool",
+                  "label": "Custom Electric Rod",
+                  "advanced": true
+                },
+                {
+                  "key": "0x2A71F465",
+                  "type": "bool",
+                  "label": "Custom High-Voltage Rod",
+                  "advanced": true
+                },
+                {
+                  "key": "0x39210791",
+                  "type": "bool",
+                  "label": "Custom Twin Rod",
+                  "advanced": true
+                },
+                {
+                  "key": "0x3BDDCD8E",
+                  "type": "bool",
+                  "label": "Battle Guitar",
+                  "advanced": true
+                },
+                {
+                  "key": "0x20144CAC",
+                  "type": "bool",
+                  "label": "Rubber Pizza",
+                  "advanced": true
+                },
+                {
+                  "key": "0x1D7C2A66",
+                  "type": "bool",
+                  "label": "Deployable Shield",
+                  "advanced": true
+                },
+                {
+                  "key": "0x7C475A91",
+                  "type": "bool",
+                  "label": "Floating Sentry Gun",
+                  "advanced": true
+                },
+                {
+                  "key": "0x2F256E9F",
+                  "type": "bool",
+                  "label": "Extra Battery Lv.1",
+                  "advanced": true
+                },
+                {
+                  "key": "0x08605E71",
+                  "type": "bool",
+                  "label": "Extra Battery Lv.2",
+                  "advanced": true
+                },
+                {
+                  "key": "0x1B30AD85",
+                  "type": "bool",
+                  "label": "Extra Battery Lv.3",
+                  "advanced": true
+                },
+                {
+                  "key": "0x695B2E86",
+                  "type": "bool",
+                  "label": "Extra Battery Lv.4",
+                  "advanced": true
+                },
+                {
+                  "key": "0x5797B553",
+                  "type": "bool",
+                  "label": "Mini Extra Battery",
+                  "advanced": true
+                },
+                {
+                  "key": "0x3C759D6B",
+                  "type": "bool",
+                  "label": "Utility Pouch",
+                  "advanced": true
+                },
+                {
+                  "key": "0x4E1E1E68",
+                  "type": "bool",
+                  "label": "Grenade Pouch",
+                  "advanced": true
+                },
+                {
+                  "key": "0x3C87F6E8",
+                  "type": "bool",
+                  "label": "Large Grenade Pouch",
+                  "advanced": true
+                },
+                {
+                  "key": "0x44352D24",
+                  "type": "bool",
+                  "label": "Spare Ammo Container",
+                  "advanced": true
+                },
+                {
+                  "key": "0x684D9203",
+                  "type": "bool",
+                  "label": "Large Spare Ammo Container Lv.1",
+                  "advanced": true
+                },
+                {
+                  "key": "0x1A261100",
+                  "type": "bool",
+                  "label": "Large Spare Ammo Container Lv.2",
+                  "advanced": true
+                },
+                {
+                  "key": "0x5DBC861F",
+                  "type": "bool",
+                  "label": "Stabilizer Lv.1",
+                  "advanced": true
+                },
+                {
+                  "key": "0x0976E2F4",
+                  "type": "bool",
+                  "label": "Stabilizer Lv.2",
+                  "advanced": true
+                },
+                {
+                  "key": "0x7B1D61F7",
+                  "type": "bool",
+                  "label": "Stabilizer Lv.3",
+                  "advanced": true
+                },
+                {
+                  "key": "0x68BFF980",
+                  "type": "bool",
+                  "label": "Chiral Anti-Gravity Device",
+                  "advanced": true
+                },
+                {
+                  "key": "0x7BEF0A74",
+                  "type": "bool",
+                  "label": "Auto Revive Device",
+                  "advanced": true
+                },
+                {
+                  "key": "0x09848977",
+                  "type": "bool",
+                  "label": "Electric Shock Absorber",
+                  "advanced": true
+                },
+                {
+                  "key": "0x25FC3650",
+                  "type": "bool",
+                  "label": "Back Protector",
+                  "advanced": true
+                },
+                {
+                  "key": "0x4EEC75EB",
+                  "type": "bool",
+                  "label": "Solar Generator",
+                  "advanced": true
+                },
+                {
+                  "key": "0x365EAE27",
+                  "type": "bool",
+                  "label": "Backpack Cover Lv.1",
+                  "advanced": true
+                },
+                {
+                  "key": "0x7A0BDD72",
+                  "type": "bool",
+                  "label": "Backpack Cover Lv.2",
+                  "advanced": true
+                },
+                {
+                  "key": "0x780F7FE2",
+                  "type": "bool",
+                  "label": "Cryptobiote",
+                  "advanced": true
+                },
+                {
+                  "key": "0x0A64FCE1",
+                  "type": "bool",
+                  "label": "Love Knot",
+                  "advanced": true
+                },
+                {
+                  "key": "0x19340F15",
+                  "type": "bool",
+                  "label": "Bell",
+                  "advanced": true
+                },
+                {
+                  "key": "0x6B5F8C16",
+                  "type": "bool",
+                  "label": "Chiral Tea",
+                  "advanced": true
+                },
+                {
+                  "key": "0x3F95E8FD",
+                  "type": "bool",
+                  "label": "Quokka",
+                  "advanced": true
+                },
+                {
+                  "key": "0x4DFE6BFE",
+                  "type": "bool",
+                  "label": "Porter",
+                  "advanced": true
+                },
+                {
+                  "key": "0x5EAE980A",
+                  "type": "bool",
+                  "label": "Electrobiote",
+                  "advanced": true
+                },
+                {
+                  "key": "0x2CC51B09",
+                  "type": "bool",
+                  "label": "Boxing Kangaroos",
                   "advanced": true
                 }
               ]

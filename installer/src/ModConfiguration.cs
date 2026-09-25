@@ -56,6 +56,9 @@ namespace DS2ModSuite
         [DataMember(Name = "key")]
         public string Key { get; set; }
 
+        [DataMember(Name = "label", EmitDefaultValue = false)]
+        public string Label { get; set; }
+
         [DataMember(Name = "type")]
         public string Type { get; set; }
 
@@ -164,7 +167,7 @@ namespace DS2ModSuite
                             Raw = raw,
                             Section = section,
                             Key = key,
-                            Value = raw.Substring(separator + 1).Trim(),
+                            Value = raw.Substring(separator + 1).Split(new[] { ';' }, 2)[0].Trim(),
                             IsKey = true
                         });
                         continue;
@@ -222,7 +225,10 @@ namespace DS2ModSuite
             if (matches.Count > 0)
             {
                 int keep = matches[matches.Count - 1];
-                lines[keep].Raw = key + "=" + value;
+                string oldRaw = lines[keep].Raw ?? string.Empty;
+                int comment = oldRaw.IndexOf(';', oldRaw.IndexOf('=') + 1);
+                string suffix = comment >= 0 ? "  " + oldRaw.Substring(comment).TrimStart() : string.Empty;
+                lines[keep].Raw = key + "=" + value + suffix;
                 lines[keep].Key = key;
                 lines[keep].Value = value;
                 for (int index = matches.Count - 2; index >= 0; index--) lines.RemoveAt(matches[index]);
@@ -377,7 +383,7 @@ namespace DS2ModSuite
                                 PayloadHash = file.Sha256,
                                 Section = section.Name,
                                 Key = field.Key,
-                                Label = Humanize(field.Key),
+                                Label = string.IsNullOrWhiteSpace(field.Label) ? Humanize(field.Key) : field.Label,
                                 Description = defaults.GetLeadingComment(section.Name, field.Key),
                                 DefaultValue = normalized,
                                 Schema = field
@@ -581,13 +587,14 @@ namespace DS2ModSuite
             return GetDefinitions(catalog).Any(field => string.Equals(field.Target, target, StringComparison.OrdinalIgnoreCase));
         }
 
-        // Keep the APAS opt-in explicit across legacy upgrades. Odradek also needs
-        // required keys populated when adopting an incomplete standalone INI.
+        // Keep optional progression switches explicit and complete incomplete
+        // standalone configuration files when the suite adopts them.
         public static bool RequiresIniMigration(string modId)
         {
             return RequiresExactSectionKeys(modId)
                 || string.Equals(modId, "apas-memory-costs", StringComparison.OrdinalIgnoreCase)
-                || string.Equals(modId, "improved-odradek-scan", StringComparison.OrdinalIgnoreCase);
+                || string.Equals(modId, "improved-odradek-scan", StringComparison.OrdinalIgnoreCase)
+                || string.Equals(modId, "crafting-unlocks", StringComparison.OrdinalIgnoreCase);
         }
 
         public static bool RequiresExactSectionKeys(string modId)

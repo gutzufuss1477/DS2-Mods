@@ -17,12 +17,12 @@ namespace DS2ModSuite
             {
                 Catalog catalog = CatalogService.LoadAndValidate();
                 CatalogService.ValidatePayloads(catalog);
-                Assert(catalog.SuiteVersion == "1.7.0" && catalog.Mods.Count == 22,
+                Assert(catalog.SuiteVersion == "1.8.0" && catalog.Mods.Count == 24,
                     "suite version/mod count mismatch");
                 report.AppendLine("PASS catalog and all payload hashes");
 
                 List<ConfigFieldDefinition> definitions = ModConfigurationService.GetDefinitions(catalog);
-                Assert(definitions.Count == 184 && definitions.Select(field => field.Target).Distinct(StringComparer.OrdinalIgnoreCase).Count() == 20,
+                Assert(definitions.Count == 312 && definitions.Select(field => field.Target).Distinct(StringComparer.OrdinalIgnoreCase).Count() == 21,
                     "settings schema field/file coverage mismatch");
                 List<ModSpec> filteredSettingsMods = ModSettingsWindow.FilterInstalledConfigurableMods(
                     catalog,
@@ -126,16 +126,20 @@ namespace DS2ModSuite
                 Assert(catalog.Mods[0].LocalizedDescription == catalog.Mods[0].Description, "English catalog localization failed");
                 LoaderInspector.Relocalize(localizedLoader);
                 Assert(localizedLoader.DisplayText == "ASI Loader 9.7.2 is installed", "English loader relocalization failed");
-                report.AppendLine("PASS English/German localization, persistence and 184-field settings schema validation");
+                report.AppendLine("PASS English/German localization, persistence and 312-field settings schema validation");
 
                 string runningExecutable = System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName;
                 File.Copy(runningExecutable, Path.Combine(testRoot, catalog.Game.Executable), true);
                 TestBackpackUpgrade(catalog, testRoot, runningExecutable);
                 report.AppendLine("PASS Backpack legacy filename migration, conflict guard, idempotence, removal and charm-state preservation");
+                TestBackpackVariants(catalog, testRoot, runningExecutable);
+                report.AppendLine("PASS mutually exclusive Backpack variants, safe switching and charm-state preservation");
                 TestOdradekSettings(catalog, testRoot, runningExecutable);
                 report.AppendLine("PASS Odradek defaults, bounds/modes, profile upgrade, install/adoption, settings, idempotence and removal");
                 TestApasOptIn(catalog, testRoot, runningExecutable);
-                report.AppendLine("PASS APAS default-off fresh install, legacy migration with/without profile, explicit opt-in/out, preservation and idempotence");
+                report.AppendLine("PASS APAS 3.0.0 default-off progression, legacy migration with/without profile, explicit opt-in/out, preservation and idempotence");
+                TestCraftingSettings(catalog, testRoot, runningExecutable);
+                report.AppendLine("PASS Crafting 1.3.0 defaults, item settings, inline comments, adoption, idempotence and removal");
 
                 string noProfileUpgradeRoot = Path.Combine(testRoot, "coffin-no-profile-upgrade");
                 Directory.CreateDirectory(noProfileUpgradeRoot);
@@ -350,7 +354,17 @@ namespace DS2ModSuite
                     "tampered UAC result authentication was accepted");
                 Assert(ApplyCoordinator.QuoteArgument("C:\\") == "\"C:\\\\\"",
                     "Windows argument quoting did not protect a trailing backslash");
-                report.AppendLine("PASS authenticated UAC result integrity check");
+                string compressedProfile = ConfigurationTransport.Encode(configurationProfile);
+                ModConfigurationProfile restoredProfile = ConfigurationTransport.Decode(compressedProfile);
+                Assert(compressedProfile.Length < 20000 && restoredProfile.Values.Count == definitions.Count
+                    && definitions.All(field => ModConfigurationService.GetValue(configurationProfile, field.Id)
+                        == ModConfigurationService.GetValue(restoredProfile, field.Id)),
+                    "full settings profile exceeded the elevated command line or failed round-trip");
+                bool malformedProfileRejected = false;
+                try { ConfigurationTransport.Decode("not-base64"); }
+                catch (FormatException) { malformedProfileRejected = true; }
+                Assert(malformedProfileRejected, "malformed elevated settings payload was accepted");
+                report.AppendLine("PASS authenticated UAC result integrity and bounded compressed settings transport");
 
                 string escaped = PathGuard.ResolveUnderRoot(testRoot, "safe\\file.txt");
                 Assert(escaped.StartsWith(Path.GetFullPath(testRoot), StringComparison.OrdinalIgnoreCase), "safe path rejected");
@@ -496,6 +510,95 @@ namespace DS2ModSuite
             }
         }
 
+        private static void TestBackpackVariants(Catalog catalog, string testRoot, string runningExecutable)
+        {
+            ModSpec standard = catalog.Mods.Single(mod => mod.Id == "high-density-backpack-modules");
+            ModSpec classic = catalog.Mods.Single(mod => mod.Id == "high-density-backpack-classic");
+            Assert(standard.ExclusiveGroup == classic.ExclusiveGroup && standard.ExclusiveGroup == "high-density-backpack",
+                "Backpack variants must share one exclusive group");
+            string gameRoot = Path.Combine(testRoot, "backpack-variants");
+            Directory.CreateDirectory(gameRoot);
+            File.Copy(runningExecutable, Path.Combine(gameRoot, catalog.Game.Executable));
+            string charm = Path.Combine(gameRoot, "DS2_HighDensityBackpackModules.charms.ini");
+            File.WriteAllText(charm, "; custom equipped charms\r\n");
+            ApplyPlan plan = new ApplyPlan { GamePath = gameRoot, Language = "en",
+                SelectedModIds = new List<string> { standard.Id } };
+            InstallEngine engine = new InstallEngine(catalog, true);
+            Assert(engine.Apply(plan, new DirectProgress()).Success, "standard Backpack install failed");
+            plan.SelectedModIds = new List<string> { standard.Id, classic.Id };
+            Assert(!engine.Apply(plan, new DirectProgress()).Success, "both Backpack variants were accepted");
+            plan.SelectedModIds = new List<string> { classic.Id };
+            Assert(engine.Apply(plan, new DirectProgress()).Success, "switch to Classic Overlap failed");
+            Assert(!File.Exists(Path.Combine(gameRoot, standard.Files[0].Target))
+                && HashUtil.EqualsHash(HashUtil.FileSha256(Path.Combine(gameRoot, classic.Files[0].Target)), classic.Files[0].Sha256)
+                && File.ReadAllText(charm).Contains("custom equipped charms"),
+                "Classic Overlap switch left both ASIs or lost charm state");
+            Assert(engine.Apply(plan, new DirectProgress()).Success
+                && Directory.GetFiles(gameRoot, "DS2_HighDensityBackpackModules*.asi").Length == 1,
+                "Classic Overlap reapply was not idempotent");
+            plan.SelectedModIds = new List<string> { standard.Id };
+            Assert(engine.Apply(plan, new DirectProgress()).Success
+                && !File.Exists(Path.Combine(gameRoot, classic.Files[0].Target)),
+                "switch back to standard Backpack failed");
+            File.WriteAllText(Path.Combine(gameRoot, classic.Files[0].Target), "unknown modified variant");
+            Assert(!engine.Apply(plan, new DirectProgress()).Success
+                && File.Exists(Path.Combine(gameRoot, standard.Files[0].Target)),
+                "unknown competing Backpack ASI was not safely rejected");
+        }
+
+        private static void TestCraftingSettings(Catalog catalog, string testRoot, string runningExecutable)
+        {
+            const string modId = "crafting-unlocks";
+            const string target = "ds2_crafting_unlocks.ini";
+            List<ConfigFieldDefinition> fields = ModConfigurationService.GetDefinitions(catalog)
+                .Where(field => field.ModId == modId).ToList();
+            Assert(fields.Count == 127 && fields.Count(field => field.Section == "Items") == 120,
+                "Crafting settings are incomplete");
+            ConfigFieldDefinition free = fields.Single(field => field.Section == "CraftingUnlocks" && field.Key == "FreeCrafting");
+            ConfigFieldDefinition durability = fields.Single(field => field.Section == "Durability" && field.Key == "Enabled");
+            ConfigFieldDefinition multiplier = fields.Single(field => field.Section == "Durability" && field.Key == "Multiplier");
+            ConfigFieldDefinition boots = fields.Single(field => field.Section == "Items" && field.Key == "0x75D99124");
+            Assert(free.DefaultValue == "0" && durability.DefaultValue == "0" && boots.DefaultValue == "1"
+                && boots.Label == "Omnireflector Boots" && boots.Schema.Advanced,
+                "Crafting release defaults or item labels are wrong");
+            string gameRoot = Path.Combine(testRoot, "crafting");
+            Directory.CreateDirectory(gameRoot);
+            File.Copy(runningExecutable, Path.Combine(gameRoot, catalog.Game.Executable));
+            string iniPath = Path.Combine(gameRoot, target);
+            File.WriteAllText(iniPath, "; personal note\r\n[CraftingUnlocks]\r\nEnabled=1\r\nDefaultUnlock=1\r\nFreeCrafting=0\r\n"
+                + "[Durability]\r\nEnabled=0\r\nMultiplier=2.0\r\nUnbreakable=0\r\n"
+                + "[Items]\r\n0x75D99124=0  ; Omnireflector Boots\r\n[Custom]\r\nKeep=1\r\n");
+            ModConfigurationProfile profile = ModConfigurationService.LoadEffectiveProfile(catalog, gameRoot);
+            ModConfigurationService.SetValue(profile, multiplier.Id, "1001");
+            string error;
+            Assert(!ModConfigurationService.TryValidateProfile(catalog, profile, out error),
+                "invalid durability multiplier was accepted");
+            ModConfigurationService.SetValue(profile, multiplier.Id, "3.5");
+            ModConfigurationService.SetValue(profile, free.Id, "1");
+            ModConfigurationService.SetValue(profile, durability.Id, "1");
+            ModConfigurationService.SetValue(profile, boots.Id, "0");
+            Assert(ModConfigurationService.TryValidateProfile(catalog, profile, out error),
+                "valid Crafting profile was rejected: " + error);
+            ApplyPlan plan = new ApplyPlan { GamePath = gameRoot, Language = "en",
+                SelectedModIds = new List<string> { modId }, ConfigurationProfile = profile };
+            InstallEngine engine = new InstallEngine(catalog, true);
+            Assert(engine.Apply(plan, new DirectProgress()).Success, "Crafting installation/adoption failed");
+            string installed = File.ReadAllText(iniPath);
+            Assert(installed.Contains("FreeCrafting=1") && installed.Contains("Multiplier=3.5")
+                && installed.Contains("0x75D99124=0  ; Omnireflector Boots")
+                && installed.Contains("Keep=1") && installed.Contains("; personal note"),
+                "Crafting settings or user comments were lost");
+            byte[] before = File.ReadAllBytes(iniPath);
+            ApplyResult repeated = engine.Apply(plan, new DirectProgress());
+            Assert(repeated.Success && repeated.ConfigurationsUpdated == 0
+                && before.SequenceEqual(File.ReadAllBytes(iniPath)), "Crafting reapply changed settings");
+            plan.SelectedModIds.Clear();
+            Assert(engine.Apply(plan, new DirectProgress()).Success
+                && !File.Exists(Path.Combine(gameRoot, "ds2_crafting_unlocks.asi"))
+                && before.SequenceEqual(File.ReadAllBytes(iniPath)),
+                "Crafting removal discarded custom settings");
+        }
+
         private static void TestApasOptIn(Catalog catalog, string testRoot, string runningExecutable)
         {
             const string modId = "apas-memory-costs";
@@ -504,8 +607,11 @@ namespace DS2ModSuite
             ModFileSpec binary = apas.Files.Single(file => !file.IsConfig);
             ConfigFieldDefinition unlock = ModConfigurationService.GetDefinitions(catalog)
                 .Single(field => field.ModId == modId && field.Key == "UnlockAll");
-            Assert(apas.Version == "3.0.0-rc.1" && unlock.DefaultValue == "0" && !unlock.Schema.Advanced,
-                "APAS optional unlock must be visible and off by default");
+            ConfigFieldDefinition early = ModConfigurationService.GetDefinitions(catalog)
+                .Single(field => field.ModId == modId && field.Key == "EarlyAccess");
+            Assert(apas.Version == "3.0.0" && unlock.DefaultValue == "0" && !unlock.Schema.Advanced
+                && early.DefaultValue == "0" && !early.Schema.Advanced,
+                "APAS progression options must be visible and off by default");
 
             foreach (bool withProfile in new[] { false, true })
             foreach (string previous in new[] { "fresh", "legacy", "0", "1" })
@@ -518,7 +624,8 @@ namespace DS2ModSuite
                 {
                     File.WriteAllText(Path.Combine(gameRoot, binary.Target), "old APAS binary");
                     File.WriteAllText(iniPath, "; custom cost\r\n[APASMemoryCosts]\r\nEnabled=0\r\nGlobalCost=7\r\nCustomKey=42\r\n"
-                        + (previous == "legacy" ? "" : "[APASUnlocks]\r\nUnlockAll=" + previous + "\r\n")
+                        + (previous == "legacy" ? "" : "[APASUnlocks]\r\nUnlockAll=" + previous + "\r\n"
+                            + (previous == "1" ? "EarlyAccess=1\r\n" : ""))
                         + "[Unrelated]\r\nKeep=1\r\n");
                 }
                 ModConfigurationProfile profile = withProfile
@@ -541,6 +648,8 @@ namespace DS2ModSuite
                 IniDocument installed = IniDocument.Parse(installedText);
                 Assert(installed.GetValue("APASUnlocks", "UnlockAll", null) == (previous == "1" ? "1" : "0"),
                     "APAS install changed or implicitly enabled the unlock choice");
+                Assert(installed.GetValue("APASUnlocks", "EarlyAccess", null) == (previous == "1" ? "1" : "0"),
+                    "APAS install changed or implicitly enabled early access");
                 Assert(HashUtil.EqualsHash(HashUtil.FileSha256(Path.Combine(gameRoot, binary.Target)), binary.Sha256)
                     && Directory.GetFiles(gameRoot, "*.asi").Length == 1,
                     "APAS must use exactly one replacement ASI");

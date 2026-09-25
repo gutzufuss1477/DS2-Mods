@@ -1,1 +1,1 @@
-Install and manage 22 DS2 mods in English/German. Includes Improved Odradek Scan, Backpack 1.1.0 and APAS Unified 3.0.0-rc.1 (limited gameplay coverage), central settings, ASI Loader setup, backups and rollback. For Steam 1.10.89.0.
+Install and manage 23 DS2 mods in English/German. Adds Crafting Overhaul 1.3.0 and optional Backpack Classic Overlap; updates APAS Unified to 3.0.0 with optional Early Access. Central settings, backups and rollback. Steam 1.10.89.0.

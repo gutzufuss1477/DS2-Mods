@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "suiteVersion": "1.7.0",
+  "suiteVersion": "1.8.0",
   "game": {
     "name": "DEATH STRANDING 2: ON THE BEACH",
     "executable": "DS2.exe",
@@ -166,8 +166,8 @@
       "version": "1.1.0",
       "category": "Equipment & Progression",
       "categoryDe": "Ausrüstung & Fortschritt",
-      "description": "Up to 30 functional backpack modules with automatic placement, hidden excess models and eight charm slots (two visible, six invisible).",
-      "descriptionDe": "Bis zu 30 funktionale Rucksackmodule mit automatischer Platzierung, ausgeblendeten überzähligen Modellen und acht Anhängerplätzen (zwei sichtbar, sechs unsichtbar).",
+      "description": "Up to 30 functional backpack modules with automatic placement, hidden excess models and eight charm slots (two visible, six invisible). Select the separate Classic Overlap variant instead if you prefer visible overlapping meshes.",
+      "descriptionDe": "Bis zu 30 funktionale Rucksackmodule mit automatischer Platzierung, ausgeblendeten überzähligen Modellen und acht Anhängerplätzen (zwei sichtbar, sechs unsichtbar). Alternativ kann die Classic-Overlap-Variante mit sichtbaren überlappenden Modellen gewählt werden.",
       "files": [
         {
           "payload": "payload/mods/high-density-backpack-modules/DS2_HighDensityBackpackModules_v1.1.0.asi",
@@ -181,7 +181,8 @@
           "target": "DS2_HighDensityBackpackModules_v1.0.0.asi",
           "sha256": "C4C5CC2B525BEB88AEF264521B56C00E6616ABF6DFB0C2F6970C92379D719C1C"
         }
-      ]
+      ],
+      "exclusiveGroup": "high-density-backpack"
     },
     {
       "id": "climbing-power-gloves-range",
@@ -491,22 +492,22 @@
     {
       "id": "apas-memory-costs",
       "name": "APAS Memory Costs",
-      "version": "3.0.0-rc.1",
+      "version": "3.0.0",
       "category": "Equipment & Progression",
       "categoryDe": "Ausrüstung & Fortschritt",
-      "description": "Unified release candidate: configurable costs for normally paid APAS nodes and optional Unlock All (off by default), without recurring scans. Limited gameplay coverage; saved unlocks may persist.",
-      "descriptionDe": "Unified-Release-Candidate: Kosten für regulär kostenpflichtige APAS-Knoten und optionales Unlock All (standardmäßig aus), ohne wiederkehrende Scans. Begrenzte Spieltests; Freischaltungen können gespeichert bleiben.",
+      "description": "Stable unified APAS 3.0.0: configurable paid-node costs, optional Unlock All and Episode 2 Early Access. Both progression options are off by default; saved unlocks may persist.",
+      "descriptionDe": "Stabiles APAS Unified 3.0.0: konfigurierbare Kosten, optionales Unlock All und früher Zugang ab Episode 2. Beide Fortschrittsoptionen sind standardmäßig aus; Freischaltungen können gespeichert bleiben.",
       "files": [
         {
           "payload": "payload/mods/apas-memory-costs/ds2_apas_memory_costs.asi",
           "target": "ds2_apas_memory_costs.asi",
-          "sha256": "1E8176A00062342899B0A15F609F72B3C0EEB112F70791376D78CA7FB28D143F",
+          "sha256": "8B1F9910A46B1E7929084ACEF23340131382BBA2D059B2CD24A9BD86EA16E4B9",
           "kind": "binary"
         },
         {
           "payload": "payload/mods/apas-memory-costs/ds2_apas_memory_costs.ini",
           "target": "ds2_apas_memory_costs.ini",
-          "sha256": "369F866E21629C6F4F8B73502C45795DAD05FB50F3DB49288851E19C46042DEC",
+          "sha256": "D6EF5A944A03F4EBDFD9B2A6332FE9375C27D9F3F10DDA5DF596718879638DA2",
           "kind": "config"
         }
       ]
@@ -553,6 +554,48 @@
           "payload": "payload/mods/improved-odradek-scan/ds2_odradek_scan.ini",
           "target": "ds2_odradek_scan.ini",
           "sha256": "2000A60FC9AB9B21C9B5B9521F30CCB0EBA2B5409205A9305FB9A99C563D7BA7",
+          "kind": "config"
+        }
+      ]
+    },
+    {
+      "id": "high-density-backpack-classic",
+      "name": "High-Density Backpack - Classic Overlap",
+      "version": "1.1.0",
+      "category": "Equipment & Progression",
+      "categoryDe": "Ausrüstung & Fortschritt",
+      "description": "Alternative Backpack build: 30 one-cell modules, visible overlapping meshes, manual placement and eight charm slots. Not yet checked in game. Choose instead of the standard variant.",
+      "descriptionDe": "Alternative Backpack-Version: 30 Ein-Zellen-Module, sichtbare überlappende Modelle, manuelle Platzierung und acht Anhängerplätze. Noch nicht im Spiel geprüft. Statt der Standardvariante wählen.",
+      "exclusiveGroup": "high-density-backpack",
+      "files": [
+        {
+          "payload": "payload/mods/high-density-backpack-classic/DS2_HighDensityBackpackModules_v1.1.0_Classic_Overlap.asi",
+          "target": "DS2_HighDensityBackpackModules_v1.1.0_Classic_Overlap.asi",
+          "sha256": "EA16EC54D380D1CDB30D52C12197D92650C10877E0F9B6D551E29AB90E77643C",
+          "kind": "binary"
+        }
+      ],
+      "obsoleteFiles": []
+    },
+    {
+      "id": "crafting-unlocks",
+      "name": "Crafting Overhaul",
+      "version": "1.3.0",
+      "category": "Equipment & Progression",
+      "categoryDe": "Ausrüstung & Fortschritt",
+      "description": "Early crafting for 120 supported items, optional free crafting and equipment durability, including Omnireflector Boots. Free Crafting and durability changes are off by default.",
+      "descriptionDe": "Frühes Herstellen von 120 Gegenständen, optional kostenloses Herstellen und Ausrüstungshaltbarkeit inklusive Omnireflector-Stiefeln. Kostenloses Herstellen und Haltbarkeitsänderungen sind standardmäßig aus.",
+      "files": [
+        {
+          "payload": "payload/mods/crafting-unlocks/ds2_crafting_unlocks.asi",
+          "target": "ds2_crafting_unlocks.asi",
+          "sha256": "9CCC0FEAF260265DA7A8ADE3498B8B4986D0489707C9A6DB42E7F8659A427948",
+          "kind": "binary"
+        },
+        {
+          "payload": "payload/mods/crafting-unlocks/ds2_crafting_unlocks.ini",
+          "target": "ds2_crafting_unlocks.ini",
+          "sha256": "A5DD9C6D054388B135BB265FDAE4A6FBD2CEC4227476D45C983A107954BEC2DD",
           "kind": "config"
         }
       ]

@@ -282,6 +282,10 @@ namespace DS2ModSuite
                 detail = Localization.T(
                     "Optional; off by default. Bypasses APAS progression. Unlocks may persist in the save even after disabling this option. Back up your save before enabling.",
                     "Optional; standardmäßig aus. Umgeht den APAS-Fortschritt. Freischaltungen können auch nach dem Ausschalten im Spielstand bleiben. Vor dem Aktivieren den Spielstand sichern.");
+            if (field.ModId == "apas-memory-costs" && field.Key == "EarlyAccess")
+                detail = Localization.T(
+                    "Optional; off by default. Shows APAS in the Ring Device before the normal story unlock (Episode 2). Located nodes may persist in the save. Back up your save before enabling.",
+                    "Optional; standardmäßig aus. Zeigt APAS im Ringgerät vor der normalen Story-Freischaltung (Episode 2). Gefundene Knoten können im Spielstand bleiben. Vor dem Aktivieren den Spielstand sichern.");
             if (!string.IsNullOrWhiteSpace(detail))
             {
                 TextBlock help = Theme.Text(detail, 11.5, Theme.TextSecondary, FontWeights.Normal);
