@@ -2,7 +2,7 @@
 #include "target.h"
 
 // One binary, one immutable startup configuration. No timer or gameplay worker.
-#define APAS_VERSION "3.0.0-rc.5"
+#define APAS_VERSION "3.0.0-rc.6"
 constexpr u32 kConstructorRva = 0xBE0270;
 constexpr u32 kUnlockBlockRva = 0xBE39A0;
 constexpr u32 kResourceVtableRva = 0x32088B8;
@@ -30,15 +30,23 @@ static bool Read(const void* src, void* dst, SIZE_T size) {
     MemoryInfo info;
     u64 address = (u64)src;
     u64 page = address & ~0xfffull;
-    if (!VirtualQuery(src, &info, sizeof(info)) || info.state != kCommit ||
-        address < (u64)info.base || size > (u64)info.base + info.size - address ||
-        page < (u64)info.base || 0x1000 > (u64)info.base + info.size - page) {
+    if (!VirtualQuery(src, &info, sizeof(info))) {
         g_protectedReadFailure = 1;
+        return false;
+    }
+    if (info.state != kCommit) {
+        g_protectedReadFailure = 2;
+        return false;
+    }
+    // Every anchor read is deliberately bounded to its own 4 KiB page. Do not
+    // depend on a loader's coalesced VirtualQuery region boundaries.
+    if (size > 0x1000 - (address & 0xfffull)) {
+        g_protectedReadFailure = 3;
         return false;
     }
     DWORD previous, ignored;
     if (!VirtualProtect((void*)page, 0x1000, kExecuteRead, &previous)) {
-        g_protectedReadFailure = 2;
+        g_protectedReadFailure = 4;
         return false;
     }
     // The caller is now permitted to read this bounded page. Some loaders still
@@ -46,7 +54,7 @@ static bool Read(const void* src, void* dst, SIZE_T size) {
     memcpy(dst, src, size);
     bool restored = VirtualProtect((void*)page, 0x1000, previous, &ignored) != 0;
     if (!restored) {
-        g_protectedReadFailure = 3;
+        g_protectedReadFailure = 5;
         return false;
     }
     g_usedProtectedRead = true;

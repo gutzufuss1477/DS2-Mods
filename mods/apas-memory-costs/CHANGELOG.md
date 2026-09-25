@@ -1,14 +1,14 @@
 # Changelog
 
-## 3.0.0-rc.5 - Execute-only in-process read
+## 3.0.0-rc.6 - Loader-region-independent anchor read
 
-- rc.4 still reported a code-anchor read failure. It had retried through
-  `ReadProcessMemory`; this API remains blocked by the loader even after a page is
-  made readable.
-- For a failed read only, the validation path changes the containing 4 KiB page to
-  Execute+Read, copies the bounded bytes directly in-process, and restores the
-  exact previous protection before continuing. It never makes a page writable
-  during validation.
+- rc.5 identified its rejected preflight as a loader-specific `VirtualQuery` region
+  boundary check, before it attempted to make the page readable.
+- The fallback now requires only a committed page and an anchor that stays inside
+  that 4 KiB page. It does not depend on the loader's reported region boundaries.
+- It changes that single page to Execute+Read, copies the bounded bytes directly,
+  and restores the exact previous protection before continuing. It never makes a
+  page writable during validation.
 - The image format and all seven exact code/vtable anchors remain mandatory; any
   read, code, or relocated vtable-pointer mismatch still rejects before code is
   changed. Successful fallback use is recorded in the local log.
