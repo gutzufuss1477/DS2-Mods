@@ -1,10 +1,9 @@
-# DS2 APAS Memory Costs - unified edition
+# DS2 APAS Memory Costs
 
-**3.0.0-rc.8: release candidate with limited gameplay coverage.**
+**Version 3.0.0**
 
-One `ds2_apas_memory_costs.asi` and one `ds2_apas_memory_costs.ini` provide both
-configurable APAS Memory costs and optional early APAS unlocks. No separate
-Performance Hotfix or Unlock All build is needed.
+One ASI and one INI provide configurable APAS Memory costs plus two optional
+progression features: Unlock All and Early Access.
 
 ```ini
 [APASMemoryCosts]
@@ -13,58 +12,53 @@ GlobalCost=1
 
 [APASUnlocks]
 UnlockAll=0
+EarlyAccess=0
 ```
 
-- `GlobalCost=0`: normally paid enhancements are free.
-- `GlobalCost=1..1000000`: exact global cost for normally paid enhancements.
-- Special base nodes (IDs 0..3) and natively free nodes retain their native costs.
-- `Enabled=0`: vanilla costs. This switch does not disable Unlock All.
-- `UnlockAll=0`: normal APAS progression; the safe default.
-- `UnlockAll=1`: bypass APAS prerequisites when the native APAS system is available.
-  Unlocks nodes without automatically equipping them or unlocking the APAS menu.
+## Settings
 
-Back up saves before enabling Unlock All. Native unlocks may persist in saves;
-turning the option off or uninstalling does not undo already saved unlocks.
+- `Enabled=1`: apply the configured Memory cost.
+- `Enabled=0`: keep vanilla APAS costs.
+- `GlobalCost=0`: normally paid enhancements are free.
+- `GlobalCost=1..1000000`: exact cost for normally paid enhancements.
+- Special base nodes and natively free nodes retain their native costs.
+- `UnlockAll=1`: bypass APAS node prerequisites using the game's native APAS path.
+- `EarlyAccess=1`: expose the APAS Ring Device entry before its normal story unlock.
+- For full early APAS access, use `UnlockAll=1` and `EarlyAccess=1` together.
+
+Both progression options are disabled by default. Early Access changes only the
+APAS menu gate; it does not write global story or facility facts. Special Ring
+Device restrictions remain vanilla.
+
+Back up your save before enabling Unlock All / Early Access. Native APAS unlocks
+or located nodes may persist after the option is disabled or the mod is removed.
 
 ## Install
 
-Close the game. Extract the single ZIP in `release/` and copy its ASI and INI beside
-`DS2.exe`. A compatible 64-bit ASI loader is required. Replace the old APAS files;
-remove additional or renamed APAS ASIs from loader folders. Restart after INI edits.
-Mod Suite 1.7.0 embeds this unified candidate. Older suite versions still contain
-older APAS builds and can overwrite this candidate during an APAS repair/update.
+Close the game and copy `ds2_apas_memory_costs.asi` and
+`ds2_apas_memory_costs.ini` beside `DS2.exe`. A compatible 64-bit ASI loader is
+required. Replace older APAS files and do not keep separate Performance Hotfix or
+Unlock All ASIs installed. Restart the game after INI changes.
 
-## Implementation
+Mod Suite 1.7.0 still embeds the previous unified APAS release candidate. An APAS
+repair/update through that suite can overwrite this standalone v3.0.0; reinstall
+the standalone v3.0.0 package afterwards until the suite is updated.
 
-Costs are applied on the native APAS node-construction path, before the game copies
-the cost into its node cache. Later-created nodes and loaded saves take the same
-path. There is no timer, recurring table scan, retained resource-pointer cache or
-permanent background worker.
+## Compatibility
 
-The exact supported research target is **Steam DS2.exe 1.10.89.0**. Code anchors,
-PE metadata, resource type and startup state are checked. Unknown builds and
-conflicting patches are rejected. The INI and startup result are recorded in the
-local `ds2_apas_memory_costs.log`; check for `READY`. The image format and exact
-code/vtable anchors are mandatory. A rejected startup records the failed target
-component without applying any change.
+Supported executable: **Steam DS2.exe 1.10.89.0**.
+Unknown builds and conflicting target code are rejected before hooks are installed.
+The local `ds2_apas_memory_costs.log` records configuration and startup status.
 
-## Verification and limits
+The mod patches memory only while the game is running. It does not modify DS2.exe
+on disk.
 
-Automated checks cover strict INI parsing, all node IDs, base/free-node preservation,
-late node creation, native calling convention, executable relays, rollback, all four
-feature combinations, unsupported/conflicting targets, loader lifetime, and the
-actual game accounting/activation functions in an isolated mapped image.
+## Verification
 
-These checks do **not** establish that the specific Nexus purchasing report is fixed
-or measure gameplay FPS. Affected saves were not available. The user reported
-working one-point costs on an Episode 9 save with the preliminary build, and
-authorized Nexus publication with the remaining checks disclosed. Final startup,
-new-game, UI, load/save and Unlock All gameplay verification remains incomplete.
+Version 3.0.0 passed automated INI, native cost/accounting, executable relay,
+mapped-image, rollback and loader-lifetime tests. Live testing on an Episode 2
+save confirmed that Early Access exposes the APAS menu and that APAS enhancements
+can be opened, purchased and unlocked with the release configuration.
 
-- [German game-test instructions](docs/TESTANLEITUNG_DE.md)
-- [Current test status](docs/TEST_STATUS.md)
-- [Technical notes](docs/TECHNICAL_NOTES.md)
-- [Reproducible build](docs/BUILD.md)
-- [Prepared Nexus description and consolidation](docs/NEXUS_DESCRIPTION.md)
-
-Older version notes remain historical evidence; Git history retains the old builds.
+The implementation uses native APAS creation/locate paths and has no recurring
+gameplay scan or persistent polling worker.

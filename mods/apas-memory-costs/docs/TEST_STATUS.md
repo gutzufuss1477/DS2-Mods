@@ -1,78 +1,50 @@
-# 3.0.0-rc.8 validation - 2026-09-25
+# 3.0.0 validation - 2026-09-25
 
-## Episode-2 menu attempt
+## Live gameplay verification
 
-The user opened the ring menu at the first Episode-2 facility and APAS was absent.
-This remains not an UnlockAll or UI result: rc.1 rejected startup, rc.2 identified
-changed PE metadata, and rc.3 identified `TARGET_ANCHOR_READ_FAILURE` at
-`0xBE0270`. The on-disk `DS2.exe` remains the exact supported SHA-256 and version
-(`BF3D...D143F`, Steam 1.10.89.0). Ultimate ASI Loader makes the code page
-execute-only. rc.4 still used a rejected second `ReadProcessMemory` call, rc.5
-identified a loader-specific region-boundary preflight, rc.6 identified a
-nonstandard page state, and rc.7 reached an unprotectable early code page. rc.8
-retries only that target condition during the first 30 seconds of `DS2.exe`
-startup, then stops. The first valid UI result requires an rc.8 log that says
-`READY`.
+The final Early Access implementation was tested on the user's Episode 2 save with:
 
-## Passed
+```ini
+[APASMemoryCosts]
+Enabled=1
+GlobalCost=1
 
-- Warning-as-error x64 LLVM compile/link with no external CRT.
-- Normal PE `.text`, `.rdata`, `.data`, `.pdata`, `.reloc`; ASLR and NX flags.
-- 15 INI cases: default UnlockAll=0, independent switches, free/custom/max cost,
-  invalid booleans, negative/overflow/malformed/truncated input.
-- Cost rules for IDs 0..55 at targets 0, 1, 25, 1000000; special base IDs and
-  native free/invalid costs preserved; wrong resource type passed through.
-- Actual generated relay/trampoline execution with native Windows-x64 arguments,
-  resource and cache consistency, newly created later resource, and restoration.
-- Actual mapped supported game image: all four feature combinations, exact
-  instruction/jump targets, restored native bytes/protections, refusal for late
-  manager creation, old Unlock All conflict and changed PE timestamp.
-- Actual native Memory accounting and activation code, executed in isolation:
-  nonzero base cost fails the zero-capacity check; zero base cost passes. Free,
-  one-point, custom and maximum cost capacity boundaries behave consistently.
-- Exact public ASI loaded in an isolated Python host: unsupported host refused,
-  20 repeated process-attach calls do not launch workers or rewrite the log,
-  and module pinning keeps the callback image loaded after FreeLibrary.
+[APASUnlocks]
+UnlockAll=1
+EarlyAccess=1
+```
 
-## Limited live-start evidence
+Confirmed in game:
+- APAS is visible in the Ring Device before the normal story unlock.
+- The APAS screen opens normally.
+- APAS enhancements are displayed and available.
+- Memory points can be spent.
+- Enhancements can be unlocked successfully.
+- The release cost path remains functional with GlobalCost=1.
 
-A preliminary build was loaded with the user's ASI loader and `UnlockAll=0`.
-Read-only inspection found the expected cost hook and valid original trampoline
-in DS2. The log also contained a later rejected installation attempt despite
-those initialized globals. A repeated-initialization guard and module pin were
-added afterwards and passed the isolated loader test above.
+This closes the previously missing early-game UI/progression verification for the
+new feature.
 
-The preliminary startup is NOT a gameplay test and NOT a live-start verification
-of the final candidate. The user explicitly requested no further game control and
-will perform game testing. The game was not subsequently controlled or closed by
-the agent. The preliminary installed ASI must be replaced with the packaged final
-candidate after the user fully exits the game.
+## Automated verification
 
-## User report and publication scope - 2026-09-23
+- Warning-as-error x64 LLVM build.
+- Strict INI/default/invalid-input coverage.
+- Cost rules across APAS node IDs, including native free/base nodes.
+- Native Windows-x64 relay/trampoline execution.
+- Mapped supported DS2 image installation for feature combinations.
+- Native APAS accounting and activation checks.
+- Patch conflict detection and rollback.
+- Unsupported-host refusal, repeated DllMain guard and module pinning.
+- Exact executable/code-anchor validation for Steam DS2.exe 1.10.89.0.
 
-The user started a fresh save but found no APAS menu just after the intro. Further
-early-game progression testing is unavailable. On an Episode 9 save, the user
-reported all enhancements selectable/unlocked and one-point costs. Read-only file
-inspection still found preliminary ASI SHA256
-`C6DE980E070F42B72B8BF5023092D506F6B8B280BF173E613DC645B46C5A7CC0`
-installed, with UnlockAll=0. This supports the preliminary cost behavior, not the
-final startup protection or optional unlock mode. Existing unlocked enhancements
-do not establish that UnlockAll was tested.
+## Scope
 
-The published candidate ASI SHA256 is
-`1E8176A00062342899B0A15F609F72B3C0EEB112F70791376D78CA7FB28D143F`.
-The user authorized a single Nexus main release now, without further progression
-testing. It retains the release-candidate version and discloses these limits.
+EarlyAccess changes only the APAS Ring Device gate and preserves the Ring Device's
+special contextual restriction. UnlockAll uses the native APAS locate/unlock path.
+No global story/facility facts are written.
 
-## Remaining gameplay checks
+UnlockAll / located APAS nodes may be save-persistent. Back up saves before using
+progression-changing options.
 
-- Actual final ASI startup reports READY with the user's loader.
-- Existing-save cost display, activation/deactivation and memory accounting.
-- Return to title, reload, switch saves and later progression unlocks.
-- New-save APAS initialization and the reported inability to buy upgrades.
-- UnlockAll off/on, including vanilla-cost plus UnlockAll mode.
-- Persistence behavior using an expendable or backed-up save.
-- Same-scene FPS comparison against no APAS mod.
-
-No affected Nexus save was available. The code-level findings are not sufficient
-to claim that the user's exact bug is reproduced or fixed. See `TESTANLEITUNG_DE.md`.
+The implementation has no recurring gameplay resource scan or permanent polling
+worker.

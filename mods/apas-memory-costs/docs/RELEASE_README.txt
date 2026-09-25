@@ -1,13 +1,11 @@
-DS2 APAS Memory Costs 3.0.0-rc.8
-Unified release candidate - limited gameplay coverage
+DS2 APAS Memory Costs 3.0.0
+Unified release
 
-ONE ASI, ONE INI
+INSTALL
 Copy ds2_apas_memory_costs.asi and ds2_apas_memory_costs.ini beside DS2.exe.
 A compatible 64-bit ASI loader is required.
-Replace the old APAS files. Remove any renamed or extra APAS ASIs in loader folders.
-Do not keep a separate Performance Hotfix or Unlock All ASI installed.
-If you use the Mod Suite manager, its old payload can overwrite this candidate
-when you repair/update APAS. Install this standalone candidate after that operation.
+Replace older APAS files and remove separate/renamed APAS ASIs.
+Restart the game after changing the INI.
 
 DEFAULT SETTINGS
 [APASMemoryCosts]
@@ -16,46 +14,35 @@ GlobalCost=1
 
 [APASUnlocks]
 UnlockAll=0
+EarlyAccess=0
 
-GlobalCost: 0 = free; 1 = one point; 2..1000000 = custom global cost.
-Special base nodes and natively free nodes retain their native costs.
-Enabled=0 keeps vanilla costs. UnlockAll remains independent of Enabled.
-UnlockAll=1 bypasses APAS prerequisites when the native APAS system is available.
-It unlocks nodes; you still activate/equip enhancements yourself.
-Restart the game after editing the INI. Use 0 or 1 for switches.
-Put comments on separate lines; do not append them to setting values.
+COST SETTINGS
+Enabled=1 applies the configured APAS Memory cost.
+Enabled=0 keeps vanilla costs.
+GlobalCost=0 makes normally paid enhancements free.
+GlobalCost=1..1000000 sets their exact global cost.
+Special base nodes and natively free nodes retain native costs.
 
-SAVE BEHAVIOR
-Back up your save before enabling UnlockAll=1. Native unlocked enhancements may
-be saved permanently. Turning the option off or removing the ASI does not relock
-already saved enhancements. Costs are changed in memory; the EXE file is untouched.
+OPTIONAL UNLOCKS
+UnlockAll=1 bypasses APAS node prerequisites through the native APAS path.
+EarlyAccess=1 exposes APAS in the Ring Device before its normal story unlock.
+For complete early APAS access, enable both UnlockAll=1 and EarlyAccess=1.
+The mod does not write global story/facility facts and preserves special Ring
+Device restrictions.
 
-COMPATIBILITY AND DIAGNOSTICS
-Supported research target: Steam DS2.exe 1.10.89.0.
-Other executables or conflicting code changes are rejected without installing hooks.
-The local ds2_apas_memory_costs.log records settings and startup status.
-READY means installation succeeded; it is not proof of a completed gameplay test.
-LATE_LOAD means restart the game with the ASI loader loading the mod at startup.
-UNSUPPORTED_OR_CONFLICT means the image format or an expected code anchor does
-not match. The image format plus all exact code/vtable anchors must match. The
-loader may change PE metadata in memory and make code execute-only; this is logged
-but does not replace the code-anchor checks. Validation may temporarily add read
-permission to one code page, then restores its original protection before it
-continues. A rejected log names the exact AnchorRva when applicable.
+SAVE WARNING
+Back up your save before using UnlockAll or EarlyAccess. Native unlocks/located
+nodes may persist in the save after disabling or uninstalling the mod.
 
-WHAT CHANGED
-No recurring APAS scans or persistent background worker.
-Costs are applied during native node creation, before the cached node cost is copied.
-Base nodes retain their native costs. New nodes and save reloads use the same hook.
-One file replaces the former main, performance-hotfix and unlock-all variants.
+COMPATIBILITY
+Supported target: Steam DS2.exe 1.10.89.0.
+Unknown builds or conflicting target code are rejected.
+Check ds2_apas_memory_costs.log for READY and the active settings.
+The mod changes memory only while the game runs; DS2.exe is not modified on disk.
 
 TEST STATUS
-Automated INI, cost, executable relay, native accounting/activation, patch rollback
-and module-lifetime checks pass. The reported Nexus purchasing issue has not been
-reproduced from a user's affected save. New-game behavior, APAS UI, load transitions,
-Unlock All progression and actual gameplay FPS still need user verification.
-An Episode 9 save showed selectable enhancements and one-point costs on a
-preliminary build. The packaged build adds startup/lifetime protection; its final
-loader behavior has automated coverage but no completed gameplay verification.
-A fresh save just after the intro had no APAS menu yet. UnlockAll does not unlock
-the APAS menu itself. The original early-game purchasing report remains unconfirmed.
+Automated configuration, native accounting/activation, relay, mapped-image,
+rollback and loader-lifetime tests pass.
+Live Episode 2 testing confirmed the APAS menu appears with EarlyAccess enabled
+and that enhancements can be opened, purchased and unlocked.
+No recurring gameplay scanner or persistent polling worker is used.

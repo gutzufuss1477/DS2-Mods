@@ -2,7 +2,7 @@
 #include "target.h"
 
 // One binary, one immutable startup configuration. No gameplay worker.
-#define APAS_VERSION "3.0.0-rc.11"
+#define APAS_VERSION "3.0.0"
 constexpr u32 kConstructorRva = 0xBE0270;
 constexpr u32 kUnlockBlockRva = 0xBE39A0;
 constexpr u32 kApasLocateRva = 0xBE1640;

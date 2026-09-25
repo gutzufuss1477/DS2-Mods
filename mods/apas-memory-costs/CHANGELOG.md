@@ -1,5 +1,22 @@
 # Changelog
 
+## 3.0.0 - Early APAS access
+
+- Promoted the unified APAS build to the stable 3.0.0 release after live Episode 2
+  verification.
+- Added optional `EarlyAccess=1`: exposes the APAS Ring Device entry before the
+  normal story unlock.
+- Early Access bypasses only the APAS-specific menu predicate. It does not write
+  global story/facility facts and preserves special Ring Device restrictions.
+- `UnlockAll=1` remains independent and bypasses APAS node prerequisites through
+  the game's native APAS locate/unlock path.
+- Using `EarlyAccess=1` together with `UnlockAll=1` provides full early APAS
+  access; both progression options remain disabled by default.
+- Live Episode 2 testing confirmed the APAS menu opens and enhancements can be
+  purchased/unlocked with the new early-access path.
+- Retains configurable costs, the no-polling implementation and strict target
+  validation for Steam DS2.exe 1.10.89.0.
+
 ## 3.0.0-rc.8 - Bounded DS2 startup readiness
 
 - rc.7 established that the early ASI callback reaches the APAS code before its

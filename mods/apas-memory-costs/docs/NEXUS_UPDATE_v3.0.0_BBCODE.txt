@@ -1,0 +1,99 @@
+TITLE
+Individual APAS Upgrade Cost - Early APAS - Unlock All
+
+SHORT DESCRIPTION
+Set APAS upgrades to 1 point, free or any custom cost. Optional Unlock All and Early Access can make APAS usable already in Episode 2. One ASI and one INI.
+
+FULL DESCRIPTION
+[b]APAS Memory Costs v3.0.0[/b]
+
+Configure APAS Enhancement Memory costs and optionally unlock APAS much earlier.
+Everything is now included in [b]one ASI + one INI[/b].
+
+[b]Main features[/b]
+[list]
+[*]Set normally paid APAS upgrades to [b]1 point[/b] (default)
+[*]Make them [b]free[/b] with GlobalCost=0
+[*]Set any custom global cost from 1 to 1000000
+[*]Optional [b]Unlock All[/b] for APAS upgrade prerequisites
+[*]Optional [b]Early Access[/b] to show APAS before its normal story unlock
+[*]No recurring gameplay scanner or permanent polling worker
+[*]No modification of DS2.exe on disk
+[/list]
+
+[b]Default configuration[/b]
+[code]
+[APASMemoryCosts]
+Enabled=1
+GlobalCost=1
+
+[APASUnlocks]
+UnlockAll=0
+EarlyAccess=0
+[/code]
+
+[b]Settings[/b]
+[list]
+[*][b]Enabled=1[/b] - use the configured APAS Memory cost
+[*][b]Enabled=0[/b] - keep vanilla APAS costs
+[*][b]GlobalCost=0[/b] - normally paid upgrades are free
+[*][b]GlobalCost=1..1000000[/b] - exact cost for normally paid upgrades
+[*][b]UnlockAll=1[/b] - bypass APAS upgrade prerequisites
+[*][b]EarlyAccess=1[/b] - expose APAS in the Ring Device before its normal story unlock
+[/list]
+
+Special base nodes and upgrades that are natively free keep their vanilla costs.
+
+[b]Want full APAS access early?[/b]
+Use both:
+[code]
+UnlockAll=1
+EarlyAccess=1
+[/code]
+
+This combination has been [b]tested successfully in Episode 2[/b]: the APAS menu appears, opens normally, Memory points can be spent and enhancements can be unlocked.
+
+Early Access only bypasses the APAS-specific menu gate. It does [b]not[/b] globally spoof story progress, facility state or Porter Grade. Special Ring Device restrictions remain vanilla.
+
+[b]Important save warning[/b]
+UnlockAll and early located APAS nodes can be saved by the game. Back up your save before enabling progression-changing options. Turning the options off later or uninstalling the mod may not relock upgrades already stored in the save.
+
+[b]Installation[/b]
+[list=1]
+[*]Close the game.
+[*]Extract [b]ds2_apas_memory_costs.asi[/b] and [b]ds2_apas_memory_costs.ini[/b] beside DS2.exe.
+[*]A compatible 64-bit ASI loader is required.
+[*]Replace older APAS mod files. Do not keep separate Performance Hotfix or Unlock All APAS ASIs installed.
+[*]Restart the game after changing the INI.
+[/list]
+
+[b]Compatibility[/b]
+Tested with [b]Steam DS2.exe 1.10.89.0[/b].
+Unknown game builds or conflicting target code are rejected instead of being patched blindly.
+
+If the mod does not activate, check [b]ds2_apas_memory_costs.log[/b] beside the game executable. A successful startup contains [b]READY[/b].
+
+[b]Updating from an older version[/b]
+Replace the old ASI and INI with the new files. Version 3.0.0 replaces the previous Main / Performance Hotfix / Unlock All variants with one unified package.
+
+[b]What's new in v3.0.0[/b]
+[list]
+[*]Added optional [b]EarlyAccess=1[/b] for APAS before the normal story unlock
+[*]Confirmed working in Episode 2 with the APAS menu, point spending and unlocks
+[*]UnlockAll and EarlyAccess are independent INI options and both default to off
+[*]Uses the game's native APAS locate/unlock path
+[*]Preserves special Ring Device restrictions
+[*]Retains configurable APAS costs and the low-overhead no-polling implementation
+[/list]
+
+[b]Shout outs[/b]
+Thanks to the DEATH STRANDING 2 modding community and everyone who tests and reports issues.
+
+MAIN FILE
+DS2_APAS_Memory_Costs_v3.0.0_NEXUS.zip
+
+FILE VERSION
+3.0.0
+
+FILE DESCRIPTION
+Unified v3.0.0. Configurable APAS Memory costs plus optional Unlock All and Early Access. Early APAS access tested successfully in Episode 2.

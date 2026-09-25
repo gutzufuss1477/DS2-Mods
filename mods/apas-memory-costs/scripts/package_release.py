@@ -25,7 +25,7 @@ assert version.encode() in payload['ds2_apas_memory_costs.asi']
 with zipfile.ZipFile(archive, 'w', compression=zipfile.ZIP_DEFLATED) as z:
     for name, data in payload.items():
         (release / name).write_bytes(data)
-        info = zipfile.ZipInfo(name, (2026, 9, 23, 0, 0, 0))
+        info = zipfile.ZipInfo(name, (2026, 9, 25, 0, 0, 0))
         info.compress_type = zipfile.ZIP_DEFLATED
         info.external_attr = 0o100644 << 16
         z.writestr(info, data)
