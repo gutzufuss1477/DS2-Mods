@@ -1,4 +1,4 @@
-# 3.0.0-rc.7 validation - 2026-09-25
+# 3.0.0-rc.8 validation - 2026-09-25
 
 ## Episode-2 menu attempt
 
@@ -8,10 +8,11 @@ changed PE metadata, and rc.3 identified `TARGET_ANCHOR_READ_FAILURE` at
 `0xBE0270`. The on-disk `DS2.exe` remains the exact supported SHA-256 and version
 (`BF3D...D143F`, Steam 1.10.89.0). Ultimate ASI Loader makes the code page
 execute-only. rc.4 still used a rejected second `ReadProcessMemory` call, rc.5
-identified a loader-specific region-boundary preflight, and rc.6 identified its
-nonstandard page state. rc.7 requires only a queried, bounded 4 KiB page and lets
-Windows reject any unprotectable page. The first valid UI result requires an rc.7
-log that says `READY`.
+identified a loader-specific region-boundary preflight, rc.6 identified a
+nonstandard page state, and rc.7 reached an unprotectable early code page. rc.8
+retries only that target condition during the first 30 seconds of `DS2.exe`
+startup, then stops. The first valid UI result requires an rc.8 log that says
+`READY`.
 
 ## Passed
 

@@ -1,4 +1,4 @@
-DS2 APAS Memory Costs 3.0.0-rc.7 - Episode-2 menu test
+DS2 APAS Memory Costs 3.0.0-rc.8 - Episode-2 menu test
 ==========================================================
 
 Purpose
@@ -6,10 +6,10 @@ Purpose
 The earlier Episode-2 attempt was invalid: its log said
 UNSUPPORTED_OR_CONFLICT, so the ASI installed no hook or UnlockAll patch. rc.2
 identified a loader-only PE metadata change and rc.3 identified execute-only code
-pages. rc.4's second system read was still blocked, rc.5's region check rejected,
-and rc.6's page state was nonstandard. rc.7 requires only a queried and bounded
-4 KiB page, then copies the anchor bytes after temporarily adding read permission
-and restores the exact protection. It still requires the exact image format and
+pages. rc.4's second system read was blocked, rc.5's region check rejected, rc.6
+saw a nonstandard page state, and rc.7 ran before the code page was protectable.
+rc.8 retries that single condition only during the first 30 seconds of `DS2.exe`
+startup, then exits permanently. It still requires the exact image format and
 every code/vtable anchor. If startup says READY, it tests whether the native
 UnlockAll path creates the APAS state required by the ring-menu item on a new
 Episode-2 save.
@@ -49,4 +49,4 @@ specific UI predicate.
 Files
 -----
 ds2_apas_memory_costs.asi
-  SHA-256: 9B37432C26539523A1E58890FE49539FC584ADE34FF23F3174E163C099AC973D
+  SHA-256: F0D4E22D4300ADCCE63E5EF607E33921C36FAC005A9431915A78752E1A7F332C

@@ -1,12 +1,15 @@
 # Changelog
 
-## 3.0.0-rc.7 - Protectable-page anchor read
+## 3.0.0-rc.8 - Bounded DS2 startup readiness
 
-- rc.6 showed that the loader also reports a nonstandard page state, before any
-  protection change is attempted.
-- The fallback now requires only a successful page query and an anchor that stays
-  inside that 4 KiB page. It does not rely on the loader's region state; Windows
-  `VirtualProtect` remains the authority and rejects non-protectable pages.
+- rc.7 established that the early ASI callback reaches the APAS code before its
+  page is protectable. The prior one-shot startup check could therefore never
+  install a hook.
+- On `DS2.exe` only, a startup thread now retries that one transient condition for
+  at most 30 seconds in 100 ms intervals. It exits permanently after success,
+  timeout, or any non-transient target mismatch. There is no gameplay polling.
+- Other host processes still reject immediately; loader-lifetime coverage verifies
+  that behavior.
 - It changes that single page to Execute+Read, copies the bounded bytes directly,
   and restores the exact previous protection before continuing. It never makes a
   page writable during validation.

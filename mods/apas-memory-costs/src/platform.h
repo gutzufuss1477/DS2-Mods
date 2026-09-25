@@ -28,6 +28,7 @@ __declspec(dllimport) DWORD __stdcall GetModuleFileNameW(HMODULE, wchar_t*, DWOR
 __declspec(dllimport) BOOL __stdcall DisableThreadLibraryCalls(HMODULE);
 __declspec(dllimport) HANDLE __stdcall CreateThread(void*, SIZE_T, DWORD (__stdcall*)(void*), void*, DWORD, DWORD*);
 __declspec(dllimport) BOOL __stdcall CloseHandle(HANDLE);
+__declspec(dllimport) void __stdcall Sleep(DWORD);
 __declspec(dllimport) HANDLE __stdcall GetCurrentProcess();
 __declspec(dllimport) BOOL __stdcall ReadProcessMemory(HANDLE, const void*, void*, SIZE_T, SIZE_T*);
 __declspec(dllimport) SIZE_T __stdcall VirtualQuery(const void*, MemoryInfo*, SIZE_T);

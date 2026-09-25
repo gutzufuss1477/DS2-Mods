@@ -6,6 +6,7 @@ EXPORTS
   DisableThreadLibraryCalls
   CreateThread
   CloseHandle
+  Sleep
   GetCurrentProcess
   ReadProcessMemory
   VirtualQuery

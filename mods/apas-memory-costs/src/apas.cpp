@@ -1,8 +1,8 @@
 #include "platform.h"
 #include "target.h"
 
-// One binary, one immutable startup configuration. No timer or gameplay worker.
-#define APAS_VERSION "3.0.0-rc.7"
+// One binary, one immutable startup configuration. No gameplay worker.
+#define APAS_VERSION "3.0.0-rc.8"
 constexpr u32 kConstructorRva = 0xBE0270;
 constexpr u32 kUnlockBlockRva = 0xBE39A0;
 constexpr u32 kResourceVtableRva = 0x32088B8;
@@ -99,6 +99,16 @@ static void LogHexNumber(const char* label, u64 number) {
     buffer[n] = 0;
     Log(buffer);
 }
+static bool g_emitTargetDiagnostics = true;
+static void TargetLog(const char* message) {
+    if (g_emitTargetDiagnostics) Log(message);
+}
+static void TargetLogNumber(const char* label, u32 number) {
+    if (g_emitTargetDiagnostics) LogNumber(label, number);
+}
+static void TargetLogHexNumber(const char* label, u64 number) {
+    if (g_emitTargetDiagnostics) LogHexNumber(label, number);
+}
 static bool Sibling(wchar_t* out, const wchar_t* name) {
     DWORD n = GetModuleFileNameW(g_self, out, 1024);
     if (!n || n >= 1024) return false;
@@ -110,6 +120,17 @@ static bool Sibling(wchar_t* out, const wchar_t* name) {
     }
     out[n] = 0;
     return true;
+}
+static bool IsDs2Process() {
+    wchar_t path[1024];
+    DWORD n = GetModuleFileNameW(nullptr, path, 1024);
+    if (!n || n >= 1024) return false;
+    const wchar_t name[] = L"DS2.exe";
+    u32 start = n;
+    while (start && path[start - 1] != L'\\' && path[start - 1] != L'/') --start;
+    for (u32 i = 0; name[i]; ++i)
+        if (start + i >= n || path[start + i] != name[i]) return false;
+    return start + 7 == n;
 }
 
 // Reject malformed/negative/overflowing values instead of silently enabling cheats.
@@ -151,7 +172,8 @@ static bool LoadSettings() {
     return true;
 }
 
-static bool ValidateImage(u8* base) {
+static bool ValidateImage(u8* base, bool diagnostics = true) {
+    g_emitTargetDiagnostics = diagnostics;
     g_usedProtectedRead = false;
     g_protectedReadFailure = 0;
     u16 magic = 0, machine = 0;
@@ -161,26 +183,26 @@ static bool ValidateImage(u8* base) {
         !Read(base + pe, &signature, 4) || signature != 0x4550 ||
         !Read(base + pe + 4, &machine, 2) || machine != 0x8664 ||
         !Read(base + pe + 24, &magic, 2) || magic != 0x20b) {
-        Log("TARGET_IMAGE_FORMAT_MISMATCH");
+        TargetLog("TARGET_IMAGE_FORMAT_MISMATCH");
         return false;
     }
     if (!Read(base + pe + 8, &timestamp, 4) ||
         !Read(base + pe + 24 + 56, &imageSize, 4)) {
-        Log("TARGET_METADATA_READ_FAILURE");
+        TargetLog("TARGET_METADATA_READ_FAILURE");
         return false;
     }
     // The user's ASI loader changes these two PE fields in memory. They are not
     // patch targets. The image format plus every exact code/vtable anchor below
     // remain mandatory, so a metadata-only change cannot widen a patch site.
     if (timestamp != kTimestamp || imageSize != kImageSize)
-        Log("TARGET_METADATA_CHANGED: exact code anchors still required.");
+        TargetLog("TARGET_METADATA_CHANGED: exact code anchors still required.");
     for (u32 anchorIndex = 0; anchorIndex < sizeof(kAnchors) / sizeof(kAnchors[0]); ++anchorIndex) {
         const auto& anchor = kAnchors[anchorIndex];
         u8 bytes[128];
         if (!Read(base + anchor.rva, bytes, anchor.length)) {
-            Log("TARGET_ANCHOR_READ_FAILURE");
-            LogHexNumber("AnchorRva=", anchor.rva);
-            if (g_protectedReadFailure) LogNumber("ProtectedReadFailure=", g_protectedReadFailure);
+            TargetLog("TARGET_ANCHOR_READ_FAILURE");
+            TargetLogHexNumber("AnchorRva=", anchor.rva);
+            if (g_protectedReadFailure) TargetLogNumber("ProtectedReadFailure=", g_protectedReadFailure);
             return false;
         }
         if (anchor.relocatedPointers) {
@@ -188,23 +210,37 @@ static bool ValidateImage(u8* base) {
                 u64 actual, native;
                 memcpy(&actual, bytes + i, 8); memcpy(&native, anchor.bytes + i, 8);
                 if (actual != (u64)base + native - 0x140000000ull) {
-                    Log("TARGET_RELOCATED_POINTER_MISMATCH");
-                    LogHexNumber("AnchorRva=", anchor.rva);
-                    LogNumber("PointerIndex=", i / 8);
-                    LogHexNumber("Found=", actual);
+                    TargetLog("TARGET_RELOCATED_POINTER_MISMATCH");
+                    TargetLogHexNumber("AnchorRva=", anchor.rva);
+                    TargetLogNumber("PointerIndex=", i / 8);
+                    TargetLogHexNumber("Found=", actual);
                     return false;
                 }
             }
         } else if (!Equal(bytes, anchor.bytes, anchor.length)) {
-            Log("TARGET_ANCHOR_BYTES_MISMATCH");
-            LogHexNumber("AnchorRva=", anchor.rva);
-            LogNumber("AnchorIndex=", anchorIndex);
+            TargetLog("TARGET_ANCHOR_BYTES_MISMATCH");
+            TargetLogHexNumber("AnchorRva=", anchor.rva);
+            TargetLogNumber("AnchorIndex=", anchorIndex);
             return false;
         }
     }
     if (g_usedProtectedRead)
-        Log("TARGET_EXECUTE_ONLY_READ: exact anchors verified; protection restored.");
+        TargetLog("TARGET_EXECUTE_ONLY_READ: exact anchors verified; protection restored.");
     return true;
+}
+
+// Ultimate ASI Loader can call us before the final executable code mapping is
+// protectable. Retry only that precise transient failure, at startup only, then
+// stop permanently. Any format or byte mismatch remains an immediate refusal.
+static bool WaitForTarget(u8* base) {
+    for (u32 attempt = 0; attempt < 300; ++attempt) {
+        bool diagnostics = attempt == 0 || attempt == 299;
+        if (ValidateImage(base, diagnostics)) return true;
+        if (g_protectedReadFailure != 3) return false;
+        if (attempt == 0) Log("WAITING_FOR_TARGET: code page not protectable; retrying for up to 30 seconds.");
+        Sleep(100);
+    }
+    return false;
 }
 
 // This is called only on the game's native node-creation path, with its live
@@ -291,9 +327,9 @@ static void PrepareUnlock(u8* base, Patch* patch) {
     patch->after.bytes[11] = 0x90; patch->after.bytes[12] = 0x90;
 }
 
-static bool Install(u8* base) {
+static bool Install(u8* base, bool targetValidated = false) {
     if (!g_settings.enabled && !g_settings.unlockAll) { Log("OFF: both features disabled."); return true; }
-    if (!ValidateImage(base)) {
+    if (!targetValidated && !ValidateImage(base)) {
         Log("UNSUPPORTED_OR_CONFLICT: executable/anchors differ. Nothing patched."); return false;
     }
     // ASI startup only. Avoid partially changing an already loaded manager/save.
@@ -362,9 +398,14 @@ static DWORD __stdcall Worker(void*) {
         HMODULE pinned = nullptr;
         // PIN | FROM_ADDRESS: a loader must not unload callback code while a
         // native constructor jump still points into this module.
-        if (GetModuleHandleExW(0x5, (const wchar_t*)&Worker, &pinned))
-            Install((u8*)GetModuleHandleW(nullptr));
-        else Log("ERROR: could not retain callback module. Nothing patched.");
+        if (GetModuleHandleExW(0x5, (const wchar_t*)&Worker, &pinned)) {
+            u8* base = (u8*)GetModuleHandleW(nullptr);
+            if (!base) Log("ERROR: main module was not found. Nothing patched.");
+            else if (!g_settings.enabled && !g_settings.unlockAll) Install(base);
+            else if (!IsDs2Process()) Install(base);
+            else if (WaitForTarget(base)) Install(base, true);
+            else Log("UNSUPPORTED_OR_CONFLICT: executable/anchors differ. Nothing patched.");
+        } else Log("ERROR: could not retain callback module. Nothing patched.");
     } else Log("ERROR: configuration could not be loaded. Nothing patched.");
     if (g_log != (HANDLE)(i64)-1) { CloseHandle(g_log); g_log = (HANDLE)(i64)-1; }
     return 0;

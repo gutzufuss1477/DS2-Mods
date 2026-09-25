@@ -1,6 +1,6 @@
 # DS2 APAS Memory Costs - unified edition
 
-**3.0.0-rc.7: release candidate with limited gameplay coverage.**
+**3.0.0-rc.8: release candidate with limited gameplay coverage.**
 
 One `ds2_apas_memory_costs.asi` and one `ds2_apas_memory_costs.ini` provide both
 configurable APAS Memory costs and optional early APAS unlocks. No separate
