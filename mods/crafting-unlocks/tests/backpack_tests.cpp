@@ -17,20 +17,20 @@ bool includes(const Instance*out,u32 n,u32 idx){for(u32 i=0;i<n;++i)if((out[i].f
 int main(int argc,char**argv){try{
  check(argc==2,"supply the actual shipped INI");std::ifstream f(argv[1],std::ios::binary);check(bool(f),"INI readable");
  std::string text((std::istreambuf_iterator<char>(f)),{});auto s=parseFile(text);
- check(s.count==119&&s.enabled&&s.all&&!s.dump,"119 default-on rules; diagnostics off");
+ check(s.count==120&&s.enabled&&s.all&&!s.dump,"119 default-on rules; diagnostics off");
  std::vector<Recipe> all;unsigned normalN=0,moduleN=0,coverN=0,charmN=0;
  for(u32 i=0;i<s.count;++i){auto k=backpack_kind(s.rules[i].key);check(s.rules[i].value==1,"every shipped rule starts at 1");
   all.push_back(make(i,s.rules[i].key,k==BackpackKind::None?9:5));
   switch(k){case BackpackKind::None:++normalN;break;case BackpackKind::Module:++moduleN;break;case BackpackKind::Cover:++coverN;break;case BackpackKind::Charm:++charmN;break;}
  }
- check(normalN==90&&moduleN==19&&coverN==2&&charmN==8,"reviewed route/category counts");auto before=all;
+ check(normalN==91&&moduleN==19&&coverN==2&&charmN==8,"reviewed route/category counts");auto before=all;
  Instance out[MaxMenu]{};auto b=build_backpack(s,all.data(),all.size(),nullptr,0,out);
  check(b.ok&&b.count==29&&b.added==29,"all 29 backpack recipes selected");
  for(u32 i=0;i<b.count;++i){check(out[i].flags&0x8000,"added private copies set unlock bit");check(all[out[i].flags&0xFFF].usage==5,"only backpack route");}
  check(!std::memcmp(before.data(),all.data(),all.size()*sizeof(Recipe)),"no master changes");
- b=build(s,all.data(),all.size(),nullptr,0,2,out);check(b.ok&&b.count==90,"normal route remains separated");
+ b=build(s,all.data(),all.size(),nullptr,0,2,out);check(b.ok&&b.count==91,"normal route remains separated");
  for(u32 i=0;i<s.count;++i){
-  const bool bp=all[i].usage==5;const u32 n=bp?29:90;Settings excluded=s;excluded.rules[i].value=0;
+  const bool bp=all[i].usage==5;const u32 n=bp?29:91;Settings excluded=s;excluded.rules[i].value=0;
   b=bp?build_backpack(excluded,all.data(),all.size(),nullptr,0,out):build(excluded,all.data(),all.size(),nullptr,0,2,out);
   check(b.ok&&b.added==n-1&&!includes(out,b.count,i),"zero excludes only early access on correct route");
   Instance native=all[i].instance;native.flags|=0xA8000;auto nativeBefore=native;
@@ -67,7 +67,7 @@ int main(int argc,char**argv){try{
   check(!std::memcmp(all.data(),before.data(),all.size()*sizeof(Recipe)),"random masters untouched");
   for(u32 j=native.size();j<b.count;++j){u32 i=out[j].flags&0xFFF;check(all[i].usage==5&&selected(q,all[i].key),"random new entry selected only");}
  }
- std::cout<<"PASS "<<checks<<" backpack/config assertions; 119 INI keys; 19 modules + 2 covers + 8 charms.\n";
+ std::cout<<"PASS "<<checks<<" backpack/config assertions; 120 INI keys; 91 normal + 19 modules + 2 covers + 8 charms.\n";
  std::cout<<"Native progression was supplied as policy input. No Windows loader, engine-copy, or in-game test.\n";
  return 0;
  }catch(const std::exception&e){std::cerr<<"FAIL "<<checks<<": "<<e.what()<<'\n';return 1;}}

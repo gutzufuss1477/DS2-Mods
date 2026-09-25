@@ -1,0 +1,188 @@
+FUNCTION RVA 0x152A620
+NAME: FUN_14152a620
+SIZE: 950
+SIGNATURE: undefined FUN_14152a620(void)
+================================================================
+
+/* WARNING: Function: __security_check_cookie replaced with injection: security_check_cookie */
+
+void FUN_14152a620(int *param_1,longlong *param_2)
+
+{
+  int iVar1;
+  int iVar2;
+  int iVar3;
+  longlong *plVar4;
+  longlong lVar5;
+  longlong lVar6;
+  ulonglong uVar7;
+  longlong lVar8;
+  longlong lVar9;
+  ulonglong uVar10;
+  ulonglong uVar11;
+  longlong lVar12;
+  int iVar13;
+  longlong lVar14;
+  ulonglong uVar15;
+  longlong lVar16;
+  ulonglong uVar17;
+  int local_a8;
+  longlong local_90;
+  longlong local_88;
+  longlong local_80;
+  ulonglong local_48;
+  
+  lVar6 = DAT_14623e540;
+  iVar1 = *param_1;
+  local_a8 = 0;
+  if (0 < (longlong)iVar1) {
+    local_90 = param_2[3];
+    lVar12 = param_2[1];
+    lVar14 = param_2[2];
+    local_88 = param_2[4];
+    lVar16 = 0;
+    local_80 = param_2[5];
+    do {
+      if ((local_a8 < *param_1) &&
+         (plVar4 = *(longlong **)(*(longlong *)(param_1 + 2) + lVar16 * 8),
+         plVar4 != (longlong *)0x0)) {
+        lVar5 = *plVar4;
+        iVar2 = (int)plVar4[1];
+        if (lVar5 == 0) {
+          uVar17 = 0;
+          local_48 = vpextrq_avx((undefined1  [16])0x0,1);
+          uVar7 = 0;
+          uVar15 = 0;
+          uVar10 = vpextrq_avx((undefined1  [16])0x0,1);
+          uVar11 = 0;
+        }
+        else {
+          lVar9 = *(longlong *)
+                   (*(longlong *)(lVar6 + 0x10) + (ulonglong)(*(uint *)(lVar5 + 8) & 0xfff) * 8);
+          lVar8 = 0;
+          iVar3 = *(int *)(lVar9 + 0x58);
+          iVar13 = 0;
+          if (0 < iVar3) {
+            lVar9 = *(longlong *)(lVar9 + 0x60);
+            do {
+              if (*(short *)(lVar9 + lVar8 * 8) == 0) {
+                iVar13 = *(int *)(lVar9 + lVar8 * 8 + 4);
+                break;
+              }
+              lVar8 = lVar8 + 1;
+              iVar13 = 0;
+            } while (lVar8 < iVar3);
+          }
+          uVar17 = (ulonglong)(uint)(iVar2 * iVar13);
+          iVar13 = 0;
+          lVar9 = *(longlong *)
+                   (*(longlong *)(lVar6 + 0x10) + (ulonglong)(*(uint *)(lVar5 + 8) & 0xfff) * 8);
+          lVar8 = 0;
+          iVar3 = *(int *)(lVar9 + 0x58);
+          if (0 < iVar3) {
+            lVar9 = *(longlong *)(lVar9 + 0x60);
+            do {
+              if (*(short *)(lVar9 + lVar8 * 8) == 1) {
+                iVar13 = *(int *)(lVar9 + lVar8 * 8 + 4);
+                break;
+              }
+              lVar8 = lVar8 + 1;
+            } while (lVar8 < iVar3);
+          }
+          uVar11 = (ulonglong)(uint)(iVar2 * iVar13);
+          iVar13 = 0;
+          lVar9 = *(longlong *)
+                   (*(longlong *)(lVar6 + 0x10) + (ulonglong)(*(uint *)(lVar5 + 8) & 0xfff) * 8);
+          lVar8 = 0;
+          iVar3 = *(int *)(lVar9 + 0x58);
+          if (0 < iVar3) {
+            lVar9 = *(longlong *)(lVar9 + 0x60);
+            do {
+              if (*(short *)(lVar9 + lVar8 * 8) == 2) {
+                iVar13 = *(int *)(lVar9 + lVar8 * 8 + 4);
+                break;
+              }
+              lVar8 = lVar8 + 1;
+            } while (lVar8 < iVar3);
+          }
+          uVar10 = (ulonglong)(uint)(iVar2 * iVar13);
+          iVar13 = 0;
+          lVar9 = *(longlong *)
+                   (*(longlong *)(lVar6 + 0x10) + (ulonglong)(*(uint *)(lVar5 + 8) & 0xfff) * 8);
+          lVar8 = 0;
+          iVar3 = *(int *)(lVar9 + 0x58);
+          if (0 < iVar3) {
+            lVar9 = *(longlong *)(lVar9 + 0x60);
+            do {
+              if (*(short *)(lVar9 + lVar8 * 8) == 3) {
+                iVar13 = *(int *)(lVar9 + lVar8 * 8 + 4);
+                break;
+              }
+              lVar8 = lVar8 + 1;
+            } while (lVar8 < iVar3);
+          }
+          uVar15 = (ulonglong)(uint)(iVar2 * iVar13);
+          iVar13 = 0;
+          lVar9 = *(longlong *)
+                   (*(longlong *)(lVar6 + 0x10) + (ulonglong)(*(uint *)(lVar5 + 8) & 0xfff) * 8);
+          lVar8 = 0;
+          iVar3 = *(int *)(lVar9 + 0x58);
+          if (0 < iVar3) {
+            lVar9 = *(longlong *)(lVar9 + 0x60);
+            do {
+              if (*(short *)(lVar9 + lVar8 * 8) == 4) {
+                iVar13 = *(int *)(lVar9 + lVar8 * 8 + 4);
+                break;
+              }
+              lVar8 = lVar8 + 1;
+            } while (lVar8 < iVar3);
+          }
+          local_48 = (ulonglong)(uint)(iVar13 * iVar2);
+          lVar5 = *(longlong *)
+                   (*(longlong *)(lVar6 + 0x10) + (ulonglong)(*(uint *)(lVar5 + 8) & 0xfff) * 8);
+          lVar9 = 0;
+          iVar3 = *(int *)(lVar5 + 0x58);
+          iVar13 = 0;
+          if (0 < iVar3) {
+            lVar5 = *(longlong *)(lVar5 + 0x60);
+            do {
+              if (*(short *)(lVar5 + lVar9 * 8) == 5) {
+                iVar13 = *(int *)(lVar5 + lVar9 * 8 + 4);
+                break;
+              }
+              lVar9 = lVar9 + 1;
+              iVar13 = 0;
+            } while (lVar9 < iVar3);
+          }
+          uVar7 = (ulonglong)(uint)(iVar2 * iVar13);
+        }
+      }
+      else {
+        uVar7 = 0;
+        uVar17 = 0;
+        uVar11 = 0;
+        uVar10 = 0;
+        uVar15 = 0;
+        local_48 = 0;
+      }
+      *param_2 = *param_2 + uVar17;
+      lVar14 = lVar14 + uVar10;
+      lVar12 = lVar12 + uVar11;
+      local_90 = local_90 + uVar15;
+      local_a8 = local_a8 + 1;
+      local_88 = local_88 + local_48;
+      param_2[1] = lVar12;
+      lVar16 = lVar16 + 1;
+      local_80 = local_80 + uVar7;
+      param_2[2] = lVar14;
+      param_2[3] = local_90;
+      param_2[4] = local_88;
+      param_2[5] = local_80;
+    } while (lVar16 < iVar1);
+  }
+  return;
+}
+
+
+
+================================================================

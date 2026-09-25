@@ -1,0 +1,99 @@
+FUNCTION RVA 0x171BBF0
+NAME: FUN_14171bbf0
+SIZE: 477
+SIGNATURE: undefined FUN_14171bbf0(void)
+================================================================
+
+void FUN_14171bbf0(longlong *param_1,ulonglong *param_2)
+
+{
+  short *psVar1;
+  longlong lVar2;
+  longlong lVar3;
+  short *psVar4;
+  ulonglong uVar5;
+  uint uVar6;
+  
+  lVar3 = DAT_14623e540;
+  uVar6 = 0;
+  lVar2 = *(longlong *)
+           (*(longlong *)(DAT_14623e540 + 0x10) + (ulonglong)(*(uint *)(*param_1 + 8) & 0xfff) * 8);
+  psVar4 = *(short **)(lVar2 + 0x60);
+  psVar1 = psVar4 + (longlong)*(int *)(lVar2 + 0x58) * 4;
+  for (; psVar4 != psVar1; psVar4 = psVar4 + 4) {
+    if (*psVar4 == 0) {
+      uVar6 = *(uint *)(psVar4 + 2);
+      break;
+    }
+  }
+  *param_2 = (ulonglong)uVar6;
+  lVar2 = *(longlong *)
+           (*(longlong *)(lVar3 + 0x10) + (ulonglong)(*(uint *)(*param_1 + 8) & 0xfff) * 8);
+  psVar4 = *(short **)(lVar2 + 0x60);
+  psVar1 = psVar4 + (longlong)*(int *)(lVar2 + 0x58) * 4;
+  for (; uVar6 = 0, psVar4 != psVar1; psVar4 = psVar4 + 4) {
+    if (*psVar4 == 1) {
+      uVar6 = *(uint *)(psVar4 + 2);
+      break;
+    }
+  }
+  uVar5 = 0;
+  param_2[1] = (ulonglong)uVar6;
+  lVar2 = *(longlong *)
+           (*(longlong *)(lVar3 + 0x10) + (ulonglong)(*(uint *)(*param_1 + 8) & 0xfff) * 8);
+  psVar4 = *(short **)(lVar2 + 0x60);
+  psVar1 = psVar4 + (longlong)*(int *)(lVar2 + 0x58) * 4;
+  for (; psVar4 != psVar1; psVar4 = psVar4 + 4) {
+    if (*psVar4 == 2) {
+      uVar5 = (ulonglong)*(uint *)(psVar4 + 2);
+      break;
+    }
+  }
+  uVar6 = 0;
+  param_2[2] = uVar5;
+  lVar2 = *(longlong *)
+           (*(longlong *)(lVar3 + 0x10) + (ulonglong)(*(uint *)(*param_1 + 8) & 0xfff) * 8);
+  psVar4 = *(short **)(lVar2 + 0x60);
+  psVar1 = psVar4 + (longlong)*(int *)(lVar2 + 0x58) * 4;
+  for (; psVar4 != psVar1; psVar4 = psVar4 + 4) {
+    if (*psVar4 == 3) {
+      uVar6 = *(uint *)(psVar4 + 2);
+      break;
+    }
+  }
+  uVar5 = 0;
+  param_2[3] = (ulonglong)uVar6;
+  lVar2 = *(longlong *)
+           (*(longlong *)(lVar3 + 0x10) + (ulonglong)(*(uint *)(*param_1 + 8) & 0xfff) * 8);
+  psVar4 = *(short **)(lVar2 + 0x60);
+  psVar1 = psVar4 + (longlong)*(int *)(lVar2 + 0x58) * 4;
+  do {
+    if (psVar4 == psVar1) {
+LAB_14171bd65:
+      param_2[4] = uVar5;
+      lVar2 = *(longlong *)
+               (*(longlong *)(lVar3 + 0x10) + (ulonglong)(*(uint *)(*param_1 + 8) & 0xfff) * 8);
+      psVar4 = *(short **)(lVar2 + 0x60);
+      psVar1 = psVar4 + (longlong)*(int *)(lVar2 + 0x58) * 4;
+      while( true ) {
+        if (psVar4 == psVar1) {
+          param_2[5] = 0;
+          return;
+        }
+        if (*psVar4 == 5) break;
+        psVar4 = psVar4 + 4;
+      }
+      param_2[5] = (ulonglong)*(uint *)(psVar4 + 2);
+      return;
+    }
+    if (*psVar4 == 4) {
+      uVar5 = (ulonglong)*(uint *)(psVar4 + 2);
+      goto LAB_14171bd65;
+    }
+    psVar4 = psVar4 + 4;
+  } while( true );
+}
+
+
+
+================================================================

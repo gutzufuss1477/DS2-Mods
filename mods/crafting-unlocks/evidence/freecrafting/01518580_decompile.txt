@@ -1,0 +1,59 @@
+FUNCTION RVA 0x1518580
+NAME: FUN_141518580
+SIZE: 166
+SIGNATURE: undefined FUN_141518580(void)
+================================================================
+
+ulonglong FUN_141518580(longlong param_1,char param_2)
+
+{
+  int iVar1;
+  int iVar2;
+  uint uVar3;
+  ulonglong in_RAX;
+  longlong lVar4;
+  int *piVar5;
+  int iVar6;
+  
+  iVar1 = *(int *)(param_1 + 0x228);
+  iVar6 = 0;
+  if (0 < iVar1) {
+    do {
+      if ((iVar6 < 0) || (iVar1 <= iVar6)) {
+        lVar4 = 0;
+      }
+      else {
+        in_RAX = *(ulonglong *)(param_1 + 0x230);
+        lVar4 = in_RAX + (longlong)iVar6 * 0x48;
+      }
+      if (*(char *)(lVar4 + 0x30) == param_2) {
+        iVar2 = 0;
+        do {
+          if ((iVar2 < 0) || (iVar1 <= iVar2)) {
+            piVar5 = (int *)0x0;
+          }
+          else {
+            piVar5 = (int *)(*(longlong *)(param_1 + 0x230) + (longlong)iVar2 * 0x48);
+          }
+          if ((*piVar5 == 0) && (*(char *)((longlong)piVar5 + 5) == '\x01')) {
+            uVar3 = (iVar2 - iVar6) + 2;
+            goto LAB_1415185fd;
+          }
+          iVar2 = iVar2 + 1;
+        } while (iVar2 < iVar1);
+        uVar3 = 0;
+LAB_1415185fd:
+        in_RAX = (ulonglong)uVar3;
+        if (uVar3 != *(uint *)(param_1 + 0x2704)) {
+          return CONCAT71((uint7)(uint3)(uVar3 >> 8),1);
+        }
+      }
+      iVar6 = iVar6 + 1;
+    } while (iVar6 < iVar1);
+  }
+  return in_RAX & 0xffffffffffffff00;
+}
+
+
+
+================================================================

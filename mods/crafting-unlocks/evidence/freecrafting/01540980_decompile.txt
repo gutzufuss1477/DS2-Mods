@@ -1,0 +1,96 @@
+FUNCTION RVA 0x1540980
+NAME: FUN_141540980
+SIZE: 446
+SIGNATURE: undefined FUN_141540980(void)
+================================================================
+
+/* WARNING: Function: __security_check_cookie replaced with injection: security_check_cookie */
+
+void FUN_141540980(longlong param_1,undefined4 *param_2)
+
+{
+  ushort *puVar1;
+  char cVar2;
+  ulonglong uVar3;
+  longlong lVar4;
+  longlong *plVar5;
+  ulonglong *puVar6;
+  ushort *puVar7;
+  undefined1 auStack_98 [32];
+  ulonglong local_78 [4];
+  undefined1 local_58 [16];
+  ulonglong local_48 [4];
+  undefined1 local_28 [16];
+  ulonglong local_18 [2];
+  
+  local_18[0] = DAT_1439b9800 ^ (ulonglong)auStack_98;
+  cVar2 = *(char *)(param_1 + 0xc30);
+  if (cVar2 == '\x13') {
+    lVar4 = FUN_14171cb30();
+    *param_2 = *(undefined4 *)(lVar4 + 0x1bc);
+    param_2[1] = *(undefined4 *)(lVar4 + 0x1c0);
+    param_2[2] = *(undefined4 *)(lVar4 + 0x1c4);
+    param_2[3] = *(undefined4 *)(lVar4 + 0x1c8);
+    param_2[4] = *(undefined4 *)(lVar4 + 0x1cc);
+    param_2[5] = *(undefined4 *)(lVar4 + 0x1d0);
+  }
+  else if (cVar2 == '\x14') {
+    local_48[0] = 0;
+    local_48[1] = 0;
+    local_48[2] = 0;
+    local_48[3] = 0;
+    local_28 = (undefined1  [16])0x0;
+    lVar4 = FUN_141517d60();
+    FUN_14152a620(lVar4 + 0x330,local_48);
+    puVar6 = local_48;
+    do {
+      uVar3 = *puVar6;
+      puVar6 = puVar6 + 1;
+      *param_2 = (int)uVar3;
+      param_2 = param_2 + 1;
+    } while (puVar6 != local_18);
+  }
+  else if (cVar2 == '\x15') {
+    local_78[0] = 0;
+    local_78[1] = 0;
+    local_78[2] = 0;
+    local_78[3] = 0;
+    local_58 = (undefined1  [16])0x0;
+    lVar4 = FUN_1417628f0();
+    if (*(char *)(lVar4 + 0x21) == '\x01') {
+      if (*(int *)(lVar4 + 0xe8) < *(int *)(lVar4 + 0xd8)) {
+        lVar4 = (longlong)*(int *)(lVar4 + 0xe8) * 0x30 + *(longlong *)(lVar4 + 0xe0);
+      }
+      else {
+        lVar4 = 0;
+      }
+      FUN_1417b23c0(lVar4,local_78);
+    }
+    else if (*(char *)(lVar4 + 0x21) == '\x03') {
+      if (*(int *)(lVar4 + 0x170) < *(int *)(lVar4 + 0x160)) {
+        plVar5 = (longlong *)
+                 ((longlong)*(int *)(lVar4 + 0x170) * 0x40 + *(longlong *)(lVar4 + 0x168));
+      }
+      else {
+        plVar5 = (longlong *)0x0;
+      }
+      puVar7 = *(ushort **)(*plVar5 + 0x60);
+      puVar1 = puVar7 + (longlong)*(int *)(*plVar5 + 0x58) * 4;
+      for (; puVar7 != puVar1; puVar7 = puVar7 + 4) {
+        local_78[*puVar7] = (ulonglong)*(uint *)(puVar7 + 2);
+      }
+    }
+    puVar6 = local_78;
+    do {
+      uVar3 = *puVar6;
+      puVar6 = puVar6 + 1;
+      *param_2 = (int)uVar3;
+      param_2 = param_2 + 1;
+    } while (puVar6 != local_48);
+  }
+  return;
+}
+
+
+
+================================================================

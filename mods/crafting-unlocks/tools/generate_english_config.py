@@ -20,9 +20,11 @@ def generate(mapping: Path, catalogue: Path, output: Path) -> dict[str, object]:
     by_key = {row['recipe_key']: (i + 2, row) for i, row in enumerate(source)}
     if len(by_key) != len(source):
         raise ValueError('Duplicate source recipe keys; manual review required.')
+    special_normal = {'0x75D99124'}  # Omnireflector Boots: targeted non-printable fabrication exception.
     expected = {
         row['recipe_key'] for row in source
-        if row['status_at_this_facility'] == 'eligible' and '[{0}]' not in row['name']
+        if (row['status_at_this_facility'] == 'eligible' and '[{0}]' not in row['name'])
+        or row['recipe_key'] in special_normal
     }
     keys: set[str] = set()
     for row in rows:
@@ -39,23 +41,29 @@ def generate(mapping: Path, catalogue: Path, output: Path) -> dict[str, object]:
             value = row[field]
             if not value or not value.isascii() or '\n' in value or '\r' in value:
                 raise ValueError(f'Invalid {field} for {key}')
-    if keys != expected or len(rows) != 90:
-        raise ValueError('Mapping does not cover the 90 reviewed recipes exactly.')
+    if keys != expected or len(rows) != 91:
+        raise ValueError('Mapping does not cover the 91 reviewed normal fabrication recipes exactly.')
 
     lines = [
-        '; DS2 Crafting Unlocks - compact English INI (1.0.0)',
-        '; 1 = early access | 0 = normal progression (never relocks an unlocked recipe).',
-        '; Restart the game after editing. Keep each 0x... recipe key unchanged and unique.',
-        '; Normal fabrication + backpack modules/covers/charms. Native menu access is required.',
-        '; Slots, layout, vehicles, patches and other customization remain unchanged.',
-        '; LW = lightweight, SL = silenced, RD = remote-detonated. Labels are display comments.',
+        '; DS2 Crafting Overhaul 1.3.0',
+        '; Restart the game after changing this file.',
+        '; 1 = enabled | 0 = disabled',
         '',
         '[CraftingUnlocks]',
-        'Enabled=1',
-        'DefaultUnlock=1       ; Default for unlisted recipes or entries set to inherit.',
-        'ExportCatalogue=0     ; 1 = export diagnostic files with names in the game language.',
+        'Enabled=1              ; Global master switch. 0 = no patches from this mod.',
+        'DefaultUnlock=1        ; 1 = listed items are available early unless their item value is 0.',
+        'FreeCrafting=0         ; 1 = supported recipes cost no materials.',
+        'ExportCatalogue=0      ; 1 = export diagnostic catalogue files.',
+        '',
+        '[Durability]',
+        'Enabled=0              ; 1 = enable durability options for supported crafted equipment/boots.',
+        'Multiplier=2.0         ; 1.0 = vanilla life, 2.0 = about 2x life, max 1000.0.',
+        'Unbreakable=0          ; 1 = no future durability loss; overrides Multiplier.',
+        '                       ; Cargo/order cargo/material containers remain vanilla.',
         '',
         '[Items]',
+        '; 1 = available early | 0 = keep native progression/acquisition.',
+        '; 0 never removes an item that the game unlocks normally.',
     ]
     category = None
     for row in rows:

@@ -1,0 +1,33 @@
+FUNCTION RVA 0x1519C70
+NAME: FUN_141519c70
+SIZE: 92
+SIGNATURE: undefined FUN_141519c70(void)
+================================================================
+
+/* WARNING: Function: __security_check_cookie replaced with injection: security_check_cookie */
+
+void FUN_141519c70(longlong param_1)
+
+{
+  undefined1 auStack_68 [32];
+  undefined8 local_48;
+  undefined8 uStack_40;
+  undefined8 uStack_38;
+  undefined8 uStack_30;
+  undefined1 local_28 [16];
+  ulonglong local_18;
+  
+  local_18 = DAT_1439b9800 ^ (ulonglong)auStack_68;
+  local_48 = 0;
+  uStack_40 = 0;
+  uStack_38 = 0;
+  uStack_30 = 0;
+  local_28 = (undefined1  [16])0x0;
+  FUN_14152a620(param_1 + 0x330,&local_48);
+  FUN_141519ab0(param_1,&local_48);
+  return;
+}
+
+
+
+================================================================

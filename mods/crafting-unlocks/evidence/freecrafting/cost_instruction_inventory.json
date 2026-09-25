@@ -1,0 +1,794 @@
+[
+  {
+    "function": "0151FA10",
+    "address": 22150459,
+    "source": "rax",
+    "destination": "rax",
+    "mnemonic": "movsxd",
+    "original_bytes": "48634058",
+    "context": [
+      "0151FD2B mov rcx, qword ptr [rax + 0x10]",
+      "0151FD2F mov rax, qword ptr [rcx + rdx*8]",
+      "0151FD33 lea rdx, [rbp + 0x68]",
+      "0151FD37 mov r10, qword ptr [rax + 0x60]",
+      "0151FD3B movsxd rax, dword ptr [rax + 0x58]",
+      "0151FD3F lea r9, [r10 + rax*8]",
+      "0151FD43 mov qword ptr [rdx], r12",
+      "0151FD46 mov rax, r10"
+    ]
+  },
+  {
+    "function": "01529430",
+    "address": 22189159,
+    "source": "r10",
+    "destination": "rcx",
+    "mnemonic": "movsxd",
+    "original_bytes": "49634a58",
+    "context": [
+      "01529454 mov r10, qword ptr [rcx + r8*8]",
+      "01529458 nop dword ptr [rax + rax]",
+      "01529460 mov qword ptr [rdx], r11",
+      "01529463 mov rax, qword ptr [r10 + 0x60]",
+      "01529467 movsxd rcx, dword ptr [r10 + 0x58]",
+      "0152946B lea r8, [rax + rcx*8]",
+      "0152946F cmp rax, r8",
+      "01529472 je 0x1529489"
+    ]
+  },
+  {
+    "function": "015294A0",
+    "address": 22189433,
+    "source": "rax",
+    "destination": "rax",
+    "mnemonic": "movsxd",
+    "original_bytes": "48634058",
+    "context": [
+      "01529568 mov rcx, qword ptr [rax + 0x10]",
+      "0152956C mov rax, qword ptr [rcx + rdx*8]",
+      "01529570 lea rdx, [rsp + 0x28]",
+      "01529575 mov r10, qword ptr [rax + 0x60]",
+      "01529579 movsxd rax, dword ptr [rax + 0x58]",
+      "0152957D lea r9, [r10 + rax*8]",
+      "01529581 mov qword ptr [rdx], rsi",
+      "01529584 mov rax, r10"
+    ]
+  },
+  {
+    "function": "0152A620",
+    "address": 22193978,
+    "source": "rdx",
+    "destination": "rcx",
+    "mnemonic": "movsxd",
+    "original_bytes": "48634a58",
+    "context": [
+      "0152A72A mov rax, qword ptr [r13 + 0x10]",
+      "0152A72E and ecx, 0xfff",
+      "0152A734 mov rdx, qword ptr [rax + rcx*8]",
+      "0152A738 xor eax, eax",
+      "0152A73A movsxd rcx, dword ptr [rdx + 0x58]",
+      "0152A73E test ecx, ecx",
+      "0152A740 jle 0x152a769",
+      "0152A742 mov r8, qword ptr [rdx + 0x60]"
+    ]
+  },
+  {
+    "function": "0152A620",
+    "address": 22194054,
+    "source": "r8",
+    "destination": "rcx",
+    "mnemonic": "movsxd",
+    "original_bytes": "49634858",
+    "context": [
+      "0152A779 imul r15d, r9d",
+      "0152A77D xor r9d, r9d",
+      "0152A780 mov r8, qword ptr [rax + rcx*8]",
+      "0152A784 xor eax, eax",
+      "0152A786 movsxd rcx, dword ptr [r8 + 0x58]",
+      "0152A78A test ecx, ecx",
+      "0152A78C jle 0x152a7ba",
+      "0152A78E mov r8, qword ptr [r8 + 0x60]"
+    ]
+  },
+  {
+    "function": "0152A620",
+    "address": 22194135,
+    "source": "r8",
+    "destination": "rcx",
+    "mnemonic": "movsxd",
+    "original_bytes": "49634858",
+    "context": [
+      "0152A7CA imul esi, r9d",
+      "0152A7CE xor r9d, r9d",
+      "0152A7D1 mov r8, qword ptr [rax + rcx*8]",
+      "0152A7D5 xor eax, eax",
+      "0152A7D7 movsxd rcx, dword ptr [r8 + 0x58]",
+      "0152A7DB test ecx, ecx",
+      "0152A7DD jle 0x152a80a",
+      "0152A7DF mov r8, qword ptr [r8 + 0x60]"
+    ]
+  },
+  {
+    "function": "0152A620",
+    "address": 22194215,
+    "source": "r8",
+    "destination": "rcx",
+    "mnemonic": "movsxd",
+    "original_bytes": "49634858",
+    "context": [
+      "0152A81A imul ebx, r9d",
+      "0152A81E xor r9d, r9d",
+      "0152A821 mov r8, qword ptr [rax + rcx*8]",
+      "0152A825 xor eax, eax",
+      "0152A827 movsxd rcx, dword ptr [r8 + 0x58]",
+      "0152A82B test ecx, ecx",
+      "0152A82D jle 0x152a85a",
+      "0152A82F mov r8, qword ptr [r8 + 0x60]"
+    ]
+  },
+  {
+    "function": "0152A620",
+    "address": 22194295,
+    "source": "r8",
+    "destination": "rcx",
+    "mnemonic": "movsxd",
+    "original_bytes": "49634858",
+    "context": [
+      "0152A86A imul r11d, r9d",
+      "0152A86E xor r9d, r9d",
+      "0152A871 mov r8, qword ptr [rax + rcx*8]",
+      "0152A875 xor eax, eax",
+      "0152A877 movsxd rcx, dword ptr [r8 + 0x58]",
+      "0152A87B test ecx, ecx",
+      "0152A87D jle 0x152a8aa",
+      "0152A87F mov r8, qword ptr [r8 + 0x60]"
+    ]
+  },
+  {
+    "function": "0152A620",
+    "address": 22194372,
+    "source": "r8",
+    "destination": "rcx",
+    "mnemonic": "movsxd",
+    "original_bytes": "49634858",
+    "context": [
+      "0152A8B4 and ecx, 0xfff",
+      "0152A8BA imul r9d, r14d",
+      "0152A8BE mov r8, qword ptr [rax + rcx*8]",
+      "0152A8C2 xor eax, eax",
+      "0152A8C4 movsxd rcx, dword ptr [r8 + 0x58]",
+      "0152A8C8 test ecx, ecx",
+      "0152A8CA jle 0x152a8ed",
+      "0152A8CC mov r8, qword ptr [r8 + 0x60]"
+    ]
+  },
+  {
+    "function": "0171BBA0",
+    "address": 24230853,
+    "source": "r9",
+    "destination": "r8",
+    "mnemonic": "movsxd",
+    "original_bytes": "4d634158",
+    "context": [
+      "0171BBB2 and r8d, 0xfff",
+      "0171BBB9 mov rcx, qword ptr [rax + 0x10]",
+      "0171BBBD mov r9, qword ptr [rcx + r8*8]",
+      "0171BBC1 mov rcx, qword ptr [r9 + 0x60]",
+      "0171BBC5 movsxd r8, dword ptr [r9 + 0x58]",
+      "0171BBC9 lea rdx, [rcx + r8*8]",
+      "0171BBCD cmp rcx, rdx",
+      "0171BBD0 je 0x171bbe1"
+    ]
+  },
+  {
+    "function": "0171BBF0",
+    "address": 24230955,
+    "source": "r9",
+    "destination": "rax",
+    "mnemonic": "movsxd",
+    "original_bytes": "49634158",
+    "context": [
+      "0171BC18 mov rax, qword ptr [rdi + 0x10]",
+      "0171BC1C and r8d, 0xfff",
+      "0171BC23 mov r9, qword ptr [rax + r8*8]",
+      "0171BC27 mov rcx, qword ptr [r9 + 0x60]",
+      "0171BC2B movsxd rax, dword ptr [r9 + 0x58]",
+      "0171BC2F lea rdx, [rcx + rax*8]",
+      "0171BC33 cmp rcx, rdx",
+      "0171BC36 je 0x171bc4c"
+    ]
+  },
+  {
+    "function": "0171BBF0",
+    "address": 24231021,
+    "source": "rdx",
+    "destination": "rax",
+    "mnemonic": "movsxd",
+    "original_bytes": "48634258",
+    "context": [
+      "0171BC5B mov rax, qword ptr [rdi + 0x10]",
+      "0171BC5F and ecx, 0xfff",
+      "0171BC65 mov rdx, qword ptr [rax + rcx*8]",
+      "0171BC69 mov rcx, qword ptr [rdx + 0x60]",
+      "0171BC6D movsxd rax, dword ptr [rdx + 0x58]",
+      "0171BC71 lea rdx, [rcx + rax*8]",
+      "0171BC75 cmp rcx, rdx",
+      "0171BC78 je 0x171bc95"
+    ]
+  },
+  {
+    "function": "0171BBF0",
+    "address": 24231095,
+    "source": "rdx",
+    "destination": "rax",
+    "mnemonic": "movsxd",
+    "original_bytes": "48634258",
+    "context": [
+      "0171BCA5 mov rax, qword ptr [rdi + 0x10]",
+      "0171BCA9 and ecx, 0xfff",
+      "0171BCAF mov rdx, qword ptr [rax + rcx*8]",
+      "0171BCB3 mov rcx, qword ptr [rdx + 0x60]",
+      "0171BCB7 movsxd rax, dword ptr [rdx + 0x58]",
+      "0171BCBB lea rdx, [rcx + rax*8]",
+      "0171BCBF cmp rcx, rdx",
+      "0171BCC2 je 0x171bcd9"
+    ]
+  },
+  {
+    "function": "0171BBF0",
+    "address": 24231163,
+    "source": "rdx",
+    "destination": "rax",
+    "mnemonic": "movsxd",
+    "original_bytes": "48634258",
+    "context": [
+      "0171BCE9 mov rax, qword ptr [rdi + 0x10]",
+      "0171BCED and ecx, 0xfff",
+      "0171BCF3 mov rdx, qword ptr [rax + rcx*8]",
+      "0171BCF7 mov rcx, qword ptr [rdx + 0x60]",
+      "0171BCFB movsxd rax, dword ptr [rdx + 0x58]",
+      "0171BCFF lea rdx, [rcx + rax*8]",
+      "0171BD03 cmp rcx, rdx",
+      "0171BD06 je 0x171bd1d"
+    ]
+  },
+  {
+    "function": "0171BBF0",
+    "address": 24231231,
+    "source": "rdx",
+    "destination": "rax",
+    "mnemonic": "movsxd",
+    "original_bytes": "48634258",
+    "context": [
+      "0171BD2D mov rax, qword ptr [rdi + 0x10]",
+      "0171BD31 and ecx, 0xfff",
+      "0171BD37 mov rdx, qword ptr [rax + rcx*8]",
+      "0171BD3B mov rcx, qword ptr [rdx + 0x60]",
+      "0171BD3F movsxd rax, dword ptr [rdx + 0x58]",
+      "0171BD43 lea rdx, [rcx + rax*8]",
+      "0171BD47 cmp rcx, rdx",
+      "0171BD4A je 0x171bd65"
+    ]
+  },
+  {
+    "function": "0171BBF0",
+    "address": 24231300,
+    "source": "rdx",
+    "destination": "rax",
+    "mnemonic": "movsxd",
+    "original_bytes": "48634258",
+    "context": [
+      "0171BD72 mov rax, qword ptr [rdi + 0x10]",
+      "0171BD76 and ecx, 0xfff",
+      "0171BD7C mov rdx, qword ptr [rax + rcx*8]",
+      "0171BD80 mov rcx, qword ptr [rdx + 0x60]",
+      "0171BD84 movsxd rax, dword ptr [rdx + 0x58]",
+      "0171BD88 lea rdx, [rcx + rax*8]",
+      "0171BD8C cmp rcx, rdx",
+      "0171BD8F je 0x171bda0"
+    ]
+  },
+  {
+    "function": "0171BDD0",
+    "address": 24231420,
+    "source": "r10",
+    "destination": "r8",
+    "mnemonic": "movsxd",
+    "original_bytes": "4d634258",
+    "context": [
+      "0171BDE9 and r9d, 0xfff",
+      "0171BDF0 mov r8, qword ptr [rax + 0x10]",
+      "0171BDF4 mov r10, qword ptr [r8 + r9*8]",
+      "0171BDF8 mov rax, qword ptr [r10 + 0x60]",
+      "0171BDFC movsxd r8, dword ptr [r10 + 0x58]",
+      "0171BE00 lea rdx, [rax + r8*8]",
+      "0171BE04 cmp rax, rdx",
+      "0171BE07 je 0x171be30"
+    ]
+  },
+  {
+    "function": "0171CFC0",
+    "address": 24236181,
+    "source": "rax",
+    "destination": "rax",
+    "mnemonic": "movsxd",
+    "original_bytes": "48634058",
+    "context": [
+      "0171D083 and edx, 0xfff",
+      "0171D089 mov rcx, qword ptr [rax + 0x10]",
+      "0171D08D mov rax, qword ptr [rcx + rdx*8]",
+      "0171D091 mov rcx, qword ptr [rax + 0x60]",
+      "0171D095 movsxd rax, dword ptr [rax + 0x58]",
+      "0171D099 mov rdx, rcx",
+      "0171D09C lea r8, [rcx + rax*8]",
+      "0171D0A0 cmp rcx, r8"
+    ]
+  },
+  {
+    "function": "0171E150",
+    "address": 24240622,
+    "source": "rdx",
+    "destination": "rcx",
+    "mnemonic": "movsxd",
+    "original_bytes": "48634a58",
+    "context": [
+      "0171E1DC mov rax, qword ptr [rbx + 0x10]",
+      "0171E1E0 and ecx, 0xfff",
+      "0171E1E6 mov rdx, qword ptr [rax + rcx*8]",
+      "0171E1EA mov rax, qword ptr [rdx + 0x60]",
+      "0171E1EE movsxd rcx, dword ptr [rdx + 0x58]",
+      "0171E1F2 lea rdx, [rax + rcx*8]",
+      "0171E1F6 cmp rax, rdx",
+      "0171E1F9 je 0x171e215"
+    ]
+  },
+  {
+    "function": "0171E150",
+    "address": 24240703,
+    "source": "rdx",
+    "destination": "rax",
+    "mnemonic": "movsxd",
+    "original_bytes": "48634258",
+    "context": [
+      "0171E22D mov rax, qword ptr [rbx + 0x10]",
+      "0171E231 and ecx, 0xfff",
+      "0171E237 mov rdx, qword ptr [rax + rcx*8]",
+      "0171E23B mov rcx, qword ptr [rdx + 0x60]",
+      "0171E23F movsxd rax, dword ptr [rdx + 0x58]",
+      "0171E243 lea rdx, [rcx + rax*8]",
+      "0171E247 cmp rcx, rdx",
+      "0171E24A je 0x171e265"
+    ]
+  },
+  {
+    "function": "0171E150",
+    "address": 24240783,
+    "source": "rdx",
+    "destination": "rax",
+    "mnemonic": "movsxd",
+    "original_bytes": "48634258",
+    "context": [
+      "0171E27D mov rax, qword ptr [rbx + 0x10]",
+      "0171E281 and ecx, 0xfff",
+      "0171E287 mov rdx, qword ptr [rax + rcx*8]",
+      "0171E28B mov rcx, qword ptr [rdx + 0x60]",
+      "0171E28F movsxd rax, dword ptr [rdx + 0x58]",
+      "0171E293 lea rdx, [rcx + rax*8]",
+      "0171E297 cmp rcx, rdx",
+      "0171E29A je 0x171e2b5"
+    ]
+  },
+  {
+    "function": "0171E150",
+    "address": 24240863,
+    "source": "rdx",
+    "destination": "rax",
+    "mnemonic": "movsxd",
+    "original_bytes": "48634258",
+    "context": [
+      "0171E2CD mov rax, qword ptr [rbx + 0x10]",
+      "0171E2D1 and ecx, 0xfff",
+      "0171E2D7 mov rdx, qword ptr [rax + rcx*8]",
+      "0171E2DB mov rcx, qword ptr [rdx + 0x60]",
+      "0171E2DF movsxd rax, dword ptr [rdx + 0x58]",
+      "0171E2E3 lea rdx, [rcx + rax*8]",
+      "0171E2E7 cmp rcx, rdx",
+      "0171E2EA je 0x171e305"
+    ]
+  },
+  {
+    "function": "0171E150",
+    "address": 24240943,
+    "source": "rdx",
+    "destination": "rax",
+    "mnemonic": "movsxd",
+    "original_bytes": "48634258",
+    "context": [
+      "0171E31D mov rax, qword ptr [rbx + 0x10]",
+      "0171E321 and ecx, 0xfff",
+      "0171E327 mov rdx, qword ptr [rax + rcx*8]",
+      "0171E32B mov rcx, qword ptr [rdx + 0x60]",
+      "0171E32F movsxd rax, dword ptr [rdx + 0x58]",
+      "0171E333 lea rdx, [rcx + rax*8]",
+      "0171E337 cmp rcx, rdx",
+      "0171E33A je 0x171e355"
+    ]
+  },
+  {
+    "function": "0171E150",
+    "address": 24241023,
+    "source": "rdx",
+    "destination": "rax",
+    "mnemonic": "movsxd",
+    "original_bytes": "48634258",
+    "context": [
+      "0171E36D mov rax, qword ptr [rbx + 0x10]",
+      "0171E371 and ecx, 0xfff",
+      "0171E377 mov rdx, qword ptr [rax + rcx*8]",
+      "0171E37B mov rcx, qword ptr [rdx + 0x60]",
+      "0171E37F movsxd rax, dword ptr [rdx + 0x58]",
+      "0171E383 lea rdx, [rcx + rax*8]",
+      "0171E387 cmp rcx, rdx",
+      "0171E38A je 0x171e3a5"
+    ]
+  },
+  {
+    "function": "0171E3F0",
+    "address": 24241250,
+    "source": "rdx",
+    "destination": "rax",
+    "mnemonic": "movsxd",
+    "original_bytes": "48634258",
+    "context": [
+      "0171E450 mov rax, qword ptr [rsi + 0x10]",
+      "0171E454 and ecx, 0xfff",
+      "0171E45A mov rdx, qword ptr [rax + rcx*8]",
+      "0171E45E mov rcx, qword ptr [rdx + 0x60]",
+      "0171E462 movsxd rax, dword ptr [rdx + 0x58]",
+      "0171E466 lea rdx, [rcx + rax*8]",
+      "0171E46A cmp rcx, rdx",
+      "0171E46D je 0x171e485"
+    ]
+  },
+  {
+    "function": "0171E3F0",
+    "address": 24241322,
+    "source": "rdx",
+    "destination": "rax",
+    "mnemonic": "movsxd",
+    "original_bytes": "48634258",
+    "context": [
+      "0171E498 mov rax, qword ptr [rsi + 0x10]",
+      "0171E49C and ecx, 0xfff",
+      "0171E4A2 mov rdx, qword ptr [rax + rcx*8]",
+      "0171E4A6 mov rcx, qword ptr [rdx + 0x60]",
+      "0171E4AA movsxd rax, dword ptr [rdx + 0x58]",
+      "0171E4AE lea rdx, [rcx + rax*8]",
+      "0171E4B2 cmp rcx, rdx",
+      "0171E4B5 je 0x171e4cc"
+    ]
+  },
+  {
+    "function": "0171E3F0",
+    "address": 24241395,
+    "source": "rdx",
+    "destination": "rax",
+    "mnemonic": "movsxd",
+    "original_bytes": "48634258",
+    "context": [
+      "0171E4E1 mov rax, qword ptr [rsi + 0x10]",
+      "0171E4E5 and ecx, 0xfff",
+      "0171E4EB mov rdx, qword ptr [rax + rcx*8]",
+      "0171E4EF mov rcx, qword ptr [rdx + 0x60]",
+      "0171E4F3 movsxd rax, dword ptr [rdx + 0x58]",
+      "0171E4F7 lea rdx, [rcx + rax*8]",
+      "0171E4FB cmp rcx, rdx",
+      "0171E4FE je 0x171e515"
+    ]
+  },
+  {
+    "function": "0171E3F0",
+    "address": 24241468,
+    "source": "rdx",
+    "destination": "rax",
+    "mnemonic": "movsxd",
+    "original_bytes": "48634258",
+    "context": [
+      "0171E52A mov rax, qword ptr [rsi + 0x10]",
+      "0171E52E and ecx, 0xfff",
+      "0171E534 mov rdx, qword ptr [rax + rcx*8]",
+      "0171E538 mov rcx, qword ptr [rdx + 0x60]",
+      "0171E53C movsxd rax, dword ptr [rdx + 0x58]",
+      "0171E540 lea rdx, [rcx + rax*8]",
+      "0171E544 cmp rcx, rdx",
+      "0171E547 je 0x171e565"
+    ]
+  },
+  {
+    "function": "0171E3F0",
+    "address": 24241548,
+    "source": "rdx",
+    "destination": "rax",
+    "mnemonic": "movsxd",
+    "original_bytes": "48634258",
+    "context": [
+      "0171E57A mov rax, qword ptr [rsi + 0x10]",
+      "0171E57E and ecx, 0xfff",
+      "0171E584 mov rdx, qword ptr [rax + rcx*8]",
+      "0171E588 mov rcx, qword ptr [rdx + 0x60]",
+      "0171E58C movsxd rax, dword ptr [rdx + 0x58]",
+      "0171E590 lea rdx, [rcx + rax*8]",
+      "0171E594 cmp rcx, rdx",
+      "0171E597 je 0x171e5b5"
+    ]
+  },
+  {
+    "function": "0171E3F0",
+    "address": 24241628,
+    "source": "rdx",
+    "destination": "rcx",
+    "mnemonic": "movsxd",
+    "original_bytes": "48634a58",
+    "context": [
+      "0171E5CA mov rax, qword ptr [rsi + 0x10]",
+      "0171E5CE and ecx, 0xfff",
+      "0171E5D4 mov rdx, qword ptr [rax + rcx*8]",
+      "0171E5D8 mov rax, qword ptr [rdx + 0x60]",
+      "0171E5DC movsxd rcx, dword ptr [rdx + 0x58]",
+      "0171E5E0 lea rdx, [rax + rcx*8]",
+      "0171E5E4 cmp rax, rdx",
+      "0171E5E7 je 0x171e605"
+    ]
+  },
+  {
+    "function": "0181EBB0",
+    "address": 25293174,
+    "source": "r14",
+    "destination": "rax",
+    "mnemonic": "movsxd",
+    "original_bytes": "49634658",
+    "context": [
+      "0181F169 cmp rbx, qword ptr [rbp - 0x58]",
+      "0181F16D jne 0x181f19f",
+      "0181F16F mov rcx, qword ptr [r14 + 0x60]",
+      "0181F173 mov r8d, r9d",
+      "0181F176 movsxd rax, dword ptr [r14 + 0x58]",
+      "0181F17A lea rdx, [rcx + rax*8]",
+      "0181F17E cmp rcx, rdx",
+      "0181F181 je 0x181f198"
+    ]
+  },
+  {
+    "function": "0181EBB0",
+    "address": 25293263,
+    "source": "r14",
+    "destination": "rax",
+    "mnemonic": "movsxd",
+    "original_bytes": "49634658",
+    "context": [
+      "0181F1C2 cmp rbx, qword ptr [rbp - 0x58]",
+      "0181F1C6 jne 0x181f1fc",
+      "0181F1C8 mov rcx, qword ptr [r14 + 0x60]",
+      "0181F1CC xor r8d, r8d",
+      "0181F1CF movsxd rax, dword ptr [r14 + 0x58]",
+      "0181F1D3 lea rdx, [rcx + rax*8]",
+      "0181F1D7 cmp rcx, rdx",
+      "0181F1DA je 0x181f1f5"
+    ]
+  },
+  {
+    "function": "0181EBB0",
+    "address": 25293362,
+    "source": "r14",
+    "destination": "rax",
+    "mnemonic": "movsxd",
+    "original_bytes": "49634658",
+    "context": [
+      "0181F226 cmp rbx, rsi",
+      "0181F229 jne 0x181f25c",
+      "0181F22B mov rcx, qword ptr [r14 + 0x60]",
+      "0181F22F xor r8d, r8d",
+      "0181F232 movsxd rax, dword ptr [r14 + 0x58]",
+      "0181F236 lea rdx, [rcx + rax*8]",
+      "0181F23A cmp rcx, rdx",
+      "0181F23D je 0x181f255"
+    ]
+  },
+  {
+    "function": "0181EBB0",
+    "address": 25293454,
+    "source": "r14",
+    "destination": "rax",
+    "mnemonic": "movsxd",
+    "original_bytes": "49634658",
+    "context": [
+      "0181F282 cmp rbx, rsi",
+      "0181F285 jne 0x181f2bc",
+      "0181F287 mov rcx, qword ptr [r14 + 0x60]",
+      "0181F28B xor r8d, r8d",
+      "0181F28E movsxd rax, dword ptr [r14 + 0x58]",
+      "0181F292 lea rdx, [rcx + rax*8]",
+      "0181F296 cmp rcx, rdx",
+      "0181F299 je 0x181f2b5"
+    ]
+  },
+  {
+    "function": "0181EBB0",
+    "address": 25293550,
+    "source": "r14",
+    "destination": "rax",
+    "mnemonic": "movsxd",
+    "original_bytes": "49634658",
+    "context": [
+      "0181F2E2 cmp rbx, rsi",
+      "0181F2E5 jne 0x181f31c",
+      "0181F2E7 mov rcx, qword ptr [r14 + 0x60]",
+      "0181F2EB xor r8d, r8d",
+      "0181F2EE movsxd rax, dword ptr [r14 + 0x58]",
+      "0181F2F2 lea rdx, [rcx + rax*8]",
+      "0181F2F6 cmp rcx, rdx",
+      "0181F2F9 je 0x181f315"
+    ]
+  },
+  {
+    "function": "0181EBB0",
+    "address": 25293643,
+    "source": "r14",
+    "destination": "rax",
+    "mnemonic": "movsxd",
+    "original_bytes": "49634658",
+    "context": [
+      "0181F33F cmp rbx, rsi",
+      "0181F342 jne 0x181f374",
+      "0181F344 mov rcx, qword ptr [r14 + 0x60]",
+      "0181F348 xor r8d, r8d",
+      "0181F34B movsxd rax, dword ptr [r14 + 0x58]",
+      "0181F34F lea rdx, [rcx + rax*8]",
+      "0181F353 cmp rcx, rdx",
+      "0181F356 je 0x181f36d"
+    ]
+  },
+  {
+    "function": "018210A0",
+    "address": 25301937,
+    "source": "rax",
+    "destination": "rax",
+    "mnemonic": "movsxd",
+    "original_bytes": "48634058",
+    "context": [
+      "0182139F and edx, 0xfff",
+      "018213A5 mov rcx, qword ptr [rax + 0x10]",
+      "018213A9 mov rax, qword ptr [rcx + rdx*8]",
+      "018213AD mov rcx, qword ptr [rax + 0x60]",
+      "018213B1 movsxd rax, dword ptr [rax + 0x58]",
+      "018213B5 mov rdx, rcx",
+      "018213B8 lea r8, [rcx + rax*8]",
+      "018213BC cmp rcx, r8"
+    ]
+  },
+  {
+    "function": "018218F0",
+    "address": 25306163,
+    "source": "rax",
+    "destination": "rax",
+    "mnemonic": "movsxd",
+    "original_bytes": "48634058",
+    "context": [
+      "01822421 and edx, 0xfff",
+      "01822427 mov rcx, qword ptr [rax + 0x10]",
+      "0182242B mov rax, qword ptr [rcx + rdx*8]",
+      "0182242F mov rcx, qword ptr [rax + 0x60]",
+      "01822433 movsxd rax, dword ptr [rax + 0x58]",
+      "01822437 lea rdx, [rcx + rax*8]",
+      "0182243B cmp rcx, rdx",
+      "0182243E je 0x1822647"
+    ]
+  },
+  {
+    "function": "01823E00",
+    "address": 25313753,
+    "source": "r9",
+    "destination": "rax",
+    "mnemonic": "movsxd",
+    "original_bytes": "49634158",
+    "context": [
+      "018241C9 mov byte ptr [rbp + 0x62], 1",
+      "018241CD mov rcx, qword ptr [rax + 0x10]",
+      "018241D1 mov r9, qword ptr [rcx + rdx*8]",
+      "018241D5 mov rcx, qword ptr [r9 + 0x60]",
+      "018241D9 movsxd rax, dword ptr [r9 + 0x58]",
+      "018241DD lea rdx, [rcx + rax*8]",
+      "018241E1 cmp rcx, rdx",
+      "018241E4 je 0x18241fb"
+    ]
+  },
+  {
+    "function": "01823E00",
+    "address": 25313842,
+    "source": "r9",
+    "destination": "rax",
+    "mnemonic": "movsxd",
+    "original_bytes": "49634158",
+    "context": [
+      "01824225 jmp 0x1824229",
+      "01824227 xor cl, cl",
+      "01824229 add dword ptr [rbp + 0x11fb0], eax",
+      "0182422F xor r8d, r8d",
+      "01824232 movsxd rax, dword ptr [r9 + 0x58]",
+      "01824236 mov byte ptr [rbp + 0x48], cl",
+      "01824239 mov rcx, qword ptr [r9 + 0x60]",
+      "0182423D lea rdx, [rcx + rax*8]"
+    ]
+  },
+  {
+    "function": "01823E00",
+    "address": 25313938,
+    "source": "r9",
+    "destination": "rax",
+    "mnemonic": "movsxd",
+    "original_bytes": "49634158",
+    "context": [
+      "01824285 jmp 0x1824289",
+      "01824287 xor cl, cl",
+      "01824289 add dword ptr [rbp + 0x11fb4], eax",
+      "0182428F xor r8d, r8d",
+      "01824292 movsxd rax, dword ptr [r9 + 0x58]",
+      "01824296 mov byte ptr [rbp + 0x49], cl",
+      "01824299 mov rcx, qword ptr [r9 + 0x60]",
+      "0182429D lea rdx, [rcx + rax*8]"
+    ]
+  },
+  {
+    "function": "01823E00",
+    "address": 25314034,
+    "source": "r9",
+    "destination": "rax",
+    "mnemonic": "movsxd",
+    "original_bytes": "49634158",
+    "context": [
+      "018242E5 jmp 0x18242e9",
+      "018242E7 xor cl, cl",
+      "018242E9 add dword ptr [rbp + 0x11fb8], eax",
+      "018242EF xor r8d, r8d",
+      "018242F2 movsxd rax, dword ptr [r9 + 0x58]",
+      "018242F6 mov byte ptr [rbp + 0x4a], cl",
+      "018242F9 mov rcx, qword ptr [r9 + 0x60]",
+      "018242FD lea rdx, [rcx + rax*8]"
+    ]
+  },
+  {
+    "function": "01823E00",
+    "address": 25314130,
+    "source": "r9",
+    "destination": "rax",
+    "mnemonic": "movsxd",
+    "original_bytes": "49634158",
+    "context": [
+      "01824345 jmp 0x1824349",
+      "01824347 xor cl, cl",
+      "01824349 add dword ptr [rbp + 0x11fbc], eax",
+      "0182434F xor r8d, r8d",
+      "01824352 movsxd rax, dword ptr [r9 + 0x58]",
+      "01824356 mov byte ptr [rbp + 0x4b], cl",
+      "01824359 mov rcx, qword ptr [r9 + 0x60]",
+      "0182435D lea rdx, [rcx + rax*8]"
+    ]
+  },
+  {
+    "function": "01823E00",
+    "address": 25314226,
+    "source": "r9",
+    "destination": "rax",
+    "mnemonic": "movsxd",
+    "original_bytes": "49634158",
+    "context": [
+      "018243A5 jmp 0x18243a9",
+      "018243A7 xor cl, cl",
+      "018243A9 add dword ptr [rbp + 0x11fc0], eax",
+      "018243AF xor r8d, r8d",
+      "018243B2 movsxd rax, dword ptr [r9 + 0x58]",
+      "018243B6 mov byte ptr [rbp + 0x4c], cl",
+      "018243B9 mov rcx, qword ptr [r9 + 0x60]",
+      "018243BD lea rdx, [rcx + rax*8]"
+    ]
+  }
+]

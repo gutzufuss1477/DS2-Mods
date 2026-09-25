@@ -1,0 +1,10 @@
+[b]Version 1.3.0[/b]
+[list]
+[*]Added configurable durability for supported crafted equipment.
+[*]Added dedicated boots durability support for all 7 supported craftable boots.
+[*]Added optional Unbreakable mode.
+[*]Added durability multiplier from 1.0x to 1000.0x.
+[*]Cargo, order cargo and cargo containers remain vanilla.
+[*]Retains FreeCrafting, 120 configurable recipes and craftable Omnireflector Boots from 1.2.0.
+[*]Simplified and reorganized the INI.
+[/list]

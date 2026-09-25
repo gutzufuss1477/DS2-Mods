@@ -1,0 +1,62 @@
+FUNCTION RVA 0x1518CC0
+NAME: FUN_141518cc0
+SIZE: 306
+SIGNATURE: undefined FUN_141518cc0(void)
+================================================================
+
+/* WARNING: Function: __chkstk replaced with injection: alloca_probe */
+/* WARNING: Function: __security_check_cookie replaced with injection: security_check_cookie */
+
+void FUN_141518cc0(longlong param_1)
+
+{
+  char *pcVar1;
+  ulonglong uVar2;
+  uint uVar3;
+  undefined4 uVar5;
+  undefined1 auStack_2318 [32];
+  undefined1 local_22f8 [8640];
+  char local_138;
+  ulonglong local_18;
+  undefined8 uStack_10;
+  ulonglong uVar4;
+  
+  uStack_10 = 0x141518cd0;
+  local_18 = DAT_1439b9800 ^ (ulonglong)auStack_2318;
+  uVar2 = 0;
+  uVar5 = 0;
+  *(undefined8 *)(param_1 + 0x2728) = 0;
+  *(undefined1 *)(param_1 + 0x2732) = 0;
+  *(undefined8 *)(param_1 + 0x360) = 0;
+  if (*(char *)(param_1 + 0x19) == '\0') {
+    uVar4 = uVar2;
+    do {
+      FUN_141529860(param_1 + 0x20,uVar4 & 0xff,(uVar4 & 0xff) * 0x10 + 0x238 + param_1 + 0x20);
+      uVar3 = (int)uVar4 + 1;
+      uVar4 = (ulonglong)uVar3;
+    } while ((int)uVar3 < 5);
+  }
+  FUN_141518f20(param_1,*(undefined1 *)(param_1 + 0x371));
+  FUN_141519450(param_1);
+  if (*(char *)(param_1 + 0x19) == '\0') {
+    FUN_140b3f7a0(local_22f8);
+    FUN_140b39500(local_22f8,DAT_14623e4e0 + 0x22d8);
+    if (local_138 != '\0') {
+      pcVar1 = "";
+      do {
+        if (*pcVar1 == local_138) {
+          uVar5 = (&DAT_142dd37d4)[(longlong)(int)uVar2 * 2];
+          break;
+        }
+        uVar2 = (ulonglong)((int)uVar2 + 1);
+        pcVar1 = pcVar1 + 8;
+      } while ((longlong)pcVar1 < 0x142dd3818);
+    }
+    *(undefined4 *)(param_1 + 0x2720) = uVar5;
+  }
+  return;
+}
+
+
+
+================================================================

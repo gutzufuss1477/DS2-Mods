@@ -1,0 +1,68 @@
+FUNCTION RVA 0x1520910
+NAME: FUN_141520910
+SIZE: 292
+SIGNATURE: undefined FUN_141520910(void)
+================================================================
+
+void FUN_141520910(longlong param_1,undefined4 *param_2,undefined8 param_3)
+
+{
+  char cVar1;
+  undefined1 uVar2;
+  longlong lVar3;
+  longlong lVar4;
+  undefined1 local_res8 [8];
+  undefined1 local_res10 [8];
+  
+  *param_2 = *(undefined4 *)(*(longlong *)(param_1 + 0xe0) + 0x2708);
+  *(undefined1 *)(param_2 + 1) = 1;
+  *(undefined1 *)((longlong)param_2 + 0x11) = 1;
+  cVar1 = FUN_141519ab0(*(undefined8 *)(param_1 + 0xe0),param_3);
+  if ((cVar1 == '\x01') || (cVar1 == '\x02')) {
+    uVar2 = 1;
+  }
+  else {
+    if (cVar1 == '\x03') {
+      *(undefined1 *)(param_2 + 4) = 2;
+      lVar3 = 0x178;
+      lVar4 = 0x158;
+      goto LAB_1415209bb;
+    }
+    uVar2 = 0;
+  }
+  *(undefined1 *)(param_2 + 4) = uVar2;
+  if (cVar1 != '\0') {
+    if (cVar1 == '\x01') {
+      lVar3 = 0x168;
+      lVar4 = 0x148;
+      goto LAB_1415209bb;
+    }
+    if (cVar1 == '\x02') {
+      lVar3 = 0x170;
+      lVar4 = 0x150;
+      goto LAB_1415209bb;
+    }
+    if (cVar1 == '\x03') {
+      lVar3 = 0x178;
+      lVar4 = 0x158;
+      goto LAB_1415209bb;
+    }
+  }
+  lVar4 = 0x140;
+  lVar3 = 0x160;
+LAB_1415209bb:
+  if (*(char *)(*(longlong *)(param_1 + 0xe0) + 0x2678) != '\0') {
+    FUN_1427023a0(*(undefined8 *)(*(longlong *)(param_1 + 0xe8) + lVar3),local_res8);
+    FUN_1400a3a20(param_2 + 2,local_res8);
+    FUN_1400a38a0(local_res8);
+    return;
+  }
+  FUN_1427023a0(*(undefined8 *)(*(longlong *)(param_1 + 0xe8) + lVar4),local_res10);
+  FUN_1400a3a20(param_2 + 2,local_res10);
+  FUN_1400a38a0(local_res10);
+  return;
+}
+
+
+
+================================================================

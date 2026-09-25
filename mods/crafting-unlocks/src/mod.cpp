@@ -1,6 +1,9 @@
 #include "win_api.hpp"
 #include "sha256.hpp"
 #include "backpack.hpp"
+#include "freecrafting_sites.hpp"
+#include "durability_scope.hpp"
+extern "C" void SpecialBootUsageThunk();
 extern "C" void* memcpy(void*d,const void*s,SIZE_T n){auto*a=(volatile u8*)d;auto*b=(const volatile u8*)s;while(n--)*a++=*b++;return d;}
 extern "C" void* memset(void*d,int c,SIZE_T n){auto*a=(volatile u8*)d;while(n--)*a++=(u8)c;return d;}
 extern "C" int memcmp(const void*a,const void*b,SIZE_T n){auto*x=(const u8*)a;auto*y=(const u8*)b;while(n--){if(*x!=*y)return *x<*y?-1:1;++x;++y;}return 0;}
@@ -9,18 +12,28 @@ extern "C" long _InterlockedExchange(long volatile*,long);
 #pragma intrinsic(_InterlockedCompareExchange)
 #pragma intrinsic(_InterlockedExchange)
 using namespace craft;
+extern "C" u32 DurabilityMultiplierBits=0x40000000u;
+extern "C" u32 DurabilityUnbreakableValue=0;
+extern "C" i32 FreeCostCount(const u8* resource) {
+ // Called only by the optional, signature-checked ingredient-reader thunks.
+ const i32 nativeCount=*reinterpret_cast<const i32*>(resource+0x58);
+ const u32 key=*reinterpret_cast<const u32*>(resource+0x20);
+ return effective_cost_count(true,key,nativeCount);
+}
 namespace {
 constexpr u64 ManagerRva=0x623E540, OriginalRva=0xB6F9C0, SiteRva=0x171DB1D;
 constexpr u64 BackpackSiteRva=0x1529896, BackpackOriginalRva=0xB6FC20, VectorCopyRva=0xB7E950;
 constexpr u8 BackpackCallBytes[5]={0xE8,0x85,0x63,0x64,0xFF};
 constexpr u32 MaxSnapshots=1024, ConfigLimit=1024*1024;
 constexpr u8 CallBytes[5]={0xE8,0x9E,0x1E,0x45,0xFF};
+constexpr u64 SpecialBootUiSiteRva=0x171C124;
+constexpr u8 SpecialBootUiBytes[6]={0x0F,0x84,0xB2,0x00,0x00,0x00};
 constexpr u8 ExpectedHash[32]={0xbf,0x3d,0x1c,0x66,0x55,0x45,0x93,0x0b,0xc8,0x50,0xd8,0xf5,0xdf,0x48,0x6f,0x73,0x95,0x88,0x5b,0xb7,0x29,0xd4,0xfd,0x40,0x8f,0xdb,0x03,0x39,0x0d,0xe0,0x76,0x5b};
 HMODULE module;u64 image;WCHAR exePath[2048],folder[2048],iniPath[2048],logPath[2048],catPath[2048],templatePath[2048];
 Settings settings;char configData[ConfigLimit+1];u8 hashChunk[65536];
 Recipe recipes[MaxRecipes];u32 recipeCount;const char* scanIssue="not_started";i32 scanResourceCount=0,scanInstanceCount=0;u32 scanIndex=0;Instance nativeCopy[MaxMenu];
 struct Snapshot {Vector header;Instance entries[MaxMenu];};
-Snapshot* snapshots;u32 snapshotCount;volatile long busy=0;u32 menuCount=0;u64 lastCatalogueManager=0;u32 lastCatalogueCount=0;u64 warnedManager=0;u32 warnedCount=0;
+Snapshot* snapshots;u32 snapshotCount;volatile long busy=0;u32 menuCount=0;u64 lastCatalogueManager=0;u32 lastCatalogueCount=0;u64 warnedManager=0;u32 warnedCount=0;bool specialBootLogged=false;
 using ListFn=Vector*(*)(u64,u64);ListFn original;
 using BackpackListFn=void(*)(u64,u8,Vector*);
 using VectorCopyFn=void(*)(Vector*,const Instance*,i32);
@@ -75,7 +88,7 @@ void exportCatalogue(u64 manager,u8 mask){
  for(u32 i=0;i<recipeCount;++i){const Recipe&r=recipes[i];char name[385]={};if(r.valid)itemName(r,name);
   Text t;t.hex(r.key);t.ch('\t');if(name[0])t.clean(name);else t.add("[name unavailable]");t.ch('\t');t.add(usage(r.usage));t.ch('\t');t.hex(r.baggageKey);t.ch('\t');t.hex(r.instance.flags);t.ch('\t');t.add(reason(r.usage==5?backpack_eligibility(settings,r):eligibility(settings,r,mask)));t.add("\r\n");if(csv!=InvalidHandle)csvOK=writeall(csv,t.b,t.n)&&csvOK;
   Text q;q.add("; ");if(name[0])q.clean(name);else q.add("[name unavailable]");q.add(" | ");q.add(usage(r.usage));q.add(" | ");q.add(reason(r.usage==5?backpack_eligibility(settings,r):eligibility(settings,r,mask)));q.add("\r\n");
-  if((!supported_usage(r.usage)&&(r.usage!=5||backpack_kind(r.key)==BackpackKind::None))||!r.valid||(r.dlc&1)||r.mission||r.duplicate)q.add("; native-only: ");
+  if((!supported_usage(r.usage)&&!special_normal_recipe(r.key)&&(r.usage!=5||backpack_kind(r.key)==BackpackKind::None))||!r.valid||(r.dlc&1)||r.mission||r.duplicate)q.add("; native-only: ");
   q.hex(r.key);q.add("=inherit\r\n\r\n");if(tpl!=InvalidHandle)tplOK=writeall(tpl,q.b,q.n)&&tplOK;
  }
  if(csv!=InvalidHandle)CloseHandle(csv);if(tpl!=InvalidHandle)CloseHandle(tpl);
@@ -90,6 +103,7 @@ Vector* makeMenu(Vector* native,u64 facility){
  if(!TryAcquireSRWLockShared((void*)(manager+0x138))){say("VANILLA: catalogue busy; no global data changed.");return native;}
  bool ok=scan(manager);ReleaseSRWLockShared((void*)(manager+0x138));
  if(!ok){Text t;t.add("VANILLA: catalogue validation failed step=");t.add(scanIssue);t.add(" resources=");t.dec((u32)scanResourceCount);t.add(" instances=");t.dec((u32)scanInstanceCount);t.add(" index=");t.dec(scanIndex);log(t);return native;}
+ if(!specialBootLogged){bool found=false;for(u32 i=0;i<recipeCount;++i)if(recipes[i].key==OmnireflectorBootsKey){found=true;Text t;t.add("SPECIAL_BOOT: key=0x75D99124 usage=");t.dec(recipes[i].usage);t.add(" valid=");t.dec(recipes[i].valid);t.add(" caseType=");t.dec(recipes[i].caseType);t.add(" dlc=");t.dec(recipes[i].dlc);t.add(" mission=");t.dec(recipes[i].mission?1:0);t.add(" status=");t.add(reason(eligibility(settings,recipes[i],mask)));log(t);break;}if(!found)say("SPECIAL_BOOT: key=0x75D99124 not present in loaded catalogue.");specialBootLogged=true;}
  // Native string calls and all file I/O are OUTSIDE the catalogue lock.
  if(warnedManager!=manager||warnedCount!=recipeCount){
   for(u32 i=0;i<settings.count;++i){bool found=false;for(u32 j=0;j<recipeCount;++j)if(recipes[j].key==settings.rules[i].key){found=true;break;}
@@ -198,11 +212,26 @@ bool patchOnce(u64 siteRva,const u8* expected,void* relay){
   }}
  bool resumed=resumeThreads();closeThreads();if(!resumed)say("CRITICAL: a thread resume failed; close and restart the game.");return written;
 }
+bool patchSpanOnce(u64 siteRva,const u8* expected,u32 length,void* relay){
+ if(length<5||length>8||!collectThreads())return false;bool ok=true;Context c={};c.flags=0x00100001;
+ for(u32 i=0;i<threadCount;++i){Thread&t=threads[i];if(SuspendThread(t.h)==0xFFFFFFFF){ok=false;break;}t.suspended=true;
+  if(!GetThreadContext(t.h,&c)||(c.rip>image+siteRva&&c.rip<image+siteRva+length)){ok=false;break;}}
+ u8*site=(u8*)(image+siteRva);bool written=false;DWORD old=0;u8 patch[8];for(u32 i=0;i<length;++i)patch[i]=0x90;
+ if(ok&&memcmp(site,expected,length)!=0)ok=false;
+ if(ok){long long delta=(long long)(u64)relay-(long long)(image+siteRva+5);
+  if(delta<(-2147483647LL-1)||delta>2147483647LL)ok=false;else{patch[0]=0xE8;i32 rel=(i32)delta;memcpy(patch+1,&rel,4);}}
+ if(ok&&VirtualProtect(site,length,0x40,&old)){memcpy(site,patch,length);written=true;
+  if(!FlushInstructionCache(GetCurrentProcess(),site,length)){memcpy(site,expected,length);FlushInstructionCache(GetCurrentProcess(),site,length);written=false;}
+  DWORD ignored=0;if(!VirtualProtect(site,length,old,&ignored)){memcpy(site,expected,length);FlushInstructionCache(GetCurrentProcess(),site,length);VirtualProtect(site,length,old,&ignored);written=false;}}
+ bool resumed=resumeThreads();closeThreads();if(!resumed)say("CRITICAL: a thread resume failed; close and restart the game.");return written;
+}
 void* relayNear(u64 siteRva,u64 destination){u64 base=(image+siteRva)&~u64(0xFFFF);for(u64 distance=0x10000;distance<0x70000000;distance+=0x10000){for(int side=0;side<2;++side){if(side&&base<=distance+0x10000)continue;u64 address=side?base-distance:base+distance;long long delta=(long long)address-(long long)(image+siteRva+5);if(delta<(-2147483647LL-1)||delta>2147483647LL)continue;void*p=VirtualAlloc((void*)address,0x1000,0x3000,4);if(p){u8 jump[14]={0xFF,0x25,0,0,0,0};u64 target=destination;memcpy(jump+6,&target,8);memcpy(p,jump,14);DWORD old;if(!VirtualProtect(p,0x1000,0x20,&old)||!FlushInstructionCache(GetCurrentProcess(),p,14)){VirtualFree(p,0,0x8000);return nullptr;}return p;}}}return nullptr;}
+#include "freecrafting_runtime.inl"
+#include "durability_runtime.inl"
 DWORD WINAPI init(void*){
  u32 n=GetModuleFileNameW(module,folder,2048);if(!n||n>=2048)return 0;while(n&&folder[n-1]!='\\'&&folder[n-1]!='/')--n;folder[n]=0;
  if(!path(iniPath,L"ds2_crafting_unlocks.ini")||!path(logPath,L"ds2_crafting_unlocks.log")||!path(catPath,L"ds2_crafting_catalogue.tsv")||!path(templatePath,L"ds2_crafting_items.generated.ini"))return 0;
- Text session;session.add("DS2 Crafting Unlocks 1.0.0 | fabrication + backpack | exact-build gate | pid=");session.dec(GetCurrentProcessId());session.add(" tick=");session.dec(GetTickCount64());log(session);
+ Text session;session.add("DS2 Crafting Overhaul 1.3.0 | fabrication + backpack | exact-build gate | pid=");session.dec(GetCurrentProcessId());session.add(" tick=");session.dec(GetTickCount64());log(session);
  if(!config())return 0;if(!settings.enabled){say("DISABLED: no patch installed.");return 0;}
  image=(u64)GetModuleHandleW(nullptr);n=GetModuleFileNameW(nullptr,exePath,2048);if(!n||n>=2048){say("VERSION_BLOCKED: executable path unavailable.");return 0;}
  u8 hash[32];if(!filehash(exePath,hash)||memcmp(hash,ExpectedHash,32)){say("VERSION_BLOCKED: installed DS2.exe SHA-256 differs from analysed binary. No patch.");return 0;}
@@ -236,6 +265,13 @@ DWORD WINAPI init(void*){
   say("PARTIAL: fabrication hook active, backpack hook NOT installed. Restart; send this log.");return 0;
  }
  say("HOOK_INSTALLED: backpack RVA 0x01529896 -> original + engine-owned menu-local copies. Open backpack customization.");
+ void* specialBootRelay=relayNear(SpecialBootUiSiteRva,(u64)&SpecialBootUsageThunk);
+ bool specialBootInstalled=false;
+ if(specialBootRelay){for(u32 attempt=0;attempt<12;++attempt){if(patchSpanOnce(SpecialBootUiSiteRva,SpecialBootUiBytes,6,specialBootRelay)){specialBootInstalled=true;break;}Sleep(50);}}
+ if(specialBootInstalled)say("SPECIAL_BOOT_UI_ON: Omnireflector Boots bypass Usage=None UI filter only.");
+ else {if(specialBootRelay)VirtualFree(specialBootRelay,0,0x8000);say("SPECIAL_BOOT_UI_BLOCKED: UI filter patch not installed; all other features continue.");}
+ installFreeCrafting();
+ installDurability();
  return 0;
 }
 }
