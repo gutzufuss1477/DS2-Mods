@@ -1,13 +1,14 @@
 # Changelog
 
-## 3.0.0-rc.4 - Execute-only loader compatibility
+## 3.0.0-rc.5 - Execute-only in-process read
 
-- The rc.3 Episode-2 attempt reached the executable but showed that Ultimate ASI
-  Loader marks its code pages execute-only, so `ReadProcessMemory` could not read
-  the first APAS code anchor.
+- rc.4 still reported a code-anchor read failure. It had retried through
+  `ReadProcessMemory`; this API remains blocked by the loader even after a page is
+  made readable.
 - For a failed read only, the validation path changes the containing 4 KiB page to
-  Execute+Read, retries the read, and restores the exact previous protection before
-  continuing. It never makes a page writable during validation.
+  Execute+Read, copies the bounded bytes directly in-process, and restores the
+  exact previous protection before continuing. It never makes a page writable
+  during validation.
 - The image format and all seven exact code/vtable anchors remain mandatory; any
   read, code, or relocated vtable-pointer mismatch still rejects before code is
   changed. Successful fallback use is recorded in the local log.

@@ -1,4 +1,4 @@
-# 3.0.0-rc.4 validation - 2026-09-24
+# 3.0.0-rc.5 validation - 2026-09-25
 
 ## Episode-2 menu attempt
 
@@ -7,9 +7,10 @@ This remains not an UnlockAll or UI result: rc.1 rejected startup, rc.2 identifi
 changed PE metadata, and rc.3 identified `TARGET_ANCHOR_READ_FAILURE` at
 `0xBE0270`. The on-disk `DS2.exe` remains the exact supported SHA-256 and version
 (`BF3D...D143F`, Steam 1.10.89.0). Ultimate ASI Loader makes the code page
-execute-only. rc.4 temporarily permits read access for the single verified anchor
-page and restores its exact prior protection. The first valid UI result requires
-an rc.4 log that says `READY`.
+execute-only. rc.4 still used a rejected second `ReadProcessMemory` call. rc.5
+temporarily permits read access for the single verified anchor page, copies its
+bounded bytes directly, and restores its exact prior protection. The first valid
+UI result requires an rc.5 log that says `READY`.
 
 ## Passed
 

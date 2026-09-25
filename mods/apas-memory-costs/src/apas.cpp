@@ -2,7 +2,7 @@
 #include "target.h"
 
 // One binary, one immutable startup configuration. No timer or gameplay worker.
-#define APAS_VERSION "3.0.0-rc.4"
+#define APAS_VERSION "3.0.0-rc.5"
 constexpr u32 kConstructorRva = 0xBE0270;
 constexpr u32 kUnlockBlockRva = 0xBE39A0;
 constexpr u32 kResourceVtableRva = 0x32088B8;
@@ -20,6 +20,7 @@ static bool Equal(const void* a, const void* b, SIZE_T size) {
     return true;
 }
 static bool g_usedProtectedRead = false;
+static u32 g_protectedReadFailure = 0;
 static bool Read(const void* src, void* dst, SIZE_T size) {
     SIZE_T got = 0;
     if (ReadProcessMemory(GetCurrentProcess(), src, dst, size, &got) && got == size) return true;
@@ -31,14 +32,25 @@ static bool Read(const void* src, void* dst, SIZE_T size) {
     u64 page = address & ~0xfffull;
     if (!VirtualQuery(src, &info, sizeof(info)) || info.state != kCommit ||
         address < (u64)info.base || size > (u64)info.base + info.size - address ||
-        page < (u64)info.base || 0x1000 > (u64)info.base + info.size - page) return false;
+        page < (u64)info.base || 0x1000 > (u64)info.base + info.size - page) {
+        g_protectedReadFailure = 1;
+        return false;
+    }
     DWORD previous, ignored;
-    if (!VirtualProtect((void*)page, 0x1000, kExecuteRead, &previous)) return false;
-    got = 0;
-    bool result = ReadProcessMemory(GetCurrentProcess(), src, dst, size, &got) && got == size;
+    if (!VirtualProtect((void*)page, 0x1000, kExecuteRead, &previous)) {
+        g_protectedReadFailure = 2;
+        return false;
+    }
+    // The caller is now permitted to read this bounded page. Some loaders still
+    // reject a second ReadProcessMemory request, so copy directly in-process.
+    memcpy(dst, src, size);
     bool restored = VirtualProtect((void*)page, 0x1000, previous, &ignored) != 0;
-    if (result && restored) g_usedProtectedRead = true;
-    return result && restored;
+    if (!restored) {
+        g_protectedReadFailure = 3;
+        return false;
+    }
+    g_usedProtectedRead = true;
+    return true;
 }
 
 struct Settings { bool enabled; bool unlockAll; i32 cost; };
@@ -136,6 +148,7 @@ static bool LoadSettings() {
 
 static bool ValidateImage(u8* base) {
     g_usedProtectedRead = false;
+    g_protectedReadFailure = 0;
     u16 magic = 0, machine = 0;
     u32 pe = 0, signature = 0, timestamp = 0, imageSize = 0;
     if (!Read(base, &magic, 2) || magic != 0x5A4D ||
@@ -162,6 +175,7 @@ static bool ValidateImage(u8* base) {
         if (!Read(base + anchor.rva, bytes, anchor.length)) {
             Log("TARGET_ANCHOR_READ_FAILURE");
             LogHexNumber("AnchorRva=", anchor.rva);
+            if (g_protectedReadFailure) LogNumber("ProtectedReadFailure=", g_protectedReadFailure);
             return false;
         }
         if (anchor.relocatedPointers) {
