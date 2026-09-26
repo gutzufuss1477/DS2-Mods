@@ -9,6 +9,7 @@ Explore with a wider view of the cargo around you. Improved Odradek Scan gives S
 [*]Distance at the end of the recipient line: [b]recipient - likes - distance[/b]. Updates as you move.
 [*]Spent and destroyed items keep their normal nearby visibility without cluttering the extended range.
 [*]Native scan expiry and marker limits are retained.
+[*]Vanilla terrain scan colors for rough ground, water and tar are preserved at their normal game range.
 [/list]
 [b]Requirements[/b]
 DEATH STRANDING 2: ON THE BEACH, [b]Steam PC build 1.10.89.0[/b], Windows x64.
@@ -28,21 +29,21 @@ Enabled=1
 RangeMeters=500
 VisualWaveScale=1
 FullCircle=1
-FullCircleMode=Sphere
+FullCircleMode=Fan360
 ExtendCargoMarkers=1
 DebugLog=0[/code]
 [b]RangeMeters[/b] is the radius in metres. The parser accepts 50-1000; [b]500 m is the recommended, gameplay-tested preset[/b]. Keep VisualWaveScale=1 for the tested wave appearance. Set Enabled=0 to disable the mod or DebugLog=1 when troubleshooting.
 
 [b]Range and compatibility notes[/b]
-The 500 m preset, cargo detection, wave appearance and distance placement have been tested in game. Higher settings do not guarantee detection at the full distance: earlier 1000 m tests still encountered a game-side first-detection limit around 700 m. Below 200 m, the visible wave may remain larger than the configured cargo display radius.
+The 500 m preset, cargo detection, wave appearance and distance placement have been tested in game. The colored terrain survey for rough ground, water and tar intentionally keeps its vanilla range and is not stretched to 500 m. Higher settings do not guarantee detection at the full distance: earlier 1000 m tests still encountered a game-side first-detection limit around 700 m. Below 200 m, the visible wave may remain larger than the configured cargo display radius.
 
 Only the listed Steam build has been validated. Build/code checks prevent unsupported patches; a game update may require a mod update. Mods that modify the same scan or cargo HUD code may conflict. Do not load older Odradek Scan test builds alongside this release. The mod changes runtime behaviour, not save-file data.
 
 [b]Uninstall[/b]
 Close the game and remove this mod's ASI and INI. Keep a shared ASI loader if other mods need it.
 
-[b]Version 1.0.0[/b]
-First public release: configurable 500 m scan, 360-degree coverage, eligible cargo range extension and distance after likes.
+[b]Version 1.0.1[/b]
+Restores the vanilla colored terrain survey for rough ground, water and tar while keeping the 500 m scan, 360-degree coverage and extended cargo detection.
 
 [b]Source and credits[/b]
 Mod by [b]gutzufuss1477[/b]. [url=https://github.com/gutzufuss1477/DS2-Mods/tree/main/mods/improved-odradek-scan]Source code, build scripts and tests on GitHub[/url].

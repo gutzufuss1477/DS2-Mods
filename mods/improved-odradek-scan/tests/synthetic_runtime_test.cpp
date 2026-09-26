@@ -202,8 +202,8 @@ extern "C" __declspec(dllexport) u32 RunPackagedSettingsTest(){
     if(result!=SETTINGS_READY)return 1u;
     if(settings.rangeBits!=floatBits(1000.0f)||settings.uiRangeBits!=floatBits(500.0f)||
        settings.rangeMeters!=500.0f)return 2u;
-    if(!settings.fullCircle||settings.shapeBits!=0u||
-       settings.angleBits!=NATIVE_SURVEY_ANGLE_BITS)return 3u;
+    if(!settings.fullCircle||settings.shapeBits!=NATIVE_SURVEY_SHAPE||
+       settings.angleBits!=floatBits(FULL_CIRCLE_FAN_ANGLE))return 3u;
     if(!settings.extendCargoMarkers||g_debugLog||g_visualWaveScale!=1.0f)return 4u;
     // A stale installed INI must never reactivate the rejected lifecycle path.
     settings.extendCargoMarkers=true;

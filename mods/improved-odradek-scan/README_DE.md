@@ -1,6 +1,6 @@
-# Improved Odradek Scan – 1.0.0
+# Improved Odradek Scan – 1.0.1
 
-[Nexus Mods](https://www.nexusmods.com/deathstranding2onthebeach/mods/85) · [GitHub release](https://github.com/gutzufuss1477/DS2-Mods/releases/tag/improved-odradek-scan-v1.0.0)
+[Nexus Mods](https://www.nexusmods.com/deathstranding2onthebeach/mods/85) · [GitHub Releases](https://github.com/gutzufuss1477/DS2-Mods/releases)
 
 360°-Odradek-Scan mit **500 m Standardreichweite**, im Spiel bestätigt.
 Entfernte unberührte und brauchbare abgelegte Fracht wird beim Scan markiert.
@@ -20,6 +20,8 @@ Danach normal starten und scannen.
 `RangeMeters=500` in der INI ändern und das Spiel neu starten. Der Parser akzeptiert
 50–1000; empfohlen sind die bestätigten 500 m. Höhere Werte garantieren keinen
 entsprechenden Fundradius (frühere 1000-m-Tests fanden neue Fracht erst um 700 m).
+Die farbige Geländeauswertung für schwierigen Untergrund, Wasser und Teer bleibt
+bewusst in ihrer nativen Spielreichweite und wird nicht auf 500 m gestreckt.
 Unter 200 m kann die native Welle größer als die eingestellte Markerreichweite bleiben.
 `VisualWaveScale=1` erhält die getestete Welle. `Enabled=0` deaktiviert den Mod.
 `DebugLog=1` ist nur zur Diagnose vorgesehen, standardmäßig aus.

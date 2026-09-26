@@ -28,7 +28,7 @@ extern "C" long long _InterlockedExchange64(volatile long long*,long long);
 #pragma intrinsic(_InterlockedCompareExchange64)
 #pragma intrinsic(_InterlockedExchange64)
 
-#define MOD_VERSION "1.0.0"
+#define MOD_VERSION "1.0.1"
 #define EXPECTED_TIMESTAMP 0x6A3DAE46u
 #define EXPECTED_IMAGE_SIZE 0x0B292000u
 
@@ -922,7 +922,7 @@ static void openLog(){
         const char header[]=
             "DS2 Odradek 360 Scan v" MOD_VERSION "\r\n"
             "Expected target: Steam PC 1.10.89.0\r\n"
-            "Scope: 360 gameplay sensor, progressive scan radius and survey shape/range. Cargo lifecycle, native hits and global marker/HUD distances remain native.\r\n";
+            "Scope: 360 gameplay sensor and extended cargo scan radius. Native terrain-survey values, cargo lifecycle, native hits and global marker/HUD distances remain native.\r\n";
         logRaw(header,(DWORD)(sizeof(header)-1u));
     }
 }
@@ -1784,18 +1784,23 @@ static SettingsResult loadSettings(Settings* settings){
         }
         u32 begin=0,end=0;
         trimmedBounds(value,&begin,&end);
-        if(equalsToken(value,begin,end,L"sphere")){
-            settings->shapeBits=0u;
-            settings->angleBits=NATIVE_SURVEY_ANGLE_BITS;
-        }else if(equalsToken(value,begin,end,L"fan360")){
+        if(equalsToken(value,begin,end,L"sphere")||
+           equalsToken(value,begin,end,L"fan360")){
+            // Terrain-safe 360 mode: keep the native Fan survey shape so
+            // shallow/deep/tar hazard overlays continue to use their native
+            // survey path. "Sphere" stays as a compatibility alias for
+            // existing v1.0.0 INIs.
             settings->shapeBits=NATIVE_SURVEY_SHAPE;
             settings->angleBits=floatBits(FULL_CIRCLE_FAN_ANGLE);
+        }else if(equalsToken(value,begin,end,L"legacysphere")){
+            settings->shapeBits=0u;
+            settings->angleBits=NATIVE_SURVEY_ANGLE_BITS;
         }else if(equalsToken(value,begin,end,L"spherical")){
             settings->shapeBits=2u;
             settings->angleBits=NATIVE_SURVEY_ANGLE_BITS;
         }
         else{
-            const char message[]="ERROR: FullCircleMode must be Sphere, Fan360, or Spherical; no patch applied.\r\n";
+            const char message[]="ERROR: FullCircleMode must be Sphere, Fan360, LegacySphere, or Spherical; no patch applied.\r\n";
             logCritical(message,(DWORD)(sizeof(message)-1u));
             return SETTINGS_INVALID;
         }
@@ -2069,7 +2074,7 @@ static bool validateSurveyNative(const GameImage* image,u8* object){
            readU32(object+OFF_SURVEY_RANGE,&range)&&range==NATIVE_SURVEY_RANGE_BITS;
 }
 
-static bool validateSurveyTarget(const GameImage* image,u8* object,const Settings* settings){
+[[maybe_unused]] static bool validateSurveyTarget(const GameImage* image,u8* object,const Settings* settings){
     u32 shape=0,angle=0,range=0;
     return settings&&validateSurveyIdentity(image,object)&&
            readU32(object+OFF_SURVEY_SHAPE,&shape)&&shape==settings->shapeBits&&
@@ -2278,7 +2283,7 @@ static bool rollbackSurveyValues(
     return complete;
 }
 
-static ApplyResult applySurvey(u8* object,const Settings* settings){
+[[maybe_unused]] static ApplyResult applySurvey(u8* object,const Settings* settings){
     if(!object||!settings||((u64)(object+OFF_SURVEY_SHAPE)&7u)!=0u)return APPLY_FAILED;
     u64 originalPair=((u64)NATIVE_SURVEY_ANGLE_BITS<<32)|NATIVE_SURVEY_SHAPE;
     u64 targetPair=((u64)settings->angleBits<<32)|settings->shapeBits;
@@ -6501,15 +6506,13 @@ static DWORD WINAPI worker(LPVOID){
     logHookState("HOOK-ACTIVE:","gameplay",image.base+RVA_GAMEPLAY_SCAN_SLOT);
     logHookState("HOOK-ACTIVE:","survey",image.base+RVA_SURVEY_FACTORY_SLOT);
     {
-        const char message[]="READY: validated survey and gameplay scan hooks installed; cargo processing remains native.\r\n";
+        const char message[]="READY: validated gameplay scan hooks installed; native terrain-survey values are preserved.\r\n";
         logRaw(message,(DWORD)(sizeof(message)-1u));
     }
 
     u8* surveyAddress=0;
     u32 surveyStaleTicks=0;
     bool surveyWaitingLogged=false;
-    bool surveyConflictLogged=false;
-    bool surveyFailureLogged=false;
     bool surveyActiveLogged=false;
     bool gameplayFailureLogged=false;
     bool gameplayActiveLogged=false;
@@ -6691,8 +6694,6 @@ static DWORD WINAPI worker(LPVOID){
             surveyAddress=capturedSurvey;
             surveyStaleTicks=0u;
             surveyWaitingLogged=false;
-            surveyConflictLogged=false;
-            surveyFailureLogged=false;
             surveyActiveLogged=false;
         }else if(!surveyAddress&&capturedSurvey&&!surveyWaitingLogged){
             const char message[]="STATE: captured survey object is not serialized yet; waiting.\r\n";
@@ -6700,55 +6701,30 @@ static DWORD WINAPI worker(LPVOID){
             surveyWaitingLogged=true;
         }
         if(surveyAddress){
-            if(validateSurveyTarget(&image,surveyAddress,&settings)){
+            // Preserve the native terrain survey values. Cargo/sensor range,
+            // gameplay full-circle angle and the visual wave are handled through
+            // independent runtime paths.
+            if(validateSurveyNative(&image,surveyAddress)){
                 surveyStaleTicks=0u;
                 if(!surveyActiveLogged){
-                    const char message[]="ACTIVE: survey range and selected full-circle mode are applied.\r\n";
+                    const char message[]="ACTIVE: native terrain survey preserved (no ShapeMode/angle/range writes).\r\n";
                     logRaw(message,(DWORD)(sizeof(message)-1u));
-                    logSurveyValues("ACTIVE-VALUES:",surveyAddress);
+                    logSurveyValues("NATIVE-TERRAIN:",surveyAddress);
                     surveyActiveLogged=true;
                 }
                 surveyWaitingLogged=false;
-                surveyConflictLogged=false;
-                surveyFailureLogged=false;
-            }else if(validateSurveyIdentity(&image,surveyAddress)){
-                surveyStaleTicks=0u;
-                if(!surveyFailureLogged)logSurveyValues("APPLY-BEFORE:",surveyAddress);
-                ApplyResult applied=applySurvey(surveyAddress,&settings);
-                if(applied==APPLY_READY){
-                    logSurveyValues("APPLY-AFTER:",surveyAddress);
-                    surveyWaitingLogged=false;
-                    surveyConflictLogged=false;
-                    surveyFailureLogged=false;
-                    surveyActiveLogged=false;
-                }else if(applied==APPLY_CONFLICT){
-                    if(!surveyConflictLogged){
-                        const char message[]="ERROR: survey values changed during the transaction; writes were rolled back.\r\n";
-                        logCritical(message,(DWORD)(sizeof(message)-1u));
-                        surveyConflictLogged=true;
-                    }
-                }else if(applied==APPLY_CRITICAL){
-                    const char message[]="CRITICAL: survey rollback or memory-protection restore was incomplete; stop DS2.\r\n";
-                    logCritical(message,(DWORD)(sizeof(message)-1u));
-                    break;
-                }else if(!surveyFailureLogged){
-                    const char message[]="ERROR: survey write failed and was rolled back; it will be retried.\r\n";
-                    logCritical(message,(DWORD)(sizeof(message)-1u));
-                    surveyFailureLogged=true;
-                }
             }else{
                 surveyStaleTicks++;
                 if(!surveyWaitingLogged){
-                    const char message[]="STATE: previous survey resource is stale; waiting before reacquisition.\r\n";
+                    const char message[]="STATE: terrain survey is not in the expected native state; leaving it untouched.\r\n";
                     logRaw(message,(DWORD)(sizeof(message)-1u));
+                    logSurveyValues("TERRAIN-UNTOUCHED:",surveyAddress);
                     surveyWaitingLogged=true;
                 }
                 if(surveyStaleTicks>=5u){
                     surveyAddress=0;
                     surveyStaleTicks=0u;
                     surveyActiveLogged=false;
-                    surveyConflictLogged=false;
-                    surveyFailureLogged=false;
                 }
             }
         }

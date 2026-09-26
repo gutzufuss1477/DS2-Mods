@@ -10,7 +10,7 @@ $root = Split-Path -Parent (Split-Path -Parent $MyInvocation.MyCommand.Path)
 # Packaging always requires the complete suite, including the exact target image.
 & (Join-Path $root 'scripts\test-synthetic.ps1') -TargetExe $TargetExe -PythonExe $PythonExe
 
-$name = 'Improved_Odradek_Scan_v1.0.0'
+$name = 'Improved_Odradek_Scan_v1.0.1'
 $releaseRoot = Join-Path $root 'release'
 $stage = Join-Path $releaseRoot $name
 $fullReleaseRoot = [System.IO.Path]::GetFullPath($releaseRoot).TrimEnd('\') + '\'

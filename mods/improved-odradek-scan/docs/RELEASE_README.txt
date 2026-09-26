@@ -1,4 +1,4 @@
-Improved Odradek Scan 1.0.0
+Improved Odradek Scan 1.0.1
 by gutzufuss1477
 DEATH STRANDING 2: ON THE BEACH - Steam PC 1.10.89.0 (Windows x64)
 
@@ -9,6 +9,7 @@ FEATURES
   cargo you have carried and dropped.
 - Cargo distance after the recipient and likes; updates as you move.
 - Spent/destroyed cargo keeps its normal nearby visibility without the extension.
+- Vanilla terrain colors for rough ground, water and tar are preserved at their normal range.
 
 INSTALL
 1. Close the game.
@@ -24,7 +25,7 @@ CONFIGURATION
 Edit ds2_odradek_scan.ini while the game is closed. Restart after changes.
 RangeMeters=500         Radius in metres. Parser accepts 50-1000; 500 recommended.
 FullCircle=1            Enable the horizontal full-circle scan.
-FullCircleMode=Sphere   Recommended circular ground-scan mode.
+FullCircleMode=Fan360   Compatibility setting for the horizontal 360-degree gameplay scan.
 ExtendCargoMarkers=1   Extend visibility of recently scanned eligible cargo.
 VisualWaveScale=1       Keep the tested wave appearance.
 DebugLog=0              Set to 1 only for troubleshooting.
@@ -34,7 +35,9 @@ The 500 m preset, cargo detection, wave appearance and distance placement were
 confirmed in game. Larger values do not guarantee detection at that distance;
 game-side limits were observed around 700 m in earlier 1000 m tests. Values below
 200 m can leave the visible wave larger than the configured cargo display radius.
-Native display expiry and marker budgets still apply.
+Native display expiry and marker budgets still apply. The colored terrain survey
+for rough ground, water and tar intentionally remains at its vanilla range; it is
+not extended to 500 m.
 
 UPDATE / UNINSTALL
 Close the game before replacing files. Keep a copy of your custom INI if updating.

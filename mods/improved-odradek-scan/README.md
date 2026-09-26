@@ -1,8 +1,8 @@
 # Improved Odradek Scan
 
-[Nexus Mods](https://www.nexusmods.com/deathstranding2onthebeach/mods/85) · [GitHub release](https://github.com/gutzufuss1477/DS2-Mods/releases/tag/improved-odradek-scan-v1.0.0)
+[Nexus Mods](https://www.nexusmods.com/deathstranding2onthebeach/mods/85) · [GitHub releases](https://github.com/gutzufuss1477/DS2-Mods/releases)
 
-**Version 1.0.0** · by gutzufuss1477 · Steam PC 1.10.89.0 (Windows x64)
+**Version 1.0.1** · by gutzufuss1477 · Steam PC 1.10.89.0 (Windows x64)
 
 A configurable **360-degree Odradek scan with a tested 500 m default radius**.
 Reveals distant eligible cargo, including usable cargo you have carried and dropped,
@@ -29,16 +29,18 @@ Enabled=1
 RangeMeters=500
 VisualWaveScale=1
 FullCircle=1
-FullCircleMode=Sphere
+FullCircleMode=Fan360
 ExtendCargoMarkers=1
 DebugLog=0
 ```
 
 `RangeMeters` accepts 50–1000. **500 m is the recommended gameplay-tested preset.**
 Higher settings cannot guarantee detection at the full radius: earlier 1000 m tests
-encountered an additional first-detection limit around 700 m. Below 200 m the native
-wave may exceed the configured cargo display radius. Keep `VisualWaveScale=1` for
-the tested wave appearance. Set `Enabled=0` to disable or `DebugLog=1` to diagnose.
+encountered an additional first-detection limit around 700 m. The vanilla terrain
+survey colors for rough ground, water and tar intentionally keep their native range;
+they are not stretched to 500 m. Below 200 m the native wave may exceed the configured
+cargo display radius. Keep `VisualWaveScale=1` for the tested wave appearance.
+Set `Enabled=0` to disable or `DebugLog=1` to diagnose.
 
 ## Update, removal and compatibility
 
@@ -64,9 +66,10 @@ supported executable, then creates a ZIP with ASI, INI, README and changelog.
 The game entry point is never executed by the tests. The game binary is not included.
 Build-only output is under `build/public/`; ready-to-use files are under `release/`.
 
-User gameplay tests confirmed cargo, wave appearance and the after-likes layout
-at the 500 m preset. Local checks cover configuration, exact hooks/rollback,
-actual native sensor boundaries, cargo filters and native text formatter behaviour.
+User gameplay tests confirmed the 500 m scan, 360-degree coverage, cargo labels,
+and restored vanilla terrain colors in v1.0.1. Local checks cover configuration,
+exact hooks/rollback, actual native sensor boundaries, cargo filters and native
+text formatter behaviour.
 
 [German instructions](README_DE.md) · [Release notes](CHANGELOG.md) ·
 [Technical summary](docs/IMPLEMENTATION.md)
