@@ -15,6 +15,7 @@ Source code, documentation and validated releases for my DEATH STRANDING 2 mods.
 - [Floating Carrier Cargo Capacity](mods/floating-carrier-cargo-capacity/)
 - [Coffin Board Reworked](mods/coffin-board-all-terrain-speed/)
 - [Sam Stats Booster](mods/sam-stats-booster/)
+- [Sam Overhaul](mods/sam-overhaul/)
 - [Lost Cargo Likes Booster](mods/lost-cargo-likes-booster/)
 - [No Magellan Evaluation](mods/no-magellan-evaluation/)
 - [Weapons Anywhere](mods/weapons-anywhere/)

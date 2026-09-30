@@ -1,0 +1,164 @@
+[center][size=5][b]Sam Overhaul[/b][/size]
+[b]Cargo Visibility • Movement • Autodrive • Truck Weapons[/b]
+
+Steam PC 1.10.89.0 • Version 1.0.0[/center]
+
+[b]Sam Overhaul[/b] combines the QoL changes I wanted for normal play into one configurable ASI: cleaner cargo visuals, less restrictive movement, faster Autodrive activation and a complete tuning pass for the truck-mounted weapons.
+
+Every feature can be changed in the included INI. The default settings are the values I used and tested in-game.
+
+[size=4][b]FEATURES[/b][/size]
+
+[b]Cargo visibility[/b]
+[list]
+[*]Hide shoulder cargo.
+[*]Hide hip cargo.
+[*]Hide backpack cargo.
+[*]Hide spare shoes carried on the shoe clip.
+[*]Sam's currently worn shoes stay visible.
+[*]Cargo is only hidden visually. Inventory, weight, ownership and cargo condition remain native.
+[/list]
+
+[b]Movement[/b]
+[list]
+[*][b]Monorail:[/b] jump/dismount beyond the vanilla final safety/height blocker. Earlier native state checks are preserved.
+[*][b]Zipline:[/b] use the normal dismount in more positions while keeping the vanilla input and exit animation.
+[*][b]Landing Roll:[/b] qualifying landing rolls can happen while Sam is wearing the backpack/carrying cargo. This is not a free manual combat-roll button; normal landing conditions still apply.
+[/list]
+
+[b]Autodrive[/b]
+[list]
+[*]Configurable activation/readiness time.
+[*]Default: [b]2.0 seconds[/b].
+[*]Valid range: 0.5 to 5.0 seconds.
+[*]5.0 seconds keeps vanilla timing.
+[/list]
+
+[b]Truck weapons[/b]
+
+All four mounted weapon profiles can be enabled and tuned independently.
+
+[list]
+[*][b]Heavy Machine Gun[/b] - longer range, faster aiming/lock-on, shorter burst and cooldown timing.
+[*][b]Mortar[/b] - longer range, faster aiming/lock-on and a much quicker firing cycle.
+[*][b]Chiral Cannon[/b] - longer normal/long-range reach, faster aiming/lock-on, shorter cooldown and much faster charging.
+[*][b]Missile Launcher[/b] - longer range, faster aiming/lock-on and shorter recovery/cooldown.
+[/list]
+
+Default weapon range is [b]175%[/b] of vanilla and default aim speed is [b]250%[/b].
+
+The Chiral Cannon has an additional charge setting. Vanilla charge time is 3.0 seconds; the tested default is [b]0.75 seconds[/b], leaving a short visible wind-up without the long delay.
+
+[size=4][b]INSTALLATION[/b][/size]
+
+[list=1]
+[*]Close the game.
+[*]Use a working [b]64-bit ASI loader[/b]. The loader is not included.
+[*]Copy [b]DS2_Sam_Overhaul_v1.0.0.asi[/b] and [b]ds2_sam_overhaul.ini[/b] beside [b]DS2.exe[/b].
+[*]Start the game normally.
+[/list]
+
+Restart the game after changing the INI.
+
+To uninstall, remove the Sam Overhaul ASI and INI. The mod does not modify DS2.exe or your save files on disk.
+
+[size=4][b]CONFIGURATION[/b][/size]
+
+The included INI is already set to my recommended defaults:
+
+[code]
+[CargoVisibility]
+HideShoulderCargo=1
+HideHipCargo=1
+HideBackpackCargo=1
+HideSpareShoes=1
+
+[Movement]
+JumpFromMonorailAnywhere=1
+JumpFromZiplineAnywhere=1
+LandingRollWithBackpack=1
+
+[AutoDrive]
+ActivationSeconds=2.0
+
+[TruckHeavyMachineGun]
+Enabled=1
+RangePercent=175
+AimSpeedPercent=250
+LockOnSeconds=0.20
+BurstSeconds=1.50
+CooldownSeconds=0.50
+
+[TruckMortar]
+Enabled=1
+RangePercent=175
+AimSpeedPercent=250
+LockOnSeconds=0.40
+RecoverySeconds=0.40
+CooldownSeconds=0.75
+
+[TruckChiralCannon]
+Enabled=1
+RangePercent=175
+AimSpeedPercent=250
+LockOnSeconds=0.20
+RecoverySeconds=0.40
+CooldownSeconds=1.00
+ChargeSeconds=0.75
+
+[TruckMissileLauncher]
+Enabled=1
+RangePercent=175
+AimSpeedPercent=250
+LockOnSeconds=0.40
+RecoverySeconds=0.40
+CooldownSeconds=0.75
+[/code]
+
+[b]Quick guide[/b]
+[list]
+[*]0 = OFF, 1 = ON.
+[*]For percentage values, 100 = vanilla.
+[*]RangePercent accepts 100-300.
+[*]AimSpeedPercent accepts 100-500.
+[*]Time values are in seconds.
+[/list]
+
+[size=4][b]COMPATIBILITY[/b][/size]
+
+[list]
+[*]Built and validated for [b]Steam DS2.exe 1.10.89.0 (Windows x64)[/b].
+[*]Supported executable SHA-256: [code]BF3D1C665545930BC850D8F5DF486F7395885BB729D4FD408FDB03390DE0765B[/code]
+[*]The ASI checks the expected executable baseline and native patch contexts before applying code changes.
+[*]A game update may require a mod update.
+[*]Epic Games Store is [b]not validated[/b] for this release.
+[*]Other mods patching the same cargo visibility, landing, Autodrive or vehicle-weapon paths may conflict.
+[/list]
+
+A local [b]ds2_sam_overhaul.log[/b] is created beside DS2.exe for startup/configuration diagnostics.
+
+[size=4][b]TESTING / NOTES[/b][/size]
+
+Gameplay testing covered the cargo visibility options, spare shoes, monorail, zipline, backpack landing roll, 2-second Autodrive activation, Heavy MG, Mortar and Chiral Cannon tuning.
+
+The Chiral Cannon charge value was isolated through the live weapon/ammo data path and A/B tested at 3.0 vs 0.75 seconds. The 0.75-second value is the v1.0.0 default.
+
+The Missile Launcher was tested against MULEs. Repeated-shot cadence is difficult to judge there because normal targets die from a single hit, so its values remain fully configurable if more user feedback comes in.
+
+[b]Footprint suppression is intentionally not included in v1.0.0.[/b]
+
+[size=4][b]CHANGELOG - v1.0.0[/b][/size]
+
+[list]
+[*]First public release.
+[*]Cargo visibility controls for shoulder, hip, backpack and spare shoes.
+[*]Expanded monorail and zipline dismount behaviour.
+[*]Landing roll support with backpack/cargo.
+[*]Configurable faster Autodrive activation.
+[*]Independent tuning for Heavy MG, Mortar, Chiral Cannon and Missile Launcher.
+[*]Chiral Cannon charge time configurable with tested 0.75-second default.
+[*]Strict target-build/context validation and local diagnostics.
+[*]Final build passes 105,704 Autodrive regression checks.
+[/list]
+
+Thanks to everyone testing and reporting edge cases. If a specific truck weapon still feels too slow or too fast in a real fight, post the situation and weapon used - every weapon profile is separated in the INI and can be tuned without changing the others.
