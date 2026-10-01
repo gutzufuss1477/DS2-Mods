@@ -39,7 +39,9 @@ inline u8 facility_mask(u32 type,bool isNull=false){if(isNull)return 15;switch(t
 inline bool supported_usage(u8 u){return u==1||u==3||u==4||u==9;}
 constexpr u32 OmnireflectorBootsKey=0x75D99124u;
 constexpr u32 ChiralBootsKey=0x07B21227u;
-inline bool special_normal_recipe(u32 key){return key==OmnireflectorBootsKey||key==ChiralBootsKey;}
+constexpr u32 SpecialNormalRecipeKeys[]={ 0x75D99124u,0x07B21227u,0x6C3A478Bu,0x1EA3AF0Bu,0x6CC82C08u,0x1E51C488u,0x380248E3u,0x4A69CBE0u,0x38F02360u,0x14889C47u,0x4B7F7765u,0x3914F466u,0x0CE5E07Au };
+constexpr u32 SpecialNormalRecipeKeyCount=sizeof(SpecialNormalRecipeKeys)/sizeof(SpecialNormalRecipeKeys[0]);
+inline bool special_normal_recipe(u32 key){for(u32 i=0;i<SpecialNormalRecipeKeyCount;++i)if(SpecialNormalRecipeKeys[i]==key)return true;return false;}
 inline bool facility_allows(u8 usage,u8 mask){constexpr u8 masks[10]={0,3,6,11,7,0,0,0,0,15};return usage<10 && (masks[usage]&mask)!=0;}
 struct Recipe {Instance instance;u64 resource;u64 baggage;u32 key;u32 baggageKey;u8 usage;u8 dlc;u8 caseType;u8 valid;bool mission;bool duplicate;u16 reserved;};
 enum class Skip:u8 {None,NotSelected,UnsupportedPath,MissingResource,DlcSpecial,Quest,Duplicate,Facility,AlreadyNative};

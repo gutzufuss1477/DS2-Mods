@@ -47,7 +47,7 @@ void configTests(const char*path){
  std::ifstream f(path,std::ios::binary);check(bool(f),"INI missing");
  std::string text((std::istreambuf_iterator<char>(f)),{});Settings s{};Error e{};
  check(parse(text.data(),text.size(),s,e),"new INI does not parse");
- check(s.count==121&&s.enabled&&s.all&&!s.freeCrafting,"default INI changed existing behaviour");
+ check(s.count==132&&s.enabled&&s.all&&!s.freeCrafting,"default INI changed existing behaviour");
  std::string on=text;auto pos=on.find("FreeCrafting=0");check(pos!=std::string::npos,"FreeCrafting setting absent");on[pos+13]='1';
  Settings enabled{};check(parse(on.data(),on.size(),enabled,e)&&enabled.freeCrafting,"FreeCrafting=1 not parsed");
  for(u32 i=0;i<s.count;++i){check(free_recipe(s.rules[i].key),"supported recipe missing from free-cost table");
@@ -86,6 +86,6 @@ int main(int argc,char**argv){try{
  }
  check(unwindChecks==88,"not every thunk/alignment received a Windows unwind test");
  std::printf("PASS %llu native instruction cases, %llu assertions, %llu Windows unwind checks.\n",cases,checks,unwindChecks);
- std::puts("44 production thunks; 121 supported + 6 excluded keys; both stack alignments; flag on/off; original data unchanged.");
+ std::puts("44 production thunks; 132 supported + 6 excluded keys; both stack alignments; flag on/off; original data unchanged.");
  std::puts("No game execution. This validates machine-code/ABI and configuration, not DS2 gameplay.");return 0;
  }catch(const std::exception&e){std::fprintf(stderr,"FAIL after %llu cases: %s\n",cases,e.what());return 1;}}

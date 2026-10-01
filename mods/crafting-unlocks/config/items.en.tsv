@@ -91,3 +91,14 @@ recipe_key	label_en	category	source_line
 0x20144CAC	Rubber Pizza	Melee and special equipment	894
 0x1D7C2A66	Deployable Shield	Melee and special equipment	889
 0x7C475A91	Floating Sentry Gun	Melee and special equipment	866
+0x6C3A478B	Assault Rifle [RB] Lv.1	Enemy-drop weapons	811
+0x1EA3AF0B	Assault Rifle [RB] Lv.2	Enemy-drop weapons	869
+0x6CC82C08	Assault Rifle [RB] Lv.3	Enemy-drop weapons	870
+0x1E51C488	Shotgun [RP] Lv.1	Enemy-drop weapons	812
+0x380248E3	Shotgun [RP] Lv.2	Enemy-drop weapons	871
+0x4A69CBE0	Shotgun [RP] Lv.3	Enemy-drop weapons	872
+0x38F02360	Tranq Grenade Launcher	Enemy-drop weapons	818
+0x14889C47	Electric Rod	Enemy-drop weapons	820
+0x4B7F7765	High-Voltage Rod	Enemy-drop weapons	877
+0x3914F466	Twin Rod	Enemy-drop weapons	878
+0x0CE5E07A	Ghost Blade	Enemy-drop weapons	880

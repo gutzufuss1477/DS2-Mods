@@ -1,10 +1,7 @@
-[b]Version 1.4.0[/b]
-[list]
-[*]Added Chiral Boots to normal fabrication and early-unlock configuration.
-[*]Chiral Boots are included in the durability multiplier and Unbreakable mode.
-[*]Expanded dedicated boot durability support from 7 to 8 craftable boots.
-[*]Added durability scaling and Unbreakable support for Backpack Cover Lv.1 and Lv.2.
-[*]Cover repairs, removal and cover changes remain native; only genuine durability loss is modified.
-[*]In-game verified: Chiral Boots crafted/equipped successfully and Backpack Cover Lv.2 remained at 100% / 4500 durability during a 45-second Timefall test with Unbreakable enabled.
-[*]Cargo, order cargo and cargo containers remain vanilla.
-[/list]
+[b]Version 1.5.0[/b]
+
+- Added 11 usable enemy-drop weapons to fabrication.
+- Added Ghost Blade to fabrication.
+- New enemy-drop weapons support FreeCrafting and durability options.
+- Increased configurable entries from 121 to 132.
+- Heavy Machine Gun [MP] tested but intentionally excluded because it cannot be transferred through the normal cargo/inventory path.

@@ -1,0 +1,12 @@
+recipe_key	baggage_key	label_en	phase
+0x6C3A478B	0x4BC8A3D8	Assault Rifle [RB] Lv.1	include
+0x1EA3AF0B	0x39514B58	Assault Rifle [RB] Lv.2	include
+0x6CC82C08	0x4B3AC85B	Assault Rifle [RB] Lv.3	include
+0x1E51C488	0x39A320DB	Shotgun [RP] Lv.1	include
+0x380248E3	0x1FF0ACB0	Shotgun [RP] Lv.2	include
+0x4A69CBE0	0x6D9B2FB3	Shotgun [RP] Lv.3	include
+0x38F02360	0x1F02C733	Tranq Grenade Launcher	include
+0x14889C47	0x337A7814	Electric Rod	include
+0x4B7F7765	0x6C8D9336	High-Voltage Rod	include
+0x3914F466	0x1EE61035	Twin Rod	include
+0x0CE5E07A	0x2B170429	Ghost Blade	mech_test2

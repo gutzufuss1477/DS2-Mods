@@ -20,7 +20,7 @@ def generate(mapping: Path, catalogue: Path, output: Path) -> dict[str, object]:
     by_key = {row['recipe_key']: (i + 2, row) for i, row in enumerate(source)}
     if len(by_key) != len(source):
         raise ValueError('Duplicate source recipe keys; manual review required.')
-    special_normal = {'0x75D99124', '0x07B21227'}  # Omnireflector + Chiral Boots: targeted Usage=None fabrication exceptions.
+    special_normal = {'0x75D99124', '0x07B21227', '0x6C3A478B', '0x1EA3AF0B', '0x6CC82C08', '0x1E51C488', '0x380248E3', '0x4A69CBE0', '0x38F02360', '0x14889C47', '0x4B7F7765', '0x3914F466', '0x0CE5E07A'}  # Omnireflector + Chiral Boots: targeted Usage=None fabrication exceptions.
     expected = {
         row['recipe_key'] for row in source
         if (row['status_at_this_facility'] == 'eligible' and '[{0}]' not in row['name'])
@@ -41,11 +41,11 @@ def generate(mapping: Path, catalogue: Path, output: Path) -> dict[str, object]:
             value = row[field]
             if not value or not value.isascii() or '\n' in value or '\r' in value:
                 raise ValueError(f'Invalid {field} for {key}')
-    if keys != expected or len(rows) != 92:
-        raise ValueError('Mapping does not cover the 92 reviewed normal fabrication recipes exactly.')
+    if keys != expected or len(rows) != 103:
+        raise ValueError('Mapping does not cover the 103 reviewed normal fabrication recipes exactly.')
 
     lines = [
-        '; DS2 Crafting Overhaul 1.4.0',
+        '; DS2 Crafting Overhaul 1.5.0',
         '; Restart the game after changing this file.',
         '; 1 = enabled | 0 = disabled',
         '',

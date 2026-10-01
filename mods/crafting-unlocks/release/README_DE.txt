@@ -1,15 +1,15 @@
-DS2 CRAFTING OVERHAUL 1.4.0
+DS2 CRAFTING OVERHAUL 1.5.0
 
 Funktionen:
-- 121 konfigurierbare unterstützte Gegenstände/Varianten.
+- 132 konfigurierbare unterstützte Gegenstände/Varianten.
+- 11 zusätzliche Gegner-Drop-Waffen inklusive Geisterklinge.
 - Frühe Freischaltungen bei weiterhin funktionierender Vanilla-Progression.
 - Optionales FreeCrafting.
 - Herstellbare Omnireflektor-Stiefel und Chirale Stiefel.
 - Optionaler Haltbarkeitsfaktor (1.0-1000.0).
 - Optionaler Unbreakable-Modus.
-- Eigener Haltbarkeitspfad für alle 8 unterstützten herstellbaren Stiefel.
-- Backpack Cover Lv.1/Lv.2 können skaliert oder unzerstörbar gemacht werden.
-- Fracht/Auftragsfracht/Frachtcontainer bleiben Vanilla.
+- Backpack Cover Lv.1/Lv.2 mit Haltbarkeitsunterstützung.
+- Schweres MG [MZ] bewusst nicht enthalten.
 
 Installation:
 ds2_crafting_unlocks.asi und ds2_crafting_unlocks.ini neben DS2.exe kopieren.

@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.5.0
+- Added 11 enemy-drop weapons that Sam can normally use to fabrication.
+- Includes Assault Rifle [RB] Lv.1-3, Shotgun [RP] Lv.1-3, Tranq Grenade Launcher, Electric Rod, High-Voltage Rod, Twin Rod and Ghost Blade.
+- Added FreeCrafting and durability support for the new supported weapons.
+- Heavy Machine Gun [MP] is intentionally excluded because fabrication cannot hand it off through the normal cargo/inventory path.
+- Increased configurable entries from 121 to 132.
+- In-game verified crafting/equipping of the 10 standard enemy-drop weapons and Ghost Blade.
+
 ## 1.4.0
 - Added Chiral Boots to normal fabrication and early-unlock configuration.
 - Added Chiral Boots to the durability multiplier and Unbreakable scope.

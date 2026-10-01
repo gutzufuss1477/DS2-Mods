@@ -1,6 +1,8 @@
 [b]Description[/b]
-Crafting Overhaul expands fabrication in DEATH STRANDING 2: ON THE BEACH. It can unlock supported weapons, equipment, backpack modules, covers and charms early while keeping normal progression intact.
-Version 1.4.0 adds craftable [b]Chiral Boots[/b] and extends configurable durability to [b]Backpack Cover Lv.1/Lv.2[/b] while retaining FreeCrafting, Omnireflector Boots and the existing durability controls.
+Crafting Overhaul expands fabrication in DEATH STRANDING 2: ON THE BEACH while keeping normal progression intact.
+
+Version 1.5.0 adds [b]11 enemy-drop weapons[/b] that Sam can normally use, including the [b]Ghost Blade[/b].
+
 [b]Quick Options[/b]
 [code][CraftingUnlocks]
 Enabled=1
@@ -11,32 +13,44 @@ FreeCrafting=0
 Enabled=0
 Multiplier=2.0
 Unbreakable=0[/code]
-[b]Durability[/b]
-[list]
-[*][b]Multiplier=1.0[/b] = vanilla durability
-[*][b]Multiplier=2.0[/b] = about 2x item life
-[*][b]Unbreakable=1[/b] = no future durability loss for supported items
-[/list]
-Durability is scoped to supported crafted equipment, all eight supported craftable boots, and Backpack Cover Lv.1/Lv.2. Cover repairs, removal and cover changes remain native. Normal cargo, order cargo and cargo containers remain vanilla.
+
 [b]Main Features[/b]
-[list]
-[*]121 individually configurable items/variants
-[*]Weapons and equipment available early
-[*]Backpack modules, covers and charms available early
-[*]Craftable Omnireflector Boots and Chiral Boots
-[*]Optional FreeCrafting
-[*]Optional durability multiplier up to 1000x
-[*]Optional Unbreakable mode including Backpack Cover Lv.1/Lv.2
-[*]Normal progression remains functional
-[/list]
+- 132 individually configurable supported items/variants
+- 11 additional enemy-drop weapons including Ghost Blade
+- Weapons and equipment available early
+- Backpack modules, covers and charms available early
+- Craftable Omnireflector Boots and Chiral Boots
+- Optional FreeCrafting
+- Optional durability multiplier up to 1000x
+- Optional Unbreakable mode including Backpack Cover Lv.1/Lv.2
+- Normal progression remains functional
+
+[b]Enemy-Drop Weapons Added in 1.5.0[/b]
+- Assault Rifle [RB] Lv.1 / Lv.2 / Lv.3
+- Shotgun [RP] Lv.1 / Lv.2 / Lv.3
+- Tranq Grenade Launcher
+- Electric Rod
+- High-Voltage Rod
+- Twin Rod
+- Ghost Blade
+
+The Heavy Machine Gun [MP] is intentionally not included. The game accepts the fabrication transaction, but this special weapon has no normal cargo/inventory handoff and therefore is not usable as a regular crafted item.
+
+[b]Durability[/b]
+- Multiplier=1.0 = vanilla durability
+- Multiplier=2.0 = about 2x item life
+- Unbreakable=1 = no future durability loss for supported items
+
+Durability applies to supported crafted equipment, all eight supported craftable boots, and Backpack Cover Lv.1/Lv.2. Normal cargo, order cargo and cargo containers remain vanilla.
+
 [b]Installation[/b]
-[list=1]
-[*]Close the game.
-[*]Copy [i]ds2_crafting_unlocks.asi[/i] and [i]ds2_crafting_unlocks.ini[/i] next to [i]DS2.exe[/i].
-[*]A compatible 64-bit ASI loader is required separately.
-[*]Restart the game after INI changes.
-[/list]
+1. Close the game.
+2. Copy ds2_crafting_unlocks.asi and ds2_crafting_unlocks.ini next to DS2.exe.
+3. A compatible 64-bit ASI loader is required separately.
+4. Restart the game after INI changes.
+
 [b]Requirements[/b]
 Windows x64, supported DS2.exe 1.10.89.0 and a compatible 64-bit ASI loader.
+
 [b]Not Included[/b]
-Vehicles, costume customization, backpack patches, quest-only objects and protected DLC-only recipes are not added to fabrication.
+Vehicles, costume customization, backpack patches, Heavy Machine Gun [MP], quest-only objects and protected DLC-only recipes are not added to fabrication.

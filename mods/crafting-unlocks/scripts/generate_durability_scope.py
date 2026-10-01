@@ -6,9 +6,9 @@ ini=(root/"release/ds2_crafting_unlocks.ini").read_text(encoding="utf-8-sig")
 keys={int(x,16) for x in re.findall(r'^\s*(0x[0-9A-Fa-f]{8})\s*=',ini,re.M)}
 rows=list(csv.DictReader((root/"evidence/config-r1/ds2_crafting_catalogue.tsv").open(encoding="utf-8-sig"),delimiter="\t"))
 selected=[r for r in rows if int(r["recipe_key"],16) in keys]
-assert len(keys)==121 and len(selected)==121
+assert len(keys)==132 and len(selected)==132
 bags=sorted({int(r["bag_namecode"],16) for r in selected})
-assert len(bags)==121 and 0 not in bags
+assert len(bags)==132 and 0 not in bags
 
 boot_recipe_keys=[0x6E7D4315,0x7D2DB0E1,0x0F4633E2,0x1C16C016,0x5B8C5709,0x16CF98D9,0x75D99124,0x07B21227]
 boot_rows=[next(r for r in selected if int(r["recipe_key"],16)==k) for k in boot_recipe_keys]
