@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "suiteVersion": "1.8.0",
+  "suiteVersion": "1.9.0",
   "game": {
     "name": "DEATH STRANDING 2: ON THE BEACH",
     "executable": "DS2.exe",
@@ -187,22 +187,22 @@
     {
       "id": "climbing-power-gloves-range",
       "name": "Climbing Power Gloves Range",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "category": "Equipment & Progression",
       "categoryDe": "Ausrüstung & Fortschritt",
-      "description": "Increases the configurable magnetic cargo pickup range of both Climbing Power Gloves tiers.",
-      "descriptionDe": "Erhöht die konfigurierbare magnetische Frachthebe-Reichweite beider Kletterhandschuh-Stufen.",
+      "description": "Configurable Climbing Power Gloves pickup ranges (30/50 m by default), plus optional magnetic cargo pickup for Combat Power Gloves. Combat gloves have no separate range setting.",
+      "descriptionDe": "Konfigurierbare Abholreichweiten der Kletterhandschuhe (Standard 30/50 m) und optionales magnetisches Aufnehmen mit Kampfhandschuhen. Kampfhandschuhe haben keinen eigenen Reichweitenregler.",
       "files": [
         {
           "payload": "payload/mods/climbing-power-gloves-range/ds2_climbing_gloves_range.asi",
           "target": "ds2_climbing_gloves_range.asi",
-          "sha256": "7C29DA4A5FACEFC11D96079946D4F03F0D45C97102B1A8C8EC0030AA0312195A",
+          "sha256": "DD3ADAD64D3F198BBE3DE7A22FA32D094B14F87FCEC97D6378C40A4914AC6FD9",
           "kind": "binary"
         },
         {
           "payload": "payload/mods/climbing-power-gloves-range/ds2_climbing_gloves_range.ini",
           "target": "ds2_climbing_gloves_range.ini",
-          "sha256": "BC435F4C1CF6742B32CD0FAF4E6070AB92A35D7102DA9995EAC26CC980BC478F",
+          "sha256": "68DC4D14BDDEFF683A80E99CF34808D49159CC3E54B4CCD27A9D797D3EBAFF4D",
           "kind": "config"
         }
       ]
@@ -538,22 +538,22 @@
     {
       "id": "improved-odradek-scan",
       "name": "Improved Odradek Scan",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "category": "Equipment & Progression",
       "categoryDe": "Ausrüstung & Fortschritt",
-      "description": "Configurable 360-degree Odradek scan with a tested 500 m default radius, distant cargo markers and distance after recipient/likes.",
-      "descriptionDe": "Konfigurierbarer 360-Grad-Odradek-Scan mit getestetem 500-m-Standardradius, entfernten Frachtmarkierungen und Entfernung nach Empfänger/Likes.",
+      "description": "Configurable 360-degree Odradek scan with a tested 500 m default radius, distant cargo markers and distance display. Native terrain colors and hazard markings are preserved.",
+      "descriptionDe": "Konfigurierbarer 360-Grad-Odradek-Scan mit getestetem 500-m-Standardradius, entfernten Frachtmarkierungen und Entfernungsanzeige. Native Geländefarben und Gefahrenmarkierungen bleiben erhalten.",
       "files": [
         {
           "payload": "payload/mods/improved-odradek-scan/ds2_odradek_scan.asi",
           "target": "ds2_odradek_scan.asi",
-          "sha256": "C13171E8E009AE04C7645759ECE5D3F669E488F83E46A709D0587107515411B0",
+          "sha256": "B9FCD0469783B6973BBF33D2396DF5884799734A476AC07A851F6B0CF6E4015B",
           "kind": "binary"
         },
         {
           "payload": "payload/mods/improved-odradek-scan/ds2_odradek_scan.ini",
           "target": "ds2_odradek_scan.ini",
-          "sha256": "2000A60FC9AB9B21C9B5B9521F30CCB0EBA2B5409205A9305FB9A99C563D7BA7",
+          "sha256": "331E7E84DA0A4EEDBFAC0119F6679B97B0110A44392B76201B6B003E0C8EE705",
           "kind": "config"
         }
       ]
@@ -580,23 +580,46 @@
     {
       "id": "crafting-unlocks",
       "name": "Crafting Overhaul",
-      "version": "1.3.0",
+      "version": "1.5.0",
       "category": "Equipment & Progression",
       "categoryDe": "Ausrüstung & Fortschritt",
-      "description": "Early crafting for 120 supported items, optional free crafting and equipment durability, including Omnireflector Boots. Free Crafting and durability changes are off by default.",
-      "descriptionDe": "Frühes Herstellen von 120 Gegenständen, optional kostenloses Herstellen und Ausrüstungshaltbarkeit inklusive Omnireflector-Stiefeln. Kostenloses Herstellen und Haltbarkeitsänderungen sind standardmäßig aus.",
+      "description": "Early crafting for 132 supported items, including Chiral Boots and 11 enemy-drop weapons. Optional Free Crafting and durability for equipment, boots and backpack covers are off by default.",
+      "descriptionDe": "Frühes Herstellen von 132 Gegenständen inklusive chiraler Stiefel und elf Gegnerwaffen. Optional kostenloses Herstellen und Haltbarkeit für Ausrüstung, Stiefel und Rucksackhüllen sind standardmäßig aus.",
       "files": [
         {
           "payload": "payload/mods/crafting-unlocks/ds2_crafting_unlocks.asi",
           "target": "ds2_crafting_unlocks.asi",
-          "sha256": "9CCC0FEAF260265DA7A8ADE3498B8B4986D0489707C9A6DB42E7F8659A427948",
+          "sha256": "27A27A37AD2D3E4B095CEE00DB0F0A10B509C81F1F08375310272B7C874B95CF",
           "kind": "binary"
         },
         {
           "payload": "payload/mods/crafting-unlocks/ds2_crafting_unlocks.ini",
           "target": "ds2_crafting_unlocks.ini",
-          "sha256": "A5DD9C6D054388B135BB265FDAE4A6FBD2CEC4227476D45C983A107954BEC2DD",
+          "sha256": "8018C42A7EDC8773FAD4D2BA8AD063F65A33402190D89637C72CE060E663DB48",
           "kind": "config"
+        }
+      ]
+    },
+    {
+      "id": "sneaky-sam",
+      "name": "Sneaky Sam",
+      "version": "1.0.1",
+      "category": "Equipment & Progression",
+      "categoryDe": "Ausrüstung & Fortschritt",
+      "description": "Hides cargo on both shoulders and hips. Cargo remains carried and functional; backpack cargo stays visible. Visual only, with no INI settings.",
+      "descriptionDe": "Blendet Fracht an beiden Schultern und Hüften aus. Die Fracht bleibt getragen und nutzbar; Rucksackfracht bleibt sichtbar. Rein optisch, ohne INI-Einstellungen.",
+      "files": [
+        {
+          "payload": "payload/mods/sneaky-sam/DS2_SneakySam_v1.0.1.asi",
+          "target": "DS2_SneakySam_v1.0.1.asi",
+          "sha256": "C23B727A08227B786C2C3DDAF77DECCCFE43ABF68D8CD3D69B27CE5B493E4DAB",
+          "kind": "binary"
+        }
+      ],
+      "obsoleteFiles": [
+        {
+          "target": "DS2_SneakySam_v1.0.0.asi",
+          "sha256": "57EB2FBA2B33AF665C5B9F3C24213E10C26B3BC3FA154263A6C1F60914D0A1A7"
         }
       ]
     }

@@ -6,7 +6,7 @@ using System.Text;
 
 namespace DS2ModSuite
 {
-    internal static class SelfTest
+    internal static partial class SelfTest
     {
         public static string Run()
         {
@@ -17,12 +17,12 @@ namespace DS2ModSuite
             {
                 Catalog catalog = CatalogService.LoadAndValidate();
                 CatalogService.ValidatePayloads(catalog);
-                Assert(catalog.SuiteVersion == "1.8.0" && catalog.Mods.Count == 24,
+                Assert(catalog.SuiteVersion == "1.9.0" && catalog.Mods.Count == 25,
                     "suite version/mod count mismatch");
                 report.AppendLine("PASS catalog and all payload hashes");
 
                 List<ConfigFieldDefinition> definitions = ModConfigurationService.GetDefinitions(catalog);
-                Assert(definitions.Count == 312 && definitions.Select(field => field.Target).Distinct(StringComparer.OrdinalIgnoreCase).Count() == 21,
+                Assert(definitions.Count == 325 && definitions.Select(field => field.Target).Distinct(StringComparer.OrdinalIgnoreCase).Count() == 21,
                     "settings schema field/file coverage mismatch");
                 List<ModSpec> filteredSettingsMods = ModSettingsWindow.FilterInstalledConfigurableMods(
                     catalog,
@@ -126,7 +126,7 @@ namespace DS2ModSuite
                 Assert(catalog.Mods[0].LocalizedDescription == catalog.Mods[0].Description, "English catalog localization failed");
                 LoaderInspector.Relocalize(localizedLoader);
                 Assert(localizedLoader.DisplayText == "ASI Loader 9.7.2 is installed", "English loader relocalization failed");
-                report.AppendLine("PASS English/German localization, persistence and 312-field settings schema validation");
+                report.AppendLine("PASS English/German localization, persistence and 325-field settings schema validation");
 
                 string runningExecutable = System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName;
                 File.Copy(runningExecutable, Path.Combine(testRoot, catalog.Game.Executable), true);
@@ -139,7 +139,12 @@ namespace DS2ModSuite
                 TestApasOptIn(catalog, testRoot, runningExecutable);
                 report.AppendLine("PASS APAS 3.0.0 default-off progression, legacy migration with/without profile, explicit opt-in/out, preservation and idempotence");
                 TestCraftingSettings(catalog, testRoot, runningExecutable);
-                report.AppendLine("PASS Crafting 1.3.0 defaults, item settings, inline comments, adoption, idempotence and removal");
+                report.AppendLine("PASS Crafting 1.5.0 defaults, item settings, inline comments, adoption, idempotence and removal");
+                TestRelease190Settings(catalog, testRoot, runningExecutable);
+                report.AppendLine("PASS glove 1.1.0 defaults, decimal ranges, bounds/relationships, migration, opt-out, idempotence, rollback and removal");
+                report.AppendLine("PASS v1.8 profile migration retains saved choices, imports new standalone INI choices, and supports 132 grouped Crafting items including inherit");
+                TestSneakySam(catalog, testRoot, runningExecutable);
+                report.AppendLine("PASS Sneaky Sam install, legacy filename upgrade, unknown legacy conflict guard, settings exclusion, idempotence and removal");
 
                 string noProfileUpgradeRoot = Path.Combine(testRoot, "coffin-no-profile-upgrade");
                 Directory.CreateDirectory(noProfileUpgradeRoot);
@@ -442,7 +447,7 @@ namespace DS2ModSuite
             ConfigFieldDefinition scale = fields.Single(field => field.Key == "VisualWaveScale");
             ConfigFieldDefinition mode = fields.Single(field => field.Key == "FullCircleMode");
             Assert(fields.Count == 7 && range.DefaultValue == "500" && scale.DefaultValue == "1"
-                && mode.DefaultValue == "Sphere" && mode.Schema.Advanced && scale.Schema.Advanced
+                && mode.DefaultValue == "Fan360" && mode.Schema.Advanced && scale.Schema.Advanced
                 && fields.Single(field => field.Key == "DebugLog").DefaultValue == "0",
                 "Odradek release defaults mismatch");
             ModConfigurationProfile profile = ModConfigurationService.LoadEffectiveProfile(catalog, null);
@@ -461,7 +466,7 @@ namespace DS2ModSuite
             ModConfigurationService.SetValue(profile, scale.Id, "0.5");
             ModConfigurationService.SetValue(profile, mode.Id, "unsupported");
             Assert(!ModConfigurationService.TryValidateProfile(catalog, profile, out error), "invalid scan mode accepted");
-            foreach (string valid in new[] { "Sphere", "Fan360", "Spherical" })
+            foreach (string valid in new[] { "Sphere", "Fan360", "LegacySphere", "Spherical" })
             {
                 ModConfigurationService.SetValue(profile, mode.Id, valid);
                 Assert(ModConfigurationService.TryValidateProfile(catalog, profile, out error), "valid Odradek mode rejected");
@@ -552,7 +557,7 @@ namespace DS2ModSuite
             const string target = "ds2_crafting_unlocks.ini";
             List<ConfigFieldDefinition> fields = ModConfigurationService.GetDefinitions(catalog)
                 .Where(field => field.ModId == modId).ToList();
-            Assert(fields.Count == 127 && fields.Count(field => field.Section == "Items") == 120,
+            Assert(fields.Count == 139 && fields.Count(field => field.Section == "Items") == 132,
                 "Crafting settings are incomplete");
             ConfigFieldDefinition free = fields.Single(field => field.Section == "CraftingUnlocks" && field.Key == "FreeCrafting");
             ConfigFieldDefinition durability = fields.Single(field => field.Section == "Durability" && field.Key == "Enabled");

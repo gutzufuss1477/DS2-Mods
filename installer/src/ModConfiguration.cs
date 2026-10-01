@@ -59,6 +59,21 @@ namespace DS2ModSuite
         [DataMember(Name = "label", EmitDefaultValue = false)]
         public string Label { get; set; }
 
+        [DataMember(Name = "labelDe", EmitDefaultValue = false)]
+        public string LabelDe { get; set; }
+
+        [DataMember(Name = "description", EmitDefaultValue = false)]
+        public string Description { get; set; }
+
+        [DataMember(Name = "descriptionDe", EmitDefaultValue = false)]
+        public string DescriptionDe { get; set; }
+
+        [DataMember(Name = "group", EmitDefaultValue = false)]
+        public string Group { get; set; }
+
+        [DataMember(Name = "groupDe", EmitDefaultValue = false)]
+        public string GroupDe { get; set; }
+
         [DataMember(Name = "type")]
         public string Type { get; set; }
 
@@ -383,8 +398,10 @@ namespace DS2ModSuite
                                 PayloadHash = file.Sha256,
                                 Section = section.Name,
                                 Key = field.Key,
-                                Label = string.IsNullOrWhiteSpace(field.Label) ? Humanize(field.Key) : field.Label,
-                                Description = defaults.GetLeadingComment(section.Name, field.Key),
+                                Label = string.IsNullOrWhiteSpace(field.Label) ? Humanize(field.Key) : Localization.T(field.Label, field.LabelDe),
+                                Description = string.IsNullOrWhiteSpace(field.Description)
+                                    ? defaults.GetLeadingComment(section.Name, field.Key)
+                                    : Localization.T(field.Description, field.DescriptionDe),
                                 DefaultValue = normalized,
                                 Schema = field
                             });
@@ -400,15 +417,23 @@ namespace DS2ModSuite
         {
             List<ConfigFieldDefinition> definitions = GetDefinitions(catalog);
             ModConfigurationProfile stored = JsonStore.ReadOrDefault<ModConfigurationProfile>(ProfilePath);
-            ModConfigurationProfile profile = NormalizeProfile(definitions, stored);
-            if (stored == null && !string.IsNullOrWhiteSpace(gamePath)) ImportFromGame(definitions, profile, gamePath);
-            return profile;
+            return UpgradeProfile(definitions, stored, gamePath);
         }
 
-        public static ModConfigurationProfile LoadStoredProfile(Catalog catalog)
+        public static ModConfigurationProfile LoadStoredProfile(Catalog catalog, string gamePath = null)
         {
             ModConfigurationProfile stored = JsonStore.ReadOrDefault<ModConfigurationProfile>(ProfilePath);
-            return stored == null ? null : NormalizeProfile(GetDefinitions(catalog), stored);
+            return stored == null ? null : UpgradeProfile(GetDefinitions(catalog), stored, gamePath);
+        }
+
+        private static ModConfigurationProfile UpgradeProfile(List<ConfigFieldDefinition> definitions,
+            ModConfigurationProfile stored, string gamePath)
+        {
+            ModConfigurationProfile profile = NormalizeProfile(definitions, stored);
+            // Only new fields come from installed INIs. Saved central choices keep precedence.
+            Dictionary<string, string> existing = ProfileDictionary(stored);
+            ImportFromGame(definitions.Where(field => !existing.ContainsKey(field.Id)).ToList(), profile, gamePath);
+            return profile;
         }
 
         public static ModConfigurationProfile CloneProfile(ModConfigurationProfile profile)
@@ -549,7 +574,17 @@ namespace DS2ModSuite
                 string error;
                 if (current == null || !TryNormalize(field.Schema, current, out normalized, out error)) return false;
             }
-            return true;
+            return ValidFileRelationships(modId, document);
+        }
+
+        private static bool ValidFileRelationships(string modId, IniDocument document)
+        {
+            if (!string.Equals(modId, "climbing-power-gloves-range", StringComparison.OrdinalIgnoreCase)) return true;
+            decimal level1, level2;
+            return decimal.TryParse(document.GetValue("ClimbingGlovesRange", "Level1RangeMeters", null),
+                    NumberStyles.Number, CultureInfo.InvariantCulture, out level1)
+                && decimal.TryParse(document.GetValue("ClimbingGlovesRange", "Level2RangeMeters", null),
+                    NumberStyles.Number, CultureInfo.InvariantCulture, out level2) && level2 >= level1;
         }
 
         public static byte[] BuildStableExistingIni(Catalog catalog, string modId, string target, string existingPath)
@@ -579,6 +614,10 @@ namespace DS2ModSuite
                 foreach (string alias in field.Schema.Aliases ?? new List<string>()) document.RemoveKeyEverywhere(alias);
                 document.SetValue(field.Section, field.Key, retainedValues[field.Id]);
             }
+            if (!ValidFileRelationships(modId, document))
+                throw new InvalidDataException(Localization.T(
+                    "Climbing gloves Level 2 range must be at least Level 1. Correct the ranges in Mod Settings before applying.",
+                    "Die Reichweite der Kletterhandschuhe Stufe 2 muss mindestens Stufe 1 entsprechen. Bitte vor dem Anwenden in den Mod-Einstellungen korrigieren."));
             return Utf8NoBom.GetBytes(document.ToText());
         }
 
@@ -594,6 +633,7 @@ namespace DS2ModSuite
             return RequiresExactSectionKeys(modId)
                 || string.Equals(modId, "apas-memory-costs", StringComparison.OrdinalIgnoreCase)
                 || string.Equals(modId, "improved-odradek-scan", StringComparison.OrdinalIgnoreCase)
+                || string.Equals(modId, "climbing-power-gloves-range", StringComparison.OrdinalIgnoreCase)
                 || string.Equals(modId, "crafting-unlocks", StringComparison.OrdinalIgnoreCase);
         }
 
@@ -733,6 +773,13 @@ namespace DS2ModSuite
                 < number("zipline-range", "ZiplineRange", "Level1RangeMeters"))
             {
                 error = Localization.T("Level 2 zipline range must not be lower than Level 1 range.", "Die Level-2-Zipline-Reichweite darf nicht kleiner als Level 1 sein.");
+                return false;
+            }
+            if (number("climbing-power-gloves-range", "ClimbingGlovesRange", "Level2RangeMeters")
+                < number("climbing-power-gloves-range", "ClimbingGlovesRange", "Level1RangeMeters"))
+            {
+                error = Localization.T("Climbing gloves Level 2 range must not be lower than Level 1 range.",
+                    "Die Reichweite der Kletterhandschuhe Stufe 2 darf nicht kleiner als die von Stufe 1 sein.");
                 return false;
             }
             return true;

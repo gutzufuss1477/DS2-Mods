@@ -1,6 +1,6 @@
 [b]Description[/b]
 
-DS2 Mod Suite is a clean, standalone all-in-one installer and manager for 23 DEATH STRANDING 2: ON THE BEACH mods, with two exclusive Backpack variants.
+DS2 Mod Suite is a clean, standalone all-in-one installer and manager for 24 DEATH STRANDING 2: ON THE BEACH mods, with two exclusive Backpack variants.
 
 Choose exactly which mods you want, review their current installation state and apply everything through one English or German interface. The manager detects the Steam game directory, verifies the supported game build, installs missing mods, updates or repairs known versions and safely removes deselected suite mods.
 
@@ -8,7 +8,7 @@ All bundled mod files and the tested Ultimate ASI Loader are embedded in the app
 
 This is more than a loose file bundle: the custom manager adds installation-state detection, centralized configuration, file validation, conflict protection, backups and transactional rollback.
 
-Version 1.8.0 adds Crafting Overhaul 1.3.0, adds the optional Backpack Classic Overlap variant and updates APAS Unified to stable 3.0.0. APAS Unlock All and Episode 2 Early Access are disabled by default. It supports the Steam PC executable version [font=Courier New]DS2.exe 1.10.89.0[/font].
+Version 1.9.0 adds Sneaky Sam 1.0.1, updates Climbing Power Gloves Range to 1.1.0 with optional Combat glove pickup, Crafting Overhaul to 1.5.0 with 132 item choices, and Improved Odradek Scan to 1.0.1 with restored native terrain markings. Supports Steam PC DS2.exe 1.10.89.0.
 
 [b]Quick start[/b]
 
@@ -30,14 +30,14 @@ This is a standalone installer. Do not install the downloaded archive through Vo
 [b]Main features[/b]
 
 [list]
-[*]Installs and manages 23 DS2 mods with 24 selectable entries (two exclusive Backpack variants)
+[*]Installs and manages 24 DS2 mods with 25 selectable entries (two exclusive Backpack variants)
 [*]Clean English and German interface
 [*]Automatic Steam game-directory detection
 [*]Verifies the exact supported [font=Courier New]DS2.exe[/font] build
 [*]Detects installed, outdated, incomplete and modified suite files
 [*]Installs the tested Ultimate ASI Loader x64 v9.7.2 automatically when required
 [*]Central settings interface for 20 configurable mods
-[*]Validates 312 settings across 21 individual INI files
+[*]Validates 325 settings across 21 individual INI files
 [*]Imports existing installed INI values
 [*]Hides advanced and experimental settings by default
 [*]Supports installation, update, repair and safe removal
@@ -67,13 +67,14 @@ The checkboxes represent the desired final state. Installed mods are selected au
 [list]
 [*]High-Density Backpack Modules 1.1.0 - up to 30 modules, automatic placement, hidden excess models and eight charm slots (two visible, six invisible)
 [*]High-Density Backpack Classic Overlap 1.1.0 - alternative build with visible overlapping meshes and manual one-cell placement; choose instead of the standard build
-[*]Climbing Power Gloves Range 1.0.0 - increases the configurable magnetic cargo pickup range of both Climbing Power Gloves tiers
+[*]Climbing Power Gloves Range 1.1.0 - configures Climbing glove pickup ranges and optionally adds magnetic pickup to Combat Power Gloves (enabled by default)
 [*]Sam Stats Booster 1.0.0 - provides a configurable boost to selected Sam-stat progression
 [*]Porter Grade Booster 1.0.0 - provides a configurable boost to delivery category points
 [*]Extended BT Cord Cutting Range 1.0.0 - increases the configurable BT umbilical cord cutting range
 [*]APAS Memory Costs 3.0.0 - stable unified release with native cost initialization, optional Unlock All and Episode 2 Early Access, both disabled by default
 [*]Proficiency Bonus Multiplier 1.0.0 - scales supported level-dependent proficiency bonuses independently for levels 1 through 5
-[*]Crafting Overhaul 1.3.0 - 120 individual item unlock choices, optional Free Crafting, Omnireflector Boots and equipment durability settings
+[*]Sneaky Sam 1.0.1 - hides shoulder/hip cargo visually, with no INI required
+[*]Crafting Overhaul 1.5.0 - 132 individual item choices, Chiral Boots, 11 enemy-drop weapons, optional Free Crafting and durability for equipment, boots and backpack covers
 [/list]
 
 [b]Deliveries and Rewards[/b]
@@ -97,7 +98,7 @@ The checkboxes represent the desired final state. Installed mods are selected au
 [b]Exploration[/b]
 
 [list]
-[*]Improved Odradek Scan 1.0.0 - configurable 360-degree scan, tested 500 m radius, eligible distant cargo markers and distance after recipient/likes
+[*]Improved Odradek Scan 1.0.1 - configurable 360-degree scan, tested 500 m radius, eligible distant cargo markers and distance after recipient/likes; restores native terrain colors and hazard markings
 [/list]
 
 [b]Interface[/b]
@@ -109,6 +110,8 @@ The checkboxes represent the desired final state. Installed mods are selected au
 Backpack Classic Overlap passed local checks but its appearance and menu behavior have not yet been tested in game. Only published releases are bundled; TEST, TRACE and obsolete builds are excluded.
 
 [b]Central mod settings[/b]
+
+New glove settings separate Climbing range values from the Combat pickup switch (on by default). Level 2 range must be at least Level 1. Existing valid INI values are retained, including explicit Combat opt-out. When upgrading an older central profile, new settings are imported from installed INIs before release defaults are used; saved central choices keep priority. Crafting items are grouped in 13 categories under advanced settings and support Early unlock, Native progression or Use Default Unlock (inherit). Sneaky Sam has no INI and is enabled or removed through the main mod selection.
 
 The [b]Mod Settings[/b] window lists only currently installed mods that provide configurable settings. Installed mods without an INI and all uninstalled mods remain hidden.
 
@@ -132,13 +135,13 @@ The suite bundles APAS Unified 3.0.0. Unlock All and Episode 2 Early Access are 
 
 Old INIs receive explicit UnlockAll=0 and EarlyAccess=0 during updates, including updates without a saved central profile. Existing explicit choices and valid cost settings are retained. Coffin Board updates preserve valid existing settings and add missing reworked options with the release defaults.
 
-[b]Changes and compatibility in 1.8.0[/b]
+[b]Changes and compatibility in 1.9.0[/b]
 
 APAS Unified 3.0.0 retains native cost initialization without gameplay polling. The Early Access menu and APAS purchases/unlocks were verified live in Episode 2. Both progression switches remain off by default.
 
 Backpack 1.1.0 offers the standard clean-visual build and the optional Classic Overlap build. The manager allows only one variant and safely switches between known binaries. The generated [font=Courier New]DS2_HighDensityBackpackModules.charms.ini[/font] is preserved. Classic Overlap has passed local checks but has not been tested in game. Before removing Backpack, unequip extra charms and reduce modules to a vanilla-compatible layout, save, then close the game. Unknown modified binaries require manual review.
 
-Crafting Overhaul 1.3.0 supports 120 per-item unlock choices. The item list is shown under advanced settings; Free Crafting and durability changes are disabled by default. The manager preserves existing item choices and INI comments on update.
+Crafting Overhaul 1.5.0 offers 132 item choices, including Chiral Boots and 11 enemy-drop weapons. Durability options cover supported equipment, weapons, boots and Backpack Cover Lv.1/Lv.2. Free Crafting and durability changes remain off by default. Existing item choices, inherit values and INI comments are retained.
 
 [b]Updating and repairing[/b]
 

@@ -216,24 +216,47 @@
               "fields": [
                 {
                   "key": "Enabled",
-                  "type": "bool"
+                  "type": "bool",
+                  "label": "Enable glove mod",
+                  "labelDe": "Handschuh-Mod aktivieren",
+                  "description": "Master switch for both Climbing range changes and Combat cargo pickup.",
+                  "descriptionDe": "Hauptschalter für die Kletterhandschuh-Reichweiten und das Aufnehmen mit Kampfhandschuhen."
                 },
                 {
                   "key": "Level1RangeMeters",
-                  "type": "int",
+                  "type": "decimal",
                   "min": 8,
-                  "max": 100
+                  "max": 100,
+                  "label": "Climbing gloves Lv.1 range (m)",
+                  "labelDe": "Kletterhandschuhe Stufe 1: Reichweite (m)"
                 },
                 {
                   "key": "Level2RangeMeters",
-                  "type": "int",
+                  "type": "decimal",
                   "min": 10,
-                  "max": 100
+                  "max": 100,
+                  "label": "Climbing gloves Lv.2 range (m)",
+                  "labelDe": "Kletterhandschuhe Stufe 2: Reichweite (m)",
+                  "description": "10–100 m; must be at least the Level 1 range. Default: 50 m. Applies only to Climbing Power Gloves.",
+                  "descriptionDe": "10–100 m; mindestens so groß wie die Reichweite von Stufe 1. Standard: 50 m. Gilt nur für Kletterhandschuhe."
                 },
                 {
                   "key": "DebugLog",
                   "type": "bool",
                   "advanced": true
+                }
+              ]
+            },
+            {
+              "name": "CombatGloves",
+              "fields": [
+                {
+                  "key": "EnableCargoPickup",
+                  "type": "bool",
+                  "label": "Magnetic cargo pickup with Combat gloves",
+                  "labelDe": "Magnetisches Aufnehmen mit Kampfhandschuhen",
+                  "description": "Enabled by default in v1.1.0. Requires the glove master switch. Combat attacks stay native; this release has no separate Combat range controls.",
+                  "descriptionDe": "In v1.1.0 standardmäßig an. Benötigt den Hauptschalter. Normale Angriffe bleiben erhalten; diese Version hat keine eigenen Kampfhandschuh-Reichweitenregler."
                 }
               ]
             }
@@ -1375,11 +1398,14 @@
                   "key": "FullCircleMode",
                   "type": "choice",
                   "choices": [
-                    "Sphere",
                     "Fan360",
+                    "Sphere",
+                    "LegacySphere",
                     "Spherical"
                   ],
-                  "advanced": true
+                  "advanced": true,
+                  "description": "Fan360 is the terrain-safe default; Sphere is a compatible alias. LegacySphere and Spherical are experimental and can affect terrain markings.",
+                  "descriptionDe": "Fan360 ist der geländesichere Standard; Sphere ist ein kompatibler Alias. LegacySphere und Spherical sind experimentell und können Geländemarkierungen beeinträchtigen."
                 },
                 {
                   "key": "ExtendCargoMarkers",
@@ -1407,15 +1433,27 @@
               "fields": [
                 {
                   "key": "Enabled",
-                  "type": "bool"
+                  "type": "bool",
+                  "label": "Enable Crafting Overhaul",
+                  "labelDe": "Crafting Overhaul aktivieren",
+                  "description": "Master switch for this mod.",
+                  "descriptionDe": "Hauptschalter für diesen Mod."
                 },
                 {
                   "key": "DefaultUnlock",
-                  "type": "bool"
+                  "type": "bool",
+                  "label": "Default early unlock (inherited items)",
+                  "labelDe": "Standard-Freischaltung (geerbte Werte)",
+                  "description": "Fallback for items set to Use Default Unlock / inherit or absent from the INI. Explicit per-item choices take priority.",
+                  "descriptionDe": "Standard für Gegenstände mit Default Unlock übernehmen / inherit oder ohne INI-Eintrag. Explizite Einzelentscheidungen haben Vorrang."
                 },
                 {
                   "key": "FreeCrafting",
-                  "type": "bool"
+                  "type": "bool",
+                  "label": "Free Crafting",
+                  "labelDe": "Kostenlos herstellen",
+                  "description": "Off by default. Supported recipes require no materials when enabled.",
+                  "descriptionDe": "Standardmäßig aus. Unterstützte Rezepte benötigen bei Aktivierung keine Materialien."
                 },
                 {
                   "key": "ExportCatalogue",
@@ -1429,17 +1467,29 @@
               "fields": [
                 {
                   "key": "Enabled",
-                  "type": "bool"
+                  "type": "bool",
+                  "label": "Enable durability changes",
+                  "labelDe": "Haltbarkeitsänderungen aktivieren",
+                  "description": "Off by default. Applies to supported equipment, weapons, boots and backpack covers; cargo and containers stay native.",
+                  "descriptionDe": "Standardmäßig aus. Gilt für unterstützte Ausrüstung, Waffen, Stiefel und Rucksackhüllen; Fracht und Behälter bleiben unverändert."
                 },
                 {
                   "key": "Multiplier",
                   "type": "decimal",
                   "min": 1,
-                  "max": 1000
+                  "max": 1000,
+                  "label": "Durability multiplier",
+                  "labelDe": "Haltbarkeitsmultiplikator",
+                  "description": "1–1000; requires durability changes enabled. Unbreakable overrides this value.",
+                  "descriptionDe": "1–1000; benötigt aktivierte Haltbarkeitsänderungen. Unzerstörbar hat Vorrang."
                 },
                 {
                   "key": "Unbreakable",
-                  "type": "bool"
+                  "type": "bool",
+                  "label": "Unbreakable",
+                  "labelDe": "Unzerstörbar",
+                  "description": "Prevents future wear when durability changes are enabled. Does not repair existing damage.",
+                  "descriptionDe": "Verhindert weiteren Verschleiß bei aktivierten Haltbarkeitsänderungen. Repariert keine bestehenden Schäden."
                 }
               ]
             },
@@ -1448,723 +1498,1719 @@
               "fields": [
                 {
                   "key": "0x6E7D4315",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Porter Boots",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Boots",
+                  "groupDe": "Stiefel",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x7D2DB0E1",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Trekking Boots",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Boots",
+                  "groupDe": "Stiefel",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x0F4633E2",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Combat Boots",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Boots",
+                  "groupDe": "Stiefel",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x1C16C016",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Pizza Chef's Boots",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Boots",
+                  "groupDe": "Stiefel",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x5B8C5709",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Stealth Boots",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Boots",
+                  "groupDe": "Stiefel",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x16CF98D9",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "All-Terrain Boots",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Boots",
+                  "groupDe": "Stiefel",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x75D99124",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Omnireflector Boots",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Boots",
+                  "groupDe": "Stiefel",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x07B21227",
+                  "type": "choice",
+                  "label": "Chiral Boots",
+                  "advanced": true,
+                  "group": "Boots",
+                  "groupDe": "Stiefel",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x7DDFDB62",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Battle Skeleton Lv.1",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Skeletons",
+                  "groupDe": "Skelette",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x6E8F2896",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Battle Skeleton Lv.2",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Skeletons",
+                  "groupDe": "Skelette",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x1CE4AB95",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Battle Skeleton Lv.3",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Skeletons",
+                  "groupDe": "Skelette",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x493873FB",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Bokka Skeleton Lv.1",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Skeletons",
+                  "groupDe": "Skelette",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x5A68800F",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Bokka Skeleton Lv.2",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Skeletons",
+                  "groupDe": "Skelette",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x2803030C",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Bokka Skeleton Lv.3",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Skeletons",
+                  "groupDe": "Skelette",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x5A9AEB8C",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Boost Skeleton Lv.1",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Skeletons",
+                  "groupDe": "Skelette",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x49CA1878",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Boost Skeleton Lv.2",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Skeletons",
+                  "groupDe": "Skelette",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x3BA19B7B",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Boost Skeleton Lv.3",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Skeletons",
+                  "groupDe": "Skelette",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x529CA1CA",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Combat Power Gloves Lv.1",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Gloves And Protection",
+                  "groupDe": "Handschuhe und Schutz",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x33A7D13D",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Combat Power Gloves Lv.2",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Gloves And Protection",
+                  "groupDe": "Handschuhe und Schutz",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x20F722C9",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Climbing Power Gloves Lv.1",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Gloves And Protection",
+                  "groupDe": "Handschuhe und Schutz",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x41CC523E",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Climbing Power Gloves Lv.2",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Gloves And Protection",
+                  "groupDe": "Handschuhe und Schutz",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x413E39BD",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Thermal Pad",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Gloves And Protection",
+                  "groupDe": "Handschuhe und Schutz",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x3355BABE",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Oxygen Mask",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Gloves And Protection",
+                  "groupDe": "Handschuhe und Schutz",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x5CCBD2CD",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Blood Bag",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Supplies And Tools",
+                  "groupDe": "Verbrauchsmaterial und Werkzeuge",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x4F9B2139",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "High-Capacity Blood Bag",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Supplies And Tools",
+                  "groupDe": "Verbrauchsmaterial und Werkzeuge",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x4944250E",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "PCC Lv.1",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Supplies And Tools",
+                  "groupDe": "Verbrauchsmaterial und Werkzeuge",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x3B2FA60D",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "PCC Lv.2",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Supplies And Tools",
+                  "groupDe": "Verbrauchsmaterial und Werkzeuge",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x5AE6BD79",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "PCC Lv.3",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Supplies And Tools",
+                  "groupDe": "Verbrauchsmaterial und Werkzeuge",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x6FE5C2E6",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Container Repair Spray",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Supplies And Tools",
+                  "groupDe": "Verbrauchsmaterial und Werkzeuge",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x1D8E41E5",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Ladder",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Supplies And Tools",
+                  "groupDe": "Verbrauchsmaterial und Werkzeuge",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x0EDEB211",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Climbing Anchor",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Supplies And Tools",
+                  "groupDe": "Verbrauchsmaterial und Werkzeuge",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x7D51E614",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Signpost",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Supplies And Tools",
+                  "groupDe": "Verbrauchsmaterial und Werkzeuge",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x4708E49F",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Floating Carrier Lv.1",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Transport Equipment",
+                  "groupDe": "Transportausrüstung",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x5458176B",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Floating Carrier Lv.2",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Transport Equipment",
+                  "groupDe": "Transportausrüstung",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x0184CF05",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Coffin Board",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Transport Equipment",
+                  "groupDe": "Transportausrüstung",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x385B0CD0",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Maser Handgun",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Handguns And Rifles",
+                  "groupDe": "Handfeuerwaffen und Gewehre",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x17187678",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Machine Pistol [MP]",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Handguns And Rifles",
+                  "groupDe": "Handfeuerwaffen und Gewehre",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x6573F57B",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "SL Machine Pistol [MP]",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Handguns And Rifles",
+                  "groupDe": "Handfeuerwaffen und Gewehre",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x7623068F",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Big-Bore Handgun [MP]",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Handguns And Rifles",
+                  "groupDe": "Handfeuerwaffen und Gewehre",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x58772475",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "SL Tranq Handgun",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Handguns And Rifles",
+                  "groupDe": "Handfeuerwaffen und Gewehre",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x055FDDDE",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Grenade Pistol [MP]",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Handguns And Rifles",
+                  "groupDe": "Handfeuerwaffen und Gewehre",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x38365FC3",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Assault Rifle [MP] Lv.1",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Handguns And Rifles",
+                  "groupDe": "Handfeuerwaffen und Gewehre",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x7FACC8DC",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Assault Rifle [MP] Lv.2",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Handguns And Rifles",
+                  "groupDe": "Handfeuerwaffen und Gewehre",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x2B66AC37",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "LW Assault Rifle [MP] Lv.1",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Handguns And Rifles",
+                  "groupDe": "Handfeuerwaffen und Gewehre",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x590D2F34",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "LW Assault Rifle [MP] Lv.2",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Handguns And Rifles",
+                  "groupDe": "Handfeuerwaffen und Gewehre",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x6CFC3B28",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "SL-LW Assault Rifle [MP] Lv.1",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Handguns And Rifles",
+                  "groupDe": "Handfeuerwaffen und Gewehre",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x1E97B82B",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "SL-LW Assault Rifle [MP] Lv.2",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Handguns And Rifles",
+                  "groupDe": "Handfeuerwaffen und Gewehre",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x1775256B",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Shotgun [MP] Lv.1",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Handguns And Rifles",
+                  "groupDe": "Handfeuerwaffen und Gewehre",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x22843177",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Shotgun [MP] Lv.2",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Handguns And Rifles",
+                  "groupDe": "Handfeuerwaffen und Gewehre",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x764E559C",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "LW Shotgun [MP] Lv.1",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Handguns And Rifles",
+                  "groupDe": "Handfeuerwaffen und Gewehre",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x0425D69F",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "LW Shotgun [MP] Lv.2",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Handguns And Rifles",
+                  "groupDe": "Handfeuerwaffen und Gewehre",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x3234B715",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Tranq Sniper Rifle",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Handguns And Rifles",
+                  "groupDe": "Handfeuerwaffen und Gewehre",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x405F3416",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "LW Tranq Sniper Rifle",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Handguns And Rifles",
+                  "groupDe": "Handfeuerwaffen und Gewehre",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x530FC7E2",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "SL-LW Tranq Sniper Rifle",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Handguns And Rifles",
+                  "groupDe": "Handfeuerwaffen und Gewehre",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x3259E406",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Bola Gun",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Handguns And Rifles",
+                  "groupDe": "Handfeuerwaffen und Gewehre",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x40326705",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Bola Stun Gun",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Handguns And Rifles",
+                  "groupDe": "Handfeuerwaffen und Gewehre",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x1D77CDBD",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Sticky Gun",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Handguns And Rifles",
+                  "groupDe": "Handfeuerwaffen und Gewehre",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x1C6095EF",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Machine Gun [MP] Lv.2",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Heavy Weapons",
+                  "groupDe": "Schwere Waffen",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x0F30661B",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "LW Machine Gun [MP] Lv.1",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Heavy Weapons",
+                  "groupDe": "Schwere Waffen",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x6E0B16EC",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "LW Machine Gun [MP] Lv.2",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Heavy Weapons",
+                  "groupDe": "Schwere Waffen",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x20731CB3",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Grenade Launcher [MP]",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Heavy Weapons",
+                  "groupDe": "Schwere Waffen",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x41486C44",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "LW Grenade Launcher [MP]",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Heavy Weapons",
+                  "groupDe": "Schwere Waffen",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x3323EF47",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "RD Grenade Launcher [MP]",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Heavy Weapons",
+                  "groupDe": "Schwere Waffen",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x67E98BAC",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "LW-RD Grenade Launcher [MP]",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Heavy Weapons",
+                  "groupDe": "Schwere Waffen",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x05328ECD",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Quadruple Rocket Launcher",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Heavy Weapons",
+                  "groupDe": "Schwere Waffen",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x6409FE3A",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Multirocket Launcher",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Heavy Weapons",
+                  "groupDe": "Schwere Waffen",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x16627D39",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "LW Multirocket Launcher",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Heavy Weapons",
+                  "groupDe": "Schwere Waffen",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x77590DCE",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "LW Seven-Rocket Launcher",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Heavy Weapons",
+                  "groupDe": "Schwere Waffen",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x7CB53112",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Rocket Box [MP]",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Heavy Weapons",
+                  "groupDe": "Schwere Waffen",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x0A4CBAE9",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Tar Cannon",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Heavy Weapons",
+                  "groupDe": "Schwere Waffen",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x782739EA",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Chiral Shock Cannon",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Heavy Weapons",
+                  "groupDe": "Schwere Waffen",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x32A0685E",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Stun Bomb",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Grenades, Mines And Traps",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ],
+                  "groupDe": "Granaten, Minen und Fallen"
                 },
                 {
                   "key": "0x7FE3A78E",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Remote Stun Bomb",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Grenades, Mines And Traps",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ],
+                  "groupDe": "Granaten, Minen und Fallen"
                 },
                 {
                   "key": "0x40CBEB5D",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "MP Grenade",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Grenades, Mines And Traps",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ],
+                  "groupDe": "Granaten, Minen und Fallen"
                 },
                 {
                   "key": "0x666A0CB5",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Blood Grenade Lv.1",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Grenades, Mines And Traps",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ],
+                  "groupDe": "Granaten, Minen und Fallen"
                 },
                 {
                   "key": "0x1E2ABCFA",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Blood Grenade Lv.2",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Grenades, Mines And Traps",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ],
+                  "groupDe": "Granaten, Minen und Fallen"
                 },
                 {
                   "key": "0x753AFF41",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Smoke Grenade",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Grenades, Mines And Traps",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ],
+                  "groupDe": "Granaten, Minen und Fallen"
                 },
                 {
                   "key": "0x539B18A9",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "EX Grenade",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Grenades, Mines And Traps",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ],
+                  "groupDe": "Granaten, Minen und Fallen"
                 },
                 {
                   "key": "0x21F09BAA",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "EX Capture Grenade",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Grenades, Mines And Traps",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ],
+                  "groupDe": "Granaten, Minen und Fallen"
                 },
                 {
                   "key": "0x14018FB6",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Decoy Hologrenade",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Grenades, Mines And Traps",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ],
+                  "groupDe": "Granaten, Minen und Fallen"
                 },
                 {
                   "key": "0x0D88248D",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "BT Hologrenade",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Grenades, Mines And Traps",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ],
+                  "groupDe": "Granaten, Minen und Fallen"
                 },
                 {
                   "key": "0x66986736",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Stealth Hologrenade",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Grenades, Mines And Traps",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ],
+                  "groupDe": "Granaten, Minen und Fallen"
                 },
                 {
                   "key": "0x527FCFAF",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Phantom Gas Grenade",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Grenades, Mines And Traps",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ],
+                  "groupDe": "Granaten, Minen und Fallen"
                 },
                 {
                   "key": "0x288D3E7A",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Dog Mine",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Grenades, Mines And Traps",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ],
+                  "groupDe": "Granaten, Minen und Fallen"
                 },
                 {
                   "key": "0x49B64E8D",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Electric Trap",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Grenades, Mines And Traps",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ],
+                  "groupDe": "Granaten, Minen und Fallen"
                 },
                 {
                   "key": "0x581A7766",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Custom Electric Rod",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Melee And Special Equipment",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ],
+                  "groupDe": "Nahkampf und Spezialausrüstung"
                 },
                 {
                   "key": "0x2A71F465",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Custom High-Voltage Rod",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Melee And Special Equipment",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ],
+                  "groupDe": "Nahkampf und Spezialausrüstung"
                 },
                 {
                   "key": "0x39210791",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Custom Twin Rod",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Melee And Special Equipment",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ],
+                  "groupDe": "Nahkampf und Spezialausrüstung"
                 },
                 {
                   "key": "0x3BDDCD8E",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Battle Guitar",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Melee And Special Equipment",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ],
+                  "groupDe": "Nahkampf und Spezialausrüstung"
                 },
                 {
                   "key": "0x20144CAC",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Rubber Pizza",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Melee And Special Equipment",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ],
+                  "groupDe": "Nahkampf und Spezialausrüstung"
                 },
                 {
                   "key": "0x1D7C2A66",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Deployable Shield",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Melee And Special Equipment",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ],
+                  "groupDe": "Nahkampf und Spezialausrüstung"
                 },
                 {
                   "key": "0x7C475A91",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Floating Sentry Gun",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Melee And Special Equipment",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ],
+                  "groupDe": "Nahkampf und Spezialausrüstung"
+                },
+                {
+                  "key": "0x6C3A478B",
+                  "type": "choice",
+                  "label": "Assault Rifle [RB] Lv.1",
+                  "advanced": true,
+                  "group": "Enemy-Drop Weapons",
+                  "groupDe": "Gegnerwaffen",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x1EA3AF0B",
+                  "type": "choice",
+                  "label": "Assault Rifle [RB] Lv.2",
+                  "advanced": true,
+                  "group": "Enemy-Drop Weapons",
+                  "groupDe": "Gegnerwaffen",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x6CC82C08",
+                  "type": "choice",
+                  "label": "Assault Rifle [RB] Lv.3",
+                  "advanced": true,
+                  "group": "Enemy-Drop Weapons",
+                  "groupDe": "Gegnerwaffen",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x1E51C488",
+                  "type": "choice",
+                  "label": "Shotgun [RP] Lv.1",
+                  "advanced": true,
+                  "group": "Enemy-Drop Weapons",
+                  "groupDe": "Gegnerwaffen",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x380248E3",
+                  "type": "choice",
+                  "label": "Shotgun [RP] Lv.2",
+                  "advanced": true,
+                  "group": "Enemy-Drop Weapons",
+                  "groupDe": "Gegnerwaffen",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x4A69CBE0",
+                  "type": "choice",
+                  "label": "Shotgun [RP] Lv.3",
+                  "advanced": true,
+                  "group": "Enemy-Drop Weapons",
+                  "groupDe": "Gegnerwaffen",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x38F02360",
+                  "type": "choice",
+                  "label": "Tranq Grenade Launcher",
+                  "advanced": true,
+                  "group": "Enemy-Drop Weapons",
+                  "groupDe": "Gegnerwaffen",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x14889C47",
+                  "type": "choice",
+                  "label": "Electric Rod",
+                  "advanced": true,
+                  "group": "Enemy-Drop Weapons",
+                  "groupDe": "Gegnerwaffen",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x4B7F7765",
+                  "type": "choice",
+                  "label": "High-Voltage Rod",
+                  "advanced": true,
+                  "group": "Enemy-Drop Weapons",
+                  "groupDe": "Gegnerwaffen",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x3914F466",
+                  "type": "choice",
+                  "label": "Twin Rod",
+                  "advanced": true,
+                  "group": "Enemy-Drop Weapons",
+                  "groupDe": "Gegnerwaffen",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x0CE5E07A",
+                  "type": "choice",
+                  "label": "Ghost Blade",
+                  "advanced": true,
+                  "group": "Enemy-Drop Weapons",
+                  "groupDe": "Gegnerwaffen",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x2F256E9F",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Extra Battery Lv.1",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Backpack Modules",
+                  "groupDe": "Rucksackmodule",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x08605E71",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Extra Battery Lv.2",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Backpack Modules",
+                  "groupDe": "Rucksackmodule",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x1B30AD85",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Extra Battery Lv.3",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Backpack Modules",
+                  "groupDe": "Rucksackmodule",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x695B2E86",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Extra Battery Lv.4",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Backpack Modules",
+                  "groupDe": "Rucksackmodule",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x5797B553",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Mini Extra Battery",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Backpack Modules",
+                  "groupDe": "Rucksackmodule",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x3C759D6B",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Utility Pouch",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Backpack Modules",
+                  "groupDe": "Rucksackmodule",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x4E1E1E68",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Grenade Pouch",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Backpack Modules",
+                  "groupDe": "Rucksackmodule",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x3C87F6E8",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Large Grenade Pouch",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Backpack Modules",
+                  "groupDe": "Rucksackmodule",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x44352D24",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Spare Ammo Container",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Backpack Modules",
+                  "groupDe": "Rucksackmodule",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x684D9203",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Large Spare Ammo Container Lv.1",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Backpack Modules",
+                  "groupDe": "Rucksackmodule",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x1A261100",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Large Spare Ammo Container Lv.2",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Backpack Modules",
+                  "groupDe": "Rucksackmodule",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x5DBC861F",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Stabilizer Lv.1",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Backpack Modules",
+                  "groupDe": "Rucksackmodule",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x0976E2F4",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Stabilizer Lv.2",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Backpack Modules",
+                  "groupDe": "Rucksackmodule",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x7B1D61F7",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Stabilizer Lv.3",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Backpack Modules",
+                  "groupDe": "Rucksackmodule",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x68BFF980",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Chiral Anti-Gravity Device",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Backpack Modules",
+                  "groupDe": "Rucksackmodule",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x7BEF0A74",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Auto Revive Device",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Backpack Modules",
+                  "groupDe": "Rucksackmodule",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x09848977",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Electric Shock Absorber",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Backpack Modules",
+                  "groupDe": "Rucksackmodule",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x25FC3650",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Back Protector",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Backpack Modules",
+                  "groupDe": "Rucksackmodule",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x4EEC75EB",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Solar Generator",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Backpack Modules",
+                  "groupDe": "Rucksackmodule",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x365EAE27",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Backpack Cover Lv.1",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Backpack Covers",
+                  "groupDe": "Rucksackhüllen",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x7A0BDD72",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Backpack Cover Lv.2",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Backpack Covers",
+                  "groupDe": "Rucksackhüllen",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x780F7FE2",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Cryptobiote",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Backpack Charms",
+                  "groupDe": "Rucksackanhänger",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x0A64FCE1",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Love Knot",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Backpack Charms",
+                  "groupDe": "Rucksackanhänger",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x19340F15",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Bell",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Backpack Charms",
+                  "groupDe": "Rucksackanhänger",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x6B5F8C16",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Chiral Tea",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Backpack Charms",
+                  "groupDe": "Rucksackanhänger",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x3F95E8FD",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Quokka",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Backpack Charms",
+                  "groupDe": "Rucksackanhänger",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x4DFE6BFE",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Porter",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Backpack Charms",
+                  "groupDe": "Rucksackanhänger",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x5EAE980A",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Electrobiote",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Backpack Charms",
+                  "groupDe": "Rucksackanhänger",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 },
                 {
                   "key": "0x2CC51B09",
-                  "type": "bool",
+                  "type": "choice",
                   "label": "Boxing Kangaroos",
-                  "advanced": true
+                  "advanced": true,
+                  "group": "Backpack Charms",
+                  "groupDe": "Rucksackanhänger",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
                 }
               ]
             }

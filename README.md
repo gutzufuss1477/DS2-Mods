@@ -34,8 +34,8 @@ Additional DS2 mods can be added later as separate folders under `mods/`.
 ## All-in-one installer
 
 The bilingual Windows GUI, stable-mod catalog, transactional installer and
-release build are maintained under [installer](installer/). Version 1.8.0 manages
-23 mods, adding Crafting Overhaul 1.3.0 and an optional Classic Overlap Backpack variant, and updating APAS Unified to 3.0.0 with Unlock All and Early Access disabled by default. The English/Deutsch
+release build are maintained under [installer](installer/). Version 1.9.0 manages
+24 mods with 325 central settings, adding Sneaky Sam 1.0.1 and updating Climbing Power Gloves Range 1.1.0 (Combat pickup), Crafting Overhaul 1.5.0 and Improved Odradek Scan 1.0.1. The English/Deutsch
 interface includes one central **Mod Settings** menu while keeping
 the individual runtime INIs expected by each ASI plugin. The manager detects
 the Steam game directory and supported `DS2.exe`, reuses or installs the tested

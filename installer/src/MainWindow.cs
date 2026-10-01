@@ -59,7 +59,6 @@ namespace DS2ModSuite
         public MainWindow(Catalog catalog)
         {
             this.catalog = catalog;
-            configurationProfile = ModConfigurationService.LoadStoredProfile(catalog);
             Title = "DS2 Mod Suite";
             Width = 1060;
             Height = 790;
@@ -452,6 +451,8 @@ namespace DS2ModSuite
                 if (inspection.Found)
                 {
                     selectedGamePath = inspection.GamePath;
+                    if (configurationProfile == null)
+                        configurationProfile = ModConfigurationService.LoadStoredProfile(catalog, selectedGamePath);
                 }
 
                 modStates = GameInspector.InspectMods(inspection, catalog);

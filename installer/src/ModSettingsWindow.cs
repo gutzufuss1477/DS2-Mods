@@ -254,12 +254,22 @@ namespace DS2ModSuite
 
                 foreach (IGrouping<string, ConfigFieldDefinition> section in file.GroupBy(field => field.Section, StringComparer.OrdinalIgnoreCase))
                 {
+                    List<ConfigFieldDefinition> visibleFields = section.Where(field => !field.Schema.Advanced || includeAdvanced).ToList();
+                    if (visibleFields.Count == 0) continue;
                     TextBlock sectionName = Theme.Text("[" + section.Key + "]", 12, Theme.TextSecondary, FontWeights.SemiBold);
                     sectionName.Margin = new Thickness(0, 5, 0, 4);
                     cardPanel.Children.Add(sectionName);
-                    foreach (ConfigFieldDefinition field in section)
+                    string previousGroup = null;
+                    foreach (ConfigFieldDefinition field in visibleFields)
                     {
-                        if (field.Schema.Advanced && !includeAdvanced) continue;
+                        string group = Localization.T(field.Schema.Group, field.Schema.GroupDe);
+                        if (!string.IsNullOrWhiteSpace(group) && group != previousGroup)
+                        {
+                            TextBlock groupLabel = Theme.Text(group, 13, Theme.Accent, FontWeights.SemiBold);
+                            groupLabel.Margin = new Thickness(0, 14, 0, 5);
+                            cardPanel.Children.Add(groupLabel);
+                        }
+                        previousGroup = group;
                         cardPanel.Children.Add(BuildFieldRow(field));
                     }
                 }
@@ -313,8 +323,16 @@ namespace DS2ModSuite
             else if (string.Equals(field.Schema.Type, "choice", StringComparison.OrdinalIgnoreCase))
             {
                 ComboBox combo = CreateComboBox(230);
-                foreach (string option in field.Schema.Choices ?? new List<string>()) combo.Items.Add(option);
-                combo.SelectedItem = combo.Items.Cast<object>().FirstOrDefault(item => string.Equals(item.ToString(), value, StringComparison.OrdinalIgnoreCase));
+                foreach (string option in field.Schema.Choices ?? new List<string>())
+                {
+                    string optionLabel = option;
+                    if (field.ModId == "crafting-unlocks" && field.Section == "Items")
+                        optionLabel = option == "1" ? Localization.T("Early unlock", "Früh freischalten")
+                            : option == "0" ? Localization.T("Native progression", "Normaler Fortschritt")
+                            : Localization.T("Use Default Unlock", "Default Unlock übernehmen");
+                    combo.Items.Add(new ComboBoxItem { Content = optionLabel, Tag = option });
+                }
+                combo.SelectedItem = combo.Items.Cast<ComboBoxItem>().FirstOrDefault(item => string.Equals((string)item.Tag, value, StringComparison.OrdinalIgnoreCase));
                 if (combo.SelectedIndex < 0 && combo.Items.Count > 0) combo.SelectedIndex = 0;
                 editor = combo;
             }
@@ -358,7 +376,8 @@ namespace DS2ModSuite
                 ComboBox combo = entry.Value as ComboBox;
                 if (combo != null)
                 {
-                    ModConfigurationService.SetValue(profile, entry.Key, combo.SelectedItem == null ? string.Empty : combo.SelectedItem.ToString());
+                    ComboBoxItem selected = combo.SelectedItem as ComboBoxItem;
+                    ModConfigurationService.SetValue(profile, entry.Key, selected == null ? string.Empty : (string)selected.Tag);
                     continue;
                 }
                 TextBox input = entry.Value as TextBox;

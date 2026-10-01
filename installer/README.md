@@ -1,4 +1,4 @@
-# DS2 Mod Suite v1.8.0
+# DS2 Mod Suite v1.9.0
 
 Clean all-in-one mod manager for **DEATH STRANDING 2: ON THE BEACH**.
 
@@ -43,13 +43,17 @@ The suite bundles the stable APAS Unified 3.0.0 ASI. Unlock All and Early Access
 
 Old INIs receive explicit UnlockAll=0 and EarlyAccess=0 during updates, including updates without a saved central profile. Existing explicit progression choices and valid cost settings are retained. Coffin Board updates preserve valid existing settings and add missing reworked options with the release defaults.
 
-## Changes and compatibility in 1.8.0
+## Changes and compatibility in 1.9.0
+
+Version 1.9.0 adds Sneaky Sam 1.0.1, updates Climbing Power Gloves Range to 1.1.0 with optional Combat glove pickup, Crafting Overhaul to 1.5.0 with 132 item choices, and Improved Odradek Scan to 1.0.1 with restored native terrain markings.
+
+New glove settings separate Climbing range values from the Combat pickup switch (on by default). Level 2 range must be at least Level 1. Existing valid INI values are retained, including explicit Combat opt-out. When upgrading an older central profile, new settings are imported from installed INIs before release defaults are used; saved central choices keep priority. Crafting items are grouped in 13 categories under advanced settings and support Early unlock, Native progression or Use Default Unlock (inherit). Sneaky Sam has no INI and is enabled or removed through the main mod selection.
 
 APAS Unified 3.0.0 retains native cost initialization without gameplay polling. The Early Access menu and APAS purchases/unlocks were verified live in Episode 2. Both progression switches remain off by default.
 
 Backpack 1.1.0 offers standard clean visuals or the optional Classic Overlap build with visible overlapping module meshes and manual one-cell placement. Select exactly one variant; the manager removes the other known ASI when switching. Classic Overlap passed local checks but has not yet been tested in game. Its automatically created `DS2_HighDensityBackpackModules.charms.ini` is preserved. Before removing Backpack, unequip extra charms and reduce modules to a vanilla-compatible layout, save, then close the game. Unknown modified binaries require manual review.
 
-Crafting Overhaul 1.3.0 adds 120 per-item unlock choices, optional Free Crafting and equipment durability settings. The 120 item choices are available under advanced settings. Free Crafting and durability changes start off. The manager preserves custom item settings and INI comments.
+Crafting Overhaul 1.5.0 offers 132 item choices, including Chiral Boots and 11 enemy-drop weapons. Durability options cover supported equipment, weapons, boots and Backpack Cover Lv.1/Lv.2. Free Crafting and durability changes remain off by default. Existing item choices, inherit values and INI comments are retained.
 
 ## Safety
 
@@ -74,7 +78,7 @@ Without administrator rights, backups and logs are stored below the LocalAppData
 - Coffin Board Reworked 1.83.0
 - High-Density Backpack Modules 1.1.0
 - High-Density Backpack Modules 1.1.0 Classic Overlap (alternative to the standard build)
-- Climbing Power Gloves Range 1.0.0
+- Climbing Power Gloves Range 1.1.0
 - Sam Stats Booster 1.0.0
 - Porter Grade Booster 1.0.0
 - Lost Cargo Likes Booster 1.1.1
@@ -89,10 +93,11 @@ Without administrator rights, backups and logs are stored below the LocalAppData
 - Extended BT Cord Cutting Range 1.0.0
 - APAS Memory Costs 3.0.0 (optional Unlock All and Early Access, both off by default)
 - Proficiency Bonus Multiplier 1.0.0
-- Improved Odradek Scan 1.0.0
-- Crafting Overhaul 1.3.0
+- Improved Odradek Scan 1.0.1
+- Crafting Overhaul 1.5.0
+- Sneaky Sam 1.0.1
 
-The list contains 23 distinct mods and 24 selectable entries because Backpack has two exclusive variants. Central settings cover 20 mods, 21 INI files and 312 fields. Only released files are bundled; TEST, TRACE and older reference builds are excluded.
+The list contains 24 distinct mods and 25 selectable entries because Backpack has two exclusive variants. Central settings cover 20 mods, 21 INI files and 325 fields. Only released files are bundled; TEST, TRACE and older reference builds are excluded.
 
 ## Deutsch
 
@@ -107,6 +112,8 @@ The list contains 23 distinct mods and 24 selectable entries because Backpack ha
 Das zentrale Menü zeigt ausschließlich installierte Mods mit konfigurierbarer INI. Nicht installierte Mods und Mods ohne INI werden ausgeblendet. Es ersetzt die mod-eigenen INIs nicht, sondern verwaltet sie sicher an einer Stelle. **Einstellungen speichern** legt zunächst nur das zentrale Profil ab. Erst **Änderungen anwenden** schreibt die einzelnen INIs mit Sicherung, Prüfung und Rollback-Schutz in den Spielordner. Änderungen werden nach einem Neustart des Spiels aktiv. Eigene INIs bleiben beim Entfernen einer Mod erhalten.
 
 APAS Unified 3.0.0 bietet optional **Unlock All** und **Early Access**. Beide Optionen sind standardmäßig ausgeschaltet. Aktivierung: **Mod-Einstellungen → APAS Memory Costs → APASUnlocks**, speichern, Änderungen anwenden und das Spiel neu starten. Freischaltungen und gefundene Knoten können im Spielstand bleiben. Vor dem Aktivieren den Spielstand sichern. Ältere INIs erhalten fehlende Optionen ausdrücklich mit Wert `0`.
+
+Die neuen Handschuh-Einstellungen trennen Kletterhandschuh-Reichweiten vom Kampfhandschuh-Schalter. Stufe 2 muss mindestens die Reichweite von Stufe 1 haben. Vorhandene Werte bleiben erhalten; bei alten zentralen Profilen werden neue Optionen zuerst aus der installierten INI übernommen. Die 132 Crafting-Gegenstände sind unter den erweiterten Einstellungen in 13 Gruppen geordnet. „Standard übernehmen“ folgt dem Wert DefaultUnlock. Sneaky Sam hat keine INI und wird über die Mod-Auswahl ein- oder ausgeschaltet.
 
 ## Build
 
