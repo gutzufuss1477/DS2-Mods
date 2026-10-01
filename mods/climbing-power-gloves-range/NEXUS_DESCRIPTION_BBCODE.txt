@@ -1,42 +1,57 @@
-[b]Pick up cargo from much farther away with both Climbing Power Gloves tiers.[/b]
+[b]Climbing Power Gloves Range v1.1.0[/b]
 
-Level 1 and Level 2 use separate configurable ranges. The included profile changes their native 8 m and 10 m reach to [b]30 m[/b] and [b]50 m[/b], keeping Level 2 stronger while reducing the need for a Sticky Gun or Sticky Cannon during normal cargo pickup.
+Pick up cargo from much farther away with the Climbing Power Gloves, and now use magnetic remote cargo pickup with the Combat Power Gloves too.
 
-Tested in game: Level 2 has the longest reach, switching to Level 1 reduces it immediately, and removing the gloves restores normal close-range pickup.
+[b]What's new in v1.1.0[/b]
 
-[b]Features[/b]
-[list]
-[*]Separate pickup ranges for Level 1 and Level 2
-[*]Configurable from the included English INI
-[*]Normal hand pickup remains unchanged without the gloves
-[*]No changes to other gloves, pickup speed, throw distance, Sticky Gun, Sticky Cannon, saves, DS2.exe, or game archives
-[/list]
+Combat Power Gloves can now remotely pick up loose cargo beyond normal hand-pickup distance.
+
+Their native combat parameters are preserved, normal striking still works, and the experimental development hook that caused a pickup crash is not part of this release.
+
+[b]Climbing Power Gloves[/b]
+
+Level 1: native 8 m, default 30 m
+Level 2: native 10 m, default 50 m
+
+Both ranges remain separately configurable.
+
+[b]Combat Power Gloves[/b]
+
+EnableCargoPickup=1 enables magnetic remote cargo pickup.
+
+Combat Power Gloves do not have separate range values in this release. Their seven native combat parameters remain unchanged.
 
 [b]Installation[/b]
-[list=1]
-[*]Close the game and make sure a compatible 64-bit ASI loader is installed.
-[*]Copy [b]ds2_climbing_gloves_range.asi[/b] and [b]ds2_climbing_gloves_range.ini[/b] beside DS2.exe.
-[*]Fully restart the game.
-[/list]
-To uninstall, close the game, remove both files, and restart.
+
+1. Close the game.
+2. Make sure a compatible 64-bit ASI loader is installed.
+3. Copy ds2_climbing_gloves_range.asi and ds2_climbing_gloves_range.ini beside DS2.exe.
+4. Fully restart the game.
+
+To uninstall, remove both files and restart.
 
 [b]INI settings[/b]
-[list]
-[*][b]Enabled[/b] = 0 or 1 (default: 1)
-[*][b]Level1RangeMeters[/b] = 8-100 m (default: 30 m; native: 8 m)
-[*][b]Level2RangeMeters[/b] = 10-100 m (default: 50 m; native: 10 m; cannot be lower than Level 1)
-[*][b]DebugLog[/b] = 0 or 1 (default: 0)
-[/list]
-Set both range values equally if both tiers should have the same reach. Invalid values fail safely. Restart the game after editing the INI.
 
-[b]Requirements and notes[/b]
-[list]
-[*]DEATH STRANDING 2: ON THE BEACH for PC / Steam
-[*]Supported version: DS2.exe 1.10.89.0
-[*]Compatible external 64-bit ASI loader
-[*]The mod extends native glove pickup only; normal visibility, obstruction, cargo, and target-selection rules still apply.
-[*]Unknown game builds are rejected and may require an updated mod release.
-[/list]
+[ClimbingGlovesRange]
+Enabled=1
+Level1RangeMeters=30
+Level2RangeMeters=50
+DebugLog=0
 
-[b]Credits[/b]
-Thanks to ShadelessFox for Odradek and the DS2 RTTI research tools, and to the player who proposed and tested the mod.
+[CombatGloves]
+EnableCargoPickup=1
+
+[b]Requirements[/b]
+
+DEATH STRANDING 2: ON THE BEACH PC / Steam
+Supported version: DS2.exe 1.10.89.0
+Compatible external 64-bit ASI loader
+
+[b]Tested[/b]
+
+Combat Power Gloves: remote cargo pickup works from distance.
+Combat Power Gloves: executing the pickup works without crashing.
+Combat Power Gloves: normal strike/attack behavior still works.
+Climbing Power Gloves: existing remote pickup still works.
+
+The mod does not modify save files, DS2.exe, or game archives.

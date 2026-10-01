@@ -81,6 +81,29 @@ static void seedGlove(
     memcpy(base+paramsRva,values,sizeof(values));
 }
 
+static void seedCombatGlove(
+    u8* base,u64 objectRva,u64 paramsRva,u8 id
+){
+    memset(base+objectRva,0,0x100u);
+    memset(base+paramsRva,0,0x100u);
+    writePointer(base,objectRva,RVA_ITEM_PARAMETER_VTABLE);
+    base[objectRva+OFF_ITEM_ID]=id;
+    base[objectRva+OFF_ITEM_LEVEL]=0u;
+    base[objectRva+OFF_ITEM_CATEGORY]=ITEM_CATEGORY_GLOVE;
+    base[objectRva+OFF_ITEM_SUBCATEGORY]=COMBAT_SUBCATEGORY;
+    RawArray* params=(RawArray*)(base+objectRva+OFF_ITEM_PARAMS);
+    params->count=COMBAT_NATIVE_PARAM_COUNT;
+    params->capacity=COMBAT_NATIVE_PARAM_COUNT;
+    params->entries=(u64)(base+paramsRva);
+    u32 values[COMBAT_NATIVE_PARAM_COUNT];
+    combatNativeParams(id,values);
+    memcpy(base+paramsRva,values,sizeof(values));
+}
+
+static u8 testCombatAbility(u8*,u8 subcategory,u8 action){
+    return subcategory==COMBAT_SUBCATEGORY&&action==6u?1u:0u;
+}
+
 extern "C" __declspec(dllexport) u32 RunPackagedSettingsTest(){
     Settings settings;
     SettingsResult result=loadSettings(&settings);
@@ -266,5 +289,50 @@ extern "C" __declspec(dllexport) u32 RunSyntheticClimbingGlovesTest(
     if(reconcileGloves(&image,&nativeSettings,0)!=APPLY_READY||
        *(u32*)(base+params1Rva+24u)!=nativeSettings.level1Bits||
        *(u32*)(base+params2Rva+24u)!=nativeSettings.level2Bits)return 21u;
+
+    const u64 combat1Rva=0x07100000ull,combatParams1Rva=0x07101000ull;
+    const u64 combat2Rva=0x07102000ull,combatParams2Rva=0x07103000ull;
+    seedCombatGlove(base,combat1Rva,combatParams1Rva,COMBAT_ID_LEVEL1);
+    seedCombatGlove(base,combat2Rva,combatParams2Rva,COMBAT_ID_LEVEL2);
+    items->count=4u;items->capacity=4u;items->entries=(u64)(base+entriesRva);
+    writePointer(base,entriesRva,level1Rva);
+    writePointer(base,entriesRva+8u,level2Rva);
+    writePointer(base,entriesRva+16u,combat1Rva);
+    writePointer(base,entriesRva+24u,combat2Rva);
+    if(reconcileCombatGloves(&image)!=COMBAT_READY)return 22u;
+
+    RawArray* combat1=(RawArray*)(base+combat1Rva+OFF_ITEM_PARAMS);
+    RawArray* combat2=(RawArray*)(base+combat2Rva+OFF_ITEM_PARAMS);
+    if(combat1->count!=8u||combat2->count!=8u||
+       !combatShadowLive(base+combat1Rva)||!combatShadowLive(base+combat2Rva))
+        return 23u;
+    u32 expected1[7],expected2[7];
+    combatNativeParams(COMBAT_ID_LEVEL1,expected1);
+    combatNativeParams(COMBAT_ID_LEVEL2,expected2);
+    for(u32 i=0;i<7u;i++){
+        if(((u32*)combat1->entries)[i]!=expected1[i]||
+           ((u32*)combat2->entries)[i]!=expected2[i])return 24u;
+    }
+    if(((u32*)combat1->entries)[7]!=floatBits(COMBAT_LEVEL1_PICKUP_ANGLE)||
+       ((u32*)combat2->entries)[7]!=floatBits(COMBAT_LEVEL2_PICKUP_ANGLE))
+        return 25u;
+    u8 entry[0x30];memset(entry,0,sizeof(entry));
+    *(u64*)(entry+0x20u)=(u64)(base+combat1Rva);
+    if(combatActionCostHook(0,entry,6u)!=10.0f)return 26u;
+    *(u64*)(entry+0x20u)=(u64)(base+combat2Rva);
+    if(combatActionCostHook(0,entry,6u)!=5.0f)return 27u;
+
+    g_originalGloveActionAvailable=&testCombatAbility;
+    if(combatActionAvailableHook(0,6u,6u)!=1u||
+       combatActionAvailableHook(0,6u,5u)!=0u||
+       combatActionAvailableHook(0,7u,6u)!=1u)return 28u;
+    g_originalGloveActionAvailable=0;
+
+    combat1->count=7u;
+    *(u64*)(entry+0x20u)=(u64)(base+combat1Rva);
+    if(floatBits(combatActionCostHook(0,entry,6u))!=0x7F7FFFFFu)return 29u;
+    combat1->count=8u;
+
+    if(g_combatShadowPage){VirtualFree(g_combatShadowPage,0u,MEM_RELEASE);g_combatShadowPage=0;}
     return 0u;
 }

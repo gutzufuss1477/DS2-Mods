@@ -78,3 +78,11 @@ Include the following with any reproducible issue:
 - Whether the player was on foot or in a vehicle
 - Relevant excerpt from `ds2_climbing_gloves_range.log`
 - Short reproduction steps and, if practical, a screenshot or video
+
+## v1.1.0 Combat Power Gloves regression
+
+- Equip Combat Power Gloves and confirm remote cargo prompt beyond normal hand range.
+- Execute remote pickup and confirm no crash.
+- Confirm normal strike/attack still works.
+- Switch back to Climbing Power Gloves and confirm their remote pickup still works.
+- Set EnableCargoPickup=0, restart, and confirm Combat remote pickup is disabled.

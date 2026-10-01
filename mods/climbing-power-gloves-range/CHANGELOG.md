@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.1.0
+
+- Added optional magnetic remote cargo pickup for Combat Power Gloves.
+- Added the new CombatGloves / EnableCargoPickup=1 setting.
+- Preserved all seven native Combat Power Glove parameters; additional pickup metadata uses a private shadow parameter array.
+- Corrected the native glove availability ABI to use the actual 8-bit AL boolean result. This is the fix that made the Combat remote-pickup prompt work reliably.
+- Kept Combat Power Glove attacks functional and confirmed that Climbing Power Gloves still retain their existing remote cargo pickup.
+- Removed the experimental state bypass used during development; it caused a crash when executing remote pickup and is not present in the release.
+- Retained the existing Climbing Power Gloves defaults of 30 m for Level 1 and 50 m for Level 2.
+- Supported target remains Steam PC DS2.exe 1.10.89.0.
+
 ## 1.0.0
 
 - Promoted the mod from the test release to the first stable release after successful in-game validation.

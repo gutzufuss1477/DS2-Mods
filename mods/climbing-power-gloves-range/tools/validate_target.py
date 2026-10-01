@@ -27,6 +27,11 @@ ITEM_PARAMETER_VTABLE = 0x03203920
 ITEM_PARAMETER_TYPE_NAME = 0x04330A60
 ITEM_PARAMETER_DESCRIPTOR = 0x043320A0
 
+GLOVE_ACTION_COST = 0x00E9E400
+GLOVE_ACTION_AVAILABLE = 0x00E9E6B0
+GLOVE_ACTION_COST_BYTES = bytes.fromhex("48 8B 42 20 4C 8B CA")
+GLOVE_ACTION_AVAILABLE_BYTES = bytes.fromhex("48 89 5C 24 08")
+
 ITEM_SYSTEM_INIT_BYTES = bytes.fromhex(
     "48 8D 0D 56 E1 46 02 E8 31 FD 23 FE "
     "48 8B C8 48 8B D8 E8 D6 86 CE FE "
@@ -284,9 +289,22 @@ def validate(path: Path) -> bool:
         DESCRIPTOR_BYTES,
         results,
     )
+    check(
+        "Combat glove action-cost hook signature",
+        image.read_rva(GLOVE_ACTION_COST, len(GLOVE_ACTION_COST_BYTES)),
+        GLOVE_ACTION_COST_BYTES,
+        results,
+    )
+    check(
+        "Combat glove action-availability hook signature",
+        image.read_rva(GLOVE_ACTION_AVAILABLE, len(GLOVE_ACTION_AVAILABLE_BYTES)),
+        GLOVE_ACTION_AVAILABLE_BYTES,
+        results,
+    )
 
-    print("Documented resource baselines: Lv1 ID=53/level=0/Params[6]=8.0; "
-          "Lv2 ID=54/level=1/Params[6]=10.0.")
+    print("Documented resource baselines: Climbing Lv1 ID=53/level=0/Params[6]=8.0; "
+          "Climbing Lv2 ID=54/level=1/Params[6]=10.0; "
+          "Combat IDs=55/56 with validated native seven-parameter layouts.")
     return all(results)
 
 
