@@ -51,7 +51,8 @@ namespace DS2ModSuite
             WindowStartupLocation = WindowStartupLocation.CenterOwner;
             Background = Theme.Background;
             Foreground = Theme.TextPrimary;
-            FontFamily = new FontFamily("Segoe UI");
+            FontFamily = new FontFamily(Localization.FontFamilyName);
+            Language = System.Windows.Markup.XmlLanguage.GetLanguage(Localization.GetCulture(Localization.CurrentLanguage).Name);
             UseLayoutRounding = true;
             SnapsToDevicePixels = true;
             Content = BuildLayout();
@@ -99,8 +100,8 @@ namespace DS2ModSuite
             root.Children.Add(header);
 
             Grid toolbar = new Grid { Margin = new Thickness(24, 16, 24, 14) };
-            toolbar.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
-            toolbar.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+            toolbar.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+            toolbar.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
             StackPanel selectorStack = new StackPanel();
             selectorStack.Children.Add(Theme.Text(Localization.T("Installed mod", "Installierter Mod"), 11.5, Theme.TextSecondary, FontWeights.SemiBold));
             modSelector = CreateComboBox(360);
@@ -118,12 +119,12 @@ namespace DS2ModSuite
                 Content = Localization.T("Show advanced settings", "Erweiterte Einstellungen anzeigen"),
                 Style = (Style)Application.Current.Resources["SettingsCheckBox"],
                 VerticalAlignment = VerticalAlignment.Bottom,
-                Margin = new Thickness(24, 0, 0, 7)
+                Margin = new Thickness(0, 10, 0, 0)
             };
             showAdvanced.IsEnabled = hasAvailableMods;
             showAdvanced.Checked += delegate { RenderSelectedMod(); };
             showAdvanced.Unchecked += delegate { RenderSelectedMod(); };
-            Grid.SetColumn(showAdvanced, 1);
+            Grid.SetRow(showAdvanced, 1);
             toolbar.Children.Add(showAdvanced);
             toolbar.Visibility = hasAvailableMods ? Visibility.Visible : Visibility.Collapsed;
             Grid.SetRow(toolbar, 1);
@@ -149,8 +150,8 @@ namespace DS2ModSuite
                 Padding = new Thickness(24, 13, 24, 15)
             };
             Grid footerGrid = new Grid();
-            footerGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
-            footerGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+            footerGrid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+            footerGrid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 
             StackPanel footerLeft = new StackPanel { VerticalAlignment = VerticalAlignment.Center };
             noticeText = Theme.Text(hasAvailableMods
@@ -166,7 +167,7 @@ namespace DS2ModSuite
             footerLeft.Children.Add(noticeText);
             footerGrid.Children.Add(footerLeft);
 
-            StackPanel buttons = new StackPanel { Orientation = Orientation.Horizontal, VerticalAlignment = VerticalAlignment.Center };
+            WrapPanel buttons = new WrapPanel { HorizontalAlignment = HorizontalAlignment.Right, Margin = new Thickness(0, 10, 0, 0) };
             importButton = Theme.Button(Localization.T("Import installed INIs", "Installierte INIs importieren"), false);
             importButton.Click += Import_Click;
             importButton.IsEnabled = hasAvailableMods && !string.IsNullOrWhiteSpace(gamePath) && Directory.Exists(gamePath);
@@ -185,7 +186,7 @@ namespace DS2ModSuite
             save.Click += Save_Click;
             save.IsEnabled = hasAvailableMods;
             buttons.Children.Add(save);
-            Grid.SetColumn(buttons, 1);
+            Grid.SetRow(buttons, 1);
             footerGrid.Children.Add(buttons);
             footer.Child = footerGrid;
             Grid.SetRow(footer, 3);

@@ -398,9 +398,9 @@ namespace DS2ModSuite
                                 PayloadHash = file.Sha256,
                                 Section = section.Name,
                                 Key = field.Key,
-                                Label = string.IsNullOrWhiteSpace(field.Label) ? Humanize(field.Key) : Localization.T(field.Label, field.LabelDe),
+                                Label = string.IsNullOrWhiteSpace(field.Label) ? Localization.T(Humanize(field.Key)) : Localization.T(field.Label, field.LabelDe),
                                 Description = string.IsNullOrWhiteSpace(field.Description)
-                                    ? defaults.GetLeadingComment(section.Name, field.Key)
+                                    ? Localization.T(defaults.GetLeadingComment(section.Name, field.Key))
                                     : Localization.T(field.Description, field.DescriptionDe),
                                 DefaultValue = normalized,
                                 Schema = field

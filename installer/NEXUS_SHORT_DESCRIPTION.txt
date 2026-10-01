@@ -1,1 +1,1 @@
-Install and manage 24 DS2 mods in English/German. Adds Sneaky Sam; updates glove pickup with Combat support, Crafting Overhaul 1.5.0 and Odradek Scan 1.0.1. 325 central settings, INI preservation, backups and rollback. Steam 1.10.89.0.
+Manage 24 DS2 mods in 10 languages, including Simplified Chinese. Install, update and configure mods through 325 central settings, with INI preservation, backups and rollback. Offline standalone manager for Steam 1.10.89.0.

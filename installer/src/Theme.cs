@@ -307,7 +307,7 @@ namespace DS2ModSuite
             return new TextBlock
             {
                 Text = value,
-                FontFamily = new FontFamily("Segoe UI"),
+                FontFamily = new FontFamily(Localization.FontFamilyName),
                 FontSize = size,
                 Foreground = foreground,
                 FontWeight = weight,
@@ -320,6 +320,7 @@ namespace DS2ModSuite
             return new Button
             {
                 Content = text,
+                FontFamily = new FontFamily(Localization.FontFamilyName),
                 Style = (Style)Application.Current.Resources[primary ? "PrimaryButton" : "SecondaryButton"]
             };
         }

@@ -17,7 +17,7 @@ namespace DS2ModSuite
             {
                 Catalog catalog = CatalogService.LoadAndValidate();
                 CatalogService.ValidatePayloads(catalog);
-                Assert(catalog.SuiteVersion == "1.9.0" && catalog.Mods.Count == 25,
+                Assert(catalog.SuiteVersion == "1.10.0" && catalog.Mods.Count == 25,
                     "suite version/mod count mismatch");
                 report.AppendLine("PASS catalog and all payload hashes");
 
@@ -127,6 +127,7 @@ namespace DS2ModSuite
                 LoaderInspector.Relocalize(localizedLoader);
                 Assert(localizedLoader.DisplayText == "ASI Loader 9.7.2 is installed", "English loader relocalization failed");
                 report.AppendLine("PASS English/German localization, persistence and 325-field settings schema validation");
+                TestLanguages(catalog, report);
 
                 string runningExecutable = System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName;
                 File.Copy(runningExecutable, Path.Combine(testRoot, catalog.Game.Executable), true);

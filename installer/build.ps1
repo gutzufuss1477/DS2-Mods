@@ -8,7 +8,7 @@ $installerRoot = [System.IO.Path]::GetFullPath($PSScriptRoot)
 $workspaceRoot = [System.IO.Path]::GetFullPath((Join-Path $installerRoot '..'))
 $distRoot = [System.IO.Path]::GetFullPath((Join-Path $installerRoot 'dist'))
 $appRoot = [System.IO.Path]::GetFullPath((Join-Path $distRoot 'DS2-Mod-Suite'))
-$zipPath = Join-Path $distRoot 'DS2_Mod_Suite_v1.9.0.zip'
+$zipPath = Join-Path $distRoot 'DS2_Mod_Suite_v1.10.0.zip'
 $zipHashPath = "$zipPath.sha256.txt"
 
 function Assert-ChildPath([string]$parent, [string]$candidate) {
@@ -197,6 +197,11 @@ $arguments = @(
     "/resource:$settingsSchemaPath,DS2ModSuite.SettingsSchema"
 )
 $embeddedHashes = @{}
+foreach ($locale in @('en', 'de', 'fr', 'es', 'it', 'zh-CN', 'ja', 'ko', 'pt-BR', 'ru')) {
+    $localePath = Join-Path $installerRoot "locales/$locale.json"
+    if (-not (Test-Path -LiteralPath $localePath -PathType Leaf)) { throw "Missing language resource: $locale" }
+    $arguments += "/resource:$localePath,DS2ModSuite.Locale.$locale"
+}
 foreach ($relativeDestination in ($expectedHashes.Keys | Sort-Object)) {
     $payloadSource = $sourceByDestination[$relativeDestination]
     $payloadHash = $expectedHashes[$relativeDestination]

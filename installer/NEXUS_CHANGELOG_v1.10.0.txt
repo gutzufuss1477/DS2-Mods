@@ -1,0 +1,4 @@
+Added French, Spanish, Italian, Brazilian Portuguese, Russian, Simplified Chinese, Japanese and Korean alongside English and German.
+Translated settings, mod descriptions, help and common messages; saved language selection and improved text layouts.
+All languages work offline. Existing profiles, INI values and all 325 defaults remain compatible; bundled mods are unchanged from v1.9.0.
+Shortened and reorganized the Nexus description and updated the installation guidance.

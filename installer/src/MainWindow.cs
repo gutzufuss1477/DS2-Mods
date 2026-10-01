@@ -67,7 +67,8 @@ namespace DS2ModSuite
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
             Background = Theme.Background;
             Foreground = Theme.TextPrimary;
-            FontFamily = new FontFamily("Segoe UI");
+            FontFamily = new FontFamily(Localization.FontFamilyName);
+            Language = System.Windows.Markup.XmlLanguage.GetLanguage(Localization.GetCulture(Localization.CurrentLanguage).Name);
             UseLayoutRounding = true;
             SnapsToDevicePixels = true;
             Content = BuildLayout();
@@ -101,6 +102,8 @@ namespace DS2ModSuite
         private UIElement BuildHeader()
         {
             Grid header = new Grid { Margin = new Thickness(26, 20, 26, 16) };
+            header.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+            header.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
             header.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
             header.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
             header.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
@@ -126,9 +129,10 @@ namespace DS2ModSuite
             subtitle.Margin = new Thickness(0, 3, 0, 0);
             title.Children.Add(subtitle);
             Grid.SetColumn(title, 1);
+            Grid.SetColumnSpan(title, 2);
             header.Children.Add(title);
 
-            StackPanel tools = new StackPanel { Orientation = Orientation.Horizontal, VerticalAlignment = VerticalAlignment.Center, Margin = new Thickness(18, 0, 0, 0) };
+            WrapPanel tools = new WrapPanel { HorizontalAlignment = HorizontalAlignment.Right, Margin = new Thickness(0, 12, 0, 0) };
             settingsButton = Theme.Button(Localization.T("Mod Settings", "Mod-Einstellungen"), false);
             settingsButton.MinWidth = 116;
             settingsButton.Click += Settings_Click;
@@ -137,7 +141,7 @@ namespace DS2ModSuite
 
             languageSelector = new ComboBox
             {
-                Width = 112,
+                Width = 190,
                 Height = 34,
                 Margin = new Thickness(8, 0, 0, 0),
                 Padding = new Thickness(7, 3, 7, 3),
@@ -147,12 +151,14 @@ namespace DS2ModSuite
                 BorderThickness = new Thickness(1),
                 VerticalContentAlignment = VerticalAlignment.Center
             };
-            ComboBoxItem english = new ComboBoxItem { Content = "English", Tag = "en" };
-            ComboBoxItem german = new ComboBoxItem { Content = "Deutsch", Tag = "de" };
-            languageSelector.Items.Add(english);
-            languageSelector.Items.Add(german);
             suppressLanguageEvents = true;
-            languageSelector.SelectedItem = Localization.CurrentLanguage == UiLanguage.German ? german : english;
+            foreach (LanguageOption option in Localization.Languages)
+            {
+                ComboBoxItem item = new ComboBoxItem { Content = option.NativeName, Tag = option.Code,
+                    FontFamily = new FontFamily(option.FontFamily) };
+                languageSelector.Items.Add(item);
+                if (option.Language == Localization.CurrentLanguage) languageSelector.SelectedItem = item;
+            }
             suppressLanguageEvents = false;
             languageSelector.SelectionChanged += LanguageSelector_SelectionChanged;
             AutomationProperties.SetName(languageSelector, Localization.T("Language", "Sprache"));
@@ -163,7 +169,8 @@ namespace DS2ModSuite
             version.VerticalAlignment = VerticalAlignment.Center;
             version.Margin = new Thickness(10, 0, 0, 0);
             tools.Children.Add(version);
-            Grid.SetColumn(tools, 2);
+            Grid.SetRow(tools, 1);
+            Grid.SetColumnSpan(tools, 3);
             header.Children.Add(tools);
             return header;
         }
@@ -249,7 +256,7 @@ namespace DS2ModSuite
             heading.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
 
             StackPanel headingText = new StackPanel();
-            headingText.Children.Add(Theme.Text("Mods", 18, Theme.TextPrimary, FontWeights.SemiBold));
+            headingText.Children.Add(Theme.Text(Localization.T("Mods", "Mods"), 18, Theme.TextPrimary, FontWeights.SemiBold));
             modCountText = Theme.Text(Localization.Format("{0} available", "{0} verfügbar", catalog.Mods.Count), 12.5, Theme.TextSecondary, FontWeights.Normal);
             modCountText.Margin = new Thickness(0, 2, 0, 0);
             headingText.Children.Add(modCountText);
@@ -309,8 +316,8 @@ namespace DS2ModSuite
                 Padding = new Thickness(26, 14, 26, 16)
             };
             Grid grid = new Grid();
-            grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
-            grid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+            grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+            grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 
             StackPanel state = new StackPanel { VerticalAlignment = VerticalAlignment.Center };
             summaryText = Theme.Text(Localization.T("No pending changes.", "Keine ausstehenden Änderungen."), 13.5, Theme.TextPrimary, FontWeights.SemiBold);
@@ -336,7 +343,7 @@ namespace DS2ModSuite
             state.Children.Add(progressBar);
             grid.Children.Add(state);
 
-            StackPanel actions = new StackPanel { Orientation = Orientation.Horizontal, VerticalAlignment = VerticalAlignment.Center };
+            WrapPanel actions = new WrapPanel { HorizontalAlignment = HorizontalAlignment.Right, Margin = new Thickness(0, 10, 0, 0) };
             logButton = Theme.Button(Localization.T("Open log", "Protokoll öffnen"), false);
             logButton.Visibility = Visibility.Collapsed;
             logButton.Margin = new Thickness(0, 0, 8, 0);
@@ -353,7 +360,7 @@ namespace DS2ModSuite
             applyButton.Click += Apply_Click;
             actions.Children.Add(applyButton);
             interactiveControls.Add(applyButton);
-            Grid.SetColumn(actions, 1);
+            Grid.SetRow(actions, 1);
             grid.Children.Add(actions);
             footer.Child = grid;
             return footer;
@@ -369,6 +376,8 @@ namespace DS2ModSuite
             if (language == Localization.CurrentLanguage) return;
 
             Localization.SetLanguage(language);
+            FontFamily = new FontFamily(Localization.FontFamilyName);
+            Language = System.Windows.Markup.XmlLanguage.GetLanguage(Localization.GetCulture(language).Name);
             SettingsStore.WriteLanguage(language);
             bool refreshLocalizedError = inspection != null && !inspection.Found;
             if (inspection != null) LoaderInspector.Relocalize(inspection.Loader);
@@ -637,7 +646,7 @@ namespace DS2ModSuite
                 VerticalAlignment = VerticalAlignment.Center,
                 HorizontalAlignment = HorizontalAlignment.Left
             };
-            AutomationProperties.SetName(check, state.Spec.Name + ", Version " + state.Spec.Version + ", " + state.StatusText);
+            AutomationProperties.SetName(check, state.Spec.Name + ", " + Localization.T("Version", "Version") + " " + state.Spec.Version + ", " + state.StatusText);
             check.Checked += delegate { SelectionChanged(state, true); };
             check.Unchecked += delegate { SelectionChanged(state, false); };
             grid.Children.Add(check);

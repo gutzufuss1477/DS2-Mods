@@ -1,180 +1,42 @@
-**Description**
+**DS2 Mod Suite**
 
-DS2 Mod Suite is a clean, standalone all-in-one installer and manager for 24 DEATH STRANDING 2: ON THE BEACH mods, with two exclusive Backpack variants.
+A standalone manager for **24 Death Stranding 2 mods**, with **325 central settings**. Select your mods, configure them in one place and apply changes with file verification, backups and rollback. All mod files and the ASI Loader are included; the manager works offline.
 
-Choose exactly which mods you want, review their current installation state and apply everything through one English or German interface. The manager detects the Steam game directory, verifies the supported game build, installs missing mods, updates or repairs known versions and safely removes deselected suite mods.
+**New in v1.10.0**
 
-All bundled mod files and the tested Ultimate ASI Loader are embedded in the application. No additional downloads are required while the manager is running, and it does not connect to the internet.
+Eight new interface languages, translated settings and help, saved language selection and improved layouts. Bundled mods and setting defaults are unchanged from v1.9.0.
 
-This is more than a loose file bundle: the custom manager adds installation-state detection, centralized configuration, file validation, conflict protection, backups and transactional rollback.
+**Languages:** English, German, French, Spanish, Italian, Brazilian Portuguese, Russian, Simplified Chinese, Japanese and Korean.
 
-Version 1.9.0 adds Sneaky Sam 1.0.1, updates Climbing Power Gloves Range to 1.1.0 with optional Combat glove pickup, Crafting Overhaul to 1.5.0 with 132 item choices, and Improved Odradek Scan to 1.0.1 with restored native terrain markings. Supports Steam PC DS2.exe 1.10.89.0.
+**Install and use**
 
-**Quick start**
+1. Close the game. Download manually and extract the complete ZIP.
+2. Run `DS2ModManager.exe`, choose your language and check the detected game folder. Select `DS2.exe` manually if needed.
+3. Select your mods and click **Apply changes**.
+4. Open **Mod Settings** for installed mods, choose **Save settings**, then **Apply changes**. Restart the game.
 
-1. Close the game completely.
-2. Download the archive manually and extract the complete ZIP to any folder.
-3. Start `DS2ModManager.exe`. Do not run it directly from inside the ZIP.
-4. Select `DS2.exe` manually if the Steam installation was not detected automatically.
-5. Choose English or German and check that the supported game version was detected.
-6. Select the mods you want and choose **Apply changes**.
-7. To customize an installed mod, open **Mod Settings**, save the desired values and choose **Apply changes** again.
-8. Fully restart the game.
-
-A Windows UAC prompt may appear when the game is installed in a protected directory.
-
-This is a standalone installer. Do not install the downloaded archive through Vortex or another mod manager.
-
-**Main features**
-
-- Installs and manages 24 DS2 mods with 25 selectable entries (two exclusive Backpack variants)
-- Clean English and German interface
-- Automatic Steam game-directory detection
-- Verifies the exact supported `DS2.exe` build
-- Detects installed, outdated, incomplete and modified suite files
-- Installs the tested Ultimate ASI Loader x64 v9.7.2 automatically when required
-- Central settings interface for 20 configurable mods
-- Validates 325 settings across 21 individual INI files
-- Imports existing installed INI values
-- Hides advanced and experimental settings by default
-- Supports installation, update, repair and safe removal
-- Creates backups before replacing or removing files
-- Uses SHA-256 verification, atomic replacement and rollback protection
-- Preserves customized INI files when a mod is removed
-- Does not require an internet connection
-- Does not directly edit `DS2.exe`, game archives or save files
-
-The checkboxes represent the desired final state. Installed mods are selected automatically. Deselecting a managed mod removes its verified suite binary after **Apply changes**.
+Standalone application: do not install through Vortex. For updates, extract the newer manager and apply your selection again. To remove a mod, deselect it and apply; customized INIs are retained.
 
 **Included mods**
 
-**Vehicles and Cargo**
+- **Vehicles & cargo:** Hill Assist & Speed Boost; Pickup, Tri-Cruiser and Floating Carrier Cargo Capacity; Coffin Board Reworked.
+- **Equipment & progression:** High-Density Backpack Modules; Climbing Power Gloves Range with optional Combat pickup; Sam Stats Booster; Porter Grade Booster; Extended BT Cord Cutting Range; APAS Memory Costs; Proficiency Bonus Multiplier; Crafting Overhaul; Sneaky Sam.
+- **Deliveries:** Lost Cargo Likes Booster; No Magellan Evaluation Penalty.
+- **Construction & world:** Construction Anywhere; Construction Max Level on Build; Weapons Anywhere; Zipline Range & Speed; Chiral Bandwidth Costs; Infrastructure One Unit.
+- **Scanning & interface:** Improved Odradek Scan; Remote Orders Overlay.
 
-- Hill Assist & Speed Boost 1.1.0 - improves uphill driving and provides configurable Pickup and Tri-Cruiser speed settings
-- Pickup Cargo Capacity 1.0.1 - increases the configurable cargo capacity of the Off-road Pickup
-- Tri-Cruiser Cargo Capacity 1.1.0 - increases the Tri-Cruiser's usable cargo capacity
-- Floating Carrier Cargo Capacity 1.0.0 - increases the Floating Carrier's usable cargo capacity
-- Coffin Board Reworked 1.83.0 - configurable all-terrain speed and acceleration, loaded Floating Carrier support, Chiral Network boundary crossing and remounting outside the network
+Backpack offers two mutually exclusive variants, giving 25 selectable entries. Versions and individual descriptions are shown in the manager.
 
-**Equipment and Progression**
+**Settings and compatibility**
 
-- High-Density Backpack Modules 1.1.0 - up to 30 modules, automatic placement, hidden excess models and eight charm slots (two visible, six invisible)
-- High-Density Backpack Classic Overlap 1.1.0 - alternative build with visible overlapping meshes and manual one-cell placement; choose instead of the standard build
-- Climbing Power Gloves Range 1.1.0 - configures Climbing glove pickup ranges and optionally adds magnetic pickup to Combat Power Gloves (enabled by default)
-- Sam Stats Booster 1.0.0 - provides a configurable boost to selected Sam-stat progression
-- Porter Grade Booster 1.0.0 - provides a configurable boost to delivery category points
-- Extended BT Cord Cutting Range 1.0.0 - increases the configurable BT umbilical cord cutting range
-- APAS Memory Costs 3.0.0 - stable unified release with native cost initialization, optional Unlock All and Episode 2 Early Access, both disabled by default
-- Proficiency Bonus Multiplier 1.0.0 - scales supported level-dependent proficiency bonuses independently for levels 1 through 5
-- Sneaky Sam 1.0.1 - hides shoulder/hip cargo visually, with no INI required
-- Crafting Overhaul 1.5.0 - 132 individual item choices, Chiral Boots, 11 enemy-drop weapons, optional Free Crafting and durability for equipment, boots and backpack covers
+- One settings menu manages 21 individual INIs for 20 configurable mods. Existing valid choices are preserved; new options are imported from installed INIs before defaults are used. Advanced options are hidden initially. Saving stores the profile; **Apply changes** writes the game INIs.
+- **APAS:** Unlock All and Early Access are off by default. Unlocks can persist in saves after disabling them. Back up your save before enabling either option.
+- **Crafting:** 132 item choices; Free Crafting and durability changes are off by default.
+- **Backpack:** Classic Overlap is optional and has not been tested in game. Before removal, unequip extra charms, reduce modules to a vanilla-compatible layout, save and close the game.
+- Unknown or modified binaries and conflicting loaders are reported instead of overwritten. The ASI Loader stays installed when removing mods because other ASI plugins may need it.
 
-**Deliveries and Rewards**
+**Requirements:** Windows x64, .NET Framework 4.8 and the verified Steam `DS2.exe 1.10.89.0`. Other game builds are blocked. The unsigned manager may trigger SmartScreen; use the official download and published checksum.
 
-- Lost Cargo Likes Booster 1.1.1 - awards a configurable Like bonus when returning lost cargo
-- No Magellan Evaluation Penalty 1.0.0 - removes the Like penalty from Magellan deliveries
+[Source, detailed instructions and individual mods](https://github.com/gutzufuss1477/DS2-Mods/tree/main/installer)
 
-**Construction and World**
-
-- Construction Anywhere 1.0.0 - loosens general PCC distance limits and tested restricted construction zones
-- Construction Max Level on Build 1.0.1 - upgrades newly built supported Player PCC structures through the native flow to their maximum level
-- Weapons Anywhere 1.0.0 - removes selected weapon restrictions in protected areas
-- Zipline Range & Speed 1.0.0 - configures Zipline connection range and actual travel speed
-- Chiral Bandwidth Costs 1.0.0 - sets exact bandwidth costs for supported constructions
-- Infrastructure One Unit 1.0.0 - reduces remaining material requirements for supported infrastructure
-
-**Exploration**
-
-- Improved Odradek Scan 1.0.1 - configurable 360-degree scan, tested 500 m radius, eligible distant cargo markers and distance after recipient/likes; restores native terrain colors and hazard markings
-
-**Interface**
-
-- Remote Orders Overlay 0.2.0 - displays a facility's available orders directly on the world map
-
-Backpack Classic Overlap passed local checks but its appearance and menu behavior have not yet been tested in game. Only published releases are bundled; TEST, TRACE and obsolete builds are excluded.
-
-**Central mod settings**
-
-New glove settings separate Climbing range values from the Combat pickup switch (on by default). Level 2 range must be at least Level 1. Existing valid INI values are retained, including explicit Combat opt-out. When upgrading an older central profile, new settings are imported from installed INIs before release defaults are used; saved central choices keep priority. Crafting items are grouped in 13 categories under advanced settings and support Early unlock, Native progression or Use Default Unlock (inherit). Sneaky Sam has no INI and is enabled or removed through the main mod selection.
-
-The **Mod Settings** window lists only currently installed mods that provide configurable settings. Installed mods without an INI and all uninstalled mods remain hidden.
-
-The central interface does not replace the individual INI files used by the ASI plugins. It validates and safely manages those files in one place.
-
-- Existing installed INIs can be imported
-- Comments, blank lines, unknown keys and unrelated sections are preserved whenever supported
-- **Save settings** stores the central profile
-- The game files are changed only after **Apply changes**
-- INI writes use the same backup, verification and rollback protection as mod installation
-- Settings take effect after restarting the game
-- Customized INIs are retained when a mod is removed
-
-For a newly selected mod, install it first. It will then appear in **Mod Settings** if it provides configurable options.
-
-**APAS optional progression**
-
-The suite bundles APAS Unified 3.0.0. Unlock All and Episode 2 Early Access are **off by default**. Install APAS, open **Mod Settings → APAS Memory Costs → APASUnlocks** and select either option. Save, apply changes and restart the game. Early Access exposes the APAS Ring Device menu before its normal story unlock. Unlock All bypasses node prerequisites independently. Located nodes and unlocks may persist in the save; back up your save before enabling either option. Set APASMemoryCosts / Enabled to off for vanilla costs.
-
-Old INIs receive explicit UnlockAll=0 and EarlyAccess=0 during updates, including updates without a saved central profile. Existing explicit choices and valid cost settings are retained. Coffin Board updates preserve valid existing settings and add missing reworked options with the release defaults.
-
-**Changes and compatibility in 1.9.0**
-
-APAS Unified 3.0.0 retains native cost initialization without gameplay polling. The Early Access menu and APAS purchases/unlocks were verified live in Episode 2. Both progression switches remain off by default.
-
-Backpack 1.1.0 offers the standard clean-visual build and the optional Classic Overlap build. The manager allows only one variant and safely switches between known binaries. The generated `DS2_HighDensityBackpackModules.charms.ini` is preserved. Classic Overlap has passed local checks but has not been tested in game. Before removing Backpack, unequip extra charms and reduce modules to a vanilla-compatible layout, save, then close the game. Unknown modified binaries require manual review.
-
-Crafting Overhaul 1.5.0 offers 132 item choices, including Chiral Boots and 11 enemy-drop weapons. Durability options cover supported equipment, weapons, boots and Backpack Cover Lv.1/Lv.2. Free Crafting and durability changes remain off by default. Existing item choices, inherit values and INI comments are retained.
-
-**Updating and repairing**
-
-Extract a newer suite release, start the manager and apply the desired selection again. Known older or incomplete suite files are updated or repaired automatically.
-
-Modified or unknown files are never silently overwritten. The manager reports conflicts and stops when it cannot determine that a replacement is safe.
-
-**Removing mods**
-
-Deselect a suite mod and choose **Apply changes**. Only binaries matching known suite versions are removed. Customized INI files are retained so personal settings are not lost.
-
-The automatically installed ASI Loader is intentionally retained because other ASI mods may still depend on it.
-
-To remove the manager itself, delete the folder to which the downloaded ZIP was extracted. Remove `winmm.dll` manually only when you are certain that no remaining ASI mod requires it.
-
-**Requirements**
-
-- DEATH STRANDING 2: ON THE BEACH for PC / Steam
-- Supported executable version: `DS2.exe 1.10.89.0`
-- 64-bit Windows
-- Microsoft .NET Framework 4.8
-- Permission to write to the game directory
-
-A separate ASI Loader download is not required.
-
-**Safety and compatibility**
-
-The manager validates the embedded catalog and settings schema, then verifies every mod payload and the ASI Loader with SHA-256 before installation. Unknown or multiple proxy DLLs are not overwritten and block potentially unsafe operations.
-
-Every replacement is backed up and verified. If an installation step fails, the manager attempts to restore the previous state automatically. Removal is limited to exact known suite binaries; modified and foreign files are retained and reported.
-
-The manager itself does not directly edit save files. Some included gameplay mods can nevertheless create results that the game stores normally. Back up an important save before using construction, infrastructure or experimental settings.
-
-After a game update, do not assume compatibility. The manager refuses unsupported game executables. Wait for a release that explicitly supports the new build.
-
-**Windows SmartScreen**
-
-The application is not digitally code-signed, so Windows SmartScreen may display an unknown-publisher warning. This is expected for the current release. Download the archive only from the official Nexus page and verify the published SHA-256 checksum when desired.
-
-**Source code**
-
-The installer source and build scripts are available at:
-
-https://github.com/gutzufuss1477/DS2-Mods/tree/main/installer
-
-**Shout outs**
-
-Thanks to ThirteenAG for Ultimate ASI Loader:
-
-https://github.com/ThirteenAG/Ultimate-ASI-Loader
-
-Thanks to ShadelessFox for Odradek and the DS2 RTTI research tools, and to everyone who proposed, tested and documented the individual mods included in this suite.
-
-This is an unofficial community project and is not affiliated with KOJIMA PRODUCTIONS or 505 Games.
+Thanks to [ThirteenAG / Ultimate ASI Loader](https://github.com/ThirteenAG/Ultimate-ASI-Loader), ShadelessFox and the mod testers. Unofficial community project; not affiliated with KOJIMA PRODUCTIONS or 505 Games.

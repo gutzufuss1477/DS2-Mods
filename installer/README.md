@@ -1,4 +1,4 @@
-# DS2 Mod Suite v1.9.0
+# DS2 Mod Suite v1.10.0
 
 Clean all-in-one mod manager for **DEATH STRANDING 2: ON THE BEACH**.
 
@@ -7,7 +7,7 @@ Clean all-in-one mod manager for **DEATH STRANDING 2: ON THE BEACH**.
 1. Close the game completely.
 2. Extract the complete ZIP to any folder.
 3. Start `DS2ModManager.exe`.
-4. Optionally choose **English** or **Deutsch** in the language menu.
+4. Choose your preferred language in the language menu (ten languages).
 5. Check that the game version and ASI Loader were detected correctly.
 6. Select the mods you want to use.
 7. Select **Apply changes** to install them.
@@ -15,6 +15,12 @@ Clean all-in-one mod manager for **DEATH STRANDING 2: ON THE BEACH**.
 9. Select **Apply changes** again to write the saved settings to the game folder.
 
 The checkboxes always describe the desired final state. Installed mods are selected automatically. Deselecting a managed mod removes its verified suite binaries when changes are applied.
+
+## Languages in 1.10.0
+
+English, German, French, Spanish, Italian, Brazilian Portuguese, Russian, Simplified Chinese, Japanese and Korean. The language is saved and can be switched in the main window. Menus, mod descriptions, setting labels, help and common validation messages are translated. Language resources are embedded; the manager works offline. Official mod names, filenames, INI keys and machine values remain unchanged. Technical logs and operating-system diagnostics may remain in their original language. Translations were AI-assisted and checked for coverage and formatting; native-speaker feedback is welcome.
+
+The bundled mod versions and all 325 setting defaults are unchanged from 1.9.0. Existing installations, profiles and individual mod INIs remain compatible.
 
 ## Central mod settings
 
