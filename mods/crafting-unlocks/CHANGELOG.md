@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.4.0
+- Added Chiral Boots to normal fabrication and early-unlock configuration.
+- Added Chiral Boots to the durability multiplier and Unbreakable scope.
+- Expanded dedicated boot durability handling from 7 to 8 supported craftable boots.
+- Added durability multiplier and Unbreakable support for Backpack Cover Lv.1 and Lv.2.
+- Cover repair/increase, removal and cover changes remain native; only genuine wear is scaled.
+- Increased configurable entries from 120 to 121.
+- In-game verified Chiral Boots crafting/equipping and Backpack Cover Lv.2 at 4500/4500 after 45 seconds of Timefall with Unbreakable enabled.
+- Cargo, order cargo and cargo containers remain vanilla.
+
 ## 1.3.0
 - Added configurable durability for supported crafted equipment.
 - Added dedicated boots durability handling for the 7 supported craftable boots.

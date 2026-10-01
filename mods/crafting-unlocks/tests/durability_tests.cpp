@@ -11,6 +11,7 @@ extern "C" u32 DurabilityMultiplierBits=0x40000000u;
 extern "C" u32 DurabilityUnbreakableValue=0;
 extern "C" u32 InvokeDurabilityContents(unsigned char*,u32,u32);
 extern "C" unsigned long long InvokeDurabilityBoots(unsigned char*,unsigned char*,u32);
+extern "C" unsigned long long InvokeDurabilityRainCover(unsigned char*,u32);
 extern "C" unsigned long long CaptureBootCmpFlags(u32);
 
 static unsigned long long checks=0;
@@ -57,6 +58,21 @@ static float invokeBoot(BootFixture&f,u32 flagSeed,u32&flags){
  return value((u32)r);
 }
 
+struct CoverFixture{
+ unsigned char manager[0x4500]{};
+ void set(bool oldActive,bool active,u32 oldType,u32 type,float oldv,float current){
+  manager[0x21C8]=oldActive?1:0; manager[0x44A0]=active?1:0;
+  std::memcpy(manager+0x21CC,&oldType,4); std::memcpy(manager+0x44A4,&type,4);
+  std::memcpy(manager+0x21D0,&oldv,4); std::memcpy(manager+0x44A8,&current,4);
+ }
+};
+
+static float invokeCover(CoverFixture&f,float&replayedOld){
+ auto r=InvokeDurabilityRainCover(f.manager,0x13579BDFu);
+ replayedOld=value((u32)(r>>32));
+ return value((u32)r);
+}
+
 int main(){try{
  const std::string base="[CraftingUnlocks]\nEnabled=1\nDefaultUnlock=1\n";
  auto legacy=cfg(base);
@@ -82,8 +98,8 @@ int main(){try{
   check(!parse(t.data(),(u32)t.size(),q,e),"reject invalid durability setting");
  }
 
- check(DurabilityCraftedBaggageCount==120,"120 scoped crafted baggage IDs");
- check(DurabilityBootBaggageCount==7,"7 scoped boot baggage IDs");
+ check(DurabilityCraftedBaggageCount==121,"121 scoped crafted baggage IDs");
+ check(DurabilityBootBaggageCount==8,"8 scoped boot baggage IDs");
  for(u32 i=1;i<DurabilityCraftedBaggageCount;++i)
   check(DurabilityCraftedBaggage[i-1]<DurabilityCraftedBaggage[i],"crafted allowlist sorted unique");
  for(u32 i=1;i<DurabilityBootBaggageCount;++i)
@@ -123,7 +139,7 @@ int main(){try{
   near(value(invokeContents(key,100,60)),60,0.0001f,"unbreakable must not affect non-crafted cargo");
  near(value(invokeContents(DurabilityCraftedBaggage[0],100,60)),100,0.0001f,"unbreakable crafted item");
 
- // Boots: the thunk replays the native load from [RBP+0x200], then scopes only seven boot baggage IDs.
+ // Boots: the thunk replays the native load from [RBP+0x200], then scopes only eight boot baggage IDs.
  constexpr u32 FlagMask=0x8D5u; // CF, PF, AF, ZF, SF, OF
  const u32 flagSeeds[]={0u,0x13579BDFu,0xFFFFFFFFu};
  for(u32 seed:flagSeeds){
@@ -176,8 +192,24 @@ int main(){try{
   }
  }
 
+ // Backpack cover: only genuine wear is scaled. State changes and repairs stay native.
+ for(u32 multiplier: {1000u,2000u,5000u,10000u,1000000u}){
+  DurabilityMultiplierBits=milliFloatBits(multiplier);DurabilityUnbreakableValue=0;
+  CoverFixture f{};f.set(true,true,1,1,100.0f,80.0f);float replay=0;
+  float expected=100.0f-(20.0f/((float)multiplier/1000.0f));
+  near(invokeCover(f,replay),expected,0.0002f,"cover wear multiplier");
+  near(replay,100.0f,0.0f,"cover displaced load replay");
+ }
+ DurabilityMultiplierBits=milliFloatBits(2000);DurabilityUnbreakableValue=1;
+ {CoverFixture f{};f.set(true,true,2,2,100.0f,25.0f);float replay=0;near(invokeCover(f,replay),100.0f,0.0f,"unbreakable cover");}
+ DurabilityUnbreakableValue=0;
+ {CoverFixture f{};f.set(true,true,1,1,80.0f,100.0f);float replay=0;near(invokeCover(f,replay),100.0f,0.0f,"cover repair/increase stays native");}
+ {CoverFixture f{};f.set(false,false,1,1,100.0f,60.0f);float replay=0;near(invokeCover(f,replay),60.0f,0.0f,"inactive cover stays native");}
+ {CoverFixture f{};f.set(true,false,1,1,100.0f,0.0f);float replay=0;near(invokeCover(f,replay),0.0f,0.0f,"cover removal stays native");}
+ {CoverFixture f{};f.set(true,true,1,2,100.0f,50.0f);float replay=0;near(invokeCover(f,replay),50.0f,0.0f,"cover type change stays native");}
+
  std::cout<<"PASS "<<checks<<" scoped durability assertions.\n";
- std::cout<<"120 crafted baggage IDs + 7 boot IDs tested; cargo/container +0x84 never patched.\n";
+ std::cout<<"121 crafted baggage IDs + 8 boot IDs tested; cargo/container +0x84 never patched.\n";
  std::cout<<"Boots multiplier/unbreakable and live EFLAGS preservation verified.\n";
  return 0;
  }catch(const std::exception&e){

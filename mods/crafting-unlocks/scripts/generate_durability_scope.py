@@ -6,14 +6,14 @@ ini=(root/"release/ds2_crafting_unlocks.ini").read_text(encoding="utf-8-sig")
 keys={int(x,16) for x in re.findall(r'^\s*(0x[0-9A-Fa-f]{8})\s*=',ini,re.M)}
 rows=list(csv.DictReader((root/"evidence/config-r1/ds2_crafting_catalogue.tsv").open(encoding="utf-8-sig"),delimiter="\t"))
 selected=[r for r in rows if int(r["recipe_key"],16) in keys]
-assert len(keys)==120 and len(selected)==120
+assert len(keys)==121 and len(selected)==121
 bags=sorted({int(r["bag_namecode"],16) for r in selected})
-assert len(bags)==120 and 0 not in bags
+assert len(bags)==121 and 0 not in bags
 
-boot_recipe_keys=[0x6E7D4315,0x7D2DB0E1,0x0F4633E2,0x1C16C016,0x5B8C5709,0x16CF98D9,0x75D99124]
+boot_recipe_keys=[0x6E7D4315,0x7D2DB0E1,0x0F4633E2,0x1C16C016,0x5B8C5709,0x16CF98D9,0x75D99124,0x07B21227]
 boot_rows=[next(r for r in selected if int(r["recipe_key"],16)==k) for k in boot_recipe_keys]
 boot_bags=sorted({int(r["bag_namecode"],16) for r in boot_rows})
-assert len(boot_bags)==7 and 0 not in boot_bags
+assert len(boot_bags)==8 and 0 not in boot_bags
 
 a=[
 ".intel_syntax noprefix",".text",
@@ -79,6 +79,46 @@ a += [
 ".boots_done:",
 "    pop rax",
 "    popfq",
+"    ret",
+]
+a += [
+"",
+".globl DurabilityRainCoverWearThunk",
+"DurabilityRainCoverWearThunk:",
+"    pushfq",
+"    push rax",
+"    sub rsp, 0x10",
+"    movdqu xmmword ptr [rsp], xmm1",
+"    mov al, byte ptr [rbx + 0x44A0]",
+"    test al, al",
+"    jz .cover_done",
+"    cmp al, byte ptr [rbx + 0x21C8]",
+"    jne .cover_done",
+"    mov eax, dword ptr [rbx + 0x44A4]",
+"    cmp eax, dword ptr [rbx + 0x21CC]",
+"    jne .cover_done",
+"    vmovss xmm0, dword ptr [rbx + 0x21D0]",
+"    vmovss xmm1, dword ptr [rbx + 0x44A8]",
+"    vucomiss xmm1, xmm0",
+"    jp .cover_done",
+"    jae .cover_done",
+"    cmp dword ptr [rip + DurabilityUnbreakableValue], 0",
+"    jne .cover_unbreakable",
+"    vsubss xmm0, xmm0, xmm1",
+"    vdivss xmm0, xmm0, dword ptr [rip + DurabilityMultiplierBits]",
+"    vmovss xmm1, dword ptr [rbx + 0x21D0]",
+"    vsubss xmm1, xmm1, xmm0",
+"    vmovss dword ptr [rbx + 0x44A8], xmm1",
+"    jmp .cover_done",
+".cover_unbreakable:",
+"    vmovss xmm1, dword ptr [rbx + 0x21D0]",
+"    vmovss dword ptr [rbx + 0x44A8], xmm1",
+".cover_done:",
+"    movdqu xmm1, xmmword ptr [rsp]",
+"    add rsp, 0x10",
+"    pop rax",
+"    popfq",
+"    vmovss xmm0, dword ptr [rbx + 0x21D0]",
 "    ret",
 ]
 (root/"src/durability_thunks.s").write_text("\n".join(a)+"\n",encoding="ascii")

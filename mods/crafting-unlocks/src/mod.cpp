@@ -103,7 +103,14 @@ Vector* makeMenu(Vector* native,u64 facility){
  if(!TryAcquireSRWLockShared((void*)(manager+0x138))){say("VANILLA: catalogue busy; no global data changed.");return native;}
  bool ok=scan(manager);ReleaseSRWLockShared((void*)(manager+0x138));
  if(!ok){Text t;t.add("VANILLA: catalogue validation failed step=");t.add(scanIssue);t.add(" resources=");t.dec((u32)scanResourceCount);t.add(" instances=");t.dec((u32)scanInstanceCount);t.add(" index=");t.dec(scanIndex);log(t);return native;}
- if(!specialBootLogged){bool found=false;for(u32 i=0;i<recipeCount;++i)if(recipes[i].key==OmnireflectorBootsKey){found=true;Text t;t.add("SPECIAL_BOOT: key=0x75D99124 usage=");t.dec(recipes[i].usage);t.add(" valid=");t.dec(recipes[i].valid);t.add(" caseType=");t.dec(recipes[i].caseType);t.add(" dlc=");t.dec(recipes[i].dlc);t.add(" mission=");t.dec(recipes[i].mission?1:0);t.add(" status=");t.add(reason(eligibility(settings,recipes[i],mask)));log(t);break;}if(!found)say("SPECIAL_BOOT: key=0x75D99124 not present in loaded catalogue.");specialBootLogged=true;}
+ if(!specialBootLogged){
+  const u32 specialKeys[2]={OmnireflectorBootsKey,ChiralBootsKey};
+  for(u32 key:specialKeys){bool found=false;
+   for(u32 i=0;i<recipeCount;++i)if(recipes[i].key==key){found=true;Text t;t.add("SPECIAL_BOOT: key=");t.hex(key);t.add(" usage=");t.dec(recipes[i].usage);t.add(" valid=");t.dec(recipes[i].valid);t.add(" caseType=");t.dec(recipes[i].caseType);t.add(" dlc=");t.dec(recipes[i].dlc);t.add(" mission=");t.dec(recipes[i].mission?1:0);t.add(" status=");t.add(reason(eligibility(settings,recipes[i],mask)));log(t);break;}
+   if(!found){Text t;t.add("SPECIAL_BOOT: key=");t.hex(key);t.add(" not present in loaded catalogue.");log(t);}
+  }
+  specialBootLogged=true;
+ }
  // Native string calls and all file I/O are OUTSIDE the catalogue lock.
  if(warnedManager!=manager||warnedCount!=recipeCount){
   for(u32 i=0;i<settings.count;++i){bool found=false;for(u32 j=0;j<recipeCount;++j)if(recipes[j].key==settings.rules[i].key){found=true;break;}
@@ -231,7 +238,7 @@ void* relayNear(u64 siteRva,u64 destination){u64 base=(image+siteRva)&~u64(0xFFF
 DWORD WINAPI init(void*){
  u32 n=GetModuleFileNameW(module,folder,2048);if(!n||n>=2048)return 0;while(n&&folder[n-1]!='\\'&&folder[n-1]!='/')--n;folder[n]=0;
  if(!path(iniPath,L"ds2_crafting_unlocks.ini")||!path(logPath,L"ds2_crafting_unlocks.log")||!path(catPath,L"ds2_crafting_catalogue.tsv")||!path(templatePath,L"ds2_crafting_items.generated.ini"))return 0;
- Text session;session.add("DS2 Crafting Overhaul 1.3.0 | fabrication + backpack | exact-build gate | pid=");session.dec(GetCurrentProcessId());session.add(" tick=");session.dec(GetTickCount64());log(session);
+ Text session;session.add("DS2 Crafting Overhaul 1.4.0 | fabrication + backpack | exact-build gate | pid=");session.dec(GetCurrentProcessId());session.add(" tick=");session.dec(GetTickCount64());log(session);
  if(!config())return 0;if(!settings.enabled){say("DISABLED: no patch installed.");return 0;}
  image=(u64)GetModuleHandleW(nullptr);n=GetModuleFileNameW(nullptr,exePath,2048);if(!n||n>=2048){say("VERSION_BLOCKED: executable path unavailable.");return 0;}
  u8 hash[32];if(!filehash(exePath,hash)||memcmp(hash,ExpectedHash,32)){say("VERSION_BLOCKED: installed DS2.exe SHA-256 differs from analysed binary. No patch.");return 0;}
@@ -268,7 +275,7 @@ DWORD WINAPI init(void*){
  void* specialBootRelay=relayNear(SpecialBootUiSiteRva,(u64)&SpecialBootUsageThunk);
  bool specialBootInstalled=false;
  if(specialBootRelay){for(u32 attempt=0;attempt<12;++attempt){if(patchSpanOnce(SpecialBootUiSiteRva,SpecialBootUiBytes,6,specialBootRelay)){specialBootInstalled=true;break;}Sleep(50);}}
- if(specialBootInstalled)say("SPECIAL_BOOT_UI_ON: Omnireflector Boots bypass Usage=None UI filter only.");
+ if(specialBootInstalled)say("SPECIAL_BOOT_UI_ON: Usage=None filter enabled for Omnireflector + Chiral Boots.");
  else {if(specialBootRelay)VirtualFree(specialBootRelay,0,0x8000);say("SPECIAL_BOOT_UI_BLOCKED: UI filter patch not installed; all other features continue.");}
  installFreeCrafting();
  installDurability();

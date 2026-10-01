@@ -1,6 +1,6 @@
 [b]Description[/b]
 Crafting Overhaul expands fabrication in DEATH STRANDING 2: ON THE BEACH. It can unlock supported weapons, equipment, backpack modules, covers and charms early while keeping normal progression intact.
-Version 1.3.0 also includes optional [b]FreeCrafting[/b], craftable [b]Omnireflector Boots[/b], and configurable durability for supported crafted equipment and boots.
+Version 1.4.0 adds craftable [b]Chiral Boots[/b] and extends configurable durability to [b]Backpack Cover Lv.1/Lv.2[/b] while retaining FreeCrafting, Omnireflector Boots and the existing durability controls.
 [b]Quick Options[/b]
 [code][CraftingUnlocks]
 Enabled=1
@@ -17,16 +17,16 @@ Unbreakable=0[/code]
 [*][b]Multiplier=2.0[/b] = about 2x item life
 [*][b]Unbreakable=1[/b] = no future durability loss for supported items
 [/list]
-Durability is scoped to supported crafted equipment and the seven supported craftable boots. Normal cargo, order cargo and cargo containers remain vanilla.
+Durability is scoped to supported crafted equipment, all eight supported craftable boots, and Backpack Cover Lv.1/Lv.2. Cover repairs, removal and cover changes remain native. Normal cargo, order cargo and cargo containers remain vanilla.
 [b]Main Features[/b]
 [list]
-[*]120 individually configurable items/variants
+[*]121 individually configurable items/variants
 [*]Weapons and equipment available early
 [*]Backpack modules, covers and charms available early
-[*]Craftable Omnireflector Boots
+[*]Craftable Omnireflector Boots and Chiral Boots
 [*]Optional FreeCrafting
 [*]Optional durability multiplier up to 1000x
-[*]Optional Unbreakable mode
+[*]Optional Unbreakable mode including Backpack Cover Lv.1/Lv.2
 [*]Normal progression remains functional
 [/list]
 [b]Installation[/b]
@@ -39,5 +39,4 @@ Durability is scoped to supported crafted equipment and the seven supported craf
 [b]Requirements[/b]
 Windows x64, supported DS2.exe 1.10.89.0 and a compatible 64-bit ASI loader.
 [b]Not Included[/b]
-Vehicles, costume customization, backpack patches, Chiral Boots, quest-only objects and protected DLC-only recipes are not added to fabrication.
-
+Vehicles, costume customization, backpack patches, quest-only objects and protected DLC-only recipes are not added to fabrication.

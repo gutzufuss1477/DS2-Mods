@@ -95,6 +95,8 @@ DurabilityContentsThunk:
     je .contents_supported
     cmp eax, 0x2A889790
     je .contents_supported
+    cmp eax, 0x2CBE4AB2
+    je .contents_supported
     cmp eax, 0x303CF510
     je .contents_supported
     cmp eax, 0x3087C138
@@ -286,6 +288,8 @@ DurabilityBootsWearThunk:
     mov eax, dword ptr [rax + 0x44]
     cmp eax, 0x244A6B77
     je .boots_supported
+    cmp eax, 0x2CBE4AB2
+    je .boots_supported
     cmp eax, 0x371A9883
     je .boots_supported
     cmp eax, 0x3DC3C04C
@@ -309,4 +313,42 @@ DurabilityBootsWearThunk:
 .boots_done:
     pop rax
     popfq
+    ret
+
+.globl DurabilityRainCoverWearThunk
+DurabilityRainCoverWearThunk:
+    pushfq
+    push rax
+    sub rsp, 0x10
+    movdqu xmmword ptr [rsp], xmm1
+    mov al, byte ptr [rbx + 0x44A0]
+    test al, al
+    jz .cover_done
+    cmp al, byte ptr [rbx + 0x21C8]
+    jne .cover_done
+    mov eax, dword ptr [rbx + 0x44A4]
+    cmp eax, dword ptr [rbx + 0x21CC]
+    jne .cover_done
+    vmovss xmm0, dword ptr [rbx + 0x21D0]
+    vmovss xmm1, dword ptr [rbx + 0x44A8]
+    vucomiss xmm1, xmm0
+    jp .cover_done
+    jae .cover_done
+    cmp dword ptr [rip + DurabilityUnbreakableValue], 0
+    jne .cover_unbreakable
+    vsubss xmm0, xmm0, xmm1
+    vdivss xmm0, xmm0, dword ptr [rip + DurabilityMultiplierBits]
+    vmovss xmm1, dword ptr [rbx + 0x21D0]
+    vsubss xmm1, xmm1, xmm0
+    vmovss dword ptr [rbx + 0x44A8], xmm1
+    jmp .cover_done
+.cover_unbreakable:
+    vmovss xmm1, dword ptr [rbx + 0x21D0]
+    vmovss dword ptr [rbx + 0x44A8], xmm1
+.cover_done:
+    movdqu xmm1, xmmword ptr [rsp]
+    add rsp, 0x10
+    pop rax
+    popfq
+    vmovss xmm0, dword ptr [rbx + 0x21D0]
     ret

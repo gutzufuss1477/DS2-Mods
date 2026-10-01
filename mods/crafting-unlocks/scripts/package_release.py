@@ -4,7 +4,7 @@ import zipfile
 
 ROOT=Path(__file__).resolve().parents[1]
 RELEASE=ROOT/"release"
-OUT=RELEASE/"DS2_Crafting_Overhaul_v1.3.0.zip"
+OUT=RELEASE/"DS2_Crafting_Overhaul_v1.4.0.zip"
 FILES=[
     (RELEASE/"ds2_crafting_unlocks.asi","ds2_crafting_unlocks.asi"),
     (RELEASE/"ds2_crafting_unlocks.ini","ds2_crafting_unlocks.ini"),
@@ -13,7 +13,7 @@ FILES=[
     (RELEASE/"CHANGELOG.txt","CHANGELOG.txt"),
 ]
 sums=[f"{hashlib.sha256(src.read_bytes()).hexdigest()}  {arc}" for src,arc in FILES]
-(RELEASE/"SHA256SUMS.txt").write_text("\r\n".join(sums)+"\r\n",encoding="ascii")
+(RELEASE/"SHA256SUMS.txt").write_bytes(("\n".join(sums)+"\n").encode("ascii"))
 FILES.append((RELEASE/"SHA256SUMS.txt","SHA256SUMS.txt"))
 if OUT.exists():
     OUT.unlink()

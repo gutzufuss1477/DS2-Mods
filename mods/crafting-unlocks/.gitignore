@@ -7,3 +7,5 @@ __pycache__/
 *.lib
 *.exp
 *.log
+/evidence/cover-durability/research/
+/evidence/cover-durability/live-test/

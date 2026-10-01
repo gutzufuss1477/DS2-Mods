@@ -1,15 +1,16 @@
 # Crafting Overhaul - Unlocks, Free Crafting & Durability
 
-Version 1.3.0 for DEATH STRANDING 2: ON THE BEACH.
+Version 1.4.0 for DEATH STRANDING 2: ON THE BEACH.
 
 Features
-- 120 individually configurable supported recipes/items.
+- 121 individually configurable supported recipes/items.
 - Early fabrication unlocks while preserving native progression.
 - Backpack modules, covers and charms through the native backpack menu.
-- Craftable Omnireflector Boots.
+- Craftable Omnireflector Boots and Chiral Boots.
 - Optional FreeCrafting.
 - Optional durability multiplier (1.0-1000.0) and Unbreakable mode.
-- Dedicated boots wear handling for the 7 supported craftable boots.
+- Dedicated durability handling for all 8 supported craftable boots.
+- Backpack Cover Lv.1/Lv.2 durability follows the same Multiplier/Unbreakable setting.
 - Cargo/order cargo/container durability remains vanilla.
 
 Quick configuration

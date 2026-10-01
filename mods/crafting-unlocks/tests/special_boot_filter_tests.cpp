@@ -7,8 +7,11 @@ static void check(bool ok,const char*why){++checks;if(!ok)throw std::runtime_err
 int main(){try{
  unsigned char resource[0xB0]{}; unsigned key=0;
  key=0x75D99124u; std::memcpy(resource+0x20,&key,4);
- check(TestSpecialBootFilter(resource,0)==1,"special Usage=None must pass");
- check(TestSpecialBootFilter(resource,1)==1,"special normal usage must pass");
+ check(TestSpecialBootFilter(resource,0)==1,"Omnireflector Usage=None must pass");
+ check(TestSpecialBootFilter(resource,1)==1,"Omnireflector normal usage must pass");
+ key=0x07B21227u; std::memcpy(resource+0x20,&key,4);
+ check(TestSpecialBootFilter(resource,0)==1,"Chiral Boots Usage=None must pass");
+ check(TestSpecialBootFilter(resource,1)==1,"Chiral Boots normal usage must pass");
  key=0x12345678u; std::memcpy(resource+0x20,&key,4);
  check(TestSpecialBootFilter(resource,0)==0,"other Usage=None must remain filtered");
  check(TestSpecialBootFilter(resource,9)==1,"other normal usage must pass");

@@ -1,1 +1,1 @@
-Unlock 120 supported items early, add craftable Omnireflector Boots, enable optional zero-material crafting and configurable durability up to unbreakable.
+Unlock 121 supported items early, add craftable Omnireflector and Chiral Boots, optional zero-material crafting, and configurable durability including backpack covers.

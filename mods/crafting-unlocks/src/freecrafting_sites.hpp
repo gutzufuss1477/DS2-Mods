@@ -2,8 +2,8 @@
 // Generated from the reviewed local EXE and master export.
 namespace craft {
 constexpr u32 FreeRecipeKeys[] = {
-  0x0184CF05u,0x0425D69Fu,0x05328ECDu,0x055FDDDEu,0x08605E71u,0x0976E2F4u,0x09848977u,0x0A4CBAE9u,
-  0x0A64FCE1u,0x0D88248Du,0x0EDEB211u,0x0F30661Bu,0x0F4633E2u,0x14018FB6u,0x16627D39u,0x16CF98D9u,
+  0x0184CF05u,0x0425D69Fu,0x05328ECDu,0x055FDDDEu,0x07B21227u,0x08605E71u,0x0976E2F4u,0x09848977u,
+  0x0A4CBAE9u,0x0A64FCE1u,0x0D88248Du,0x0EDEB211u,0x0F30661Bu,0x0F4633E2u,0x14018FB6u,0x16627D39u,0x16CF98D9u,
   0x17187678u,0x1775256Bu,0x19340F15u,0x1A261100u,0x1B30AD85u,0x1C16C016u,0x1C6095EFu,0x1CE4AB95u,
   0x1D77CDBDu,0x1D7C2A66u,0x1D8E41E5u,0x1E2ABCFAu,0x1E97B82Bu,0x20144CACu,0x20731CB3u,0x20F722C9u,
   0x21F09BAAu,0x22843177u,0x25FC3650u,0x2803030Cu,0x288D3E7Au,0x2A71F465u,0x2B66AC37u,0x2CC51B09u,
@@ -18,8 +18,9 @@ constexpr u32 FreeRecipeKeys[] = {
   0x75D99124u,0x7623068Fu,0x764E559Cu,0x77590DCEu,0x780F7FE2u,0x782739EAu,0x7A0BDD72u,0x7B1D61F7u,
   0x7BEF0A74u,0x7C475A91u,0x7CB53112u,0x7D2DB0E1u,0x7D51E614u,0x7DDFDB62u,0x7FACC8DCu,0x7FE3A78Eu,
 };
+constexpr u32 FreeRecipeKeyCount=sizeof(FreeRecipeKeys)/sizeof(FreeRecipeKeys[0]);
 inline bool free_recipe(u32 key) {
- u32 lo=0,hi=120; while(lo<hi){u32 m=(lo+hi)/2; if(FreeRecipeKeys[m]<key)lo=m+1;else hi=m;} return lo<120&&FreeRecipeKeys[lo]==key;
+ u32 lo=0,hi=FreeRecipeKeyCount; while(lo<hi){u32 m=(lo+hi)/2; if(FreeRecipeKeys[m]<key)lo=m+1;else hi=m;} return lo<FreeRecipeKeyCount&&FreeRecipeKeys[lo]==key;
 }
 struct CostSite {u32 rva;u8 length;u8 expected[8];};
 constexpr CostSite CostSites[] = {

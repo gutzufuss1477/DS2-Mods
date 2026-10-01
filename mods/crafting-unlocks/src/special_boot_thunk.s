@@ -7,6 +7,8 @@ SpecialBootUsageThunk:
     jnz .allow
     cmp dword ptr [rcx + 0x20], 0x75D99124
     je .allow
+    cmp dword ptr [rcx + 0x20], 0x07B21227
+    je .allow
     add qword ptr [rsp], 0xB3
 .allow:
     ret

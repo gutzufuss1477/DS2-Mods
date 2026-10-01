@@ -38,7 +38,8 @@ inline bool selected(const Settings&s,u32 key){if(!s.enabled)return false;for(u3
 inline u8 facility_mask(u32 type,bool isNull=false){if(isNull)return 15;switch(type){case 0x100:case 0x118:return 2;case 0x101:return 1;case 0x102:case 0x202:case 0x402:return 4;case 0x103:case 0x108:case 0x203:case 0x403:return 8;default:return 0;}}
 inline bool supported_usage(u8 u){return u==1||u==3||u==4||u==9;}
 constexpr u32 OmnireflectorBootsKey=0x75D99124u;
-inline bool special_normal_recipe(u32 key){return key==OmnireflectorBootsKey;}
+constexpr u32 ChiralBootsKey=0x07B21227u;
+inline bool special_normal_recipe(u32 key){return key==OmnireflectorBootsKey||key==ChiralBootsKey;}
 inline bool facility_allows(u8 usage,u8 mask){constexpr u8 masks[10]={0,3,6,11,7,0,0,0,0,15};return usage<10 && (masks[usage]&mask)!=0;}
 struct Recipe {Instance instance;u64 resource;u64 baggage;u32 key;u32 baggageKey;u8 usage;u8 dlc;u8 caseType;u8 valid;bool mission;bool duplicate;u16 reserved;};
 enum class Skip:u8 {None,NotSelected,UnsupportedPath,MissingResource,DlcSpecial,Quest,Duplicate,Facility,AlreadyNative};

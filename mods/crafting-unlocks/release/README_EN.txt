@@ -1,13 +1,14 @@
-DS2 CRAFTING OVERHAUL 1.3.0
+DS2 CRAFTING OVERHAUL 1.4.0
 
 Features:
-- 120 configurable supported items/variants.
+- 121 configurable supported items/variants.
 - Early unlocks while preserving native progression.
 - Optional FreeCrafting.
-- Craftable Omnireflector Boots.
+- Craftable Omnireflector Boots and Chiral Boots.
 - Optional durability multiplier (1.0-1000.0).
 - Optional Unbreakable mode.
-- Dedicated durability handling for the 7 supported craftable boots.
+- Dedicated durability handling for all 8 supported craftable boots.
+- Backpack Cover Lv.1/Lv.2 durability is configurable and can be unbreakable.
 - Cargo/order cargo/container durability remains vanilla.
 
 Install:

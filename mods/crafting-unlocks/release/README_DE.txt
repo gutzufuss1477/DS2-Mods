@@ -1,13 +1,14 @@
-DS2 CRAFTING OVERHAUL 1.3.0
+DS2 CRAFTING OVERHAUL 1.4.0
 
 Funktionen:
-- 120 konfigurierbare unterstützte Gegenstände/Varianten.
+- 121 konfigurierbare unterstützte Gegenstände/Varianten.
 - Frühe Freischaltungen bei weiterhin funktionierender Vanilla-Progression.
 - Optionales FreeCrafting.
-- Herstellbare Omnireflektor-Stiefel.
+- Herstellbare Omnireflektor-Stiefel und Chirale Stiefel.
 - Optionaler Haltbarkeitsfaktor (1.0-1000.0).
 - Optionaler Unbreakable-Modus.
-- Eigener Haltbarkeitspfad für die 7 unterstützten herstellbaren Stiefel.
+- Eigener Haltbarkeitspfad für alle 8 unterstützten herstellbaren Stiefel.
+- Backpack Cover Lv.1/Lv.2 können skaliert oder unzerstörbar gemacht werden.
 - Fracht/Auftragsfracht/Frachtcontainer bleiben Vanilla.
 
 Installation:

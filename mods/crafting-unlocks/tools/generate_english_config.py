@@ -20,7 +20,7 @@ def generate(mapping: Path, catalogue: Path, output: Path) -> dict[str, object]:
     by_key = {row['recipe_key']: (i + 2, row) for i, row in enumerate(source)}
     if len(by_key) != len(source):
         raise ValueError('Duplicate source recipe keys; manual review required.')
-    special_normal = {'0x75D99124'}  # Omnireflector Boots: targeted non-printable fabrication exception.
+    special_normal = {'0x75D99124', '0x07B21227'}  # Omnireflector + Chiral Boots: targeted Usage=None fabrication exceptions.
     expected = {
         row['recipe_key'] for row in source
         if (row['status_at_this_facility'] == 'eligible' and '[{0}]' not in row['name'])
@@ -41,11 +41,11 @@ def generate(mapping: Path, catalogue: Path, output: Path) -> dict[str, object]:
             value = row[field]
             if not value or not value.isascii() or '\n' in value or '\r' in value:
                 raise ValueError(f'Invalid {field} for {key}')
-    if keys != expected or len(rows) != 91:
-        raise ValueError('Mapping does not cover the 91 reviewed normal fabrication recipes exactly.')
+    if keys != expected or len(rows) != 92:
+        raise ValueError('Mapping does not cover the 92 reviewed normal fabrication recipes exactly.')
 
     lines = [
-        '; DS2 Crafting Overhaul 1.3.0',
+        '; DS2 Crafting Overhaul 1.4.0',
         '; Restart the game after changing this file.',
         '; 1 = enabled | 0 = disabled',
         '',
@@ -56,7 +56,7 @@ def generate(mapping: Path, catalogue: Path, output: Path) -> dict[str, object]:
         'ExportCatalogue=0      ; 1 = export diagnostic catalogue files.',
         '',
         '[Durability]',
-        'Enabled=0              ; 1 = enable durability options for supported crafted equipment/boots.',
+        'Enabled=0              ; 1 = enable durability for supported equipment, boots and backpack covers.',
         'Multiplier=2.0         ; 1.0 = vanilla life, 2.0 = about 2x life, max 1000.0.',
         'Unbreakable=0          ; 1 = no future durability loss; overrides Multiplier.',
         '                       ; Cargo/order cargo/material containers remain vanilla.',

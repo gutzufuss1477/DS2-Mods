@@ -1,11 +1,13 @@
 // Optional durability-loss scaling. Included inside the private namespace after relayNear().
 extern "C" void DurabilityContentsThunk();
 extern "C" void DurabilityBootsWearThunk();
+extern "C" void DurabilityRainCoverWearThunk();
 
 struct DurabilitySite {u32 rva;u8 expected[8];void* destination;};
 const DurabilitySite DurabilitySites[] = {
  {0x0123508B,{0xC5,0xFA,0x11,0x8F,0x88,0x00,0x00,0x00},(void*)&DurabilityContentsThunk},
  {0x00E70C56,{0xC5,0xFA,0x10,0xB5,0x00,0x02,0x00,0x00},(void*)&DurabilityBootsWearThunk},
+ {0x00B394C2,{0xC5,0xFA,0x10,0x83,0xD0,0x21,0x00,0x00},(void*)&DurabilityRainCoverWearThunk},
 };
 constexpr u32 DurabilitySiteCount=sizeof(DurabilitySites)/sizeof(DurabilitySites[0]);
 struct DurabilityPatch {const DurabilitySite* spec;void* relay;u8 replacement[8];DWORD protection;bool changed;};
@@ -78,9 +80,9 @@ void installDurability(){
  int result=0;for(u32 attempt=0;attempt<12&&result==0;++attempt){result=installDurabilityGroupOnce();if(!result)Sleep(50);}
  if(result==2){say("CRITICAL: durability rollback or thread resume failed. Close/restart the game.");return;}
  if(!result){discardDurabilityRelays();say("DURABILITY_BLOCKED: group not installed. Native durability retained.");return;}
- Text t;t.add("DURABILITY_ON: supported crafted items + crafted boots wear; cargo/container durability remains native. Multiplier=");
+ Text t;t.add("DURABILITY_ON: supported crafted items + crafted boots + backpack cover wear; cargo/container durability remains native. Multiplier=");
  t.dec(settings.durabilityMilli/1000);t.ch('.');u32 f=settings.durabilityMilli%1000;
  t.ch(char('0'+(f/100)%10));t.ch(char('0'+(f/10)%10));t.ch(char('0'+f%10));
  t.add(" unbreakable=");t.dec(settings.durabilityUnbreakable?1:0);
- t.add(". 120 crafted baggage IDs + 7 boot IDs scoped; cargo case +0x84 untouched; repair paths untouched.");log(t);
+ t.add(". 121 crafted baggage IDs + 8 boot IDs scoped; backpack cover state hook active; cargo case +0x84 untouched; repair/increase paths untouched.");log(t);
 }

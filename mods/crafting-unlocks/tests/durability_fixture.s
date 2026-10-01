@@ -2,6 +2,7 @@
 .text
 .extern DurabilityContentsThunk
 .extern DurabilityBootsWearThunk
+.extern DurabilityRainCoverWearThunk
 
 .globl InvokeDurabilityContents
 .seh_proc InvokeDurabilityContents
@@ -62,6 +63,26 @@ InvokeDurabilityBoots:
     movdqu xmm6, xmmword ptr [rsp + 0x20]
     add rsp, 0x38
     pop rbp
+    pop rbx
+    ret
+.seh_endproc
+
+.globl InvokeDurabilityRainCover
+.seh_proc InvokeDurabilityRainCover
+InvokeDurabilityRainCover:
+    push rbx
+    .seh_pushreg rbx
+    sub rsp, 0x20
+    .seh_stackalloc 0x20
+    .seh_endprologue
+    mov rbx, rcx
+    cmp edx, 0x13579BDF
+    call DurabilityRainCoverWearThunk
+    mov eax, dword ptr [rbx + 0x44A8]
+    vmovd r10d, xmm0
+    shl r10, 32
+    or rax, r10
+    add rsp, 0x20
     pop rbx
     ret
 .seh_endproc
