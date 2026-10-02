@@ -1,7 +1,8 @@
+param([ValidateSet('LLVM','MSVC')][string]$Toolchain = 'LLVM')
 $ErrorActionPreference = 'Stop'
 
 $root = Split-Path -Parent (Split-Path -Parent $MyInvocation.MyCommand.Path)
-& (Join-Path $root 'scripts\build-llvm.ps1')
+& (Join-Path $root "scripts\build-$($Toolchain.ToLowerInvariant()).ps1")
 
 $llvm = if ($env:LLVM_BIN) {
     $env:LLVM_BIN
@@ -14,6 +15,13 @@ $llvm = if ($env:LLVM_BIN) {
 }
 $clang = Join-Path $llvm 'clang-cl.exe'
 $link = Join-Path $llvm 'lld-link.exe'
+if ($Toolchain -eq 'MSVC') {
+    $vswhere = Join-Path ${env:ProgramFiles(x86)} 'Microsoft Visual Studio\Installer\vswhere.exe'
+    $clang = if ($env:MSVC_BIN) { Join-Path $env:MSVC_BIN 'cl.exe' } else {
+        & $vswhere -latest -products '*' -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -find 'VC\Tools\MSVC\**\bin\Hostx64\x64\cl.exe' | Select-Object -First 1
+    }
+    $link = Join-Path (Split-Path -Parent $clang) 'link.exe'
+}
 $out = Join-Path $root 'build\tests'
 New-Item -ItemType Directory -Force -Path $out | Out-Null
 
@@ -21,7 +29,11 @@ $testSource = Join-Path $root 'tests\synthetic_runtime_test.cpp'
 if (!(Test-Path -LiteralPath $testSource)) { throw "Synthetic test source missing: $testSource" }
 
 $object = Join-Path $out 'synthetic_runtime_test.obj'
-& $clang --target=x86_64-pc-windows-msvc /nologo /c /O2 /Ob0 /GS- /GR- /EHs-c- /Zl /Oi /W4 /WX /clang:-Wno-unused-function /clang:-fno-builtin /clang:-mcx16 "/I$root\src" /TP "/Fo$object" $testSource
+if ($Toolchain -eq 'MSVC') {
+    & $clang /nologo /c /O2 /Ob0 /GS- /GR- /EHs-c- /Zl /Oi- /W4 /WX /wd4505 "/I$root\src" /TP "/Fo$object" $testSource
+} else {
+    & $clang --target=x86_64-pc-windows-msvc /nologo /c /O2 /Ob0 /GS- /GR- /EHs-c- /Zl /Oi /W4 /WX /clang:-Wno-unused-function /clang:-fno-builtin /clang:-mcx16 "/I$root\src" /TP "/Fo$object" $testSource
+}
 if ($LASTEXITCODE) { throw 'synthetic test compile failed' }
 
 $dll = Join-Path $out 'synthetic_runtime_test.dll'

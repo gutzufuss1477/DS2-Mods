@@ -1,9 +1,10 @@
+param([ValidateSet('LLVM','MSVC')][string]$Toolchain = 'LLVM')
 $ErrorActionPreference = 'Stop'
 
 $root = Split-Path -Parent (Split-Path -Parent $MyInvocation.MyCommand.Path)
-& (Join-Path $root 'scripts\test-synthetic.ps1')
+& (Join-Path $root 'scripts\test-synthetic.ps1') -Toolchain $Toolchain
 
-$name = 'DS2_Climbing_Power_Gloves_Range_v1.1.0'
+$name = 'DS2_Climbing_Power_Gloves_Range_v1.1.1'
 $releaseRoot = Join-Path $root 'release'
 $stage = Join-Path $releaseRoot $name
 $fullReleaseRoot = [System.IO.Path]::GetFullPath($releaseRoot).TrimEnd('\') + '\'

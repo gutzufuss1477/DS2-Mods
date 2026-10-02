@@ -20,7 +20,13 @@ extern "C" long _InterlockedExchange(volatile long*,long);
 #pragma intrinsic(_InterlockedCompareExchange)
 #pragma intrinsic(_InterlockedExchange)
 
-#define MOD_VERSION "1.1.0"
+#if defined(_MSC_VER) && !defined(__clang__)
+extern "C" void* _ReturnAddress(void);
+#pragma intrinsic(_ReturnAddress)
+#define __builtin_return_address(level) _ReturnAddress()
+#endif
+
+#define MOD_VERSION "1.1.1-vehicle-catch-fix"
 #define EXPECTED_TIMESTAMP 0x6A3DAE46u
 #define EXPECTED_IMAGE_SIZE 0x0B292000u
 
@@ -739,7 +745,7 @@ static DWORD WINAPI worker(LPVOID){
                     combatErrorLogged=false;
                     if(!combatActiveLogged){
                         const char message[]=
-                            "ACTIVE: Combat Gloves remote cargo pickup enabled; native combat parameters preserved.\r\n";
+                            "ACTIVE: Combat Gloves remote cargo pickup enabled; vehicle-pickup diagnostics active.\r\n";
                         logRaw(message,(DWORD)(sizeof(message)-1u));
                         combatActiveLogged=true;
                     }
@@ -762,6 +768,10 @@ static DWORD WINAPI worker(LPVOID){
                 }
             }
         }
+        if(combatPickupEnabled)reloadCombatLiveSettings();
+        static u32 diagnosticTick=0u;
+        diagnosticTick++;
+        if((diagnosticTick&7u)==0u)logVehiclePickupDiagnostics();
         Sleep(250u);
     }
     closeLog();

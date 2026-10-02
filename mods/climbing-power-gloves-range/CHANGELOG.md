@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.1.1
+
+- Fixed Combat Power Gloves pulling right-side cargo toward Sam without stowing it while using a vehicle.
+- A fresh native right-hand handover now enters CatchBaggage state 3 after the pickup action finishes; the native handler performs the inventory transfer.
+- Removed failed right-catch guard/hold-breath and guard-initialization experiments.
+- Confirmed the live fix from both sides of a truck and from a bike on 2026-10-02. Both vehicle sides also passed the user test after restarting with the packaged ASI.
+- Added catch-transition regression tests and support for building with installed MSVC tools.
+
 ## 1.1.0
 
 - Added optional magnetic remote cargo pickup for Combat Power Gloves.

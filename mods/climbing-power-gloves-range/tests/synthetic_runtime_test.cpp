@@ -104,6 +104,67 @@ static u8 testCombatAbility(u8*,u8 subcategory,u8 action){
     return subcategory==COMBAT_SUBCATEGORY&&action==6u?1u:0u;
 }
 
+static u32 nativeCatchSelectorCalls=0;
+static u64 testNativeCatchSelector(u64){
+    nativeCatchSelectorCalls++;
+    return 0x123400ull;
+}
+static void seedVehicleHandover(u8* guard,u8* player){
+    memset(guard,0,0x1000u);
+    memset(player,0,0x8000u);
+    *(u64*)(guard+0x28u)=(u64)player;
+    *(u32*)(player+0x7548u)=0xEu;
+    *(u64*)(guard+0x6F8u)=~0ull;
+    *(u64*)(guard+0x700u)=0x42640000004201ull;
+    *(u32*)(guard+0x70Cu)=floatBits(1.0f);
+    *(u64*)(guard+0x7C0u)=~0ull;
+    g_recentGloveSubcategory=COMBAT_SUBCATEGORY;
+}
+static u32 testRightVehicleCatch(u8* guard,u8* player){
+    g_originalCatchRightSelector=&testNativeCatchSelector;
+    nativeCatchSelectorCalls=0;
+    seedVehicleHandover(guard,player);
+    if(catchRightSelectorHook((u64)guard)!=1ull||nativeCatchSelectorCalls||
+       *(u16*)(guard+0x11Au)!=3u||
+       *(u64*)(guard+0x6F8u)!=0x42640000004201ull||
+       *(u64*)(guard+0x700u)!=0x42640000004201ull||
+       *(u64*)(guard+0x7C0u)!=~0ull)return 1u;
+    // A staged candidate must not be enqueued a second time.
+    if(catchRightSelectorHook((u64)guard)!=0x123400ull||nativeCatchSelectorCalls!=1u)return 2u;
+    for(u32 scenario=0u;scenario<12u;scenario++){
+        seedVehicleHandover(guard,player);
+        switch(scenario){
+        case 0u:g_recentGloveSubcategory=ITEM_SUBCATEGORY_CLIMBING_POWER_GLOVE;break;
+        case 1u:*(u32*)(player+0x7548u)=1u;break; // on foot
+        case 2u:guard[8]=1u;break; // active guard
+        case 3u:*(u32*)(player+0x754Cu)=4u;break; // pickup still running
+        case 4u:*(u64*)(guard+0x700u)=~0ull;break; // no handover
+        case 5u:*(u32*)(guard+0x70Cu)=0u;break; // expired
+        case 6u:*(u32*)(guard+0x70Cu)=floatBits(-1.0f);break;
+        case 7u:*(u32*)(guard+0x70Cu)=0x7FC00000u;break; // NaN
+        case 8u:*(u32*)(guard+0x70Cu)=floatBits(2.0f);break;
+        case 9u:*(u64*)(guard+0x7C0u)=0x1234ull;break; // hand occupied
+        case 10u:*(u64*)(guard+0x6F8u)=0x5678ull;break;
+        case 11u:*(u64*)(guard+0x28u)=0ull;break;
+        }
+        u64 before=*(u64*)(guard+0x6F8u);
+        u32 calls=nativeCatchSelectorCalls;
+        if(catchRightSelectorHook((u64)guard)!=0x123400ull||
+           nativeCatchSelectorCalls!=calls+1u||*(u16*)(guard+0x11Au)!=0u||
+           *(u64*)(guard+0x6F8u)!=before)return 10u+scenario;
+    }
+    seedVehicleHandover(guard,player);
+    DWORD old=0,ignored=0;
+    if(!VirtualProtect(guard,0x1000u,PAGE_READONLY,&old))return 30u;
+    bool prepared=prepareRightVehicleCatch((u64)guard);
+    if(!VirtualProtect(guard,0x1000u,old,&ignored))return 31u;
+    if(prepared||*(u64*)(guard+0x6F8u)!=~0ull||*(u16*)(guard+0x11Au)!=0u)return 32u;
+    if(prepareRightVehicleCatch(0ull))return 33u;
+    g_originalCatchRightSelector=0;
+    g_recentGloveSubcategory=0;
+    return 0u;
+}
+
 extern "C" __declspec(dllexport) u32 RunPackagedSettingsTest(){
     Settings settings;
     SettingsResult result=loadSettings(&settings);
@@ -333,6 +394,8 @@ extern "C" __declspec(dllexport) u32 RunSyntheticClimbingGlovesTest(
     if(floatBits(combatActionCostHook(0,entry,6u))!=0x7F7FFFFFu)return 29u;
     combat1->count=8u;
 
+    u32 catchResult=testRightVehicleCatch(base+0x07200000ull,base+0x07204000ull);
+    if(catchResult)return 300u+catchResult;
     if(g_combatShadowPage){VirtualFree(g_combatShadowPage,0u,MEM_RELEASE);g_combatShadowPage=0;}
     return 0u;
 }

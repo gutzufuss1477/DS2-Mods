@@ -1,5 +1,12 @@
 # In-Game Test Plan
 
+## Vehicle pickup fix v1.1.1
+
+- 2026-10-02, live patch: user confirmed that both truck sides now stow cargo and that bike pickup also works.
+- Trace: three right-hand catches reached state 3 / handler RVA 0x10293D0 and consumed the pending cargo instead of letting its timer expire.
+- Automated regression: require a fresh pending cargo ID, free candidate/hand, inactive right action, Combat Gloves, and vehicle state. Check native fallback and read-only memory.
+- Packaged-build restart check passed: v1.1.1 loaded, native right-catch trace reached three activations, and the user confirmed both vehicle sides stow correctly. Bike was confirmed in the preceding live session. On-foot pickup and glove attacks were not manually repeated for this update; historical tests below describe their original release versions.
+
 This plan applies to `v1.0.0` with the default ranges of `30 m` for Level 1 and `50 m` for Level 2.
 
 ## Confirmed release behavior
