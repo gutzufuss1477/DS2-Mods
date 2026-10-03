@@ -4,6 +4,8 @@ Source code, documentation and validated releases for my DEATH STRANDING 2 mods.
 
 ## Mods
 
+- [Jump Ramp Unlimited](mods/jump-ramp-unlimited/)
+
 - [Crafting Unlocks - Equipment, Backpack and Charms](mods/crafting-unlocks/)
 
 - [Improved Odradek Scan](mods/improved-odradek-scan/)

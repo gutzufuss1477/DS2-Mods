@@ -1,0 +1,15 @@
+{
+  "result": "PASS",
+  "dispatcher_cases": 24576,
+  "repeat_cycles": 2000,
+  "game_exe_sha256": "bf3d1c665545930bc850d8f5df486f7395885bb729d4fd408fdb03390de0765b",
+  "version": "1.0.0",
+  "built_asi_sha256": "6f6e2256f58b766822915dba3801d32678c24a2ef855f1bda9b0a16859fd3e7f",
+  "source_sha256": "c20b54a154670b17a9bbc39aa0dcd2c9985460d4ae591b7b525c57275bd17cf3",
+  "signature_mutations_refused": 68,
+  "build_identity_mutations_refused": 6,
+  "ini_parser_cases": 14,
+  "cave_size_bytes": 99,
+  "cave_page_protection": "PAGE_EXECUTE_READ",
+  "limits": "Engine helpers are test doubles. No gameplay/animation success is claimed."
+}

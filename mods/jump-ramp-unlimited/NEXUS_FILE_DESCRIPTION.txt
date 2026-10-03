@@ -1,0 +1,1 @@
+Jump Ramp Unlimited 1.0.0. Includes the ASI and default INI; enabled by default. Requires Steam DS2.exe 1.10.89.0 and an external x64 ASI loader. Extract beside DS2.exe. Remove the old ds2_jump_ramp_probe.asi if upgrading from the private test build. Restart after changing settings.

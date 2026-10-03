@@ -1,0 +1,15 @@
+{
+  "name": "Jump Ramp Unlimited",
+  "version": "1.0.0",
+  "supported_game": "DEATH STRANDING 2: ON THE BEACH, Steam 1.10.89.0 (x64)",
+  "supported_exe_sha256": "bf3d1c665545930bc850d8f5df486f7395885bb729d4fd408fdb03390de0765b",
+  "archive": "DS2_Jump_Ramp_Unlimited_v1.0.0.zip",
+  "sha256": {
+    "ds2_jump_ramp_unlimited.asi": "6f6e2256f58b766822915dba3801d32678c24a2ef855f1bda9b0a16859fd3e7f",
+    "ds2_jump_ramp_unlimited.ini": "4b95a9349a606902985a2e7e2c5e19650d5c045900616bd2e839fd83dd12ca1c",
+    "DS2_Jump_Ramp_Unlimited_v1.0.0.zip": "cdcdc63e51932abe353da4377b4ad9fa9047c12b6167c560e86090503a8bcd4d"
+  },
+  "requires_external_x64_asi_loader": true,
+  "native_verification": "../docs/native-verification.json",
+  "gameplay_validation": "../docs/VALIDATION.md"
+}

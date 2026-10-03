@@ -1,0 +1,74 @@
+[size=5][b]Jump Ramp Unlimited[/b][/size]
+
+[b]One ramp. A much longer ride.[/b]
+
+Keep the trick chain going after a Jump Ramp launch in [b]DEATH STRANDING 2: ON THE BEACH[/b]. When you reach the end of the normal aerial trick sequence, Jump Ramp Unlimited lets you repeat the final available trick and cover much greater distances.
+
+[size=4][b]What it does[/b][/size]
+
+[list]
+[*]Removes the normal limit on chaining Jump Ramp aerial tricks.
+[*]Lets you repeat the final available trick using the game's normal jump/trick input.
+[*]Keeps the game's input timing, action checks and trick cooldown.
+[*]Works automatically once installed and enabled.
+[/list]
+
+You still need enough airtime to continue. Try a ramp facing a clear drop or open stretch, and keep making the normal trick input while airborne. Landing ends the chain. No new keybind is required.
+
+[size=4][b]Requirements[/b][/size]
+
+[list]
+[*][b]DEATH STRANDING 2: ON THE BEACH — PC, Steam version 1.10.89.0.[/b]
+[*][b]A compatible x64 ASI loader[/b], such as [url=https://github.com/ThirteenAG/Ultimate-ASI-Loader]Ultimate ASI Loader[/url].
+[*]A Jump Ramp available in your game.
+[/list]
+
+The ASI loader is a separate requirement and is [b]not included[/b]. Other game builds and storefronts have not been verified. A future game update may require an updated version of this mod.
+
+[size=4][b]Installation[/b][/size]
+
+1. Fully close the game.
+2. Install an x64 ASI loader if you do not already use one.
+3. Extract these two files directly beside [b]DS2.exe[/b]:
+   - ds2_jump_ramp_unlimited.asi
+   - ds2_jump_ramp_unlimited.ini
+4. Start the game normally and head to a Jump Ramp.
+
+The mod is [b]enabled by default[/b]. In Steam, use [b]Browse local files[/b] to find the game folder.
+
+[b]Coming from the private test build?[/b] Remove ds2_jump_ramp_probe.asi and its old INI before installing 1.0. Do not run the test and release versions together.
+
+[size=4][b]Settings[/b][/size]
+
+Open ds2_jump_ramp_unlimited.ini:
+
+[code]
+[JumpRampUnlimited]
+Enabled=1
+[/code]
+
+Set [b]Enabled=1[/b] to enable the mod or [b]Enabled=0[/b] to disable it. [b]Restart the game after changing the setting.[/b]
+
+[size=4][b]Compatibility and troubleshooting[/b][/size]
+
+The mod checks the supported game build and the code it needs to change. If those checks fail, it stays inactive and writes a message to ds2_jump_ramp_unlimited.log beside the ASI.
+
+[list]
+[*][b]Still getting only the normal tricks?[/b] Check that the log says ACTIVE, then try a ramp with more height. You may have landed before another trick could begin.
+[*][b]No log file?[/b] Check that the x64 ASI loader is working and the mod files are beside DS2.exe.
+[*][b]Unsupported build or changed instructions in the log?[/b] Check your game version and any other mod that changes Jump Ramp trick behavior.
+[/list]
+
+Mods that alter the same ramp trick logic may conflict. Compatibility with every other mod has not been tested.
+
+[size=4][b]Uninstall[/b][/size]
+
+Close the game and remove ds2_jump_ramp_unlimited.asi and ds2_jump_ramp_unlimited.ini. You can also delete the generated log. Keep the ASI loader if your other mods need it.
+
+The mod changes the running game's memory. It does not edit your save files, game archives or DS2.exe on disk.
+
+[size=4][b]Testing and source[/b][/size]
+
+The repeat logic was confirmed in gameplay in the private test build, allowing many consecutive tricks over a long distance. The cleaned-up 1.0 release passed native automated checks; the final release binary has not separately been replayed in game. Full test scope and limits are documented with the source.
+
+[url=https://github.com/gutzufuss1477/DS2-Mods/tree/main/mods/jump-ramp-unlimited]Source code, changelog and validation notes on GitHub[/url]
