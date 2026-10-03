@@ -1,0 +1,218 @@
+[
+  {
+    "rva": "0xdc0d24",
+    "name": "bokka_active",
+    "register": "rcx",
+    "kind": 0,
+    "expected": "80 79 23 03 75 05",
+    "not_equal": "0xdc0d2f"
+  },
+  {
+    "rva": "0xe05ff4",
+    "name": "bokka_weight_while_boosting",
+    "register": "rax",
+    "kind": 0,
+    "expected": "80 78 23 03 75 05",
+    "not_equal": "0xe05fff"
+  },
+  {
+    "rva": "0xe47d04",
+    "name": "boost_speed_normalizer",
+    "register": "rax",
+    "kind": 0,
+    "expected": "80 78 23 02 75 05",
+    "not_equal": "0xe47d0f"
+  },
+  {
+    "rva": "0xe481d4",
+    "name": "boost_speed_multiplier",
+    "register": "rax",
+    "kind": 0,
+    "expected": "80 78 23 02 75 05",
+    "not_equal": "0xe481df"
+  },
+  {
+    "rva": "0xe4829c",
+    "name": "avoid_stacking_battle_speed",
+    "register": "rax",
+    "kind": 3,
+    "expected": "80 78 23 01 75 05",
+    "not_equal": "0xe482a7"
+  },
+  {
+    "rva": "0xe56c64",
+    "name": "boost_movement_state",
+    "register": "rax",
+    "kind": 0,
+    "expected": "80 78 23 02 75 05",
+    "not_equal": "0xe56c6f"
+  },
+  {
+    "rva": "0xe9dc2a",
+    "name": "equipped_subtype_predicate",
+    "register": "rax",
+    "kind": 1,
+    "expected": "38 50 23 75 07",
+    "not_equal": "0xe9dc36"
+  },
+  {
+    "rva": "0xe9e734",
+    "name": "powered_subtype_predicate",
+    "register": "rax",
+    "kind": 2,
+    "expected": "40 38 68 23 75 22",
+    "not_equal": "0xe9e75c"
+  },
+  {
+    "rva": "0xea1354",
+    "name": "hip_cargo_equip_preview",
+    "register": "rcx",
+    "kind": 3,
+    "expected": "80 79 23 01 0f 85 da 00 00 00",
+    "not_equal": "0xea1438"
+  },
+  {
+    "rva": "0xea387a",
+    "name": "hip_cargo_equip_commit",
+    "register": "rax",
+    "kind": 3,
+    "expected": "80 78 23 01 0f 85 40 04 00 00",
+    "not_equal": "0xea3cc4"
+  },
+  {
+    "rva": "0xea3d00",
+    "name": "hip_cargo_equipment_swap",
+    "register": "rax",
+    "kind": 3,
+    "expected": "80 78 23 01 75 09",
+    "not_equal": "0xea3d0f"
+  },
+  {
+    "rva": "0xf1036a",
+    "name": "boost_movement_state_flags",
+    "register": "rax",
+    "kind": 0,
+    "expected": "80 78 23 02 75 04",
+    "not_equal": "0xf10374"
+  },
+  {
+    "rva": "0xfed544",
+    "name": "boost_movement_transition",
+    "register": "rax",
+    "kind": 0,
+    "expected": "80 78 23 02 75 09",
+    "not_equal": "0xfed553"
+  },
+  {
+    "rva": "0x1049d54",
+    "name": "boost_input_action",
+    "register": "rax",
+    "kind": 0,
+    "expected": "80 78 23 02 75 05",
+    "not_equal": "0x1049d5f"
+  },
+  {
+    "rva": "0x106a1a4",
+    "name": "boost_jump_transition",
+    "register": "rax",
+    "kind": 0,
+    "expected": "80 78 23 02 75 05",
+    "not_equal": "0x106a1af"
+  },
+  {
+    "rva": "0x106bbf9",
+    "name": "boost_jump_movement",
+    "register": "rax",
+    "kind": 0,
+    "expected": "80 78 23 02 75 05",
+    "not_equal": "0x106bc04"
+  },
+  {
+    "rva": "0x106d3f4",
+    "name": "boost_jump_input",
+    "register": "rax",
+    "kind": 0,
+    "expected": "80 78 23 02 75 05",
+    "not_equal": "0x106d3ff"
+  },
+  {
+    "rva": "0x10b24f4",
+    "name": "boost_movement_scalar",
+    "register": "rax",
+    "kind": 0,
+    "expected": "80 78 23 02 75 05",
+    "not_equal": "0x10b24ff"
+  },
+  {
+    "rva": "0x10b83f4",
+    "name": "loading_bokka_active",
+    "register": "rax",
+    "kind": 0,
+    "expected": "80 78 23 03 75 09",
+    "not_equal": "0x10b8403"
+  },
+  {
+    "rva": "0x10b8424",
+    "name": "loading_boost_active",
+    "register": "rax",
+    "kind": 0,
+    "expected": "80 78 23 02 75 09",
+    "not_equal": "0x10b8433"
+  },
+  {
+    "rva": "0x1146067",
+    "name": "boost_animation_speed",
+    "register": "rax",
+    "kind": 0,
+    "expected": "80 78 23 02 75 05",
+    "not_equal": "0x1146072"
+  },
+  {
+    "rva": "0x11460d4",
+    "name": "avoid_stacking_battle_animation_speed",
+    "register": "rax",
+    "kind": 3,
+    "expected": "80 78 23 01 75 05",
+    "not_equal": "0x11460df"
+  },
+  {
+    "rva": "0x1178eb4",
+    "name": "boost_action_state",
+    "register": "rax",
+    "kind": 0,
+    "expected": "80 78 23 02 75 05",
+    "not_equal": "0x1178ebf"
+  },
+  {
+    "rva": "0x1238299",
+    "name": "hip_cargo_validate_skeleton_slot",
+    "register": "rax",
+    "kind": 3,
+    "expected": "80 78 23 01 0f 85 d9 f0 ff ff",
+    "not_equal": "0x123737c"
+  },
+  {
+    "rva": "0x12383c6",
+    "name": "hip_cargo_validate_waist_slots",
+    "register": "rax",
+    "kind": 3,
+    "expected": "80 78 23 01 75 4b",
+    "not_equal": "0x1238417"
+  },
+  {
+    "rva": "0x1549d1c",
+    "name": "hip_cargo_menu_equip",
+    "register": "rax",
+    "kind": 3,
+    "expected": "80 78 23 01 75 11",
+    "not_equal": "0x1549d33"
+  },
+  {
+    "rva": "0x1549d6b",
+    "name": "hip_cargo_menu_equip_swap",
+    "register": "rax",
+    "kind": 3,
+    "expected": "80 78 23 01 75 11",
+    "not_equal": "0x1549d82"
+  }
+]

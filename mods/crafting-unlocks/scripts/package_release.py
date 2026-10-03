@@ -4,7 +4,7 @@ import zipfile
 
 ROOT=Path(__file__).resolve().parents[1]
 RELEASE=ROOT/"release"
-OUT=RELEASE/"DS2_Crafting_Overhaul_v1.5.0.zip"
+OUT=RELEASE/"DS2_Crafting_Equipment_Overhaul_v1.6.0.zip"
 FILES=[
     (RELEASE/"ds2_crafting_unlocks.asi","ds2_crafting_unlocks.asi"),
     (RELEASE/"ds2_crafting_unlocks.ini","ds2_crafting_unlocks.ini"),

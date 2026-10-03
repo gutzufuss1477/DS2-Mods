@@ -35,3 +35,4 @@ ReleaseSRWLockShared
 GetProcessIdOfThread
 GetThreadId
 GetExitCodeThread
+VirtualQuery

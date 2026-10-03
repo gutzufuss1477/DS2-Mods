@@ -86,5 +86,5 @@ void installFreeCrafting() {
  if(result==2){say("CRITICAL: cost patch rollback or thread resume failed. Close/restart the game; relays retained for safety.");return;}
  if(!result){discardFreeRelays();say("FREECRAFTING_BLOCKED: group not installed; native costs retained. Send this log.");return;}
  Text t;t.add("FREECRAFTING_ON: ");t.dec(CostSiteCount);t.add(" scoped ingredient readers + ");t.dec(LimitSiteCount);
- t.add(" material-limit calls installed. 120 supported keys; no resource arrays, balances or unlock flags changed.");log(t);
+ t.add(" material-limit calls installed. ");t.dec(FreeRecipeKeyCount);t.add(" supported keys including ATLAS; no resource arrays, balances or unlock flags changed.");log(t);
 }

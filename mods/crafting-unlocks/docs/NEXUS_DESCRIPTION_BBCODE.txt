@@ -1,56 +1,46 @@
-[b]Description[/b]
-Crafting Overhaul expands fabrication in DEATH STRANDING 2: ON THE BEACH while keeping normal progression intact.
+[b]Crafting & Equipment Overhaul[/b]
+Unlocks, Free Crafting, Durability & ATLAS Gear
 
-Version 1.5.0 adds [b]11 enemy-drop weapons[/b] that Sam can normally use, including the [b]Ghost Blade[/b].
+Previously Crafting Overhaul. Customize fabrication and equipment in DEATH STRANDING 2: ON THE BEACH using one ASI and INI. Version 1.6.0 adds optional ATLAS Boots and ATLAS Skeleton.
 
-[b]Quick Options[/b]
+[b]Features[/b]
+- 132 individually configurable item unlocks, including equipment, weapons, backpack modules, covers and charms.
+- 11 usable enemy-drop weapons, including Ghost Blade, and craftable Omnireflector and Chiral Boots.
+- Optional free crafting and a durability multiplier from 1x to 1000x, or Unbreakable.
+- Optional ATLAS Boots combining footing, impact absorption, kick strength and quiet steps.
+- Optional ATLAS Skeleton combining Battle, Boost and Bokka effects at level 3, including the Bokka double jump and hip cargo.
+- Original equipment retains its own values and appearance; normal progression remains available.
+
+[b]ATLAS equipment[/b]
+ATLAS Boots use the Pizza Baker appearance, weigh 0.2 kg and have 3400 base durability. ATLAS Skeleton uses the ordinary Boost Skeleton Lv.3 appearance, weighs 4.0 kg and has 20000 base durability. Its carrying bonus is up to 180 kg with power or 100 kg without power. Battery use and native jump/input conditions still apply.
+
+ATLAS recipes become available at ordinary fabrication facilities without story or donor-item unlock requirements. Their material costs match Transport Boots and Battle Skeleton Lv.1 unless FreeCrafting is enabled. ATLAS follows the shared durability settings. Names and descriptions are German in the German UI and English otherwise.
+
+[b]Quick options[/b]
 [code][CraftingUnlocks]
 Enabled=1
 DefaultUnlock=1
 FreeCrafting=0
 
+[AtlasEquipment]
+Enabled=0
+
 [Durability]
 Enabled=0
 Multiplier=2.0
 Unbreakable=0[/code]
+Set AtlasEquipment.Enabled=1 to enable ATLAS fabrication. ATLAS, FreeCrafting and durability changes are off by default. Individual item rules control early unlocks for the 132 original supported items. Restart after changing the INI.
 
-[b]Main Features[/b]
-- 132 individually configurable supported items/variants
-- 11 additional enemy-drop weapons including Ghost Blade
-- Weapons and equipment available early
-- Backpack modules, covers and charms available early
-- Craftable Omnireflector Boots and Chiral Boots
-- Optional FreeCrafting
-- Optional durability multiplier up to 1000x
-- Optional Unbreakable mode including Backpack Cover Lv.1/Lv.2
-- Normal progression remains functional
+Durability covers supported crafted equipment, nine boot types including ATLAS, and Backpack Cover Lv.1/Lv.2. Cargo, order cargo and cargo containers retain their native durability.
 
-[b]Enemy-Drop Weapons Added in 1.5.0[/b]
-- Assault Rifle [RB] Lv.1 / Lv.2 / Lv.3
-- Shotgun [RP] Lv.1 / Lv.2 / Lv.3
-- Tranq Grenade Launcher
-- Electric Rod
-- High-Voltage Rod
-- Twin Rod
-- Ghost Blade
+[b]Installation and updates[/b]
+Close the game and copy ds2_crafting_unlocks.asi and ds2_crafting_unlocks.ini next to DS2.exe. A compatible 64-bit ASI loader is required separately. Existing ASI/INI filenames remain unchanged. Preserve personal settings when updating; an old INI without an AtlasEquipment section keeps ATLAS fabrication off.
 
-The Heavy Machine Gun [MP] is intentionally not included. The game accepts the fabrication transaction, but this special weapon has no normal cargo/inventory handoff and therefore is not usable as a regular crafted item.
+If upgrading from the separate ATLAS test mod, remove ds2_overpowered_equipment.asi. Both items retain their saved identities in this combined mod. AtlasEquipment.Enabled=0 hides their recipes while keeping existing ATLAS gear supported. The global CraftingUnlocks.Enabled switch must remain on for that support. To uninstall the entire mod or downgrade below 1.6.0, use a save made before obtaining ATLAS gear.
 
-[b]Durability[/b]
-- Multiplier=1.0 = vanilla durability
-- Multiplier=2.0 = about 2x item life
-- Unbreakable=1 = no future durability loss for supported items
+[b]Compatibility and testing[/b]
+Supported DS2.exe: 1.10.89.0. The mod validates the exact executable and hook signatures. Mods that alter the same code locations can conflict.
 
-Durability applies to supported crafted equipment, all eight supported craftable boots, and Backpack Cover Lv.1/Lv.2. Normal cargo, order cargo and cargo containers remain vanilla.
+Native tests and read-only game checks pass; the first integrated game test was user-confirmed. Standalone ATLAS fabrication, early-save use, save/reload persistence and hip cargo attachment were also confirmed. A separate new integrated save/reload cycle and in-game option-toggle checks remain open. Individual shoe effects and combat protection have not all been separately demonstrated. On short jumps, the double-jump hint can appear later than the usable input window.
 
-[b]Installation[/b]
-1. Close the game.
-2. Copy ds2_crafting_unlocks.asi and ds2_crafting_unlocks.ini next to DS2.exe.
-3. A compatible 64-bit ASI loader is required separately.
-4. Restart the game after INI changes.
-
-[b]Requirements[/b]
-Windows x64, supported DS2.exe 1.10.89.0 and a compatible 64-bit ASI loader.
-
-[b]Not Included[/b]
-Vehicles, costume customization, backpack patches, Heavy Machine Gun [MP], quest-only objects and protected DLC-only recipes are not added to fabrication.
+Heavy Machine Gun [MP], quest-only and DLC-only recipes are not added to fabrication.

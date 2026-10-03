@@ -98,8 +98,8 @@ int main(){try{
   check(!parse(t.data(),(u32)t.size(),q,e),"reject invalid durability setting");
  }
 
- check(DurabilityCraftedBaggageCount==132,"132 scoped crafted baggage IDs");
- check(DurabilityBootBaggageCount==8,"8 scoped boot baggage IDs");
+ check(DurabilityCraftedBaggageCount==134,"134 scoped crafted baggage IDs");
+ check(DurabilityBootBaggageCount==9,"9 scoped boot baggage IDs");
  for(u32 i=1;i<DurabilityCraftedBaggageCount;++i)
   check(DurabilityCraftedBaggage[i-1]<DurabilityCraftedBaggage[i],"crafted allowlist sorted unique");
  for(u32 i=1;i<DurabilityBootBaggageCount;++i)
@@ -209,7 +209,7 @@ int main(){try{
  {CoverFixture f{};f.set(true,true,1,2,100.0f,50.0f);float replay=0;near(invokeCover(f,replay),50.0f,0.0f,"cover type change stays native");}
 
  std::cout<<"PASS "<<checks<<" scoped durability assertions.\n";
- std::cout<<"132 crafted baggage IDs + 8 boot IDs tested; cargo/container +0x84 never patched.\n";
+ std::cout<<"134 crafted baggage IDs + 9 boot IDs tested; cargo/container +0x84 never patched.\n";
  std::cout<<"Boots multiplier/unbreakable and live EFLAGS preservation verified.\n";
  return 0;
  }catch(const std::exception&e){

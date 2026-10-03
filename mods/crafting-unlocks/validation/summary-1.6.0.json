@@ -1,0 +1,134 @@
+{
+  "version": "1.6.0",
+  "status": "integrated build installed; native/read-only checks passed; user reports initial integrated game test works",
+  "created_utc": "2026-10-03T21:12:12.287093+00:00",
+  "asi_sha256": "308a8abf4d708ea1e073f63212d62d70b82204efed8e638f4dbefbdcc51eb583",
+  "asi_bytes": 111616,
+  "config": {
+    "public_atlas_default": 0,
+    "local_atlas_enabled": 1,
+    "legacy_ini_accepted": true,
+    "original_item_rules": 132,
+    "free_crafting_recipes": 134,
+    "durability_baggage_ids": 134,
+    "durability_boot_ids": 9,
+    "disabled_atlas_policy": "hide fabrication recipes; preserve resource registration and effects for existing items while global master is enabled"
+  },
+  "tests": {
+    "core_assertions": 335434,
+    "legacy_config_assertions": 9295,
+    "backpack_assertions": 13603,
+    "freecrafting_native_cases": 98560,
+    "freecrafting_unwind_checks": 88,
+    "freecrafting_transaction_assertions": 26900,
+    "special_usage_ui_cases": 35,
+    "durability_assertions": 1001906,
+    "atlas_config_assertions": 195,
+    "atlas_native_tests": 20,
+    "atlas_native_branch_cases": 110208,
+    "atlas_native_hip_cases": 336,
+    "all_possible_hooks_exact_bytes_and_no_overlap": 91
+  },
+  "runtime": {
+    "pid": 34572,
+    "only_loaded_asi": "ds2_crafting_unlocks.asi",
+    "registration_checks": {
+      "all_four_item_ids_present": true,
+      "native_parameters_unchanged": true,
+      "all_four_recipes_present": true,
+      "graph_11": true,
+      "equipment_list_id_11": true,
+      "graph_21": true,
+      "equipment_list_id_21": true,
+      "graph_103": true,
+      "equipment_list_id_103": true,
+      "graph_104": true,
+      "equipment_list_id_104": true,
+      "material_11": true,
+      "material_21": true,
+      "material_103": true,
+      "material_104": true,
+      "visual_resources_103_match_20": true,
+      "unconditional_recipe_103": true,
+      "visual_resources_104_match_26": true,
+      "unconditional_recipe_104": true
+    },
+    "installed_hooks": 39,
+    "remaining_optional_sites_native": 52,
+    "player": {
+      "worn": [
+        {
+          "id": 103,
+          "level": 0,
+          "category": 5,
+          "active": false,
+          "health": 3392.0205078125
+        },
+        {
+          "id": 104,
+          "level": 2,
+          "category": 6,
+          "active": false,
+          "health": 20000.0
+        }
+      ],
+      "shoe_id": 103,
+      "shoe_durability": [
+        3392.0205078125,
+        3400.0
+      ],
+      "battery": 1000.0,
+      "capacity": [
+        240.0,
+        300.0
+      ],
+      "skeleton_capacity_contribution": [
+        180.0,
+        180.0
+      ],
+      "flags": {
+        "bokka_equipped": 1,
+        "bokka_active": 0,
+        "bokka_powered": 1,
+        "boost_equipped": 1,
+        "boost_powered": 1,
+        "boost_active": 0,
+        "battle_equipped": 1,
+        "battle_powered": 1,
+        "battle_active": 0
+      },
+      "levels": [
+        2,
+        2,
+        2
+      ]
+    },
+    "native_original_items_unchanged": true,
+    "tested_asi_sha256": "3eb33c47d6bd20a528cedc034e702a8c090c46b12a17ffdcc151fba6138667f7"
+  },
+  "user_confirmation_from_standalone": {
+    "fabricate_equip": true,
+    "save_restart_load": true,
+    "early_save": true,
+    "hip_cargo_attachment": true
+  },
+  "pending": [
+    "Separate new save/reload cycle with integrated build (initial integrated game test user-confirmed)",
+    "In-game recipe-off transition; native resource/UI tests passed",
+    "In-game ATLAS-specific FreeCrafting/durability option check; native instruction tests passed"
+  ],
+  "distribution": "Source, documentation and release ZIP prepared for Git publication; Nexus is not published by this task.",
+  "user_confirmation_integrated": {
+    "quote": "ok scheint zu klappem",
+    "scope": "Initial general integrated smoke test; not a separate confirmation of free crafting, durability toggles, recipe-off migration or a new save/reload cycle."
+  },
+  "name": "Crafting & Equipment Overhaul",
+  "subtitle": "Unlocks, Free Crafting, Durability & ATLAS Gear",
+  "release_rebrand": {
+    "runtime_change": "Log banner string only; functional ATLAS and Crafting Overhaul code unchanged from the user-tested build.",
+    "previous_tested_asi_sha256": "3eb33c47d6bd20a528cedc034e702a8c090c46b12a17ffdcc151fba6138667f7",
+    "release_asi_sha256": "308a8abf4d708ea1e073f63212d62d70b82204efed8e638f4dbefbdcc51eb583",
+    "release_rebuilt_and_pe_hook_signatures_verified": true,
+    "game_restarted_for_branding": false
+  }
+}

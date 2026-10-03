@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.6.0 - Crafting & Equipment Overhaul
+
+Renamed from Crafting Overhaul.
+
+- Added optional ATLAS Boots and ATLAS Skeleton, combining footwear and Battle/Boost/Bokka effects.
+- ATLAS gear is available without story unlocks, with Pizza Baker / Boost Lv.3 looks and hip cargo support.
+- ATLAS uses the same INI, FreeCrafting and durability options; its fabrication toggle is off by default.
+- Added German/English ATLAS text and retained existing ATLAS item identities for saved equipment.
+
 ## 1.5.0
 - Added 11 enemy-drop weapons that Sam can normally use to fabrication.
 - Includes Assault Rifle [RB] Lv.1-3, Shotgun [RP] Lv.1-3, Tranq Grenade Launcher, Electric Rod, High-Voltage Rod, Twin Rod and Ghost Blade.

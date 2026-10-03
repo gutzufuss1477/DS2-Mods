@@ -84,5 +84,5 @@ void installDurability(){
  t.dec(settings.durabilityMilli/1000);t.ch('.');u32 f=settings.durabilityMilli%1000;
  t.ch(char('0'+(f/100)%10));t.ch(char('0'+(f/10)%10));t.ch(char('0'+f%10));
  t.add(" unbreakable=");t.dec(settings.durabilityUnbreakable?1:0);
- t.add(". 121 crafted baggage IDs + 8 boot IDs scoped; backpack cover state hook active; cargo case +0x84 untouched; repair/increase paths untouched.");log(t);
+ t.add(". ");t.dec(DurabilityCraftedBaggageCount);t.add(" crafted baggage IDs + ");t.dec(DurabilityBootBaggageCount);t.add(" boot IDs scoped including ATLAS; backpack cover state hook active; cargo case +0x84 untouched; repair/increase paths untouched.");log(t);
 }

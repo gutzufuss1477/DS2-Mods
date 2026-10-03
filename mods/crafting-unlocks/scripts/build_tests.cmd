@@ -44,4 +44,8 @@ if errorlevel 1 exit /b 1
 if errorlevel 1 exit /b 1
 build\durability_tests.exe
 if errorlevel 1 exit /b 1
+"%CC%" /nologo /std:c++17 /EHsc /MT /O2 tests\atlas_config_tests.cpp /Febuild\atlas_config_tests.exe /Fobuild\atlas_config_tests.obj
+if errorlevel 1 exit /b 1
+build\atlas_config_tests.exe release\ds2_crafting_unlocks.ini
+if errorlevel 1 exit /b 1
 echo ALL_WINDOWS_TESTS_PASSED

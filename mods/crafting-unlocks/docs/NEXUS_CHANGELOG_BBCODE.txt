@@ -1,3 +1,11 @@
+[b]1.6.0 - Crafting & Equipment Overhaul[/b]
+Renamed from Crafting Overhaul.
+
+- Added optional ATLAS Boots and ATLAS Skeleton, combining footwear and Battle/Boost/Bokka effects.
+- ATLAS gear is available without story unlocks, with Pizza Baker / Boost Lv.3 looks and hip cargo support.
+- ATLAS uses the same INI, FreeCrafting and durability options; its fabrication toggle is off by default.
+- Added German/English ATLAS text and retained existing ATLAS item identities for saved equipment.
+
 [b]Version 1.5.0[/b]
 
 - Added 11 usable enemy-drop weapons to fabrication.

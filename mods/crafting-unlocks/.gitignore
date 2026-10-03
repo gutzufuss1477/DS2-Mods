@@ -9,3 +9,7 @@ __pycache__/
 *.log
 /evidence/cover-durability/research/
 /evidence/cover-durability/live-test/
+
+# Machine-specific installation record and superseded local draft archive.
+/validation/install-*.json
+/release/DS2_Crafting_Overhaul_v1.6.0.zip

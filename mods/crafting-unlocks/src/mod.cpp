@@ -3,6 +3,7 @@
 #include "backpack.hpp"
 #include "freecrafting_sites.hpp"
 #include "durability_scope.hpp"
+#include "atlas_integration.hpp"
 extern "C" void SpecialBootUsageThunk();
 extern "C" void* memcpy(void*d,const void*s,SIZE_T n){auto*a=(volatile u8*)d;auto*b=(const volatile u8*)s;while(n--)*a++=*b++;return d;}
 extern "C" void* memset(void*d,int c,SIZE_T n){auto*a=(volatile u8*)d;while(n--)*a++=(u8)c;return d;}
@@ -238,7 +239,7 @@ void* relayNear(u64 siteRva,u64 destination){u64 base=(image+siteRva)&~u64(0xFFF
 DWORD WINAPI init(void*){
  u32 n=GetModuleFileNameW(module,folder,2048);if(!n||n>=2048)return 0;while(n&&folder[n-1]!='\\'&&folder[n-1]!='/')--n;folder[n]=0;
  if(!path(iniPath,L"ds2_crafting_unlocks.ini")||!path(logPath,L"ds2_crafting_unlocks.log")||!path(catPath,L"ds2_crafting_catalogue.tsv")||!path(templatePath,L"ds2_crafting_items.generated.ini"))return 0;
- Text session;session.add("DS2 Crafting Overhaul 1.5.0 | fabrication + backpack | exact-build gate | pid=");session.dec(GetCurrentProcessId());session.add(" tick=");session.dec(GetTickCount64());log(session);
+ Text session;session.add("DS2 Crafting & Equipment Overhaul 1.6.0 | fabrication + backpack | exact-build gate | pid=");session.dec(GetCurrentProcessId());session.add(" tick=");session.dec(GetTickCount64());log(session);
  if(!config())return 0;if(!settings.enabled){say("DISABLED: no patch installed.");return 0;}
  image=(u64)GetModuleHandleW(nullptr);n=GetModuleFileNameW(nullptr,exePath,2048);if(!n||n>=2048){say("VERSION_BLOCKED: executable path unavailable.");return 0;}
  u8 hash[32];if(!filehash(exePath,hash)||memcmp(hash,ExpectedHash,32)){say("VERSION_BLOCKED: installed DS2.exe SHA-256 differs from analysed binary. No patch.");return 0;}
@@ -251,6 +252,9 @@ DWORD WINAPI init(void*){
   say("SIGNATURE_BLOCKED: backpack callsite/maps differ from analysed binary. No patch.");return 0;
  }
  HMODULE pinned;if(!GetModuleHandleExW(1|4,(WCHAR*)&craftingList,&pinned)){say("INIT_FAILED: DLL pin failed.");return 0;}
+ // Register ATLAS before the native catalogue is built, even when recipes are
+ // hidden, so saves made with the standalone version retain their item IDs.
+ if(!InstallAtlasEquipment(image,settings.atlasEnabled,&say))say("ATLAS_UNAVAILABLE: see ATLAS diagnostics above; other Crafting Overhaul features continue.");
  snapshots=(Snapshot*)VirtualAlloc(nullptr,sizeof(Snapshot)*MaxSnapshots,0x3000,4);
  if(!snapshots){say("INIT_FAILED: snapshot allocation failed.");return 0;}
  original=(ListFn)(image+OriginalRva);originalBackpack=(BackpackListFn)(image+BackpackOriginalRva);

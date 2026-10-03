@@ -139,6 +139,8 @@ DurabilityContentsThunk:
     je .contents_supported
     cmp eax, 0x3A8ECE35
     je .contents_supported
+    cmp eax, 0x3B0ECB3E
+    je .contents_supported
     cmp eax, 0x3DC3C04C
     je .contents_supported
     cmp eax, 0x401B6FFF
@@ -172,6 +174,8 @@ DurabilityContentsThunk:
     cmp eax, 0x4B3AC85B
     je .contents_supported
     cmp eax, 0x4BC8A3D8
+    je .contents_supported
+    cmp eax, 0x4D918ADD
     je .contents_supported
     cmp eax, 0x50113962
     je .contents_supported
@@ -313,6 +317,8 @@ DurabilityBootsWearThunk:
     cmp eax, 0x2CBE4AB2
     je .boots_supported
     cmp eax, 0x371A9883
+    je .boots_supported
+    cmp eax, 0x3B0ECB3E
     je .boots_supported
     cmp eax, 0x3DC3C04C
     je .boots_supported

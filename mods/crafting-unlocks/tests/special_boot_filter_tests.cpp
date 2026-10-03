@@ -6,6 +6,11 @@ static unsigned checks=0;
 static void check(bool ok,const char*why){++checks;if(!ok)throw std::runtime_error(why);}
 int main(){try{
  unsigned char resource[0xB0]{};
+ for(unsigned atlasKey:{0x616526A9u,0x02161D6Cu}){
+  std::memcpy(resource+0x20,&atlasKey,4);
+  check(TestSpecialBootFilter(resource,0)==0,"disabled ATLAS recipe stays hidden in native UI");
+  check(TestSpecialBootFilter(resource,1)==1,"enabled ATLAS recipe passes native UI");
+ }
  const unsigned allowed[]={0x75D99124u,0x07B21227u,0x6C3A478Bu,0x1EA3AF0Bu,0x6CC82C08u,0x1E51C488u,0x380248E3u,0x4A69CBE0u,0x38F02360u,0x14889C47u,0x4B7F7765u,0x3914F466u,0x0CE5E07Au};
  for(unsigned key:allowed){
   std::memcpy(resource+0x20,&key,4);

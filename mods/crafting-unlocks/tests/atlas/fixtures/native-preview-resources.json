@@ -1,0 +1,801 @@
+[
+  {
+    "id": 21,
+    "listitem": "0x1c746239ec8",
+    "name": "Kampfskelett St.1",
+    "description": "0x1c74622b1d0",
+    "item_description": "0x1c74622b1d0",
+    "chart": "0x1c746354258",
+    "chartgroup": "0x0",
+    "charts": [
+      {
+        "pointer": "0x1c746312ac8",
+        "type": 16,
+        "value": 3,
+        "fact": "0x0"
+      },
+      {
+        "pointer": "0x1c74636d7e0",
+        "type": 7,
+        "value": 12,
+        "fact": "0x0"
+      },
+      {
+        "pointer": "0x1c7463a0970",
+        "type": 13,
+        "value": 4,
+        "fact": "0x0"
+      },
+      {
+        "pointer": "0x1c7463c2190",
+        "type": 6,
+        "value": 4,
+        "fact": "0x0"
+      },
+      {
+        "pointer": "0x1c7462ea420",
+        "type": 17,
+        "value": 10,
+        "fact": "0x0"
+      },
+      {
+        "pointer": "0x1c746362308",
+        "type": 12,
+        "value": 8,
+        "fact": "0x0"
+      }
+    ]
+  },
+  {
+    "id": 23,
+    "listitem": "0x1c74623b6b8",
+    "name": "Kampfskelett St.3",
+    "description": "0x1c74622cb88",
+    "item_description": "0x1c74622cb88",
+    "chart": "0x1c7462d7a68",
+    "chartgroup": "0x0",
+    "charts": [
+      {
+        "pointer": "0x1c7462a4640",
+        "type": 16,
+        "value": 5,
+        "fact": "0x0"
+      },
+      {
+        "pointer": "0x1c7462afee8",
+        "type": 7,
+        "value": 16,
+        "fact": "0x0"
+      },
+      {
+        "pointer": "0x1c7463246e8",
+        "type": 13,
+        "value": 4,
+        "fact": "0x0"
+      },
+      {
+        "pointer": "0x1c746369d20",
+        "type": 6,
+        "value": 8,
+        "fact": "0x0"
+      },
+      {
+        "pointer": "0x1c7463a3508",
+        "type": 17,
+        "value": 10,
+        "fact": "0x0"
+      },
+      {
+        "pointer": "0x1c746286a38",
+        "type": 12,
+        "value": 12,
+        "fact": "0x0"
+      }
+    ]
+  },
+  {
+    "id": 24,
+    "listitem": "0x1c7462337a8",
+    "name": "Boost-Skelett St.1",
+    "description": "0x1c74622c140",
+    "item_description": "0x1c74622c140",
+    "chart": "0x1c7462a0050",
+    "chartgroup": "0x0",
+    "charts": [
+      {
+        "pointer": "0x1c74629c0c0",
+        "type": 16,
+        "value": 2,
+        "fact": "0x0"
+      },
+      {
+        "pointer": "0x1c74631a798",
+        "type": 7,
+        "value": 12,
+        "fact": "0x0"
+      },
+      {
+        "pointer": "0x1c7463bb460",
+        "type": 13,
+        "value": 4,
+        "fact": "0x0"
+      },
+      {
+        "pointer": "0x1c746315798",
+        "type": 6,
+        "value": 6,
+        "fact": "0x0"
+      },
+      {
+        "pointer": "0x1c74634fd80",
+        "type": 17,
+        "value": 16,
+        "fact": "0x0"
+      },
+      {
+        "pointer": "0x1c74630bee8",
+        "type": 12,
+        "value": 0,
+        "fact": "0x0"
+      }
+    ]
+  },
+  {
+    "id": 28,
+    "listitem": "0x1c7462384c0",
+    "name": "Bokka-Skelett St.2",
+    "description": "0x1c74622ba40",
+    "item_description": "0x1c74622ba40",
+    "chart": "0x1c7463a06f8",
+    "chartgroup": "0x0",
+    "charts": [
+      {
+        "pointer": "0x1c746372d80",
+        "type": 16,
+        "value": 8,
+        "fact": "0x0"
+      },
+      {
+        "pointer": "0x1c746352ed0",
+        "type": 7,
+        "value": 14,
+        "fact": "0x0"
+      },
+      {
+        "pointer": "0x1c746319dc8",
+        "type": 13,
+        "value": 16,
+        "fact": "0x0"
+      },
+      {
+        "pointer": "0x1c7462cd700",
+        "type": 6,
+        "value": 6,
+        "fact": "0x0"
+      },
+      {
+        "pointer": "0x1c7462e80e0",
+        "type": 17,
+        "value": 4,
+        "fact": "0x0"
+      },
+      {
+        "pointer": "0x1c7463009f0",
+        "type": 12,
+        "value": 0,
+        "fact": "0x0"
+      }
+    ]
+  },
+  {
+    "id": 27,
+    "listitem": "0x1c7462381e8",
+    "name": "Bokka-Skelett St.1",
+    "description": "0x1c74622b7c8",
+    "item_description": "0x1c74622b7c8",
+    "chart": "0x1c746317808",
+    "chartgroup": "0x0",
+    "charts": [
+      {
+        "pointer": "0x1c746353810",
+        "type": 16,
+        "value": 6,
+        "fact": "0x0"
+      },
+      {
+        "pointer": "0x1c7462ebbc8",
+        "type": 7,
+        "value": 12,
+        "fact": "0x0"
+      },
+      {
+        "pointer": "0x1c746321770",
+        "type": 13,
+        "value": 16,
+        "fact": "0x0"
+      },
+      {
+        "pointer": "0x1c746382ed0",
+        "type": 6,
+        "value": 4,
+        "fact": "0x0"
+      },
+      {
+        "pointer": "0x1c7462a8640",
+        "type": 17,
+        "value": 4,
+        "fact": "0x0"
+      },
+      {
+        "pointer": "0x1c7463d0480",
+        "type": 12,
+        "value": 0,
+        "fact": "0x0"
+      }
+    ]
+  },
+  {
+    "id": 29,
+    "listitem": "0x1c746238068",
+    "name": "Bokka-Skelett St.3",
+    "description": "0x1c74622c7c0",
+    "item_description": "0x1c74622c7c0",
+    "chart": "0x1c746342fa8",
+    "chartgroup": "0x0",
+    "charts": [
+      {
+        "pointer": "0x1c7463e4b58",
+        "type": 16,
+        "value": 10,
+        "fact": "0x0"
+      },
+      {
+        "pointer": "0x1c7463c70c0",
+        "type": 7,
+        "value": 16,
+        "fact": "0x0"
+      },
+      {
+        "pointer": "0x1c746318c28",
+        "type": 13,
+        "value": 16,
+        "fact": "0x0"
+      },
+      {
+        "pointer": "0x1c7463c4b38",
+        "type": 6,
+        "value": 10,
+        "fact": "0x0"
+      },
+      {
+        "pointer": "0x1c74634fae0",
+        "type": 17,
+        "value": 4,
+        "fact": "0x0"
+      },
+      {
+        "pointer": "0x1c74636fab8",
+        "type": 12,
+        "value": 0,
+        "fact": "0x0"
+      }
+    ]
+  },
+  {
+    "id": 25,
+    "listitem": "0x1c746238ef0",
+    "name": "Boost-Skelett St.2",
+    "description": "0x1c74622b748",
+    "item_description": "0x1c74622b748",
+    "chart": "0x1c7462a9958",
+    "chartgroup": "0x0",
+    "charts": [
+      {
+        "pointer": "0x1c746383220",
+        "type": 16,
+        "value": 3,
+        "fact": "0x0"
+      },
+      {
+        "pointer": "0x1c746303e18",
+        "type": 7,
+        "value": 14,
+        "fact": "0x0"
+      },
+      {
+        "pointer": "0x1c746392878",
+        "type": 13,
+        "value": 4,
+        "fact": "0x0"
+      },
+      {
+        "pointer": "0x1c74636b320",
+        "type": 6,
+        "value": 8,
+        "fact": "0x0"
+      },
+      {
+        "pointer": "0x1c7462889f8",
+        "type": 17,
+        "value": 16,
+        "fact": "0x0"
+      },
+      {
+        "pointer": "0x1c7462d2b78",
+        "type": 12,
+        "value": 0,
+        "fact": "0x0"
+      }
+    ]
+  },
+  {
+    "id": 22,
+    "listitem": "0x1c74623d9f0",
+    "name": "Kampfskelett St.2",
+    "description": "0x1c74622a1e0",
+    "item_description": "0x1c74622a1e0",
+    "chart": "0x1c746307d38",
+    "chartgroup": "0x0",
+    "charts": [
+      {
+        "pointer": "0x1c7462df4c0",
+        "type": 16,
+        "value": 4,
+        "fact": "0x0"
+      },
+      {
+        "pointer": "0x1c7463dd458",
+        "type": 7,
+        "value": 16,
+        "fact": "0x0"
+      },
+      {
+        "pointer": "0x1c746346058",
+        "type": 13,
+        "value": 4,
+        "fact": "0x0"
+      },
+      {
+        "pointer": "0x1c7462857b8",
+        "type": 6,
+        "value": 6,
+        "fact": "0x0"
+      },
+      {
+        "pointer": "0x1c7463614d0",
+        "type": 17,
+        "value": 10,
+        "fact": "0x0"
+      },
+      {
+        "pointer": "0x1c746342670",
+        "type": 12,
+        "value": 10,
+        "fact": "0x0"
+      }
+    ]
+  },
+  {
+    "id": 26,
+    "listitem": "0x1c74623bf48",
+    "name": "Boost-Skelett St.3",
+    "description": "0x1c74622c368",
+    "item_description": "0x1c74622c368",
+    "chart": "0x1c7462ed948",
+    "chartgroup": "0x0",
+    "charts": [
+      {
+        "pointer": "0x1c7462a5370",
+        "type": 16,
+        "value": 4,
+        "fact": "0x0"
+      },
+      {
+        "pointer": "0x1c7462b1518",
+        "type": 7,
+        "value": 16,
+        "fact": "0x0"
+      },
+      {
+        "pointer": "0x1c746348df8",
+        "type": 13,
+        "value": 4,
+        "fact": "0x0"
+      },
+      {
+        "pointer": "0x1c7463e7988",
+        "type": 6,
+        "value": 12,
+        "fact": "0x0"
+      },
+      {
+        "pointer": "0x1c74630e110",
+        "type": 17,
+        "value": 16,
+        "fact": "0x0"
+      },
+      {
+        "pointer": "0x1c7462b82b8",
+        "type": 12,
+        "value": 0,
+        "fact": "0x0"
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "listitem": "0x1c742767098",
+    "name": "Transportstiefel",
+    "description": "0x1c742767320",
+    "item_description": "0x1c742767320",
+    "chart": "0x1c7427674e8",
+    "chartgroup": "0x0",
+    "charts": [
+      {
+        "pointer": "0x1c7427678e0",
+        "type": 14,
+        "value": 4,
+        "fact": "0x0"
+      },
+      {
+        "pointer": "0x1c742767e80",
+        "type": 7,
+        "value": 5,
+        "fact": "0x0"
+      },
+      {
+        "pointer": "0x1c742767ee8",
+        "type": 13,
+        "value": 4,
+        "fact": "0x0"
+      },
+      {
+        "pointer": "0x1c742767910",
+        "type": 6,
+        "value": 16,
+        "fact": "0x0"
+      },
+      {
+        "pointer": "0x1c742768140",
+        "type": 11,
+        "value": 4,
+        "fact": "0x0"
+      },
+      {
+        "pointer": "0x1c742768390",
+        "type": 15,
+        "value": 4,
+        "fact": "0x0"
+      }
+    ]
+  },
+  {
+    "id": 14,
+    "listitem": "0x1c74383feb0",
+    "name": "Schleichstiefel",
+    "description": "0x1c743853010",
+    "item_description": "0x1c743853010",
+    "chart": "0x1c7438bfac0",
+    "chartgroup": "0x0",
+    "charts": [
+      {
+        "pointer": "0x1c743884a28",
+        "type": 14,
+        "value": 4,
+        "fact": "0x0"
+      },
+      {
+        "pointer": "0x1c7438825a0",
+        "type": 7,
+        "value": 6,
+        "fact": "0x0"
+      },
+      {
+        "pointer": "0x1c7438a2768",
+        "type": 13,
+        "value": 4,
+        "fact": "0x0"
+      },
+      {
+        "pointer": "0x1c743882fe0",
+        "type": 6,
+        "value": 16,
+        "fact": "0x0"
+      },
+      {
+        "pointer": "0x1c7438b7010",
+        "type": 11,
+        "value": 4,
+        "fact": "0x0"
+      },
+      {
+        "pointer": "0x1c74389e6f8",
+        "type": 15,
+        "value": 12,
+        "fact": "0x0"
+      }
+    ]
+  },
+  {
+    "id": 13,
+    "listitem": "0x1c74383ec18",
+    "name": "Kampfstiefel",
+    "description": "0x1c743853368",
+    "item_description": "0x1c743853368",
+    "chart": "0x1c7438be6a8",
+    "chartgroup": "0x0",
+    "charts": [
+      {
+        "pointer": "0x1c7438aff18",
+        "type": 14,
+        "value": 4,
+        "fact": "0x0"
+      },
+      {
+        "pointer": "0x1c7438ad9d0",
+        "type": 7,
+        "value": 6,
+        "fact": "0x0"
+      },
+      {
+        "pointer": "0x1c74388fb18",
+        "type": 13,
+        "value": 4,
+        "fact": "0x0"
+      },
+      {
+        "pointer": "0x1c74388c9e8",
+        "type": 6,
+        "value": 16,
+        "fact": "0x0"
+      },
+      {
+        "pointer": "0x1c7438a1600",
+        "type": 11,
+        "value": 8,
+        "fact": "0x0"
+      },
+      {
+        "pointer": "0x1c74389ffc0",
+        "type": 15,
+        "value": 4,
+        "fact": "0x0"
+      }
+    ]
+  },
+  {
+    "id": 12,
+    "listitem": "0x1c74383e250",
+    "name": "Wanderstiefel",
+    "description": "0x1c743852e30",
+    "item_description": "0x1c743852e30",
+    "chart": "0x1c743897e78",
+    "chartgroup": "0x0",
+    "charts": [
+      {
+        "pointer": "0x1c7438c0030",
+        "type": 14,
+        "value": 8,
+        "fact": "0x0"
+      },
+      {
+        "pointer": "0x1c7438b7cd0",
+        "type": 7,
+        "value": 6,
+        "fact": "0x0"
+      },
+      {
+        "pointer": "0x1c7438a4b70",
+        "type": 13,
+        "value": 8,
+        "fact": "0x0"
+      },
+      {
+        "pointer": "0x1c74389a268",
+        "type": 6,
+        "value": 16,
+        "fact": "0x0"
+      },
+      {
+        "pointer": "0x1c7438ad858",
+        "type": 11,
+        "value": 4,
+        "fact": "0x0"
+      },
+      {
+        "pointer": "0x1c7438ac368",
+        "type": 15,
+        "value": 4,
+        "fact": "0x0"
+      }
+    ]
+  },
+  {
+    "id": 18,
+    "listitem": "0x1c743840c88",
+    "name": "Allround-Stiefel",
+    "description": "0x1c743853128",
+    "item_description": "0x1c743853128",
+    "chart": "0x1c743897658",
+    "chartgroup": "0x0",
+    "charts": [
+      {
+        "pointer": "0x1c743891188",
+        "type": 14,
+        "value": 8,
+        "fact": "0x0"
+      },
+      {
+        "pointer": "0x1c7438b74a0",
+        "type": 7,
+        "value": 8,
+        "fact": "0x0"
+      },
+      {
+        "pointer": "0x1c7438b19a8",
+        "type": 13,
+        "value": 8,
+        "fact": "0x0"
+      },
+      {
+        "pointer": "0x1c743892cf0",
+        "type": 6,
+        "value": 16,
+        "fact": "0x0"
+      },
+      {
+        "pointer": "0x1c74389bb58",
+        "type": 11,
+        "value": 8,
+        "fact": "0x0"
+      },
+      {
+        "pointer": "0x1c7438b4a18",
+        "type": 15,
+        "value": 4,
+        "fact": "0x0"
+      }
+    ]
+  },
+  {
+    "id": 20,
+    "listitem": "0x1c74383f7a0",
+    "name": "Stiefel des Pizzab\u00e4ckers",
+    "description": "0x1c743853448",
+    "item_description": "0x1c743853448",
+    "chart": "0x1c743885008",
+    "chartgroup": "0x0",
+    "charts": [
+      {
+        "pointer": "0x1c74389c6b8",
+        "type": 14,
+        "value": 4,
+        "fact": "0x0"
+      },
+      {
+        "pointer": "0x1c743894268",
+        "type": 7,
+        "value": 4,
+        "fact": "0x0"
+      },
+      {
+        "pointer": "0x1c743884b18",
+        "type": 13,
+        "value": 4,
+        "fact": "0x0"
+      },
+      {
+        "pointer": "0x1c7438b4718",
+        "type": 6,
+        "value": 16,
+        "fact": "0x0"
+      },
+      {
+        "pointer": "0x1c7438867d0",
+        "type": 11,
+        "value": 4,
+        "fact": "0x0"
+      },
+      {
+        "pointer": "0x1c7438aefe8",
+        "type": 15,
+        "value": 4,
+        "fact": "0x0"
+      }
+    ]
+  },
+  {
+    "id": 93,
+    "listitem": "0x1c743840bc8",
+    "name": "Omnireflektor-Stiefel",
+    "description": "0x1c743853208",
+    "item_description": "0x1c743853208",
+    "chart": "0x1c7438ab6c8",
+    "chartgroup": "0x0",
+    "charts": [
+      {
+        "pointer": "0x1c7438870b0",
+        "type": 14,
+        "value": 4,
+        "fact": "0x0"
+      },
+      {
+        "pointer": "0x1c7438b8b48",
+        "type": 7,
+        "value": 6,
+        "fact": "0x0"
+      },
+      {
+        "pointer": "0x1c743892390",
+        "type": 13,
+        "value": 4,
+        "fact": "0x0"
+      },
+      {
+        "pointer": "0x1c74389b2f8",
+        "type": 6,
+        "value": 16,
+        "fact": "0x0"
+      },
+      {
+        "pointer": "0x1c7438bb900",
+        "type": 11,
+        "value": 4,
+        "fact": "0x0"
+      },
+      {
+        "pointer": "0x1c7438b6a40",
+        "type": 15,
+        "value": 4,
+        "fact": "0x0"
+      }
+    ]
+  },
+  {
+    "id": 94,
+    "listitem": "0x1c74383e628",
+    "name": "Chirale Stiefel",
+    "description": "0x1c7438538a0",
+    "item_description": "0x1c7438538a0",
+    "chart": "0x1c7438b3118",
+    "chartgroup": "0x0",
+    "charts": [
+      {
+        "pointer": "0x1c7438adea0",
+        "type": 14,
+        "value": 4,
+        "fact": "0x0"
+      },
+      {
+        "pointer": "0x1c74388af00",
+        "type": 7,
+        "value": 8,
+        "fact": "0x0"
+      },
+      {
+        "pointer": "0x1c7438b8558",
+        "type": 13,
+        "value": 4,
+        "fact": "0x0"
+      },
+      {
+        "pointer": "0x1c74388ab48",
+        "type": 6,
+        "value": 16,
+        "fact": "0x0"
+      },
+      {
+        "pointer": "0x1c7438baed8",
+        "type": 11,
+        "value": 4,
+        "fact": "0x0"
+      },
+      {
+        "pointer": "0x1c7438a72f8",
+        "type": 15,
+        "value": 4,
+        "fact": "0x0"
+      }
+    ]
+  }
+]

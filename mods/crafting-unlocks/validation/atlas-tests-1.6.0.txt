@@ -1,0 +1,26 @@
+test_atlas_accepts_captured_game_resources_without_item_list_id_conflation (__main__.NativeTests.test_atlas_accepts_captured_game_resources_without_item_list_id_conflation) ... ok
+test_atlas_hook_sites_and_relocated_prologues (__main__.NativeTests.test_atlas_hook_sites_and_relocated_prologues) ... ok
+test_atlas_independent_resource_graph_and_localization (__main__.NativeTests.test_atlas_independent_resource_graph_and_localization) ... ok
+test_boost_fact_preserves_native_flags_and_other_equipment (__main__.NativeTests.test_boost_fact_preserves_native_flags_and_other_equipment) ... ok
+test_boot_conflicts_are_rejected (__main__.NativeTests.test_boot_conflicts_are_rejected) ... ok
+test_branch_truth_tables_on_cpu (__main__.NativeTests.test_branch_truth_tables_on_cpu) ... ok
+test_capacity_max_keeps_other_bonuses (__main__.NativeTests.test_capacity_max_keeps_other_bonuses) ... ok
+test_complete_native_jump_input_preserves_press_and_consumed_gates (__main__.NativeTests.test_complete_native_jump_input_preserves_press_and_consumed_gates) ... ok
+test_depot_growth_stages_fresh_allocation_before_publishing (__main__.NativeTests.test_depot_growth_stages_fresh_allocation_before_publishing) ... ok
+test_double_jump_gate_only_waives_boost_rejection_for_worn_target (__main__.NativeTests.test_double_jump_gate_only_waives_boost_rejection_for_worn_target) ... ok
+test_empty_battery_keeps_native_passive_battle_capacity (__main__.NativeTests.test_empty_battery_keeps_native_passive_battle_capacity) ... ok
+test_fabrication_toggle_preserves_saved_identities_and_gameplay (__main__.NativeTests.test_fabrication_toggle_preserves_saved_identities_and_gameplay) ... ok
+test_hash_guard_against_standard_library (__main__.NativeTests.test_hash_guard_against_standard_library) ... ok
+test_loading_thunk_passes_preview_inventory_and_replays_lea (__main__.NativeTests.test_loading_thunk_passes_preview_inventory_and_replays_lea) ... ok
+test_native_unlock_predicate_accepts_atlas_with_locked_story (__main__.NativeTests.test_native_unlock_predicate_accepts_atlas_with_locked_story) ... ok
+test_original_hip_validation_allows_atlas_without_displacing_cargo (__main__.NativeTests.test_original_hip_validation_allows_atlas_without_displacing_cargo) ... ok
+test_other_equipment_and_invalid_data_are_untouched (__main__.NativeTests.test_other_equipment_and_invalid_data_are_untouched) ... ok
+test_preview_clones_leave_shared_resources_untouched (__main__.NativeTests.test_preview_clones_leave_shared_resources_untouched) ... ok
+test_skeleton_visual_selector_keeps_identity_and_effects (__main__.NativeTests.test_skeleton_visual_selector_keeps_identity_and_effects) ... ok
+test_visual_donors_only_change_art_fields (__main__.NativeTests.test_visual_donors_only_change_art_fields) ... ok
+
+----------------------------------------------------------------------
+Ran 20 tests in 2.893s
+
+OK
+Native branch cases executed: 110208

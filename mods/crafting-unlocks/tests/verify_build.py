@@ -23,8 +23,20 @@ assert entry and dll_flags & 0x40 and dll_flags & 0x100
 unwind = struct.unpack_from('<II', b, optional + 112 + 3*8)
 relocs = struct.unpack_from('<II', b, optional + 112 + 5*8)
 assert all(unwind) and all(relocs)
-report = (root/'docs'/'PE_HEADER_IMPORTS_UNWIND.txt').read_text()
-imports = re.findall(r'DLL Name: (\S+)', report)
+section_table=optional+struct.unpack_from('<H',b,pe+20)[0]
+def file_offset(rva):
+    for i in range(section_count):
+        at=section_table+40*i
+        _,address,size,offset=struct.unpack_from('<IIII',b,at+8)
+        if address<=rva<address+size:return offset+rva-address
+    raise ValueError(f'Unmapped RVA {rva:x}')
+imports=[]
+import_rva=struct.unpack_from('<I',b,optional+112+8)[0]
+descriptor=file_offset(import_rva)
+while any(b[descriptor:descriptor+20]):
+    name=file_offset(struct.unpack_from('<I',b,descriptor+12)[0])
+    imports.append(b[name:b.index(0,name)].decode('ascii'))
+    descriptor+=20
 assert imports == ['KERNEL32.dll']
 # Compare the compiled binding's source constants with actual captured instruction bytes.
 rows = (root/'evidence'/'targeted'/'functions'/'0171D880_asm.tsv').read_text().splitlines()
@@ -47,11 +59,13 @@ assert 'BackpackCallBytes[5]={0xE8,0x85,0x63,0x64,0xFF}' in source
 assert 'u8 id=0;u32 key=0;' in source # Native table type is one byte, not padding.
 copyasm = (root/'evidence/backpack/00B7E950_asm.txt').read_text()
 assert 'MOV R13,RDX' in copyasm and 'MOVSXD RDI,R8D' in copyasm
-assert b'DS2 Crafting Unlocks 1.0.0' in b
+assert b'DS2 Crafting & Equipment Overhaul 1.6.0' in b
+assert b'ATLAS_ON:' in b and b'ATLAS_OFF:' in b
 assert b'BACKPACK_MENU ' in b
 config=(root/'release/ds2_crafting_unlocks.ini').read_text(encoding='ascii')
 keys=re.findall(r'(?m)^(0x[0-9A-F]{8})=1\s*;',config)
-assert len(keys)==119 and len(set(keys))==119
+assert len(keys)==132 and len(set(keys))==132
+assert '[AtlasEquipment]\nEnabled=0' in config
 result = {
     'status':'PASS_STRUCTURAL_ONLY',
     'file':asi.name,
@@ -65,13 +79,14 @@ result = {
     'unwind_directory_present':True,
     'analysed_exe_sha256':exe_hash,
     'callsite_rva':'0x0171DB1D',
-    'version':'1.0.0',
+    'version':'1.6.0',
     'backpack_callsite_rva':'0x01529896',
     'backpack_callsite_expected_bytes':'E8 85 63 64 FF',
     'backpack_original_target_rva':'0x00B6FC20',
     'native_vector_copy_rva':'0x00B7E950',
     'new_call_bytes_origin':'Computed from master CALL rel32 and verified at runtime, not a raw capture',
-    'config_keys':119,
+    'config_keys':132,
+    'optional_atlas_items':2,
     'new_backpack_keys':29,
     'callsite_expected_bytes':'E8 9E 1E 45 FF',
     'original_target_rva':'0x00B6F9C0',

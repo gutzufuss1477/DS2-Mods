@@ -31,7 +31,12 @@ export UBSAN_OPTIONS="halt_on_error=1:print_stacktrace=1"
 ./build/backpack_tests_asan release/ds2_crafting_unlocks.ini | tee docs/BACKPACK_SANITIZERS.txt
 "$LLD_LINK" /lib /machine:x64 /def:src/kernel32.def /out:build/kernel32.lib
 "$CLANG_CL" --target=x86_64-pc-windows-msvc /nologo /std:c++17 /O2 /GS- /GR- /EHs-c- /Zl /c src/mod.cpp /Fobuild/mod.obj
-"$LLD_LINK" /dll /entry:DllMain /machine:x64 /nodefaultlib /dynamicbase /nxcompat /opt:ref /opt:icf /out:release/ds2_crafting_unlocks.asi /implib:build/ds2_crafting_unlocks.lib build/mod.obj build/kernel32.lib
+"$CLANG_CL" --target=x86_64-pc-windows-msvc /nologo /std:c++17 /O2 /GS- /GR- /EHs-c- /Zl /c src/atlas/runtime.cpp /Fobuild/atlas.obj
+for asm in freecrafting_thunks special_boot_thunk durability_thunks; do
+  "$CLANG_CL" --target=x86_64-pc-windows-msvc /nologo /c "src/$asm.s" "/Fobuild/$asm.obj"
+done
+"$CLANG_CL" --target=x86_64-pc-windows-msvc /nologo /c src/atlas/loading_thunk.s /Fobuild/atlas_loading_thunk.obj
+"$LLD_LINK" /dll /entry:DllMain /machine:x64 /nodefaultlib /dynamicbase /nxcompat /opt:ref /opt:icf /out:release/ds2_crafting_unlocks.asi /implib:build/ds2_crafting_unlocks.lib build/mod.obj build/atlas.obj build/atlas_loading_thunk.obj build/freecrafting_thunks.obj build/special_boot_thunk.obj build/durability_thunks.obj build/kernel32.lib
 "$OBJDUMP" -p release/ds2_crafting_unlocks.asi > docs/PE_HEADER_IMPORTS_UNWIND.txt
 "$OBJDUMP" -d release/ds2_crafting_unlocks.asi > docs/COMPILED_DISASSEMBLY.txt
 python3 tests/verify_build.py | tee docs/STRUCTURAL_CHECK.txt

@@ -1,0 +1,210 @@
+{
+  "read_only": true,
+  "items": {
+    "21": {
+      "id": 21,
+      "level": 0,
+      "category": 6,
+      "subcategory": 1,
+      "params": [],
+      "decrease_speed": 5.0,
+      "pointer": "0x1c6062c43b8",
+      "list_pointer": "0x1c606239ec8",
+      "list_id": 1000011,
+      "list_namecode": "0x58ea5c0c",
+      "name": "Kampfskelett St.1",
+      "description": "Ein Aktivskelett für den Kampf. <color name=yellow>Verbraucht Akku</color>, um die Bewegungsgeschwindigkeit beim Boosten zu erhöhen und den Schaden durch eintreffende Geschosse mithilfe eines an der Taille angebrachten, elektromagnetischen Schilds zu verringern. Erhöht außerdem die Tragekapazität, sodass du zusätzliche 60 kg aufnehmen kannst.",
+      "list_name": "Kampfskelett St.1",
+      "uuid": "2e6e825123b141beb8f293cc34d63393"
+    },
+    "11": {
+      "id": 11,
+      "level": 0,
+      "category": 5,
+      "subcategory": 5,
+      "params": [
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0
+      ],
+      "decrease_speed": 0.0,
+      "pointer": "0x1c6062d2a10",
+      "list_pointer": "0x1c602767098",
+      "list_id": 1000001,
+      "list_namecode": "0x4b48c47b",
+      "name": "Transportstiefel",
+      "description": "Gewöhnliche Stiefel, die bei Boten sehr beliebt sind. Sie bieten grundlegenden Schutz bei Lieferungen.",
+      "list_name": "Transportstiefel",
+      "uuid": "391b4b3adba34c0a8d3e720893f15202"
+    },
+    "103": {
+      "id": 103,
+      "level": 0,
+      "category": 5,
+      "subcategory": 5,
+      "params": [
+        1.0,
+        0.5,
+        1.2000000476837158,
+        0.5,
+        0.5,
+        0.0
+      ],
+      "decrease_speed": 0.0,
+      "pointer": "0x1ca17690000",
+      "list_pointer": "0x1ca176900a0",
+      "list_id": 1000103,
+      "list_namecode": "0x43c6eb3d",
+      "name": "ATLAS-Stiefel",
+      "description": "ATLAS-Ausrüstung: sicherer Halt, hohe Stoßabsorption, stärkere Tritte und leise Schritte. Gewicht: 0,2 kg. Haltbarkeit: 3400.",
+      "list_name": "ATLAS-Stiefel",
+      "uuid": "670179cebd4c634a81a54694d821aeb7"
+    },
+    "104": {
+      "id": 104,
+      "level": 2,
+      "category": 6,
+      "subcategory": 1,
+      "params": [],
+      "decrease_speed": 3.0,
+      "pointer": "0x1ca176a0000",
+      "list_pointer": "0x1ca176a00a0",
+      "list_id": 1000104,
+      "list_namecode": "0x3f6ef47b",
+      "name": "ATLAS-Skelett",
+      "description": "ATLAS-Ausrüstung mit Kampf-, Boost- und Bokka-Effekten auf Stufe 3: schnelle Bewegung, stärkere Sprünge, Geländehilfe und elektromagnetischer Schutz. Verbraucht Akku. Tragkraftbonus: bis zu +180 kg mit Akku, +100 kg ohne Akku. Gewicht: 4,0 kg. Haltbarkeit: 20000. Packgröße: L.",
+      "list_name": "ATLAS-Skelett",
+      "uuid": "680179cebd4c634a81a54694d821aeb7"
+    }
+  },
+  "recipes": {
+    "11": {
+      "pointer": "0x1c6063d4770",
+      "namecode": "0x6e7d4315",
+      "bag_namecode": "0x45711b80",
+      "bag_registered": true,
+      "linked_list_pointer": "0x1c602767098",
+      "name": "Transportstiefel",
+      "weight": 0.4000000059604645,
+      "durability": 1000,
+      "new_durability": 1000,
+      "native_instance_index": 0,
+      "native_unlocked": true,
+      "usage": 9,
+      "story_fact": "0x1c606246138",
+      "online_fact": "0x0",
+      "online_level2_fact": "0x0",
+      "dlc_status": 0
+    },
+    "21": {
+      "pointer": "0x1c6062ce348",
+      "namecode": "0x7ddfdb62",
+      "bag_namecode": "0x56d383f7",
+      "bag_registered": true,
+      "linked_list_pointer": "0x1c606239ec8",
+      "name": "Kampfskelett St.1",
+      "weight": 12.0,
+      "durability": 16000,
+      "new_durability": 16000,
+      "native_instance_index": 9,
+      "native_unlocked": false,
+      "usage": 9,
+      "story_fact": "0x1c605e20058",
+      "online_fact": "0x0",
+      "online_level2_fact": "0x0",
+      "dlc_status": 0
+    },
+    "103": {
+      "pointer": "0x1ca176901e8",
+      "namecode": "0x616526a9",
+      "bag_namecode": "0x3b0ecb3e",
+      "bag_registered": true,
+      "linked_list_pointer": "0x1ca176900a0",
+      "name": "ATLAS-Stiefel",
+      "weight": 0.20000000298023224,
+      "durability": 3400,
+      "new_durability": 3400,
+      "native_instance_index": 903,
+      "native_unlocked": true,
+      "usage": 1,
+      "story_fact": "0x0",
+      "online_fact": "0x0",
+      "online_level2_fact": "0x0",
+      "dlc_status": 0
+    },
+    "104": {
+      "pointer": "0x1ca176a01e8",
+      "namecode": "0x2161d6c",
+      "bag_namecode": "0x4d918add",
+      "bag_registered": true,
+      "linked_list_pointer": "0x1ca176a00a0",
+      "name": "ATLAS-Skelett",
+      "weight": 4.0,
+      "durability": 20000,
+      "new_durability": 20000,
+      "native_instance_index": 904,
+      "native_unlocked": true,
+      "usage": 1,
+      "story_fact": "0x0",
+      "online_fact": "0x0",
+      "online_level2_fact": "0x0",
+      "dlc_status": 0
+    }
+  },
+  "checks": {
+    "all_four_item_ids_present": true,
+    "native_parameters_unchanged": true,
+    "all_four_recipes_present": true,
+    "graph_11": true,
+    "equipment_list_id_11": true,
+    "graph_21": true,
+    "equipment_list_id_21": true,
+    "graph_103": true,
+    "equipment_list_id_103": true,
+    "graph_104": true,
+    "equipment_list_id_104": true,
+    "material_11": true,
+    "material_21": true,
+    "material_103": true,
+    "material_104": true,
+    "visual_resources_103_match_20": true,
+    "unconditional_recipe_103": true,
+    "visual_resources_104_match_26": true,
+    "unconditional_recipe_104": true
+  },
+  "limitations": [
+    "Fabrication, mesh appearance and save/restart/load require the user-controlled game test."
+  ],
+  "unexpected_native_item_changes": [],
+  "visual_resources": {
+    "26": {
+      "icon_pointer": "0x3aad7301010",
+      "model_and_helper_uuid": "0000000000000000000000000000000000000000000000000000000000000000",
+      "list_texture_pointer": "0x3aad72d4e70",
+      "list_color": 2
+    },
+    "20": {
+      "icon_pointer": "0x3aad7310700",
+      "model_and_helper_uuid": "0000000000000000000000000000000000000000000000000000000000000000",
+      "list_texture_pointer": "0x3aad7124750",
+      "list_color": 2
+    },
+    "103": {
+      "icon_pointer": "0x3aad7310700",
+      "model_and_helper_uuid": "0000000000000000000000000000000000000000000000000000000000000000",
+      "list_texture_pointer": "0x3aad7124750",
+      "list_color": 2
+    },
+    "104": {
+      "icon_pointer": "0x3aad7301010",
+      "model_and_helper_uuid": "0000000000000000000000000000000000000000000000000000000000000000",
+      "list_texture_pointer": "0x3aad72d4e70",
+      "list_color": 2
+    }
+  },
+  "status": "registration verified",
+  "pid": 34572
+}

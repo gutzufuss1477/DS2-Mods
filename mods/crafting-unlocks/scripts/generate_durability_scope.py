@@ -14,6 +14,9 @@ boot_recipe_keys=[0x6E7D4315,0x7D2DB0E1,0x0F4633E2,0x1C16C016,0x5B8C5709,0x16CF9
 boot_rows=[next(r for r in selected if int(r["recipe_key"],16)==k) for k in boot_recipe_keys]
 boot_bags=sorted({int(r["bag_namecode"],16) for r in boot_rows})
 assert len(boot_bags)==8 and 0 not in boot_bags
+# Stable ATLAS baggage identities; registered even with recipes hidden.
+bags=sorted(bags+[0x3B0ECB3E,0x4D918ADD])
+boot_bags=sorted(boot_bags+[0x3B0ECB3E])
 
 a=[
 ".intel_syntax noprefix",".text",
