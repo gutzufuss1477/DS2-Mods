@@ -5,6 +5,7 @@ Source code, documentation and validated releases for my DEATH STRANDING 2 mods.
 ## Mods
 
 - [Jump Ramp Unlimited](mods/jump-ramp-unlimited/)
+- [Beach Jump with Cargo](mods/beach-jump-with-cargo/)
 
 - [Crafting & Equipment Overhaul - Unlocks, Free Crafting, Durability & ATLAS Gear](mods/crafting-unlocks/)
 

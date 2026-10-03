@@ -1,0 +1,59 @@
+[size=5][b]Beach Jump with Cargo[/b][/size]
+
+Keep the cargo Sam is already carrying when using [b]Beach Jump fast travel[/b] in DEATH STRANDING 2: ON THE BEACH.
+
+[size=4][b]Features[/b][/size]
+
+[list]
+[*]Keeps cargo on Sam's backpack through Beach Jump travel.
+[*]Keeps shoulder / waist / body-mounted cargo with Sam.
+[*]Works with Transponder fast travel.
+[*]Works with Hot Spring Jump travel.
+[*]No new keybinds or gameplay steps.
+[/list]
+
+The mod skips the game's fast-travel baggage handling while leaving the actual destination, loading and arrival systems untouched.
+
+[b]Not included:[/b] vehicles, Floating Carriers, cargo left on the ground, or other cargo that Sam is not carrying.
+
+[size=4][b]Requirements[/b][/size]
+
+[list]
+[*]DEATH STRANDING 2: ON THE BEACH — PC Steam 1.10.89.0.
+[*]A compatible x64 ASI loader.
+[/list]
+
+The ASI loader is not included. A future game update may require an updated version of the mod.
+
+[size=4][b]Installation[/b][/size]
+
+1. Fully close the game.
+2. Extract these two files beside [b]DS2.exe[/b]:
+   - ds2_beach_jump_with_cargo.asi
+   - ds2_beach_jump_with_cargo.ini
+3. Start the game normally.
+
+The mod is enabled by default.
+
+[size=4][b]Setting[/b][/size]
+
+[code]
+[BeachJumpWithCargo]
+Enabled=1
+[/code]
+
+Use [b]Enabled=0[/b] to disable it, then restart DS2.
+
+[size=4][b]Testing[/b][/size]
+
+The working mechanism was confirmed in gameplay with repeated Facility/Transponder travel and Hot Spring Jump travel. Backpack and body-mounted cargo remained with Sam after arrival.
+
+The release also checks the supported executable and exact hook bytes before activating. If a check fails, the mod stays inactive and writes the reason to [b]ds2_beach_jump_with_cargo.log[/b].
+
+[size=4][b]Uninstall[/b][/size]
+
+Close DS2 and remove the ASI and INI. The optional generated log can also be deleted.
+
+The mod changes the running game's memory only. It does not edit save files, game archives or DS2.exe on disk.
+
+[url=https://github.com/gutzufuss1477/DS2-Mods/tree/main/mods/beach-jump-with-cargo]Source code and validation notes on GitHub[/url]

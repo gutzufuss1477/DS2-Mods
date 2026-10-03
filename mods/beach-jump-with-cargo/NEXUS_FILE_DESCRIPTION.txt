@@ -1,0 +1,1 @@
+Beach Jump with Cargo v1.0.0. Extract the ASI and INI beside DS2.exe. Requires an x64 ASI loader. Tested with PC Steam 1.10.89.0.

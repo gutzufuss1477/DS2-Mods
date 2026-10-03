@@ -1,0 +1,4 @@
+config/ds2_beach_jump_with_cargo.ini -text -diff
+release/ds2_beach_jump_with_cargo.ini -text -diff
+release/*.asi -text -diff
+release/*.zip -text -diff

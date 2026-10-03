@@ -1,0 +1,8 @@
+{
+  "result": "PASS",
+  "ds2_sha256": "BF3D1C665545930BC850D8F5DF486F7395885BB729D4FD408FDB03390DE0765B",
+  "timestamp": "0x6A3DAE46",
+  "size_of_image": "0x0B292000",
+  "target_rva": "0x011E34A0",
+  "target_prologue": "40 55 41 55 41 56 41 57"
+}

@@ -1,0 +1,10 @@
+{
+  "mod": "Beach Jump with Cargo",
+  "version": "1.0.0",
+  "target": "DEATH STRANDING 2 PC Steam 1.10.89.0",
+  "files": {
+    "ds2_beach_jump_with_cargo.asi": "23272BF40C571C5CDBEED9148459CFAA1D7F20F0E76F2A08D5E83A5DA11E2567",
+    "ds2_beach_jump_with_cargo.ini": "111CCF5E185BFE83EF2A66C5A0B9185A42822440A25DBF0FDF36799FFD8C9286",
+    "DS2_Beach_Jump_with_Cargo_v1.0.0.zip": "20DF02B3A12F619222C76CA0FFFB398BCD815CA5333CC7DA77AF6ADA17505026"
+  }
+}
