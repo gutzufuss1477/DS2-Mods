@@ -48,4 +48,9 @@ if errorlevel 1 exit /b 1
 if errorlevel 1 exit /b 1
 build\atlas_config_tests.exe release\ds2_crafting_unlocks.ini
 if errorlevel 1 exit /b 1
+"%CC%" /nologo /std:c++17 /EHsc /MT /O2 tests\silenced_config_tests.cpp /Febuild\silenced_config_tests.exe /Fobuild\silenced_config_tests.obj
+if errorlevel 1 exit /b 1
+build\silenced_config_tests.exe release\ds2_crafting_unlocks.ini
+if errorlevel 1 exit /b 1
+
 echo ALL_WINDOWS_TESTS_PASSED

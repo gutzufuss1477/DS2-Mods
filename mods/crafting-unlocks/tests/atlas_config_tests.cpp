@@ -17,7 +17,7 @@ int main(int argc,char**argv){try{
  check(argc==2,"Supply release INI");
  std::ifstream f(argv[1],std::ios::binary);check(bool(f),"INI readable");
  std::string text((std::istreambuf_iterator<char>(f)),{});auto shipped=parseOk(text);
- check(!shipped.atlasEnabled&&!shipped.atlasGoldSkin&&shipped.count==132,"ATLAS optional; gold skin opt-in; original 132 rules retained");
+ check(shipped.atlasEnabled&&shipped.atlasGoldSkin&&shipped.count==132,"Nexus enables ATLAS and gold skin; original 132 rules retained");
  const std::string legacy="[CraftingUnlocks]\nEnabled=1\nDefaultUnlock=1\n";
  auto old=parseOk(legacy);check(!old.atlasEnabled&&!old.atlasGoldSkin,"Legacy config defaults ATLAS and gold skin off");
  for(bool flag:{false,true})for(bool unlock:{false,true}){
@@ -46,7 +46,7 @@ int main(int argc,char**argv){try{
  check(equipment::BootBag==0x3B0ECB3E&&equipment::SkeletonBag==0x4D918ADD,"Stable saved baggage keys");
  check(contains(DurabilityCraftedBaggage,equipment::BootBag)&&contains(DurabilityCraftedBaggage,equipment::SkeletonBag),"Both ATLAS bags covered by durability");
  check(contains(DurabilityBootBaggage,equipment::BootBag)&&!contains(DurabilityBootBaggage,equipment::SkeletonBag),"Boot wear scope exact");
- check(FreeRecipeKeyCount==134,"132 original plus two ATLAS recipes");
+ check(FreeRecipeKeyCount==138,"132 original plus two ATLAS and four suppressed recipes");
  for(u32 i=1;i<FreeRecipeKeyCount;++i)check(FreeRecipeKeys[i-1]<FreeRecipeKeys[i],"Free recipe keys unique and sorted");
  std::cout<<"PASS "<<checks<<" ATLAS integration/config/identity assertions.\n";return 0;
  }catch(const std::exception&e){std::cerr<<"FAIL: "<<e.what()<<"\n";return 1;}}

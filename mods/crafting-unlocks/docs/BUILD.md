@@ -1,49 +1,47 @@
-# Build and package
+# Build and package 1.7.0
 
 ## Windows
 
-Use LLVM with `clang-cl.exe` and `lld-link.exe`. Run `build.ps1` from this mod's
-folder. `-LlvmBin` can point to another LLVM bin directory. The compiler target
-is explicitly Windows AMD64; no game executable is required or modified.
-The kernel32 import library is generated from `src/kernel32.def`; the runtime
-uses no imported Visual C++ CRT. Build intermediates remain under `build/`.
-The output is `release/ds2_crafting_unlocks.asi`.
+Use LLVM clang-cl/lld-link, Python 3.9+ and a Windows SDK with D3D12 headers.
+Run `build.ps1` from the mod folder. It embeds the hash-checked weapon pixel
+payloads and compiles the host, ATLAS and weapons into one ASI with one DllMain,
+initialization worker, INI and log. Only KERNEL32.dll is imported; D3D12 calls
+use the game's existing device. No game files are changed during the build.
 
-For 1.6.1, run `scripts/build_tests.cmd` and `scripts/test_atlas.ps1` after
-building. They exercise production policy and machine-code thunks in separate
-Windows test processes, including ATLAS recipe toggles and saved identities.
-Run `python tests/verify_build.py` for the PE/INI checks and
-`python tests/verify_integration.py` for all 91 exact native signatures and
-hook overlap checks. The ATLAS tests and integration check need Python with
-Capstone and the verified local game EXE at `analysis/DS2.exe` in the workspace.
-The runtime is compiled into the same ASI from `src/atlas/`; it has no second
-DllMain, worker, INI or log. The standalone 0.2.4 native logic is retained.
+Run `scripts/build_tests.cmd`, `scripts/test_atlas.ps1` and
+`scripts/test_weapons.ps1`. The latter two need Python Capstone and the exact
+local game executable at the workspace's `analysis/DS2.exe`. Weapon resource
+fixtures are extracted from `tests/fixtures/weapons-native.zip` into `build/`.
+The GPU tests run real D3D12 uploads/readbacks in separate test processes.
+The Windows C++ host tests require Visual Studio Build Tools.
 
-The tracked release INI is already complete. Regeneration requires Python 3.9+
-and `python tools/generate_english_config.py`. This command writes the default
-INI; do not point it at a player's personalized game configuration.
+Run `python tests/verify_build.py`, `python tests/verify_integration.py` and
+`python scripts/smoke_loader.py` for PE/config, all 94 exact signatures and
+overlap checks, and disposable-process loader rejection tests. These tests
+do not start or write to DS2 and do not replace a combined gameplay test.
 
-## Linux build / host tests
+## Configuration and policies
 
-Run `bash tools/validate.sh` using clang++, clang-cl, lld-link, objdump and
-Python 3.9+. It runs the production-core tests, the original 90-entry regression
-fixture and the actual 132-entry release configuration. Core, original-config
-and backpack tests run again with AddressSanitizer and UndefinedBehaviorSanitizer.
-It then cross-compiles the Windows ASI and verifies its PE structure and bindings.
-This is not native Windows or game execution.
+`python tools/generate_english_config.py` regenerates the public defaults.
+`python scripts/generate_durability_scope.py` regenerates the shared native
+durability thunks/allowlists, including four new and one legacy weapon bags.
+Do not run config generation on a player's personalized INI.
 
-Build compiler/options are recorded in `validation/TOOLCHAIN.txt`. The packaged
-release is freshly linked; another toolchain/link timestamp can produce a
-different binary hash without changing the source. Preserve the supplied
-SHA256 manifest for the exact uploaded release artifact.
+## Linux policy checks
+
+`bash tools/validate.sh` runs host policy/config tests and their ASan/UBSan
+variants only. Build the complete ASI on Windows because the weapon GPU
+translation unit requires the Windows SDK. Linux checks do not overwrite the
+validated Windows binary.
 
 ## Packaging
 
-Run `python scripts/package_release.py` after building and validating. This
-refreshes release file checksums and creates the standalone ZIP under `release/`.
-Only ASI, INI, user documentation and checksums are included. No import library,
-object file, development log, source dump, loader or game asset is in that ZIP.
+After validation run `python scripts/package_release.py`. It creates
+`release/DS2_Crafting_Equipment_Overhaul_v1.7.0.zip` containing the single ASI,
+INI, English/German instructions, changelog and SHA256SUMS. Weapon texture
+payloads are embedded in the ASI; no extra runtime ASIs or texture files are
+needed. Keep the exact uploaded artifact's checksum.
 
-The Git package adds `mods/crafting-unlocks/` to the existing DS2-Mods repository.
-It does not integrate the mod into the all-in-one installer. Do not replace the
-repository's README or installer files with an old full-repository snapshot.
+This standalone Nexus package does not update the separate DS2 Mod Suite
+installer or its embedded catalog. Existing Mod Suite behavior remains at its
+published version.

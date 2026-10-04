@@ -58,7 +58,7 @@ int main(int argc, char** argv) {
                                std::istreambuf_iterator<char>()};
         const auto shipped = read_settings(text);
         check(shipped.enabled && shipped.all && !shipped.dump, "shipped global defaults");
-        check(!shipped.atlasGoldSkin, "gold ATLAS skin is opt-in by default");
+        check(!shipped.atlasGoldSkin, "legacy 90-key fixture keeps normal ATLAS skin");
         check(shipped.count == 90, "90 parsed recipe keys with inline English comments");
         std::vector<Recipe> recipes;
         for (u32 i = 0; i < shipped.count; ++i) {

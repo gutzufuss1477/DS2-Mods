@@ -91,6 +91,8 @@ DurabilityContentsThunk:
     je .contents_supported
     cmp eax, 0x23D732CC
     je .contents_supported
+    cmp eax, 0x2445B690
+    je .contents_supported
     cmp eax, 0x244A6B77
     je .contents_supported
     cmp eax, 0x28C28248
@@ -179,6 +181,8 @@ DurabilityContentsThunk:
     je .contents_supported
     cmp eax, 0x50113962
     je .contents_supported
+    cmp eax, 0x503A528D
+    je .contents_supported
     cmp eax, 0x50ABE99D
     je .contents_supported
     cmp eax, 0x50E352E1
@@ -229,6 +233,8 @@ DurabilityContentsThunk:
     je .contents_supported
     cmp eax, 0x67C08356
     je .contents_supported
+    cmp eax, 0x6A2E15D9
+    je .contents_supported
     cmp eax, 0x6A326128
     je .contents_supported
     cmp eax, 0x6AC00AAB
@@ -251,6 +257,8 @@ DurabilityContentsThunk:
     je .contents_supported
     cmp eax, 0x7196B319
     je .contents_supported
+    cmp eax, 0x73600355
+    je .contents_supported
     cmp eax, 0x73719C89
     je .contents_supported
     cmp eax, 0x7469FCFA
@@ -266,6 +274,8 @@ DurabilityContentsThunk:
     cmp eax, 0x77C78A58
     je .contents_supported
     cmp eax, 0x7990F95F
+    je .contents_supported
+    cmp eax, 0x79A683D1
     je .contents_supported
     cmp eax, 0x7C9BEDC6
     je .contents_supported

@@ -25,6 +25,7 @@ assert len(sites)==85
 for rva,expected in re.findall(r'\{(0x[0-9A-F]+),\{([^}]+)\},\(void\*\)',source('durability_runtime.inl')):add(int(rva,16),byte_list(expected),'durability')
 assert len(sites)==88
 for rva,expected in [(0x171DB1D,'e89e1e45ff'),(0x1529896,'e8856364ff'),(0x171C124,'0f84b2000000')]:add(rva,bytes.fromhex(expected),'menus')
+for rva,expected in [(0xB6CB20,'48895c2408'),(0x1FAD390,'e9bbc4ffff'),(0x17BE390,'48895c2408')]:add(rva,bytes.fromhex(expected),'weapons')
 im=Image();sites.sort()
 for i,(rva,expected,group) in enumerate(sites):
  assert im.read(rva,len(expected))==expected,(hex(rva),group,'native bytes differ')
@@ -40,10 +41,10 @@ for i in range(count):
  chars=struct.unpack_from('<I',binary,off+36)[0]
  assert not(chars&0x20000000 and chars&0x80000000),('writable executable section',name)
  sections.append(name)
-assert b'DS2 Crafting & Equipment Overhaul 1.6.1' in binary and b'ATLAS_ON:' in binary and b'ATLAS_OFF:' in binary
-report={'version':'1.6.1','sha256':hashlib.sha256(binary).hexdigest(),'bytes':len(binary),'hook_count':len(sites),
- 'groups':{g:sum(s[2]==g for s in sites) for g in ['atlas','freecrafting','durability','menus']},
+assert b'DS2 Crafting & Equipment Overhaul 1.7.0' in binary and b'ATLAS_ON:' in binary and b'ATLAS_OFF:' in binary
+report={'version':'1.7.0','sha256':hashlib.sha256(binary).hexdigest(),'bytes':len(binary),'hook_count':len(sites),
+ 'groups':{g:sum(s[2]==g for s in sites) for g in ['atlas','freecrafting','durability','menus','weapons']},
  'exact_exe_signatures':True,'overlapping_hooks':False,'amd64_dll':True,'aslr_nx':True,'writable_executable_sections':False,
  'sites':[{'rva':hex(a),'length':len(b),'group':g} for a,b,g in sites]}
-(ROOT/'validation/integration-1.6.1.json').write_text(json.dumps(report,indent=2)+'\n',encoding='utf-8')
+(ROOT/'validation/integration-1.7.0.json').write_text(json.dumps(report,indent=2)+'\n',encoding='utf-8')
 print(f"PASS {len(sites)} exact native signatures; no overlaps; AMD64 DLL, ASLR/NX, no RWX sections.")

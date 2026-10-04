@@ -1,21 +1,8 @@
-[b]1.6.1[/b]
-- Added GoldSkeletonSkin=0/1 under [AtlasEquipment].
-- 0 keeps the normal Boost Skeleton Lv.3 appearance; 1 uses the native gold Boost Skeleton Lv.3 appearance.
-- The selected skin applies to both the fabrication preview and the equipped ATLAS Skeleton.
-- Confirmed in-game on a non-Deluxe installation; old INIs remain compatible and default to the normal skin.
-
-[b]1.6.0 - Crafting & Equipment Overhaul[/b]
-Renamed from Crafting Overhaul.
-
-- Added optional ATLAS Boots and ATLAS Skeleton, combining footwear and Battle/Boost/Bokka effects.
-- ATLAS gear is available without story unlocks, with Pizza Baker / Boost Lv.3 looks and hip cargo support.
-- ATLAS uses the same INI, FreeCrafting and durability options; its fabrication toggle is off by default.
-- Added German/English ATLAS text and retained existing ATLAS item identities for saved equipment.
-
-[b]Version 1.5.0[/b]
-
-- Added 11 usable enemy-drop weapons to fabrication.
-- Added Ghost Blade to fabrication.
-- New enemy-drop weapons support FreeCrafting and durability options.
-- Increased configurable entries from 121 to 132.
-- Heavy Machine Gun [MP] tested but intentionally excluded because it cannot be transferred through the normal cargo/inventory path.
+[b]1.7.0[/b]
+- Integrated four black/red suppressed variants: Assault Rifle [MP] Lv.2, Machine Gun [MP] Lv.2, Shotgun [MP] Lv.2 and Big-Bore Handgun [MP].
+- Added red menu images and visible suppressors while retaining the original weapon performance and grenade launchers.
+- Added [SuppressedWeapons] switches to the existing INI; FreeCrafting and durability settings also cover the new weapons.
+- Nexus defaults now enable ATLAS recipes and GoldSkeletonSkin=1. Set GoldSkeletonSkin=0 for the normal appearance.
+- Preserved the 1.6.1 ATLAS gold update and all existing overhaul features in one ASI/INI package.
+- Retained custom saved identities, including hidden legacy Machine Pistol 302; the redundant recipe is not published.
+- Remove standalone ds2_more_silenced_guns.asi and ds2_overpowered_equipment.asi when upgrading.

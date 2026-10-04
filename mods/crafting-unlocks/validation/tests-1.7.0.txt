@@ -1,0 +1,19 @@
+Generated reference code for 44 reviewed instructions and both stack alignments.
+PASS 335437 host assertions (policy/layout/selection/SHA); Windows/game hook NOT executed
+PASS 9297 config/progression-policy assertions; 90 shipped recipe keys.
+Original production core used unchanged. Native progression was supplied as test input.
+No Windows/game execution; no claim that all story rewards or notifications were tested.
+PASS 13603 backpack/config assertions; 132 INI keys; 103 normal + 19 modules + 2 covers + 8 charms.
+Native progression was supplied as policy input. No Windows loader, engine-copy, or in-game test.
+PASS 101376 native instruction cases, 304628 assertions, 88 Windows unwind checks.
+44 production thunks; 138 supported + 6 excluded keys; both stack alignments; flag on/off; original data unchanged.
+No game execution. This validates machine-code/ABI and configuration, not DS2 gameplay.
+PASS 26900 transactional patch assertions; actual production transaction with simulated failure injection.
+49 sites, protection/cache failures at every write position, mismatch/RIP checks, resume/rollback failures and FreeCrafting=0.
+No real Windows thread or page permissions were changed by this test.
+PASS 35 targeted Usage=None UI filter cases.
+PASS 1002001 scoped durability assertions.
+139 crafted baggage IDs + 9 boot IDs tested; cargo/container +0x84 never patched.
+Boots multiplier/unbreakable and live EFLAGS preservation verified.
+PASS 202 ATLAS integration/config/identity assertions.
+ALL_WINDOWS_TESTS_PASSED

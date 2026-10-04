@@ -36,3 +36,6 @@ GetProcessIdOfThread
 GetThreadId
 GetExitCodeThread
 VirtualQuery
+AcquireSRWLockExclusive
+ReleaseSRWLockExclusive
+ExitProcess

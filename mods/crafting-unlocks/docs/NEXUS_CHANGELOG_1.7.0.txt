@@ -1,0 +1,9 @@
+1.7.0 - Suppressed weapons and gold ATLAS defaults
+
+- Integrated four black/red suppressed variants: Assault Rifle [MP] Lv.2, Machine Gun [MP] Lv.2, Shotgun [MP] Lv.2 and Big-Bore Handgun [MP].
+- Added red menu images and visible suppressors while retaining the original weapon performance and grenade launchers.
+- Added [SuppressedWeapons] switches to the existing INI; FreeCrafting and durability settings also cover the new weapons.
+- Nexus defaults now enable ATLAS recipes and GoldSkeletonSkin=1. Set GoldSkeletonSkin=0 for the normal appearance.
+- Preserved the 1.6.1 ATLAS gold update and all existing overhaul features in one ASI/INI package.
+- Retained custom saved identities, including hidden legacy Machine Pistol 302; the redundant recipe is not published.
+- Remove standalone ds2_more_silenced_guns.asi and ds2_overpowered_equipment.asi when upgrading.

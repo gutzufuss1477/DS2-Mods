@@ -1,0 +1,20 @@
+[
+  {
+    "case": "disabled",
+    "exit_code": 0,
+    "stdout": "DS2 Crafting & Equipment Overhaul 1.7.0 | fabrication + backpack | exact-build gate | pid=18904 tick=1276064000\nDISABLED: no patch installed.\n",
+    "stderr": ""
+  },
+  {
+    "case": "wrong_executable",
+    "exit_code": 0,
+    "stdout": "DS2 Crafting & Equipment Overhaul 1.7.0 | fabrication + backpack | exact-build gate | pid=25248 tick=1276064203\nVERSION_BLOCKED: installed DS2.exe SHA-256 differs from analysed binary. No patch.\n",
+    "stderr": ""
+  },
+  {
+    "case": "invalid_config",
+    "exit_code": 0,
+    "stdout": "DS2 Crafting & Equipment Overhaul 1.7.0 | fabrication + backpack | exact-build gate | pid=13300 tick=1276064375\nCONFIG_ERROR line=8 global values must be 0 or 1\n",
+    "stderr": ""
+  }
+]

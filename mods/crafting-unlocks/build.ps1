@@ -20,6 +20,12 @@ try {
     if ($LASTEXITCODE -ne 0) { throw "Compilation failed: $LASTEXITCODE" }
     & $compiler '--target=x86_64-pc-windows-msvc' '/nologo' '/std:c++17' '/O2' '/GS-' '/GR-' '/EHs-c-' '/Zl' '/W4' '/c' 'src/atlas/runtime.cpp' '/Fobuild/atlas.obj'
     if ($LASTEXITCODE -ne 0) { throw "ATLAS compilation failed: $LASTEXITCODE" }
+    python tools/embed_weapon_pixels.py
+    if ($LASTEXITCODE -ne 0) { throw 'Weapon texture validation failed' }
+    & $compiler '--target=x86_64-pc-windows-msvc' '/nologo' '/std:c++17' '/O2' '/GS-' '/GR-' '/EHs-c-' '/Zl' '/W4' '/c' 'src/weapons/runtime.cpp' '/Fobuild/weapons.obj'
+    if ($LASTEXITCODE -ne 0) { throw 'Weapons compilation failed' }
+    & $compiler '--target=x86_64-pc-windows-msvc' '/nologo' '/std:c++17' '/O2' '/GS-' '/GR-' '/EHs-c-' '/Zl' '/W4' '/c' 'src/weapons/pistol_gpu.cpp' '/Fobuild/weapons_gpu.obj'
+    if ($LASTEXITCODE -ne 0) { throw 'Weapons GPU compilation failed' }
     & $compiler '--target=x86_64-pc-windows-msvc' '/nologo' '/c' 'src/atlas/loading_thunk.s' '/Fobuild/atlas_loading_thunk.obj'
     if ($LASTEXITCODE -ne 0) { throw "ATLAS assembly failed: $LASTEXITCODE" }
     & $compiler '--target=x86_64-pc-windows-msvc' '/nologo' '/c' 'src/freecrafting_thunks.s'  '/Fobuild/freecrafting_thunks.obj'
@@ -28,7 +34,7 @@ try {
     if ($LASTEXITCODE -ne 0) { throw "Special boot assembly failed: $LASTEXITCODE" }
     & $compiler '--target=x86_64-pc-windows-msvc' '/nologo' '/c' 'src/durability_thunks.s' '/Fobuild/durability_thunks.obj'
     if ($LASTEXITCODE -ne 0) { throw "Durability assembly failed: $LASTEXITCODE" }
-    & $linker '/dll' '/entry:DllMain' '/machine:x64' '/nodefaultlib' '/dynamicbase' '/nxcompat' '/opt:ref' '/opt:icf' '/out:release/ds2_crafting_unlocks.asi' '/implib:build/ds2_crafting_unlocks.lib' 'build/mod.obj' 'build/atlas.obj' 'build/atlas_loading_thunk.obj' 'build/freecrafting_thunks.obj' 'build/special_boot_thunk.obj' 'build/durability_thunks.obj' 'build/kernel32.lib'
+    & $linker '/dll' '/entry:DllMain' '/machine:x64' '/nodefaultlib' '/dynamicbase' '/nxcompat' '/opt:ref' '/opt:icf' '/out:release/ds2_crafting_unlocks.asi' '/implib:build/ds2_crafting_unlocks.lib' 'build/mod.obj' 'build/atlas.obj' 'build/weapons.obj' 'build/weapons_gpu.obj' 'build/atlas_loading_thunk.obj' 'build/freecrafting_thunks.obj' 'build/special_boot_thunk.obj' 'build/durability_thunks.obj' 'build/kernel32.lib'
     if ($LASTEXITCODE -ne 0) { throw "Link failed: $LASTEXITCODE" }
     Get-FileHash -Algorithm SHA256 -LiteralPath 'release/ds2_crafting_unlocks.asi'
 } finally {

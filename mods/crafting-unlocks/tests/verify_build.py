@@ -4,6 +4,7 @@ import hashlib
 import json
 import struct
 import re
+import configparser
 
 root = Path(__file__).resolve().parents[1]
 asi = root / 'release' / 'ds2_crafting_unlocks.asi'
@@ -59,13 +60,20 @@ assert 'BackpackCallBytes[5]={0xE8,0x85,0x63,0x64,0xFF}' in source
 assert 'u8 id=0;u32 key=0;' in source # Native table type is one byte, not padding.
 copyasm = (root/'evidence/backpack/00B7E950_asm.txt').read_text()
 assert 'MOV R13,RDX' in copyasm and 'MOVSXD RDI,R8D' in copyasm
-assert b'DS2 Crafting & Equipment Overhaul 1.6.1' in b
+assert b'DS2 Crafting & Equipment Overhaul 1.7.0' in b
 assert b'ATLAS_ON:' in b and b'ATLAS_OFF:' in b
 assert b'BACKPACK_MENU ' in b
 config=(root/'release/ds2_crafting_unlocks.ini').read_text(encoding='ascii')
 keys=re.findall(r'(?m)^(0x[0-9A-F]{8})=1\s*;',config)
 assert len(keys)==132 and len(set(keys))==132
-assert '[AtlasEquipment]' in config and re.search(r'(?m)^Enabled=0\s+;',config) and re.search(r'(?m)^GoldSkeletonSkin=0\s+;',config)
+assert '[AtlasEquipment]' in config and re.search(r'(?m)^Enabled=0\s+;',config) and re.search(r'(?m)^GoldSkeletonSkin=1\s+;',config)
+ini=configparser.ConfigParser(inline_comment_prefixes=(';',));ini.read_string(config)
+assert ini.getboolean('AtlasEquipment','Enabled') and ini.getboolean('AtlasEquipment','GoldSkeletonSkin')
+assert ini.getboolean('SuppressedWeapons','Enabled') and ini.getboolean('SuppressedWeapons','BlackRed')
+assert all(ini.getboolean('SuppressedWeapons',key) for key in ('AssaultRifleL2','MachineGunL2','ShotgunL2','BigBoreHandgun','MGVisualSuppressor','ShotgunVisualSuppressor','BigBoreVisualSuppressor'))
+assert ini.getint('SuppressedWeapons','Language')==0
+assert not ini.getboolean('CraftingUnlocks','FreeCrafting') and not ini.getboolean('Durability','Enabled')
+assert b'SUPPRESSED_ON:' in b and b'SUPPRESSED_OFF:' in b and b'LEGACY_WEAPON_REGISTERED' in b
 result = {
     'status':'PASS_STRUCTURAL_ONLY',
     'file':asi.name,
@@ -79,7 +87,7 @@ result = {
     'unwind_directory_present':True,
     'analysed_exe_sha256':exe_hash,
     'callsite_rva':'0x0171DB1D',
-    'version':'1.6.1',
+    'version':'1.7.0',
     'backpack_callsite_rva':'0x01529896',
     'backpack_callsite_expected_bytes':'E8 85 63 64 FF',
     'backpack_original_target_rva':'0x00B6FC20',
@@ -87,6 +95,8 @@ result = {
     'new_call_bytes_origin':'Computed from master CALL rel32 and verified at runtime, not a raw capture',
     'config_keys':132,
     'optional_atlas_items':2,
+    'suppressed_weapon_recipes':4,
+    'hidden_legacy_weapon_definitions':1,
     'new_backpack_keys':29,
     'callsite_expected_bytes':'E8 9E 1E 45 FF',
     'original_target_rva':'0x00B6F9C0',

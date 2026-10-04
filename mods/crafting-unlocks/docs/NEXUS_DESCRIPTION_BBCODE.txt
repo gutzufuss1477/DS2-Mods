@@ -1,47 +1,37 @@
 [b]Crafting & Equipment Overhaul[/b]
-Unlocks, Free Crafting, Durability & ATLAS Gear
+Unlocks, Free Crafting, Durability, ATLAS Gear & Suppressed Weapons
 
-Previously Crafting Overhaul. Customize fabrication and equipment in DEATH STRANDING 2: ON THE BEACH using one ASI and INI. Version 1.6.1 adds an optional native gold skin for the ATLAS Skeleton; ATLAS Boots and Skeleton remain optional.
+Version 1.7.0 combines the existing overhaul, the 1.6.1 gold ATLAS update and four new red suppressed weapons in one ASI and one INI.
 
 [b]Features[/b]
-- 132 individually configurable item unlocks, including equipment, weapons, backpack modules, covers and charms.
-- 11 usable enemy-drop weapons, including Ghost Blade, and craftable Omnireflector and Chiral Boots.
-- Optional free crafting and a durability multiplier from 1x to 1000x, or Unbreakable.
-- Optional ATLAS Boots combining footing, impact absorption, kick strength and quiet steps.
-- Optional ATLAS Skeleton combining Battle, Boost and Bokka effects at level 3, including the Bokka double jump and hip cargo.
-- Original equipment retains its own values and appearance; normal progression remains available.
+- 132 individually configurable original items, including weapons, equipment, backpack modules, covers and charms.
+- 11 usable enemy-drop weapons including Ghost Blade; craftable Omnireflector and Chiral Boots.
+- ATLAS Boots combine secure footing, impact absorption, stronger kicks and quiet steps.
+- ATLAS Skeleton combines Battle, Boost and Bokka effects at level 3, including double jump and hip cargo.
+- Optional shared FreeCrafting, durability multiplier (1x-1000x) and Unbreakable. Normal cargo, order cargo and containers retain vanilla durability.
 
-[b]ATLAS equipment[/b]
-ATLAS Boots use the Pizza Baker appearance, weigh 0.2 kg and have 3400 base durability. ATLAS Skeleton uses the ordinary Boost Skeleton Lv.3 appearance by default, or the native gold Boost Lv.3 appearance with GoldSkeletonSkin=1. It weighs 4.0 kg and has 20000 base durability. Its carrying bonus is up to 180 kg with power or 100 kg without power. Battery use and native jump/input conditions still apply.
+[b]Four new suppressed weapons[/b]
+- Assault Rifle [MP] Lv.2
+- Machine Gun [MP] Lv.2
+- Shotgun [MP] Lv.2
+- Big-Bore Handgun [MP]
 
-ATLAS recipes become available at ordinary fabrication facilities without story or donor-item unlock requirements. Their material costs match Transport Boots and Battle Skeleton Lv.1 unless FreeCrafting is enabled. ATLAS follows the shared durability settings. Names and descriptions are German in the German UI and English otherwise.
+Each is a separate craftable item with a black/red body, red menu image and visible suppressor. Base damage, fire rate, recoil, projectiles, magazine size and weight stay unchanged. The assault rifle and shotgun grenade launchers remain unsuppressed. MG and shotgun use existing suppressed rifle audio. Impacts, explosions and visible attacks can still alert enemies. The redundant custom Machine Pistol is not craftable.
 
-[b]Quick options[/b]
-[code][CraftingUnlocks]
-Enabled=1
-DefaultUnlock=1
-FreeCrafting=0
+[b]Gold ATLAS by default[/b]
+The Nexus INI enables ATLAS gear, its gold skeleton appearance and the four new weapons. Set GoldSkeletonSkin=0 under [AtlasEquipment] to use the normal Boost Lv.3 appearance. This affects both menu preview and equipped skeleton; combined effects are unchanged. FreeCrafting and durability changes remain off by default.
 
-[AtlasEquipment]
-Enabled=0
-GoldSkeletonSkin=0
+ATLAS Boots use the Pizza Baker appearance, weigh 0.2 kg and have 3400 base durability. ATLAS Skeleton weighs 4.0 kg and has 20000 base durability. Carry bonus: up to 180 kg powered / 100 kg unpowered, not added together. Battery use and native jump conditions apply. Custom recipes have no extra story or donor-item unlock requirements at an accessible ordinary fabrication facility. Names are German in the German UI and English otherwise.
 
-[Durability]
-Enabled=0
-Multiplier=2.0
-Unbreakable=0[/code]
-Set AtlasEquipment.Enabled=1 to enable ATLAS fabrication. Set GoldSkeletonSkin=1 for the native gold ATLAS Skeleton appearance. ATLAS, the gold skin, FreeCrafting and durability changes are off by default. Individual item rules control early unlocks for the 132 original supported items. Restart after changing the INI.
-
-Durability covers supported crafted equipment, nine boot types including ATLAS, and Backpack Cover Lv.1/Lv.2. Cargo, order cargo and cargo containers retain their native durability.
+[b]Configuration[/b]
+Use [AtlasEquipment] Enabled=0 to hide ATLAS recipes, or [SuppressedWeapons] Enabled=0 to hide the new weapon recipes. Existing saved items remain supported while the global [CraftingUnlocks] Enabled=1 stays on. The four weapons also have individual switches. GoldSkeletonSkin=0 disables gold; BlackRed=0 restores base weapon colors. Restart after changes.
 
 [b]Installation and updates[/b]
-Close the game and copy ds2_crafting_unlocks.asi and ds2_crafting_unlocks.ini next to DS2.exe. A compatible 64-bit ASI loader is required separately. Existing ASI/INI filenames remain unchanged. Preserve personal settings when updating; an old INI without an AtlasEquipment section keeps ATLAS fabrication off.
+Close the game. Remove standalone ds2_overpowered_equipment.asi and ds2_more_silenced_guns.asi if present. Copy this package's ds2_crafting_unlocks.asi and ds2_crafting_unlocks.ini next to DS2.exe. A 64-bit ASI loader is required separately.
 
-If upgrading from the separate ATLAS test mod, remove ds2_overpowered_equipment.asi. Both items retain their saved identities in this combined mod. AtlasEquipment.Enabled=0 hides their recipes while keeping existing ATLAS gear supported. The global CraftingUnlocks.Enabled switch must remain on for that support. To uninstall the entire mod or downgrade below 1.6.0, use a save made before obtaining ATLAS gear.
+Back up personal INI settings first. Use the new INI for the new defaults, then reapply personal settings. Existing INIs can instead be extended with the new sections/keys shown in README_EN.txt; avoid duplicate keys. Without the new options, older INIs keep their previous opt-in recipe/normal ATLAS skin behavior.
 
-[b]Compatibility and testing[/b]
-Supported DS2.exe: 1.10.89.0. The mod validates the exact executable and hook signatures. Mods that alter the same code locations can conflict.
+Saved custom identities are retained, including hidden Machine Pistol 302 from the tests. Removing the mod or downgrading removes custom definitions; use a pre-mod save before uninstalling. Heavy Machine Gun [MP] remains excluded because it has no ordinary inventory handoff.
 
-The full native/configuration test suite passes. ATLAS fabrication, gameplay, hip cargo and save/load persistence were user-confirmed. The optional gold skin was confirmed in the fabrication preview and on the equipped ATLAS Skeleton on a non-Deluxe installation, including after save/load. Individual shoe effects and combat protection have not all been separately demonstrated. On short jumps, the double-jump hint can appear later than the usable input window.
-
-Heavy Machine Gun [MP], quest-only and DLC-only recipes are not added to fabrication.
+[b]Compatibility and test status[/b]
+Supports DS2.exe 1.10.89.0 with an exact executable/signature check. The standalone weapons were accepted by the user. ATLAS gold and save/load were confirmed with 1.6.1, including a non-Deluxe installation. The integrated 1.7.0 ASI passes local native, GPU, configuration, crafting, durability and loader tests; all 94 patch sites are checked for overlap. A gameplay check of the combined ASI is still pending. Individual footwear effects, combat protection, full AI hearing behavior and long-session stability are not comprehensively verified.

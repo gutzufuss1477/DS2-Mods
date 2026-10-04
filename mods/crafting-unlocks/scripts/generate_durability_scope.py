@@ -15,7 +15,7 @@ boot_rows=[next(r for r in selected if int(r["recipe_key"],16)==k) for k in boot
 boot_bags=sorted({int(r["bag_namecode"],16) for r in boot_rows})
 assert len(boot_bags)==8 and 0 not in boot_bags
 # Stable ATLAS baggage identities; registered even with recipes hidden.
-bags=sorted(bags+[0x3B0ECB3E,0x4D918ADD])
+bags=sorted(bags+[0x3B0ECB3E,0x4D918ADD,0x79a683d1,0x503a528d,0x2445b690,0x73600355,0x6a2e15d9]) # Four suppressed weapons plus hidden legacy 302.
 boot_bags=sorted(boot_bags+[0x3B0ECB3E])
 
 a=[

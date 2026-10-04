@@ -1,0 +1,82 @@
+{
+  "version": "1.7.0",
+  "baseCommit": "0f172ff3503b2809a07f507b6988876af6539c62",
+  "recordedAtUtc": "2026-10-04T17:11:18.870582+00:00",
+  "asiSha256": "618aa029bf5202e3e9dff8864b94b5c25a6fb9247f0f25327000e3336e9e65f2",
+  "iniSha256": "c91194a89516db3776134f8581e66dfdc913368f9c1837535781c9e385057c3b",
+  "package": "DS2_Crafting_Equipment_Overhaul_v1.7.0.zip",
+  "packageSha256": "f47dbb14a0c7da85bfbccfaf1904b5cf445a7cc109bcdd67afed79cf119cd433",
+  "packageBytes": 551482,
+  "packageEntriesAndHashesVerified": true,
+  "nativeHookSites": 94,
+  "hookOverlaps": false,
+  "nativeWeaponTests": 44,
+  "nativeAtlasTests": 20,
+  "nativeAtlasBranchCases": 110208,
+  "combinedWeaponConfigAssertions": 829,
+  "hostSuites": [
+    "policy/layout/SHA 335437",
+    "legacy config 9297",
+    "backpack/current config 13603",
+    "native costs 101376 cases / 304628 assertions / 88 unwind checks",
+    "transaction failures 26900",
+    "Usage=None filter 35",
+    "durability 1002001",
+    "ATLAS config 202"
+  ],
+  "windowsLoaderCases": [
+    "disabled",
+    "unsupported executable",
+    "invalid config"
+  ],
+  "realGpuUploadsReadBack": true,
+  "releaseDefaults": {
+    "atlasEnabled": true,
+    "goldSkeletonSkin": true,
+    "suppressedWeapons": true,
+    "blackRed": true,
+    "freeCrafting": false,
+    "durability": false
+  },
+  "oldIniMissingKeys": {
+    "atlasRecipes": false,
+    "goldSkeletonSkin": false,
+    "suppressedWeaponRecipes": false
+  },
+  "activeWeaponIds": [
+    300,
+    301,
+    303,
+    304
+  ],
+  "hiddenLegacyWeaponIds": [
+    302
+  ],
+  "atlasItemIds": [
+    103,
+    104
+  ],
+  "unchangedWeaponAlgorithmFiles": {
+    "core.hpp": "5270d7a87d751c8728b0c1a896cc3d24f47f44598709609f9bbcb8360ef8806f",
+    "appearance.hpp": "47e07fc4379033b6bd8931618e661c4820ea212f3dfe3544797a2be1ac6ea813",
+    "attachment.hpp": "04cfb6bd10ced768384a0cadf5637498e824f5c0143619f5f494126325a2e367",
+    "pistol.hpp": "ae609bf043e68313eb9278ad19a3336049d41e0ec0b726fc6ead8f0e22304416",
+    "menu_icon.hpp": "9867860fa1f8e92805433cd0c6edcd5838f85683946a994722bb31651c39e718"
+  },
+  "standaloneWeaponSourceVersion": "0.5.2-language-sound-fix",
+  "priorGameplayEvidence": {
+    "weapons": "User accepted standalone 0.5.2 on 2026-10-04",
+    "atlasGold": "1.6.1 confirmed preview/equipped/save-load; see VALIDATION_1.6.1.md"
+  },
+  "combinedGameSessionVerified": false,
+  "gameInstallModified": false,
+  "nexusUploaded": false,
+  "logs": [
+    "validation/tests-1.7.0.txt",
+    "validation/atlas-tests-1.7.0.txt",
+    "validation/weapons-tests-1.7.0.txt",
+    "validation/weapons-config-1.7.0.txt",
+    "validation/ini-migration-1.7.0.txt"
+  ],
+  "iniMigrationCases": 3
+}
