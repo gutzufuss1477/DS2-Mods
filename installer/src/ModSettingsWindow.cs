@@ -30,6 +30,7 @@ namespace DS2ModSuite
         private ComboBox modSelector;
         private CheckBox showAdvanced;
         private StackPanel settingsPanel;
+        private ScrollViewer settingsScroll;
         private TextBlock noticeText;
         private Button importButton;
 
@@ -110,7 +111,11 @@ namespace DS2ModSuite
                 modSelector.Items.Add(new ModChoice { Mod = mod });
             bool hasAvailableMods = modSelector.Items.Count > 0;
             modSelector.IsEnabled = hasAvailableMods;
-            modSelector.SelectionChanged += delegate { RenderSelectedMod(); };
+            modSelector.SelectionChanged += delegate
+            {
+                RenderSelectedMod();
+                if (settingsScroll != null) settingsScroll.ScrollToTop();
+            };
             selectorStack.Children.Add(modSelector);
             toolbar.Children.Add(selectorStack);
 
@@ -139,6 +144,7 @@ namespace DS2ModSuite
             };
             settingsPanel = new StackPanel { Margin = new Thickness(0, 0, 7, 18) };
             scroll.Content = settingsPanel;
+            settingsScroll = scroll;
             Grid.SetRow(scroll, 2);
             root.Children.Add(scroll);
 
@@ -331,6 +337,9 @@ namespace DS2ModSuite
                         optionLabel = option == "1" ? Localization.T("Early unlock", "Früh freischalten")
                             : option == "0" ? Localization.T("Native progression", "Normaler Fortschritt")
                             : Localization.T("Use Default Unlock", "Default Unlock übernehmen");
+                    if (field.ModId == "crafting-unlocks" && field.Section == "SuppressedWeapons" && field.Key == "Language")
+                        optionLabel = option == "0" ? Localization.T("Follow game language", "Spielsprache übernehmen")
+                            : option == "1" ? "Deutsch" : "English";
                     combo.Items.Add(new ComboBoxItem { Content = optionLabel, Tag = option });
                 }
                 combo.SelectedItem = combo.Items.Cast<ComboBoxItem>().FirstOrDefault(item => string.Equals((string)item.Tag, value, StringComparison.OrdinalIgnoreCase));

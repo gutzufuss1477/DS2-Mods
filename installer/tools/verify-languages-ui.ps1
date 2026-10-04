@@ -47,15 +47,19 @@ foreach ($language in @('en','de','fr','es','it','pt-BR','ru','zh-CN','ja','ko')
     Save-Offscreen $main.Content 860 640 "main-$language.png"
     $main.Close()
     $window = [Activator]::CreateInstance($windowType, $instanceFlags, $null,
-        [object[]]@($catalog, $profile, $null, [string[]]@('climbing-power-gloves-range','crafting-unlocks','sneaky-sam')), $null)
+        [object[]]@($catalog, $profile, $null, [string[]]@('climbing-power-gloves-range','crafting-unlocks','sam-overhaul','jump-ramp-unlimited','beach-jump-with-cargo')), $null)
     $selector = $windowType.GetField('modSelector', $instanceFlags).GetValue($window)
-    if ($selector.Items.Count -ne 2) { throw 'Installed configurable-mod filter failed in actual WPF window.' }
-    foreach ($modId in @('climbing-power-gloves-range','crafting-unlocks')) {
+    if ($selector.Items.Count -ne 5) { throw 'Installed configurable-mod filter failed in actual WPF window.' }
+    foreach ($modId in @('climbing-power-gloves-range','crafting-unlocks','sam-overhaul','jump-ramp-unlimited','beach-jump-with-cargo')) {
         $selector.SelectedItem = @($selector.Items | Where-Object { $_.Mod.Id -eq $modId })[0]
         $advanced = $windowType.GetField('showAdvanced', $instanceFlags).GetValue($window)
         $advanced.IsChecked = $true
         $editors = $windowType.GetField('editors', $instanceFlags).GetValue($window)
         if ($modId -eq 'crafting-unlocks') {
+            [string]$languageKey = @($editors.Keys | Where-Object { $_ -like '*|SuppressedWeapons|Language' })[0]
+            $languageCombo = $editors[$languageKey]
+            if ($languageCombo.Items.Count -ne 3 -or $languageCombo.Items[0].Tag -ne '0') { throw 'Weapon language choices missing.' }
+            $languageCombo.SelectedIndex = 1
             [string]$choiceKey = @($editors.Keys | Where-Object { $_ -like '*|Items|*' })[0]
             $combo = $editors[$choiceKey]
             if ($combo.Items.Count -ne 3 -or $combo.Items[2].Tag -ne 'inherit') { throw 'Crafting choice values were not rendered.' }
@@ -64,11 +68,20 @@ foreach ($language in @('en','de','fr','es','it','pt-BR','ru','zh-CN','ja','ko')
             $captured = $windowType.GetField('profile', $instanceFlags).GetValue($window)
             $value = $service.GetMethod('GetValue', $staticFlags).Invoke($null, @($captured, $choiceKey))
             if ($value -ne 'inherit') { throw 'Displayed choice did not round-trip to INI value.' }
+            $value = $service.GetMethod('GetValue', $staticFlags).Invoke($null, @($captured, $languageKey))
+            if ($value -ne '1') { throw 'Weapon language changed its stored machine value.' }
         }
         Save-Offscreen $window.Content 760 600 "$modId-$language.png"
+        $scroll = @($window.Content.Children | Where-Object { $_ -is [System.Windows.Controls.ScrollViewer] })[0]
+        if ($scroll.VerticalOffset -ne 0) { throw 'Changing mods did not reset settings scroll position.' }
         if ($modId -eq 'crafting-unlocks') {
             $scroll = @($window.Content.Children | Where-Object { $_ -is [System.Windows.Controls.ScrollViewer] })[0]
-            $scroll.ScrollToVerticalOffset(1300)
+            $scroll.ScrollToVerticalOffset(500)
+            Save-Offscreen $window.Content 760 600 "crafting-atlas-$language.png"
+            $languageOffset = $languageCombo.TransformToAncestor($scroll.Content).Transform([System.Windows.Point]::new(0,0)).Y
+            $scroll.ScrollToVerticalOffset([Math]::Max(0, $languageOffset - 180))
+            Save-Offscreen $window.Content 760 600 "crafting-weapons-$language.png"
+            $scroll.ScrollToVerticalOffset(2500)
             Save-Offscreen $window.Content 760 600 "crafting-choices-$language.png"
         }
         Write-Output "PASS offscreen $modId $language ($($editors.Count) controls)"

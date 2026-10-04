@@ -1,4 +1,4 @@
-# DS2 Mod Suite v1.10.0
+# DS2 Mod Suite v1.11.0
 
 Clean all-in-one mod manager for **DEATH STRANDING 2: ON THE BEACH**.
 
@@ -16,11 +16,11 @@ Clean all-in-one mod manager for **DEATH STRANDING 2: ON THE BEACH**.
 
 The checkboxes always describe the desired final state. Installed mods are selected automatically. Deselecting a managed mod removes its verified suite binaries when changes are applied.
 
-## Languages in 1.10.0
+## Languages
 
 English, German, French, Spanish, Italian, Brazilian Portuguese, Russian, Simplified Chinese, Japanese and Korean. The language is saved and can be switched in the main window. Menus, mod descriptions, setting labels, help and common validation messages are translated. Language resources are embedded; the manager works offline. Official mod names, filenames, INI keys and machine values remain unchanged. Technical logs and operating-system diagnostics may remain in their original language. Translations were AI-assisted and checked for coverage and formatting; native-speaker feedback is welcome.
 
-The bundled mod versions and all 325 setting defaults are unchanged from 1.9.0. Existing installations, profiles and individual mod INIs remain compatible.
+Existing valid central choices retain priority. Newly introduced settings are imported from installed INIs before release defaults are used. The interface language never changes INI keys or values.
 
 ## Central mod settings
 
@@ -49,17 +49,27 @@ The suite bundles the stable APAS Unified 3.0.0 ASI. Unlock All and Early Access
 
 Old INIs receive explicit UnlockAll=0 and EarlyAccess=0 during updates, including updates without a saved central profile. Existing explicit progression choices and valid cost settings are retained. Coffin Board updates preserve valid existing settings and add missing reworked options with the release defaults.
 
-## Changes and compatibility in 1.9.0
+## Changes in 1.11.0
 
-Version 1.9.0 adds Sneaky Sam 1.0.1, updates Climbing Power Gloves Range to 1.1.0 with optional Combat glove pickup, Crafting Overhaul to 1.5.0 with 132 item choices, and Improved Odradek Scan to 1.0.1 with restored native terrain markings.
+- Added Jump Ramp Unlimited 1.0.0 and Beach Jump with Cargo 1.0.0.
+- Replaced Sneaky Sam with Sam Overhaul 1.0.0: cargo visibility, movement, Autodrive and truck weapons. Known Sneaky Sam 1.0.0/1.0.1 ASIs are backed up and removed during migration.
+- Updated Crafting & Equipment Overhaul to 1.7.0 with ATLAS equipment, gold skeleton appearance and four suppressed weapons; all new options are centrally configurable.
+- Updated Climbing and Combat Power Gloves to 1.1.1, fixing right-side vehicle cargo stowing with Combat gloves.
+- Expanded central configuration to 377 settings across 24 INIs for 23 configurable mods. Saved choices, explicit opt-outs and comments are preserved; missing options use release defaults.
+- Added blocking checks for old standalone ATLAS, suppressed-weapons and Jump Ramp probe ASIs. Unknown files are retained.
+- Updated all ten interface languages and compact Nexus documentation. Includes 26 distinct mods and 27 selectable entries.
 
-New glove settings separate Climbing range values from the Combat pickup switch (on by default). Level 2 range must be at least Level 1. Existing valid INI values are retained, including explicit Combat opt-out. When upgrading an older central profile, new settings are imported from installed INIs before release defaults are used; saved central choices keep priority. Crafting items are grouped in 13 categories under advanced settings and support Early unlock, Native progression or Use Default Unlock (inherit). Sneaky Sam has no INI and is enabled or removed through the main mod selection.
+Sam Overhaul replaces Sneaky Sam entirely. Known old ASIs are selected for upgrade automatically and removed in the same backup/rollback transaction. Unknown old versions block the replacement. The source/release is imported unchanged from `origin/chatgpt/sam-overhaul-v1.0.0` at `779f7cf`.
 
-APAS Unified 3.0.0 retains native cost initialization without gameplay polling. The Early Access menu and APAS purchases/unlocks were verified live in Episode 2. Both progression switches remain off by default.
+Crafting retains its stable `crafting-unlocks` identity and `ds2_crafting_unlocks.ini`. It has 132 original item choices plus two ATLAS recipes and four suppressed-weapon recipes (138 total). ATLAS equipment, gold appearance and suppressed weapons default on in the public 1.7.0 release; explicit existing opt-outs are retained. Free Crafting and durability remain off by default. Turning off ATLAS/suppressed recipes does not remove existing saved equipment. The weapon-name language setting (game / German / English) is independent of the manager's ten interface languages.
 
-Backpack 1.1.0 offers standard clean visuals or the optional Classic Overlap build with visible overlapping module meshes and manual one-cell placement. Select exactly one variant; the manager removes the other known ASI when switching. Classic Overlap passed local checks but has not yet been tested in game. Its automatically created `DS2_HighDensityBackpackModules.charms.ini` is preserved. Before removing Backpack, unequip extra charms and reduce modules to a vanilla-compatible layout, save, then close the game. Unknown modified binaries require manual review.
+Combat glove diagnostic settings are advanced and retain the exact 1.1.1 release defaults. Keep them unchanged unless troubleshooting. Level 2 pickup range must be at least Level 1.
 
-Crafting Overhaul 1.5.0 offers 132 item choices, including Chiral Boots and 11 enemy-drop weapons. Durability options cover supported equipment, weapons, boots and Backpack Cover Lv.1/Lv.2. Free Crafting and durability changes remain off by default. Existing item choices, inherit values and INI comments are retained.
+Beach Jump carries cargo attached to Sam, not vehicles, Floating Carriers or ground cargo. Jump Ramp repeats the final available aerial trick using normal input.
+
+Move `ds2_overpowered_equipment.asi`, `ds2_more_silenced_guns.asi` or `ds2_jump_ramp_probe.asi` out of the game folder before installing the corresponding integrated mod. These standalone files are never silently deleted.
+
+Backpack has two mutually exclusive variants. Classic Overlap has not been tested in game. Before removal, unequip extra charms, reduce modules to a vanilla-compatible layout, save and close the game. The charm-state INI is retained.
 
 ## Safety
 
@@ -83,8 +93,7 @@ Without administrator rights, backups and logs are stored below the LocalAppData
 - Floating Carrier Cargo Capacity 1.0.0
 - Coffin Board Reworked 1.83.0
 - High-Density Backpack Modules 1.1.0
-- High-Density Backpack Modules 1.1.0 Classic Overlap (alternative to the standard build)
-- Climbing Power Gloves Range 1.1.0
+- Climbing Power Gloves Range 1.1.1
 - Sam Stats Booster 1.0.0
 - Porter Grade Booster 1.0.0
 - Lost Cargo Likes Booster 1.1.1
@@ -97,13 +106,16 @@ Without administrator rights, backups and logs are stored below the LocalAppData
 - Infrastructure One Unit 1.0.0
 - Remote Orders Overlay 0.2.0
 - Extended BT Cord Cutting Range 1.0.0
-- APAS Memory Costs 3.0.0 (optional Unlock All and Early Access, both off by default)
+- APAS Memory Costs 3.0.0
 - Proficiency Bonus Multiplier 1.0.0
 - Improved Odradek Scan 1.0.1
-- Crafting Overhaul 1.5.0
-- Sneaky Sam 1.0.1
+- High-Density Backpack - Classic Overlap 1.1.0
+- Crafting & Equipment Overhaul 1.7.0
+- Jump Ramp Unlimited 1.0.0
+- Beach Jump with Cargo 1.0.0
+- Sam Overhaul 1.0.0
 
-The list contains 24 distinct mods and 25 selectable entries because Backpack has two exclusive variants. Central settings cover 20 mods, 21 INI files and 325 fields. Only released files are bundled; TEST, TRACE and older reference builds are excluded.
+26 distinct mods, 27 entries (two Backpack variants), 377 settings, 24 INIs and 23 configurable mods. Only release payloads are bundled; old Sneaky Sam binaries are not bundled.
 
 ## Deutsch
 
@@ -119,7 +131,7 @@ Das zentrale Menü zeigt ausschließlich installierte Mods mit konfigurierbarer 
 
 APAS Unified 3.0.0 bietet optional **Unlock All** und **Early Access**. Beide Optionen sind standardmäßig ausgeschaltet. Aktivierung: **Mod-Einstellungen → APAS Memory Costs → APASUnlocks**, speichern, Änderungen anwenden und das Spiel neu starten. Freischaltungen und gefundene Knoten können im Spielstand bleiben. Vor dem Aktivieren den Spielstand sichern. Ältere INIs erhalten fehlende Optionen ausdrücklich mit Wert `0`.
 
-Die neuen Handschuh-Einstellungen trennen Kletterhandschuh-Reichweiten vom Kampfhandschuh-Schalter. Stufe 2 muss mindestens die Reichweite von Stufe 1 haben. Vorhandene Werte bleiben erhalten; bei alten zentralen Profilen werden neue Optionen zuerst aus der installierten INI übernommen. Die 132 Crafting-Gegenstände sind unter den erweiterten Einstellungen in 13 Gruppen geordnet. „Standard übernehmen“ folgt dem Wert DefaultUnlock. Sneaky Sam hat keine INI und wird über die Mod-Auswahl ein- oder ausgeschaltet.
+Die neuen Handschuh-Einstellungen trennen Kletterhandschuh-Reichweiten vom Kampfhandschuh-Schalter. Stufe 2 muss mindestens die Reichweite von Stufe 1 haben. Vorhandene Werte bleiben erhalten; bei alten zentralen Profilen werden neue Optionen zuerst aus der installierten INI übernommen. Die 132 Crafting-Gegenstände sind unter den erweiterten Einstellungen in 13 Gruppen geordnet. „Standard übernehmen“ folgt dem Wert DefaultUnlock. Sam Overhaul ersetzt Sneaky Sam und bündelt Frachtsichtbarkeit, Bewegung, Autopilot und Lkw-Waffen mit 33 zentralen Optionen. Bekannte alte Sneaky-Sam-Dateien werden gesichert und entfernt. Neu sind außerdem Jump Ramp Unlimited und Beach Jump with Cargo sowie Crafting 1.7.0 und Handschuhe 1.1.1.
 
 ## Build
 

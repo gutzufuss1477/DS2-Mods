@@ -1,1 +1,1 @@
-Manage 24 DS2 mods in 10 languages, including Simplified Chinese. Install, update and configure mods through 325 central settings, with INI preservation, backups and rollback. Offline standalone manager for Steam 1.10.89.0.
+Manage 26 DS2 mods in 10 languages with 377 central settings. Now includes Sam Overhaul, Jump Ramp Unlimited, Beach Jump with Cargo, ATLAS gear and suppressed weapons. Offline installer with INI preservation, backups and rollback. Steam 1.10.89.0.

@@ -83,7 +83,7 @@ namespace DS2ModSuite
                 Assert(!Localization.TryParse("zh-TW", out alias) && !Localization.TryParse("xx", out alias), "unsupported language accepted");
                 Localization.SetLanguage((UiLanguage)999);
                 Assert(Localization.CurrentLanguage == UiLanguage.English, "invalid enum fallback");
-                report.AppendLine("PASS ten embedded languages, complete string/placeholder coverage, settings persistence, 325 invariant fields, 21 byte-identical INIs and elevated payload");
+                report.AppendLine("PASS ten embedded languages, complete string/placeholder coverage, settings persistence, 377 invariant fields, 24 byte-identical INIs and elevated payload");
             }
             finally
             {

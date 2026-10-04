@@ -1,6 +1,10 @@
 # Installer payloads are validated byte-for-byte against catalog SHA-256 values.
 # Keep their committed line endings unchanged on every checkout and in git archive.
 installer/** -text
+mods/sam-overhaul/release/DS2_Sam_Overhaul_v1.0.0/ds2_sam_overhaul.ini -text -diff
+mods/climbing-power-gloves-range/release/DS2_Climbing_Power_Gloves_Range_v1.1.1/ds2_climbing_gloves_range.ini -text -diff
+mods/jump-ramp-unlimited/release/ds2_jump_ramp_unlimited.ini -text -diff
+mods/beach-jump-with-cargo/release/ds2_beach_jump_with_cargo.ini -text -diff
 mods/hill-assist-and-speed-boost/config/PickupTruckHillAssist.ini -text -diff
 mods/hill-assist-and-speed-boost/config/VehicleSpeedBoost.ini -text -diff
 mods/pickup-cargo-capacity/config/PickupCargoCapacity.ini -text -diff

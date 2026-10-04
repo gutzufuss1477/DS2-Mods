@@ -634,7 +634,10 @@ namespace DS2ModSuite
                 || string.Equals(modId, "apas-memory-costs", StringComparison.OrdinalIgnoreCase)
                 || string.Equals(modId, "improved-odradek-scan", StringComparison.OrdinalIgnoreCase)
                 || string.Equals(modId, "climbing-power-gloves-range", StringComparison.OrdinalIgnoreCase)
-                || string.Equals(modId, "crafting-unlocks", StringComparison.OrdinalIgnoreCase);
+                || string.Equals(modId, "crafting-unlocks", StringComparison.OrdinalIgnoreCase)
+                || string.Equals(modId, "jump-ramp-unlimited", StringComparison.OrdinalIgnoreCase)
+                || string.Equals(modId, "beach-jump-with-cargo", StringComparison.OrdinalIgnoreCase)
+                || string.Equals(modId, "sam-overhaul", StringComparison.OrdinalIgnoreCase);
         }
 
         public static bool RequiresExactSectionKeys(string modId)

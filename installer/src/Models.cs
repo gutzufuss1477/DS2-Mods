@@ -114,6 +114,9 @@ namespace DS2ModSuite
         [DataMember(Name = "files")]
         public List<ModFileSpec> Files { get; set; }
 
+        [DataMember(Name = "conflictingFiles", EmitDefaultValue = false)]
+        public List<string> ConflictingFiles { get; set; }
+
         [DataMember(Name = "obsoleteFiles", EmitDefaultValue = false)]
         public List<ObsoleteFileSpec> ObsoleteFiles { get; set; }
     }

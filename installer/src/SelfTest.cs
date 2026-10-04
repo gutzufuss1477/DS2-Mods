@@ -17,12 +17,12 @@ namespace DS2ModSuite
             {
                 Catalog catalog = CatalogService.LoadAndValidate();
                 CatalogService.ValidatePayloads(catalog);
-                Assert(catalog.SuiteVersion == "1.10.0" && catalog.Mods.Count == 25,
+                Assert(catalog.SuiteVersion == "1.11.0" && catalog.Mods.Count == 27,
                     "suite version/mod count mismatch");
                 report.AppendLine("PASS catalog and all payload hashes");
 
                 List<ConfigFieldDefinition> definitions = ModConfigurationService.GetDefinitions(catalog);
-                Assert(definitions.Count == 325 && definitions.Select(field => field.Target).Distinct(StringComparer.OrdinalIgnoreCase).Count() == 21,
+                Assert(definitions.Count == 377 && definitions.Select(field => field.Target).Distinct(StringComparer.OrdinalIgnoreCase).Count() == 24,
                     "settings schema field/file coverage mismatch");
                 List<ModSpec> filteredSettingsMods = ModSettingsWindow.FilterInstalledConfigurableMods(
                     catalog,
@@ -126,7 +126,7 @@ namespace DS2ModSuite
                 Assert(catalog.Mods[0].LocalizedDescription == catalog.Mods[0].Description, "English catalog localization failed");
                 LoaderInspector.Relocalize(localizedLoader);
                 Assert(localizedLoader.DisplayText == "ASI Loader 9.7.2 is installed", "English loader relocalization failed");
-                report.AppendLine("PASS English/German localization, persistence and 325-field settings schema validation");
+                report.AppendLine("PASS English/German localization, persistence and 377-field settings schema validation");
                 TestLanguages(catalog, report);
 
                 string runningExecutable = System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName;
@@ -140,12 +140,12 @@ namespace DS2ModSuite
                 TestApasOptIn(catalog, testRoot, runningExecutable);
                 report.AppendLine("PASS APAS 3.0.0 default-off progression, legacy migration with/without profile, explicit opt-in/out, preservation and idempotence");
                 TestCraftingSettings(catalog, testRoot, runningExecutable);
-                report.AppendLine("PASS Crafting 1.5.0 defaults, item settings, inline comments, adoption, idempotence and removal");
+                report.AppendLine("PASS Crafting 1.7.0 defaults, item settings, inline comments, adoption, idempotence and removal");
                 TestRelease190Settings(catalog, testRoot, runningExecutable);
-                report.AppendLine("PASS glove 1.1.0 defaults, decimal ranges, bounds/relationships, migration, opt-out, idempotence, rollback and removal");
+                report.AppendLine("PASS glove 1.1.1 defaults, decimal ranges, bounds/relationships, migration, opt-out, idempotence, rollback and removal");
                 report.AppendLine("PASS v1.8 profile migration retains saved choices, imports new standalone INI choices, and supports 132 grouped Crafting items including inherit");
-                TestSneakySam(catalog, testRoot, runningExecutable);
-                report.AppendLine("PASS Sneaky Sam install, legacy filename upgrade, unknown legacy conflict guard, settings exclusion, idempotence and removal");
+                TestRelease1110(catalog, testRoot, runningExecutable);
+                report.AppendLine("PASS v1.11 profile/INI migration, new mod install/removal, Sam replacement, standalone conflicts, numeric bounds and idempotence");
 
                 string noProfileUpgradeRoot = Path.Combine(testRoot, "coffin-no-profile-upgrade");
                 Directory.CreateDirectory(noProfileUpgradeRoot);
@@ -558,7 +558,7 @@ namespace DS2ModSuite
             const string target = "ds2_crafting_unlocks.ini";
             List<ConfigFieldDefinition> fields = ModConfigurationService.GetDefinitions(catalog)
                 .Where(field => field.ModId == modId).ToList();
-            Assert(fields.Count == 139 && fields.Count(field => field.Section == "Items") == 132,
+            Assert(fields.Count == 151 && fields.Count(field => field.Section == "Items") == 132,
                 "Crafting settings are incomplete");
             ConfigFieldDefinition free = fields.Single(field => field.Section == "CraftingUnlocks" && field.Key == "FreeCrafting");
             ConfigFieldDefinition durability = fields.Single(field => field.Section == "Durability" && field.Key == "Enabled");

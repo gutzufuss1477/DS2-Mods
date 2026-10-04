@@ -259,6 +259,60 @@
                   "descriptionDe": "In v1.1.0 standardmäßig an. Benötigt den Hauptschalter. Normale Angriffe bleiben erhalten; diese Version hat keine eigenen Kampfhandschuh-Reichweitenregler."
                 }
               ]
+            },
+            {
+              "name": "CombatDebug",
+              "fields": [
+                {
+                  "key": "LiveDebug",
+                  "type": "bool",
+                  "label": "Combat live diagnostics",
+                  "labelDe": "Live-Diagnose für Kampfhandschuhe",
+                  "description": "Advanced diagnostic switch; keep the release default unless troubleshooting.",
+                  "descriptionDe": "Erweiterter Diagnoseschalter; Vorgabe der Veröffentlichung nur zur Fehlersuche ändern.",
+                  "advanced": true
+                },
+                {
+                  "key": "ScanGeneration",
+                  "type": "int",
+                  "label": "Combat scan generation",
+                  "labelDe": "Scan-Generation der Kampfhandschuhe",
+                  "description": "Diagnostic scan generation, from 0 to 1000000. Release default: 1.",
+                  "descriptionDe": "Diagnostische Scan-Generation von 0 bis 1000000. Vorgabe: 1.",
+                  "advanced": true,
+                  "min": 0,
+                  "max": 1000000
+                },
+                {
+                  "key": "FallbackAction",
+                  "type": "int",
+                  "label": "Combat fallback action",
+                  "labelDe": "Ersatzaktion der Kampfhandschuhe",
+                  "description": "Diagnostic action override, from -1 to 248. Keep -1 for the release behavior.",
+                  "descriptionDe": "Diagnostische Aktionsvorgabe von -1 bis 248. Für das veröffentlichte Verhalten bei -1 belassen.",
+                  "advanced": true,
+                  "min": -1,
+                  "max": 248
+                },
+                {
+                  "key": "RootSubcategoryFallback",
+                  "type": "bool",
+                  "label": "Combat root fallback",
+                  "labelDe": "Stamm-Ersatzlogik der Kampfhandschuhe",
+                  "description": "Advanced pickup fallback used by the release. Default: enabled.",
+                  "descriptionDe": "Erweiterte Ersatzlogik beim Aufheben. Vorgabe der Veröffentlichung: aktiviert.",
+                  "advanced": true
+                },
+                {
+                  "key": "MapRightWriterToLeft",
+                  "type": "bool",
+                  "label": "Map right pickup writer to left",
+                  "labelDe": "Rechte Aufhebe-Schreibroutine auf links umleiten",
+                  "description": "Diagnostic routing override. Keep disabled for the vehicle cargo stowing fix.",
+                  "descriptionDe": "Diagnostische Umleitung. Für die Korrektur beim Verstauen von Fahrzeugfracht deaktiviert lassen.",
+                  "advanced": true
+                }
+              ]
             }
           ]
         }
@@ -1490,6 +1544,129 @@
                   "labelDe": "Unzerstörbar",
                   "description": "Prevents future wear when durability changes are enabled. Does not repair existing damage.",
                   "descriptionDe": "Verhindert weiteren Verschleiß bei aktivierten Haltbarkeitsänderungen. Repariert keine bestehenden Schäden."
+                }
+              ]
+            },
+            {
+              "name": "AtlasEquipment",
+              "fields": [
+                {
+                  "key": "Enabled",
+                  "type": "bool",
+                  "label": "ATLAS equipment",
+                  "labelDe": "ATLAS-Ausrüstung",
+                  "description": "Show ATLAS boots and skeleton recipes. Already saved equipment remains usable when disabled. Requires CraftingUnlocks Enabled.",
+                  "descriptionDe": "Zeigt Rezepte für ATLAS-Stiefel und -Skelett. Bereits gespeicherte Ausrüstung bleibt nach dem Abschalten nutzbar. Benötigt CraftingUnlocks Enabled.",
+                  "advanced": false
+                },
+                {
+                  "key": "GoldSkeletonSkin",
+                  "type": "bool",
+                  "label": "Gold ATLAS skeleton",
+                  "labelDe": "Goldenes ATLAS-Skelett",
+                  "description": "Use the gold ATLAS skeleton appearance. Enabled by default in the public release.",
+                  "descriptionDe": "Verwendet das goldene Aussehen des ATLAS-Skeletts. In der öffentlichen Version standardmäßig aktiviert.",
+                  "advanced": false
+                }
+              ]
+            },
+            {
+              "name": "SuppressedWeapons",
+              "fields": [
+                {
+                  "key": "Enabled",
+                  "type": "bool",
+                  "label": "Suppressed weapon recipes",
+                  "labelDe": "Rezepte für schallgedämpfte Waffen",
+                  "description": "Show four suppressed weapon recipes. Already saved weapons remain usable when disabled. Requires CraftingUnlocks Enabled.",
+                  "descriptionDe": "Zeigt vier Rezepte für schallgedämpfte Waffen. Bereits gespeicherte Waffen bleiben nach dem Abschalten nutzbar. Benötigt CraftingUnlocks Enabled.",
+                  "advanced": false
+                },
+                {
+                  "key": "AssaultRifleL2",
+                  "type": "bool",
+                  "label": "Suppressed assault rifle Lv. 2",
+                  "labelDe": "Schallgedämpftes Sturmgewehr St. 2",
+                  "description": "Enable this suppressed weapon recipe.",
+                  "descriptionDe": "Aktiviert das Rezept für diese schallgedämpfte Waffe.",
+                  "advanced": false
+                },
+                {
+                  "key": "MachineGunL2",
+                  "type": "bool",
+                  "label": "Suppressed machine gun Lv. 2",
+                  "labelDe": "Schallgedämpftes Maschinengewehr St. 2",
+                  "description": "Enable this suppressed weapon recipe.",
+                  "descriptionDe": "Aktiviert das Rezept für diese schallgedämpfte Waffe.",
+                  "advanced": false
+                },
+                {
+                  "key": "ShotgunL2",
+                  "type": "bool",
+                  "label": "Suppressed shotgun Lv. 2",
+                  "labelDe": "Schallgedämpfte Schrotflinte St. 2",
+                  "description": "Enable this suppressed weapon recipe.",
+                  "descriptionDe": "Aktiviert das Rezept für diese schallgedämpfte Waffe.",
+                  "advanced": false
+                },
+                {
+                  "key": "BigBoreHandgun",
+                  "type": "bool",
+                  "label": "Suppressed big-bore handgun",
+                  "labelDe": "Schallgedämpfte Großkaliberpistole",
+                  "description": "Enable this suppressed weapon recipe.",
+                  "descriptionDe": "Aktiviert das Rezept für diese schallgedämpfte Waffe.",
+                  "advanced": false
+                },
+                {
+                  "key": "BlackRed",
+                  "type": "bool",
+                  "label": "Black and red weapon appearance",
+                  "labelDe": "Schwarz-rotes Waffenaussehen",
+                  "description": "Use black and red weapon models and menu icons.",
+                  "descriptionDe": "Verwendet schwarz-rote Waffenmodelle und Menüsymbole.",
+                  "advanced": false
+                },
+                {
+                  "key": "MGVisualSuppressor",
+                  "type": "bool",
+                  "label": "Machine gun suppressor model",
+                  "labelDe": "Schalldämpfermodell des Maschinengewehrs",
+                  "description": "Show the visual suppressor on this weapon.",
+                  "descriptionDe": "Zeigt den sichtbaren Schalldämpfer an dieser Waffe.",
+                  "advanced": false
+                },
+                {
+                  "key": "ShotgunVisualSuppressor",
+                  "type": "bool",
+                  "label": "Shotgun suppressor model",
+                  "labelDe": "Schalldämpfermodell der Schrotflinte",
+                  "description": "Show the visual suppressor on this weapon.",
+                  "descriptionDe": "Zeigt den sichtbaren Schalldämpfer an dieser Waffe.",
+                  "advanced": false
+                },
+                {
+                  "key": "BigBoreVisualSuppressor",
+                  "type": "bool",
+                  "label": "Handgun suppressor model",
+                  "labelDe": "Schalldämpfermodell der Pistole",
+                  "description": "Show the visual suppressor on this weapon.",
+                  "descriptionDe": "Zeigt den sichtbaren Schalldämpfer an dieser Waffe.",
+                  "advanced": false
+                },
+                {
+                  "key": "Language",
+                  "type": "choice",
+                  "label": "Custom weapon name language",
+                  "labelDe": "Sprache der eigenen Waffennamen",
+                  "description": "In-game weapon names only: follow the game, German or English. Independent of the manager interface language.",
+                  "descriptionDe": "Nur für Waffennamen im Spiel: Spielsprache, Deutsch oder Englisch. Unabhängig von der Sprache der Manager-Oberfläche.",
+                  "advanced": false,
+                  "choices": [
+                    "0",
+                    "1",
+                    "2"
+                  ]
                 }
               ]
             },
@@ -3211,6 +3388,469 @@
                     "0",
                     "inherit"
                   ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "modId": "jump-ramp-unlimited",
+      "files": [
+        {
+          "target": "ds2_jump_ramp_unlimited.ini",
+          "sections": [
+            {
+              "name": "JumpRampUnlimited",
+              "fields": [
+                {
+                  "key": "Enabled",
+                  "type": "bool",
+                  "label": "Enabled",
+                  "description": "Repeat the final available trick while airborne after a Jump Ramp, using the normal trick input.",
+                  "descriptionDe": "Wiederholt nach einer Sprungrampe den letzten verfügbaren Trick in der Luft mit der normalen Trick-Eingabe."
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "modId": "beach-jump-with-cargo",
+      "files": [
+        {
+          "target": "ds2_beach_jump_with_cargo.ini",
+          "sections": [
+            {
+              "name": "BeachJumpWithCargo",
+              "fields": [
+                {
+                  "key": "Enabled",
+                  "type": "bool",
+                  "label": "Enabled",
+                  "description": "Keep cargo attached to Sam during Beach and Hot Spring Jumps. Vehicles, Floating Carriers and cargo on the ground are not included.",
+                  "descriptionDe": "Behält Sams am Körper getragene Fracht bei Strand- und Thermalquellen-Sprüngen. Fahrzeuge, schwebende Träger und Fracht am Boden sind nicht eingeschlossen."
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "modId": "sam-overhaul",
+      "files": [
+        {
+          "target": "ds2_sam_overhaul.ini",
+          "sections": [
+            {
+              "name": "CargoVisibility",
+              "fields": [
+                {
+                  "key": "HideShoulderCargo",
+                  "type": "bool",
+                  "label": "Hide shoulder cargo",
+                  "labelDe": "Schulterfracht ausblenden",
+                  "group": "Cargo visibility",
+                  "groupDe": "Frachtsichtbarkeit",
+                  "description": "Visual only. Cargo remains carried and functional; currently worn shoes stay visible.",
+                  "descriptionDe": "Rein optisch. Fracht bleibt getragen und nutzbar; aktuell getragene Schuhe bleiben sichtbar."
+                },
+                {
+                  "key": "HideHipCargo",
+                  "type": "bool",
+                  "label": "Hide hip cargo",
+                  "labelDe": "Hüftfracht ausblenden",
+                  "group": "Cargo visibility",
+                  "groupDe": "Frachtsichtbarkeit",
+                  "description": "Visual only. Cargo remains carried and functional; currently worn shoes stay visible.",
+                  "descriptionDe": "Rein optisch. Fracht bleibt getragen und nutzbar; aktuell getragene Schuhe bleiben sichtbar."
+                },
+                {
+                  "key": "HideBackpackCargo",
+                  "type": "bool",
+                  "label": "Hide backpack cargo",
+                  "labelDe": "Rucksackfracht ausblenden",
+                  "group": "Cargo visibility",
+                  "groupDe": "Frachtsichtbarkeit",
+                  "description": "Visual only. Cargo remains carried and functional; currently worn shoes stay visible.",
+                  "descriptionDe": "Rein optisch. Fracht bleibt getragen und nutzbar; aktuell getragene Schuhe bleiben sichtbar."
+                },
+                {
+                  "key": "HideSpareShoes",
+                  "type": "bool",
+                  "label": "Hide spare shoes",
+                  "labelDe": "Ersatzschuhe ausblenden",
+                  "group": "Cargo visibility",
+                  "groupDe": "Frachtsichtbarkeit",
+                  "description": "Visual only. Cargo remains carried and functional; currently worn shoes stay visible.",
+                  "descriptionDe": "Rein optisch. Fracht bleibt getragen und nutzbar; aktuell getragene Schuhe bleiben sichtbar."
+                }
+              ]
+            },
+            {
+              "name": "Movement",
+              "fields": [
+                {
+                  "key": "JumpFromMonorailAnywhere",
+                  "type": "bool",
+                  "label": "Freer monorail exits",
+                  "labelDe": "Freiere Einschienenbahn-Ausstiege",
+                  "group": "Movement",
+                  "groupDe": "Bewegung",
+                  "description": "Relaxes the relevant movement restriction. Native inputs and qualifying movement conditions still apply.",
+                  "descriptionDe": "Lockert die jeweilige Bewegungsbeschränkung. Normale Eingaben und erforderliche Bewegungsbedingungen gelten weiterhin."
+                },
+                {
+                  "key": "JumpFromZiplineAnywhere",
+                  "type": "bool",
+                  "label": "Freer zipline exits",
+                  "labelDe": "Freiere Seilrutschen-Ausstiege",
+                  "group": "Movement",
+                  "groupDe": "Bewegung",
+                  "description": "Relaxes the relevant movement restriction. Native inputs and qualifying movement conditions still apply.",
+                  "descriptionDe": "Lockert die jeweilige Bewegungsbeschränkung. Normale Eingaben und erforderliche Bewegungsbedingungen gelten weiterhin."
+                },
+                {
+                  "key": "LandingRollWithBackpack",
+                  "type": "bool",
+                  "label": "Landing rolls with backpack",
+                  "labelDe": "Landerollen mit Rucksack",
+                  "group": "Movement",
+                  "groupDe": "Bewegung",
+                  "description": "Relaxes the relevant movement restriction. Native inputs and qualifying movement conditions still apply.",
+                  "descriptionDe": "Lockert die jeweilige Bewegungsbeschränkung. Normale Eingaben und erforderliche Bewegungsbedingungen gelten weiterhin."
+                }
+              ]
+            },
+            {
+              "name": "AutoDrive",
+              "fields": [
+                {
+                  "key": "ActivationSeconds",
+                  "type": "decimal",
+                  "label": "Autodrive activation time",
+                  "labelDe": "Aktivierungszeit des Autopiloten",
+                  "group": "Autodrive",
+                  "groupDe": "Autopilot",
+                  "min": 0.5,
+                  "max": 5,
+                  "description": "Time in seconds. Autodrive: 5.0 is vanilla; chiral cannon charge: 3.0 is vanilla.",
+                  "descriptionDe": "Zeit in Sekunden. Autopilot: 5.0 entspricht dem Spielstandard; Ladezeit der chiralen Kanone: 3.0 entspricht dem Spielstandard."
+                }
+              ]
+            },
+            {
+              "name": "TruckHeavyMachineGun",
+              "fields": [
+                {
+                  "key": "Enabled",
+                  "type": "bool",
+                  "label": "Enabled",
+                  "labelDe": "Aktiviert",
+                  "group": "Truck heavy machine gun",
+                  "groupDe": "Schweres Lkw-Maschinengewehr",
+                  "description": "Enable tuning for this truck weapon.",
+                  "descriptionDe": "Aktiviert die Abstimmung dieser Lkw-Waffe."
+                },
+                {
+                  "key": "RangePercent",
+                  "type": "int",
+                  "label": "Weapon range percent",
+                  "labelDe": "Waffenreichweite in Prozent",
+                  "group": "Truck heavy machine gun",
+                  "groupDe": "Schweres Lkw-Maschinengewehr",
+                  "min": 100,
+                  "max": 300,
+                  "description": "100% keeps the vanilla value.",
+                  "descriptionDe": "100 % entspricht dem normalen Spielwert."
+                },
+                {
+                  "key": "AimSpeedPercent",
+                  "type": "int",
+                  "label": "Aiming speed percent",
+                  "labelDe": "Zielgeschwindigkeit in Prozent",
+                  "group": "Truck heavy machine gun",
+                  "groupDe": "Schweres Lkw-Maschinengewehr",
+                  "min": 100,
+                  "max": 500,
+                  "description": "100% keeps the vanilla value.",
+                  "descriptionDe": "100 % entspricht dem normalen Spielwert."
+                },
+                {
+                  "key": "LockOnSeconds",
+                  "type": "decimal",
+                  "label": "Lock-on time",
+                  "labelDe": "Zielerfassungszeit",
+                  "group": "Truck heavy machine gun",
+                  "groupDe": "Schweres Lkw-Maschinengewehr",
+                  "min": 0.05,
+                  "max": 5,
+                  "description": "Time in seconds. Autodrive: 5.0 is vanilla; chiral cannon charge: 3.0 is vanilla.",
+                  "descriptionDe": "Zeit in Sekunden. Autopilot: 5.0 entspricht dem Spielstandard; Ladezeit der chiralen Kanone: 3.0 entspricht dem Spielstandard."
+                },
+                {
+                  "key": "BurstSeconds",
+                  "type": "decimal",
+                  "label": "Burst duration",
+                  "labelDe": "Feuerstoßdauer",
+                  "group": "Truck heavy machine gun",
+                  "groupDe": "Schweres Lkw-Maschinengewehr",
+                  "min": 0.05,
+                  "max": 10,
+                  "description": "Time in seconds. Autodrive: 5.0 is vanilla; chiral cannon charge: 3.0 is vanilla.",
+                  "descriptionDe": "Zeit in Sekunden. Autopilot: 5.0 entspricht dem Spielstandard; Ladezeit der chiralen Kanone: 3.0 entspricht dem Spielstandard."
+                },
+                {
+                  "key": "CooldownSeconds",
+                  "type": "decimal",
+                  "label": "Cooldown time",
+                  "labelDe": "Abklingzeit",
+                  "group": "Truck heavy machine gun",
+                  "groupDe": "Schweres Lkw-Maschinengewehr",
+                  "min": 0.05,
+                  "max": 5,
+                  "description": "Time in seconds. Autodrive: 5.0 is vanilla; chiral cannon charge: 3.0 is vanilla.",
+                  "descriptionDe": "Zeit in Sekunden. Autopilot: 5.0 entspricht dem Spielstandard; Ladezeit der chiralen Kanone: 3.0 entspricht dem Spielstandard."
+                }
+              ]
+            },
+            {
+              "name": "TruckMortar",
+              "fields": [
+                {
+                  "key": "Enabled",
+                  "type": "bool",
+                  "label": "Enabled",
+                  "labelDe": "Aktiviert",
+                  "group": "Truck mortar",
+                  "groupDe": "Lkw-Mörser",
+                  "description": "Enable tuning for this truck weapon.",
+                  "descriptionDe": "Aktiviert die Abstimmung dieser Lkw-Waffe."
+                },
+                {
+                  "key": "RangePercent",
+                  "type": "int",
+                  "label": "Weapon range percent",
+                  "labelDe": "Waffenreichweite in Prozent",
+                  "group": "Truck mortar",
+                  "groupDe": "Lkw-Mörser",
+                  "min": 100,
+                  "max": 300,
+                  "description": "100% keeps the vanilla value.",
+                  "descriptionDe": "100 % entspricht dem normalen Spielwert."
+                },
+                {
+                  "key": "AimSpeedPercent",
+                  "type": "int",
+                  "label": "Aiming speed percent",
+                  "labelDe": "Zielgeschwindigkeit in Prozent",
+                  "group": "Truck mortar",
+                  "groupDe": "Lkw-Mörser",
+                  "min": 100,
+                  "max": 500,
+                  "description": "100% keeps the vanilla value.",
+                  "descriptionDe": "100 % entspricht dem normalen Spielwert."
+                },
+                {
+                  "key": "LockOnSeconds",
+                  "type": "decimal",
+                  "label": "Lock-on time",
+                  "labelDe": "Zielerfassungszeit",
+                  "group": "Truck mortar",
+                  "groupDe": "Lkw-Mörser",
+                  "min": 0.05,
+                  "max": 5,
+                  "description": "Time in seconds. Autodrive: 5.0 is vanilla; chiral cannon charge: 3.0 is vanilla.",
+                  "descriptionDe": "Zeit in Sekunden. Autopilot: 5.0 entspricht dem Spielstandard; Ladezeit der chiralen Kanone: 3.0 entspricht dem Spielstandard."
+                },
+                {
+                  "key": "RecoverySeconds",
+                  "type": "decimal",
+                  "label": "Recovery time",
+                  "labelDe": "Erholungszeit",
+                  "group": "Truck mortar",
+                  "groupDe": "Lkw-Mörser",
+                  "min": 0,
+                  "max": 5,
+                  "description": "Time in seconds. Autodrive: 5.0 is vanilla; chiral cannon charge: 3.0 is vanilla.",
+                  "descriptionDe": "Zeit in Sekunden. Autopilot: 5.0 entspricht dem Spielstandard; Ladezeit der chiralen Kanone: 3.0 entspricht dem Spielstandard."
+                },
+                {
+                  "key": "CooldownSeconds",
+                  "type": "decimal",
+                  "label": "Cooldown time",
+                  "labelDe": "Abklingzeit",
+                  "group": "Truck mortar",
+                  "groupDe": "Lkw-Mörser",
+                  "min": 0.05,
+                  "max": 5,
+                  "description": "Time in seconds. Autodrive: 5.0 is vanilla; chiral cannon charge: 3.0 is vanilla.",
+                  "descriptionDe": "Zeit in Sekunden. Autopilot: 5.0 entspricht dem Spielstandard; Ladezeit der chiralen Kanone: 3.0 entspricht dem Spielstandard."
+                }
+              ]
+            },
+            {
+              "name": "TruckChiralCannon",
+              "fields": [
+                {
+                  "key": "Enabled",
+                  "type": "bool",
+                  "label": "Enabled",
+                  "labelDe": "Aktiviert",
+                  "group": "Truck chiral cannon",
+                  "groupDe": "Chirale Lkw-Kanone",
+                  "description": "Enable tuning for this truck weapon.",
+                  "descriptionDe": "Aktiviert die Abstimmung dieser Lkw-Waffe."
+                },
+                {
+                  "key": "RangePercent",
+                  "type": "int",
+                  "label": "Weapon range percent",
+                  "labelDe": "Waffenreichweite in Prozent",
+                  "group": "Truck chiral cannon",
+                  "groupDe": "Chirale Lkw-Kanone",
+                  "min": 100,
+                  "max": 300,
+                  "description": "100% keeps the vanilla value.",
+                  "descriptionDe": "100 % entspricht dem normalen Spielwert."
+                },
+                {
+                  "key": "AimSpeedPercent",
+                  "type": "int",
+                  "label": "Aiming speed percent",
+                  "labelDe": "Zielgeschwindigkeit in Prozent",
+                  "group": "Truck chiral cannon",
+                  "groupDe": "Chirale Lkw-Kanone",
+                  "min": 100,
+                  "max": 500,
+                  "description": "100% keeps the vanilla value.",
+                  "descriptionDe": "100 % entspricht dem normalen Spielwert."
+                },
+                {
+                  "key": "LockOnSeconds",
+                  "type": "decimal",
+                  "label": "Lock-on time",
+                  "labelDe": "Zielerfassungszeit",
+                  "group": "Truck chiral cannon",
+                  "groupDe": "Chirale Lkw-Kanone",
+                  "min": 0.05,
+                  "max": 5,
+                  "description": "Time in seconds. Autodrive: 5.0 is vanilla; chiral cannon charge: 3.0 is vanilla.",
+                  "descriptionDe": "Zeit in Sekunden. Autopilot: 5.0 entspricht dem Spielstandard; Ladezeit der chiralen Kanone: 3.0 entspricht dem Spielstandard."
+                },
+                {
+                  "key": "RecoverySeconds",
+                  "type": "decimal",
+                  "label": "Recovery time",
+                  "labelDe": "Erholungszeit",
+                  "group": "Truck chiral cannon",
+                  "groupDe": "Chirale Lkw-Kanone",
+                  "min": 0,
+                  "max": 5,
+                  "description": "Time in seconds. Autodrive: 5.0 is vanilla; chiral cannon charge: 3.0 is vanilla.",
+                  "descriptionDe": "Zeit in Sekunden. Autopilot: 5.0 entspricht dem Spielstandard; Ladezeit der chiralen Kanone: 3.0 entspricht dem Spielstandard."
+                },
+                {
+                  "key": "CooldownSeconds",
+                  "type": "decimal",
+                  "label": "Cooldown time",
+                  "labelDe": "Abklingzeit",
+                  "group": "Truck chiral cannon",
+                  "groupDe": "Chirale Lkw-Kanone",
+                  "min": 0.05,
+                  "max": 5,
+                  "description": "Time in seconds. Autodrive: 5.0 is vanilla; chiral cannon charge: 3.0 is vanilla.",
+                  "descriptionDe": "Zeit in Sekunden. Autopilot: 5.0 entspricht dem Spielstandard; Ladezeit der chiralen Kanone: 3.0 entspricht dem Spielstandard."
+                },
+                {
+                  "key": "ChargeSeconds",
+                  "type": "decimal",
+                  "label": "Chiral cannon charge time",
+                  "labelDe": "Ladezeit der chiralen Kanone",
+                  "group": "Truck chiral cannon",
+                  "groupDe": "Chirale Lkw-Kanone",
+                  "min": 0.05,
+                  "max": 5,
+                  "description": "Time in seconds. Autodrive: 5.0 is vanilla; chiral cannon charge: 3.0 is vanilla.",
+                  "descriptionDe": "Zeit in Sekunden. Autopilot: 5.0 entspricht dem Spielstandard; Ladezeit der chiralen Kanone: 3.0 entspricht dem Spielstandard."
+                }
+              ]
+            },
+            {
+              "name": "TruckMissileLauncher",
+              "fields": [
+                {
+                  "key": "Enabled",
+                  "type": "bool",
+                  "label": "Enabled",
+                  "labelDe": "Aktiviert",
+                  "group": "Truck missile launcher",
+                  "groupDe": "Lkw-Raketenwerfer",
+                  "description": "Enable tuning for this truck weapon.",
+                  "descriptionDe": "Aktiviert die Abstimmung dieser Lkw-Waffe."
+                },
+                {
+                  "key": "RangePercent",
+                  "type": "int",
+                  "label": "Weapon range percent",
+                  "labelDe": "Waffenreichweite in Prozent",
+                  "group": "Truck missile launcher",
+                  "groupDe": "Lkw-Raketenwerfer",
+                  "min": 100,
+                  "max": 300,
+                  "description": "100% keeps the vanilla value.",
+                  "descriptionDe": "100 % entspricht dem normalen Spielwert."
+                },
+                {
+                  "key": "AimSpeedPercent",
+                  "type": "int",
+                  "label": "Aiming speed percent",
+                  "labelDe": "Zielgeschwindigkeit in Prozent",
+                  "group": "Truck missile launcher",
+                  "groupDe": "Lkw-Raketenwerfer",
+                  "min": 100,
+                  "max": 500,
+                  "description": "100% keeps the vanilla value.",
+                  "descriptionDe": "100 % entspricht dem normalen Spielwert."
+                },
+                {
+                  "key": "LockOnSeconds",
+                  "type": "decimal",
+                  "label": "Lock-on time",
+                  "labelDe": "Zielerfassungszeit",
+                  "group": "Truck missile launcher",
+                  "groupDe": "Lkw-Raketenwerfer",
+                  "min": 0.05,
+                  "max": 5,
+                  "description": "Time in seconds. Autodrive: 5.0 is vanilla; chiral cannon charge: 3.0 is vanilla.",
+                  "descriptionDe": "Zeit in Sekunden. Autopilot: 5.0 entspricht dem Spielstandard; Ladezeit der chiralen Kanone: 3.0 entspricht dem Spielstandard."
+                },
+                {
+                  "key": "RecoverySeconds",
+                  "type": "decimal",
+                  "label": "Recovery time",
+                  "labelDe": "Erholungszeit",
+                  "group": "Truck missile launcher",
+                  "groupDe": "Lkw-Raketenwerfer",
+                  "min": 0,
+                  "max": 5,
+                  "description": "Time in seconds. Autodrive: 5.0 is vanilla; chiral cannon charge: 3.0 is vanilla.",
+                  "descriptionDe": "Zeit in Sekunden. Autopilot: 5.0 entspricht dem Spielstandard; Ladezeit der chiralen Kanone: 3.0 entspricht dem Spielstandard."
+                },
+                {
+                  "key": "CooldownSeconds",
+                  "type": "decimal",
+                  "label": "Cooldown time",
+                  "labelDe": "Abklingzeit",
+                  "group": "Truck missile launcher",
+                  "groupDe": "Lkw-Raketenwerfer",
+                  "min": 0.05,
+                  "max": 5,
+                  "description": "Time in seconds. Autodrive: 5.0 is vanilla; chiral cannon charge: 3.0 is vanilla.",
+                  "descriptionDe": "Zeit in Sekunden. Autopilot: 5.0 entspricht dem Spielstandard; Ladezeit der chiralen Kanone: 3.0 entspricht dem Spielstandard."
                 }
               ]
             }

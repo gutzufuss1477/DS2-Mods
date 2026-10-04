@@ -74,6 +74,14 @@ namespace DS2ModSuite
                     }
                 }
 
+                foreach (string conflict in mod.ConflictingFiles ?? new List<string>())
+                {
+                    PathGuard.ResolveUnderRoot("C:\\DS2-CATALOG-VALIDATION", conflict);
+                    if (string.IsNullOrWhiteSpace(conflict) || !string.Equals(Path.GetFileName(conflict), conflict, StringComparison.Ordinal)
+                        || !conflict.EndsWith(".asi", StringComparison.OrdinalIgnoreCase) || !obsoleteTargets.Add(conflict))
+                        throw new InvalidDataException("Invalid conflicting ASI filename: " + conflict);
+                }
+
                 foreach (ObsoleteFileSpec obsolete in mod.ObsoleteFiles ?? new List<ObsoleteFileSpec>())
                 {
                     if (obsolete == null || string.IsNullOrWhiteSpace(obsolete.Target) || string.IsNullOrWhiteSpace(obsolete.Sha256))
@@ -432,6 +440,14 @@ namespace DS2ModSuite
                             unknownObsoleteNames.Add(Path.GetFileName(file.Target));
                         }
                     }
+                }
+
+                if (game != null && game.Found)
+                foreach (string conflict in mod.ConflictingFiles ?? new List<string>())
+                {
+                    if (!File.Exists(PathGuard.ResolveUnderRoot(game.GamePath, conflict))) continue;
+                    hasUnknownObsolete = true;
+                    unknownObsoleteNames.Add(conflict);
                 }
 
                 ModRuntimeState state = new ModRuntimeState

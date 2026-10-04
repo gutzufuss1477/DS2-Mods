@@ -44,11 +44,11 @@
     "destination": "payload/mods/high-density-backpack-modules/DS2_HighDensityBackpackModules_v1.1.0.asi"
   },
   {
-    "source": "../mods/climbing-power-gloves-range/release/DS2_Climbing_Power_Gloves_Range_v1.1.0/ds2_climbing_gloves_range.asi",
+    "source": "../mods/climbing-power-gloves-range/release/DS2_Climbing_Power_Gloves_Range_v1.1.1/ds2_climbing_gloves_range.asi",
     "destination": "payload/mods/climbing-power-gloves-range/ds2_climbing_gloves_range.asi"
   },
   {
-    "source": "../mods/climbing-power-gloves-range/release/DS2_Climbing_Power_Gloves_Range_v1.1.0/ds2_climbing_gloves_range.ini",
+    "source": "../mods/climbing-power-gloves-range/release/DS2_Climbing_Power_Gloves_Range_v1.1.1/ds2_climbing_gloves_range.ini",
     "destination": "payload/mods/climbing-power-gloves-range/ds2_climbing_gloves_range.ini"
   },
   {
@@ -184,7 +184,27 @@
     "destination": "payload/mods/crafting-unlocks/ds2_crafting_unlocks.ini"
   },
   {
-    "source": "../mods/sneaky-sam/release/DS2_Sneaky_Sam_v1.0.1/DS2_SneakySam_v1.0.1.asi",
-    "destination": "payload/mods/sneaky-sam/DS2_SneakySam_v1.0.1.asi"
+    "source": "../mods/jump-ramp-unlimited/release/ds2_jump_ramp_unlimited.asi",
+    "destination": "payload/mods/jump-ramp-unlimited/ds2_jump_ramp_unlimited.asi"
+  },
+  {
+    "source": "../mods/jump-ramp-unlimited/release/ds2_jump_ramp_unlimited.ini",
+    "destination": "payload/mods/jump-ramp-unlimited/ds2_jump_ramp_unlimited.ini"
+  },
+  {
+    "source": "../mods/beach-jump-with-cargo/release/ds2_beach_jump_with_cargo.asi",
+    "destination": "payload/mods/beach-jump-with-cargo/ds2_beach_jump_with_cargo.asi"
+  },
+  {
+    "source": "../mods/beach-jump-with-cargo/release/ds2_beach_jump_with_cargo.ini",
+    "destination": "payload/mods/beach-jump-with-cargo/ds2_beach_jump_with_cargo.ini"
+  },
+  {
+    "source": "../mods/sam-overhaul/release/DS2_Sam_Overhaul_v1.0.0/DS2_Sam_Overhaul_v1.0.0.asi",
+    "destination": "payload/mods/sam-overhaul/DS2_Sam_Overhaul_v1.0.0.asi"
+  },
+  {
+    "source": "../mods/sam-overhaul/release/DS2_Sam_Overhaul_v1.0.0/ds2_sam_overhaul.ini",
+    "destination": "payload/mods/sam-overhaul/ds2_sam_overhaul.ini"
   }
 ]

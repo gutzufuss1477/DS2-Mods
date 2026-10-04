@@ -467,6 +467,8 @@ namespace DS2ModSuite
                             "An unknown variant file blocks the safe switch: ",
                             "Eine unbekannte Varianten-Datei verhindert den sicheren Wechsel: ") + file.Target);
                 }
+                foreach (ModSpec chosen in catalog.Mods.Where(mod => selected.Contains(mod.Id)))
+                    VerifyNoStandaloneConflict(game.GamePath, chosen);
                 bool needsPayloadChange = DesiredStateNeedsPayload(game, selected, plan.ConfigurationProfile);
                 if (!allowUnsupportedBuild && !game.Supported && needsPayloadChange)
                 {
@@ -546,6 +548,7 @@ namespace DS2ModSuite
                         if (shouldInstall)
                         {
                             Report(progress, percent, mod.Name + Localization.T(" is being checked …", " wird geprüft …"));
+                            VerifyNoStandaloneConflict(game.GamePath, mod);
                             bool payloadChanged = false;
                             foreach (ObsoleteFileSpec obsolete in obsoleteFiles)
                             {
@@ -741,6 +744,7 @@ namespace DS2ModSuite
             if (selected.Count > 0 && game.Loader.Status == LoaderStatus.Absent) return true;
             foreach (ModSpec mod in catalog.Mods.Where(item => selected.Contains(item.Id)))
             {
+                VerifyNoStandaloneConflict(game.GamePath, mod);
                 foreach (ObsoleteFileSpec obsolete in mod.ObsoleteFiles ?? new List<ObsoleteFileSpec>())
                 {
                     if (File.Exists(PathGuard.ResolveUnderRoot(game.GamePath, obsolete.Target))) return true;
@@ -769,6 +773,15 @@ namespace DS2ModSuite
             catch { return false; }
         }
 
+        private static void VerifyNoStandaloneConflict(string gamePath, ModSpec mod)
+        {
+            foreach (string conflict in mod.ConflictingFiles ?? new List<string>())
+                if (File.Exists(PathGuard.ResolveUnderRoot(gamePath, conflict)))
+                    throw new InvalidOperationException(Localization.T(
+                        "A conflicting standalone mod is installed. Move this file out of the game folder before applying: ",
+                        "Ein kollidierender Einzel-Mod ist installiert. Diese Datei vor dem Anwenden aus dem Spielordner verschieben: ") + conflict);
+        }
+
         private void VerifyDesiredState(GameInspection game, HashSet<string> selected, ModConfigurationProfile configuration)
         {
             if (selected.Count > 0
@@ -785,6 +798,7 @@ namespace DS2ModSuite
 
             foreach (ModSpec mod in catalog.Mods.Where(item => selected.Contains(item.Id)))
             {
+                VerifyNoStandaloneConflict(game.GamePath, mod);
                 foreach (ObsoleteFileSpec obsolete in mod.ObsoleteFiles ?? new List<ObsoleteFileSpec>())
                 {
                     string obsoletePath = PathGuard.ResolveUnderRoot(game.GamePath, obsolete.Target);

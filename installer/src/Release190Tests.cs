@@ -19,7 +19,7 @@ namespace DS2ModSuite
             ConfigFieldDefinition level1 = gloves.Single(f => f.Key == "Level1RangeMeters");
             ConfigFieldDefinition level2 = gloves.Single(f => f.Key == "Level2RangeMeters");
             ConfigFieldDefinition combat = gloves.Single(f => f.Key == "EnableCargoPickup");
-            Assert(gloves.Count == 5 && level1.DefaultValue == "30" && level2.DefaultValue == "50"
+            Assert(gloves.Count == 10 && level1.DefaultValue == "30" && level2.DefaultValue == "50"
                 && combat.DefaultValue == "1" && !combat.Schema.Advanced, "glove release defaults mismatch");
             List<ConfigFieldDefinition> items = definitions.Where(f => f.ModId == "crafting-unlocks" && f.Section == "Items").ToList();
             List<ConfigFieldDefinition> added = items.Where(f => f.Label == "Chiral Boots" || f.Schema.Group == "Enemy-Drop Weapons").ToList();
@@ -95,6 +95,7 @@ namespace DS2ModSuite
             File.WriteAllText(craftingIni, "; preserve me\r\n[Items]\r\n" + chiral.Key + "=0 ; my boots\r\n" + ghost.Key + "=inherit ; follow default\r\n[Custom]\r\nKeep=1\r\n");
             ModConfigurationProfile legacy = ModConfigurationService.LoadEffectiveProfile(catalog, null);
             HashSet<string> addedIds = new HashSet<string>(added.Select(f => f.Id)) { combat.Id };
+            addedIds.UnionWith(definitions.Where(IsRelease1110Field).Select(f => f.Id));
             legacy.Values.RemoveAll(v => addedIds.Contains(v.Id));
             Assert(legacy.Values.Count == 312, "v1.8 profile fixture must have 312 fields");
             ModConfigurationService.SetValue(legacy, level1.Id, "40");
@@ -106,7 +107,7 @@ namespace DS2ModSuite
                     ModConfigurationService.LoadStoredProfile(catalog, migrationRoot),
                     ModConfigurationService.LoadEffectiveProfile(catalog, migrationRoot) })
                 {
-                    Assert(upgraded.Values.Count == 325 && ModConfigurationService.TryValidateProfile(catalog, upgraded, out error)
+                    Assert(upgraded.Values.Count == 377 && ModConfigurationService.TryValidateProfile(catalog, upgraded, out error)
                         && ModConfigurationService.GetValue(upgraded, level1.Id) == "40"
                         && ModConfigurationService.GetValue(upgraded, level2.Id) == "75"
                         && ModConfigurationService.GetValue(upgraded, combat.Id) == "0"
@@ -141,40 +142,5 @@ namespace DS2ModSuite
             finally { Localization.SetLanguage(UiLanguage.English); }
         }
 
-        private static void TestSneakySam(Catalog catalog, string testRoot, string executable)
-        {
-            ModSpec mod = catalog.Mods.Single(m => m.Id == "sneaky-sam");
-            Assert(mod.Version == "1.0.1" && mod.Files.Count == 1 && !mod.Files[0].IsConfig, "Sneaky Sam payload mismatch");
-            Assert(ModSettingsWindow.FilterInstalledConfigurableMods(catalog, ModConfigurationService.GetDefinitions(catalog), new[] { mod.Id }).Count == 0,
-                "Sneaky Sam must not show an empty settings page");
-            string root = Path.Combine(testRoot, "sneaky-sam");
-            Directory.CreateDirectory(root);
-            File.Copy(executable, Path.Combine(root, catalog.Game.Executable));
-            ApplyPlan plan = new ApplyPlan { GamePath = root, SelectedModIds = new List<string> { mod.Id } };
-            InstallEngine engine = new InstallEngine(catalog, true);
-            Assert(engine.Apply(plan, new DirectProgress()).Success, "Sneaky Sam fresh install failed");
-            ApplyResult repeated = engine.Apply(plan, new DirectProgress());
-            Assert(repeated.Success && repeated.Installed == 0 && repeated.Updated == 0 && repeated.Repaired == 0, "Sneaky Sam reapply changed payload");
-            string current = Path.Combine(root, mod.Files[0].Target);
-            File.Delete(current);
-            ObsoleteFileSpec old = mod.ObsoleteFiles.Single();
-            string oldPath = Path.Combine(root, old.Target);
-            File.WriteAllText(oldPath, "synthetic known Sneaky Sam 1.0.0");
-            string releasedHash = old.Sha256;
-            try
-            {
-                old.Sha256 = HashUtil.FileSha256(oldPath);
-                Assert(engine.Apply(plan, new DirectProgress()).Success && !File.Exists(oldPath)
-                    && Directory.GetFiles(root, "*.asi").Length == 1 && HashUtil.EqualsHash(HashUtil.FileSha256(current), mod.Files[0].Sha256),
-                    "Sneaky Sam legacy upgrade left two ASIs");
-                File.WriteAllText(oldPath, "unknown changed Sneaky Sam");
-                Assert(!engine.Apply(plan, new DirectProgress()).Success && File.ReadAllText(oldPath) == "unknown changed Sneaky Sam",
-                    "unknown Sneaky Sam legacy binary was overwritten");
-                File.Delete(oldPath);
-                plan.SelectedModIds.Clear();
-                Assert(engine.Apply(plan, new DirectProgress()).Success && !File.Exists(current), "Sneaky Sam removal failed");
-            }
-            finally { old.Sha256 = releasedHash; }
-        }
     }
 }

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "suiteVersion": "1.10.0",
+  "suiteVersion": "1.11.0",
   "game": {
     "name": "DEATH STRANDING 2: ON THE BEACH",
     "executable": "DS2.exe",
@@ -187,7 +187,7 @@
     {
       "id": "climbing-power-gloves-range",
       "name": "Climbing Power Gloves Range",
-      "version": "1.1.0",
+      "version": "1.1.1",
       "category": "Equipment & Progression",
       "categoryDe": "Ausrüstung & Fortschritt",
       "description": "Configurable Climbing Power Gloves pickup ranges (30/50 m by default), plus optional magnetic cargo pickup for Combat Power Gloves. Combat gloves have no separate range setting.",
@@ -196,13 +196,13 @@
         {
           "payload": "payload/mods/climbing-power-gloves-range/ds2_climbing_gloves_range.asi",
           "target": "ds2_climbing_gloves_range.asi",
-          "sha256": "DD3ADAD64D3F198BBE3DE7A22FA32D094B14F87FCEC97D6378C40A4914AC6FD9",
+          "sha256": "58F7007F9C4727D6173D623A5FB5762BF48DC720D88A265F6D88874DBDB93373",
           "kind": "binary"
         },
         {
           "payload": "payload/mods/climbing-power-gloves-range/ds2_climbing_gloves_range.ini",
           "target": "ds2_climbing_gloves_range.ini",
-          "sha256": "68DC4D14BDDEFF683A80E99CF34808D49159CC3E54B4CCD27A9D797D3EBAFF4D",
+          "sha256": "E87176992B618CBA2166117D5F920D6934C09FFF29DC354AD88C3046B204F51C",
           "kind": "config"
         }
       ]
@@ -579,47 +579,110 @@
     },
     {
       "id": "crafting-unlocks",
-      "name": "Crafting Overhaul",
-      "version": "1.5.0",
+      "name": "Crafting & Equipment Overhaul",
+      "version": "1.7.0",
       "category": "Equipment & Progression",
       "categoryDe": "Ausrüstung & Fortschritt",
-      "description": "Early crafting for 132 supported items, including Chiral Boots and 11 enemy-drop weapons. Optional Free Crafting and durability for equipment, boots and backpack covers are off by default.",
-      "descriptionDe": "Frühes Herstellen von 132 Gegenständen inklusive chiraler Stiefel und elf Gegnerwaffen. Optional kostenloses Herstellen und Haltbarkeit für Ausrüstung, Stiefel und Rucksackhüllen sind standardmäßig aus.",
+      "description": "Early crafting for 132 items plus ATLAS boots, an ATLAS skeleton and four suppressed weapons. Gold ATLAS and weapon options are configurable. Free Crafting and durability changes are off by default.",
+      "descriptionDe": "Frühes Herstellen von 132 Gegenständen sowie ATLAS-Stiefeln, einem ATLAS-Skelett und vier schallgedämpften Waffen. Gold-ATLAS und Waffenoptionen sind konfigurierbar. Kostenloses Herstellen und Haltbarkeitsänderungen sind standardmäßig aus.",
       "files": [
         {
           "payload": "payload/mods/crafting-unlocks/ds2_crafting_unlocks.asi",
           "target": "ds2_crafting_unlocks.asi",
-          "sha256": "27A27A37AD2D3E4B095CEE00DB0F0A10B509C81F1F08375310272B7C874B95CF",
+          "sha256": "618AA029BF5202E3E9DFF8864B94B5C25A6FB9247F0F25327000E3336E9E65F2",
           "kind": "binary"
         },
         {
           "payload": "payload/mods/crafting-unlocks/ds2_crafting_unlocks.ini",
           "target": "ds2_crafting_unlocks.ini",
-          "sha256": "8018C42A7EDC8773FAD4D2BA8AD063F65A33402190D89637C72CE060E663DB48",
+          "sha256": "C91194A89516DB3776134F8581E66DFDC913368F9C1837535781C9E385057C3B",
+          "kind": "config"
+        }
+      ],
+      "conflictingFiles": [
+        "ds2_overpowered_equipment.asi",
+        "ds2_more_silenced_guns.asi"
+      ]
+    },
+    {
+      "id": "jump-ramp-unlimited",
+      "name": "Jump Ramp Unlimited",
+      "version": "1.0.0",
+      "category": "Construction & World",
+      "categoryDe": "Bauen & Welt",
+      "description": "Repeat the final available trick while airborne after a Jump Ramp, using the normal trick input.",
+      "descriptionDe": "Wiederholt nach einer Sprungrampe den letzten verfügbaren Trick in der Luft mit der normalen Trick-Eingabe.",
+      "files": [
+        {
+          "payload": "payload/mods/jump-ramp-unlimited/ds2_jump_ramp_unlimited.asi",
+          "target": "ds2_jump_ramp_unlimited.asi",
+          "sha256": "6F6E2256F58B766822915DBA3801D32678C24A2EF855F1BDA9B0A16859FD3E7F",
+          "kind": "binary"
+        },
+        {
+          "payload": "payload/mods/jump-ramp-unlimited/ds2_jump_ramp_unlimited.ini",
+          "target": "ds2_jump_ramp_unlimited.ini",
+          "sha256": "4B95A9349A606902985A2E7E2C5E19650D5C045900616BD2E839FD83DD12CA1C",
+          "kind": "config"
+        }
+      ],
+      "conflictingFiles": [
+        "ds2_jump_ramp_probe.asi"
+      ]
+    },
+    {
+      "id": "beach-jump-with-cargo",
+      "name": "Beach Jump with Cargo",
+      "version": "1.0.0",
+      "category": "Construction & World",
+      "categoryDe": "Bauen & Welt",
+      "description": "Keep cargo attached to Sam during Beach and Hot Spring Jumps. Vehicles, Floating Carriers and cargo on the ground are not included.",
+      "descriptionDe": "Behält Sams am Körper getragene Fracht bei Strand- und Thermalquellen-Sprüngen. Fahrzeuge, schwebende Träger und Fracht am Boden sind nicht eingeschlossen.",
+      "files": [
+        {
+          "payload": "payload/mods/beach-jump-with-cargo/ds2_beach_jump_with_cargo.asi",
+          "target": "ds2_beach_jump_with_cargo.asi",
+          "sha256": "23272BF40C571C5CDBEED9148459CFAA1D7F20F0E76F2A08D5E83A5DA11E2567",
+          "kind": "binary"
+        },
+        {
+          "payload": "payload/mods/beach-jump-with-cargo/ds2_beach_jump_with_cargo.ini",
+          "target": "ds2_beach_jump_with_cargo.ini",
+          "sha256": "111CCF5E185BFE83EF2A66C5A0B9185A42822440A25DBF0FDF36799FFD8C9286",
           "kind": "config"
         }
       ]
     },
     {
-      "id": "sneaky-sam",
-      "name": "Sneaky Sam",
-      "version": "1.0.1",
+      "id": "sam-overhaul",
+      "name": "Sam Overhaul",
+      "version": "1.0.0",
       "category": "Equipment & Progression",
       "categoryDe": "Ausrüstung & Fortschritt",
-      "description": "Hides cargo on both shoulders and hips. Cargo remains carried and functional; backpack cargo stays visible. Visual only, with no INI settings.",
-      "descriptionDe": "Blendet Fracht an beiden Schultern und Hüften aus. Die Fracht bleibt getragen und nutzbar; Rucksackfracht bleibt sichtbar. Rein optisch, ohne INI-Einstellungen.",
+      "description": "Replaces Sneaky Sam with configurable cargo visibility, freer monorail and zipline exits, backpack landing rolls, faster Autodrive and truck weapon tuning.",
+      "descriptionDe": "Ersetzt Sneaky Sam durch konfigurierbare Frachtsichtbarkeit, freiere Einschienenbahn- und Seilrutschen-Ausstiege, Landerollen mit Rucksack, schnelleren Autopiloten und Lkw-Waffenabstimmung.",
       "files": [
         {
-          "payload": "payload/mods/sneaky-sam/DS2_SneakySam_v1.0.1.asi",
-          "target": "DS2_SneakySam_v1.0.1.asi",
-          "sha256": "C23B727A08227B786C2C3DDAF77DECCCFE43ABF68D8CD3D69B27CE5B493E4DAB",
+          "payload": "payload/mods/sam-overhaul/DS2_Sam_Overhaul_v1.0.0.asi",
+          "target": "DS2_Sam_Overhaul_v1.0.0.asi",
+          "sha256": "8D98EE779E54A4172EFC2ADDC6BB80A60C49EBEA789D0D2A38C554BD87F03825",
           "kind": "binary"
+        },
+        {
+          "payload": "payload/mods/sam-overhaul/ds2_sam_overhaul.ini",
+          "target": "ds2_sam_overhaul.ini",
+          "sha256": "51267DC084E4C3DD291EF90C5B37BBCEAF4C4A165615D4C24D7F7239AE2654F0",
+          "kind": "config"
         }
       ],
       "obsoleteFiles": [
         {
           "target": "DS2_SneakySam_v1.0.0.asi",
           "sha256": "57EB2FBA2B33AF665C5B9F3C24213E10C26B3BC3FA154263A6C1F60914D0A1A7"
+        },
+        {
+          "target": "DS2_SneakySam_v1.0.1.asi",
+          "sha256": "C23B727A08227B786C2C3DDAF77DECCCFE43ABF68D8CD3D69B27CE5B493E4DAB"
         }
       ]
     }

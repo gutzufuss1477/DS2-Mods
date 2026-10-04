@@ -4,6 +4,8 @@ Source code, documentation and validated releases for my DEATH STRANDING 2 mods.
 
 ## Mods
 
+- [Sam Overhaul](mods/sam-overhaul/) (replaces Sneaky Sam)
+
 - [Jump Ramp Unlimited](mods/jump-ramp-unlimited/)
 - [Beach Jump with Cargo](mods/beach-jump-with-cargo/)
 
@@ -37,8 +39,8 @@ Additional DS2 mods can be added later as separate folders under `mods/`.
 ## All-in-one installer
 
 The multilingual Windows GUI, stable-mod catalog, transactional installer and
-release build are maintained under [installer](installer/). Version 1.10.0 manages
-24 mods with 325 central settings, adding Sneaky Sam 1.0.1 and updating Climbing Power Gloves Range 1.1.0 (Combat pickup), Crafting Overhaul 1.5.0 and Improved Odradek Scan 1.0.1. The interface supports ten languages and includes one central **Mod Settings** menu while keeping
+release build are maintained under [installer](installer/). Version 1.11.0 manages
+26 mods with 377 central settings, replacing Sneaky Sam with Sam Overhaul, adding Jump Ramp Unlimited and Beach Jump with Cargo, and updating Crafting & Equipment Overhaul to 1.7.0 and Climbing/Combat Gloves to 1.1.1. The interface supports ten languages and includes one central **Mod Settings** menu while keeping
 the individual runtime INIs expected by each ASI plugin. The manager detects
 the Steam game directory and supported `DS2.exe`, reuses or installs the tested
 x64 ASI loader, preserves customized INIs and supports hash-verified update,
