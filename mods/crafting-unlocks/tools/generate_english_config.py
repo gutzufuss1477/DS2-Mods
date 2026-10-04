@@ -45,7 +45,7 @@ def generate(mapping: Path, catalogue: Path, output: Path) -> dict[str, object]:
         raise ValueError('Mapping does not cover the 103 reviewed normal fabrication recipes exactly.')
 
     lines = [
-        '; DS2 Crafting & Equipment Overhaul 1.6.0',
+        '; DS2 Crafting & Equipment Overhaul 1.6.1',
         '; Restart the game after changing this file.',
         '; 1 = enabled | 0 = disabled',
         '',
@@ -57,6 +57,7 @@ def generate(mapping: Path, catalogue: Path, output: Path) -> dict[str, object]:
         '',
         '[AtlasEquipment]',
         'Enabled=0              ; 1 = fabricate ATLAS Boots and ATLAS Skeleton without progression gates.',
+        'GoldSkeletonSkin=0     ; 1 = gold Boost Lv.3 skin for ATLAS Skeleton, 0 = normal Boost Lv.3 skin.',
         '                       ; 0 = hide their recipes; existing ATLAS items remain usable.',
         '                       ; Requires the global master switch; remove the old standalone ATLAS ASI.',
         '',

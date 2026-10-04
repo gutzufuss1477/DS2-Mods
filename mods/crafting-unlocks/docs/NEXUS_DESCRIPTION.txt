@@ -1,7 +1,7 @@
 Crafting & Equipment Overhaul
 Unlocks, Free Crafting, Durability & ATLAS Gear
 
-Previously Crafting Overhaul. Customize fabrication and equipment in DEATH STRANDING 2: ON THE BEACH using one ASI and INI. Version 1.6.0 adds optional ATLAS Boots and ATLAS Skeleton.
+Previously Crafting Overhaul. Customize fabrication and equipment in DEATH STRANDING 2: ON THE BEACH using one ASI and INI. Version 1.6.1 adds an optional native gold skin for the ATLAS Skeleton; ATLAS Boots and Skeleton remain optional.
 
 Features
 - 132 individually configurable item unlocks, including equipment, weapons, backpack modules, covers and charms.
@@ -12,7 +12,7 @@ Features
 - Original equipment retains its own values and appearance; normal progression remains available.
 
 ATLAS equipment
-ATLAS Boots use the Pizza Baker appearance, weigh 0.2 kg and have 3400 base durability. ATLAS Skeleton uses the ordinary Boost Skeleton Lv.3 appearance, weighs 4.0 kg and has 20000 base durability. Its carrying bonus is up to 180 kg with power or 100 kg without power. Battery use and native jump/input conditions still apply.
+ATLAS Boots use the Pizza Baker appearance, weigh 0.2 kg and have 3400 base durability. ATLAS Skeleton uses the ordinary Boost Skeleton Lv.3 appearance by default, or the native gold Boost Lv.3 appearance with GoldSkeletonSkin=1. It weighs 4.0 kg and has 20000 base durability. Its carrying bonus is up to 180 kg with power or 100 kg without power. Battery use and native jump/input conditions still apply.
 
 ATLAS recipes become available at ordinary fabrication facilities without story or donor-item unlock requirements. Their material costs match Transport Boots and Battle Skeleton Lv.1 unless FreeCrafting is enabled. ATLAS follows the shared durability settings. Names and descriptions are German in the German UI and English otherwise.
 
@@ -24,12 +24,13 @@ FreeCrafting=0
 
 [AtlasEquipment]
 Enabled=0
+GoldSkeletonSkin=0
 
 [Durability]
 Enabled=0
 Multiplier=2.0
 Unbreakable=0
-Set AtlasEquipment.Enabled=1 to enable ATLAS fabrication. ATLAS, FreeCrafting and durability changes are off by default. Individual item rules control early unlocks for the 132 original supported items. Restart after changing the INI.
+Set AtlasEquipment.Enabled=1 to enable ATLAS fabrication. Set GoldSkeletonSkin=1 for the native gold ATLAS Skeleton appearance. ATLAS, the gold skin, FreeCrafting and durability changes are off by default. Individual item rules control early unlocks for the 132 original supported items. Restart after changing the INI.
 
 Durability covers supported crafted equipment, nine boot types including ATLAS, and Backpack Cover Lv.1/Lv.2. Cargo, order cargo and cargo containers retain their native durability.
 
@@ -41,6 +42,6 @@ If upgrading from the separate ATLAS test mod, remove ds2_overpowered_equipment.
 Compatibility and testing
 Supported DS2.exe: 1.10.89.0. The mod validates the exact executable and hook signatures. Mods that alter the same code locations can conflict.
 
-Native tests and read-only game checks pass; the first integrated game test was user-confirmed. Standalone ATLAS fabrication, early-save use, save/reload persistence and hip cargo attachment were also confirmed. A separate new integrated save/reload cycle and in-game option-toggle checks remain open. Individual shoe effects and combat protection have not all been separately demonstrated. On short jumps, the double-jump hint can appear later than the usable input window.
+The full native/configuration test suite passes. ATLAS fabrication, gameplay, hip cargo and save/load persistence were user-confirmed. The optional gold skin was confirmed in the fabrication preview and on the equipped ATLAS Skeleton on a non-Deluxe installation, including after save/load. Individual shoe effects and combat protection have not all been separately demonstrated. On short jumps, the double-jump hint can appear later than the usable input window.
 
 Heavy Machine Gun [MP], quest-only and DLC-only recipes are not added to fabrication.

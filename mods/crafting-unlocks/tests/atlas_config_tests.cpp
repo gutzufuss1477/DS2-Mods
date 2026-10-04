@@ -17,12 +17,12 @@ int main(int argc,char**argv){try{
  check(argc==2,"Supply release INI");
  std::ifstream f(argv[1],std::ios::binary);check(bool(f),"INI readable");
  std::string text((std::istreambuf_iterator<char>(f)),{});auto shipped=parseOk(text);
- check(!shipped.atlasEnabled&&shipped.count==132,"ATLAS optional; original 132 rules retained");
+ check(!shipped.atlasEnabled&&!shipped.atlasGoldSkin&&shipped.count==132,"ATLAS optional; gold skin opt-in; original 132 rules retained");
  const std::string legacy="[CraftingUnlocks]\nEnabled=1\nDefaultUnlock=1\n";
- auto old=parseOk(legacy);check(!old.atlasEnabled,"Legacy config defaults ATLAS off");
+ auto old=parseOk(legacy);check(!old.atlasEnabled&&!old.atlasGoldSkin,"Legacy config defaults ATLAS and gold skin off");
  for(bool flag:{false,true})for(bool unlock:{false,true}){
-  auto s=parseOk(std::string("[CraftingUnlocks]\nEnabled=1\nDefaultUnlock=")+(unlock?"1":"0")+"\n[AtlasEquipment]\nEnabled="+(flag?"1":"0")+"\n");
-  check(s.atlasEnabled==flag&&s.all==unlock,"ATLAS toggle independent of normal unlock settings");
+  auto s=parseOk(std::string("[CraftingUnlocks]\nEnabled=1\nDefaultUnlock=")+(unlock?"1":"0")+"\n[AtlasEquipment]\nEnabled="+(flag?"1":"0")+"\nGoldSkeletonSkin=1\n");
+  check(s.atlasEnabled==flag&&s.atlasGoldSkin&&s.all==unlock,"ATLAS and skin toggles independent of normal unlock settings");
   for(auto key:{equipment::BootRecipe,equipment::SkeletonRecipe}){
    Recipe r{};r.key=key;r.usage=flag?1:0;r.valid=1;r.resource=1;r.baggage=2;r.instance={3,7,0};
    Instance out[MaxMenu]{};
@@ -35,7 +35,7 @@ int main(int argc,char**argv){try{
    check(effective_cost_count(false,key,3)==3,"ATLAS costs preserved when free crafting off");
   }
  }
- for(const auto* extra:{"Enabled=2","Enabled=inherit","Unknown=1","Enabled=1\nEnabled=0"}){
+ for(const auto* extra:{"Enabled=2","Enabled=inherit","GoldSkeletonSkin=2","GoldSkeletonSkin=inherit","Unknown=1","Enabled=1\nEnabled=0","GoldSkeletonSkin=1\nGoldSkeletonSkin=0"}){
   auto bad=legacy+"[AtlasEquipment]\n"+extra+"\n";Settings s{};Error e{};
   check(!parse(bad.data(),bad.size(),s,e),"Invalid/duplicate ATLAS setting rejected");
  }

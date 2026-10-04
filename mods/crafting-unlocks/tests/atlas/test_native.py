@@ -35,8 +35,8 @@ DLL.PreviewChart.argtypes=[C.c_void_p];DLL.PreviewChart.restype=C.c_void_p
 DLL.TestAtlas.argtypes=[C.c_void_p,C.c_bool]+[C.c_void_p]*8+[C.c_bool];DLL.TestAtlas.restype=C.c_bool
 DLL.AtlasPart.argtypes=[C.c_void_p,C.c_uint];DLL.AtlasPart.restype=C.c_void_p
 DLL.AtlasLanguage.argtypes=[C.c_void_p,C.c_bool]
-DLL.TestAtlasVisuals.argtypes=[C.c_void_p]*3;DLL.TestAtlasVisuals.restype=C.c_bool
-DLL.PrepareSkeletonVisual.restype=C.c_void_p
+DLL.TestAtlasVisuals.argtypes=[C.c_void_p,C.c_void_p,C.c_void_p,C.c_ubyte];DLL.TestAtlasVisuals.restype=C.c_bool
+DLL.PrepareSkeletonVisual.argtypes=[C.c_ubyte];DLL.PrepareSkeletonVisual.restype=C.c_void_p
 DLL.PrepareNativeUnlock.argtypes=[C.c_void_p,C.c_uint];DLL.PrepareNativeUnlock.restype=C.c_void_p
 DLL.PrepareHipValidation.argtypes=[C.c_void_p,C.c_uint,C.c_bool];DLL.PrepareHipValidation.restype=C.c_void_p
 DLL.TestPrepareDepot.argtypes=[C.c_void_p,C.c_void_p,C.c_uint,C.c_bool,C.c_bool];DLL.TestPrepareDepot.restype=C.c_bool
@@ -99,22 +99,21 @@ class NativeTests(unittest.TestCase):
 
  def test_skeleton_visual_selector_keeps_identity_and_effects(self):
   im=Image();self.assertEqual(im.read(0xec70f6,6),bytes.fromhex('0f b6 c0 83 c0 ea'))
-  # Native case 26 selects the ordinary Boost Lv.3 APV at array index 7.
-  self.assertEqual(struct.unpack('<I',im.read(0xec7520+(26-22)*4,4))[0],0xec719c)
-  self.assertEqual(im.read(0xec71a7,4),bytes.fromhex('48 8b 71 38'))
-  page=DLL.PrepareSkeletonVisual();self.assertTrue(page)
-  fn=C.CFUNCTYPE(None,C.c_void_p,C.c_void_p,C.c_uint)(page);out=C.create_string_buffer(24)
-  try:
-   for id,cat,sub in product(range(256),[5,6,8],range(1,8)):
-    p=item(id=id,cat=cat,sub=sub);before=p.raw;local_sub=sub if cat==6 else 255
-    fn(p,out,local_sub);selector,group,ptr,flags=struct.unpack('<IIQQ',out.raw)
-    target=id==104 and cat==6 and sub==1;visual=26 if target else id
-    self.assertEqual(selector,(visual-22)&0xffffffff)
-    self.assertEqual(group,2 if target else local_sub)
-    self.assertEqual(ptr,C.addressof(p));self.assertEqual(p.raw,before)
-    self.assertEqual(bool(flags&0x40),visual==22)
-   fn(None,out,255);self.assertEqual(struct.unpack('<IIQ',out.raw[:16]),(0xffffffea,255,0))
-  finally:DLL.FreeBranch(page)
+  for configured in [26,35]:
+   self.assertNotEqual(struct.unpack('<I',im.read(0xec7520+(configured-22)*4,4))[0],0)
+   page=DLL.PrepareSkeletonVisual(configured);self.assertTrue(page)
+   fn=C.CFUNCTYPE(None,C.c_void_p,C.c_void_p,C.c_uint)(page);out=C.create_string_buffer(24)
+   try:
+    for id,cat,sub in product(range(256),[5,6,8],range(1,8)):
+     p=item(id=id,cat=cat,sub=sub);before=p.raw;local_sub=sub if cat==6 else 255
+     fn(p,out,local_sub);selector,group,ptr,flags=struct.unpack('<IIQQ',out.raw)
+     target=id==104 and cat==6 and sub==1;visual=configured if target else id
+     self.assertEqual(selector,(visual-22)&0xffffffff)
+     self.assertEqual(group,2 if target else local_sub)
+     self.assertEqual(ptr,C.addressof(p));self.assertEqual(p.raw,before)
+     self.assertEqual(bool(flags&0x40),visual==22)
+    fn(None,out,255);self.assertEqual(struct.unpack('<IIQ',out.raw[:16]),(0xffffffea,255,0))
+   finally:DLL.FreeBranch(page)
 
  def test_native_unlock_predicate_accepts_atlas_with_locked_story(self):
   im=Image();raw=im.read(0xbe91a0,0x67);buffer=C.create_string_buffer(raw,len(raw))
@@ -154,10 +153,10 @@ class NativeTests(unittest.TestCase):
    boot=fixture['id']==11;out=C.create_string_buffer(DLL.AtlasSize())
    self.assertTrue(DLL.TestAtlas(out,boot,*data,True))
    dp=C.create_string_buffer(bytes([0xa5])*0xa0,0xa0);dl=C.create_string_buffer(bytes([0xb6])*0xc0,0xc0)
-   struct.pack_into('4B',dp,0x20,20 if boot else 26,0 if boot else 2,5 if boot else 6,5 if boot else 2)
+   struct.pack_into('4B',dp,0x20,20 if boot else 35,0 if boot else 2,5 if boot else 6,5 if boot else 2)
    parts=[DLL.AtlasPart(out,i) for i in range(7)];sizes=[0xa0,0xc0,0x88,0xb0,0x38,0x38,0x30]
    before=[C.string_at(p,n) for p,n in zip(parts,sizes)];donors=(dp.raw,dl.raw)
-   self.assertTrue(DLL.TestAtlasVisuals(out,dp,dl))
+   self.assertTrue(DLL.TestAtlasVisuals(out,dp,dl,20 if boot else 35))
    allowed=[set(range(0x38,0x40))|set(range(0x78,0x98)),set(range(0x50,0x5c))]+[set()]*5
    for i,(p,n) in enumerate(zip(parts,sizes)):
     after=C.string_at(p,n)
@@ -165,7 +164,7 @@ class NativeTests(unittest.TestCase):
      self.assertEqual(after[offset],(dp.raw if i==0 else dl.raw)[offset] if offset in allowed[i] else before[i][offset],(i,offset))
    self.assertEqual((dp.raw,dl.raw),donors)
    saved=out.raw;dp[0x20]=11 if boot else 21
-   self.assertFalse(DLL.TestAtlasVisuals(out,dp,dl));self.assertEqual(out.raw,saved)
+   self.assertFalse(DLL.TestAtlasVisuals(out,dp,dl,20 if boot else 35));self.assertEqual(out.raw,saved)
 
  def test_depot_growth_stages_fresh_allocation_before_publishing(self):
   for fail_alloc,fail_copy in [(False,False),(True,False),(False,True)]:

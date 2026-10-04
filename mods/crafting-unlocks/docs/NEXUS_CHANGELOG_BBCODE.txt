@@ -1,3 +1,9 @@
+[b]1.6.1[/b]
+- Added GoldSkeletonSkin=0/1 under [AtlasEquipment].
+- 0 keeps the normal Boost Skeleton Lv.3 appearance; 1 uses the native gold Boost Skeleton Lv.3 appearance.
+- The selected skin applies to both the fabrication preview and the equipped ATLAS Skeleton.
+- Confirmed in-game on a non-Deluxe installation; old INIs remain compatible and default to the normal skin.
+
 [b]1.6.0 - Crafting & Equipment Overhaul[/b]
 Renamed from Crafting Overhaul.
 

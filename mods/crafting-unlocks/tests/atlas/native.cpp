@@ -30,7 +30,7 @@ EXPORT bool TestAtlas(void*out,bool boot,void*item,void*list,void*bag,void*recip
  return prepareAtlas(*(AtlasBundle*)out,boot,(u8*)item,(u8*)list,(u8*)bag,(u8*)recipe,(u8*)name,(u8*)desc,(u8*)chart,*(const u8(*)[6][0x30])rows,german);
 }
 EXPORT void AtlasLanguage(void*out,bool german){atlasLanguage(*(AtlasBundle*)out,german);}
-EXPORT bool TestAtlasVisuals(void*out,const void*item,const void*list){return atlasVisuals(*(AtlasBundle*)out,(const u8*)item,(const u8*)list);}
+EXPORT bool TestAtlasVisuals(void*out,const void*item,const void*list,u8 skeletonVisualId){return atlasVisuals(*(AtlasBundle*)out,(const u8*)item,(const u8*)list,skeletonVisualId);}
 EXPORT void* AtlasPart(void*out,u32 part){auto&b=*(AtlasBundle*)out;void*parts[]={b.item,b.list,b.bag,b.recipe,b.name,b.preview.description,b.preview.chart};return part<7?parts[part]:nullptr;}
 EXPORT void* PreviewDescription(void*out){return ((PreviewBundle*)out)->description;}
 EXPORT void* PreviewChart(void*out){return ((PreviewBundle*)out)->chart;}
@@ -55,7 +55,7 @@ EXPORT void* PrepareBranch(u32 index){
  return page;
 }
 EXPORT void FreeBranch(void* p){VirtualFree(p,0,0x8000);}
-EXPORT void* PrepareSkeletonVisual(){
+EXPORT void* PrepareSkeletonVisual(u8 skeletonVisualId){
  auto*page=(u8*)VirtualAlloc(nullptr,4096,0x3000,4);if(!page)return nullptr;
  // Test ABI: item, result, original local subtype. Preserve host R14 and return
  // the selector, visibility group, parameter pointer and native output flags.
@@ -63,7 +63,7 @@ EXPORT void* PrepareSkeletonVisual(){
  e.bytes(setup,sizeof(setup));u32 absent=e.jcc(0x84);
  const u8 id[]={0x0F,0xB6,0x42,0x20};e.bytes(id,4);e.fix(absent,e.size);e.jump(u64(page)+0x200);
  Code end{page+0x100};const u8 result[]={0x41,0x89,0x01,0x45,0x89,0x71,4,0x49,0x89,0x51,8,0x9C,0x41,0x8F,0x41,0x10,0x41,0x5E,0xC3};end.bytes(result,sizeof(result));
- if(skeletonVisualCode(page+0x200,u64(page)+0x100)>256){VirtualFree(page,0,0x8000);return nullptr;}
+ if(skeletonVisualCode(page+0x200,u64(page)+0x100,skeletonVisualId)>256){VirtualFree(page,0,0x8000);return nullptr;}
  DWORD old;if(!VirtualProtect(page,4096,0x20,&old)||!FlushInstructionCache(GetCurrentProcess(),page,4096)){VirtualFree(page,0,0x8000);return nullptr;}
  return page;
 }

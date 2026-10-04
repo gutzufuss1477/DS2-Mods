@@ -20,6 +20,7 @@ namespace {
 constexpr u32 BranchCount=sizeof(Branches)/sizeof(Branches[0]),AtlasPatchStart=BranchCount+3+JumpGateCount,PatchCount=AtlasPatchStart+4;
 u64 image;
 bool recipesEnabled=false;
+u8 skeletonVisualId=SkeletonNormalVisualId;
 void (*logCallback)(const char*)=nullptr;
 volatile long definitionBusy=0;
 u64 nextDefinitions=0;
@@ -78,7 +79,7 @@ bool prepare(){
   if(i<BranchCount)branchCode(slot,Branches[i],image);
   else if(i==BranchCount+2)boostFactCode(slot,image+p.rva+p.length);
   else if(i>=BranchCount+3 && i<AtlasPatchStart){if(doubleJumpCode(slot,image+p.rva+p.length,JumpGates[i-BranchCount-3])>256)return false;}
-  else if(i==AtlasPatchStart+3){if(skeletonVisualCode(slot,image+p.rva+p.length)>256)return false;}
+  else if(i==AtlasPatchStart+3){if(skeletonVisualCode(slot,image+p.rva+p.length,skeletonVisualId)>256)return false;}
   else if(i>=AtlasPatchStart){
    Code c{slot};c.absolute(i==AtlasPatchStart?u64(&catalogueConstructor):i==AtlasPatchStart+1?u64(&wornMesh):u64(&hangingMesh));
    if(i>AtlasPatchStart){Code original{slot+128};original.bytes(p.expected,p.length);original.absolute(image+p.rva+p.length);
@@ -149,8 +150,8 @@ extern "C" void CombineLoading(void* output,void* state,void* inventory){
 }
 // The host owns version verification, module pinning, configuration and logging.
 // Keep this on its single initialization worker, before native catalogue creation.
-bool InstallAtlasEquipment(unsigned long long gameImage,bool enableRecipes,void (*logger)(const char*)){
- image=gameImage;recipesEnabled=enableRecipes;logCallback=logger;
+bool InstallAtlasEquipment(unsigned long long gameImage,bool enableRecipes,bool goldSkeletonSkin,void (*logger)(const char*)){
+ image=gameImage;recipesEnabled=enableRecipes;skeletonVisualId=goldSkeletonSkin?SkeletonGoldVisualId:SkeletonNormalVisualId;logCallback=logger;
  if(GetModuleHandleW(L"ds2_overpowered_equipment.asi")){
   log("ATLAS_BLOCKED: standalone ATLAS ASI is also loaded. Remove it and restart; one provider is required.");return false;
  }

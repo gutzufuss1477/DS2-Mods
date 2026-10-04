@@ -8,7 +8,7 @@ using namespace craft;
 template<class T> T& at(void* p, u32 offset) { return *reinterpret_cast<T*>(static_cast<u8*>(p)+offset); }
 template<class T> const T& at(const void* p, u32 offset) { return *reinterpret_cast<const T*>(static_cast<const u8*>(p)+offset); }
 constexpr u8 BootId=103, SkeletonId=104;
-constexpr u8 BootVisualId=20, SkeletonVisualId=26; // Pizza Baker / ordinary Boost Lv.3
+constexpr u8 BootVisualId=20, SkeletonNormalVisualId=26, SkeletonGoldVisualId=35; // Pizza Baker / Boost Lv.3 variants
 constexpr float BootParams[6]={1.0f,0.5f,1.2f,0.5f,0.5f,0.0f};
 constexpr float NativeBootParams[6]={0.0f,1.0f,1.0f,1.0f,1.0f,0.0f};
 constexpr u32 BootBag=0x3B0ECB3E, SkeletonBag=0x4D918ADD;

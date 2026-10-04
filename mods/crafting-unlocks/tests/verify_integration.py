@@ -40,10 +40,10 @@ for i in range(count):
  chars=struct.unpack_from('<I',binary,off+36)[0]
  assert not(chars&0x20000000 and chars&0x80000000),('writable executable section',name)
  sections.append(name)
-assert b'DS2 Crafting & Equipment Overhaul 1.6.0' in binary and b'ATLAS_ON:' in binary and b'ATLAS_OFF:' in binary
-report={'version':'1.6.0','sha256':hashlib.sha256(binary).hexdigest(),'bytes':len(binary),'hook_count':len(sites),
+assert b'DS2 Crafting & Equipment Overhaul 1.6.1' in binary and b'ATLAS_ON:' in binary and b'ATLAS_OFF:' in binary
+report={'version':'1.6.1','sha256':hashlib.sha256(binary).hexdigest(),'bytes':len(binary),'hook_count':len(sites),
  'groups':{g:sum(s[2]==g for s in sites) for g in ['atlas','freecrafting','durability','menus']},
  'exact_exe_signatures':True,'overlapping_hooks':False,'amd64_dll':True,'aslr_nx':True,'writable_executable_sections':False,
  'sites':[{'rva':hex(a),'length':len(b),'group':g} for a,b,g in sites]}
-(ROOT/'validation/integration-1.6.0.json').write_text(json.dumps(report,indent=2)+'\n',encoding='utf-8')
+(ROOT/'validation/integration-1.6.1.json').write_text(json.dumps(report,indent=2)+'\n',encoding='utf-8')
 print(f"PASS {len(sites)} exact native signatures; no overlaps; AMD64 DLL, ASLR/NX, no RWX sections.")

@@ -78,9 +78,9 @@ inline void atlasLanguage(AtlasBundle& b,bool german){
 }
 // Borrow only presentation fields. In particular, keep the real item ID, level,
 // category, subtype, equipment-list graph and all gameplay values unchanged.
-inline bool atlasVisuals(AtlasBundle& b,const u8* donor,const u8* donorList){
+inline bool atlasVisuals(AtlasBundle& b,const u8* donor,const u8* donorList,u8 skeletonVisualId){
  const bool boot=b.item[0x20]==BootId;
- if((!boot && b.item[0x20]!=SkeletonId) || donor[0x20]!=(boot?BootVisualId:SkeletonVisualId) ||
+ if((!boot && b.item[0x20]!=SkeletonId) || donor[0x20]!=(boot?BootVisualId:skeletonVisualId) ||
     donor[0x22]!=(boot?5:6) || (!boot && (donor[0x21]!=2 || donor[0x23]!=2)))return false;
  at<u64>(b.item,0x38)=at<u64>(donor,0x38);
  previewCopy(b.item+0x78,donor+0x78,0x20); // entity / helper UUID references

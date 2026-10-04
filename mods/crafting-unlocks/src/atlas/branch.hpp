@@ -60,13 +60,13 @@ constexpr u8 SkeletonVisualBytes[]={0x0F,0xB6,0xC0,0x83,0xC0,0xEA};
 // EC7010 caches the REAL equipment ID before this point. Only its local art
 // selector (AL) and visibility subtype (R14D) are mapped to Boost Lv.3. The
 // parameter resource and cached identity remain ATLAS, including forced refresh.
-inline u32 skeletonVisualCode(u8* output,u64 resume){
+inline u32 skeletonVisualCode(u8* output,u64 resume,u8 skeletonVisualId){
  Code c{output};
  c.b(0x3C);c.b(SkeletonId);u32 other=c.jcc(0x85);
  const u8 nonNull[]={0x48,0x85,0xD2};c.bytes(nonNull,3);u32 absent=c.jcc(0x84);
  const u8 cat[]={0x80,0x7A,0x22,6};c.bytes(cat,4);u32 category=c.jcc(0x85);
  const u8 sub[]={0x80,0x7A,0x23,1};c.bytes(sub,4);u32 subtype=c.jcc(0x85);
- c.b(0xB0);c.b(SkeletonVisualId); // local item selector AL
+ c.b(0xB0);c.b(skeletonVisualId); // local item selector AL
  const u8 boost[]={0x41,0xBE,2,0,0,0};c.bytes(boost,6); // local mesh group R14D
  c.fix(other,c.size);c.fix(absent,c.size);c.fix(category,c.size);c.fix(subtype,c.size);
  c.bytes(SkeletonVisualBytes,sizeof(SkeletonVisualBytes)); // also restores native arithmetic flags

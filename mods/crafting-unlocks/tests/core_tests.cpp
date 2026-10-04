@@ -14,7 +14,8 @@ Settings cfg(const std::string&s){Settings c={};Error e;check(parse(s.data(),s.s
 Recipe item(u32 idx,u32 key,u8 usage=1){Recipe r={};r.instance={0x141234000,idx,0x12345678};r.resource=0x150000000+idx*0xB0;r.baggage=0x160000000+idx*0x88;r.key=key;r.usage=usage;r.valid=1;r.caseType=1;return r;}
 int main(){try{
  const std::string head="[CraftingUnlocks]\nEnabled=1\nDefaultUnlock=1\n";Settings c=cfg(head);
- check(selected(c,0xAA),"default all");Settings s=cfg(head+"[Items]\n0x000000AA=0\n0x000000BB=1\n0x000000CC=inherit\n");check(!selected(s,0xAA)&&selected(s,0xBB)&&selected(s,0xCC),"overrides");
+ check(selected(c,0xAA),"default all");check(!c.atlasGoldSkin,"legacy INI defaults to normal ATLAS skin");Settings s=cfg(head+"[Items]\n0x000000AA=0\n0x000000BB=1\n0x000000CC=inherit\n");check(!selected(s,0xAA)&&selected(s,0xBB)&&selected(s,0xCC),"overrides");
+ s=cfg(head+"[AtlasEquipment]\nEnabled=1\nGoldSkeletonSkin=1\n");check(s.atlasEnabled&&s.atlasGoldSkin,"ATLAS gold skin toggle parsed independently");
  s=cfg("\xEF\xBB\xBF [CRAFTINGUNLOCKS]\r\n Enabled = 1 ; x\r\nDefaultUnlock=0\r\nExportCatalogue=0\r\n[Items]\r\n0XFFFFFFFF=1\n");check(selected(s,0xFFFFFFFF)&&!selected(s,3)&&!s.dump,"BOM, spacing, case, selection");
  std::vector<std::string> bad={"", "[Items]\n0x12345678=1", "Enabled=1",head+"Enabled=1",head+"[Bad]\nKey=1",head+"Unknown=1",head+"ExportCatalogue=inherit",head+"[Items]\nFloaterLv1=1",head+"[Items]\n0xA=1",head+"[Items]\n0x12345678=2",head+"[Items]\n0x12345678=1\n0x12345678=inherit",head+"[Items",head+"[Items]\n0x12345678",head+"[Items]\n0xZZZZZZZZ=1",head+std::string("a\0b",3)};
  for(const auto&v:bad){Settings x={};Error e;check(!parse(v.data(),v.size(),x,e)&&e.message,"reject malformed settings");}

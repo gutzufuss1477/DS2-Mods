@@ -20,7 +20,7 @@ bool scanSource(u64 depot,AtlasSources& s,u32 depth){
    u8 id=read<u8>(p+0x20);
    if(id==BootId||id==SkeletonId)s.conflict=true;
    if(id==SourceBootId||id==SourceSkeletonId){u32 k=id==SourceBootId?0:1;if(s.item[k]&&s.item[k]!=p){log("ATLAS_SCAN_BLOCKED: duplicate source item identity.");return false;}s.item[k]=p;}
-   if(id==BootVisualId||id==SkeletonVisualId){u32 k=id==BootVisualId?0:1;if(s.visual[k]&&s.visual[k]!=p){log("ATLAS_SCAN_BLOCKED: duplicate visual donor identity.");return false;}s.visual[k]=p;}
+   if(id==BootVisualId||id==skeletonVisualId){u32 k=id==BootVisualId?0:1;if(s.visual[k]&&s.visual[k]!=p){log("ATLAS_SCAN_BLOCKED: duplicate visual donor identity.");return false;}s.visual[k]=p;}
    u64 list=read<u64>(p+0x40);u32 listId=read<u32>(list+0x40),listCode=read<u32>(list+0x44);
    if(listId==BootListId||listId==SkeletonListId||listCode==BootList||listCode==SkeletonList)s.conflict=true;
   }else if(type==image+0x43340C0){
@@ -73,7 +73,7 @@ void registerAtlas(){
   if(!pending[k]||!prepareAtlas(*pending[k],!k,item,list,bag,recipe,name,desc,chart,rows,germanText())){ok=false;break;}
   atlasFabrication(*pending[k],recipesEnabled);
   u8 donor[0xA0],donorList[0xC0];u64 vp=s.visual[k],vl=read<u64>(vp+0x40);
-  if(!readmem(vp,donor,sizeof(donor))||!readmem(vl,donorList,sizeof(donorList))||!atlasVisuals(*pending[k],donor,donorList)){ok=false;break;}
+  if(!readmem(vp,donor,sizeof(donor))||!readmem(vl,donorList,sizeof(donorList))||!atlasVisuals(*pending[k],donor,donorList,skeletonVisualId)){ok=false;break;}
   u64 p[]={ip,lp,bp,rp,np,dp,cp,vp,vl};
   for(u32 j=0;j<9;++j){pins[k][j]=p[j];if(!writable((void*)(p[j]+8),4))ok=false;}
  }
@@ -94,7 +94,7 @@ void registerAtlas(){
   appendDepot(items,b->item);appendDepot(catalogue,b->list);appendDepot(catalogue,b->bag);appendDepot(catalogue,b->recipe);
  }
  log("ATLAS_RESOURCES_READY: independent item IDs 103/104; unique equipment, baggage, recipe and text resources; original items 11/21 unchanged.");
- log("ATLAS_VISUALS_READY: Pizza Baker boots (20), ordinary Boost Skeleton Lv.3 (26); ATLAS identities and gameplay parameters retained.");
+ log(skeletonVisualId==SkeletonGoldVisualId?"ATLAS_VISUALS_READY: Pizza Baker boots (20), gold Boost Skeleton Lv.3 (35); ATLAS identities and gameplay parameters retained.":"ATLAS_VISUALS_READY: Pizza Baker boots (20), normal Boost Skeleton Lv.3 (26); ATLAS identities and gameplay parameters retained.");
  log(recipesEnabled?"ATLAS_RECIPES_READY: available without progression gates; costs follow FreeCrafting.":"ATLAS_RECIPES_HIDDEN: Usage=None; resources retained for save compatibility.");
  log(germanText()?"ATLAS_LANGUAGE: German UI text.":"ATLAS_LANGUAGE: English UI text/fallback.");
 }

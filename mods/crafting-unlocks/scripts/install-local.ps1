@@ -12,7 +12,7 @@ New-Item -ItemType Directory -Path $backup -Force | Out-Null
 $asi=Join-Path $gameRoot 'ds2_crafting_unlocks.asi'
 $ini=Join-Path $gameRoot 'ds2_crafting_unlocks.ini'
 $legacy=Join-Path $gameRoot 'ds2_overpowered_equipment.asi'
-$retired=$legacy+'.disabled-crafting-1.6.0-'+$stamp
+$retired=$legacy+'.disabled-crafting-1.6.1-'+$stamp
 $hadAsi=Test-Path -LiteralPath $asi
 $hadIni=Test-Path -LiteralPath $ini
 $hadLegacy=Test-Path -LiteralPath $legacy
@@ -39,5 +39,5 @@ try {
  if($hadLegacy -and (Test-Path -LiteralPath $retired)){Move-Item -LiteralPath $retired -Destination $legacy}
  throw
 }
-[ordered]@{version='1.6.0';game=$gameRoot;backup=$backup;atlasEnabled=1;retiredStandalone=$retired;asiSha256=(Get-FileHash -LiteralPath $asi).Hash;installedIniSha256=(Get-FileHash -LiteralPath $ini).Hash} | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $modRoot 'validation/install-1.6.0.json') -Encoding utf8
-Write-Output "Crafting & Equipment Overhaul 1.6.0 installed with ATLAS enabled. Previous files: $backup"
+[ordered]@{version='1.6.1';game=$gameRoot;backup=$backup;atlasEnabled=1;retiredStandalone=$retired;asiSha256=(Get-FileHash -LiteralPath $asi).Hash;installedIniSha256=(Get-FileHash -LiteralPath $ini).Hash} | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $modRoot 'validation/install-1.6.1.json') -Encoding utf8
+Write-Output "Crafting & Equipment Overhaul 1.6.1 installed with ATLAS enabled. Previous files: $backup"

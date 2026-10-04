@@ -1,0 +1,39 @@
+{
+  "version": "1.6.1",
+  "status": "release build validated; optional gold ATLAS Skeleton skin user-confirmed on non-Deluxe installation",
+  "asi_sha256": "8c46ed002732c6c8d3c7bd68b17a3d780201a7248ce8474bb59fd2aa0735c2df",
+  "asi_bytes": 112128,
+  "ini_sha256": "d8abf853f91531b22aa0ca17d3992460e9090a2f851ab4b72d4a9f22f5c49f47",
+  "config": {
+    "atlas_default": 0,
+    "gold_skeleton_skin_default": 0,
+    "legacy_ini_accepted": true,
+    "gold_skin_enabled_value": 1,
+    "normal_skin_visual_id": 26,
+    "gold_skin_visual_id": 35,
+    "atlas_skeleton_item_id": 104
+  },
+  "tests": {
+    "host_assertions": 335437,
+    "config_assertions": 9297,
+    "backpack_assertions": 13603,
+    "freecrafting_native_cases": 98560,
+    "freecrafting_native_assertions": 296180,
+    "freecrafting_unwind_checks": 88,
+    "transaction_assertions": 26900,
+    "special_usage_ui_cases": 35,
+    "durability_assertions": 1001906,
+    "atlas_config_assertions": 198,
+    "atlas_native_tests": 20,
+    "atlas_native_branch_cases": 110208,
+    "exact_native_hook_signatures": 91,
+    "hook_overlap": false
+  },
+  "game_confirmation": {
+    "non_deluxe_installation": true,
+    "gold_fabrication_preview": true,
+    "gold_equipped_model": true,
+    "save_load_persistence": true
+  },
+  "distribution": "Git publication prepared; Nexus upload remains manual."
+}

@@ -58,6 +58,7 @@ int main(int argc, char** argv) {
                                std::istreambuf_iterator<char>()};
         const auto shipped = read_settings(text);
         check(shipped.enabled && shipped.all && !shipped.dump, "shipped global defaults");
+        check(!shipped.atlasGoldSkin, "gold ATLAS skin is opt-in by default");
         check(shipped.count == 90, "90 parsed recipe keys with inline English comments");
         std::vector<Recipe> recipes;
         for (u32 i = 0; i < shipped.count; ++i) {
@@ -125,6 +126,10 @@ int main(int argc, char** argv) {
                                                 key_text(shipped.rules[0].key) + "=inherit"),
                                           "DefaultUnlock=1", "DefaultUnlock=0"));
         check(!selected(inherited, shipped.rules[0].key), "inherit follows all-disabled default");
+
+        const auto goldSkin = read_settings(text + "\r\n[AtlasEquipment]\r\nGoldSkeletonSkin=1\r\n");
+        check(goldSkin.atlasGoldSkin && goldSkin.enabled && goldSkin.all && goldSkin.count==90,
+              "gold ATLAS skin toggle changes presentation only");
 
         const auto diagnostics = read_settings(change(text, "ExportCatalogue=0", "ExportCatalogue=1"));
         check(diagnostics.dump && diagnostics.enabled && diagnostics.all && diagnostics.count==90,

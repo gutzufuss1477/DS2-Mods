@@ -1,4 +1,4 @@
-DS2 CRAFTING & EQUIPMENT OVERHAUL 1.6.0
+DS2 CRAFTING & EQUIPMENT OVERHAUL 1.6.1
 Unlocks, Free Crafting, Durability & ATLAS Gear
 
 Funktionen:
@@ -10,6 +10,7 @@ Funktionen:
 - Optionaler Haltbarkeitsfaktor (1.0-1000.0).
 - Optionaler Unbreakable-Modus.
 - Backpack Cover Lv.1/Lv.2 mit Haltbarkeitsunterstützung.
+- Optionaler nativer Gold-Skin des Boost-Skeletts St.3 für ATLAS.
 - Schweres MG [MZ] bewusst nicht enthalten.
 
 Installation:
@@ -23,11 +24,12 @@ ATLAS-Ausrüstung (optional, neu in 1.6.0)
 
 [AtlasEquipment]
 Enabled=0
+GoldSkeletonSkin=0
 
-Mit Enabled=1 in diesem Abschnitt sind ATLAS-Stiefel und ATLAS-Skelett an regulären Herstellungsstationen ohne Story- oder Vorlagen-Freischaltung herstellbar. Standardmäßig ist die Option aus. Nach INI-Änderungen neu starten.
+Mit Enabled=1 in diesem Abschnitt sind ATLAS-Stiefel und ATLAS-Skelett an regulären Herstellungsstationen ohne Story- oder Vorlagen-Freischaltung herstellbar. Mit GoldSkeletonSkin=1 wird die native goldene Boost-St.3-Optik verwendet. Beide Optionen stehen standardmässig auf 0. Nach INI-Änderungen neu starten.
 
-ATLAS-Stiefel vereinen Halt, Stoßabsorption, stärkere Tritte und leise Schritte. Sie verwenden die Optik der Pizzabäcker-Stiefel, wiegen 0,2 kg und haben 3400 Basishaltbarkeit.
-Das ATLAS-Skelett vereint Kampf-, Boost- und Bokka-Effekte auf Stufe 3, einschließlich Bokka-Doppelsprung und gleichzeitiger Hüftfracht. Es verwendet die Optik des normalen Boost-Skeletts St.3, wiegt 4,0 kg und hat 20000 Basishaltbarkeit. Der Tragkraftbonus beträgt bis zu 180 kg mit Akku / 100 kg ohne Akku; die Boni werden nicht addiert. Akkuverbrauch und die nativen Sprung-/Eingabebedingungen gelten weiterhin.
+ATLAS-Stiefel vereinen Halt, Stossabsorption, stärkere Tritte und leise Schritte. Sie verwenden die Optik der Pizzabäcker-Stiefel, wiegen 0,2 kg und haben 3400 Basishaltbarkeit.
+Das ATLAS-Skelett vereint Kampf-, Boost- und Bokka-Effekte auf Stufe 3, einschliesslich Bokka-Doppelsprung und gleichzeitiger Hüftfracht. Standardmässig verwendet es die Optik des normalen Boost-Skeletts St.3; mit GoldSkeletonSkin=1 wird die native goldene Boost-St.3-Optik verwendet. Es wiegt 4,0 kg und hat 20000 Basishaltbarkeit. Der Tragkraftbonus beträgt bis zu 180 kg mit Akku / 100 kg ohne Akku; die Boni werden nicht addiert. Akkuverbrauch und die nativen Sprung-/Eingabebedingungen gelten weiterhin.
 
 FreeCrafting sowie die gemeinsamen Haltbarkeitsoptionen Multiplier und Unbreakable gelten auch für beide ATLAS-Items. Ohne diese Optionen gelten die ATLAS-Basiswerte und die Materialkosten der Transportstiefel bzw. des Kampfskeletts St.1. Die 132 bisherigen Item-Regeln steuern weiter die normale Ausrüstung. ATLAS wird über seinen eigenen Abschnitt unabhängig von DefaultUnlock angeboten.
 
@@ -38,4 +40,4 @@ Die alte ds2_overpowered_equipment.asi entfernen. Nur ds2_crafting_unlocks.asi u
 AtlasEquipment.Enabled=0 blendet die beiden Rezepte aus; Ressourcen und Effekte bereits gespeicherter ATLAS-Items bleiben verfügbar. Dafür muss CraftingUnlocks.Enabled=1 bleiben. Der globale Hauptschalter, eine Deinstallation oder eine Rückkehr zu einer Version vor 1.6.0 schalten diese Unterstützung ab; für eine Deinstallation einen Spielstand vor der Herstellung von ATLAS verwenden.
 
 Prüfstand
-Der Nutzer hat ATLAS-Spielverhalten, Herstellung mit frühem Spielstand, Erhalt nach Neustart/Laden und das Anbringen von Hüftfracht mit der eigenständigen Fassung bestätigt. Die gemeinsame Version 1.6.0 besteht native Code-, Ressourcen-, Konfigurations-, Kosten- und Haltbarkeitstests. Spielstart und Registrierung beider Items sind lesend bestätigt; im laufenden Spiel wurden die angelegten IDs 103/104, alle drei versorgten Skelett-Kennzeichen auf Stufe 3 und +180 kg Tragkraftbonus erfasst. Der Nutzer meldet einen erfolgreichen ersten Spieltest mit dem integrierten Build. Ein eigener neuer Speicher-/Ladedurchlauf und die Optionswechsel im Spiel wurden noch nicht separat bestätigt. Einzelne Schuhwirkungen und Kampfschutz wurden noch nicht vollständig im Spiel nachgewiesen. Der Doppelsprung-Hinweis kann bei kurzen Sprüngen wie im akzeptierten Testbuild spät erscheinen.
+Die gemeinsame Version 1.6.1 besteht die vollständige native Code-, Ressourcen-, Konfigurations-, Kosten- und Haltbarkeitstestreihe. ATLAS-Herstellung, Spielverhalten, Hüftfracht und Speichern/Laden wurden vom Nutzer bestätigt. Der optionale Gold-Skin wurde auf einer Installation ohne Deluxe-Version sowohl in der Herstellungsvorschau als auch am ausgerüsteten ATLAS-Skelett bestätigt, einschliesslich nach Speichern/Laden. Einzelne Schuhwirkungen und Kampfschutz wurden noch nicht vollständig im Spiel nachgewiesen. Der Doppelsprung-Hinweis kann bei kurzen Sprüngen wie im akzeptierten Testbuild spät erscheinen.

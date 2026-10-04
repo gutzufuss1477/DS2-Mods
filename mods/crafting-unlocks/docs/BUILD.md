@@ -9,7 +9,7 @@ The kernel32 import library is generated from `src/kernel32.def`; the runtime
 uses no imported Visual C++ CRT. Build intermediates remain under `build/`.
 The output is `release/ds2_crafting_unlocks.asi`.
 
-For 1.6.0, run `scripts/build_tests.cmd` and `scripts/test_atlas.ps1` after
+For 1.6.1, run `scripts/build_tests.cmd` and `scripts/test_atlas.ps1` after
 building. They exercise production policy and machine-code thunks in separate
 Windows test processes, including ATLAS recipe toggles and saved identities.
 Run `python tests/verify_build.py` for the PE/INI checks and

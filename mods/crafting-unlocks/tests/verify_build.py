@@ -59,13 +59,13 @@ assert 'BackpackCallBytes[5]={0xE8,0x85,0x63,0x64,0xFF}' in source
 assert 'u8 id=0;u32 key=0;' in source # Native table type is one byte, not padding.
 copyasm = (root/'evidence/backpack/00B7E950_asm.txt').read_text()
 assert 'MOV R13,RDX' in copyasm and 'MOVSXD RDI,R8D' in copyasm
-assert b'DS2 Crafting & Equipment Overhaul 1.6.0' in b
+assert b'DS2 Crafting & Equipment Overhaul 1.6.1' in b
 assert b'ATLAS_ON:' in b and b'ATLAS_OFF:' in b
 assert b'BACKPACK_MENU ' in b
 config=(root/'release/ds2_crafting_unlocks.ini').read_text(encoding='ascii')
 keys=re.findall(r'(?m)^(0x[0-9A-F]{8})=1\s*;',config)
 assert len(keys)==132 and len(set(keys))==132
-assert '[AtlasEquipment]\nEnabled=0' in config
+assert '[AtlasEquipment]' in config and re.search(r'(?m)^Enabled=0\s+;',config) and re.search(r'(?m)^GoldSkeletonSkin=0\s+;',config)
 result = {
     'status':'PASS_STRUCTURAL_ONLY',
     'file':asi.name,
@@ -79,7 +79,7 @@ result = {
     'unwind_directory_present':True,
     'analysed_exe_sha256':exe_hash,
     'callsite_rva':'0x0171DB1D',
-    'version':'1.6.0',
+    'version':'1.6.1',
     'backpack_callsite_rva':'0x01529896',
     'backpack_callsite_expected_bytes':'E8 85 63 64 FF',
     'backpack_original_target_rva':'0x00B6FC20',
