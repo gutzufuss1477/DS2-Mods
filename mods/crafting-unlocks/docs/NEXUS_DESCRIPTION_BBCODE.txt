@@ -1,37 +1,71 @@
 [b]Crafting & Equipment Overhaul[/b]
 Unlocks, Free Crafting, Durability, ATLAS Gear & Suppressed Weapons
 
-Version 1.7.0 combines the existing overhaul, the 1.6.1 gold ATLAS update and four new red suppressed weapons in one ASI and one INI.
+Customize crafting and equipment through one INI. Version 1.7.0 includes the existing overhaul, the gold ATLAS Skeleton option and four additional suppressed weapons in one package.
 
 [b]Features[/b]
-- 132 individually configurable original items, including weapons, equipment, backpack modules, covers and charms.
-- 11 usable enemy-drop weapons including Ghost Blade; craftable Omnireflector and Chiral Boots.
-- ATLAS Boots combine secure footing, impact absorption, stronger kicks and quiet steps.
-- ATLAS Skeleton combines Battle, Boost and Bokka effects at level 3, including double jump and hip cargo.
-- Optional shared FreeCrafting, durability multiplier (1x-1000x) and Unbreakable. Normal cargo, order cargo and containers retain vanilla durability.
+[list]
+[*]Early unlocks for 132 supported original items, including weapons, equipment, backpack modules, covers and charms.
+[*]Craftable Omnireflector Boots, Chiral Boots and 11 usable enemy-drop weapons, including Ghost Blade.
+[*]Optional FreeCrafting, a durability multiplier up to 1000x and Unbreakable mode.
+[*]ATLAS Boots combining footing, impact absorption, kick strength and quiet-step bonuses.
+[*]ATLAS Skeleton combining Battle, Boost and Bokka effects, including double jump and hip cargo support.
+[*]Four new suppressed weapons with black/red models, red crafting-menu images and visible suppressors.
+[/list]
 
-[b]Four new suppressed weapons[/b]
-- Assault Rifle [MP] Lv.2
-- Machine Gun [MP] Lv.2
-- Shotgun [MP] Lv.2
-- Big-Bore Handgun [MP]
+[b]New Suppressed Weapons[/b]
+[list]
+[*]Assault Rifle [MP] Lv.2
+[*]Machine Gun [MP] Lv.2
+[*]Shotgun [MP] Lv.2
+[*]Big-Bore Handgun [MP]
+[/list]
 
-Each is a separate craftable item with a black/red body, red menu image and visible suppressor. Base damage, fire rate, recoil, projectiles, magazine size and weight stay unchanged. The assault rifle and shotgun grenade launchers remain unsuppressed. MG and shotgun use existing suppressed rifle audio. Impacts, explosions and visible attacks can still alert enemies. The redundant custom Machine Pistol is not craftable.
+These are separate craftable variants. Original weapon damage, fire rate, recoil, projectiles, magazine size, weight and material costs are retained. The new variants also follow the shared FreeCrafting and durability settings.
 
-[b]Gold ATLAS by default[/b]
-The Nexus INI enables ATLAS gear, its gold skeleton appearance and the four new weapons. Set GoldSkeletonSkin=0 under [AtlasEquipment] to use the normal Boost Lv.3 appearance. This affects both menu preview and equipped skeleton; combined effects are unchanged. FreeCrafting and durability changes remain off by default.
+MG and shotgun use existing suppressed rifle sounds. The assault rifle and shotgun grenade launchers remain unsuppressed. Bullet impacts, explosions and visible attacks can still alert enemies.
 
-ATLAS Boots use the Pizza Baker appearance, weigh 0.2 kg and have 3400 base durability. ATLAS Skeleton weighs 4.0 kg and has 20000 base durability. Carry bonus: up to 180 kg powered / 100 kg unpowered, not added together. Battery use and native jump conditions apply. Custom recipes have no extra story or donor-item unlock requirements at an accessible ordinary fabrication facility. Names are German in the German UI and English otherwise.
+[b]ATLAS Gear[/b]
+ATLAS Boots use the Pizza Baker Boots appearance and combine multiple footwear effects. ATLAS Skeleton combines Battle, Boost and Bokka effects at level 3, with a carrying bonus of up to 180 kg powered or 100 kg without power. Battery consumption and normal jump conditions still apply.
 
-[b]Configuration[/b]
-Use [AtlasEquipment] Enabled=0 to hide ATLAS recipes, or [SuppressedWeapons] Enabled=0 to hide the new weapon recipes. Existing saved items remain supported while the global [CraftingUnlocks] Enabled=1 stays on. The four weapons also have individual switches. GoldSkeletonSkin=0 disables gold; BlackRed=0 restores base weapon colors. Restart after changes.
+ATLAS gear and the new weapon variants are available without additional story unlocks once you have access to an ordinary fabrication facility. Names and descriptions are German in the German UI and English otherwise.
 
-[b]Installation and updates[/b]
-Close the game. Remove standalone ds2_overpowered_equipment.asi and ds2_more_silenced_guns.asi if present. Copy this package's ds2_crafting_unlocks.asi and ds2_crafting_unlocks.ini next to DS2.exe. A 64-bit ASI loader is required separately.
+[b]Gold ATLAS Skeleton[/b]
+The gold Boost Skeleton Lv.3 appearance is enabled by default for ATLAS in the supplied INI, both in the crafting preview and while equipped.
 
-Back up personal INI settings first. Use the new INI for the new defaults, then reapply personal settings. Existing INIs can instead be extended with the new sections/keys shown in README_EN.txt; avoid duplicate keys. Without the new options, older INIs keep their previous opt-in recipe/normal ATLAS skin behavior.
+[code][AtlasEquipment]
+Enabled=1
+GoldSkeletonSkin=1[/code]
 
-Saved custom identities are retained, including hidden Machine Pistol 302 from the tests. Removing the mod or downgrading removes custom definitions; use a pre-mod save before uninstalling. Heavy Machine Gun [MP] remains excluded because it has no ordinary inventory handoff.
+Prefer the normal appearance? Set [b]GoldSkeletonSkin=0[/b]. This changes only the appearance; ATLAS keeps its combined effects.
 
-[b]Compatibility and test status[/b]
-Supports DS2.exe 1.10.89.0 with an exact executable/signature check. The standalone weapons were accepted by the user. ATLAS gold and save/load were confirmed with 1.6.1, including a non-Deluxe installation. The integrated 1.7.0 ASI passes local native, GPU, configuration, crafting, durability and loader tests; all 94 patch sites are checked for overlap. A gameplay check of the combined ASI is still pending. Individual footwear effects, combat protection, full AI hearing behavior and long-session stability are not comprehensively verified.
+[b]Default Settings and Options[/b]
+The supplied INI enables ATLAS recipes and all four red suppressed weapons. FreeCrafting and durability changes remain off by default.
+
+[code][SuppressedWeapons]
+Enabled=1
+BlackRed=1[/code]
+
+Each new weapon has its own recipe switch in the INI. Set BlackRed=0 to use the base weapon colors and menu images. Set Enabled=0 in the relevant feature section to hide its recipes. Existing custom items remain supported while the global mod switch stays enabled. Restart the game after changing settings.
+
+Normal cargo, order cargo and material containers retain vanilla durability. The Heavy Machine Gun [MP] remains excluded because it lacks a normal cargo/inventory handoff.
+
+[b]Installation and Updates[/b]
+[list=1]
+[*]Close the game and back up your existing INI if you have customized settings.
+[*]Copy ds2_crafting_unlocks.asi and ds2_crafting_unlocks.ini next to DS2.exe. A compatible 64-bit ASI loader is required separately.
+[*]Use the new INI for the defaults above, then reapply your personal settings. If keeping an older INI, add the missing options from the new file without duplicating existing keys.
+[*]Restart the game.
+[/list]
+
+Updating from the standalone test mods? Remove [b]ds2_overpowered_equipment.asi[/b] and [b]ds2_more_silenced_guns.asi[/b] if present. Their features are now included in ds2_crafting_unlocks.asi.
+
+Older INIs without the new options retain their previous behavior; the new ATLAS/weapon defaults only apply when you use or update to the supplied configuration.
+
+[b]Saved Games[/b]
+Disabling ATLAS or suppressed-weapon recipes preserves existing custom items while the mod remains enabled. Existing ATLAS and weapon identities are retained, including the old test Machine Pistol; that redundant variant is no longer craftable.
+
+To remove the entire mod or downgrade to a version without these items, use a save from before obtaining custom gear or weapons.
+
+[b]Compatibility[/b]
+Requires DS2 version 1.10.89.0. The mod checks the supported executable before applying changes. Local checks for the combined 1.7.0 build passed; its final combined gameplay test is still pending.

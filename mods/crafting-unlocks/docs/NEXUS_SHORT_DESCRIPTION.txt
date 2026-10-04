@@ -1,1 +1,1 @@
-Early unlocks for 132 original items, free crafting and durability options, ATLAS Boots/Skeleton with gold enabled by default, plus four red suppressed weapons. Everything in one ASI and INI; gold and individual features remain configurable.
+Unlock 132 supported items early, customize crafting costs and durability, and craft ATLAS gear plus four red suppressed weapons. Gold ATLAS Skeleton enabled by default, with an optional normal skin. Everything in one ASI and one INI.
