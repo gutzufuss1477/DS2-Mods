@@ -1,0 +1,6 @@
+﻿Sam Overhaul 1.1.0-dev.1 - Git development build only.
+No Nexus release, GitHub release, release archive, release tag, or game installation is performed by this script.
+The footprint core was gameplay-confirmed separately; the combined Sam Overhaul gameplay regression remains pending.
+Default: [Footprints] HideFootprints=0. Set to 1 in ds2_sam_overhaul.ini and restart to enable.
+Remove the old Sam Overhaul ASI and ds2_footprint_native_probe.asi before manually installing this combined ASI.
+Original public v1.0.0 release files and Mod Suite distribution metadata remain untouched.

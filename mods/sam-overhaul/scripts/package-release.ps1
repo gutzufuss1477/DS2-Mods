@@ -4,10 +4,14 @@ param(
 
 $ErrorActionPreference = "Stop"
 $root = Split-Path -Parent $PSScriptRoot
+$version = (Get-Content -LiteralPath (Join-Path $root "VERSION.txt") -Raw).Trim()
+if ($version -notmatch '^\d+\.\d+\.\d+$') {
+    throw "Development build: release packaging is blocked. Use build-development.ps1; no release was created."
+}
 $build = Join-Path $root "build\public"
 $release = Join-Path $root "release"
-$folder = Join-Path $release "DS2_Sam_Overhaul_v1.0.0"
-$zip = Join-Path $release "DS2_Sam_Overhaul_v1.0.0.zip"
+$folder = Join-Path $release "DS2_Sam_Overhaul_v$version"
+$zip = Join-Path $release "DS2_Sam_Overhaul_v$version.zip"
 
 & (Join-Path $PSScriptRoot "build-msvc.cmd")
 if ($LASTEXITCODE -ne 0) { throw "Build failed with exit code $LASTEXITCODE" }
@@ -15,7 +19,7 @@ if ($LASTEXITCODE -ne 0) { throw "Build failed with exit code $LASTEXITCODE" }
 if (Test-Path $folder) { Remove-Item $folder -Recurse -Force }
 New-Item -ItemType Directory -Path $folder -Force | Out-Null
 
-Copy-Item (Join-Path $build "DS2_Sam_Overhaul_v1.0.0.asi") $folder
+Copy-Item (Join-Path $build "DS2_Sam_Overhaul_v$version.asi") $folder
 Copy-Item (Join-Path $root "ds2_sam_overhaul.ini") $folder
 Copy-Item (Join-Path $root "README.md") $folder
 Copy-Item (Join-Path $root "CHANGELOG.md") $folder

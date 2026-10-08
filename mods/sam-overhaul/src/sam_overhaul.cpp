@@ -1,4 +1,4 @@
-// DS2 Sam Overhaul v1.0.0
+// DS2 Sam Overhaul v1.1.0-dev.1
 // Target: DEATH STRANDING 2 v1.10.89.0
 // Step 1: configurable visual hiding for backpack, shoulder and hip cargo.
 extern "C" {
@@ -42,6 +42,8 @@ __declspec(dllimport) DWORD WINAPI GetPrivateProfileStringW(const wchar_t*,const
 int _fltused=0;
 __declspec(dllimport) unsigned int WINAPI GetPrivateProfileIntW(const wchar_t*,const wchar_t*,int,const wchar_t*);
 }
+
+#include "footprints/footprint_api.h"
 
 static const DWORD DLL_PROCESS_ATTACH_VALUE=1u;
 static const DWORD PAGE_READWRITE_VALUE=0x04u;
@@ -584,7 +586,7 @@ static DWORD WINAPI worker_thread(LPVOID) {
     g_imageBase=(u8*)GetModuleHandleW((const wchar_t*)0);
     HANDLE log=open_log_create();
     if (log==(HANDLE)(s64)-1) return 1u;
-    write_text(log,"DS2 Sam Overhaul v1.0.0\r\n");
+    write_text(log,"DS2 Sam Overhaul v1.1.0-dev.1\r\n");
     write_text(log,"step=1 CARGO_VISIBILITY\r\n");
     load_config();
     write_text(log,g_hideShoulderCargo ? "HideShoulderCargo=1\r\n" : "HideShoulderCargo=0\r\n");
@@ -614,19 +616,22 @@ static DWORD WINAPI worker_thread(LPVOID) {
     if (!install_truck_weapon_streaming_listener(log)) {
         write_text(log,"truck_weapon_tuning=WARNING listener_not_active base_mod_continues\r\n");
     }
+    if (!SamFootprintsInstall(g_imageBase,g_iniPath,log)) {
+        write_text(log,"footprints=WARNING filter_not_active base_mod_continues\r\n");
+    }
     write_text(log,"status=PATCH_APPLIED\r\n");
     write_text(log,"inventory_weight_gameplay=UNMODIFIED\r\n");
     write_text(log,"stealth_detection=UNMODIFIED\r\n");
     if (g_autoDriveSettings.enabled) {
         write_text(log,"autodrive_timer_hook=WAITING_FOR_ELIGIBLE_DRIVING\r\n");
-        while (!g_autoDriveHookExecuted) Sleep(250u);
+        while (!g_autoDriveHookExecuted) { SamFootprintsPoll(log); Sleep(250u); }
         write_text(log,"autodrive_timer_hook=EXECUTED\r\n");
     }
     CloseHandle(log);
     return 0u;
 }
 extern "C" __declspec(dllexport) void InitializeASI() {}
-extern "C" __declspec(dllexport) const char* SamOverhaulVersion() { return "1.0.0"; }
+extern "C" __declspec(dllexport) const char* SamOverhaulVersion() { return "1.1.0-dev.1"; }
 
 extern "C" BOOL WINAPI DllMain(HMODULE module,DWORD reason,LPVOID) {
     if (reason==DLL_PROCESS_ATTACH_VALUE) {
