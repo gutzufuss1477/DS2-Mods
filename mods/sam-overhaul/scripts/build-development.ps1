@@ -29,9 +29,10 @@ Copy-Item -LiteralPath (Join-Path $root 'vendor\minhook\LICENSE.txt') -Destinati
 @"
 Sam Overhaul $version - Git development build only.
 No Nexus release, GitHub release, release archive, release tag, or game installation is performed by this script.
-The footprint core was gameplay-confirmed separately; the combined Sam Overhaul gameplay regression remains pending.
+The integrated shelter 200-percent effect/circle alignment was confirmed in game on 2026-10-09. Full combined regression, save-reload persistence and performance profiling are pending.
 Default: [Footprints] HideFootprints=0. Set to 1 in ds2_sam_overhaul.ini and restart to enable.
 Remove the old Sam Overhaul ASI and ds2_footprint_native_probe.asi before manually installing this combined ASI.
+Generator and Timefall Shelter experimental range switches default OFF; test with RangePercent=200 and Enabled=1.
 Original public v1.0.0 release files and Mod Suite distribution metadata remain untouched.
 "@ | Set-Content -LiteralPath (Join-Path $stage 'DEVELOPMENT_STATUS.txt') -Encoding UTF8
 $hashes=@()

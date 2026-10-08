@@ -16,8 +16,20 @@ if errorlevel 1 exit /b 2
 cl /nologo /c /std:c++17 /O2 /GS- /GR- /EHs-c- /D_HAS_EXCEPTIONS=0 /Zl /Oi /DNDEBUG /W4 /WX ^
   /I"%MH%\include" /Fo"%OUT%\footprints.obj" "%ROOT%\src\footprints\footprints.cpp"
 if errorlevel 1 exit /b 2
+cl /nologo /c /std:c++17 /O2 /GS- /GR- /EHs-c- /D_HAS_EXCEPTIONS=0 /Zl /Oi /DNDEBUG /W4 /WX ^
+  /I"%MH%\include" /Fo"%OUT%\construction_ranges.obj" "%ROOT%\src\construction_ranges.cpp"
+if errorlevel 1 exit /b 2
+cl /nologo /c /std:c++17 /O2 /GS- /GR- /EHs-c- /D_HAS_EXCEPTIONS=0 /Zl /Oi /DNDEBUG /W4 /WX ^
+  /Fo"%OUT%\construction_refresh.obj" "%ROOT%\src\construction_refresh.cpp"
+if errorlevel 1 exit /b 2
+cl /nologo /c /std:c++17 /O2 /GS- /GR- /EHs-c- /D_HAS_EXCEPTIONS=0 /Zl /Oi /DNDEBUG /W4 /WX ^
+  /I"%MH%\include" /Fo"%OUT%\construction_charger_update.obj" "%ROOT%\src\construction_charger_update.cpp"
+if errorlevel 1 exit /b 2
 cl /nologo /c /TC /O2 /GS- /Zl /Oi- /W4 /WX ^
   /Fo"%OUT%\minimal_crt.obj" "%ROOT%\src\footprints\minimal_crt.c"
+if errorlevel 1 exit /b 2
+cl /nologo /c /std:c++17 /O2 /GS- /GR- /EHs-c- /D_HAS_EXCEPTIONS=0 /Zl /Oi /DNDEBUG /W4 /WX ^
+  /I"%MH%\include" /Fo"%OUT%\construction_shelter.obj" "%ROOT%\src\construction_shelter.cpp"
 if errorlevel 1 exit /b 2
 rem Upstream MinHook is compiled unchanged under its normal vendor warning policy.
 cl /nologo /c /TC /O2 /GS- /Zl /Oi /DNDEBUG /W3 /WX- ^
@@ -30,7 +42,7 @@ link /nologo /dll /machine:x64 /entry:DllMain /nodefaultlib ^
   /dynamicbase /nxcompat /highentropyva /cetcompat /incremental:no ^
   /implib:"%OUT%\DS2_Sam_Overhaul_v%VERSION%.lib" ^
   /out:"%OUT%\DS2_Sam_Overhaul_v%VERSION%.asi" ^
-  "%OUT%\sam_overhaul.obj" "%OUT%\footprints.obj" "%OUT%\minimal_crt.obj" ^
+  "%OUT%\sam_overhaul.obj" "%OUT%\footprints.obj" "%OUT%\construction_ranges.obj" "%OUT%\construction_refresh.obj" "%OUT%\construction_charger_update.obj" "%OUT%\construction_shelter.obj" "%OUT%\minimal_crt.obj" ^
   "%OUT%\minhook\buffer.obj" "%OUT%\minhook\hook.obj" ^
   "%OUT%\minhook\trampoline.obj" "%OUT%\minhook\hde64.obj" ^
   "%OUT%\version.res" kernel32.lib bcrypt.lib

@@ -1,4 +1,4 @@
-﻿# Build output
+# Build output
 build/
 dist/
 out/
@@ -20,3 +20,6 @@ __pycache__/
 *.tmp
 Thumbs.db
 desktop.ini
+
+# Keep intermediate Sam Overhaul development builds local; tracked dev.1 unaffected.
+mods/sam-overhaul/development/

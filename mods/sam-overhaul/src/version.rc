@@ -1,8 +1,8 @@
 #include <windows.h>
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,1,0,1
- PRODUCTVERSION 1,1,0,1
+ FILEVERSION 1,1,0,19
+ PRODUCTVERSION 1,1,0,19
  FILEFLAGSMASK 0x3fL
  FILEFLAGS VS_FF_PRERELEASE
  FILEOS VOS_NT_WINDOWS32
@@ -15,11 +15,11 @@ BEGIN
         BEGIN
             VALUE "CompanyName", "DS2 Mods"
             VALUE "FileDescription", "Sam Overhaul (development build)"
-            VALUE "FileVersion", "1.1.0-dev.1"
+            VALUE "FileVersion", "1.1.0-dev.19"
             VALUE "InternalName", "DS2_Sam_Overhaul"
-            VALUE "OriginalFilename", "DS2_Sam_Overhaul_v1.1.0-dev.1.asi"
+            VALUE "OriginalFilename", "DS2_Sam_Overhaul_v1.1.0-dev.19.asi"
             VALUE "ProductName", "Sam Overhaul (development build)"
-            VALUE "ProductVersion", "1.1.0-dev.1"
+            VALUE "ProductVersion", "1.1.0-dev.19"
         END
     END
     BLOCK "VarFileInfo"
