@@ -1,4 +1,4 @@
-# Sam Overhaul v1.1.0-dev.19
+# Sam Overhaul v1.1.0-dev.28
 
 > Git-only development build. No Nexus/GitHub release or release tag is being published. The archived public v1.0.0 package remains unchanged.
 
@@ -9,14 +9,33 @@ Sam Overhaul combines the gameplay-tested cargo visibility, mobility, Autodrive 
 ### Optional construction radii (development, off by default)
 
 - `[GeneratorRange] Enabled=1, RangePercent=200`: extends the verified Jolt charging trigger and generator's visible Odradek ring. The 200% charging boundary and circle were confirmed in-game on the tested generator, including a save reload. Other levels need broader regression coverage.
-- `[TimefallShelterRange] Enabled=1, RangePercent=200`: doubles the native rain-protection radius (4 to 8 m), native cargo-coating repair radius (4 to 8 m), the validated Jolt protection cylinders, and the owner-specific visual circle. Cargo repaired to 100% with the spray cloud outside vanilla range in a prior live test. The integrated dev.19 visual circle and effect were confirmed matching at the larger radius on **2026-10-09**.
+- `[TimefallShelterRange] Enabled=1, RangePercent=200`: doubles the native rain-protection radius (4 to 8 m), native cargo-coating repair radius (4 to 8 m), the validated Jolt protection cylinders, and the owner-specific visual circle. Cargo repaired to 100% with the spray cloud outside vanilla range in a prior live test. The dev.19 circle is visibly larger, but a later screenshot after save reload shows cargo repair only firing farther inside the ring. The precise boundary is still under investigation; dev.20 adds passive 3D/2D distance diagnostics.
 - Both switches default to off and only target the guarded Steam DS2.exe 1.10.89.0 native layout. The shelter's 30 m Odradek *effect activation distance* is unchanged.
 
 These are still development features: repeated save reload, alternate construction stages, the full integrated gameplay suite and native hook performance require follow-up validation.
 
-## Features
+### Experimental dev.21 shelter slope correction
+
+Live dev.20 inspection revealed that the two verified rain-shelter Jolt contact cylinders had **8 m horizontal radius but only 3 m vertical half-height**. Native Jolt `CylinderShape::GetLocalBounds` confirms these are independent X/Z and Y dimensions. With `[TimefallShelterRange] RangePercent=200`, dev.21 now applies proportional geometry: radius 4→8 m and half-height 3→6 m. This may prevent slope-related omissions on either approach side; it is **not yet proven in game**. Native repair callbacks, repair amount, save files, 30 m Odradek activation distance and interaction text remain untouched. Use damaged cargo and test entry from both uphill and downhill.
+
+
+
+### Native RepairSpray contact gating — scoped experimental dev.23
+
+Live testing with damaged cargo established that the enlarged native repair radius alone was insufficient: DS2 checks an original RepairSpray *contact* flag first, before using the extended 3D distance test. Temporarily bypassing this prerequisite in dev.21 made the 200% effect begin near the enlarged shelter ring, from both sides of a sloped shelter (slightly inside from uphill).
+
+The **dev.23 development-only** fix introduces a source-validated native assembly detour. It checks exact RepairSpray component/resource/owner types, native owner membership and the configured expanded radius. Only matching sources skip the extra contact prerequisite; every other source keeps its original contact behavior. The game's native radius, cargo restoration, sound/effects and rain protection remain intact. The initial dev.22 assembly build crashed when loading a save due to an incorrect one-byte relative jump target, and it was rolled back immediately. dev.23 fixes the jump, adds executable jump-target regression tests, and replaces speculative owner/resource pointer dereferences in the hot native handler with a bounded list of sources validated during active shelter updates. **dev.23 loaded but expired repair-source registrations during pause/alt-tab. dev.24 retains validated sources as long as they remain in the native source registry; game validation pending.** The existing `TimefallShelterRange` switch activates it; no new INI section is required.
+
+### Native Timefall Shelter rest text (dev.25)
+
+German Steam DS2 v1.10.89.0 sometimes displays "In Bunker ausruhen" when resting under a Timefall Shelter. The developer-confirmed live test successfully changed this UI label to "Verschnaufen", leaving the native action unchanged. dev.25 integrates the same change **inside Sam Overhaul** via its existing resource-streaming listener. It matches exactly two known RestInShelter localization UUIDs, original German text bytes and the LocalizedTextResource class. No ReShade, extra localization DLL, global text replacement or action-command patch is required.
+
+The label adjustment is enabled automatically when `[TimefallShelterRange] Enabled=1`, unless `FixRestPrompt=0` is specified. Other languages and unrelated "bunker"/rest labels are unchanged. Native shelter resting (including game-time passing) remains intact.
+
+**The integrated dev.25 has not yet had a fresh-game launch test; the original live text-only test was confirmed.** The terrain-projected 8m ring can differ slightly from the native 3D repair sphere on slopes, so no further circle or repair-radius change was made.
 
 ### Cargo visibility
+
 - Hide shoulder cargo.
 - Hide hip cargo.
 - Hide backpack cargo.
@@ -56,7 +75,7 @@ Default range is 175% of vanilla and default aim speed is 250% for all four truc
 1. Close the game. Remove the previous Sam Overhaul ASI and the standalone `ds2_footprint_native_probe.asi` test module before installing this combined build. Keep only one Sam Overhaul version.
 2. Use a working **64-bit ASI loader**. The loader is not included.
 3. Copy these two files beside DS2.exe:
-   - DS2_Sam_Overhaul_v1.1.0-dev.19.asi
+   - DS2_Sam_Overhaul_v1.1.0-dev.28.asi
    - ds2_sam_overhaul.ini
 4. Start the game normally.
 
@@ -154,11 +173,11 @@ The final v1.0.0 source builds with MSVC /W4 /WX. The existing Autodrive regress
 
 The footprint filter was confirmed in game as a standalone probe: new footprints disappeared, a previously footprint-heavy save reloaded without the old footprints, and the normal non-highlighted ground footprints were also observed to disappear. This development build integrates the unchanged filter core.
 
-The combined build passes the preserved 105,704-check Autodrive suite, the footprint ABI/concurrency tests, 104 configuration/guard checks, a combined-DLL load test, and binary/default-INI checks. **The shelter's 200% visual circle and spray effect were confirmed on the integrated dev.19 ASI on 2026-10-09; a full combined gameplay regression remains pending.** See `docs/FOOTPRINTS_VALIDATION.md`.
+The combined build passes the preserved 105,704-check Autodrive suite, the footprint ABI/concurrency tests, 104 configuration/guard checks, a combined-DLL load test, and binary/default-INI checks. **A subsequent dev.19 screenshot shows the spray repair happening farther inside the expanded ground ring. dev.20 has not yet been tested in-game; a full combined regression remains pending.** See `docs/FOOTPRINTS_VALIDATION.md`.
 
 ## Development build
 
-Run `scripts/build-development.ps1` on Windows x64 with Visual Studio 2022 Build Tools and Python available. It builds and tests the combined ASI, then stages the files under `development/DS2_Sam_Overhaul_v1.1.0-dev.19/`. Dependencies are vendored; no download occurs during compilation. It does not install into the game, create a release archive, or publish anything.
+Run `scripts/build-development.ps1` on Windows x64 with Visual Studio 2022 Build Tools and Python available. It builds and tests the combined ASI, then stages the files under `development/DS2_Sam_Overhaul_v1.1.0-dev.28/`. Dependencies are vendored; no download occurs during compilation. It does not install into the game, create a release archive, or publish anything.
 
 `package-release.ps1` deliberately refuses development versions. The existing public release folders, Nexus descriptions, and Mod Suite release metadata are not changed by this development update.
 
@@ -173,3 +192,15 @@ Development source is in the DS2 Mods repository under `mods/sam-overhaul`. The 
 **Open before public release:** repeat after save reload, test other shelter/generator construction levels and interactions, verify remaining combined Sam features, and profile the shelter discovery hot path. The dev.19 diagnostics recorded expensive discovery passes (peak ~192 ms in the observed session); timing alone does not establish visible frame drops. This performance issue must not be marked resolved without further profiling.
 
 Technical test record: `docs/CONSTRUCTION_RANGES_VALIDATION.md`.
+
+### Separate Repair Radius (dev.26)
+
+Keep the native timefall protection and visual ground ring at RangePercent=200 (8m radius). RepairRadiusPercent=215 independently scales the original 4m native cargo-coating restoration sphere to 8.6m, compensating for the 3D-versus-ground-circle offset on slopes. The new key is optional; 215% is the default when omitted and 200% restores the previous radius. The original cargo repair and shelter rest actions are preserved.
+
+The dev.26 German Rest-in-Shelter text correction also handles resources loaded before the existing native streaming listener. It uses a one-time, 64MiB/12ms-budgeted incremental scan on the established Sam worker, stopping once both exact UUIDs are patched. No per-frame hook or external localization module.
+
+### Timefall Shelter steady-state performance (dev.28)
+
+A previously FULLY validated shelter can use a lightweight native steady-state guard instead of repeating the costly complete Jolt-body and Odradek-component discovery every 3.6 seconds. The guard compares both native BodyIDs, trigger identities, owner and member pointers, native RepairSpray source and 8.6m repair resource, renderer and both 8m/6m native collision cylinders. ANY change automatically re-enters the original guarded full discovery immediately. No gameplay mechanics, action commands, protective circle, cargo restoration, or renderer size are changed.
+
+Optional [TimefallShelterRange] SpatialDiagnostics=1 enables extra passive developer geometry snapshots (default0). Production performance counters separately log stable, stableMaxUs and fullMaxUs for the next in-game verification.

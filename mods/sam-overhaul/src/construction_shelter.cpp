@@ -4,11 +4,16 @@
 #include <windows.h>
 #include <stdint.h>
 #include "MinHook.h"
+#include "shelter_visual_policy.h"
+#include "shelter_steady_state.h"
+extern "C" void SamConstructionRepairGateRegister(void*,void*,void*);
+extern "C" void SamShelterRestLabelNotifyActiveShelter();
 namespace shelter_range {
 static uintptr_t base=0;
 static HANDLE logger=INVALID_HANDLE_VALUE;
-static bool enabled=false,installed=false;
+static bool enabled=false,installed=false,spatialDiagnostics=false;
 static unsigned percent=200;
+static unsigned repairPercent=215;
 static volatile LONG spin=0,firstSeen=0,firstQueue=0,completed=0,skipped=0;
 typedef void (__fastcall* ShelterTick)(void*);
 static ShelterTick original=nullptr;
@@ -24,7 +29,17 @@ static Done done[2048]={};
 static unsigned doneCount=0;
 struct Throttle {uintptr_t object;DWORD last,fallbackAt;};
 static Throttle throttled[1024]={};
-struct VisualSync {uintptr_t shelter,owner;DWORD lastGood;};
+// Cache native ownership, Jolt BodyIDs and visual geometry only after all
+// required objects have been independently validated on the full path.
+struct VisualSync {
+ shelter_steady_state::Key key;
+ Job validated[2];
+ unsigned triggerSlot[2];
+ unsigned odradekSlot;
+ unsigned repairSlot;
+ DWORD lastGood,lastRegister;
+ bool stable;
+};
 static VisualSync visualSync[256]={};
 
 static bool readable(uintptr_t p,SIZE_T n,bool wr=false){
@@ -145,12 +160,22 @@ static void reconcileNativeRepairRadius(uintptr_t shelter,uintptr_t owner,
   InterlockedExchange(&repairRangeBusy,0);return;
  }
  const float current=getf(resource,0x20);
- const float target=4.0f*(float)percent/100.0f;
+ // Independent repair compensation on slopes: native per-cargo checks
+ // use a 3D sphere while the Odradek visual circle follows the ground.
+ // Default 8.6m coating against 8.0m visual/protective shelter radius.
+ const float target=4.0f*(float)repairPercent/100.0f;
  if(approximate(current,4.0f) && readable(resource+0x20,4,true)){
   *(volatile float*)(resource+0x20)=target;
   if(approximate(getf(resource,0x20),target) &&
      InterlockedIncrement(&repairRangeUpdates)<=12)
    note("construction_shelter=REPAIR_RADIUS_NATIVE_SYNCED\r\n");
+ }
+ // Register an expanded repair source only after owner, membership, component,
+ // resource and native target radius were independently verified by this
+ // active shelter update. The native per-baggage hook itself never scans
+ // arbitrary pointers during save loading/unloading.
+ if(approximate(getf(resource,0x20),target)){
+  SamConstructionRepairGateRegister((void*)repair,(void*)resource,(void*)owner);
  }
  // Other RepairSpray properties are unmodified (effectiveness, jetting time).
  // Repeat calls are idempotent; save reload/new instances auto-resynchronize.
@@ -163,11 +188,20 @@ static void reconcileNativeRepairRadius(uintptr_t shelter,uintptr_t owner,
 static LONGLONG perfFrequency=0;
 static volatile LONG perfCount=0,perfMaxUs=0,perfOver2Ms=0,perfOver8Ms=0;
 static volatile LONG perfFallbackCount=0;
+static volatile LONG perfSteadyCount=0,perfSteadyMaxUs=0,perfFullMaxUs=0;
 static DWORD perfLastLog=0;
+static void perfPeak(volatile LONG* location,LONG current){
+ LONG previous=InterlockedCompareExchange(location,0,0);
+ while(current>previous){
+  const LONG exchanged=InterlockedCompareExchange(location,current,previous);
+  if(exchanged==previous)break;
+  previous=exchanged;
+ }
+}
 struct DiscoveryMeter {
  LARGE_INTEGER before;
- bool measured;
- DiscoveryMeter():measured(false){
+ bool measured,steady;
+ DiscoveryMeter():measured(false),steady(false){
   if(perfFrequency>0){
    QueryPerformanceCounter(&before);
    measured=true;
@@ -183,12 +217,11 @@ struct DiscoveryMeter {
   InterlockedIncrement(&perfCount);
   if(us>2000)InterlockedIncrement(&perfOver2Ms);
   if(us>8000)InterlockedIncrement(&perfOver8Ms);
-  LONG old=InterlockedCompareExchange(&perfMaxUs,0,0);
-  while(us>old){
-   const LONG prev=InterlockedCompareExchange(&perfMaxUs,us,old);
-   if(prev==old)break;
-   old=prev;
-  }
+  perfPeak(&perfMaxUs,us);
+  if(steady){
+   InterlockedIncrement(&perfSteadyCount);
+   perfPeak(&perfSteadyMaxUs,us);
+  } else perfPeak(&perfFullMaxUs,us);
  }
 };
 static unsigned addDigits(char* dst,unsigned n,unsigned v){
@@ -212,6 +245,9 @@ static void logDiscoveryPerformance(){
  const LONG over2=InterlockedExchange(&perfOver2Ms,0);
  const LONG over8=InterlockedExchange(&perfOver8Ms,0);
  const LONG fallbacks=InterlockedExchange(&perfFallbackCount,0);
+ const LONG steady=InterlockedExchange(&perfSteadyCount,0);
+ const LONG steadyMax=InterlockedExchange(&perfSteadyMaxUs,0);
+ const LONG fullMax=InterlockedExchange(&perfFullMaxUs,0);
  if(num==0 && fallbacks==0)return;
  char line[200];unsigned n=0;
  n=addLiteral(line,n,"construction_shelter=PERF_DISCOVER_TOTAL count=");
@@ -224,6 +260,12 @@ static void logDiscoveryPerformance(){
  n=addDigits(line,n,(unsigned)over8);
  n=addLiteral(line,n," fallbacks=");
  n=addDigits(line,n,(unsigned)fallbacks);
+ n=addLiteral(line,n," stable=");
+ n=addDigits(line,n,(unsigned)steady);
+ n=addLiteral(line,n," stableMaxUs=");
+ n=addDigits(line,n,(unsigned)steadyMax);
+ n=addLiteral(line,n," fullMaxUs=");
+ n=addDigits(line,n,(unsigned)fullMax);
  n=addLiteral(line,n,"\r\n");
  line[n]=0;note(line);
 }
@@ -244,9 +286,14 @@ static bool inspect(uintptr_t shelter,uintptr_t owner,uintptr_t trigger,Job& job
  if(ptr(outer)!=base+0x0345B768)return false;
  uintptr_t cylinder=ptr(outer,0x20);
  if(ptr(cylinder)!=base+0x0345CA98)return false;
- // Confirm this is the rain-shelter's small, flat protective trigger cylinder,
- // not generic cylinders used by other constructions or game systems.
- if(!approximate(getf(cylinder,0x30),3.0f) ||
+ // Native JPH CylinderShape::GetLocalBounds (RVA 0x278D790) proves
+ // +0x30 is Y-axis HALF-HEIGHT and +0x34 is horizontal X/Z radius.
+ // The unmodified half-height stays 3m after the 4->8m radius patch,
+ // clipping contacts on sloped terrain at the expanded ring boundary.
+ // Accept only exact original or desired 200%-style native dimensions.
+ const float halfHeight=getf(cylinder,0x30);
+ const float targetHeight=3.0f*(float)percent/100.0f;
+ if((!approximate(halfHeight,3.0f) && !approximate(halfHeight,targetHeight)) ||
     !approximate(getf(cylinder,0x38),0.05f))return false;
  const float radius=getf(cylinder,0x34);
  const float target=4.0f*(float)percent/100.0f;
@@ -271,14 +318,16 @@ static bool inspect(uintptr_t shelter,uintptr_t owner,uintptr_t trigger,Job& job
 }
 static bool queue(const Job& job){
  lock();
- // A previously refreshed body needs no more work unless a save reload
- // reinitialised the same native CylinderShape radius to its vanilla value.
+ // Reconcile BOTH radius and vertical half-height after reload.
+ // Never mistake radius=8 / half-height=3 for a completed expanded body.
  const float current=getf(job.cylinder,0x34);
+ const float currentHeight=getf(job.cylinder,0x30);
  const float target=4.0f*(float)percent/100.0f;
+ const float heightTarget=3.0f*(float)percent/100.0f;
  for(unsigned i=0;i<doneCount;++i){
   const Done& old=done[i];
   if(old.world==job.world&&old.cylinder==job.cylinder&&old.body==job.body&&old.id==job.id
-     &&approximate(current,target)){unlock();return true;}
+     &&approximate(current,target) && approximate(currentHeight,heightTarget)){unlock();return true;}
  }
  for(unsigned i=head;i<tail;++i){
   const Job& old=jobs[i%256u];
@@ -301,30 +350,48 @@ static bool queue(const Job& job){
 // are owner-checked, and the renderer instance is separately type-checked.
 // Never change OdradekEffectEnableRadius (+0x30): its genuine vanilla 30m
 // controls when to enable/show the effect, not its visible circle radius.
-static bool syncVisual(uintptr_t shelter,uintptr_t owner,uintptr_t members){
+static bool syncVisual(uintptr_t shelter,uintptr_t owner,uintptr_t members,
+                       VisualSync& stable){
  if(!enabled||!isShelter(shelter)||ptr(ptr(shelter,0xa0),0x88)!=owner)return false;
  const float target=4.0f*(float)percent/100.0f;
  unsigned ready=0,recognized=0;
- const unsigned visualFastSlots[]={0xf0u,0xf8u};
- for(unsigned i=0;i<2u;++i){
+ Job validatedJobs[2]={};
+ unsigned validatedSlots[2]={};
+ unsigned odradekSlot=0xffffffffu;
+ // Stage 3 uses +0xF8/+0x100 (confirmed on 2026-10-09),
+ // while another observed stage uses +0xF0/+0xF8.
+ const unsigned visualFastSlots[]={0xf0u,0xf8u,0x100u};
+ const float targetHeight=3.0f*(float)percent/100.0f;
+ for(unsigned i=0;i<3u;++i){
   const uintptr_t trg=ptr(members,visualFastSlots[i]);
   if(ptr(trg)!=base+0x03135648 && ptr(trg)!=base+0x031360E8)continue;
   Job job={};
   if(inspect(shelter,owner,trg,job)){
    ++recognized;
-   if(approximate(getf(job.cylinder,0x34),target))++ready;
+   if(approximate(getf(job.cylinder,0x34),target) &&
+      approximate(getf(job.cylinder,0x30),targetHeight)){
+    if(ready<2u){
+     validatedJobs[ready]=job;
+     validatedSlots[ready]=visualFastSlots[i];
+    }
+    ++ready;
+   }
   }
  }
  // Valid known cylinders with vanilla radius wait for the queued Jolt
  // refresh rather than searching all 160 unrelated owner components.
  if(ready<2u && recognized<2u){
   for(unsigned off=0;off<0x500u && ready<2u;off+=8u){
-   if(off==0xf0u || off==0xf8u)continue;
+   if(off==0xf0u || off==0xf8u || off==0x100u)continue;
    const uintptr_t trg=ptr(members,off);
    if(ptr(trg)!=base+0x03135648 && ptr(trg)!=base+0x031360E8)continue;
    Job job={};
    if(inspect(shelter,owner,trg,job) &&
-      approximate(getf(job.cylinder,0x34),target))++ready;
+      approximate(getf(job.cylinder,0x34),target) &&
+      approximate(getf(job.cylinder,0x30),targetHeight)){
+    if(ready<2u){validatedJobs[ready]=job;validatedSlots[ready]=off;}
+    ++ready;
+   }
   }
  }
  if(ready!=2u)return false;
@@ -333,7 +400,7 @@ static bool syncVisual(uintptr_t shelter,uintptr_t owner,uintptr_t members){
  for(unsigned off=0;off<0x200;off+=8){
   const uintptr_t candidate=ptr(members,off);
   if(ptr(candidate)==base+0x03296A68 && ptr(candidate,0x48)==owner){
-   odradek=candidate;break;
+   odradek=candidate;odradekSlot=off;break;
   }
  }
  if(!odradek)return false;
@@ -345,7 +412,7 @@ static bool syncVisual(uintptr_t shelter,uintptr_t owner,uintptr_t members){
  // This is visual geometry, not the native protection radius. Native
  // DSOdradekEffectInstance::GetEffectRange() multiplies this size by 0.5f.
  // At 200% the genuine radius is 8m, so the visual size must be 16m.
- const float visualSize=target*2.0f;
+ const float visualSize=sam_shelter_visual::renderer_diameter(target);
  lock();
  const float instanceRadius=getf(odradek,0x5c);
  const float resourceRadius=getf(resource,0x34);
@@ -390,21 +457,204 @@ static bool syncVisual(uintptr_t shelter,uintptr_t owner,uintptr_t members){
  if(!approximate(rendererSize,visualSize)){
   // Permit only the original 4m visual size and the already extended native
   // 8m numerical size as sources; unknown animation/renderer data fail open.
-  if(!approximate(rendererSize,4.0f) && !approximate(rendererSize,target))
+  // DS2 sometimes creates a renderer with double the component's size:
+  // 16 -> 32 (an incorrectly displayed 16m RADIUS instead of 8m).
+  // Correct only the known 4/8/16/32m native sizes; reject arbitrary FX.
+  if(!sam_shelter_visual::accept_renderer_correction(rendererSize,target))
    return false;
   if(!readable(rendererField,4,true))return false;
   *(volatile float*)rendererField=visualSize;
   if(!approximate(getf(renderer,0x2a0),visualSize))return false;
   static volatile LONG rendererUpdated=0;
-  if(InterlockedIncrement(&rendererUpdated)<=16)
+  if(InterlockedIncrement(&rendererUpdated)<=16) {
    note("construction_shelter=ODRADEK_RENDER_INSTANCE_DIAMETER_SYNCED\r\n");
+   if(approximate(rendererSize,visualSize*2.0f))
+    note("construction_shelter=OVERSIZED_RENDERER_32_TO_16_FIXED\r\n");
+  }
  }
- // A separate renderer/particle rebuild may still be needed for persistent
- // GPU geometry after a live update. Only the in-game visual test can prove
- // that the ground circle matches the real 8m radius.
+ // Collect a stable snapshot only when exactly two distinct complete native
+ // Jolt bodies, the renderer and the exact original repair source are valid.
+ // Unknown shelter layouts still use the original full update path.
+ stable.key.shelter=shelter;
+ stable.key.owner=owner;
+ stable.key.members=members;
+ stable.key.odradek=odradek;
+ stable.key.odradekResource=resource;
+ stable.key.renderer=renderer;
+ stable.odradekSlot=odradekSlot;
+ for(unsigned i=0;i<2u;++i){
+  stable.validated[i]=validatedJobs[i];
+  stable.triggerSlot[i]=validatedSlots[i];
+  stable.key.triggers[i]=validatedJobs[i].trigger;
+  stable.key.cylinders[i]=validatedJobs[i].cylinder;
+  stable.key.ids[i]=validatedJobs[i].id;
+ }
+ const uintptr_t firstRepair=ptr(members,0x28u);
+ const bool firstValid=ptr(firstRepair)==base+0x03297208 &&
+                       ptr(firstRepair,0x48u)==owner;
+ const uintptr_t repair=firstValid?firstRepair:ptr(members,0x30u);
+ const uintptr_t repairResource=ptr(repair,0x30u);
+ const float expectedRepair=4.0f*(float)repairPercent/100.0f;
+ if(ptr(repair)==base+0x03297208 &&
+    ptr(repair,0x48u)==owner &&
+    ptr(repairResource)==base+0x03296670 &&
+    approximate(getf(repairResource,0x20u),expectedRepair) &&
+    validatedJobs[0].trigger!=validatedJobs[1].trigger &&
+    validatedJobs[0].body!=validatedJobs[1].body &&
+    validatedSlots[0]!=validatedSlots[1]){
+  stable.key.repair=repair;
+  stable.key.repairResource=repairResource;
+  stable.repairSlot=firstValid?0x28u:0x30u;
+  stable.lastRegister=GetTickCount();
+  stable.stable=true;
+ }
+ // The native renderer can be rebuilt independently; each steady-state
+ // check verifies current object identity and the 16m draw diameter.
  return true;
 }
 
+// Passive spatial diagnostics: active shelter only, no engine calls and no
+// cargo/weather/effect writes. 'player' is a proxy for held cargo position;
+// only the engine's native per-item repair decision proves actual eligibility.
+// Output stores squared distances * 100 to avoid CRT math/formatting.
+struct SpatialProbeStamp { uintptr_t shelter,owner;DWORD last; };
+static SpatialProbeStamp spatialStamp[128]={};
+static volatile LONG spatialSamples=0;
+static void probeSpatial(uintptr_t shelter,uintptr_t owner,uintptr_t members,DWORD now){
+ if(InterlockedCompareExchange(&spatialSamples,0,0)>=96)return;
+ const unsigned bucket=(unsigned)(((shelter>>8)^(shelter>>20))&127u);
+ SpatialProbeStamp& st=spatialStamp[bucket];
+ if(st.shelter==shelter && st.owner==owner &&
+    (DWORD)(now-st.last)<3400u)return;
+ st.shelter=shelter;st.owner=owner;st.last=now;
+ if(ptr(owner)!=base+0x03119BC8 || ptr(ptr(shelter,0xa0),0x88)!=owner)return;
+ uintptr_t repair=ptr(members,0x28);
+ if(ptr(repair)!=base+0x03297208 || ptr(repair,0x48)!=owner)
+  repair=ptr(members,0x30);
+ if(ptr(repair)!=base+0x03297208 || ptr(repair,0x48)!=owner)return;
+ const uintptr_t resource=ptr(repair,0x30);
+ if(ptr(resource)!=base+0x03296670 || !readable(repair+0x70,1))return;
+ const float radius=getf(resource,0x20);
+ if(radius<3.0f || radius>20.0f)return;
+ const uintptr_t playerManager=ptr(base+0x0623DF40);
+ const uintptr_t playerRows=ptr(playerManager,0x40);
+ const uintptr_t firstRow=ptr(playerRows);
+ const uintptr_t player=ptr(firstRow,0x48);
+ const uintptr_t playerVt=ptr(player);
+ if(playerVt!=base+0x03233158 && playerVt!=base+0x03233A68)return;
+ // Same WorldPosition +0xE8 triple used by native baggage repair at
+ // RVA 0x11B04F0. Game WorldPosition is X/Y ground and Z elevation;
+ // the old dev21 diagnostic mistakenly treated Y as elevation.
+ // dev20 also started at +0xF0 and omitted world X entirely.
+ if(!readable(player+0xe8,24)||!readable(owner+0xe8,24))return;
+ const double* pp=(const double*)(player+0xe8);
+ const double* sp=(const double*)(owner+0xe8);
+ const double dx=pp[0]-sp[0],dy=pp[1]-sp[1],dz=pp[2]-sp[2];
+ const double horizontal=dx*dx+dy*dy, threeDim=horizontal+dz*dz;
+ if(!(horizontal>=0 && horizontal<400 && threeDim>=0 && threeDim<900))return;
+ // Probe only near this structure; bounded integer outputs in centi-m^2.
+ if(horizontal>radius*radius*2.25)return;
+ char line[200];unsigned n=0;
+ n=addLiteral(line,n,"construction_shelter=SPATIAL_SNAPSHOT xy2x100=");
+ n=addDigits(line,n,(unsigned)(horizontal*100.0+0.5));
+ n=addLiteral(line,n," xyz2x100=");
+ n=addDigits(line,n,(unsigned)(threeDim*100.0+0.5));
+ n=addLiteral(line,n," verticalZ2x100=");
+ n=addDigits(line,n,(unsigned)(dz*dz*100.0+0.5));
+ n=addLiteral(line,n," repairRadius2x100=");
+ n=addDigits(line,n,(unsigned)(radius*radius*100.0+0.5));
+ n=addLiteral(line,n," repair_contact=");
+ n=addDigits(line,n,(unsigned)*(const unsigned char*)(repair+0x70));
+ if(readable(shelter+0x422,1)){
+  n=addLiteral(line,n," rest_contact=");
+  n=addDigits(line,n,(unsigned)*(const unsigned char*)(shelter+0x422));
+ }
+ n=addLiteral(line,n," note=PLAYER_PROXY\r\n");
+ line[n]=0;
+ note(line);
+ InterlockedIncrement(&spatialSamples);
+}
+// Steady-state is legal ONLY after original full native sync returned
+// a fully validated snapshot. The per-tick shortcut checks all material
+// source/owner/Jolt BodyID/cylinder/radius/renderer identities. A mismatch
+// immediately re-enters the original full native discovery on this tick.
+// No worker-thread dereference of untrusted objects or extra native hook.
+static bool steadyShelterValid(const VisualSync& v,
+                               uintptr_t shelter,uintptr_t owner,
+                               uintptr_t members){
+ if(!v.stable || !shelter || !owner || !members)return false;
+ const shelter_steady_state::Key& key=v.key;
+ if(key.shelter!=shelter || key.owner!=owner || key.members!=members)
+  return false;
+ if(!isShelter(shelter) ||
+    ptr(ptr(shelter,0xa0u),0x88u)!=owner ||
+    ptr(owner)!=base+0x03119BC8 ||
+    ptr(owner,0xa8u)!=members)
+  return false;
+ if(v.odradekSlot>=0x200u || v.repairSlot>0x30u ||
+    ptr(members,v.odradekSlot)!=key.odradek ||
+    ptr(members,v.repairSlot)!=key.repair)
+  return false;
+ if(ptr(key.odradek)!=base+0x03296A68 ||
+    ptr(key.odradek,0x48u)!=owner ||
+    ptr(key.odradek,0x30u)!=key.odradekResource ||
+    ptr(key.odradekResource)!=base+0x032972E8 ||
+    ptr(key.odradek,0x50u)!=key.renderer ||
+    ptr(key.renderer)!=base+0x0338E2C8 ||
+    ptr(ptr(key.renderer,0xc0u))!=base+0x0338E5C8 ||
+    !readable(key.odradekResource+0x38u,1u) ||
+    *(const unsigned char*)(key.odradekResource+0x38u)!=1u)
+  return false;
+ if(ptr(key.repair)!=base+0x03297208 ||
+    ptr(key.repair,0x48u)!=owner ||
+    ptr(key.repair,0x30u)!=key.repairResource ||
+    ptr(key.repairResource)!=base+0x03296670)
+  return false;
+
+ // Verify TWO independent native Jolt triggers and body generations.
+ // Without these identities, a new save or scene/structure upgrade may
+ // reuse an old address and must NOT bypass the full reconciliation.
+ shelter_steady_state::Key current=key;
+ for(unsigned i=0;i<2u;++i){
+  const Job& job=v.validated[i];
+  if(job.shelter!=shelter || job.owner!=owner ||
+     v.triggerSlot[i]>=0x500u ||
+     ptr(members,v.triggerSlot[i])!=job.trigger)
+   return false;
+  const uintptr_t triggerVT=ptr(job.trigger);
+  if((triggerVT!=base+0x03135648 &&
+      triggerVT!=base+0x031360E8) ||
+     ptr(job.trigger,0x48u)!=owner ||
+     ptr(job.cylinder)!=base+0x0345CA98 ||
+     ptr(job.outer)!=base+0x0345B768 ||
+     ptr(job.outer,0x20u)!=job.cylinder ||
+     !readable(job.body+0x78u,4u) ||
+     u32(job.body,0x70u)!=job.id ||
+     ptr(job.body,0x40u)!=job.outer)
+   return false;
+  const uintptr_t inner=ptr(job.trigger,0x50u);
+  if(ptr(inner)!=base+0x03135708 ||
+     ptr(inner,0x58u)!=job.world ||
+     u32(inner,0x88u)!=job.id)
+   return false;
+  current.triggers[i]=ptr(members,v.triggerSlot[i]);
+  current.cylinders[i]=ptr(job.outer,0x20u);
+  current.ids[i]=u32(inner,0x88u);
+ }
+ if(!shelter_steady_state::identity(key,current))return false;
+ const float rainTarget=4.0f*(float)percent/100.0f;
+ const float repairTarget=4.0f*(float)repairPercent/100.0f;
+ return shelter_steady_state::dimensions(
+    rainTarget,getf(key.repairResource,0x20u),
+    getf(key.renderer,0x2a0u),
+    getf(key.odradekResource,0x34u),
+    getf(key.odradek,0x5cu),
+    getf(v.validated[0].cylinder,0x34u),
+    getf(v.validated[0].cylinder,0x30u),
+    getf(v.validated[1].cylinder,0x34u),
+    getf(v.validated[1].cylinder,0x30u),
+    rainTarget,repairTarget);
+}
 static void discover(void* object){
  if(!enabled||!object)return;
  uintptr_t shelter=(uintptr_t)object;
@@ -413,11 +663,16 @@ static void discover(void* object){
  unsigned bucket=(unsigned)(((shelter>>8)^(shelter>>20))&1023u);
  DWORD now=GetTickCount();
  if(throttled[bucket].object==shelter &&
-    (DWORD)(now-throttled[bucket].last)<1600u)return;
+    (DWORD)(now-throttled[bucket].last)<3600u)return;
  if(!isShelter(shelter))return;
  DiscoveryMeter performanceScope;
- if(InterlockedCompareExchange(&firstSeen,1,0)==0)
+ if(InterlockedCompareExchange(&firstSeen,1,0)==0){
   note("construction_shelter=LIVE_SHELTER_SEEN\r\n");
+  // Decima preloads localized rest text AFTER Sam's worker is attached.
+  // Start one-shot text reconciliation ONLY after actual shelter objects
+  // exist; the early dev26 global heap scan finished before save load.
+  SamShelterRestLabelNotifyActiveShelter();
+ }
  if(throttled[bucket].object!=shelter)throttled[bucket].fallbackAt=0;
  throttled[bucket].object=shelter;
  throttled[bucket].last=now;
@@ -425,12 +680,27 @@ static void discover(void* object){
  uintptr_t owner=ptr(wrapper,0x88);
  uintptr_t members=ptr(owner,0xa8);
  if(!readable(members,0x100))return;
+ const unsigned vbucket=(unsigned)(((shelter>>8u)^(shelter>>20u))&255u);
+ VisualSync& v=visualSync[vbucket];
+ if(steadyShelterValid(v,shelter,owner,members)){
+  // Reaffirm verified native RepairSpray registration after streaming changes.
+  // This matches the original repair registry and does not alter radii.
+  if((DWORD)(now-v.lastRegister)>=10000u){
+   SamConstructionRepairGateRegister((void*)v.key.repair,
+       (void*)v.key.repairResource,(void*)owner);
+   v.lastRegister=now;
+  }
+  performanceScope.steady=true;
+  return;
+ }
+ v.stable=false;
  reconcileNativeRepairRadius(shelter,owner,members);
+ if(spatialDiagnostics)probeSpatial(shelter,owner,members,now);
  unsigned accepted=0;
  // Native active shelter collision components confirmed at +0xF0/+0xF8.
  // Two cheap guarded reads, rather than 160 sequential VirtualQuery calls.
- const unsigned fastSlots[]={0xf0u,0xf8u};
- for(unsigned i=0;i<2u;++i){
+ const unsigned fastSlots[]={0xf0u,0xf8u,0x100u};
+ for(unsigned i=0;i<3u && accepted<2u;++i){
   const uintptr_t trigger=ptr(members,fastSlots[i]);
   if(ptr(trigger)!=base+0x03135648 && ptr(trigger)!=base+0x031360E8)continue;
   Job j={};
@@ -444,7 +714,7 @@ static void discover(void* object){
   InterlockedIncrement(&perfFallbackCount);
   // Unknown layouts get a full scan at most once every 10 seconds.
   for(unsigned off=0;off<0x500u && accepted<2u;off+=8u){
-   if(off==0xf0u || off==0xf8u)continue;
+   if(off==0xf0u || off==0xf8u || off==0x100u)continue;
    const uintptr_t trigger=ptr(members,off);
    if(ptr(trigger)!=base+0x03135648 && ptr(trigger)!=base+0x031360E8)continue;
    Job j={};
@@ -455,12 +725,12 @@ static void discover(void* object){
  // Only instantiated shelters have validated protection cylinders.
  // Streamed, inactive structures must not pay the cost of visual scanning.
  if(accepted>0){
-  const unsigned vbucket=(unsigned)(((shelter>>8u)^(shelter>>20u))&255u);
-  VisualSync& v=visualSync[vbucket];
-  if(v.shelter!=shelter || v.owner!=owner ||
-     (DWORD)(now-v.lastGood)>=4000u){
-   if(syncVisual(shelter,owner,members)){
-    v.shelter=shelter;v.owner=owner;v.lastGood=now;
+  if(v.key.shelter!=shelter || v.key.owner!=owner ||
+     !v.stable || (DWORD)(now-v.lastGood)>=4000u){
+   VisualSync next={};
+   if(syncVisual(shelter,owner,members,next)){
+    next.lastGood=now;
+    v=next;
    }
   }
  }
@@ -488,8 +758,14 @@ extern "C" bool SamConstructionShelterInstall(void* image,const wchar_t* ini,HAN
  if(!image||!ini)return false;
  enabled=GetPrivateProfileIntW(L"TimefallShelterRange",L"Enabled",0,ini)==1;
  percent=GetPrivateProfileIntW(L"TimefallShelterRange",L"RangePercent",200,ini);
+ repairPercent=GetPrivateProfileIntW(L"TimefallShelterRange",L"RepairRadiusPercent",215,ini);
+ spatialDiagnostics=GetPrivateProfileIntW(L"TimefallShelterRange",L"SpatialDiagnostics",0,ini)==1;
  if(!enabled){note("construction_shelter=DISABLED\r\n");return true;}
  if(percent<100||percent>400){note("construction_shelter=REFUSED invalid_percent\r\n");enabled=false;return false;}
+ if(repairPercent<100||repairPercent>400){
+  note("construction_shelter=REFUSED invalid_repair_percent\r\n");
+  enabled=false;return false;
+ }
  if(percent==100){enabled=false;note("construction_shelter=VANILLA_100_PERCENT\r\n");return true;}
  base=(uintptr_t)image;
  // DSRainShelter per-instance update; Steam DS2 1.10.89.0.
@@ -551,11 +827,19 @@ extern "C" void SamConstructionShelterPoll(HANDLE log){
    continue;
   }
   const float currentRadius=getf(job.cylinder,0x34);
+  const float currentHeight=getf(job.cylinder,0x30);
   const float target=4.0f*(float)percent/100.0f;
+  const float targetHeight=3.0f*(float)percent/100.0f;
   if(!approximate(currentRadius,4.0f) && !approximate(currentRadius,target))continue;
-  if(!readable(job.cylinder+0x34,4,true))continue;
+  if(!approximate(currentHeight,3.0f) && !approximate(currentHeight,targetHeight))continue;
+  if(approximate(currentRadius,target) && approximate(currentHeight,targetHeight))continue;
+  if(!readable(job.cylinder+0x30,8,true))continue;
+  // Keep JPH::CylinderShape 0x38 convex radius 0.05f unmodified.
+  *(volatile float*)(job.cylinder+0x30)=targetHeight;
   *(volatile float*)(job.cylinder+0x34)=target;
-  // Jolt recomputes AABB and broadphase after a shape geometry mutation.
+  if(!approximate(getf(job.cylinder,0x30),targetHeight) ||
+     !approximate(getf(job.cylinder,0x34),target))continue;
+  // Jolt recomputes AABB and broadphase after the paired geometry mutation.
   uintptr_t system=ptr(job.world,0x2b0);
   uintptr_t iface=system+0x1c0;
   typedef void (__fastcall* NotifyFn)(void*,const uint32_t*,const float*,bool);
@@ -569,9 +853,9 @@ extern "C" void SamConstructionShelterPoll(HANDLE log){
   LONG n=InterlockedIncrement(&completed);
   if(n<=16){
    if(log && log!=logger && log!=INVALID_HANDLE_VALUE){
-    const char msg[]="construction_shelter=CYLINDER_SCALED_AND_JOLT_REFRESHED\r\n";
+    const char msg[]="construction_shelter=CYLINDER_RADIUS_HEIGHT_AND_JOLT_REFRESHED\r\n";
     DWORD w=0;WriteFile(log,msg,sizeof(msg)-1,&w,nullptr);
-   } else note("construction_shelter=CYLINDER_SCALED_AND_JOLT_REFRESHED\r\n");
+   } else note("construction_shelter=CYLINDER_RADIUS_HEIGHT_AND_JOLT_REFRESHED\r\n");
   }
  }
 }

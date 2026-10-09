@@ -1,4 +1,82 @@
 # Changelog
+## 1.1.0-dev.28 – Timefall Shelter steady-state performance optimization (2026-10-09)
+
+- User confirms dev27 fully functional in-game: blue ring radius 8m, rain protection 8m, native cargo-coating repair radius 8.6m, stable German "Verschnaufen", original Timefall Shelter resting action and other Sam Overhaul features.
+- dev27 performance telemetry reports repeated 133–158ms maxima in native full discovery callbacks. A separate SMUUDEV microbenchmark found Windows VirtualQuery calls around 2.3us and synchronous file writes around 0.003ms median, so their individual syscall costs do not conclusively explain the observed callback wall times.
+- Cache exact native state after a SUCCESSFUL full reconstruction and synchronization of both Jolt trigger bodies, generation-sensitive BodyIDs, shelter+owner+member identities, native RepairSpray source and 8.6m resource, Odradek component/resource and correct 16m renderer diameter.
+- When every cached vtable, owner linkage, native Jolt BodyID, 8m collision cylinder radius, 6m half-height, 8.6m coating sphere and 16m render size still matches, skip the unnecessary full native Jolt and Odradek discovery. If ANY identity/geometry changes, immediately run the proven guarded original path. No synthetic player inputs or weather/cargo writes.
+- Source still re-registers verified RepairSpray contact eligibility periodically, preserving save reload and native lifecycle checks. Never use an unconditional pointer-only cache.
+- Native performance telemetry now separately reports stable count, stableMaxUs and fullMaxUs, permitting meaningful comparison on a single next game test. Heavy passive spatial snapshot diagnostics default OFF, but can be reenabled with [TimefallShelterRange] SpatialDiagnostics=1. The older structural and functional timing logs remain available.
+- Added 29 deterministic policy checks for invalidated Jolt generations, trigger/source/renderer reloads and geometry changes. No Git push, Nexus release or live game ASI replacement before validation.
+
+## 1.1.0-dev.27 – corrected oversized blue ring and late text resources (2026-10-09)
+
+- **Root cause proven in the actual dev26 game process:** correct timefall collision cylinders have 8m radius and 6m half-height, native cargo coating has an independent 8.6m sphere, but the Odradek renderer draw instance unexpectedly stored a 32m *diameter* (actual visible radius 16m). Both component and resource had already stored 16m. A guarded reversible live patch changed **only** the renderer field 32 -> 16 and kept the native coating 8.6m / protected region 8m; read-back remained 16.
+- Production renderer reconciliation now accepts the one known incorrect **double-diameter** draw instance value and corrects it back to 16m. All other unknown visual and engine values remain untouched. Use an isolated pure native policy to prevent introducing another global 2x multiplier.
+- **Preload timing bug confirmed:** dev26's text reconciliation completed BEFORE the game logged LIVE_SHELTER_SEEN. Both actual localized RestInShelter assets remained German "In Bunker ausruhen" with length18; native streaming listener never received them. A reversible live patch of both exact UUID resources to "Verschnaufen" succeeds as before.
+- Schedule bounded preloaded localization reconciliation after the first ACTUAL native shelter object is observed, with a 2s delay for late save-localized assets. Allow only one further delayed pass if assets haven't loaded yet. The scanner is idle before a shelter is present and stops after the target resources are patched. Keep existing native streaming callbacks, exact UUID/text/type guards and original Rest-in-Shelter action unchanged.
+- Blue ring and timefall protection remain at 200% (8m radius), cargo repair remains independent at 215% (8.6m), no changes to cargo physics or game state. No public release, Git push or game ASI replacement before tests.
+
+## 1.1.0-dev.26 – independent shelter repair reach / sloped-terrain compensation (2026-10-09)
+
+- Keep Timefall Shelter protection radius, blue Odradek circle and native shelter physics triggers at existing RangePercent=200 => 8m, as previously confirmed working. Do not shrink visual circle.
+- Add RepairRadiusPercent=215 independently to the TimefallShelterRange INI, controlling native DSConstructionRepairSprayComponentResource +0x20 and the selective baggage-repair gate target bits. This scales the original 4m native coating radius to 8.6m by default (also when the user's existing INI is missing the new key). Set to 200 to restore 8m; accepted 100-400.
+- A typical 2.75m vertical slope causes the native spherical 8m repair radius to cover only 7.51m horizontally, despite the visible 8m ring. The new 8.6m native sphere covers sqrt(8.6^2-2.75^2) = 8.15m horizontally, bringing repair cloud onset close to the visible circle from above. On flat ground, a small ~0.6m overhang is expected.
+- The existing INI rest label fix was registered too late for some preloaded RestInShelter assets (no NATIVE_REST_TEXT_PATCHED log in dev25 startup). dev26 adds an incremental preload-safe resource reconciliation on the existing worker, while retaining exact UUID/text guards and native shelter rest action.
+- Development build only, no game installation, Git push or Nexus release until after validation.
+
+## 1.1.0-dev.25 – integrated native Timefall Shelter rest-label correction (2026-10-09)
+
+- Live user confirmed that both exact German RestInShelter localization resources, when changed from "In Bunker ausruhen" to "Verschnaufen", display correctly under the same enlarged shelter. The original native shelter rest action and actual 8-m repair behavior were left unchanged.
+- Integrate the correction in Sam Overhaul's **existing** native streaming listener; no additional localization mod, no ReShade and no second engine hook. Only the two verified RestInShelter UUIDs with the original exact German text and LocalizedTextResource vtable can change.
+- Edit only the existing 18-byte game-allocated text buffer in place to the shorter 12-byte text, with null terminator and native resource length update. Never release or replace game-owned memory. Skip unknown locales, types, GUIDs and buffers.
+- Add `[TimefallShelterRange] FixRestPrompt=1` (default on only when shelter extension is enabled), disable with 0. Ensure streaming listener remains active when all truck-weapon tuning options are off.
+- Do NOT replace the game's action ID or change native shelter-rest/time-pass behavior. The uphill cargo repair may begin ~0.5m inside the terrain-projected ring due to the native 3D distance check and elevation difference. dev.24 already works acceptably downhill/uphill; leave circle and repair-radius constants untouched.
+- Integrated game build still requires gameplay verification; no Git push, public release or Nexus upload.
+
+## 1.1.0-dev.24 – paused-game-proof native RepairSpray source liveness (2026-10-09)
+
+- dev23 loads the save, but cargo repair still occurred close to the shelter. Live inspection of the actual MASM registry at ASI RVA 0x182EC/0x182F0 identified three allocated slots with source=0 while two engine RepairSpray sources remained active with 8m radius. Last-validation ticks were 335–477 seconds old, matching a paused/alt-tab period.
+- Replace 13-second GetTickCount-based whitelist expiry with native RepairSpray registry membership checks. Existing worker takes native shared SRW lock root+0x60, scans table count+0x540/list+0x548 via DS2.exe RVA 0x623EAD8, and preserves known-good source entries while their native object, radius, resource, owner and member link are valid.
+- Native-source unregister/streaming unload prunes the old entries. If the native list is temporarily unavailable/busy, defer cleanup; never use a fixed wall-clock timeout. No extra work in the hot MASM baggage path, whose other-source vanilla fallback remains intact. Max one low-priority poll per 1.2 seconds.
+- Staged development only; game install and proof remain pending.
+
+## 1.1.0-dev.23 — repair-gate save-load crash fix (2026-10-09)
+
+- **Additional dev.23 native executable integration regression:** construct the original native CMP/JE skip and continuation bytes in an isolated executable virtual address space, invoke the PRODUCTION installer/relay/MASM hook, validate original active/inactive native behavior and source-registered selective bypass through actual CPU execution. The first 20 end-to-end checks passed on SMUUDEV; separate source test and actual live game test remain distinct.
+- **Fix confirmed fatal dev.22 jump displacement bug:** the x64 E9 rel32 opcode is 5 bytes. dev22 incorrectly computed displacement using site+6 and dispatched to relay-1. dev23 shares a 5-byte-aware, checked native_jump_rel32 helper with the production installer and executable CPU tests (forward/backwards, boundary and actual code execution).
+- **Eliminate unsafe native-load pointer traversal:** register eligible expanded RepairSpray sources only during owner/type/member/resource/radius-validated active Timefall Shelter updates. The native baggage query MASM stub matches the registered source/resource/owner pointer tuple and original component type. It does not dereference resource, owner, member arrays or other speculative pointers during save loading. Unregistered/stale sources retain vanilla contact eligibility.
+- Use a bounded 32-entry time-expiring source registry, updated on active shelter scans and periodically pruned by the existing worker. No extra global cargo scanning or per-frame memory validation.
+- Preserve original native source radius, coating restoration and 3D distance calculation; preserve rain protection, enlarged visual ring, generator and all prior Sam Overhaul features.
+- **dev.22 crashed while loading the user's save.** Immediately rolled back to the exact verified dev.21 binary and original INI. dev.23 is offline-built and **not yet tested in-game**; no push, release, or game installation before explicit controlled test.
+
+## 1.1.0-dev.22 — native RepairSpray contact-gate scoped integration (2026-10-09)
+
+- User verified the earlier temporary global contact bypass restored cargo coating near the full 200% ground ring, with one-sided differences on sloped terrain. This probe remains in current dev21 process only; a fixed-time patch was replaced by manual on/off for local testing.
+- Add an optional **source-validated native branch detour** using a hand-audited x64 MASM stub. For repair sources whose exact component/resource/entity vtables, owner membership and INI-scaled native repair radius match, the baggage query continues to the original native distance and repair-strength checks even when the original contact gate is inactive. ALL other sources use the exact original native contact test.
+- Never writes cargo or contact state, never dispatches synthetic native repair callbacks, and does not globally disable the contact predicate. The return and skip branch addresses, known instruction bytes and binary baseline are signature-guarded; RX relay is allocated within rel32 reach. No extra per-frame heap scanner.
+- Pure MASM CPU context (only RAX push/pop) and a 14-case mock execution suite prove both eligible and ineligible source paths preserve return semantics. Exact observed stage owner/member slots +0x28/+0x30 are checked.
+- Existing TimefallShelterRange Enabled/RangePercent controls the selective gate automatically; defaults/missing keys remain vanilla. Circle, native rain protection, repair radius, generator, footprints and base QoL options unchanged.
+- **Critical remaining validation:** dev22 integrated ASI has NOT been tested in game; native contact/source filtering, appearance of the spray cloud, performance, reload and other shelter levels must be tested after fresh game launch. From above the screenshot shows repair slightly inside the ring, potentially due to native 3D baggage distance. The rest-action labels 'In Bunker ausruhen' vs 'Verschnaufen' remain an independent unresolved behavior.
+- Local development only. No Git push, release or Nexus upload.
+
+## 1.1.0-dev.21 — native shelter cylinder height parity (2026-10-09)
+
+- DS2's JPH CylinderShape vtable RVA 0x345CA98, GetLocalBounds RVA 0x278D790, confirms Y-axis half-height at +0x30 and X/Z radius at +0x34. In dev.20 both live stage-3 shelter cylinders showed radius8 but original half-height3, potentially clipping player contacts on a slope. This is a supported hypothesis, not yet a gameplay-proven fix.
+- Scale only the two strictly owner/Jolt-body-validated shelter cylinders from radius4/half-height3 to radius8/half-height6 at 200%. Preserve +0x38 convex radius and notify the original Jolt shape-change path only when needed; refresh both dimensions on save reload.
+- Correct spatial diagnostic WorldPosition +0xE8 (dev.20 erroneously used +0xF0), measuring proper X/Z horizontal and Y vertical. Track original native repair contact flag without synthesizing contact events or modifying cargo.
+- Include native stage-3 component fast slot +0x100 with known +0xF0/+0xF8 positions. Reduces expensive full owner scans. The high discovery timing readings remain under investigation.
+- Retain existing rain protection, cargo repair radius, visual circle, generator, footprints and other Sam functions. German rest interaction labels are still unmodified and require separate research.
+- Local build only. No Git push or Nexus release; gameplay test from above and below still needed.
+
+## 1.1.0-dev.20 - passive shelter distance diagnosis (2026-10-09)
+
+- The dev19 visual circle and rain-repair animation were observed at different player distances after save reload. Do not assert that the ring and the repair event share the same ground boundary; native baggage coverage checks 3D cargo-to-source distance, whereas the Odradek ring is a 2D terrain marker.
+- Add guarded read-only shelter diagnostics sampled no faster than every 3.4 s per active shelter, capped at 96 samples per session. Log squared player-to-owner horizontal and 3D distances plus original repair-contact flag and native radius. Player position is explicitly only a proxy for cargo; no direct item-state or effect writes.
+- Ease expensive active-shelter discovery throttle from 1.6 s to 3.6 s, retaining engine-native Jolt refresh, owner checks, reload reconciliation, native repair and protection radius, and visual size. Full performance and gameplay boundary tests still pending.
+- Rest prompt currently displays German 'In Bunker ausruhen'; isolated action/localization key investigation remains open, and no global UI string/interaction behavior is patched.
+- Local experimental build only; preserve dev19 binary for rollback. No release or push yet.
+
 ## 1.1.0-dev.19 — native shelter circle diameter to radius alignment (2026-10-09)
 
 - Confirmed via static native RVA 0x1D72260: DSOdradekEffectInstance+0x2A0 stores visual size and DS2 computes the actual radius as 0.5 * size. In the 200% game version actual protected/repair radius is 8m but Odradek visual size8 gives only 4m. An isolated temporary 16m test informed the fix; on 2026-10-09 the tester confirmed that the integrated dev.19 larger circle and repair effect now match in-game.

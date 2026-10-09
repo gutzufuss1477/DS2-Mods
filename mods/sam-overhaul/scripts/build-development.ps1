@@ -11,6 +11,20 @@ if($LASTEXITCODE -ne 0){throw 'Combined Sam Overhaul build failed.'}
 if($LASTEXITCODE -ne 0){throw 'Autodrive regression failed.'}
 & (Join-Path $root 'tests\build-run-footprints.cmd') 2>&1 | Tee-Object -FilePath (Join-Path $logs 'footprints.txt')
 if($LASTEXITCODE -ne 0){throw 'Footprint integration regression failed.'}
+& (Join-Path $root 'tests\build-run-native-jump-rel32.cmd') 2>&1 | Tee-Object -FilePath (Join-Path $logs 'native-jmp-rel32.txt')
+if($LASTEXITCODE -ne 0){throw 'Native rel32 displacement and CPU dispatch tests failed.'}
+& (Join-Path $root 'tests\build-run-repair-gate-asm.cmd') 2>&1 | Tee-Object -FilePath (Join-Path $logs 'scoped-repair-gate.txt')
+if($LASTEXITCODE -ne 0){throw 'Scoped native repair-gate ABI and source guards failed.'}
+& (Join-Path $root 'tests\build-run-native-repair-gate-integration.cmd') 2>&1 | Tee-Object -FilePath (Join-Path $logs 'native-repair-gate-integration.txt')
+if($LASTEXITCODE -ne 0){throw 'Native repair gate production installer/relay/ABI integration failed.'}
+& (Join-Path $root 'tests\build-run-shelter-rest-label.cmd') 2>&1 | Tee-Object -FilePath (Join-Path $logs 'shelter-rest-label.txt')
+if($LASTEXITCODE -ne 0){throw 'Native Timefall Shelter rest label resource/INI regression failed.'}
+& (Join-Path $root 'tests\build-run-shelter-rest-preload.cmd') 2>&1 | Tee-Object -FilePath (Join-Path $logs 'shelter-rest-preload.txt')
+if($LASTEXITCODE -ne 0){throw 'Native already-loaded Timefall Shelter text reconciliation failed.'}
+& (Join-Path $root 'tests\build-run-shelter-visual-policy.cmd') 2>&1 | Tee-Object -FilePath (Join-Path $logs 'shelter-visual-policy.txt')
+if($LASTEXITCODE -ne 0){throw 'Timefall Shelter visual renderer 32-to-16m correction policy failed.'}
+& (Join-Path $root 'tests\build-run-shelter-steady-state.cmd') 2>&1 | Tee-Object -FilePath (Join-Path $logs 'shelter-steady-state.txt')
+if($LASTEXITCODE -ne 0){throw 'Cached native shelter identity, Jolt BodyID and radius fastpath regression failed.'}
 python (Join-Path $PSScriptRoot 'validate-development.py') 2>&1 | Tee-Object -FilePath (Join-Path $logs 'binary.txt')
 if($LASTEXITCODE -ne 0){throw 'Binary or configuration validation failed.'}
 $name="DS2_Sam_Overhaul_v$version"
@@ -29,7 +43,7 @@ Copy-Item -LiteralPath (Join-Path $root 'vendor\minhook\LICENSE.txt') -Destinati
 @"
 Sam Overhaul $version - Git development build only.
 No Nexus release, GitHub release, release archive, release tag, or game installation is performed by this script.
-The integrated shelter 200-percent effect/circle alignment was confirmed in game on 2026-10-09. Full combined regression, save-reload persistence and performance profiling are pending.
+dev28: preserves user-confirmed 8m visual/rain, 8.6m cargo repair and stable Verschnaufen. A strictly validated cache bypasses redundant Jolt/renderer discovery on fully synchronized shelter objects, but every owner, trigger, Jolt BodyID, RepairSpray source, resource and native dimension change immediately triggers the original full guarded reconciliation. Spatial debugging default off; aggregated counters now report stable/stableMaxUs/fullMaxUs. This performance change requires a real game test. No Git/Nexus release.
 Default: [Footprints] HideFootprints=0. Set to 1 in ds2_sam_overhaul.ini and restart to enable.
 Remove the old Sam Overhaul ASI and ds2_footprint_native_probe.asi before manually installing this combined ASI.
 Generator and Timefall Shelter experimental range switches default OFF; test with RangePercent=200 and Enabled=1.

@@ -8,7 +8,7 @@ int wmain(int argc,wchar_t** argv) {
     using Version=const char*(*)();using State=unsigned(*)();
     auto version=reinterpret_cast<Version>(GetProcAddress(mod,"SamOverhaulVersion"));
     auto state=reinterpret_cast<State>(GetProcAddress(mod,"SamOverhaulFootprintsState"));
-    if(!version || !state || std::strcmp(version(),"1.1.0-dev.19"))return 4;
+    if(!version || !state || std::strcmp(version(),"1.1.0-dev.28"))return 4;
     Sleep(1800);
     if(state()!=0){std::printf("FAIL unsupported host activated footprint integration: %u\n",state());return 5;}
     std::puts("PASS combined ASI LoadLibrary, exports and unsupported-host guard; no game execution");

@@ -76,10 +76,21 @@ require(set(new["Footprints"])=={"hidefootprints"}, "Unexpected footprint option
 for section in ("GeneratorRange","TimefallShelterRange"):
     require(new[section]["enabled"]=="0", f"{section}: default must be off")
     require(new[section]["rangepercent"]=="200", f"{section}: default multiplier")
-    require(set(new[section])=={"enabled","rangepercent"},f"{section}: unexpected keys")
+    required={"enabled","rangepercent"}
+    if section=="TimefallShelterRange":
+        required.add("fixrestprompt")
+        required.add("repairradiuspercent")
+        required.add("spatialdiagnostics")
+        require(new[section]["spatialdiagnostics"]=="0",
+                "Spatial debug probes must default off in performance build")
+        require(new[section]["repairradiuspercent"]=="215",
+                "Default slope-corrected repair radius must be 215 percent")
+        require(new[section]["fixrestprompt"]=="1",
+                "Rest prompt correction defaults on when shelter range enabled")
+    require(set(new[section])==required,f"{section}: unexpected keys")
 result={"version":version,"binary":binary.name,"size_bytes":len(data),
     "sha256":hashlib.sha256(data).hexdigest(),"imports":imports,"exports":exports,
     "validated_core_normalized_sha256":"e054c990d66126e04bc0b21068d4f1877e4adffb4b73580cc029cd2c1cd16e63","legacy_defaults_preserved":legacy_options,
-    "footprints_default":0,"gameplay_test_of_combined_build":"partial; shelter circle/effect confirmed 2026-10-09; full regression pending"}
+    "footprints_default":0,"gameplay_test_of_combined_build":"dev27 native game functional validation PASS; dev28 introduces exact Jolt/renderer/repair steady-state hot path for completed shelters, independent phase timing counters and optional debug probes off by default; game performance validation pending"}
 print(json.dumps(result,indent=2))
 print("PASS binary structure, system-only imports, original defaults, validated core and opt-in setting")
