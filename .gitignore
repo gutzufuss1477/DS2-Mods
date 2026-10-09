@@ -20,3 +20,7 @@ __pycache__/
 *.tmp
 Thumbs.db
 desktop.ini
+
+# Sam Overhaul release ZIP/folder are Nexus upload artifacts, not source files.
+mods/sam-overhaul/release/DS2_Sam_Overhaul_v*/
+mods/sam-overhaul/release/DS2_Sam_Overhaul_v*.zip

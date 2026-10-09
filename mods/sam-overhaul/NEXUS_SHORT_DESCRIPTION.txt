@@ -1,1 +1,1 @@
-Configurable all-in-one Sam QoL overhaul: hide cargo and spare shoes, freer monorail/zipline exits, backpack landing rolls, faster Autodrive, and longer-range/faster truck weapons.
+All-in-one configurable Sam overhaul: hide cargo and footprints, expand generators and timefall shelters, keep freer movement, faster Autodrive and tuned truck weapons. New structure ranges are optional and controlled by INI.

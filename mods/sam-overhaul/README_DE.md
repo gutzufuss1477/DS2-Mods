@@ -1,38 +1,109 @@
-# Sam Overhaul v1.1.0-dev.1 – Entwicklungsstand
+# Sam Overhaul v1.1.0 – Anleitung
 
-Konfigurierbarer All-in-One-QoL-Mod für **DEATH STRANDING 2: ON THE BEACH**, Zielversion Steam PC **1.10.89.0**.
+Ein konfigurierbarer ASI-Mod für **DEATH STRANDING 2: ON THE BEACH** (Windows x64, Steam DS2.exe 1.10.89.0).
 
-Dies ist ein Git-Entwicklungsbuild, kein neues Nexus-Release. Das veröffentlichte Paket v1.0.0 bleibt unverändert.
+Sam Overhaul kombiniert die visuelle Fracht-Ausblendung, Bewegungsverbesserungen, schnellere Autodrive-Aktivierung und die Anpassungen der Truck-Waffen. **Version 1.1.0 ergänzt drei optionale Funktionen:** Fussabdrücke ausblenden, Generator-Reichweite erweitern und Zeitregenunterstand vergrössern.
 
-## Neue Option: Fussabdrücke ausblenden
+## Neu in v1.1.0
 
-In der bestehenden `ds2_sam_overhaul.ini` ergänzen:
+### 1. Fussabdrücke ausblenden
 
-```ini
+- Entfernt sowohl normale Fussabdrücke im Boden als auch die blau markierten Odradek-Scan-Spuren aus der Darstellung.
+- Funktioniert auch mit Spuren aus bereits gespeicherten Spielständen nach dem Laden.
+- Verändert weder die gespeicherten Daten noch die Spielstände.
+- Benötigt weder ReShade noch einen zusätzlichen Footprint-Mod.
+
+~~~ini
 [Footprints]
 HideFootprints=1
-```
+~~~
 
-`1` blendet neue Fussabdrücke sowie die beim Laden eines Spielstands wieder aufgebauten Abdrücke aus. Das betrifft sowohl die normalen Bodenabdrücke als auch die beim Odradek-Scan hervorgehobenen Spuren. `0` lässt die normale Darstellung unverändert. Die mitgelieferte INI verwendet **0**; bei alten INIs ohne diesen Eintrag bleibt die Funktion ebenfalls aus.
+### 2. Generator-Reichweite erweitern
 
-Nach einer Änderung das Spiel neu starten. Der Filter löscht keine Save-Dateien und schreibt die ursprüngliche DS2.exe nicht um. Es handelt sich nicht um einen zusätzlichen Lösch-Patch für bereits gerenderte Objekte im laufenden Spiel.
+- Erhöht den geprüften Ladebereich des Generators und passt die sichtbare Odradek-Kreismarkierung an.
+- RangePercent=200 entspricht dem doppelten ursprünglichen Radius.
+- Die vergrösserte Jolt-Kollision und die visuelle Anzeige werden für die geprüften Generatoren synchronisiert.
+- Weitere Generatorstufen oder andere Spielversionen können sich anders verhalten.
 
-Die Funktion ist direkt in Sam Overhaul integriert. **Keine separate Fussabdruck-ASI, kein ReShade und kein ShaderToggler erforderlich.**
+~~~ini
+[GeneratorRange]
+Enabled=1
+RangePercent=200
+~~~
 
-## Bisherige Funktionen
+### 3. Zeitregenunterstand vergrössern
 
-Schulter-, Hüft- und Rucksack-Cargo sowie Ersatzschuhe lassen sich weiterhin ausblenden. Getragene Schuhe bleiben sichtbar. Die Monorail- und Zipline-Ausstiegsoptionen, die qualifizierende Landerolle mit Rucksack, die einstellbare Autodrive-Aktivierungszeit und das Tuning der vier Truck-Waffen bleiben enthalten. Alle 33 bisherigen INI-Standardwerte wurden beibehalten.
+Die Reichweiten können separat abgestimmt werden:
 
-## Installation des Entwicklungsbuilds
+| Funktion | Empfohlener Radius |
+| --- | ---: |
+| Schutz vor Zeitregen | 8,0 m (200 %) |
+| Blauer Kreis am Boden | 8,0 m (200 %) |
+| Frachtcontainer-Reparatur | 8,6 m (215 %) |
 
-Spiel schliessen. Die bisherige Sam-Overhaul-ASI und die separate Testdatei `ds2_footprint_native_probe.asi` entfernen oder ausserhalb des Spielverzeichnisses sichern. Nicht mehrere Sam-Overhaul-Versionen gleichzeitig laden.
+Der um 0,6 m grössere Reparaturradius berücksichtigt Höhenunterschiede im Gelände. Das Spiel verwendet für die Reparatur einen dreidimensionalen Abstand; deshalb kann die Reparaturwolke an einem Hang geringfügig innerhalb oder ausserhalb des Kreises beginnen.
 
-`DS2_Sam_Overhaul_v1.1.0-dev.1.asi` und `ds2_sam_overhaul.ini` gehören direkt neben DS2.exe. Der bestehende x64-ASI-Loader wird weiterverwendet. Eine bereits angepasste INI kann behalten werden; nur die neue Sektion ergänzen.
+Zusätzlich wird die missverständliche deutsche Interaktionsbeschriftung **«In Bunker ausruhen»** durch **«Verschnaufen»** ersetzt. Die eigentliche native Ausruhfunktion des Zeitregenunterstands bleibt dabei erhalten.
 
-## Prüfstand
+~~~ini
+[TimefallShelterRange]
+Enabled=1
+RangePercent=200
+RepairRadiusPercent=215
+FixRestPrompt=1
+SpatialDiagnostics=0
+~~~
 
-Der Filterkern wurde separat im Spiel für neue Spuren und einen zuvor spurenreichen Spielstand bestätigt. Die normale Bodenabdruck-Darstellung war nach Beobachtung des Testers ebenfalls verschwunden.
+Die bewährten Werte für Regenabwehr, Reparaturmenge und die Ausruhfunktion werden nicht verändert. Die zusätzliche Performance-Optimierung vermeidet wiederholte vollständige Objektprüfungen, wenn der Unterstand bereits korrekt synchronisiert wurde. Das Spiel wurde mit diesen Einstellungen erfolgreich getestet.
 
-Für den integrierten Build bestanden die bisherigen 105’704 Autodrive-Prüfungen, die Fussabdruck-ABI- und Parallelitätstests, 104 Konfigurations-/Schutzprüfungen, ein DLL-Ladetest und die Kontrolle der Abhängigkeiten und Standardwerte. **Der gemeinsame Spieltest mit allen Sam-Overhaul-Funktionen steht noch aus.** Details: `docs/FOOTPRINTS_VALIDATION.md`.
+## Bereits vorhandene Sam-Overhaul-Funktionen
 
-Der Build liegt unter `development/DS2_Sam_Overhaul_v1.1.0-dev.1/`. `scripts/build-development.ps1` baut und prüft ihn erneut. Das Skript installiert nichts im Spiel und erstellt kein Nexus-Release.
+**Fracht ausblenden:** Schultern, Hüften, Rucksackfracht und Ersatzschuhe auf dem Schuhclip. Getragene Schuhe sowie Gewicht, Besitz und Zustand der Fracht bleiben unverändert.
+
+**Bewegung:** Abspringen von Monorails ausserhalb der ursprünglichen letzten Höhenblockade, zusätzliche Zipline-Absprungpositionen und reguläre Landerollen mit Rucksack beziehungsweise Fracht.
+
+**Autodrive:** Konfigurierbare Aktivierungszeit von 0,5–5,0 Sekunden (Empfehlung: 2,0 Sekunden). Die nativen Voraussetzungen der Strasse und Fahrzeuge gelten weiterhin.
+
+**Truck-Waffen:** Anpassungen für schweres MG, Mörser, Chiral Cannon und Raketenwerfer. Reichweite, Zielgeschwindigkeit und Schussabstände sind getrennt einstellbar.
+
+## Installation und Update
+
+1. **Spiel beenden.** Ein funktionierender ASI-Loader für Windows x64 wird benötigt; er ist nicht im Paket enthalten.
+2. Alle alten DS2_Sam_Overhaul_v*.asi aus dem Spielverzeichnis entfernen. Es darf nur **eine** Version aktiv sein. Eine alte ds2_footprint_native_probe.asi darf nicht zusätzlich geladen werden.
+3. Datei **DS2_Sam_Overhaul_v1.1.0.asi** ins Verzeichnis neben DS2.exe kopieren. Bei einer Neuinstallation zusätzlich die enthaltene **ds2_sam_overhaul.ini** kopieren.
+4. Beim Update von v1.0.0 die eigene INI mit den bestehenden Waffen- und Bewegungs-Einstellungen **behalten**. Die drei neuen Bereiche aus dieser Anleitung ergänzen, statt die persönliche INI ungeprüft zu überschreiben.
+5. Spiel starten. Änderungen an der INI benötigen einen Neustart des Spiels.
+
+Üblicher Steam-Pfad:
+
+    ...\Steam\steamapps\common\DEATH STRANDING 2 - ON THE BEACH\
+
+Zum Deinstallieren die Sam-Overhaul-ASI entfernen. DS2.exe und Spielstände werden auf der Festplatte nicht verändert.
+
+## Standardwerte und optionale Funktionen
+
+**Die drei neuen Funktionen sind im heruntergeladenen Standard-INI zunächst deaktiviert**, damit bestehende Installationen nicht unerwartet verändert werden:
+
+- [Footprints] HideFootprints=0
+- [GeneratorRange] Enabled=0
+- [TimefallShelterRange] Enabled=0
+
+Wer die Funktionen nutzen möchte, stellt die Werte gemäss den Beispielen oben auf 1. Fehlende neue Einträge in einer alten INI bleiben ebenfalls deaktiviert.
+
+RangePercent=100 bedeutet den ursprünglichen Radius, 200 den doppelten Radius. Für Generator und Unterstand sind 100–400 zulässig. Der separate RepairRadiusPercent-Wert akzeptiert ebenfalls 100–400; für den 8-m-Unterstand sind **215** empfohlen.
+
+FixRestPrompt=0 schaltet die Textkorrektur aus. SpatialDiagnostics=1 aktiviert zusätzliche Entwicklermessungen und wird für normales Spielen nicht empfohlen.
+
+## Kompatibilität
+
+Geprüft für **Steam DS2.exe 1.10.89.0 (Windows x64)**. SHA-256 der unterstützten DS2.exe:
+
+    BF3D1C665545930BC850D8F5DF486F7395885BB729D4FD408FDB03390DE0765B
+
+Andere Spielversionen und die Epic-Games-Store-Version sind **nicht gesondert geprüft**. Änderungen an der Spiel-EXE können ein Update der ASI erforderlich machen. Andere Mods, die dieselben nativen Funktionen verändern, können Konflikte verursachen.
+
+Das Protokoll **ds2_sam_overhaul.log** wird im Spielverzeichnis erstellt. MinHook ist in der ASI integriert; siehe THIRD_PARTY_NOTICES.md und LICENSE_MINHOOK.txt. Kein ReShade und kein separater Übersetzungs-Mod erforderlich.
+
+## Teststatus
+
+Der Release basiert auf der im Spiel bestätigten dev.28 mit Fussabdruck-Ausblendung, vergrössertem Generator, 8-m-Unterstand, 8,6-m-Frachtreparatur und stabiler Interaktion «Verschnaufen». Auch die abschliessende Performance-Optimierung wurde im Spiel überprüft; es wurden keine störenden Ruckler mehr festgestellt. Native Sprungadressen, Reparaturquellen, Objekt-Neuladen, Rendering und INI-Kompatibilität wurden mit automatisierten Tests geprüft.

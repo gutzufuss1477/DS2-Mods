@@ -274,11 +274,24 @@ static void inspect_truck_weapon_resource(void* object) {
 }
 static void FASTCALL truck_weapon_on_finish_load(TruckWeaponStreamingEvents*,
                                                   const TruckWeaponRawArray* objects) {
-    if (!g_chiralChargeApplied) tune_chiral_particle_cannon_charge();
+    if (g_tuneChiralParticleCannon && !g_chiralChargeApplied)
+        tune_chiral_particle_cannon_charge();
     if (!objects || !objects->entries || objects->count==0u || objects->count>65536u) return;
     void** entries=(void**)objects->entries;
-    for (u32 i=0u;i<objects->count;++i)
+    for (u32 i=0u;i<objects->count;++i) {
+        // The original Sam Overhaul streaming listener already observes native
+        // resource loads. Reuse it instead of installing an additional hook.
+        // Non-LocalizedTextResource objects cost one vtable comparison.
+        const int changed=SamShelterRestLabelOnStreamResource(entries[i]);
+        if (changed==1) {
+            HANDLE log=open_log_append();
+            if(log!=(HANDLE)(s64)-1){
+                write_text(log,"shelter_rest_label=NATIVE_REST_TEXT_PATCHED original_action_preserved\r\n");
+                CloseHandle(log);
+            }
+        }
         inspect_truck_weapon_resource(entries[i]);
+    }
 }
 static void FASTCALL truck_weapon_on_before_unload(TruckWeaponStreamingEvents*,
                                                    const TruckWeaponRawArray*) {}
@@ -334,8 +347,11 @@ static u64 find_streaming_manager_global() {
     return 0ull;
 }
 static bool install_truck_weapon_streaming_listener(HANDLE log) {
+    // Keep listener enabled when only TimefallShelterRange/FixRestPrompt
+    // is on, even if every truck-weapon tuning feature is disabled.
     if (!g_tuneHeavyMachineGun && !g_tuneMortar &&
-        !g_tuneChiralParticleCannon && !g_tuneMissileLauncher) {
+        !g_tuneChiralParticleCannon && !g_tuneMissileLauncher &&
+        !SamShelterRestLabelEnabled()) {
         write_text(log,"truck_weapon_tuning=DISABLED\r\n");
         return true;
     }
@@ -369,6 +385,8 @@ static bool install_truck_weapon_streaming_listener(HANDLE log) {
     ((AddListenerFn)vtable[3])(streamingSystem,&g_truckWeaponListener);
     g_truckWeaponListenerRegistered=true;
     write_text(log,"truck_weapon_tuning=LISTENER_REGISTERED fast_vtable_filter=TRUE\r\n");
+    if(SamShelterRestLabelEnabled())
+        write_text(log,"shelter_rest_label=STREAMING_LISTENER_REGISTERED\r\n");
     if (!tune_chiral_particle_cannon_charge())
         write_text(log,"chiral_cannon_charge=WAITING_FOR_AMMO_TABLE\r\n");
     write_text(log,"heavy_machine_gun_ids=118/119 mortar_id=169 chiral_cannon_id=163 missile_launcher_id=165\r\n");

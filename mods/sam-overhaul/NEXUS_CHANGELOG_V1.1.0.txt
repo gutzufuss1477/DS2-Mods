@@ -1,0 +1,9 @@
+v1.1.0
+- Optional hiding of normal and Odradek-blue footprints, including trails restored from saved games.
+- Optional 200% generator charging coverage and matching range circle.
+- Optional timefall shelter rain protection and visible circle extended to 8 m, with native cargo-container repair reach up to 8.6 m (215%) for slopes.
+- German rain-shelter rest prompt corrected to "Verschnaufen" without changing the original action.
+- Fixed oversized shelter-circle rendering and improved native repair-source handling across reloads.
+- Reduced repeated shelter object scans via validated steady-state performance optimization.
+- All existing cargo, movement, Autodrive and truck-weapon features retained.
+- New options are OFF by default for backwards compatibility. Enable individual features in ds2_sam_overhaul.ini.

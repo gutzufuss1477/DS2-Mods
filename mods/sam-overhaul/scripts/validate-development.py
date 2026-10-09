@@ -55,7 +55,7 @@ exp=offset(struct.unpack_from("<I",data,opt+112)[0])
 number=struct.unpack_from("<I",data,exp+24)[0]
 names=offset(struct.unpack_from("<I",data,exp+32)[0])
 exports=[string(struct.unpack_from("<I",data,names+4*i)[0]) for i in range(number)]
-require(set(exports)=={"InitializeASI","SamOverhaulVersion","SamOverhaulFootprintsState"}, "Unexpected/missing exports")
+require(set(exports)=={"InitializeASI","SamOverhaulVersion","SamOverhaulFootprintsState","SamOverhaulGeneratorRangeChanges","SamOverhaulShelterRangeChanges"}, "Unexpected/missing exports")
 core=(root/"src/footprints/footprint_core.h").read_text(encoding="utf-8-sig")
 require(hashlib.sha256(core.encode()).hexdigest()=="e054c990d66126e04bc0b21068d4f1877e4adffb4b73580cc029cd2c1cd16e63", "Visually validated core changed")
 def ini(path):
@@ -71,11 +71,26 @@ for section in old.sections():
         require(new[section].get(key)==value, f"Existing default changed: {section}.{key}")
         legacy_options+=1
 require(new["Footprints"]["HideFootprints"]=="0", "New option must default off")
-require(set(new.sections())-set(old.sections())=={"Footprints"}, "Unexpected new configuration section")
+require(set(new.sections())-set(old.sections())=={"Footprints","GeneratorRange","TimefallShelterRange"}, "Unexpected new configuration section")
 require(set(new["Footprints"])=={"hidefootprints"}, "Unexpected footprint option")
+for section in ("GeneratorRange","TimefallShelterRange"):
+    require(new[section]["enabled"]=="0", f"{section}: default must be off")
+    require(new[section]["rangepercent"]=="200", f"{section}: default multiplier")
+    required={"enabled","rangepercent"}
+    if section=="TimefallShelterRange":
+        required.add("fixrestprompt")
+        required.add("repairradiuspercent")
+        required.add("spatialdiagnostics")
+        require(new[section]["spatialdiagnostics"]=="0",
+                "Spatial debug probes must default off in performance build")
+        require(new[section]["repairradiuspercent"]=="215",
+                "Default slope-corrected repair radius must be 215 percent")
+        require(new[section]["fixrestprompt"]=="1",
+                "Rest prompt correction defaults on when shelter range enabled")
+    require(set(new[section])==required,f"{section}: unexpected keys")
 result={"version":version,"binary":binary.name,"size_bytes":len(data),
     "sha256":hashlib.sha256(data).hexdigest(),"imports":imports,"exports":exports,
     "validated_core_normalized_sha256":"e054c990d66126e04bc0b21068d4f1877e4adffb4b73580cc029cd2c1cd16e63","legacy_defaults_preserved":legacy_options,
-    "footprints_default":0,"gameplay_test_of_combined_build":"pending"}
+    "footprints_default":0,"gameplay_test_of_combined_build":"dev27 native game functional validation PASS; dev28 introduces exact Jolt/renderer/repair steady-state hot path for completed shelters, independent phase timing counters and optional debug probes off by default; game performance validation pending"}
 print(json.dumps(result,indent=2))
 print("PASS binary structure, system-only imports, original defaults, validated core and opt-in setting")

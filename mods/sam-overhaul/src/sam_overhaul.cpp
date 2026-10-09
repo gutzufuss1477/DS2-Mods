@@ -1,4 +1,4 @@
-// DS2 Sam Overhaul v1.1.0-dev.1
+// DS2 Sam Overhaul v1.1.0
 // Target: DEATH STRANDING 2 v1.10.89.0
 // Step 1: configurable visual hiding for backpack, shoulder and hip cargo.
 extern "C" {
@@ -44,6 +44,21 @@ __declspec(dllimport) unsigned int WINAPI GetPrivateProfileIntW(const wchar_t*,c
 }
 
 #include "footprints/footprint_api.h"
+extern "C" bool SamConstructionRangesInstall(void*,const wchar_t*,HANDLE);
+extern "C" bool SamConstructionRefreshEnabled();
+extern "C" void SamConstructionRefreshPoll(HANDLE);
+extern "C" void SamConstructionRangesPollPending(HANDLE);
+extern "C" bool SamConstructionShelterInstall(void*,const wchar_t*,HANDLE);
+extern "C" bool SamConstructionShelterEnabled();
+extern "C" void SamConstructionShelterPoll(HANDLE);
+extern "C" bool SamConstructionRepairGateInstall(void*,const wchar_t*,HANDLE);
+extern "C" void SamConstructionRepairGatePoll();
+extern "C" bool SamShelterRestLabelConfigure(void*,const wchar_t*);
+extern "C" bool SamShelterRestLabelEnabled();
+extern "C" int SamShelterRestLabelOnStreamResource(void*);
+extern "C" s32 SamShelterRestLabelChangedCount();
+extern "C" void SamShelterRestLabelPoll(HANDLE);
+extern "C" void SamShelterRestLabelNotifyActiveShelter();
 
 static const DWORD DLL_PROCESS_ATTACH_VALUE=1u;
 static const DWORD PAGE_READWRITE_VALUE=0x04u;
@@ -586,7 +601,7 @@ static DWORD WINAPI worker_thread(LPVOID) {
     g_imageBase=(u8*)GetModuleHandleW((const wchar_t*)0);
     HANDLE log=open_log_create();
     if (log==(HANDLE)(s64)-1) return 1u;
-    write_text(log,"DS2 Sam Overhaul v1.1.0-dev.1\r\n");
+    write_text(log,"DS2 Sam Overhaul v1.1.0\r\n");
     write_text(log,"step=1 CARGO_VISIBILITY\r\n");
     load_config();
     write_text(log,g_hideShoulderCargo ? "HideShoulderCargo=1\r\n" : "HideShoulderCargo=0\r\n");
@@ -613,25 +628,51 @@ static DWORD WINAPI worker_thread(LPVOID) {
     if (!install_hook(log)) {
         CloseHandle(log); return 4u;
     }
+    const bool restLabelEnabled=SamShelterRestLabelConfigure(g_imageBase,g_iniPath);
+    write_text(log,restLabelEnabled ?
+       "shelter_rest_label=STREAMING_LISTENER_ENABLED exact_two_UUIDs German_only\r\n" :
+       "shelter_rest_label=DISABLED\r\n");
     if (!install_truck_weapon_streaming_listener(log)) {
         write_text(log,"truck_weapon_tuning=WARNING listener_not_active base_mod_continues\r\n");
     }
     if (!SamFootprintsInstall(g_imageBase,g_iniPath,log)) {
         write_text(log,"footprints=WARNING filter_not_active base_mod_continues\r\n");
     }
+    if (!SamConstructionRangesInstall(g_imageBase,g_iniPath,log)) {
+        write_text(log,"construction_ranges=WARNING hook_not_active base_mod_continues\r\n");
+    }
+    if(!SamConstructionShelterInstall(g_imageBase,g_iniPath,log)) {
+        write_text(log,"construction_shelter=WARNING disabled_or_hook_install_failed\r\n");
+    }
+    if(SamConstructionShelterEnabled() &&
+       !SamConstructionRepairGateInstall(g_imageBase,g_iniPath,log)){
+        write_text(log,"construction_repair_gate=WARNING scoped_gate_not_active\r\n");
+    }
     write_text(log,"status=PATCH_APPLIED\r\n");
     write_text(log,"inventory_weight_gameplay=UNMODIFIED\r\n");
     write_text(log,"stealth_detection=UNMODIFIED\r\n");
     if (g_autoDriveSettings.enabled) {
         write_text(log,"autodrive_timer_hook=WAITING_FOR_ELIGIBLE_DRIVING\r\n");
-        while (!g_autoDriveHookExecuted) { SamFootprintsPoll(log); Sleep(250u); }
+        while (!g_autoDriveHookExecuted) { SamFootprintsPoll(log); SamConstructionRangesPollPending(log); SamConstructionRefreshPoll(log); SamConstructionShelterPoll(log); SamConstructionRepairGatePoll(); SamShelterRestLabelPoll(log); Sleep(250u); }
         write_text(log,"autodrive_timer_hook=EXECUTED\r\n");
+    }
+    if (SamConstructionRefreshEnabled() || SamConstructionShelterEnabled()) {
+        write_text(log,"construction_physics_refresh=WORKER_ACTIVE\r\n");
+        while (SamConstructionRefreshEnabled() || SamConstructionShelterEnabled()) {
+            SamConstructionRangesPollPending(log);
+            SamConstructionRefreshPoll(log);
+            SamConstructionShelterPoll(log);
+            SamConstructionRepairGatePoll();
+            SamShelterRestLabelPoll(log);
+            SamFootprintsPoll(log);
+            Sleep(250u);
+        }
     }
     CloseHandle(log);
     return 0u;
 }
 extern "C" __declspec(dllexport) void InitializeASI() {}
-extern "C" __declspec(dllexport) const char* SamOverhaulVersion() { return "1.1.0-dev.1"; }
+extern "C" __declspec(dllexport) const char* SamOverhaulVersion() { return "1.1.0"; }
 
 extern "C" BOOL WINAPI DllMain(HMODULE module,DWORD reason,LPVOID) {
     if (reason==DLL_PROCESS_ATTACH_VALUE) {

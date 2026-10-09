@@ -1,164 +1,124 @@
-[center][size=5][b]Sam Overhaul[/b][/size]
-[b]Cargo Visibility • Movement • Autodrive • Truck Weapons[/b]
+[center][size=5][b]Sam Overhaul v1.1.0[/b][/size]
+[b]Cargo • Footprints • Movement • Autodrive • Truck Weapons • Generators • Shelters[/b]
 
-Steam PC 1.10.89.0 • Version 1.0.0[/center]
+Steam PC 1.10.89.0 • Windows x64[/center]
 
-[b]Sam Overhaul[/b] combines the QoL changes I wanted for normal play into one configurable ASI: cleaner cargo visuals, less restrictive movement, faster Autodrive activation and a complete tuning pass for the truck-mounted weapons.
+[b]Sam Overhaul[/b] brings my favorite Death Stranding 2 quality-of-life improvements together in one configurable ASI. Keep your cargo visuals clean, move more freely, shorten Autodrive readiness and customize mounted truck weapons.
 
-Every feature can be changed in the included INI. The default settings are the values I used and tested in-game.
+[size=4][b]NEW IN VERSION 1.1.0[/b][/size]
 
-[size=4][b]FEATURES[/b][/size]
+[b]1. Hide footprints (optional)[/b]
+[list]
+[*]Hide normal footprints on the ground AND blue Odradek scan footprint trails.
+[*]Works with new trails and footprints already present when loading a saved game.
+[*]No ReShade, ShaderToggler or separate footprint mod required.
+[*]Purely visual: save files and movement mechanics remain unchanged.
+[/list]
+
+[b]2. Expand generator range (optional)[/b]
+[list]
+[*]Double the charging radius at supported generators with the native charging trigger expanded.
+[*]The blue Odradek range circle is adjusted to match the increased charging area.
+[*]Example INI: [b]Enabled=1[/b], [b]RangePercent=200[/b].
+[/list]
+
+[b]3. Expand timefall shelter effects (optional)[/b]
+[list]
+[*]Native timefall protection: [b]8 m radius[/b] (200%).
+[*]Visible blue circle: [b]8 m radius[/b] (200%).
+[*]Native cargo-container repair: [b]8.6 m radius[/b] (215%). Slightly larger to account for vertical distance on sloping terrain.
+[*]The repair cloud, cargo condition recovery and native shelter weather effects are preserved.
+[*]German text "In Bunker ausruhen" changes to [b]"Verschnaufen"[/b]. Sam still performs the original rain-shelter resting action.
+[*]Optimized to avoid repeated full structure scans once the native shelter state has been validated. Tested in-game without perceptible stuttering.
+[/list]
+
+[size=4][b]OTHER INCLUDED FEATURES[/b][/size]
 
 [b]Cargo visibility[/b]
 [list]
-[*]Hide shoulder cargo.
-[*]Hide hip cargo.
-[*]Hide backpack cargo.
-[*]Hide spare shoes carried on the shoe clip.
-[*]Sam's currently worn shoes stay visible.
-[*]Cargo is only hidden visually. Inventory, weight, ownership and cargo condition remain native.
+[*]Hide shoulder cargo, hip cargo, backpack cargo and spare shoes carried on the shoe clip.
+[*]Currently worn shoes stay visible.
+[*]Only appearance changes: cargo weight, inventory and condition stay native.
 [/list]
 
 [b]Movement[/b]
 [list]
-[*][b]Monorail:[/b] jump/dismount beyond the vanilla final safety/height blocker. Earlier native state checks are preserved.
-[*][b]Zipline:[/b] use the normal dismount in more positions while keeping the vanilla input and exit animation.
-[*][b]Landing Roll:[/b] qualifying landing rolls can happen while Sam is wearing the backpack/carrying cargo. This is not a free manual combat-roll button; normal landing conditions still apply.
+[*]Monorail: jump/dismount beyond the vanilla final height blocker.
+[*]Zipline: normal dismount available from more positions.
+[*]Landing roll: perform qualifying rolls while wearing a backpack or carrying cargo.
 [/list]
 
 [b]Autodrive[/b]
 [list]
-[*]Configurable activation/readiness time.
-[*]Default: [b]2.0 seconds[/b].
-[*]Valid range: 0.5 to 5.0 seconds.
-[*]5.0 seconds keeps vanilla timing.
+[*]Configurable activation time, recommended 2.0 seconds; native eligibility and driving restrictions stay in effect.
 [/list]
 
-[b]Truck weapons[/b]
-
-All four mounted weapon profiles can be enabled and tuned independently.
-
+[b]Truck-mounted weapons[/b]
 [list]
-[*][b]Heavy Machine Gun[/b] - longer range, faster aiming/lock-on, shorter burst and cooldown timing.
-[*][b]Mortar[/b] - longer range, faster aiming/lock-on and a much quicker firing cycle.
-[*][b]Chiral Cannon[/b] - longer normal/long-range reach, faster aiming/lock-on, shorter cooldown and much faster charging.
-[*][b]Missile Launcher[/b] - longer range, faster aiming/lock-on and shorter recovery/cooldown.
+[*][b]Heavy Machine Gun[/b] - range, aim speed, lock-on, burst and cooldown.
+[*][b]Mortar[/b] - range and faster aiming/firing cycle.
+[*][b]Chiral Cannon[/b] - range, aim speed, lock-on, cooldown and faster charge (recommended 0.75s).
+[*][b]Missile Launcher[/b] - range, aim speed, lock-on and shorter recovery/cooldown.
 [/list]
 
-Default weapon range is [b]175%[/b] of vanilla and default aim speed is [b]250%[/b].
-
-The Chiral Cannon has an additional charge setting. Vanilla charge time is 3.0 seconds; the tested default is [b]0.75 seconds[/b], leaving a short visible wind-up without the long delay.
-
-[size=4][b]INSTALLATION[/b][/size]
+[size=4][b]INSTALLATION / UPDATING[/b][/size]
 
 [list=1]
-[*]Close the game.
-[*]Use a working [b]64-bit ASI loader[/b]. The loader is not included.
-[*]Copy [b]DS2_Sam_Overhaul_v1.0.0.asi[/b] and [b]ds2_sam_overhaul.ini[/b] beside [b]DS2.exe[/b].
-[*]Start the game normally.
+[*][b]Close the game.[/b] Use a working [b]Windows x64 ASI loader[/b] (not included).
+[*]Remove older Sam Overhaul ASI versions; only [b]one[/b] DS2_Sam_Overhaul_v*.asi can be active. Remove the old standalone ds2_footprint_native_probe.asi if installed.
+[*]Copy [b]DS2_Sam_Overhaul_v1.1.0.asi[/b] beside [b]DS2.exe[/b]. On a fresh install also copy [b]ds2_sam_overhaul.ini[/b].
+[*][b]Updating from v1.0.0?[/b] Keep your existing customized INI and add the new sections from the example below. Do not replace an existing custom INI without backing it up.
+[*]Start the game normally. Restart after changing any INI settings.
 [/list]
 
-Restart the game after changing the INI.
+Default Steam install directory:
+[code]...\Steam\steamapps\common\DEATH STRANDING 2 - ON THE BEACH\[/code]
 
-To uninstall, remove the Sam Overhaul ASI and INI. The mod does not modify DS2.exe or your save files on disk.
+[size=4][b]NEW INI OPTIONS[/b][/size]
 
-[size=4][b]CONFIGURATION[/b][/size]
-
-The included INI is already set to my recommended defaults:
+[b]The three new features are OFF by default[/b] so existing players do not have their gameplay or visuals changed unexpectedly. Enable what you want:
 
 [code]
-[CargoVisibility]
-HideShoulderCargo=1
-HideHipCargo=1
-HideBackpackCargo=1
-HideSpareShoes=1
+[Footprints]
+HideFootprints=1
 
-[Movement]
-JumpFromMonorailAnywhere=1
-JumpFromZiplineAnywhere=1
-LandingRollWithBackpack=1
-
-[AutoDrive]
-ActivationSeconds=2.0
-
-[TruckHeavyMachineGun]
+[GeneratorRange]
 Enabled=1
-RangePercent=175
-AimSpeedPercent=250
-LockOnSeconds=0.20
-BurstSeconds=1.50
-CooldownSeconds=0.50
+RangePercent=200
 
-[TruckMortar]
+[TimefallShelterRange]
 Enabled=1
-RangePercent=175
-AimSpeedPercent=250
-LockOnSeconds=0.40
-RecoverySeconds=0.40
-CooldownSeconds=0.75
-
-[TruckChiralCannon]
-Enabled=1
-RangePercent=175
-AimSpeedPercent=250
-LockOnSeconds=0.20
-RecoverySeconds=0.40
-CooldownSeconds=1.00
-ChargeSeconds=0.75
-
-[TruckMissileLauncher]
-Enabled=1
-RangePercent=175
-AimSpeedPercent=250
-LockOnSeconds=0.40
-RecoverySeconds=0.40
-CooldownSeconds=0.75
+RangePercent=200
+RepairRadiusPercent=215
+FixRestPrompt=1
+SpatialDiagnostics=0
 [/code]
 
-[b]Quick guide[/b]
-[list]
-[*]0 = OFF, 1 = ON.
-[*]For percentage values, 100 = vanilla.
-[*]RangePercent accepts 100-300.
-[*]AimSpeedPercent accepts 100-500.
-[*]Time values are in seconds.
-[/list]
+100% means the original radius. Generator and shelter RangePercent accept 100-400; RepairRadiusPercent accepts 100-400. For an 8 m shelter, 215% repair is recommended. FixRestPrompt=0 disables the German text correction. SpatialDiagnostics=1 is for developer debugging only.
+
+The included INI also contains the original settings for cargo hiding, movement, Autodrive and truck weapons.
 
 [size=4][b]COMPATIBILITY[/b][/size]
 
 [list]
-[*]Built and validated for [b]Steam DS2.exe 1.10.89.0 (Windows x64)[/b].
-[*]Supported executable SHA-256: [code]BF3D1C665545930BC850D8F5DF486F7395885BB729D4FD408FDB03390DE0765B[/code]
-[*]The ASI checks the expected executable baseline and native patch contexts before applying code changes.
-[*]A game update may require a mod update.
-[*]Epic Games Store is [b]not validated[/b] for this release.
-[*]Other mods patching the same cargo visibility, landing, Autodrive or vehicle-weapon paths may conflict.
+[*]Verified against [b]Steam DS2.exe 1.10.89.0, Windows x64[/b].
+[*]Target DS2.exe SHA-256: [code]BF3D1C665545930BC850D8F5DF486F7395885BB729D4FD408FDB03390DE0765B[/code]
+[*]A later Steam patch may require an updated version. Epic Games Store binaries have not been separately validated.
+[*]Other mods modifying the same native cargo, construction, movement or vehicle-weapon code may conflict.
+[*]No ReShade, external localization DLL or save editing required.
 [/list]
 
-A local [b]ds2_sam_overhaul.log[/b] is created beside DS2.exe for startup/configuration diagnostics.
+The mod writes [b]ds2_sam_overhaul.log[/b] next to DS2.exe for diagnostics. The included English and German README files explain all settings. The third-party MinHook license is included.
 
-[size=4][b]TESTING / NOTES[/b][/size]
-
-Gameplay testing covered the cargo visibility options, spare shoes, monorail, zipline, backpack landing roll, 2-second Autodrive activation, Heavy MG, Mortar and Chiral Cannon tuning.
-
-The Chiral Cannon charge value was isolated through the live weapon/ammo data path and A/B tested at 3.0 vs 0.75 seconds. The 0.75-second value is the v1.0.0 default.
-
-The Missile Launcher was tested against MULEs. Repeated-shot cadence is difficult to judge there because normal targets die from a single hit, so its values remain fully configurable if more user feedback comes in.
-
-[b]Footprint suppression is intentionally not included in v1.0.0.[/b]
-
-[size=4][b]CHANGELOG - v1.0.0[/b][/size]
+[size=4][b]CHANGELOG - v1.1.0[/b][/size]
 
 [list]
-[*]First public release.
-[*]Cargo visibility controls for shoulder, hip, backpack and spare shoes.
-[*]Expanded monorail and zipline dismount behaviour.
-[*]Landing roll support with backpack/cargo.
-[*]Configurable faster Autodrive activation.
-[*]Independent tuning for Heavy MG, Mortar, Chiral Cannon and Missile Launcher.
-[*]Chiral Cannon charge time configurable with tested 0.75-second default.
-[*]Strict target-build/context validation and local diagnostics.
-[*]Final build passes 105,704 Autodrive regression checks.
+[*]Optional hiding for new and loaded normal/blue footprints.
+[*]Optional doubled generator charging radius with matching circle.
+[*]Optional doubled timefall shelter rain protection and 8.6 m cargo-container repair reach.
+[*]Fixed doubled Odradek draw radius and German shelter resting prompt.
+[*]Improved native source/reload stability and shelter steady-state performance.
+[*]Preserves every feature from v1.0.0 with configurable, backwards-compatible INI defaults.
 [/list]
 
-Thanks to everyone testing and reporting edge cases. If a specific truck weapon still feels too slow or too fast in a real fight, post the situation and weapon used - every weapon profile is separated in the INI and can be tuned without changing the others.
+This is an update to the existing Sam Overhaul mod. Keep only one version of the ASI installed.
