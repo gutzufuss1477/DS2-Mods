@@ -23,6 +23,8 @@ __declspec(dllimport) HMODULE GetModuleHandleW(LPCWSTR);
 __declspec(dllimport) DWORD GetModuleFileNameW(HMODULE, LPWSTR, DWORD);
 __declspec(dllimport) UINT GetPrivateProfileIntW(LPCWSTR, LPCWSTR, int, LPCWSTR);
 __declspec(dllimport) BOOL VirtualProtect(LPVOID, SIZE_T, DWORD, DWORD*);
+__declspec(dllimport) LPVOID VirtualAlloc(LPVOID, SIZE_T, DWORD, DWORD);
+__declspec(dllimport) BOOL VirtualFree(LPVOID, SIZE_T, DWORD);
 __declspec(dllimport) BOOL FlushInstructionCache(HANDLE, LPCVOID, SIZE_T);
 __declspec(dllimport) HANDLE GetCurrentProcess(void);
 __declspec(dllimport) HANDLE CreateFileW(LPCWSTR, DWORD, DWORD, LPVOID, DWORD, DWORD, HANDLE);
@@ -44,6 +46,7 @@ static HMODULE g_self = 0;
 static wchar_t g_dir[MAX_PATH_W];
 static wchar_t g_ini[MAX_PATH_W];
 static wchar_t g_status[MAX_PATH_W];
+static const char* g_indicator_state = "NOT_ATTEMPTED";
 
 static const QWORD RVA_AREA_COUNT = 0x01187D34ull;
 static const QWORD RVA_INDEX_LIMIT_A = 0x01187FB8ull;
@@ -117,7 +120,7 @@ static void write_status(const char* state, const char* detail, int configured, 
     if (h == INVALID_HANDLE_VALUE) return;
     TextBuffer t;
     tb_init(&t);
-    tb_str(&t, "DS2 Pickup Cargo Capacity v1.0.1\r\nSTATE=");
+    tb_str(&t, "DS2 Pickup Cargo Capacity v1.0.2\r\nSTATE=");
     tb_str(&t, state);
     tb_str(&t, "\r\nDETAIL=");
     tb_str(&t, detail);
@@ -131,6 +134,8 @@ static void write_status(const char* state, const char* detail, int configured, 
     tb_uint(&t, (QWORD)index_bytes);
     tb_str(&t, "\r\nDS2_MODULE_BASE=");
     tb_hex(&t, base, 16);
+    tb_str(&t, "\r\nREAR_INDICATORS=");
+    tb_str(&t, g_indicator_state);
     tb_str(&t, "\r\nPATCH_RVA_AREA_COUNT=");
     tb_hex(&t, RVA_AREA_COUNT, 8);
     tb_str(&t, "\r\nPATCH_RVA_INDEX_LIMIT_A=");
@@ -160,6 +165,8 @@ static BOOL patch_bytes(BYTE* target, const BYTE* replacement, SIZE_T n) {
     return 1;
 }
 
+#include "pickup_rear_indicator_patch.inl"
+
 static DWORD worker(LPVOID) {
     set_paths();
 
@@ -167,6 +174,7 @@ static DWORD worker(LPVOID) {
     int configured = (int)GetPrivateProfileIntW(L"PickupCargoCapacity", L"CapacityUnits", 320, g_ini);
 
     if (!enabled) {
+        g_indicator_state = "DISABLED_WITH_MAIN_MOD";
         write_status("DISABLED", "Enabled=0; no code was modified", configured, 160, 11, 44, 0);
         return 0;
     }
@@ -227,6 +235,12 @@ static DWORD worker(LPVOID) {
         return 0;
     }
 
+    int indicator_enabled = (int)GetPrivateProfileIntW(L"PickupCargoCapacity", L"RearIndicatorScaling", 1, g_ini);
+    if (indicator_enabled) {
+        install_indicator_scaling(base, effective / 16);
+    } else {
+        g_indicator_state = "DISABLED_BY_INI";
+    }
     write_status("READY", "All four validated pickup pack-limit patches are active", configured, effective, area_count, index_limit_bytes, (QWORD)base);
     return 0;
 }

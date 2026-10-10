@@ -9,5 +9,7 @@ EXPORTS
   GetModuleFileNameW
   GetModuleHandleW
   GetPrivateProfileIntW
+  VirtualAlloc
+  VirtualFree
   VirtualProtect
   WriteFile

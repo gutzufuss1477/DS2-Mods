@@ -1,85 +1,58 @@
-# DS2 Off-road Pickup Cargo Capacity Expansion
+# DS2 Cargo Capacity Expansion for Pickup
 
-Source code for **Off-road Pickup Cargo Capacity Expansion v1.0.1** for *Death Stranding 2: On the Beach*.
+Version **1.0.2** for *DEATH STRANDING 2: ON THE BEACH*.
 
-The mod increases the Off-road Pickup's real cargo limit from the original 160 size units to an INI-configurable value from 160 to 480 units. The tested default is 320 units.
+Increases the Off-road Pickup's real cargo capacity from the original 160 size units to a configurable value of 160-480 units, with a tested 320-unit default. **New in 1.0.2:** The ten cargo bars on the vehicle's rear now scale with the expanded capacity instead of saturating at the original 160 units.
+
+## New: proportional rear cargo indicators
+
+The five load bars on each side of the Pickup now reflect the configured maximum load.
+
+- With capacity 320, at 160 units (the game's 100% display), **five of ten bars light white**.
+- At 320 units (the game's 200% display), **all ten bars light red**.
+- The existing loading, unloading, driving, and save-game mechanics are unchanged.
+- The separate cargo management **menu percentage is still relative to vanilla 160 units**. It reads 200% at a full 320-unit pickup and 300% at a full 480-unit pickup. This is cosmetic, not an actual overload.
 
 ## Configuration
 
-```ini
-[PickupCargoCapacity]
-Enabled=1
-CapacityUnits=320
-```
+Install the ASI and INI next to DS2.exe with a 64-bit ASI loader.
 
-- `Enabled=1`: validates and applies the four coordinated runtime patches.
-- `Enabled=0`: does not modify game code.
-- `CapacityUnits`: requested real capacity. Values are clamped to 160–480 and rounded down to a multiple of 16.
-- Cargo size units: `S=1`, `M=2`, `L=4`, `XL=6`.
+    [PickupCargoCapacity]
+    Enabled=1
+    CapacityUnits=320
+    RearIndicatorScaling=1
 
-## Source layout
+- **Enabled**: 1 to enable the mod, 0 for no game patches.
+- **CapacityUnits**: 160 to 480, rounded down to a multiple of 16.
+- **RearIndicatorScaling**: 1 (default) to scale the real-world rear cargo bars; 0 to retain vanilla rear-light behaviour while keeping increased capacity.
 
-- `src/pickup_cargo_capacity_patch.cpp` — complete mod source code
-- `scripts/build-msvc.cmd` — MSVC build
-- `scripts/build-llvm.cmd` — self-contained clang-cl/lld-link fallback build
-- `src/PickupCargoCapacity.rc` — Windows product and version metadata
-- `src/kernel32.def` — minimal import definition for the self-contained LLVM build
-- `config/PickupCargoCapacity.ini` — default configuration
-- `BUILDING.md` — detailed prerequisites and build instructions
-- `SECURITY_NOTES.md` — runtime patch behaviour and imported APIs
-- `RELEASE_VERIFICATION.md` — source-to-v1.0.0 binary verification
-- `reference/PickupCargoCapacity_v1.0.0.asi` — exact v1.0.0 reference binary
-- `tools/verify_pe_equivalence.py` — compares builds while ignoring only the PE timestamp
+Item sizes: S=1, M=2, L=4, XL=6 size units.
+
+## Install or update
+
+1. Fully quit Death Stranding 2.
+2. Replace the older PickupCargoCapacity.asi in the game directory (do not load two copies).
+3. Install the supplied INI or keep your existing CapacityUnits and add RearIndicatorScaling=1.
+4. Start the game. The STATUS.txt written alongside the ASI should report STATE=READY and REAR_INDICATORS=ACTIVE for capacity greater than 160.
+
+To uninstall, first unload any additional cargo until the Pickup contains 160 size units or fewer.
+
+## Compatibility / technical notes
+
+Supported Steam executable: DS2.exe v1.10.89.0. SHA-256: BF3D1C665545930BC850D8F5DF486F7395885BB729D4FD408FDB03390DE0765B.
+
+The original four verified pack-area patches are identical to v1.0.1. Two separately verified, display-only instruction hooks scale a temporary area-count representation for the rear light controller. The authoritative cargo container arrays are not modified by these hooks. On unsupported builds, the status file reports an error instead of patching mismatching instruction bytes.
+
+The display hooks require a small, locally allocated, executable code island. They use no external process, network traffic, telemetry or persistent service.
+
+## Validation
+
+At capacity 320, loading to 100% of the vanilla display showed 5/10 rear segments white. Fully loading to 200% showed 10/10 red segments. Both were visually confirmed in game on 2026-10-10.
+
+The capacity expansion was previously tested with over 1,800 kg and load/unload, driving, saving and restarting. The indicator feature is in-game tested at the 320-unit default; different configured values follow the same formula but have not all been separately tested in game.
+
+For implementation notes and a regression test checklist, see TEST_REAR_INDICATORS.md. Build instructions are in BUILDING.md; security information is in SECURITY_NOTES.md.
 
 ## Distribution
 
-Binary release archives are published separately from the source branch. They are intentionally not committed here because GitHub already wraps the repository in a source ZIP; committing a release ZIP would create a ZIP-inside-ZIP download that can trigger antivirus archive heuristics.
-
-Build locally with one of the documented scripts, or download the packaged mod from the GitHub Releases page when a release asset is available.
-
-## How the patch works
-
-The original pickup limit is generated from ten usable pack areas of sixteen size units each; pack-area index zero is reserved. The plugin validates and changes four mutually dependent constants in the pickup pack-area function:
-
-- pack-area count;
-- first index-array byte limit;
-- second index-array byte limit;
-- maximum pack-area index.
-
-For `CapacityUnits=320`, the plugin configures twenty usable pack areas plus the reserved area.
-
-The plugin is fail-closed: all four original byte sequences must match before any patch is written. A mismatch results in `STATE=ERROR` and no code modification.
-
-## Build
-
-See [BUILDING.md](BUILDING.md). The shortest MSVC build procedure is:
-
-1. Install Visual Studio 2022 Build Tools with **Desktop development with C++** and a Windows SDK.
-2. Open **x64 Native Tools Command Prompt for VS 2022**.
-3. Run:
-
-```bat
-scripts\build-msvc.cmd
-```
-
-The output is `build/PickupCargoCapacity.asi`.
-
-## Security-relevant implementation details
-
-This is an in-process ASI plugin. It uses `VirtualProtect` and `FlushInstructionCache` only after exact-byte validation to modify four bytes/constants inside the current `DS2.exe` process. It does not open or modify another process.
-
-It contains no networking, registry access, shell execution, downloads, telemetry or persistence. See [SECURITY_NOTES.md](SECURITY_NOTES.md).
-
-Version 1.0.1 uses conventional Windows metadata and hardened PE flags. The recommended MSVC build uses normal DLL startup, the static runtime, stack protection and Control Flow Guard. The self-contained LLVM fallback retains the minimal no-CRT startup but enables ASLR, DEP and high-entropy ASLR.
-
-## Known cosmetic limitation
-
-The game's percentage display still uses the original 160-unit reference. At a configured capacity of 320 units, a fully loaded pickup can therefore display about 200%. The actual cargo limit is increased correctly.
-
-## Test coverage
-
-The 320-unit configuration was validated with loading to approximately 320 size units, more than 1800 kg of cargo, unloading, reloading, driving, saving, a full game restart and loading the save again.
-
-## License
-
-No separate open-source licence is granted by this repository. The source is published for transparency, auditing and build verification. All rights are reserved unless explicitly stated otherwise.
+Release ZIPs are built separately and not stored inside Git. No separate open-source licence is granted by this repository. All rights are reserved unless stated otherwise.

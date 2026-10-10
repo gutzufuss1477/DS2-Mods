@@ -6,7 +6,7 @@ $ErrorActionPreference = 'Stop'
 $modRoot = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..'))
 $buildRoot = [IO.Path]::GetFullPath((Join-Path $modRoot 'build'))
 $asiPath = Join-Path $buildRoot 'PickupCargoCapacity.asi'
-$packageName = 'DS2_Pickup_Cargo_Capacity_v1.0.1'
+$packageName = 'DS2_Pickup_Cargo_Capacity_v1.0.2'
 $packageDir = [IO.Path]::GetFullPath((Join-Path $buildRoot $packageName))
 $zipPath = [IO.Path]::GetFullPath((Join-Path $buildRoot ($packageName + '.zip')))
 
@@ -31,8 +31,9 @@ Copy-Item -LiteralPath (Join-Path $modRoot 'README.md') -Destination (Join-Path 
 Copy-Item -LiteralPath (Join-Path $modRoot 'SECURITY_NOTES.md') -Destination $packageDir
 Copy-Item -LiteralPath (Join-Path $modRoot 'CHANGELOG.md') -Destination $packageDir
 Copy-Item -LiteralPath (Join-Path $modRoot 'VALIDATION.md') -Destination $packageDir
+Copy-Item -LiteralPath (Join-Path $modRoot 'TEST_REAR_INDICATORS.md') -Destination $packageDir
 
-$fixedTimestamp = [DateTime]'2026-08-09T00:00:00Z'
+$fixedTimestamp = [DateTime]'2026-10-10T00:00:00Z'
 Get-ChildItem -LiteralPath $packageDir -File | ForEach-Object {
     $_.LastWriteTimeUtc = $fixedTimestamp
 }

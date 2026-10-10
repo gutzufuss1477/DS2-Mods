@@ -1,43 +1,24 @@
-# Security and runtime behaviour
+# Security and runtime behaviour - v1.0.2
 
-`PickupCargoCapacity.asi` is an in-process native plugin intended to be loaded by an ASI loader together with `DS2.exe`.
+PickupCargoCapacity.asi is an in-process native ASI plugin. It is intended for DS2.exe and performs no networking, registry writes, cross-process memory access or telemetry.
 
-## Runtime actions
+## Runtime sequence
 
-The plugin:
+1. Read PickupCargoCapacity.ini and locate the DS2.exe module base.
+2. Compare the four original pack-area instruction sequences, then apply the same coordinated capacity patches as v1.0.1. A mismatch prevents the capacity patch.
+3. If enabled and capacity > 160, separately validate the two original instructions used by the Pickup's rear cargo indicator. One hook affects the five visual light stages; the other affects the float fed into the vehicle model's display material.
+4. Reserve a local 4 KiB code island with VirtualAlloc, close enough for two verified x64 rel32 jumps. The code island is written once, its instruction cache is flushed and its protection changed to read/execute.
+5. Patch the two display-only instruction locations using VirtualProtect, with rollback attempts if any write fails. The code island is retained while referenced by a live hook and reclaimed when the process exits.
+6. Write a PickupCargoCapacity_STATUS.txt with the capacity status and independent REAR_INDICATORS status.
 
-1. reads `PickupCargoCapacity.ini`;
-2. obtains the base address of the current executable with `GetModuleHandleW(0)`;
-3. validates the exact original bytes at four known code locations;
-4. temporarily changes protection for those exact bytes with `VirtualProtect`;
-5. writes four coordinated capacity constants;
-6. restores the original page protection and flushes the instruction cache;
-7. writes `PickupCargoCapacity_STATUS.txt`.
+The temporary display count is calculated as min(10, ceil(occupied_areas * 10 / usable_areas)), for usable_areas between 10 and 30. The two detours do not modify the authoritative cargo counters, cargo placement data, inventory ownership or save-game format. No allocations or external calls occur per UI update.
 
-If any expected original byte does not match, no game code is modified and the status file reports `STATE=ERROR`.
+Optional display patch initialization failures are reported by REAR_INDICATORS. They do not disable the already installed main capacity patch.
 
-## Imported Windows APIs
+## Windows API and PE hardening
 
-The source imports only these `KERNEL32.dll` functions:
+The LLVM fallback imports the expected KERNEL32.dll APIs, including VirtualAlloc, VirtualFree, VirtualProtect, FlushInstructionCache, CreateThread, GetModuleHandleW, GetModuleFileNameW, GetPrivateProfileIntW, CreateFileW, WriteFile and CloseHandle. The recommended MSVC build uses a conventional DLL entry point and static runtime, with additional standard runtime imports.
 
-- `DisableThreadLibraryCalls`
-- `CreateThread`
-- `CloseHandle`
-- `GetModuleHandleW`
-- `GetModuleFileNameW`
-- `GetPrivateProfileIntW`
-- `VirtualProtect`
-- `FlushInstructionCache`
-- `GetCurrentProcess`
-- `CreateFileW`
-- `WriteFile`
+ASLR, DEP/NX and high-entropy ASLR are enabled; MSVC builds additionally enable Control Flow Guard. Builds are unsigned unless separately signed by a trusted code-signing certificate.
 
-There is no networking, registry access, shell execution, remote-process access, process injection, downloading, telemetry or persistence mechanism.
-
-`CreateThread` avoids performing patch work directly under the Windows loader lock. `VirtualProtect` and `FlushInstructionCache` are required for the documented in-process byte patch.
-
-## Antivirus reports
-
-The release package is not stored inside the source branch. This prevents GitHub's automatically generated repository archive from containing a second release archive, a layout that can increase false-positive antivirus detections.
-
-Do not disable antivirus protection or add broad exclusions. If a release is incorrectly detected, submit the individual ASI file to the antivirus vendor as a false positive and include a link to this source code and its reproducible build instructions.
+Do not turn off antivirus protection. If a file is incorrectly detected, submit it and its corresponding source/build information to the antivirus vendor.

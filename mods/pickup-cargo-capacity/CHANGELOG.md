@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.0.2 (2026-10-10)
+
+- Pickup rear cargo indicator now fills proportionally to expanded cargo capacity instead of saturating at original 160 units.
+- Tested with CapacityUnits=320: at 160 units five of ten segments are white; at full 320 units all ten are red.
+- Optional RearIndicatorScaling=1 INI setting, disabled by setting 0.
+- Two separately byte-validated display detours, with cargo inventory logic and four capacity patches preserved.
+- Cargo menu percentage still uses vanilla 160-unit baseline (200% at capacity 320).
+
+
 ## 1.0.1
 
 - Added explicit Windows product and version metadata.

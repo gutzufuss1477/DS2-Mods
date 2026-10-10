@@ -7,7 +7,7 @@
 - Workload: **Desktop development with C++**
 - Component: a Windows 10/11 SDK
 
-The recommended v1.0.1 release is compiled as a conventional native x64 DLL/ASI with the static C/C++ runtime, normal DLL startup, stack protection and Control Flow Guard. It includes Windows product/version metadata and enables ASLR, DEP and high-entropy ASLR.
+The recommended v1.0.2 release is compiled as a conventional native x64 DLL/ASI with the static C/C++ runtime, normal DLL startup, stack protection and Control Flow Guard. It includes Windows product/version metadata and enables ASLR, DEP and high-entropy ASLR.
 
 ## Method 1: MSVC
 
@@ -43,7 +43,7 @@ build\PickupCargoCapacity.asi
 
 The fallback intentionally keeps the minimal no-CRT startup for environments without the MSVC runtime libraries. It still includes version metadata and enables ASLR, DEP and high-entropy ASLR. The recommended public release build is the MSVC method above.
 
-The legacy equivalence tool is retained for auditing version 1.0.0. It must be run against a v1.0.0 checkout and is not expected to match the hardened v1.0.1 binary:
+The legacy equivalence tool is retained for auditing version 1.0.0. It must be run against a v1.0.0 checkout and is not expected to match the hardened v1.0.2 binary:
 
 ```bat
 py tools\verify_pe_equivalence.py build\PickupCargoCapacity.asi reference\PickupCargoCapacity_v1.0.0.asi
