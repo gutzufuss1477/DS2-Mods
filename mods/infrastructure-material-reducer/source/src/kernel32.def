@@ -1,0 +1,22 @@
+LIBRARY KERNEL32.dll
+EXPORTS
+  AddVectoredExceptionHandler
+  CloseHandle
+  CreateFileW
+  CreateThread
+  DisableThreadLibraryCalls
+  FlushFileBuffers
+  FlushInstructionCache
+  GetCurrentProcess
+  GetCurrentThreadId
+  GetModuleFileNameW
+  GetModuleHandleW
+  GetPrivateProfileStringW
+  QueryPerformanceCounter
+  QueryPerformanceFrequency
+  ReadProcessMemory
+  RemoveVectoredExceptionHandler
+  Sleep
+  VirtualProtect
+  VirtualQuery
+  WriteFile

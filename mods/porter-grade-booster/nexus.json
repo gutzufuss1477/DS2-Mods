@@ -1,0 +1,21 @@
+{
+  "name": "Porter Grade Booster",
+  "game": "DEATH STRANDING 2: ON THE BEACH",
+  "nexusGame": "deathstranding2onthebeach",
+  "nexusModId": 62,
+  "nexusUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/62",
+  "pageVersion": "1",
+  "sourceStatus": "release-workspace",
+  "sourceNote": "Source from the published-release workspace; binaries are downloaded from Nexus. No new runtime test was performed for this source import.",
+  "currentFiles": [
+    {
+      "fileId": 248,
+      "name": "Porter Grade Booster V1.0.0",
+      "version": "1",
+      "category": "MAIN",
+      "sha256": "3a9200067e1deaa1fddccc5651bee728755eb7cdd66239222f87badf9f290366",
+      "bytes": 7500,
+      "downloadUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/62?tab=files&file_id=248"
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+/build/
+/release/*.zip
+/release/Improved_Odradek_Scan_v*/
+__pycache__/
+*.pyc
+*.log

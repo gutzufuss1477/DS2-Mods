@@ -1,0 +1,24 @@
+DS2 HIGH-DENSITY BACKPACK MODULES v1.1.0 - BUILD VALIDATION
+
+Artifact: reference/DS2_HighDensityBackpackModules_v1.1.0.asi
+Size: 38400 bytes
+SHA-256: 4FAE089E17D86D8DA0DAE61C6F91A383864944C5918C94725A0C758947E35747
+
+Release gameplay code is unchanged from Test5; only the product version/log
+identity and introductory source comment were changed for release.
+
+PASS: Windows x64 LLVM build with /W4 /WX, no CRT dependencies
+PASS: runtime placement, visual packing, player/menu lifecycle, bone references,
+      eight accessory slots, ownership, battery deduplication and adapters
+PASS: 771 original Cryptobiosis loop regression cases
+PASS: original native category builder with 256 equipment masks
+PASS: accessory INI roundtrip and invalid data handling
+PASS: exact supported EXE hash, 92 guards, 63 disjoint patch windows,
+      instruction boundaries and 1,938 direct branch checks
+PASS: one-ASI ZIP; CRC and extracted/reference bytes match
+
+User confirmed Test5 correct in gameplay and all tested menus after the
+reported existing-save load issue was addressed. The log reports both live
+player and equipment-preview visibility paths active. The release-named
+binary was not separately played. Real charm effect magnitudes and every
+possible save/menu/mod combination are not claimed as fully tested.

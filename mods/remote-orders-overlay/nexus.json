@@ -1,0 +1,21 @@
+{
+  "name": "Remote Orders Overlay",
+  "game": "DEATH STRANDING 2: ON THE BEACH",
+  "nexusGame": "deathstranding2onthebeach",
+  "nexusModId": 59,
+  "nexusUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/59",
+  "pageVersion": "1",
+  "sourceStatus": "nexus-link-only-by-owner-choice",
+  "sourceNote": "Included as a Nexus link and exact version/hash record by the owner's explicit choice. The different local source and any blocked binary are not redistributed.",
+  "currentFiles": [
+    {
+      "fileId": 243,
+      "name": "DS2 Remote Orders Overlay V4.0",
+      "version": "4",
+      "category": "MAIN",
+      "sha256": "5cd9bbeb87432047bf0d0bca2e95c85af3be6a5f42383ba6148231f8db7fdca2",
+      "bytes": 14999,
+      "downloadUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/59?tab=files&file_id=243"
+    }
+  ]
+}

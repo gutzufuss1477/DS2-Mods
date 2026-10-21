@@ -1,0 +1,21 @@
+{
+  "name": "Extended BT Cord Cutting Range",
+  "game": "DEATH STRANDING 2: ON THE BEACH",
+  "nexusGame": "deathstranding2onthebeach",
+  "nexusModId": 80,
+  "nexusUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/80",
+  "pageVersion": "1",
+  "sourceStatus": "release-workspace",
+  "sourceNote": "Source from the published-release workspace; binaries are downloaded from Nexus. No new runtime test was performed for this source import.",
+  "currentFiles": [
+    {
+      "fileId": 284,
+      "name": "DS2 Extended BT Cord Cutting Range V1.0.0",
+      "version": "1",
+      "category": "MAIN",
+      "sha256": "203809746d9df90471aebfc43bcf284286c8afedc3fa75e0d6d33c5dbcf7b863",
+      "bytes": 3156,
+      "downloadUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/80?tab=files&file_id=284"
+    }
+  ]
+}

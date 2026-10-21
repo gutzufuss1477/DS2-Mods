@@ -1,0 +1,21 @@
+{
+  "name": "Individual APAS Upgrade Cost - Early APAS - Unlock All",
+  "game": "DEATH STRANDING 2: ON THE BEACH",
+  "nexusGame": "deathstranding2onthebeach",
+  "nexusModId": 79,
+  "nexusUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/79",
+  "pageVersion": "v3.0.0",
+  "sourceStatus": "release-workspace",
+  "sourceNote": "Source from the published-release workspace; binaries are downloaded from Nexus. No new runtime test was performed for this source import.",
+  "currentFiles": [
+    {
+      "fileId": 327,
+      "name": "DS2_APAS_Memory_Costs_v3.0.0",
+      "version": "v3.0.0",
+      "category": "MAIN",
+      "sha256": "143af18e095bd0ed625df15fdfcac2a20e3b998a5e29e3fc56bb296d7eecedb0",
+      "bytes": 10519,
+      "downloadUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/79?tab=files&file_id=327"
+    }
+  ]
+}

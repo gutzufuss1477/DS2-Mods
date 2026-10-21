@@ -1,0 +1,21 @@
+{
+  "name": "Sam's stats boost",
+  "game": "DEATH STRANDING 2: ON THE BEACH",
+  "nexusGame": "deathstranding2onthebeach",
+  "nexusModId": 66,
+  "nexusUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/66",
+  "pageVersion": "1",
+  "sourceStatus": "release-workspace",
+  "sourceNote": "Source from the published-release workspace; binaries are downloaded from Nexus. No new runtime test was performed for this source import.",
+  "currentFiles": [
+    {
+      "fileId": 254,
+      "name": "DS2 Sam Stats Booster V1.0.0",
+      "version": "1",
+      "category": "MAIN",
+      "sha256": "64286d676715fe0232a87d7fb9e565d3d158e1b02ee4e8493c5938a96b5c56be",
+      "bytes": 15320,
+      "downloadUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/66?tab=files&file_id=254"
+    }
+  ]
+}

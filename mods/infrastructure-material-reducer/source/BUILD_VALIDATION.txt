@@ -1,0 +1,31 @@
+Infrastructure One Unit v1.1.0 – Release Build Validation
+
+Game target:
+- Steam DS2.exe v1.10.89.0
+- DS2.exe SHA-256: BF3D1C665545930BC850D8F5DF486F7395885BB729D4FD408FDB03390DE0765B
+- PE Timestamp: 0x6A3DAE46; image size 0x0B292000
+
+Reference/public release binary:
+- reference/ds2_infrastructure_one_unit.asi
+- SHA-256: E8BB57DCE383CD8542041985E9165EF522FD02B40580A9EDAD715D8F5F1D2EEA
+- PE32+ x86-64 DLL / ASI, size 22528 bytes
+- Windows system-only imports: KERNEL32.dll
+- DllMain entrypoint, HIGH_ENTROPY_VA, DYNAMIC_BASE and NX_COMPAT enabled
+- Release binary built from updated v1.1.0 source with LLVM
+
+Validation:
+- 16 original Need/Current caller pairs: PASS (original policy preserved)
+- Road, monorail and mine construction/upgrade policies: PASS (offline)
+- Existing player/online contribution preservation: PASS (offline)
+- Stage cost, production and menu price guards: PASS
+- Exact v1.10.89.0 opcode and PE verification: PASS (developer workspace)
+- Crystal cost scalar matrix (0,1,2,5,10,25,50,100,500,1000,1500): PASS
+- The one-crystal setting, native output and 1/1 mine menu: PASS (in-game)
+- Other positive values in-game: NOT YET VERIFIED
+
+Release archive:
+- release/DS2_Infrastructure_One_Unit_v1.1.0.zip
+- ZIP SHA-256: 585FCFA6F84968820852734A1CD8E5986448C52C51249EFAD463B57BD4556F7D
+- 5 flat files (ASI, INI, README, CHANGELOG, SHA256).
+- Archive integrity checked (all member hashes and embedded checksum file).
+- ASI loader not included.

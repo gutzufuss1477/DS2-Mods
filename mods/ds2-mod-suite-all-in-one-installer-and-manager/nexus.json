@@ -1,0 +1,21 @@
+{
+  "name": "DS2 Mod Suite - All-in-One Installer and Manager",
+  "game": "DEATH STRANDING 2: ON THE BEACH",
+  "nexusGame": "deathstranding2onthebeach",
+  "nexusModId": 72,
+  "nexusUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/72",
+  "pageVersion": "1.12.1",
+  "sourceStatus": "release-workspace",
+  "sourceNote": "Source from the published-release workspace; binaries are downloaded from Nexus. No new runtime test was performed for this source import.",
+  "currentFiles": [
+    {
+      "fileId": 383,
+      "name": "DS2 Mod Suite v1.12.1 - All-in-One Installer",
+      "version": "1.12.1",
+      "category": "MAIN",
+      "sha256": "5b71eef8e2762c49b81b3ecf3a3b29a0b6da2dc045564eb5ec655aebafa89768",
+      "bytes": 5355929,
+      "downloadUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/72?tab=files&file_id=383"
+    }
+  ]
+}

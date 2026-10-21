@@ -1,0 +1,21 @@
+{
+  "name": "Sam Overhaul - Cargo - Movement -  Autodrive and Truck Weapons",
+  "game": "DEATH STRANDING 2: ON THE BEACH",
+  "nexusGame": "deathstranding2onthebeach",
+  "nexusModId": 88,
+  "nexusUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/88",
+  "pageVersion": "1",
+  "sourceStatus": "release-workspace",
+  "sourceNote": "Source from the published-release workspace; binaries are downloaded from Nexus. No new runtime test was performed for this source import.",
+  "currentFiles": [
+    {
+      "fileId": 365,
+      "name": "Sam Overhaul V1.1.0",
+      "version": "1.1.0",
+      "category": "MAIN",
+      "sha256": "6e3367fd18a02fa8c1eac1484f7e9a75c1ff28bd2636ffde417c3f04f05b8b8b",
+      "bytes": 60756,
+      "downloadUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/88?tab=files&file_id=365"
+    }
+  ]
+}

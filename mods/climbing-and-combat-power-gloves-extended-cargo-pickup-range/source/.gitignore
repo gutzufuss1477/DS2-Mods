@@ -1,0 +1,3 @@
+/build/
+/release/*_TEST_*/
+/release/*_TEST_*.zip

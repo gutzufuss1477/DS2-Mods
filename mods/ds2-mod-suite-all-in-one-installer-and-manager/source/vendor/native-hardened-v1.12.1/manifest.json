@@ -1,0 +1,26 @@
+[
+  {
+    "mod": "hill-assist-and-speed-boost",
+    "version": "1.1.0",
+    "source": "mods/hill-assist-and-speed-boost/build/DS2VehicleCore.asi",
+    "file": "DS2VehicleCore.asi",
+    "sha256": "CC0B87EE369D2CCCF5EFD1D672ADD55DB0FC59C50E7A6460072A363377CE3BC1",
+    "previousSha256": "78F4D90B6473F9163E65A227AE6444D516133ABAC34C9E6575BD2B13C3CB60B6"
+  },
+  {
+    "mod": "climbing-power-gloves-range",
+    "version": "1.1.1",
+    "source": "mods/climbing-power-gloves-range/build/public/ds2_climbing_gloves_range.asi",
+    "file": "ds2_climbing_gloves_range.asi",
+    "sha256": "1DEE9DDF105729622C85345471A882524FEC38D992664DE8201FF500A387EDDE",
+    "previousSha256": "58F7007F9C4727D6173D623A5FB5762BF48DC720D88A265F6D88874DBDB93373"
+  },
+  {
+    "mod": "apas-memory-costs",
+    "version": "3.0.0",
+    "source": "mods/apas-memory-costs/build/ds2_apas_memory_costs.asi",
+    "file": "ds2_apas_memory_costs.asi",
+    "sha256": "5742577EB3DFEBF2DFA83426616677CBA1797165696C2753B5C2E606B4E5BE68",
+    "previousSha256": "8B1F9910A46B1E7929084ACEF23340131382BBA2D059B2CD24A9BD86EA16E4B9"
+  }
+]

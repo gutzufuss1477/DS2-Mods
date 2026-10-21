@@ -1,0 +1,21 @@
+{
+  "name": "High Porter Tower (aka Cargo increase for Floating Carrier)",
+  "game": "DEATH STRANDING 2: ON THE BEACH",
+  "nexusGame": "deathstranding2onthebeach",
+  "nexusModId": 65,
+  "nexusUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/65",
+  "pageVersion": "1",
+  "sourceStatus": "release-workspace",
+  "sourceNote": "Source from the published-release workspace; binaries are downloaded from Nexus. No new runtime test was performed for this source import.",
+  "currentFiles": [
+    {
+      "fileId": 253,
+      "name": "DS2 FloatingCarrier CargoCapacity V1.0.0",
+      "version": "1",
+      "category": "MAIN",
+      "sha256": "f3980cfa9ff5bea218786a19187ec4b251a437f4a5b6324ebca27fa8372b76d4",
+      "bytes": 4621,
+      "downloadUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/65?tab=files&file_id=253"
+    }
+  ]
+}

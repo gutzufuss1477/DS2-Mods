@@ -1,0 +1,21 @@
+{
+  "name": "Proficiency Bonus Multiplier",
+  "game": "DEATH STRANDING 2: ON THE BEACH",
+  "nexusGame": "deathstranding2onthebeach",
+  "nexusModId": 82,
+  "nexusUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/82",
+  "pageVersion": "1",
+  "sourceStatus": "release-workspace",
+  "sourceNote": "Source from the published-release workspace; binaries are downloaded from Nexus. No new runtime test was performed for this source import.",
+  "currentFiles": [
+    {
+      "fileId": 285,
+      "name": "DS2 ProficiencyBonusMultiplier V1.0.0",
+      "version": "1",
+      "category": "MAIN",
+      "sha256": "643f5814798302dcb63b5cdd3c958f06918d1cc04b092e2b4b8c2f2982b53a42",
+      "bytes": 16243,
+      "downloadUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/82?tab=files&file_id=285"
+    }
+  ]
+}

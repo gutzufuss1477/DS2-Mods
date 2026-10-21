@@ -1,0 +1,21 @@
+{
+  "name": "Construction Anywhere",
+  "game": "DEATH STRANDING 2: ON THE BEACH",
+  "nexusGame": "deathstranding2onthebeach",
+  "nexusModId": 69,
+  "nexusUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/69",
+  "pageVersion": "1",
+  "sourceStatus": "release-workspace",
+  "sourceNote": "Source from the published-release workspace; binaries are downloaded from Nexus. No new runtime test was performed for this source import.",
+  "currentFiles": [
+    {
+      "fileId": 258,
+      "name": "DS2 Construction Anywhere V1.0.0",
+      "version": "1",
+      "category": "MAIN",
+      "sha256": "274b3ffa141523466a8f79cad144e9bc0722315c0015d09fb4f178ce3a9ec9fa",
+      "bytes": 4614,
+      "downloadUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/69?tab=files&file_id=258"
+    }
+  ]
+}

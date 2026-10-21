@@ -1,0 +1,524 @@
+[
+  {
+    "id": "hill-assist-and-speed-boost",
+    "version": "1.1.0",
+    "file": "DS2VehicleCore.asi",
+    "sha256": "7DE69198CA9E3580F749A8ACCA84F6DB2EC1E2A084EBA99A17909398118D10A1",
+    "bytes": 121344,
+    "compiler": "C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\cl.exe",
+    "msvc": "14.44.35207",
+    "windowsSdk": "10.0.26100.0",
+    "sourceHashes": {
+      "mods/hill-assist-and-speed-boost/src/DS2VehicleCore.cpp": "752E9822DFFF32D002153C991402850F5340C4CA77EB77CB1F8993FDFD4B02AF"
+    },
+    "previousSha256": "CC0B87EE369D2CCCF5EFD1D672ADD55DB0FC59C50E7A6460072A363377CE3BC1",
+    "sourceArtifact": "build/native-suite-repeat/hill-assist-and-speed-boost/DS2VehicleCore.asi"
+  },
+  {
+    "id": "pickup-cargo-capacity",
+    "version": "1.0.2",
+    "file": "PickupCargoCapacity.asi",
+    "sha256": "DF6C0960AF451E44449031127BE4C05BCC48B4A1C71E958030E19451DA6C9AC8",
+    "bytes": 111616,
+    "compiler": "C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\cl.exe",
+    "msvc": "14.44.35207",
+    "windowsSdk": "10.0.26100.0",
+    "sourceHashes": {
+      "mods/pickup-cargo-capacity/src/pickup_cargo_capacity_patch.cpp": "EEC420874F5A4D2AD119B0753B36F705A77800ACE186F0505FF1490C54968C14",
+      "mods/pickup-cargo-capacity/src/pickup_rear_indicator_patch.inl": "E0FD7E59E946CC2C311B79926971FBCA99037324891529B07F9A2E5F04C0E970"
+    },
+    "previousSha256": "B5CF25CC85577FDA89A74080A82369DC2320BE86A1F67B7BAAA858E52ABEBC98",
+    "sourceArtifact": "build/native-suite-repeat/pickup-cargo-capacity/PickupCargoCapacity.asi"
+  },
+  {
+    "id": "tri-cruiser-cargo-capacity",
+    "version": "1.1.0",
+    "file": "DS2_TriCruiser_CargoCapacity_v1.1.0.asi",
+    "sha256": "E3C917BF5D558F8EB478135B70D432FEAC95041CEFFD31C25F7DCF30E22482F7",
+    "bytes": 110080,
+    "compiler": "C:\\Program Files\\LLVM\\bin\\clang-cl.exe",
+    "msvc": "14.44.35207",
+    "windowsSdk": "10.0.26100.0",
+    "sourceHashes": {
+      "mods/tri-cruiser-cargo-capacity/src/capacity_stubs.s": "60A25F51FD1868A91D7444A91CD262DA2F17A25421AE903E3955020DAB360550",
+      "mods/tri-cruiser-cargo-capacity/src/kernel32_stub.cpp": "9ADE973744B942D6C4098EAF4C46CBDF88EAD3FBEDABC78BFBDE7362F30E80F9",
+      "mods/tri-cruiser-cargo-capacity/src/tri_cruiser_cargo_capacity.cpp": "D3621249DFA931B8EF9AC02DE2E3A4986B94E4F6EB1B1292CB553D65E470D49E"
+    },
+    "previousSha256": "905CC132AE77427977315080646E9EFE62F074404019D495B785C3B6FC10D42A",
+    "sourceArtifact": "build/native-suite-repeat/tri-cruiser-cargo-capacity/DS2_TriCruiser_CargoCapacity_v1.1.0.asi"
+  },
+  {
+    "id": "floating-carrier-cargo-capacity",
+    "version": "1.0.0",
+    "file": "DS2_FloatingCarrier_CargoCapacity_v1.0.0.asi",
+    "sha256": "12F82BB9E084CFBC611710168D7B0025C8405CE683AF84ACD11ACF50794D8496",
+    "bytes": 109568,
+    "compiler": "C:\\Program Files\\LLVM\\bin\\clang-cl.exe",
+    "msvc": "14.44.35207",
+    "windowsSdk": "10.0.26100.0",
+    "sourceHashes": {
+      "mods/floating-carrier-cargo-capacity/src/floating_carrier_cargo_capacity.cpp": "1FC5CA78DEA677A2EFD529C28182790E5F0A477370C6BD064E195EEBABC11A5F",
+      "mods/floating-carrier-cargo-capacity/src/kernel32_stub.cpp": "6A9B744357B39B6635BC264FA34F30CD7B6A75C780A3F2E953FABE5B87B97B3E"
+    },
+    "previousSha256": "2DB7F24180A43A4595AF594E6C84DE1199A2697899C60B3758C0E2BBB633E512",
+    "sourceArtifact": "build/native-suite-repeat/floating-carrier-cargo-capacity/DS2_FloatingCarrier_CargoCapacity_v1.0.0.asi"
+  },
+  {
+    "id": "coffin-board-all-terrain-speed",
+    "version": "1.83.0",
+    "file": "ds2_coffin_board_all_terrain_speed.asi",
+    "sha256": "FA133C7470CFBCA12A900D1847717D78BF1B58F40D32FED86A6456C0C53D301A",
+    "bytes": 135168,
+    "compiler": "C:\\Program Files\\LLVM\\bin\\clang-cl.exe",
+    "msvc": "14.44.35207",
+    "windowsSdk": "10.0.26100.0",
+    "sourceHashes": {
+      "mods/coffin-board-all-terrain-speed/src/coffin_board_all_terrain_speed.cpp": "520C476B409B8FA6EC8BC5692C388BDE4753BACB1A0BBBD15ED6707A64FB7E8D"
+    },
+    "previousSha256": "068AB3173656924C39E498D11DF30FDB32F7FB20CABC11E92706A17A8FD372EA",
+    "sourceArtifact": "build/native-suite-repeat/coffin-board-all-terrain-speed/ds2_coffin_board_all_terrain_speed.asi"
+  },
+  {
+    "id": "high-density-backpack-modules",
+    "version": "1.1.0",
+    "file": "DS2_HighDensityBackpackModules_v1.1.0.asi",
+    "sha256": "995683BB2ED64E6AD95DEACF2A93E91AFB15D2E1030EEAABC9984F547D77DA14",
+    "bytes": 136192,
+    "compiler": "C:\\Program Files\\LLVM\\bin\\clang-cl.exe",
+    "msvc": "14.44.35207",
+    "windowsSdk": "10.0.26100.0",
+    "sourceHashes": {
+      "mods/high-density-backpack-modules/src/backpack_charms.inl": "7F3C934CEFD974194BE0665DAA2178527FACCD49FB1E3BA15534E76C27B7C815",
+      "mods/high-density-backpack-modules/src/backpack_menu.inl": "2F705E3780A5FB538491C795A767C1536C61E8145A93C7FE95C851FC2E037524",
+      "mods/high-density-backpack-modules/src/backpack_policy.h": "ACB8ECFFB35B4715F87CAE108482451DD2A00E8152F36B6744F7D962BA20F05E",
+      "mods/high-density-backpack-modules/src/backpack_visuals.inl": "5B3DE7131046F0CDC08E3DBD214FBC9DB61E1CA45E80575603C5811340B76DE5",
+      "mods/high-density-backpack-modules/src/baseline_signatures.h": "346F8403B94E19A0DEF4921D107845749E5D1E5A2D4D847F72DD3FB1E1F3A208",
+      "mods/high-density-backpack-modules/src/charm_adapters.s": "4D95B78F7A02ECBB72C8D4BB54A63447DD4E8A3F5C5C93E9D4C3C09A0409CD42",
+      "mods/high-density-backpack-modules/src/high_density_backpack_modules.cpp": "744E8982A3A0DE01DF5F6E9BC97ACEA050B2D6270F8475F7423C2CD749F91875"
+    },
+    "previousSha256": "4FAE089E17D86D8DA0DAE61C6F91A383864944C5918C94725A0C758947E35747",
+    "sourceArtifact": "build/native-suite-repeat/high-density-backpack-modules/DS2_HighDensityBackpackModules_v1.1.0.asi"
+  },
+  {
+    "id": "climbing-power-gloves-range",
+    "version": "1.1.1",
+    "file": "ds2_climbing_gloves_range.asi",
+    "sha256": "F7301BCC5F29660B0D602B71C3B6677A247B0DDE6336AC67733C7C6E0FB3CFC5",
+    "bytes": 141312,
+    "compiler": "C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\cl.exe",
+    "msvc": "14.44.35207",
+    "windowsSdk": "10.0.26100.0",
+    "sourceHashes": {
+      "mods/climbing-power-gloves-range/src/climbing_gloves_range.cpp": "602290A272E4705AE4FB1BA6561904DE4E42E7711890061C59061E9A73F653E6",
+      "mods/climbing-power-gloves-range/src/combat_pickup_v110.inl": "12185F1DE28B63A769AAA6A7CD801A5260B2E07930CA7F13BF2A284E848B37EC",
+      "mods/climbing-power-gloves-range/src/windows.h": "DCBFD6A1513FE169845F3115ACC6C49DF1D972A51630096D4130FDBE0C5DBE7F"
+    },
+    "previousSha256": "1DEE9DDF105729622C85345471A882524FEC38D992664DE8201FF500A387EDDE",
+    "sourceArtifact": "build/native-suite-repeat/climbing-power-gloves-range/ds2_climbing_gloves_range.asi"
+  },
+  {
+    "id": "sam-stats-booster",
+    "version": "1.0.0",
+    "file": "SamStatsBooster.asi",
+    "sha256": "0A4C3B117602D897916EF2C3B0F6E20FF0208E5218DF76759A5C7DF95EF94943",
+    "bytes": 122368,
+    "compiler": "C:\\Program Files\\LLVM\\bin\\clang-cl.exe",
+    "msvc": "14.44.35207",
+    "windowsSdk": "10.0.26100.0",
+    "sourceHashes": {
+      "mods/sam-stats-booster/src/hook.s": "F9BA130B5779E6CC76074F646E66D3E38AB27BCA6F993088798C0B889E3E6FA5",
+      "mods/sam-stats-booster/src/mod.cpp": "FCC29F6106EB4D15A9E693F29BEFCA54DD292C22A1AE31774D6B5A95B853E6C5",
+      "mods/sam-stats-booster/src/peb.s": "1738CA785C64174EB47574CB5204797FE3376431E07CDEF1F8BF1B7EB4753A92"
+    },
+    "previousSha256": "E930E2B6C59A955789A2E5F4D967D9BFC30F57CA2DBA9061039841A1F4E8AB99",
+    "sourceArtifact": "build/native-suite-repeat/sam-stats-booster/SamStatsBooster.asi"
+  },
+  {
+    "id": "porter-grade-booster",
+    "version": "1.0.0",
+    "file": "PorterGradeBooster.asi",
+    "sha256": "FA5EA1CB4D31F248A8BA94A3DE0A5A093E1D02A525883CB59A94408E7D1376B3",
+    "bytes": 109568,
+    "compiler": "C:\\Program Files\\LLVM\\bin\\clang-cl.exe",
+    "msvc": "14.44.35207",
+    "windowsSdk": "10.0.26100.0",
+    "sourceHashes": {
+      "mods/porter-grade-booster/src/hook.s": "219EEE9D1747A267A56A83732831D8E651A089083315B1D32F9EEE9C38434E63",
+      "mods/porter-grade-booster/src/mod.cpp": "4DBF10AB2E99490FD68A6F1CFC10AEB73E2EC67F866C7667F92CAA969B1D6F2B",
+      "mods/porter-grade-booster/src/peb.s": "1738CA785C64174EB47574CB5204797FE3376431E07CDEF1F8BF1B7EB4753A92"
+    },
+    "previousSha256": "7AD9D021E0F7D1E61CA50C9F40D803954B49083A88C31335A18A34BE8F0E2213",
+    "sourceArtifact": "build/native-suite-repeat/porter-grade-booster/PorterGradeBooster.asi"
+  },
+  {
+    "id": "lost-cargo-likes-booster",
+    "version": "1.1.1",
+    "file": "ds2_lost_cargo_likes_booster.asi",
+    "sha256": "1A3024022B7DC7CCD73D0EC0442BE3F8117EB969B0AF63D356226D821E86AB9B",
+    "bytes": 111104,
+    "compiler": "C:\\Program Files\\LLVM\\bin\\clang-cl.exe",
+    "msvc": "14.44.35207",
+    "windowsSdk": "10.0.26100.0",
+    "sourceHashes": {
+      "mods/lost-cargo-likes-booster/src/freight_likes_booster.cpp": "8A81E0F5D30FF585177737F7FF54E09707A391F30311525FA35639B290DB57DC",
+      "mods/lost-cargo-likes-booster/src/windows.h": "4C12F17A97DB4E467D5C5D9A3EF1ABD398DD8971569093948AFD74E11F9D5F66"
+    },
+    "previousSha256": "AB5771528603819D193748394F7BD90A5EFF6F588E110C9ED91087728E24C71A",
+    "sourceArtifact": "build/native-suite-repeat/lost-cargo-likes-booster/ds2_lost_cargo_likes_booster.asi"
+  },
+  {
+    "id": "no-magellan-evaluation",
+    "version": "1.0.0",
+    "file": "ds2_no_magellan_evaluation.asi",
+    "sha256": "3D19901786B97B7BDB188582B078FC97E811D2339AB04DBE19822B1E94200DFE",
+    "bytes": 110592,
+    "compiler": "C:\\Program Files\\LLVM\\bin\\clang-cl.exe",
+    "msvc": "14.44.35207",
+    "windowsSdk": "10.0.26100.0",
+    "sourceHashes": {
+      "mods/no-magellan-evaluation/src/no_magellan_evaluation.cpp": "7D6FA32E05A282C3A13B17F53EACC57167470CE6020917DC3310C0EE6CC7E82F",
+      "mods/no-magellan-evaluation/src/windows.h": "AB3A04177E062DB90D8899A976BC16B04C58E4FBAF163D31CA28EC86A96B25CE"
+    },
+    "previousSha256": "3EC72DA55493471470246C39179D8F56154D149409A95FF15F200FA0D5054FE3",
+    "sourceArtifact": "build/native-suite-repeat/no-magellan-evaluation/ds2_no_magellan_evaluation.asi"
+  },
+  {
+    "id": "construction-anywhere",
+    "version": "1.0.0",
+    "file": "ds2_construction_anywhere.asi",
+    "sha256": "B7CE23837F5FD9399A6B6CB58C52790E187FB725A96246A9B313115132C3FD13",
+    "bytes": 110592,
+    "compiler": "C:\\Program Files\\LLVM\\bin\\clang-cl.exe",
+    "msvc": "14.44.35207",
+    "windowsSdk": "10.0.26100.0",
+    "sourceHashes": {
+      "mods/construction-anywhere/src/construction_anywhere.cpp": "4EC93682E72A4CF46FAF81C4E403AA726D37F622D5E55365289291E7AE31ACCA",
+      "mods/construction-anywhere/src/windows.h": "8494FCE0552F759A567C592F70B305CB9B1F6D8C710006FD9D86C684FE64AC1A"
+    },
+    "previousSha256": "FC5D96527EE85696B7E796F911DB8414BF0834A6D8418318A4133D26392B09F3",
+    "sourceArtifact": "build/native-suite-repeat/construction-anywhere/ds2_construction_anywhere.asi"
+  },
+  {
+    "id": "construction-max-level-on-build",
+    "version": "1.0.1",
+    "file": "ds2_construction_max_level_on_build.asi",
+    "sha256": "C87FE2B06CAF5A75A85A065B47C3D50B22A0D90159CFC4D1222D203E33EC90E4",
+    "bytes": 137728,
+    "compiler": "C:\\Program Files\\LLVM\\bin\\clang-cl.exe",
+    "msvc": "14.44.35207",
+    "windowsSdk": "10.0.26100.0",
+    "sourceHashes": {
+      "mods/construction-max-level-on-build/src/construction_max_level_on_build.cpp": "0109378C509215519B6C4C85F6088BB1B87BE5F8658B5EA37D985247FB61A01A",
+      "mods/construction-max-level-on-build/src/windows.h": "98AB7079F86CB2E3C0AC464785A595BF180539178204C71D0501926B15AC435A"
+    },
+    "previousSha256": "FD73C65DDA920CA60761922DAE1E5A16CF37A649CF26AE1114D717ADF493B6C5",
+    "sourceArtifact": "build/native-suite-repeat/construction-max-level-on-build/ds2_construction_max_level_on_build.asi"
+  },
+  {
+    "id": "weapons-anywhere",
+    "version": "1.0.0",
+    "file": "ds2_weapons_anywhere.asi",
+    "sha256": "09AA8203E3663CB79EBA60037925E433AAAE58191F42BF7A1121B0454D4E9976",
+    "bytes": 110080,
+    "compiler": "C:\\Program Files\\LLVM\\bin\\clang-cl.exe",
+    "msvc": "14.44.35207",
+    "windowsSdk": "10.0.26100.0",
+    "sourceHashes": {
+      "mods/weapons-anywhere/src/weapons_anywhere.cpp": "AB52C27C13402E922A5A2FC625E032E088DBA0736F0EE5AAAAC6675BA403C36D",
+      "mods/weapons-anywhere/src/windows.h": "102B002CB770C2C581BF68D68EB725C552B37FB917AF713EBC8871A000BF7746"
+    },
+    "previousSha256": "20B922F78393B44E61CA9BE44C689652554A7BA8398C34FED1CCE35D2EEC10D2",
+    "sourceArtifact": "build/native-suite-repeat/weapons-anywhere/ds2_weapons_anywhere.asi"
+  },
+  {
+    "id": "zipline-range",
+    "version": "1.0.0",
+    "file": "ds2_zipline_range.asi",
+    "sha256": "5DD3438554AECF13734E081D49F38797EBCD88007F7A95117DA0F6AAE7D1145F",
+    "bytes": 133632,
+    "compiler": "C:\\Program Files\\LLVM\\bin\\clang-cl.exe",
+    "msvc": "14.44.35207",
+    "windowsSdk": "10.0.26100.0",
+    "sourceHashes": {
+      "mods/zipline-range/src/windows.h": "810C0DA58DB330AFE23B22452D1DFE3A27040226411DD0E1981FD5B22BDB4603",
+      "mods/zipline-range/src/zipline_range.cpp": "48204684E68E403218F10CD7C0D106026C6A4F25A9661056860B1BA8DD59728B"
+    },
+    "previousSha256": "DBC9126DA373EF13285499BDA1131C9B6AC36CC6C430F197210810BBD8D4A6BD",
+    "sourceArtifact": "build/native-suite-repeat/zipline-range/ds2_zipline_range.asi"
+  },
+  {
+    "id": "chiral-bandwidth-costs",
+    "version": "1.0.0",
+    "file": "ds2_chiral_bandwidth_costs.asi",
+    "sha256": "28DCE50C4C489F489224946A1951C22916462F3E1F58B6FA2BA581BCFECEDE2E",
+    "bytes": 120832,
+    "compiler": "C:\\Program Files\\LLVM\\bin\\clang-cl.exe",
+    "msvc": "14.44.35207",
+    "windowsSdk": "10.0.26100.0",
+    "sourceHashes": {
+      "mods/chiral-bandwidth-costs/src/chiral_bandwidth_costs.cpp": "24EC876FAB9D2C7AA9E6C5C04D89CFD1AB907593FA74AEF5F289EB14BB81288F",
+      "mods/chiral-bandwidth-costs/src/windows.h": "E332DDD46D706D99BC9ED0912D12630779E9500D26D198C15B7E1C40D95CA509"
+    },
+    "previousSha256": "BA49FAEBC661633945A19AFEDFAE0F3D7A88FA62DCA752735692AA3D436DFC2B",
+    "sourceArtifact": "build/native-suite-repeat/chiral-bandwidth-costs/ds2_chiral_bandwidth_costs.asi"
+  },
+  {
+    "id": "infrastructure-one-unit",
+    "version": "1.1.0",
+    "file": "ds2_infrastructure_one_unit.asi",
+    "sha256": "D7FB697EE2F73D4C6E308BB75397171EB4B232FF9EA6BCB16B8081DA9B510E9A",
+    "bytes": 124416,
+    "compiler": "C:\\Program Files\\LLVM\\bin\\clang-cl.exe",
+    "msvc": "14.44.35207",
+    "windowsSdk": "10.0.26100.0",
+    "sourceHashes": {
+      "mods/infrastructure-one-unit/src/infrastructure_one_unit.cpp": "27E20E761B0BD4138B2B2CB99E830C173A3B2BDBF3224FDAFAB83852F416516F",
+      "mods/infrastructure-one-unit/src/windows.h": "48C5CB9B26688DFB656F3482579DC72DC66A3666A8211192A51DDFD3221DE96C"
+    },
+    "previousSha256": "E8BB57DCE383CD8542041985E9165EF522FD02B40580A9EDAD715D8F5F1D2EEA",
+    "sourceArtifact": "build/native-suite-repeat/infrastructure-one-unit/ds2_infrastructure_one_unit.asi"
+  },
+  {
+    "id": "remote-orders-overlay",
+    "version": "0.2.0",
+    "file": "DS2_Remote_Orders_Overlay.asi",
+    "sha256": "0546539A5E45DC1BB89D006D9779912661F0A9DAC2D50E42054BF3E64048BA9C",
+    "bytes": 138240,
+    "compiler": "C:\\Program Files\\LLVM\\bin\\clang-cl.exe",
+    "msvc": "14.44.35207",
+    "windowsSdk": "10.0.26100.0",
+    "sourceHashes": {
+      "mods/remote-orders-overlay/src/crt_strings.cpp": "E3F59A3618D5D0C53E952977EC1B5BC5C8FEC47AB301A5DD6D0881F73E204480",
+      "mods/remote-orders-overlay/src/ds2_remote_orders_overlay.cpp": "A671243A11BB91D8BEF9437911220587EB05F23DDB9ED8D2BEB5C3EDBA2ADB70"
+    },
+    "previousSha256": "02C3046773001DC6499B6B670C6DD0903F37F29EF5D19F1DB4A8DB1F2F183821",
+    "sourceArtifact": "build/native-suite-repeat/remote-orders-overlay/DS2_Remote_Orders_Overlay.asi"
+  },
+  {
+    "id": "extended-bt-cord-cutting-range",
+    "version": "1.0.0",
+    "file": "ds2_extended_bt_cord_cutting_range.asi",
+    "sha256": "31FEE85B8FAEC3D2AAA453995FEF8C8539D025555586FB20EC4520365990F1AD",
+    "bytes": 108032,
+    "compiler": "C:\\Program Files\\LLVM\\bin\\clang-cl.exe",
+    "msvc": "14.44.35207",
+    "windowsSdk": "10.0.26100.0",
+    "sourceHashes": {
+      "mods/extended-bt-cord-cutting-range/src/extended_bt_cord_cutting_range.cpp": "4D7EA1164575A86584AB8D02E41D05866A0739B2EF6314EB3326589A5D74999C",
+      "mods/extended-bt-cord-cutting-range/src/hook.s": "E9E3485C91D3EFF769DEC5B84860B203EF4362A23CE8E922E80B081E1BB95C5E"
+    },
+    "previousSha256": "AF65DEC8FA5704D5C4D4DE52B337FE78D2811BD319A9DA8E640B8199669E490F",
+    "sourceArtifact": "build/native-suite-repeat/extended-bt-cord-cutting-range/ds2_extended_bt_cord_cutting_range.asi"
+  },
+  {
+    "id": "apas-memory-costs",
+    "version": "3.0.0",
+    "file": "ds2_apas_memory_costs.asi",
+    "sha256": "FCBC8C6EE1470896B02DDCA8D82D3C8BF2AC338DD4EB91EE4CC9B3B3D821AACE",
+    "bytes": 117248,
+    "compiler": "C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\cl.exe",
+    "msvc": "14.44.35207",
+    "windowsSdk": "10.0.26100.0",
+    "sourceHashes": {
+      "mods/apas-memory-costs/src/apas.cpp": "B85808FB7B554305325CAF58C4FE1557E3B340580D7ABB94C541466E40511B90",
+      "mods/apas-memory-costs/src/platform.h": "0CF7AC5DEBBB1FA44F4F896068CBE299392F1696527EAA648527EB476E5B3902",
+      "mods/apas-memory-costs/src/target.h": "94DBF346A40C50A85B2F1C53B1CCB058D27833D46B9F9FDC888F4E6273DC1A37"
+    },
+    "previousSha256": "5742577EB3DFEBF2DFA83426616677CBA1797165696C2753B5C2E606B4E5BE68",
+    "sourceArtifact": "build/native-suite-repeat/apas-memory-costs/ds2_apas_memory_costs.asi"
+  },
+  {
+    "id": "proficiency-bonus-multiplier",
+    "version": "1.0.0",
+    "file": "DS2_ProficiencyBonusMultiplier.asi",
+    "sha256": "D5B59F282AA5D45B4A9F895626A2199A885E89AAFC60B8BE57F345F09346D722",
+    "bytes": 122368,
+    "compiler": "C:\\Program Files\\LLVM\\bin\\clang-cl.exe",
+    "msvc": "14.44.35207",
+    "windowsSdk": "10.0.26100.0",
+    "sourceHashes": {
+      "mods/proficiency-bonus-multiplier/src/ds2_proficiency_bonus_multiplier.cpp": "56756EBA1188F1B3AB8513F64F9B50DD8880EFEB03E2D786382FB5922A88E277"
+    },
+    "previousSha256": "D2CDD6D998163009D60257AF1D8ACF1274B30387A16846B0969DFB538D3013BD",
+    "sourceArtifact": "build/native-suite-repeat/proficiency-bonus-multiplier/DS2_ProficiencyBonusMultiplier.asi"
+  },
+  {
+    "id": "improved-odradek-scan",
+    "version": "1.0.1",
+    "file": "ds2_odradek_scan.asi",
+    "sha256": "21CAAA7C65AE44DB33CB9E05548D2AEEF169322B099F94C829CF57F193E8FB81",
+    "bytes": 191488,
+    "compiler": "C:\\Program Files\\LLVM\\bin\\clang-cl.exe",
+    "msvc": "14.44.35207",
+    "windowsSdk": "10.0.26100.0",
+    "sourceHashes": {
+      "mods/improved-odradek-scan/src/cargo_meter_label.inl": "FFCC6718728744F70ED895F3E246A257300034D80966447A4C03E738BA138DAD",
+      "mods/improved-odradek-scan/src/cargo_recipient_anchors.inl": "8E35A9313BB08FFB84DEC114D3251610123AA49793730D6BA76B4C7A8DC20C92",
+      "mods/improved-odradek-scan/src/cargo_recipient_meter.inl": "1A904A6EFAB4CCA1DA62EE85DEDAEA362F5EA58B1ED96EEF4A28578F4CFFA94F",
+      "mods/improved-odradek-scan/src/odradek_scan.cpp": "8642928E117D1DA6DED9F8635552FF6DD9B4C570BC4298028B86B2F28ABF87E7",
+      "mods/improved-odradek-scan/src/scanned_cargo_distance.inl": "C8F3FFE9C4E60012599E29BD97AF75ECA0FEF896F7D0B61585C7642A08C4F924",
+      "mods/improved-odradek-scan/src/scanned_cargo_distance_anchors.inl": "601ACBB6E85B6F60F2B67AC721DCFD6F672CD64A5815B558194321FDDDC209E0",
+      "mods/improved-odradek-scan/src/scanned_cargo_hud.inl": "E53FFCC41C122D1114F8A0F586368E0CF0116037EBA2D3812D6242F2EA09101D",
+      "mods/improved-odradek-scan/src/scanned_cargo_sensor.inl": "1E708A98EFD6D0C4157CF5127C2711DB0195894EFFD7CE398F9F3CBE70245D69",
+      "mods/improved-odradek-scan/src/survey_alignment.inl": "F69C528946E5070E0F0EAF16186EEC00CE613C033E0366E781AEAFB0A39C2FC0",
+      "mods/improved-odradek-scan/src/visual_wave.inl": "1C683E239C79AB20826E87869544EE7F9F4DCE12469029D2254B7B3D1888FE9B",
+      "mods/improved-odradek-scan/src/visual_wave_anchors.inl": "A79BC77FE9CF700B5C409950D929771CF9CEFDAC5C230A441AD6E99DB305F071",
+      "mods/improved-odradek-scan/src/windows.h": "3B5EE44F7B7E468045EA5F23B59B305A10FCF95A50DDF2CD11D0D7C8ABB6A6B2"
+    },
+    "previousSha256": "B9FCD0469783B6973BBF33D2396DF5884799734A476AC07A851F6B0CF6E4015B",
+    "sourceArtifact": "build/native-suite-repeat/improved-odradek-scan/ds2_odradek_scan.asi"
+  },
+  {
+    "id": "high-density-backpack-classic",
+    "version": "1.1.0",
+    "file": "DS2_HighDensityBackpackModules_v1.1.0_Classic_Overlap.asi",
+    "sha256": "94D07600A0DE5BEAEEFE342D20A3811541A9CFF79012FE35ABD480A2952622C3",
+    "bytes": 130048,
+    "compiler": "C:\\Program Files\\LLVM\\bin\\clang-cl.exe",
+    "msvc": "14.44.35207",
+    "windowsSdk": "10.0.26100.0",
+    "sourceHashes": {
+      "mods/high-density-backpack-modules/src/backpack_charms.inl": "7F3C934CEFD974194BE0665DAA2178527FACCD49FB1E3BA15534E76C27B7C815",
+      "mods/high-density-backpack-modules/src/backpack_menu.inl": "2F705E3780A5FB538491C795A767C1536C61E8145A93C7FE95C851FC2E037524",
+      "mods/high-density-backpack-modules/src/backpack_policy.h": "ACB8ECFFB35B4715F87CAE108482451DD2A00E8152F36B6744F7D962BA20F05E",
+      "mods/high-density-backpack-modules/src/backpack_visuals.inl": "5B3DE7131046F0CDC08E3DBD214FBC9DB61E1CA45E80575603C5811340B76DE5",
+      "mods/high-density-backpack-modules/src/baseline_signatures.h": "346F8403B94E19A0DEF4921D107845749E5D1E5A2D4D847F72DD3FB1E1F3A208",
+      "mods/high-density-backpack-modules/src/charm_adapters.s": "4D95B78F7A02ECBB72C8D4BB54A63447DD4E8A3F5C5C93E9D4C3C09A0409CD42",
+      "mods/high-density-backpack-modules/src/high_density_backpack_modules.cpp": "744E8982A3A0DE01DF5F6E9BC97ACEA050B2D6270F8475F7423C2CD749F91875"
+    },
+    "previousSha256": "EA16EC54D380D1CDB30D52C12197D92650C10877E0F9B6D551E29AB90E77643C",
+    "sourceArtifact": "build/native-suite-repeat/high-density-backpack-classic/DS2_HighDensityBackpackModules_v1.1.0_Classic_Overlap.asi"
+  },
+  {
+    "id": "crafting-unlocks",
+    "version": "1.8.0",
+    "file": "ds2_crafting_unlocks.asi",
+    "sha256": "0D89E1270313DD7DFAC9AF38CFA5A7A2DB553EB010C87F5514F626699A0FB439",
+    "bytes": 1283584,
+    "compiler": "C:\\Program Files\\LLVM\\bin\\clang-cl.exe",
+    "msvc": "14.44.35207",
+    "windowsSdk": "10.0.26100.0",
+    "sourceHashes": {
+      "mods/crafting-unlocks/src/atlas/atlas.hpp": "6CE9FD670B0D011E7E6F06C6F421C41FE5DDDF686942F81FA78D5524A8B2C435",
+      "mods/crafting-unlocks/src/atlas/atlas_runtime.inl": "BF3E5F3C0D5A08EEED39BB88E263B777FCC6EBA7B81D4C5FDC1964D2193BD75C",
+      "mods/crafting-unlocks/src/atlas/branch.hpp": "B6F7C30F17648BED9CBB0EB5FCBF98AEBD9A4A26862A687889EC0C51ACA26756",
+      "mods/crafting-unlocks/src/atlas/core.hpp": "A8C3AF753FBB44BAB004C4BDFA0F6DAAE783D97D8162478906144D5C8F9CA16C",
+      "mods/crafting-unlocks/src/atlas/loading_thunk.s": "90AA58FEC366762FC289DAD54C80828578B6D50983E5B77E2BAFAAE5080786EF",
+      "mods/crafting-unlocks/src/atlas/preview.hpp": "F78437838C28C42B140335D922720EE81D9868E9908A66E063AF12006D0A95D4",
+      "mods/crafting-unlocks/src/atlas/runtime.cpp": "DCC05D778DBE35C3E16EF8FE335FAA93894C6A1E3ADE6C9D24E8589DB29DD260",
+      "mods/crafting-unlocks/src/atlas/sha256.hpp": "EC7582CEBA6D7A9A2A36CD3CB5F16BBBDDF5C0288211166425BC16AC17298A10",
+      "mods/crafting-unlocks/src/atlas/sites.generated.hpp": "EB7E351103DFE2E5C9E9D313EB58E574F63B47DC133100DC99B04D3F80F7AC90",
+      "mods/crafting-unlocks/src/atlas/win_api.hpp": "E914167A647B26F98FC9C70E55F405251A7CE8E1272170C955AE20828E699B76",
+      "mods/crafting-unlocks/src/atlas_integration.hpp": "A62C8EFB368EB566A29EE0F9B1341B89AA0576C72866D4F782F32CECA4B635FF",
+      "mods/crafting-unlocks/src/backpack.hpp": "698AB53B5C5DF913C2E17CCE9DBFE392A0DD308875D5FEC3E2001E116AE73685",
+      "mods/crafting-unlocks/src/core.hpp": "B8022C8BA01C1AED30EAFD190D7DE051EBA3E7533E7CAC2CCA00349D79F83930",
+      "mods/crafting-unlocks/src/durability_runtime.inl": "CCB118075776C77338683F81EBD43172BAC6555A34EB5847ADFEEC532B747B47",
+      "mods/crafting-unlocks/src/durability_scope.hpp": "0EDDFFC588CD1BECA09C89FDD46E73126B4FB7396C2225BE62903FFFF52084E0",
+      "mods/crafting-unlocks/src/durability_thunks.s": "B7776C6A52E8EC16B289BE4D2189059E7249737C737A2817C564708F940A41C1",
+      "mods/crafting-unlocks/src/freecrafting_runtime.inl": "F9D735B08246406C0C8FAE546518A3BACB04A15F0990CEEC31AB9422B1F84ED8",
+      "mods/crafting-unlocks/src/freecrafting_sites.hpp": "D28DBA53D3733DB7F6C3125EB02A69E7E0721D0D745548F3B750FA4AF559710C",
+      "mods/crafting-unlocks/src/freecrafting_thunks.s": "A2D31982843AD43B3053B0A4FE323FB874E0D406650113E3607BEBA5FB110A60",
+      "mods/crafting-unlocks/src/mod.cpp": "EB1713AEB8CD7E1B2520CAC5FC1B100E7F1CBA2599B9EF258227069329866730",
+      "mods/crafting-unlocks/src/pcc_identities.generated.hpp": "BF5EB70BA5E08D46D23E0BABA6B28B2C67BCB0E643E2DD8CFC28FF05487BA748",
+      "mods/crafting-unlocks/src/pcc_runtime.inl": "55B6FBAD430043FF1723A7CF16DA51E255765931E93784453AF2FA9F97AAA1AD",
+      "mods/crafting-unlocks/src/pcc_sites.generated.hpp": "DF687E652534AF4A53AD710CECA9C2D968B5B087C6B600C1AC74928837B6AE8F",
+      "mods/crafting-unlocks/src/pcc_structures.hpp": "E9F130964042018D74AAD0A60B7CA6D3AF424B19B8866D99FC5A8418F71835B3",
+      "mods/crafting-unlocks/src/pcc_thunk.s": "022205D4C02C07FCC29857EB9546BEAE1471E073A928DFBD5A50FBDACA638E52",
+      "mods/crafting-unlocks/src/sha256.hpp": "EC7582CEBA6D7A9A2A36CD3CB5F16BBBDDF5C0288211166425BC16AC17298A10",
+      "mods/crafting-unlocks/src/silenced_integration.hpp": "987BAB44CF791D42BC52FA5CBE5A27A8A0FA7871D4DE3279DEEFA3533A08FF24",
+      "mods/crafting-unlocks/src/special_boot_thunk.s": "87763D23871A67D22C5D41C767A939E65B33E36B4B6D426957F11028BFAED5D6",
+      "mods/crafting-unlocks/src/version.hpp": "79AB60B26BBCB92853BB08DCDE1465D90242CAD577CAD99D3DF8C02EE1BC11D9",
+      "mods/crafting-unlocks/src/weapons/appearance.hpp": "47E07FC4379033B6BD8931618E661C4820EA212F3DFE3544797A2BE1AC6EA813",
+      "mods/crafting-unlocks/src/weapons/attachment.hpp": "04CFB6BD10CED768384A0CADF5637498E824F5C0143619F5F494126325A2E367",
+      "mods/crafting-unlocks/src/weapons/core.hpp": "5270D7A87D751C8728B0C1A896CC3D24F47F44598709609F9BBCB8360EF8806F",
+      "mods/crafting-unlocks/src/weapons/menu_icon.hpp": "9867860FA1F8E92805433CD0C6EDCD5838F85683946A994722BB31651C39E718",
+      "mods/crafting-unlocks/src/weapons/pistol.hpp": "AE609BF043E68313EB9278AD19A3336049D41E0EC0B726FC6EAD8F0E22304416",
+      "mods/crafting-unlocks/src/weapons/pistol_gpu.cpp": "38E1369EB55F9774513CE6F76A3C41D86A1B42C85C924CBCA1606F0C58A27622",
+      "mods/crafting-unlocks/src/weapons/runtime.cpp": "E5CC59661B6B26AA2037592294081733CBDAAB1D6034C9BD433956535EC4E611",
+      "mods/crafting-unlocks/src/weapons/win_api.hpp": "17885CC80BD57E4E8CD3D281EC20AAB388BF9337D214F1763FAFB169D07F9C1C",
+      "mods/crafting-unlocks/src/win_api.hpp": "E94FB661C749E0DB4599BAE8C478E8506FB8B7CE45BA343DB76EDDF686BDDC71"
+    },
+    "previousSha256": "1885C8861673D262726E9B3207140E11D726F18851DAF363735CC6E597765882",
+    "sourceArtifact": "build/native-suite-repeat/crafting-unlocks/ds2_crafting_unlocks.asi"
+  },
+  {
+    "id": "jump-ramp-unlimited",
+    "version": "1.0.0",
+    "file": "ds2_jump_ramp_unlimited.asi",
+    "sha256": "E7C64ADD96ADB9FECFA5EA609EAF6454122F6262B118AA6BE2CDE125ABB9A2E9",
+    "bytes": 110592,
+    "compiler": "C:\\Program Files\\LLVM\\bin\\clang-cl.exe",
+    "msvc": "14.44.35207",
+    "windowsSdk": "10.0.26100.0",
+    "sourceHashes": {
+      "mods/jump-ramp-unlimited/src/jump_ramp_unlimited.cpp": "157A88656AA2D7408881577D8FE7D4903FA6B0FABA5F841A12CEA4BD28721DEB",
+      "mods/jump-ramp-unlimited/src/windows.h": "5CBB5BAE0A66FAAAB511FE957DDCE6A9DC0BB21FC03C45F767689BA529ACA674"
+    },
+    "previousSha256": "6F6E2256F58B766822915DBA3801D32678C24A2EF855F1BDA9B0A16859FD3E7F",
+    "sourceArtifact": "build/native-suite-repeat/jump-ramp-unlimited/ds2_jump_ramp_unlimited.asi"
+  },
+  {
+    "id": "beach-jump-with-cargo",
+    "version": "1.0.0",
+    "file": "ds2_beach_jump_with_cargo.asi",
+    "sha256": "6F387B1A50E2E0A968B491B2F3E2A375C5457E82218AD706483ADE6874BDD50F",
+    "bytes": 108544,
+    "compiler": "C:\\Program Files\\LLVM\\bin\\clang-cl.exe",
+    "msvc": "14.44.35207",
+    "windowsSdk": "10.0.26100.0",
+    "sourceHashes": {
+      "mods/beach-jump-with-cargo/src/beach_jump_with_cargo.cpp": "11886EEB7543FC8BE64E25BB94F4EB7096DA34ACFED85E11B373837F4C23B54F",
+      "mods/beach-jump-with-cargo/src/windows.h": "DCBFD6A1513FE169845F3115ACC6C49DF1D972A51630096D4130FDBE0C5DBE7F"
+    },
+    "previousSha256": "23272BF40C571C5CDBEED9148459CFAA1D7F20F0E76F2A08D5E83A5DA11E2567",
+    "sourceArtifact": "build/native-suite-repeat/beach-jump-with-cargo/ds2_beach_jump_with_cargo.asi"
+  },
+  {
+    "id": "sam-overhaul",
+    "version": "1.1.0",
+    "file": "DS2_Sam_Overhaul_v1.1.0.asi",
+    "sha256": "3461C835DCB46890451B2AD8D3984D268A60F80AF1F4110426084B58825B19B4",
+    "bytes": 194048,
+    "compiler": "C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\cl.exe",
+    "msvc": "14.44.35207",
+    "windowsSdk": "10.0.26100.0",
+    "sourceHashes": {
+      "mods/sam-overhaul/src/autodrive_config_io.inl": "F3AEA31A340B0FBAC1B02AE4B815123A5A3CFBCDD4E12A992902E5303CB4C4E3",
+      "mods/sam-overhaul/src/autodrive_install.inl": "99EA504DFA08490989D9F75F9C65EDE682680F965005228C4787508D35356C0E",
+      "mods/sam-overhaul/src/autodrive_settings.h": "685D88526CB0D172011DE9A9AC32C4364FEA7B5144950D4AC7BCC6592997EEE4",
+      "mods/sam-overhaul/src/autodrive_timer_code.h": "3FCCD4355A0C090E83944311392092DE08DFDCE6D84DA19E543BCA85C3DEDF46",
+      "mods/sam-overhaul/src/construction_charger_update.cpp": "46C99542AEF78861E81108E626FA1BFE3586866E11301753DEBAAD78C52DEC79",
+      "mods/sam-overhaul/src/construction_ranges.cpp": "D320FB3F8B51A1A637C807A11392DFF9CC475919B67FDEEFBDD85B2547307466",
+      "mods/sam-overhaul/src/construction_refresh.cpp": "B99E18E8F61F8906708D07960ED4E15E66EF8A8BD757297E1A12311F13A0BF11",
+      "mods/sam-overhaul/src/construction_repair_gate.asm": "A12B622A9C9FD23BA1955B69F4927F6EBB23F01BF79B097CD8D4CD3E168F45DB",
+      "mods/sam-overhaul/src/construction_repair_gate.cpp": "7348D93C09E6127E33009B1AC8C3E9203B1F6688D2A1D7747AF29E07B98DE4BB",
+      "mods/sam-overhaul/src/construction_shelter.cpp": "2242EC01B7156E8A986B0332986637138983AADEC462ABFA6044C359F60CA680",
+      "mods/sam-overhaul/src/footprints/footprint_api.h": "74B07FEFA86EDD7C6C1635774B01D7171999E10FFA77F16929EFFCEFFE8B37B2",
+      "mods/sam-overhaul/src/footprints/footprint_core.h": "ECF8CC4746FB9AD9FD5AD358CE06ACBD56317C50C83EDB46B6C65561B69B39CA",
+      "mods/sam-overhaul/src/footprints/footprints.cpp": "CDB92835AAE7C52407F0CEC4BA3E61660745C07C4D37F76210F59A5C029BBD54",
+      "mods/sam-overhaul/src/footprints/minimal_crt.c": "AA2F22E5D5E0B07FC4ABF7C40F268F56E7EAD5884D1DDB7018698D23339C995B",
+      "mods/sam-overhaul/src/native_jump_rel32.h": "9F67F994092C09BABA09DA6F5132447C8A90BF4059C6447677FF08C0349662D5",
+      "mods/sam-overhaul/src/sam_overhaul.cpp": "6E0C2DFDD7FF8E0F443AA465B1AD6C70D302D546BB2108EDBC2600CA69FCC21F",
+      "mods/sam-overhaul/src/shelter_rest_label.cpp": "3910762DFEF3B67BD22CFA308D8DB76DC7D14B9648EE636B3CA1ABE6492FEC6B",
+      "mods/sam-overhaul/src/shelter_steady_state.h": "DC16B48A39B9656B82982A93497A0B471323B9921958F2DC7DE1892CABF6950E",
+      "mods/sam-overhaul/src/shelter_visual_policy.h": "AF3C26150764C882E3DB078BA187D682CAFD9F45A76B042E4C97B4FEC514A7E1",
+      "mods/sam-overhaul/src/truck_weapon_config.inl": "7749B0097618115663682ADEDF9C3641BCE4AB19A3A4E8F807CFC7C3D1BF7B63",
+      "mods/sam-overhaul/src/truck_weapon_streaming.inl": "6EDE8A453B87CCAEB5026CD989A5FDDA36019920AD29EA0C3EAB752C924F6C34",
+      "mods/sam-overhaul/vendor/minhook/include/MinHook.h": "C3608E584BD9659AEBDBB4C8C82585605989193623F240552D35C43311B3D31A",
+      "mods/sam-overhaul/vendor/minhook/src/buffer.c": "69045B390E0F18CF149EA0451AE750F389654EB8D2ED7F2F89C7FF04B7909519",
+      "mods/sam-overhaul/vendor/minhook/src/buffer.h": "175EC5496C020509CF4C7670322B51B5BCD5B63A345BFEFC4A19B43675857FA7",
+      "mods/sam-overhaul/vendor/minhook/src/hde/hde32.c": "2D4D7DD73D609028822AAF71AC05112B83FE6CC2AE2D6D71FA051B3FC6ACFC43",
+      "mods/sam-overhaul/vendor/minhook/src/hde/hde32.h": "754579FBCEC5F64FA229646CEECB241C0B7F31C8A0BB12370E604C316C569315",
+      "mods/sam-overhaul/vendor/minhook/src/hde/hde64.c": "06B588A5140E15F0A55E13DDADC7E3A4648F3223CEFAB2D5285B796A422BB9F5",
+      "mods/sam-overhaul/vendor/minhook/src/hde/hde64.h": "FD5B39E2865E12B9525EBDA8FD9E9658B341EAD5932D1BCB412A189F81CA42CA",
+      "mods/sam-overhaul/vendor/minhook/src/hde/pstdint.h": "975488009779EA99C7E04B83A160397D5CD7195CB5BF6AD79180805F756C7D00",
+      "mods/sam-overhaul/vendor/minhook/src/hde/table32.h": "E56F8641BD9133C1B99A1E6555B19EEBE7ED663E5EA8DE4EDBE74BA461161AB4",
+      "mods/sam-overhaul/vendor/minhook/src/hde/table64.h": "0B6C69AD498E67907E0C574AB06123AEE4EC30C99FA181099EA929A8D820BFC1",
+      "mods/sam-overhaul/vendor/minhook/src/hook.c": "4005D39875CA4B8A957AABBA73BD053CBA77E50A8B383D48E0CB44C13F26669B",
+      "mods/sam-overhaul/vendor/minhook/src/trampoline.c": "824ED887EC9DA606960962AF8973205D1F97CD03241E75517EBA485280FB6377",
+      "mods/sam-overhaul/vendor/minhook/src/trampoline.h": "23681F7768D5DBD23EA14B45BA64E488A337501F23122253C532B05DBED4B85F"
+    },
+    "previousSha256": "DCA56B593B0CF2B81A59CEA764455D7EEFF678371E492E6C6C610D2B5F6D9A3B",
+    "sourceArtifact": "build/native-suite-repeat/sam-overhaul/DS2_Sam_Overhaul_v1.1.0.asi"
+  }
+]

@@ -1,0 +1,30 @@
+{
+  "name": "Crafting and Equipment Overhaul - Unlocks - Free Crafting - Durability - ATLAS Gear",
+  "game": "DEATH STRANDING 2: ON THE BEACH",
+  "nexusGame": "deathstranding2onthebeach",
+  "nexusModId": 86,
+  "nexusUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/86",
+  "pageVersion": "1.0.0",
+  "sourceStatus": "release-workspace",
+  "sourceNote": "Source from the published-release workspace; binaries are downloaded from Nexus. No new runtime test was performed for this source import. The optional Chiral Boots 1.0.0 source is included separately. Native textures, rendered game images and embedded mesh/cache payloads remain local build inputs.",
+  "currentFiles": [
+    {
+      "fileId": 389,
+      "name": "DS2_Crafting_Equipment_Overhaul_v1.9.9",
+      "version": "1.9.9",
+      "category": "MAIN",
+      "sha256": "f1e0c139b362c308d042dd5c1f30ba2d5e5a3dd268d93e4156d73f5d6bf8ffbd",
+      "bytes": 575081,
+      "downloadUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/86?tab=files&file_id=389"
+    },
+    {
+      "fileId": 390,
+      "name": "DS2 ATLAS Chiral Boots Addon V1.0.0",
+      "version": "1.0.0",
+      "category": "OPTIONAL",
+      "sha256": "78c732ddcd2549e68ec3302de99625c8954cd8be8ed5af38c3b67867b5533982",
+      "bytes": 6000054,
+      "downloadUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/86?tab=files&file_id=390"
+    }
+  ]
+}

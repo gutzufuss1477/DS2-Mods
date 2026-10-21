@@ -1,0 +1,66 @@
+{
+  "name": "Infrastructure One Unit",
+  "slug": "infrastructure-one-unit",
+  "version": "1.1.0",
+  "platform": "Steam PC",
+  "supportedGame": {
+    "name": "DEATH STRANDING 2: ON THE BEACH",
+    "version": "1.10.89.0",
+    "ds2ExeSha256": "BF3D1C665545930BC850D8F5DF486F7395885BB729D4FD408FDB03390DE0765B",
+    "peTimestamp": "0x6A3DAE46",
+    "imageSize": "0x0B292000"
+  },
+  "binary": {
+    "path": "reference/ds2_infrastructure_one_unit.asi",
+    "sha256": "E8BB57DCE383CD8542041985E9165EF522FD02B40580A9EDAD715D8F5F1D2EEA",
+    "provenance": "LLVM source build of the validated mine-price/GUI logic; v1.1.0 release label. 1-crystal mining and 1/1 UI were verified in-game in prior development tests."
+  },
+  "configuration": {
+    "remainingUnits": {
+      "default": 1,
+      "minimum": 1,
+      "maximum": 1000000,
+      "scope": "per still-open construction/upgrade material category"
+    },
+    "mineProductionCrystalCost": {
+      "default": 0,
+      "minimum": 0,
+      "maximum": 1000000,
+      "disabledValue": 0,
+      "rule": "for positive values, reduce each native mine extraction batch price to min(native price, configured positive price); preserve original material output"
+    }
+  },
+  "supportedPaths": [
+    "road-stage-1",
+    "road-stage-2",
+    "monorail-stage-1",
+    "mine-stage-1",
+    "mine-stage-2",
+    "mine-stage-3",
+    "mine-material-extraction"
+  ],
+  "validation": {
+    "gameConfirmed": [
+      "one-crystal extraction at different mines",
+      "native material yield",
+      "native one-crystal debit",
+      "1/1 active mine menu denominator"
+    ],
+    "offlineOnly": [
+      "mine price settings 0,2,5,10,25,50,100,500,1000,1500"
+    ],
+    "note": "Only the 1-crystal case is confirmed in-game; individual positive values besides 1 remain to be separately tested."
+  },
+  "release": {
+    "path": "release/DS2_Infrastructure_One_Unit_v1.1.0.zip",
+    "sha256": "585FCFA6F84968820852734A1CD8E5986448C52C51249EFAD463B57BD4556F7D",
+    "contents": [
+      "CHANGELOG.txt",
+      "README.txt",
+      "SHA256.txt",
+      "ds2_infrastructure_one_unit.asi",
+      "ds2_infrastructure_one_unit.ini"
+    ],
+    "replaces": "Infrastructure One Unit v1.0.0 in the same mod folder; same ASI and INI filenames"
+  }
+}

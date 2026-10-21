@@ -1,0 +1,21 @@
+{
+  "name": "Cargo Capacity Expansion for Pickup",
+  "game": "DEATH STRANDING 2: ON THE BEACH",
+  "nexusGame": "deathstranding2onthebeach",
+  "nexusModId": 61,
+  "nexusUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/61",
+  "pageVersion": "2",
+  "sourceStatus": "release-workspace",
+  "sourceNote": "Source from the published-release workspace; binaries are downloaded from Nexus. No new runtime test was performed for this source import.",
+  "currentFiles": [
+    {
+      "fileId": 366,
+      "name": "DS2 Pickup Cargo Capacity V3",
+      "version": "3",
+      "category": "MAIN",
+      "sha256": "f9869f3faa5e678de348e41b70a41ce8bcef730d07a80419d2f8d59dc5ffc832",
+      "bytes": 64658,
+      "downloadUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/61?tab=files&file_id=366"
+    }
+  ]
+}

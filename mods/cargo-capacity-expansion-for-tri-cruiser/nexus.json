@@ -1,0 +1,21 @@
+{
+  "name": "Cargo Capacity Expansion for Tri-Cruiser",
+  "game": "DEATH STRANDING 2: ON THE BEACH",
+  "nexusGame": "deathstranding2onthebeach",
+  "nexusModId": 64,
+  "nexusUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/64",
+  "pageVersion": "1",
+  "sourceStatus": "release-workspace",
+  "sourceNote": "Source from the published-release workspace; binaries are downloaded from Nexus. No new runtime test was performed for this source import.",
+  "currentFiles": [
+    {
+      "fileId": 252,
+      "name": "DS2 TriCruiser CargoCapacity V2",
+      "version": "2",
+      "category": "MAIN",
+      "sha256": "0df9581929ad62a7624a97027e58d599b755ed2a335ce588970b38c42d4790a3",
+      "bytes": 7583,
+      "downloadUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/64?tab=files&file_id=252"
+    }
+  ]
+}

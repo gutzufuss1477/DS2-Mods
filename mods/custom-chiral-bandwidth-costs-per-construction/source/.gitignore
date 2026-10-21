@@ -1,0 +1,5 @@
+build/
+tools/__pycache__/
+release/*_TEST_*/
+release/*_TEST_*.zip
+release/*_TEST_*.zip.sha256.txt

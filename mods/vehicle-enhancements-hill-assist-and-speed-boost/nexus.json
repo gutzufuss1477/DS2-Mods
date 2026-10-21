@@ -1,0 +1,21 @@
+{
+  "name": "Vehicle Enhancements - Hill Assist and Speed Boost",
+  "game": "DEATH STRANDING 2: ON THE BEACH",
+  "nexusGame": "deathstranding2onthebeach",
+  "nexusModId": 53,
+  "nexusUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/53",
+  "pageVersion": "2",
+  "sourceStatus": "release-workspace",
+  "sourceNote": "Source from the published-release workspace; binaries are downloaded from Nexus. No new runtime test was performed for this source import.",
+  "currentFiles": [
+    {
+      "fileId": 223,
+      "name": "Hill Assist and Speed Boost V2 Installer",
+      "version": "2",
+      "category": "MAIN",
+      "sha256": "35648d929b4b3136a4e5a7e451410dfa8bb5e4565645480683c9c50c7433ace8",
+      "bytes": 18890,
+      "downloadUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/53?tab=files&file_id=223"
+    }
+  ]
+}

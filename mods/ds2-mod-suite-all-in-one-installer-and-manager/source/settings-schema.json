@@ -1,0 +1,4001 @@
+{
+  "schemaVersion": 1,
+  "mods": [
+    {
+      "modId": "hill-assist-and-speed-boost",
+      "files": [
+        {
+          "target": "PickupTruckHillAssist.ini",
+          "sections": [
+            {
+              "name": "HillAssist",
+              "fields": [
+                {
+                  "key": "Enabled",
+                  "type": "bool"
+                },
+                {
+                  "key": "GripPercent",
+                  "type": "int",
+                  "min": 100,
+                  "max": 600
+                },
+                {
+                  "key": "MinimumFrictionPercent",
+                  "type": "int",
+                  "min": 100,
+                  "max": 400
+                },
+                {
+                  "key": "AssistStartSlopeDegrees",
+                  "type": "int",
+                  "min": 0,
+                  "max": 60
+                },
+                {
+                  "key": "FullAssistSlopeDegrees",
+                  "type": "int",
+                  "min": 1,
+                  "max": 80
+                },
+                {
+                  "key": "MaximumFrictionPercent",
+                  "type": "int",
+                  "min": 100,
+                  "max": 2000
+                },
+                {
+                  "key": "StopAfterChangedEntries",
+                  "type": "int",
+                  "min": 0,
+                  "max": 256,
+                  "advanced": true
+                },
+                {
+                  "key": "ScanStartGroup",
+                  "type": "int",
+                  "min": 0,
+                  "max": 20000,
+                  "advanced": true
+                },
+                {
+                  "key": "ScanEndGroup",
+                  "type": "int",
+                  "min": 1,
+                  "max": 30000,
+                  "advanced": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "target": "VehicleSpeedBoost.ini",
+          "sections": [
+            {
+              "name": "VehicleSpeedBoost",
+              "fields": [
+                {
+                  "key": "Enabled",
+                  "type": "bool"
+                },
+                {
+                  "key": "TruckNormalSpeedPercent",
+                  "type": "int",
+                  "min": 50,
+                  "max": 300,
+                  "aliases": [
+                    "TruckNormalRoadSpeedPercent"
+                  ]
+                },
+                {
+                  "key": "BikeNormalSpeedPercent",
+                  "type": "int",
+                  "min": 50,
+                  "max": 300,
+                  "aliases": [
+                    "BikeNormalRoadSpeedPercent"
+                  ]
+                },
+                {
+                  "key": "TruckBoostTopSpeedPercent",
+                  "type": "int",
+                  "min": 100,
+                  "max": 300
+                },
+                {
+                  "key": "BikeBoostTopSpeedPercent",
+                  "type": "int",
+                  "min": 100,
+                  "max": 300
+                },
+                {
+                  "key": "StopAfterProfiles",
+                  "type": "int",
+                  "min": 0,
+                  "max": 64,
+                  "advanced": true
+                },
+                {
+                  "key": "ScanStartGroup",
+                  "type": "int",
+                  "min": 0,
+                  "max": 20000,
+                  "advanced": true
+                },
+                {
+                  "key": "ScanEndGroup",
+                  "type": "int",
+                  "min": 1,
+                  "max": 30000,
+                  "advanced": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "modId": "pickup-cargo-capacity",
+      "files": [
+        {
+          "target": "PickupCargoCapacity.ini",
+          "sections": [
+            {
+              "name": "PickupCargoCapacity",
+              "fields": [
+                {
+                  "key": "Enabled",
+                  "type": "bool"
+                },
+                {
+                  "key": "CapacityUnits",
+                  "type": "int",
+                  "min": 160,
+                  "max": 480,
+                  "multipleOf": 16
+                },
+                {
+                  "key": "RearIndicatorScaling",
+                  "type": "bool",
+                  "label": "Scale rear load indicator",
+                  "labelDe": "Heck-Ladeanzeige skalieren",
+                  "description": "Scale all ten rear indicator segments to the configured capacity. On by default. Does not change cargo capacity.",
+                  "descriptionDe": "Passt die zehn Segmente der Heckanzeige an die eingestellte Kapazität an. Standardmäßig an. Ändert die Frachtkapazität nicht.",
+                  "group": "Pickup cargo capacity",
+                  "groupDe": "Pickup-Frachtkapazität"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "modId": "coffin-board-all-terrain-speed",
+      "files": [
+        {
+          "target": "ds2_coffin_board_all_terrain_speed.ini",
+          "sections": [
+            {
+              "name": "CoffinBoardAllTerrainSpeed",
+              "fields": [
+                {
+                  "key": "Enabled",
+                  "type": "bool"
+                },
+                {
+                  "key": "SpeedPercent",
+                  "type": "int",
+                  "min": 100,
+                  "max": 1000
+                },
+                {
+                  "key": "AccelerationPercent",
+                  "type": "int",
+                  "min": 100,
+                  "max": 500
+                },
+                {
+                  "key": "AllowFloatingCarrier",
+                  "type": "bool"
+                },
+                {
+                  "key": "EnableNetworkTraversal",
+                  "type": "bool"
+                },
+                {
+                  "key": "EnableOutsideNetworkMount",
+                  "type": "bool"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "modId": "climbing-power-gloves-range",
+      "files": [
+        {
+          "target": "ds2_climbing_gloves_range.ini",
+          "sections": [
+            {
+              "name": "ClimbingGlovesRange",
+              "fields": [
+                {
+                  "key": "Enabled",
+                  "type": "bool",
+                  "label": "Enable glove mod",
+                  "labelDe": "Handschuh-Mod aktivieren",
+                  "description": "Master switch for both Climbing range changes and Combat cargo pickup.",
+                  "descriptionDe": "Hauptschalter für die Kletterhandschuh-Reichweiten und das Aufnehmen mit Kampfhandschuhen."
+                },
+                {
+                  "key": "Level1RangeMeters",
+                  "type": "decimal",
+                  "min": 8,
+                  "max": 100,
+                  "label": "Climbing gloves Lv.1 range (m)",
+                  "labelDe": "Kletterhandschuhe Stufe 1: Reichweite (m)"
+                },
+                {
+                  "key": "Level2RangeMeters",
+                  "type": "decimal",
+                  "min": 10,
+                  "max": 100,
+                  "label": "Climbing gloves Lv.2 range (m)",
+                  "labelDe": "Kletterhandschuhe Stufe 2: Reichweite (m)",
+                  "description": "10–100 m; must be at least the Level 1 range. Default: 50 m. Applies only to Climbing Power Gloves.",
+                  "descriptionDe": "10–100 m; mindestens so groß wie die Reichweite von Stufe 1. Standard: 50 m. Gilt nur für Kletterhandschuhe."
+                },
+                {
+                  "key": "DebugLog",
+                  "type": "bool",
+                  "advanced": true
+                }
+              ]
+            },
+            {
+              "name": "CombatGloves",
+              "fields": [
+                {
+                  "key": "EnableCargoPickup",
+                  "type": "bool",
+                  "label": "Magnetic cargo pickup with Combat gloves",
+                  "labelDe": "Magnetisches Aufnehmen mit Kampfhandschuhen",
+                  "description": "Enabled by default in v1.1.0. Requires the glove master switch. Combat attacks stay native; this release has no separate Combat range controls.",
+                  "descriptionDe": "In v1.1.0 standardmäßig an. Benötigt den Hauptschalter. Normale Angriffe bleiben erhalten; diese Version hat keine eigenen Kampfhandschuh-Reichweitenregler."
+                }
+              ]
+            },
+            {
+              "name": "CombatDebug",
+              "fields": [
+                {
+                  "key": "LiveDebug",
+                  "type": "bool",
+                  "label": "Combat live diagnostics",
+                  "labelDe": "Live-Diagnose für Kampfhandschuhe",
+                  "description": "Advanced diagnostic switch; keep the release default unless troubleshooting.",
+                  "descriptionDe": "Erweiterter Diagnoseschalter; Vorgabe der Veröffentlichung nur zur Fehlersuche ändern.",
+                  "advanced": true
+                },
+                {
+                  "key": "ScanGeneration",
+                  "type": "int",
+                  "label": "Combat scan generation",
+                  "labelDe": "Scan-Generation der Kampfhandschuhe",
+                  "description": "Diagnostic scan generation, from 0 to 1000000. Release default: 1.",
+                  "descriptionDe": "Diagnostische Scan-Generation von 0 bis 1000000. Vorgabe: 1.",
+                  "advanced": true,
+                  "min": 0,
+                  "max": 1000000
+                },
+                {
+                  "key": "FallbackAction",
+                  "type": "int",
+                  "label": "Combat fallback action",
+                  "labelDe": "Ersatzaktion der Kampfhandschuhe",
+                  "description": "Diagnostic action override, from -1 to 248. Keep -1 for the release behavior.",
+                  "descriptionDe": "Diagnostische Aktionsvorgabe von -1 bis 248. Für das veröffentlichte Verhalten bei -1 belassen.",
+                  "advanced": true,
+                  "min": -1,
+                  "max": 248
+                },
+                {
+                  "key": "RootSubcategoryFallback",
+                  "type": "bool",
+                  "label": "Combat root fallback",
+                  "labelDe": "Stamm-Ersatzlogik der Kampfhandschuhe",
+                  "description": "Advanced pickup fallback used by the release. Default: enabled.",
+                  "descriptionDe": "Erweiterte Ersatzlogik beim Aufheben. Vorgabe der Veröffentlichung: aktiviert.",
+                  "advanced": true
+                },
+                {
+                  "key": "MapRightWriterToLeft",
+                  "type": "bool",
+                  "label": "Map right pickup writer to left",
+                  "labelDe": "Rechte Aufhebe-Schreibroutine auf links umleiten",
+                  "description": "Diagnostic routing override. Keep disabled for the vehicle cargo stowing fix.",
+                  "descriptionDe": "Diagnostische Umleitung. Für die Korrektur beim Verstauen von Fahrzeugfracht deaktiviert lassen.",
+                  "advanced": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "modId": "sam-stats-booster",
+      "files": [
+        {
+          "target": "SamStatsBooster.ini",
+          "sections": [
+            {
+              "name": "SamStatsBooster",
+              "fields": [
+                {
+                  "key": "Enabled",
+                  "type": "bool"
+                },
+                {
+                  "key": "Multiplier",
+                  "type": "decimal",
+                  "min": 1.0,
+                  "max": 100.0
+                }
+              ]
+            },
+            {
+              "name": "Stats",
+              "fields": [
+                {
+                  "key": "TerrainTraversal",
+                  "type": "bool"
+                },
+                {
+                  "key": "CarryingCapacity",
+                  "type": "bool"
+                },
+                {
+                  "key": "Endurance",
+                  "type": "bool"
+                },
+                {
+                  "key": "KOResistance",
+                  "type": "bool"
+                },
+                {
+                  "key": "LungCapacity",
+                  "type": "bool"
+                },
+                {
+                  "key": "StrandSkills",
+                  "type": "bool"
+                },
+                {
+                  "key": "MeleeCombat",
+                  "type": "bool"
+                },
+                {
+                  "key": "Handguns",
+                  "type": "bool"
+                },
+                {
+                  "key": "AssaultRifles",
+                  "type": "bool"
+                },
+                {
+                  "key": "SniperRifles",
+                  "type": "bool"
+                },
+                {
+                  "key": "MachineGuns",
+                  "type": "bool"
+                },
+                {
+                  "key": "Shotguns",
+                  "type": "bool"
+                },
+                {
+                  "key": "StealthTakedown",
+                  "type": "bool",
+                  "advanced": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "modId": "porter-grade-booster",
+      "files": [
+        {
+          "target": "PorterGradeBooster.ini",
+          "sections": [
+            {
+              "name": "PorterGradeBooster",
+              "fields": [
+                {
+                  "key": "Enabled",
+                  "type": "bool"
+                },
+                {
+                  "key": "Mode",
+                  "type": "choice",
+                  "choices": [
+                    "Multiplier",
+                    "Additive",
+                    "Both"
+                  ]
+                },
+                {
+                  "key": "Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 1000.0
+                },
+                {
+                  "key": "ExtraPoints",
+                  "type": "uint64",
+                  "min": 0,
+                  "max": 18446744073709551615,
+                  "advanced": true
+                },
+                {
+                  "key": "Porter",
+                  "type": "bool"
+                },
+                {
+                  "key": "Combat",
+                  "type": "bool"
+                },
+                {
+                  "key": "Stealth",
+                  "type": "bool"
+                },
+                {
+                  "key": "Service",
+                  "type": "bool"
+                },
+                {
+                  "key": "BridgeLink",
+                  "type": "bool"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "modId": "lost-cargo-likes-booster",
+      "files": [
+        {
+          "target": "ds2_lost_cargo_likes_booster.ini",
+          "sections": [
+            {
+              "name": "LostCargoLikesBooster",
+              "fields": [
+                {
+                  "key": "ExtraLikes",
+                  "type": "int",
+                  "min": 1,
+                  "max": 1000000
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "modId": "no-magellan-evaluation",
+      "files": [
+        {
+          "target": "ds2_no_magellan_evaluation.ini",
+          "sections": [
+            {
+              "name": "NoMagellanEvaluation",
+              "fields": [
+                {
+                  "key": "Enabled",
+                  "type": "bool"
+                },
+                {
+                  "key": "DebugLog",
+                  "type": "bool",
+                  "advanced": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "modId": "construction-anywhere",
+      "files": [
+        {
+          "target": "ds2_construction_anywhere.ini",
+          "sections": [
+            {
+              "name": "ConstructionAnywhere",
+              "fields": [
+                {
+                  "key": "Enabled",
+                  "type": "bool"
+                },
+                {
+                  "key": "RemoveProximityLimit",
+                  "type": "bool"
+                },
+                {
+                  "key": "AllowRestrictedAreas",
+                  "type": "bool"
+                },
+                {
+                  "key": "IgnorePermittedAreaWhitelist",
+                  "type": "bool",
+                  "advanced": true
+                },
+                {
+                  "key": "DebugLog",
+                  "type": "bool",
+                  "advanced": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "modId": "construction-max-level-on-build",
+      "files": [
+        {
+          "target": "ds2_construction_max_level_on_build.ini",
+          "sections": [
+            {
+              "name": "ConstructionMaxLevelOnBuild",
+              "fields": [
+                {
+                  "key": "Enabled",
+                  "type": "bool"
+                },
+                {
+                  "key": "DebugLog",
+                  "type": "bool",
+                  "advanced": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "modId": "weapons-anywhere",
+      "files": [
+        {
+          "target": "ds2_weapons_anywhere.ini",
+          "sections": [
+            {
+              "name": "WeaponsAnywhere",
+              "fields": [
+                {
+                  "key": "Enabled",
+                  "type": "bool"
+                },
+                {
+                  "key": "DebugLog",
+                  "type": "bool",
+                  "advanced": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "modId": "zipline-range",
+      "files": [
+        {
+          "target": "ds2_zipline_range.ini",
+          "sections": [
+            {
+              "name": "ZiplineRange",
+              "fields": [
+                {
+                  "key": "Enabled",
+                  "type": "bool"
+                },
+                {
+                  "key": "Level1RangeMeters",
+                  "type": "decimal",
+                  "min": 300.0,
+                  "max": 1000.0
+                },
+                {
+                  "key": "Level2RangeMeters",
+                  "type": "decimal",
+                  "min": 350.0,
+                  "max": 1000.0
+                },
+                {
+                  "key": "SpeedMultiplier",
+                  "type": "decimal",
+                  "min": 0.25,
+                  "max": 10.0
+                },
+                {
+                  "key": "IgnoreConnectionObstacles",
+                  "type": "bool",
+                  "default": "0",
+                  "advanced": true
+                },
+                {
+                  "key": "DebugLog",
+                  "type": "bool",
+                  "advanced": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "modId": "chiral-bandwidth-costs",
+      "files": [
+        {
+          "target": "ds2_chiral_bandwidth_costs.ini",
+          "sections": [
+            {
+              "name": "ChiralBandwidthCosts",
+              "fields": [
+                {
+                  "key": "Enabled",
+                  "type": "bool"
+                },
+                {
+                  "key": "DebugLog",
+                  "type": "bool",
+                  "advanced": true
+                },
+                {
+                  "key": "Postbox",
+                  "type": "nativeOrInt",
+                  "min": 0,
+                  "max": 1000000
+                },
+                {
+                  "key": "SafeHouse",
+                  "type": "nativeOrInt",
+                  "min": 0,
+                  "max": 1000000
+                },
+                {
+                  "key": "Watchtower",
+                  "type": "nativeOrInt",
+                  "min": 0,
+                  "max": 1000000
+                },
+                {
+                  "key": "CargoCatapult",
+                  "type": "nativeOrInt",
+                  "min": 0,
+                  "max": 1000000
+                },
+                {
+                  "key": "Generator",
+                  "type": "nativeOrInt",
+                  "min": 0,
+                  "max": 1000000
+                },
+                {
+                  "key": "RainShelter",
+                  "type": "nativeOrInt",
+                  "min": 0,
+                  "max": 1000000
+                },
+                {
+                  "key": "Zipline",
+                  "type": "nativeOrInt",
+                  "min": 0,
+                  "max": 1000000
+                },
+                {
+                  "key": "Bridge",
+                  "type": "nativeOrInt",
+                  "min": 0,
+                  "max": 1000000
+                },
+                {
+                  "key": "ChiralBridge",
+                  "type": "nativeOrInt",
+                  "min": 0,
+                  "max": 1000000
+                },
+                {
+                  "key": "JumpRamp",
+                  "type": "nativeOrInt",
+                  "min": 0,
+                  "max": 1000000
+                },
+                {
+                  "key": "HotSpringDigger",
+                  "type": "nativeOrInt",
+                  "min": 0,
+                  "max": 1000000,
+                  "advanced": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "modId": "infrastructure-one-unit",
+      "files": [
+        {
+          "target": "ds2_infrastructure_one_unit.ini",
+          "sections": [
+            {
+              "name": "InfrastructureOneUnit",
+              "fields": [
+                {
+                  "key": "Enabled",
+                  "type": "bool"
+                },
+                {
+                  "key": "RemainingUnits",
+                  "type": "int",
+                  "min": 1,
+                  "max": 1000000
+                },
+                {
+                  "key": "RoadConstruction",
+                  "type": "bool"
+                },
+                {
+                  "key": "RoadUpgrades",
+                  "type": "bool"
+                },
+                {
+                  "key": "MonorailConstruction",
+                  "type": "bool"
+                },
+                {
+                  "key": "MineConstruction",
+                  "type": "bool"
+                },
+                {
+                  "key": "MineUpgrades",
+                  "type": "bool"
+                },
+                {
+                  "key": "MineProductionCrystalCost",
+                  "type": "int",
+                  "label": "Mine extraction crystal cost",
+                  "labelDe": "Kristallkosten der Minenförderung",
+                  "description": "0 = vanilla; 1 = one crystal per extraction batch. Only reduces native costs. Separate from construction and upgrades.",
+                  "descriptionDe": "0 = Spielstandard; 1 = ein Kristall pro Fördervorgang. Reduziert nur die normalen Kosten. Unabhängig von Bau und Verbesserungen.",
+                  "group": "Mine extraction",
+                  "groupDe": "Minenförderung",
+                  "min": 0,
+                  "max": 1000000
+                },
+                {
+                  "key": "DebugLog",
+                  "type": "bool",
+                  "advanced": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "modId": "remote-orders-overlay",
+      "files": [
+        {
+          "target": "DS2_Remote_Orders_Overlay.ini",
+          "sections": [
+            {
+              "name": "Localization",
+              "fields": [
+                {
+                  "key": "Language",
+                  "type": "choice",
+                  "choices": [
+                    "auto",
+                    "en",
+                    "de",
+                    "fr",
+                    "it",
+                    "es-ES",
+                    "es-419",
+                    "pt-PT",
+                    "pt-BR",
+                    "ar",
+                    "cs",
+                    "nl",
+                    "el",
+                    "ja",
+                    "ko",
+                    "pl",
+                    "ru",
+                    "zh-CN",
+                    "zh-TW"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "modId": "extended-bt-cord-cutting-range",
+      "files": [
+        {
+          "target": "ds2_extended_bt_cord_cutting_range.ini",
+          "sections": [
+            {
+              "name": "Range",
+              "fields": [
+                {
+                  "key": "Enabled",
+                  "type": "bool"
+                },
+                {
+                  "key": "Multiplier",
+                  "type": "decimal",
+                  "min": 1.0,
+                  "max": 50.0
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "modId": "apas-memory-costs",
+      "files": [
+        {
+          "target": "ds2_apas_memory_costs.ini",
+          "sections": [
+            {
+              "name": "APASMemoryCosts",
+              "fields": [
+                {
+                  "key": "Enabled",
+                  "type": "bool"
+                },
+                {
+                  "key": "GlobalCost",
+                  "type": "int",
+                  "min": 0,
+                  "max": 1000000
+                }
+              ]
+            },
+            {
+              "name": "APASUnlocks",
+              "fields": [
+                {
+                  "key": "UnlockAll",
+                  "type": "bool",
+                  "default": "0"
+                },
+                {
+                  "key": "EarlyAccess",
+                  "type": "bool",
+                  "default": "0"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "modId": "proficiency-bonus-multiplier",
+      "files": [
+        {
+          "target": "DS2_ProficiencyBonusMultiplier.ini",
+          "sections": [
+            {
+              "name": "Safety",
+              "fields": [
+                {
+                  "key": "ClampReductionFactorsAtZero",
+                  "type": "bool"
+                }
+              ]
+            },
+            {
+              "name": "TerrainTraversal",
+              "fields": [
+                {
+                  "key": "Enabled",
+                  "type": "bool"
+                },
+                {
+                  "key": "Level1Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level2Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level3Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level4Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level5Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                }
+              ]
+            },
+            {
+              "name": "CarryingCapacity",
+              "fields": [
+                {
+                  "key": "Enabled",
+                  "type": "bool"
+                },
+                {
+                  "key": "Level1Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level2Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level3Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level4Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level5Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                }
+              ]
+            },
+            {
+              "name": "Endurance",
+              "fields": [
+                {
+                  "key": "Enabled",
+                  "type": "bool"
+                },
+                {
+                  "key": "Level1Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level2Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level3Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level4Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level5Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                }
+              ]
+            },
+            {
+              "name": "KOResistance",
+              "fields": [
+                {
+                  "key": "Enabled",
+                  "type": "bool"
+                },
+                {
+                  "key": "Level1Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level2Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level3Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level4Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level5Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                }
+              ]
+            },
+            {
+              "name": "LungCapacity",
+              "fields": [
+                {
+                  "key": "Enabled",
+                  "type": "bool"
+                },
+                {
+                  "key": "Level1Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level2Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level3Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level4Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level5Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                }
+              ]
+            },
+            {
+              "name": "StrandSkills",
+              "fields": [
+                {
+                  "key": "Enabled",
+                  "type": "bool"
+                },
+                {
+                  "key": "Level1Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level2Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level3Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level4Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level5Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                }
+              ]
+            },
+            {
+              "name": "MeleeCombat",
+              "fields": [
+                {
+                  "key": "Enabled",
+                  "type": "bool"
+                },
+                {
+                  "key": "Level1Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level2Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level3Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level4Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level5Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                }
+              ]
+            },
+            {
+              "name": "Handguns",
+              "fields": [
+                {
+                  "key": "Enabled",
+                  "type": "bool"
+                },
+                {
+                  "key": "Level1Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level2Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level3Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level4Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level5Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                }
+              ]
+            },
+            {
+              "name": "AssaultRifles",
+              "fields": [
+                {
+                  "key": "Enabled",
+                  "type": "bool"
+                },
+                {
+                  "key": "Level1Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level2Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level3Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level4Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level5Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                }
+              ]
+            },
+            {
+              "name": "SniperRifles",
+              "fields": [
+                {
+                  "key": "Enabled",
+                  "type": "bool"
+                },
+                {
+                  "key": "Level1Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level2Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level3Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level4Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level5Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                }
+              ]
+            },
+            {
+              "name": "MachineGuns",
+              "fields": [
+                {
+                  "key": "Enabled",
+                  "type": "bool"
+                },
+                {
+                  "key": "Level1Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level2Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level3Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level4Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level5Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                }
+              ]
+            },
+            {
+              "name": "Shotguns",
+              "fields": [
+                {
+                  "key": "Enabled",
+                  "type": "bool"
+                },
+                {
+                  "key": "Level1Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level2Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level3Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level4Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                },
+                {
+                  "key": "Level5Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0
+                }
+              ]
+            },
+            {
+              "name": "StealthTakedownInternal",
+              "fields": [
+                {
+                  "key": "Enabled",
+                  "type": "bool",
+                  "advanced": true
+                },
+                {
+                  "key": "Level1Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0,
+                  "advanced": true
+                },
+                {
+                  "key": "Level2Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0,
+                  "advanced": true
+                },
+                {
+                  "key": "Level3Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0,
+                  "advanced": true
+                },
+                {
+                  "key": "Level4Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0,
+                  "advanced": true
+                },
+                {
+                  "key": "Level5Multiplier",
+                  "type": "decimal",
+                  "min": 0.0,
+                  "max": 10.0,
+                  "advanced": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "modId": "improved-odradek-scan",
+      "files": [
+        {
+          "target": "ds2_odradek_scan.ini",
+          "sections": [
+            {
+              "name": "OdradekScan",
+              "fields": [
+                {
+                  "key": "Enabled",
+                  "type": "bool"
+                },
+                {
+                  "key": "RangeMeters",
+                  "type": "decimal",
+                  "min": 50,
+                  "max": 1000
+                },
+                {
+                  "key": "VisualWaveScale",
+                  "type": "decimal",
+                  "min": 0.25,
+                  "max": 1,
+                  "advanced": true
+                },
+                {
+                  "key": "FullCircle",
+                  "type": "bool"
+                },
+                {
+                  "key": "FullCircleMode",
+                  "type": "choice",
+                  "choices": [
+                    "Fan360",
+                    "Sphere",
+                    "LegacySphere",
+                    "Spherical"
+                  ],
+                  "advanced": true,
+                  "description": "Fan360 is the terrain-safe default; Sphere is a compatible alias. LegacySphere and Spherical are experimental and can affect terrain markings.",
+                  "descriptionDe": "Fan360 ist der geländesichere Standard; Sphere ist ein kompatibler Alias. LegacySphere und Spherical sind experimentell und können Geländemarkierungen beeinträchtigen."
+                },
+                {
+                  "key": "ExtendCargoMarkers",
+                  "type": "bool"
+                },
+                {
+                  "key": "DebugLog",
+                  "type": "bool",
+                  "advanced": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "modId": "crafting-unlocks",
+      "files": [
+        {
+          "target": "ds2_crafting_unlocks.ini",
+          "sections": [
+            {
+              "name": "CraftingUnlocks",
+              "fields": [
+                {
+                  "key": "Enabled",
+                  "type": "bool",
+                  "label": "Enable Crafting Overhaul",
+                  "labelDe": "Crafting Overhaul aktivieren",
+                  "description": "Master switch for this mod.",
+                  "descriptionDe": "Hauptschalter für diesen Mod."
+                },
+                {
+                  "key": "DefaultUnlock",
+                  "type": "bool",
+                  "label": "Default early unlock (inherited items)",
+                  "labelDe": "Standard-Freischaltung (geerbte Werte)",
+                  "description": "Fallback for items set to Use Default Unlock / inherit or absent from the INI. Explicit per-item choices take priority.",
+                  "descriptionDe": "Standard für Gegenstände mit Default Unlock übernehmen / inherit oder ohne INI-Eintrag. Explizite Einzelentscheidungen haben Vorrang."
+                },
+                {
+                  "key": "FreeCrafting",
+                  "type": "bool",
+                  "label": "Free Crafting",
+                  "labelDe": "Kostenlos herstellen",
+                  "description": "Off by default. Supported recipes require no materials when enabled.",
+                  "descriptionDe": "Standardmäßig aus. Unterstützte Rezepte benötigen bei Aktivierung keine Materialien."
+                },
+                {
+                  "key": "ExportCatalogue",
+                  "type": "bool",
+                  "advanced": true
+                }
+              ]
+            },
+            {
+              "name": "PCCStructures",
+              "fields": [
+                {
+                  "key": "UnlockAll",
+                  "type": "bool",
+                  "label": "Unlock PCC building choices early",
+                  "labelDe": "PCC-Bauoptionen früh freischalten",
+                  "description": "On by default. Unlock standard PCC choices early; native PCC level, network, bandwidth, materials and placement rules still apply. Excludes Hot Spring Digger, mission structures and 80-m bridges.",
+                  "descriptionDe": "Standardmäßig an. Schaltet Standard-PCC-Bauoptionen früh frei; PCC-Stufe, Netz, Bandbreite, Materialien und Platzierungsregeln gelten weiterhin. Ohne Thermalquellenbohrer, Missionsbauten und 80-m-Brücken.",
+                  "group": "PCC structures",
+                  "groupDe": "PCC-Bauten"
+                }
+              ]
+            },
+            {
+              "name": "Durability",
+              "fields": [
+                {
+                  "key": "Enabled",
+                  "type": "bool",
+                  "label": "Enable durability changes",
+                  "labelDe": "Haltbarkeitsänderungen aktivieren",
+                  "description": "Off by default. Applies to supported equipment, weapons, boots and backpack covers; cargo and containers stay native.",
+                  "descriptionDe": "Standardmäßig aus. Gilt für unterstützte Ausrüstung, Waffen, Stiefel und Rucksackhüllen; Fracht und Behälter bleiben unverändert."
+                },
+                {
+                  "key": "Multiplier",
+                  "type": "decimal",
+                  "min": 1,
+                  "max": 1000,
+                  "label": "Durability multiplier",
+                  "labelDe": "Haltbarkeitsmultiplikator",
+                  "description": "1–1000; requires durability changes enabled. Unbreakable overrides this value.",
+                  "descriptionDe": "1–1000; benötigt aktivierte Haltbarkeitsänderungen. Unzerstörbar hat Vorrang."
+                },
+                {
+                  "key": "Unbreakable",
+                  "type": "bool",
+                  "label": "Unbreakable",
+                  "labelDe": "Unzerstörbar",
+                  "description": "Prevents future wear when durability changes are enabled. Does not repair existing damage.",
+                  "descriptionDe": "Verhindert weiteren Verschleiß bei aktivierten Haltbarkeitsänderungen. Repariert keine bestehenden Schäden."
+                }
+              ]
+            },
+            {
+              "name": "AtlasEquipment",
+              "fields": [
+                {
+                  "key": "Enabled",
+                  "type": "bool",
+                  "label": "ATLAS equipment",
+                  "labelDe": "ATLAS-Ausrüstung",
+                  "description": "Show ATLAS boots and skeleton recipes. Already saved equipment remains usable when disabled. Requires CraftingUnlocks Enabled.",
+                  "descriptionDe": "Zeigt Rezepte für ATLAS-Stiefel und -Skelett. Bereits gespeicherte Ausrüstung bleibt nach dem Abschalten nutzbar. Benötigt CraftingUnlocks Enabled.",
+                  "advanced": false
+                },
+                {
+                  "key": "GoldSkeletonSkin",
+                  "type": "bool",
+                  "label": "Gold ATLAS skeleton",
+                  "labelDe": "Goldenes ATLAS-Skelett",
+                  "description": "Use the gold ATLAS skeleton appearance. Enabled by default in the public release.",
+                  "descriptionDe": "Verwendet das goldene Aussehen des ATLAS-Skeletts. In der öffentlichen Version standardmäßig aktiviert.",
+                  "advanced": false
+                }
+              ]
+            },
+            {
+              "name": "SuppressedWeapons",
+              "fields": [
+                {
+                  "key": "Enabled",
+                  "type": "bool",
+                  "label": "Suppressed weapon recipes",
+                  "labelDe": "Rezepte für schallgedämpfte Waffen",
+                  "description": "Show four suppressed weapon recipes. Already saved weapons remain usable when disabled. Requires CraftingUnlocks Enabled.",
+                  "descriptionDe": "Zeigt vier Rezepte für schallgedämpfte Waffen. Bereits gespeicherte Waffen bleiben nach dem Abschalten nutzbar. Benötigt CraftingUnlocks Enabled.",
+                  "advanced": false
+                },
+                {
+                  "key": "AssaultRifleL2",
+                  "type": "bool",
+                  "label": "Suppressed assault rifle Lv. 2",
+                  "labelDe": "Schallgedämpftes Sturmgewehr St. 2",
+                  "description": "Enable this suppressed weapon recipe.",
+                  "descriptionDe": "Aktiviert das Rezept für diese schallgedämpfte Waffe.",
+                  "advanced": false
+                },
+                {
+                  "key": "MachineGunL2",
+                  "type": "bool",
+                  "label": "Suppressed machine gun Lv. 2",
+                  "labelDe": "Schallgedämpftes Maschinengewehr St. 2",
+                  "description": "Enable this suppressed weapon recipe.",
+                  "descriptionDe": "Aktiviert das Rezept für diese schallgedämpfte Waffe.",
+                  "advanced": false
+                },
+                {
+                  "key": "ShotgunL2",
+                  "type": "bool",
+                  "label": "Suppressed shotgun Lv. 2",
+                  "labelDe": "Schallgedämpfte Schrotflinte St. 2",
+                  "description": "Enable this suppressed weapon recipe.",
+                  "descriptionDe": "Aktiviert das Rezept für diese schallgedämpfte Waffe.",
+                  "advanced": false
+                },
+                {
+                  "key": "BigBoreHandgun",
+                  "type": "bool",
+                  "label": "Suppressed big-bore handgun",
+                  "labelDe": "Schallgedämpfte Großkaliberpistole",
+                  "description": "Enable this suppressed weapon recipe.",
+                  "descriptionDe": "Aktiviert das Rezept für diese schallgedämpfte Waffe.",
+                  "advanced": false
+                },
+                {
+                  "key": "BlackRed",
+                  "type": "bool",
+                  "label": "Black and red weapon appearance",
+                  "labelDe": "Schwarz-rotes Waffenaussehen",
+                  "description": "Use black and red weapon models and menu icons.",
+                  "descriptionDe": "Verwendet schwarz-rote Waffenmodelle und Menüsymbole.",
+                  "advanced": false
+                },
+                {
+                  "key": "MGVisualSuppressor",
+                  "type": "bool",
+                  "label": "Machine gun suppressor model",
+                  "labelDe": "Schalldämpfermodell des Maschinengewehrs",
+                  "description": "Show the visual suppressor on this weapon.",
+                  "descriptionDe": "Zeigt den sichtbaren Schalldämpfer an dieser Waffe.",
+                  "advanced": false
+                },
+                {
+                  "key": "ShotgunVisualSuppressor",
+                  "type": "bool",
+                  "label": "Shotgun suppressor model",
+                  "labelDe": "Schalldämpfermodell der Schrotflinte",
+                  "description": "Show the visual suppressor on this weapon.",
+                  "descriptionDe": "Zeigt den sichtbaren Schalldämpfer an dieser Waffe.",
+                  "advanced": false
+                },
+                {
+                  "key": "BigBoreVisualSuppressor",
+                  "type": "bool",
+                  "label": "Handgun suppressor model",
+                  "labelDe": "Schalldämpfermodell der Pistole",
+                  "description": "Show the visual suppressor on this weapon.",
+                  "descriptionDe": "Zeigt den sichtbaren Schalldämpfer an dieser Waffe.",
+                  "advanced": false
+                },
+                {
+                  "key": "Language",
+                  "type": "choice",
+                  "label": "Custom weapon name language",
+                  "labelDe": "Sprache der eigenen Waffennamen",
+                  "description": "In-game weapon names only: follow the game, German or English. Independent of the manager interface language.",
+                  "descriptionDe": "Nur für Waffennamen im Spiel: Spielsprache, Deutsch oder Englisch. Unabhängig von der Sprache der Manager-Oberfläche.",
+                  "advanced": false,
+                  "choices": [
+                    "0",
+                    "1",
+                    "2"
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Items",
+              "fields": [
+                {
+                  "key": "0x6E7D4315",
+                  "type": "choice",
+                  "label": "Porter Boots",
+                  "advanced": true,
+                  "group": "Boots",
+                  "groupDe": "Stiefel",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x7D2DB0E1",
+                  "type": "choice",
+                  "label": "Trekking Boots",
+                  "advanced": true,
+                  "group": "Boots",
+                  "groupDe": "Stiefel",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x0F4633E2",
+                  "type": "choice",
+                  "label": "Combat Boots",
+                  "advanced": true,
+                  "group": "Boots",
+                  "groupDe": "Stiefel",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x1C16C016",
+                  "type": "choice",
+                  "label": "Pizza Chef's Boots",
+                  "advanced": true,
+                  "group": "Boots",
+                  "groupDe": "Stiefel",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x5B8C5709",
+                  "type": "choice",
+                  "label": "Stealth Boots",
+                  "advanced": true,
+                  "group": "Boots",
+                  "groupDe": "Stiefel",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x16CF98D9",
+                  "type": "choice",
+                  "label": "All-Terrain Boots",
+                  "advanced": true,
+                  "group": "Boots",
+                  "groupDe": "Stiefel",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x75D99124",
+                  "type": "choice",
+                  "label": "Omnireflector Boots",
+                  "advanced": true,
+                  "group": "Boots",
+                  "groupDe": "Stiefel",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x07B21227",
+                  "type": "choice",
+                  "label": "Chiral Boots",
+                  "advanced": true,
+                  "group": "Boots",
+                  "groupDe": "Stiefel",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x7DDFDB62",
+                  "type": "choice",
+                  "label": "Battle Skeleton Lv.1",
+                  "advanced": true,
+                  "group": "Skeletons",
+                  "groupDe": "Skelette",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x6E8F2896",
+                  "type": "choice",
+                  "label": "Battle Skeleton Lv.2",
+                  "advanced": true,
+                  "group": "Skeletons",
+                  "groupDe": "Skelette",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x1CE4AB95",
+                  "type": "choice",
+                  "label": "Battle Skeleton Lv.3",
+                  "advanced": true,
+                  "group": "Skeletons",
+                  "groupDe": "Skelette",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x493873FB",
+                  "type": "choice",
+                  "label": "Bokka Skeleton Lv.1",
+                  "advanced": true,
+                  "group": "Skeletons",
+                  "groupDe": "Skelette",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x5A68800F",
+                  "type": "choice",
+                  "label": "Bokka Skeleton Lv.2",
+                  "advanced": true,
+                  "group": "Skeletons",
+                  "groupDe": "Skelette",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x2803030C",
+                  "type": "choice",
+                  "label": "Bokka Skeleton Lv.3",
+                  "advanced": true,
+                  "group": "Skeletons",
+                  "groupDe": "Skelette",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x5A9AEB8C",
+                  "type": "choice",
+                  "label": "Boost Skeleton Lv.1",
+                  "advanced": true,
+                  "group": "Skeletons",
+                  "groupDe": "Skelette",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x49CA1878",
+                  "type": "choice",
+                  "label": "Boost Skeleton Lv.2",
+                  "advanced": true,
+                  "group": "Skeletons",
+                  "groupDe": "Skelette",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x3BA19B7B",
+                  "type": "choice",
+                  "label": "Boost Skeleton Lv.3",
+                  "advanced": true,
+                  "group": "Skeletons",
+                  "groupDe": "Skelette",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x529CA1CA",
+                  "type": "choice",
+                  "label": "Combat Power Gloves Lv.1",
+                  "advanced": true,
+                  "group": "Gloves And Protection",
+                  "groupDe": "Handschuhe und Schutz",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x33A7D13D",
+                  "type": "choice",
+                  "label": "Combat Power Gloves Lv.2",
+                  "advanced": true,
+                  "group": "Gloves And Protection",
+                  "groupDe": "Handschuhe und Schutz",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x20F722C9",
+                  "type": "choice",
+                  "label": "Climbing Power Gloves Lv.1",
+                  "advanced": true,
+                  "group": "Gloves And Protection",
+                  "groupDe": "Handschuhe und Schutz",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x41CC523E",
+                  "type": "choice",
+                  "label": "Climbing Power Gloves Lv.2",
+                  "advanced": true,
+                  "group": "Gloves And Protection",
+                  "groupDe": "Handschuhe und Schutz",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x413E39BD",
+                  "type": "choice",
+                  "label": "Thermal Pad",
+                  "advanced": true,
+                  "group": "Gloves And Protection",
+                  "groupDe": "Handschuhe und Schutz",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x3355BABE",
+                  "type": "choice",
+                  "label": "Oxygen Mask",
+                  "advanced": true,
+                  "group": "Gloves And Protection",
+                  "groupDe": "Handschuhe und Schutz",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x5CCBD2CD",
+                  "type": "choice",
+                  "label": "Blood Bag",
+                  "advanced": true,
+                  "group": "Supplies And Tools",
+                  "groupDe": "Verbrauchsmaterial und Werkzeuge",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x4F9B2139",
+                  "type": "choice",
+                  "label": "High-Capacity Blood Bag",
+                  "advanced": true,
+                  "group": "Supplies And Tools",
+                  "groupDe": "Verbrauchsmaterial und Werkzeuge",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x4944250E",
+                  "type": "choice",
+                  "label": "PCC Lv.1",
+                  "advanced": true,
+                  "group": "Supplies And Tools",
+                  "groupDe": "Verbrauchsmaterial und Werkzeuge",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x3B2FA60D",
+                  "type": "choice",
+                  "label": "PCC Lv.2",
+                  "advanced": true,
+                  "group": "Supplies And Tools",
+                  "groupDe": "Verbrauchsmaterial und Werkzeuge",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x5AE6BD79",
+                  "type": "choice",
+                  "label": "PCC Lv.3",
+                  "advanced": true,
+                  "group": "Supplies And Tools",
+                  "groupDe": "Verbrauchsmaterial und Werkzeuge",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x6FE5C2E6",
+                  "type": "choice",
+                  "label": "Container Repair Spray",
+                  "advanced": true,
+                  "group": "Supplies And Tools",
+                  "groupDe": "Verbrauchsmaterial und Werkzeuge",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x1D8E41E5",
+                  "type": "choice",
+                  "label": "Ladder",
+                  "advanced": true,
+                  "group": "Supplies And Tools",
+                  "groupDe": "Verbrauchsmaterial und Werkzeuge",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x0EDEB211",
+                  "type": "choice",
+                  "label": "Climbing Anchor",
+                  "advanced": true,
+                  "group": "Supplies And Tools",
+                  "groupDe": "Verbrauchsmaterial und Werkzeuge",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x7D51E614",
+                  "type": "choice",
+                  "label": "Signpost",
+                  "advanced": true,
+                  "group": "Supplies And Tools",
+                  "groupDe": "Verbrauchsmaterial und Werkzeuge",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x4708E49F",
+                  "type": "choice",
+                  "label": "Floating Carrier Lv.1",
+                  "advanced": true,
+                  "group": "Transport Equipment",
+                  "groupDe": "Transportausrüstung",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x5458176B",
+                  "type": "choice",
+                  "label": "Floating Carrier Lv.2",
+                  "advanced": true,
+                  "group": "Transport Equipment",
+                  "groupDe": "Transportausrüstung",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x0184CF05",
+                  "type": "choice",
+                  "label": "Coffin Board",
+                  "advanced": true,
+                  "group": "Transport Equipment",
+                  "groupDe": "Transportausrüstung",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x385B0CD0",
+                  "type": "choice",
+                  "label": "Maser Handgun",
+                  "advanced": true,
+                  "group": "Handguns And Rifles",
+                  "groupDe": "Handfeuerwaffen und Gewehre",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x17187678",
+                  "type": "choice",
+                  "label": "Machine Pistol [MP]",
+                  "advanced": true,
+                  "group": "Handguns And Rifles",
+                  "groupDe": "Handfeuerwaffen und Gewehre",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x6573F57B",
+                  "type": "choice",
+                  "label": "SL Machine Pistol [MP]",
+                  "advanced": true,
+                  "group": "Handguns And Rifles",
+                  "groupDe": "Handfeuerwaffen und Gewehre",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x7623068F",
+                  "type": "choice",
+                  "label": "Big-Bore Handgun [MP]",
+                  "advanced": true,
+                  "group": "Handguns And Rifles",
+                  "groupDe": "Handfeuerwaffen und Gewehre",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x58772475",
+                  "type": "choice",
+                  "label": "SL Tranq Handgun",
+                  "advanced": true,
+                  "group": "Handguns And Rifles",
+                  "groupDe": "Handfeuerwaffen und Gewehre",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x055FDDDE",
+                  "type": "choice",
+                  "label": "Grenade Pistol [MP]",
+                  "advanced": true,
+                  "group": "Handguns And Rifles",
+                  "groupDe": "Handfeuerwaffen und Gewehre",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x38365FC3",
+                  "type": "choice",
+                  "label": "Assault Rifle [MP] Lv.1",
+                  "advanced": true,
+                  "group": "Handguns And Rifles",
+                  "groupDe": "Handfeuerwaffen und Gewehre",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x7FACC8DC",
+                  "type": "choice",
+                  "label": "Assault Rifle [MP] Lv.2",
+                  "advanced": true,
+                  "group": "Handguns And Rifles",
+                  "groupDe": "Handfeuerwaffen und Gewehre",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x2B66AC37",
+                  "type": "choice",
+                  "label": "LW Assault Rifle [MP] Lv.1",
+                  "advanced": true,
+                  "group": "Handguns And Rifles",
+                  "groupDe": "Handfeuerwaffen und Gewehre",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x590D2F34",
+                  "type": "choice",
+                  "label": "LW Assault Rifle [MP] Lv.2",
+                  "advanced": true,
+                  "group": "Handguns And Rifles",
+                  "groupDe": "Handfeuerwaffen und Gewehre",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x6CFC3B28",
+                  "type": "choice",
+                  "label": "SL-LW Assault Rifle [MP] Lv.1",
+                  "advanced": true,
+                  "group": "Handguns And Rifles",
+                  "groupDe": "Handfeuerwaffen und Gewehre",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x1E97B82B",
+                  "type": "choice",
+                  "label": "SL-LW Assault Rifle [MP] Lv.2",
+                  "advanced": true,
+                  "group": "Handguns And Rifles",
+                  "groupDe": "Handfeuerwaffen und Gewehre",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x1775256B",
+                  "type": "choice",
+                  "label": "Shotgun [MP] Lv.1",
+                  "advanced": true,
+                  "group": "Handguns And Rifles",
+                  "groupDe": "Handfeuerwaffen und Gewehre",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x22843177",
+                  "type": "choice",
+                  "label": "Shotgun [MP] Lv.2",
+                  "advanced": true,
+                  "group": "Handguns And Rifles",
+                  "groupDe": "Handfeuerwaffen und Gewehre",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x764E559C",
+                  "type": "choice",
+                  "label": "LW Shotgun [MP] Lv.1",
+                  "advanced": true,
+                  "group": "Handguns And Rifles",
+                  "groupDe": "Handfeuerwaffen und Gewehre",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x0425D69F",
+                  "type": "choice",
+                  "label": "LW Shotgun [MP] Lv.2",
+                  "advanced": true,
+                  "group": "Handguns And Rifles",
+                  "groupDe": "Handfeuerwaffen und Gewehre",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x3234B715",
+                  "type": "choice",
+                  "label": "Tranq Sniper Rifle",
+                  "advanced": true,
+                  "group": "Handguns And Rifles",
+                  "groupDe": "Handfeuerwaffen und Gewehre",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x405F3416",
+                  "type": "choice",
+                  "label": "LW Tranq Sniper Rifle",
+                  "advanced": true,
+                  "group": "Handguns And Rifles",
+                  "groupDe": "Handfeuerwaffen und Gewehre",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x530FC7E2",
+                  "type": "choice",
+                  "label": "SL-LW Tranq Sniper Rifle",
+                  "advanced": true,
+                  "group": "Handguns And Rifles",
+                  "groupDe": "Handfeuerwaffen und Gewehre",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x3259E406",
+                  "type": "choice",
+                  "label": "Bola Gun",
+                  "advanced": true,
+                  "group": "Handguns And Rifles",
+                  "groupDe": "Handfeuerwaffen und Gewehre",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x40326705",
+                  "type": "choice",
+                  "label": "Bola Stun Gun",
+                  "advanced": true,
+                  "group": "Handguns And Rifles",
+                  "groupDe": "Handfeuerwaffen und Gewehre",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x1D77CDBD",
+                  "type": "choice",
+                  "label": "Sticky Gun",
+                  "advanced": true,
+                  "group": "Handguns And Rifles",
+                  "groupDe": "Handfeuerwaffen und Gewehre",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x1C6095EF",
+                  "type": "choice",
+                  "label": "Machine Gun [MP] Lv.2",
+                  "advanced": true,
+                  "group": "Heavy Weapons",
+                  "groupDe": "Schwere Waffen",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x0F30661B",
+                  "type": "choice",
+                  "label": "LW Machine Gun [MP] Lv.1",
+                  "advanced": true,
+                  "group": "Heavy Weapons",
+                  "groupDe": "Schwere Waffen",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x6E0B16EC",
+                  "type": "choice",
+                  "label": "LW Machine Gun [MP] Lv.2",
+                  "advanced": true,
+                  "group": "Heavy Weapons",
+                  "groupDe": "Schwere Waffen",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x20731CB3",
+                  "type": "choice",
+                  "label": "Grenade Launcher [MP]",
+                  "advanced": true,
+                  "group": "Heavy Weapons",
+                  "groupDe": "Schwere Waffen",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x41486C44",
+                  "type": "choice",
+                  "label": "LW Grenade Launcher [MP]",
+                  "advanced": true,
+                  "group": "Heavy Weapons",
+                  "groupDe": "Schwere Waffen",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x3323EF47",
+                  "type": "choice",
+                  "label": "RD Grenade Launcher [MP]",
+                  "advanced": true,
+                  "group": "Heavy Weapons",
+                  "groupDe": "Schwere Waffen",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x67E98BAC",
+                  "type": "choice",
+                  "label": "LW-RD Grenade Launcher [MP]",
+                  "advanced": true,
+                  "group": "Heavy Weapons",
+                  "groupDe": "Schwere Waffen",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x05328ECD",
+                  "type": "choice",
+                  "label": "Quadruple Rocket Launcher",
+                  "advanced": true,
+                  "group": "Heavy Weapons",
+                  "groupDe": "Schwere Waffen",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x6409FE3A",
+                  "type": "choice",
+                  "label": "Multirocket Launcher",
+                  "advanced": true,
+                  "group": "Heavy Weapons",
+                  "groupDe": "Schwere Waffen",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x16627D39",
+                  "type": "choice",
+                  "label": "LW Multirocket Launcher",
+                  "advanced": true,
+                  "group": "Heavy Weapons",
+                  "groupDe": "Schwere Waffen",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x77590DCE",
+                  "type": "choice",
+                  "label": "LW Seven-Rocket Launcher",
+                  "advanced": true,
+                  "group": "Heavy Weapons",
+                  "groupDe": "Schwere Waffen",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x7CB53112",
+                  "type": "choice",
+                  "label": "Rocket Box [MP]",
+                  "advanced": true,
+                  "group": "Heavy Weapons",
+                  "groupDe": "Schwere Waffen",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x0A4CBAE9",
+                  "type": "choice",
+                  "label": "Tar Cannon",
+                  "advanced": true,
+                  "group": "Heavy Weapons",
+                  "groupDe": "Schwere Waffen",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x782739EA",
+                  "type": "choice",
+                  "label": "Chiral Shock Cannon",
+                  "advanced": true,
+                  "group": "Heavy Weapons",
+                  "groupDe": "Schwere Waffen",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x32A0685E",
+                  "type": "choice",
+                  "label": "Stun Bomb",
+                  "advanced": true,
+                  "group": "Grenades, Mines And Traps",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ],
+                  "groupDe": "Granaten, Minen und Fallen"
+                },
+                {
+                  "key": "0x7FE3A78E",
+                  "type": "choice",
+                  "label": "Remote Stun Bomb",
+                  "advanced": true,
+                  "group": "Grenades, Mines And Traps",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ],
+                  "groupDe": "Granaten, Minen und Fallen"
+                },
+                {
+                  "key": "0x40CBEB5D",
+                  "type": "choice",
+                  "label": "MP Grenade",
+                  "advanced": true,
+                  "group": "Grenades, Mines And Traps",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ],
+                  "groupDe": "Granaten, Minen und Fallen"
+                },
+                {
+                  "key": "0x666A0CB5",
+                  "type": "choice",
+                  "label": "Blood Grenade Lv.1",
+                  "advanced": true,
+                  "group": "Grenades, Mines And Traps",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ],
+                  "groupDe": "Granaten, Minen und Fallen"
+                },
+                {
+                  "key": "0x1E2ABCFA",
+                  "type": "choice",
+                  "label": "Blood Grenade Lv.2",
+                  "advanced": true,
+                  "group": "Grenades, Mines And Traps",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ],
+                  "groupDe": "Granaten, Minen und Fallen"
+                },
+                {
+                  "key": "0x753AFF41",
+                  "type": "choice",
+                  "label": "Smoke Grenade",
+                  "advanced": true,
+                  "group": "Grenades, Mines And Traps",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ],
+                  "groupDe": "Granaten, Minen und Fallen"
+                },
+                {
+                  "key": "0x539B18A9",
+                  "type": "choice",
+                  "label": "EX Grenade",
+                  "advanced": true,
+                  "group": "Grenades, Mines And Traps",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ],
+                  "groupDe": "Granaten, Minen und Fallen"
+                },
+                {
+                  "key": "0x21F09BAA",
+                  "type": "choice",
+                  "label": "EX Capture Grenade",
+                  "advanced": true,
+                  "group": "Grenades, Mines And Traps",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ],
+                  "groupDe": "Granaten, Minen und Fallen"
+                },
+                {
+                  "key": "0x14018FB6",
+                  "type": "choice",
+                  "label": "Decoy Hologrenade",
+                  "advanced": true,
+                  "group": "Grenades, Mines And Traps",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ],
+                  "groupDe": "Granaten, Minen und Fallen"
+                },
+                {
+                  "key": "0x0D88248D",
+                  "type": "choice",
+                  "label": "BT Hologrenade",
+                  "advanced": true,
+                  "group": "Grenades, Mines And Traps",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ],
+                  "groupDe": "Granaten, Minen und Fallen"
+                },
+                {
+                  "key": "0x66986736",
+                  "type": "choice",
+                  "label": "Stealth Hologrenade",
+                  "advanced": true,
+                  "group": "Grenades, Mines And Traps",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ],
+                  "groupDe": "Granaten, Minen und Fallen"
+                },
+                {
+                  "key": "0x527FCFAF",
+                  "type": "choice",
+                  "label": "Phantom Gas Grenade",
+                  "advanced": true,
+                  "group": "Grenades, Mines And Traps",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ],
+                  "groupDe": "Granaten, Minen und Fallen"
+                },
+                {
+                  "key": "0x288D3E7A",
+                  "type": "choice",
+                  "label": "Dog Mine",
+                  "advanced": true,
+                  "group": "Grenades, Mines And Traps",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ],
+                  "groupDe": "Granaten, Minen und Fallen"
+                },
+                {
+                  "key": "0x49B64E8D",
+                  "type": "choice",
+                  "label": "Electric Trap",
+                  "advanced": true,
+                  "group": "Grenades, Mines And Traps",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ],
+                  "groupDe": "Granaten, Minen und Fallen"
+                },
+                {
+                  "key": "0x581A7766",
+                  "type": "choice",
+                  "label": "Custom Electric Rod",
+                  "advanced": true,
+                  "group": "Melee And Special Equipment",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ],
+                  "groupDe": "Nahkampf und Spezialausrüstung"
+                },
+                {
+                  "key": "0x2A71F465",
+                  "type": "choice",
+                  "label": "Custom High-Voltage Rod",
+                  "advanced": true,
+                  "group": "Melee And Special Equipment",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ],
+                  "groupDe": "Nahkampf und Spezialausrüstung"
+                },
+                {
+                  "key": "0x39210791",
+                  "type": "choice",
+                  "label": "Custom Twin Rod",
+                  "advanced": true,
+                  "group": "Melee And Special Equipment",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ],
+                  "groupDe": "Nahkampf und Spezialausrüstung"
+                },
+                {
+                  "key": "0x3BDDCD8E",
+                  "type": "choice",
+                  "label": "Battle Guitar",
+                  "advanced": true,
+                  "group": "Melee And Special Equipment",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ],
+                  "groupDe": "Nahkampf und Spezialausrüstung"
+                },
+                {
+                  "key": "0x20144CAC",
+                  "type": "choice",
+                  "label": "Rubber Pizza",
+                  "advanced": true,
+                  "group": "Melee And Special Equipment",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ],
+                  "groupDe": "Nahkampf und Spezialausrüstung"
+                },
+                {
+                  "key": "0x1D7C2A66",
+                  "type": "choice",
+                  "label": "Deployable Shield",
+                  "advanced": true,
+                  "group": "Melee And Special Equipment",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ],
+                  "groupDe": "Nahkampf und Spezialausrüstung"
+                },
+                {
+                  "key": "0x7C475A91",
+                  "type": "choice",
+                  "label": "Floating Sentry Gun",
+                  "advanced": true,
+                  "group": "Melee And Special Equipment",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ],
+                  "groupDe": "Nahkampf und Spezialausrüstung"
+                },
+                {
+                  "key": "0x6C3A478B",
+                  "type": "choice",
+                  "label": "Assault Rifle [RB] Lv.1",
+                  "advanced": true,
+                  "group": "Enemy-Drop Weapons",
+                  "groupDe": "Gegnerwaffen",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x1EA3AF0B",
+                  "type": "choice",
+                  "label": "Assault Rifle [RB] Lv.2",
+                  "advanced": true,
+                  "group": "Enemy-Drop Weapons",
+                  "groupDe": "Gegnerwaffen",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x6CC82C08",
+                  "type": "choice",
+                  "label": "Assault Rifle [RB] Lv.3",
+                  "advanced": true,
+                  "group": "Enemy-Drop Weapons",
+                  "groupDe": "Gegnerwaffen",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x1E51C488",
+                  "type": "choice",
+                  "label": "Shotgun [RP] Lv.1",
+                  "advanced": true,
+                  "group": "Enemy-Drop Weapons",
+                  "groupDe": "Gegnerwaffen",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x380248E3",
+                  "type": "choice",
+                  "label": "Shotgun [RP] Lv.2",
+                  "advanced": true,
+                  "group": "Enemy-Drop Weapons",
+                  "groupDe": "Gegnerwaffen",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x4A69CBE0",
+                  "type": "choice",
+                  "label": "Shotgun [RP] Lv.3",
+                  "advanced": true,
+                  "group": "Enemy-Drop Weapons",
+                  "groupDe": "Gegnerwaffen",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x38F02360",
+                  "type": "choice",
+                  "label": "Tranq Grenade Launcher",
+                  "advanced": true,
+                  "group": "Enemy-Drop Weapons",
+                  "groupDe": "Gegnerwaffen",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x14889C47",
+                  "type": "choice",
+                  "label": "Electric Rod",
+                  "advanced": true,
+                  "group": "Enemy-Drop Weapons",
+                  "groupDe": "Gegnerwaffen",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x4B7F7765",
+                  "type": "choice",
+                  "label": "High-Voltage Rod",
+                  "advanced": true,
+                  "group": "Enemy-Drop Weapons",
+                  "groupDe": "Gegnerwaffen",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x3914F466",
+                  "type": "choice",
+                  "label": "Twin Rod",
+                  "advanced": true,
+                  "group": "Enemy-Drop Weapons",
+                  "groupDe": "Gegnerwaffen",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x0CE5E07A",
+                  "type": "choice",
+                  "label": "Ghost Blade",
+                  "advanced": true,
+                  "group": "Enemy-Drop Weapons",
+                  "groupDe": "Gegnerwaffen",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x2F256E9F",
+                  "type": "choice",
+                  "label": "Extra Battery Lv.1",
+                  "advanced": true,
+                  "group": "Backpack Modules",
+                  "groupDe": "Rucksackmodule",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x08605E71",
+                  "type": "choice",
+                  "label": "Extra Battery Lv.2",
+                  "advanced": true,
+                  "group": "Backpack Modules",
+                  "groupDe": "Rucksackmodule",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x1B30AD85",
+                  "type": "choice",
+                  "label": "Extra Battery Lv.3",
+                  "advanced": true,
+                  "group": "Backpack Modules",
+                  "groupDe": "Rucksackmodule",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x695B2E86",
+                  "type": "choice",
+                  "label": "Extra Battery Lv.4",
+                  "advanced": true,
+                  "group": "Backpack Modules",
+                  "groupDe": "Rucksackmodule",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x5797B553",
+                  "type": "choice",
+                  "label": "Mini Extra Battery",
+                  "advanced": true,
+                  "group": "Backpack Modules",
+                  "groupDe": "Rucksackmodule",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x3C759D6B",
+                  "type": "choice",
+                  "label": "Utility Pouch",
+                  "advanced": true,
+                  "group": "Backpack Modules",
+                  "groupDe": "Rucksackmodule",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x4E1E1E68",
+                  "type": "choice",
+                  "label": "Grenade Pouch",
+                  "advanced": true,
+                  "group": "Backpack Modules",
+                  "groupDe": "Rucksackmodule",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x3C87F6E8",
+                  "type": "choice",
+                  "label": "Large Grenade Pouch",
+                  "advanced": true,
+                  "group": "Backpack Modules",
+                  "groupDe": "Rucksackmodule",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x44352D24",
+                  "type": "choice",
+                  "label": "Spare Ammo Container",
+                  "advanced": true,
+                  "group": "Backpack Modules",
+                  "groupDe": "Rucksackmodule",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x684D9203",
+                  "type": "choice",
+                  "label": "Large Spare Ammo Container Lv.1",
+                  "advanced": true,
+                  "group": "Backpack Modules",
+                  "groupDe": "Rucksackmodule",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x1A261100",
+                  "type": "choice",
+                  "label": "Large Spare Ammo Container Lv.2",
+                  "advanced": true,
+                  "group": "Backpack Modules",
+                  "groupDe": "Rucksackmodule",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x5DBC861F",
+                  "type": "choice",
+                  "label": "Stabilizer Lv.1",
+                  "advanced": true,
+                  "group": "Backpack Modules",
+                  "groupDe": "Rucksackmodule",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x0976E2F4",
+                  "type": "choice",
+                  "label": "Stabilizer Lv.2",
+                  "advanced": true,
+                  "group": "Backpack Modules",
+                  "groupDe": "Rucksackmodule",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x7B1D61F7",
+                  "type": "choice",
+                  "label": "Stabilizer Lv.3",
+                  "advanced": true,
+                  "group": "Backpack Modules",
+                  "groupDe": "Rucksackmodule",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x68BFF980",
+                  "type": "choice",
+                  "label": "Chiral Anti-Gravity Device",
+                  "advanced": true,
+                  "group": "Backpack Modules",
+                  "groupDe": "Rucksackmodule",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x7BEF0A74",
+                  "type": "choice",
+                  "label": "Auto Revive Device",
+                  "advanced": true,
+                  "group": "Backpack Modules",
+                  "groupDe": "Rucksackmodule",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x09848977",
+                  "type": "choice",
+                  "label": "Electric Shock Absorber",
+                  "advanced": true,
+                  "group": "Backpack Modules",
+                  "groupDe": "Rucksackmodule",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x25FC3650",
+                  "type": "choice",
+                  "label": "Back Protector",
+                  "advanced": true,
+                  "group": "Backpack Modules",
+                  "groupDe": "Rucksackmodule",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x4EEC75EB",
+                  "type": "choice",
+                  "label": "Solar Generator",
+                  "advanced": true,
+                  "group": "Backpack Modules",
+                  "groupDe": "Rucksackmodule",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x365EAE27",
+                  "type": "choice",
+                  "label": "Backpack Cover Lv.1",
+                  "advanced": true,
+                  "group": "Backpack Covers",
+                  "groupDe": "Rucksackhüllen",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x7A0BDD72",
+                  "type": "choice",
+                  "label": "Backpack Cover Lv.2",
+                  "advanced": true,
+                  "group": "Backpack Covers",
+                  "groupDe": "Rucksackhüllen",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x780F7FE2",
+                  "type": "choice",
+                  "label": "Cryptobiote",
+                  "advanced": true,
+                  "group": "Backpack Charms",
+                  "groupDe": "Rucksackanhänger",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x0A64FCE1",
+                  "type": "choice",
+                  "label": "Love Knot",
+                  "advanced": true,
+                  "group": "Backpack Charms",
+                  "groupDe": "Rucksackanhänger",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x19340F15",
+                  "type": "choice",
+                  "label": "Bell",
+                  "advanced": true,
+                  "group": "Backpack Charms",
+                  "groupDe": "Rucksackanhänger",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x6B5F8C16",
+                  "type": "choice",
+                  "label": "Chiral Tea",
+                  "advanced": true,
+                  "group": "Backpack Charms",
+                  "groupDe": "Rucksackanhänger",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x3F95E8FD",
+                  "type": "choice",
+                  "label": "Quokka",
+                  "advanced": true,
+                  "group": "Backpack Charms",
+                  "groupDe": "Rucksackanhänger",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x4DFE6BFE",
+                  "type": "choice",
+                  "label": "Porter",
+                  "advanced": true,
+                  "group": "Backpack Charms",
+                  "groupDe": "Rucksackanhänger",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x5EAE980A",
+                  "type": "choice",
+                  "label": "Electrobiote",
+                  "advanced": true,
+                  "group": "Backpack Charms",
+                  "groupDe": "Rucksackanhänger",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                },
+                {
+                  "key": "0x2CC51B09",
+                  "type": "choice",
+                  "label": "Boxing Kangaroos",
+                  "advanced": true,
+                  "group": "Backpack Charms",
+                  "groupDe": "Rucksackanhänger",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "modId": "jump-ramp-unlimited",
+      "files": [
+        {
+          "target": "ds2_jump_ramp_unlimited.ini",
+          "sections": [
+            {
+              "name": "JumpRampUnlimited",
+              "fields": [
+                {
+                  "key": "Enabled",
+                  "type": "bool",
+                  "label": "Enabled",
+                  "description": "Repeat the final available trick while airborne after a Jump Ramp, using the normal trick input.",
+                  "descriptionDe": "Wiederholt nach einer Sprungrampe den letzten verfügbaren Trick in der Luft mit der normalen Trick-Eingabe."
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "modId": "beach-jump-with-cargo",
+      "files": [
+        {
+          "target": "ds2_beach_jump_with_cargo.ini",
+          "sections": [
+            {
+              "name": "BeachJumpWithCargo",
+              "fields": [
+                {
+                  "key": "Enabled",
+                  "type": "bool",
+                  "label": "Enabled",
+                  "description": "Keep cargo attached to Sam during Beach and Hot Spring Jumps. Vehicles, Floating Carriers and cargo on the ground are not included.",
+                  "descriptionDe": "Behält Sams am Körper getragene Fracht bei Strand- und Thermalquellen-Sprüngen. Fahrzeuge, schwebende Träger und Fracht am Boden sind nicht eingeschlossen."
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "modId": "sam-overhaul",
+      "files": [
+        {
+          "target": "ds2_sam_overhaul.ini",
+          "sections": [
+            {
+              "name": "CargoVisibility",
+              "fields": [
+                {
+                  "key": "HideShoulderCargo",
+                  "type": "bool",
+                  "label": "Hide shoulder cargo",
+                  "labelDe": "Schulterfracht ausblenden",
+                  "group": "Cargo visibility",
+                  "groupDe": "Frachtsichtbarkeit",
+                  "description": "Visual only. Cargo remains carried and functional; currently worn shoes stay visible.",
+                  "descriptionDe": "Rein optisch. Fracht bleibt getragen und nutzbar; aktuell getragene Schuhe bleiben sichtbar."
+                },
+                {
+                  "key": "HideHipCargo",
+                  "type": "bool",
+                  "label": "Hide hip cargo",
+                  "labelDe": "Hüftfracht ausblenden",
+                  "group": "Cargo visibility",
+                  "groupDe": "Frachtsichtbarkeit",
+                  "description": "Visual only. Cargo remains carried and functional; currently worn shoes stay visible.",
+                  "descriptionDe": "Rein optisch. Fracht bleibt getragen und nutzbar; aktuell getragene Schuhe bleiben sichtbar."
+                },
+                {
+                  "key": "HideBackpackCargo",
+                  "type": "bool",
+                  "label": "Hide backpack cargo",
+                  "labelDe": "Rucksackfracht ausblenden",
+                  "group": "Cargo visibility",
+                  "groupDe": "Frachtsichtbarkeit",
+                  "description": "Visual only. Cargo remains carried and functional; currently worn shoes stay visible.",
+                  "descriptionDe": "Rein optisch. Fracht bleibt getragen und nutzbar; aktuell getragene Schuhe bleiben sichtbar."
+                },
+                {
+                  "key": "HideSpareShoes",
+                  "type": "bool",
+                  "label": "Hide spare shoes",
+                  "labelDe": "Ersatzschuhe ausblenden",
+                  "group": "Cargo visibility",
+                  "groupDe": "Frachtsichtbarkeit",
+                  "description": "Visual only. Cargo remains carried and functional; currently worn shoes stay visible.",
+                  "descriptionDe": "Rein optisch. Fracht bleibt getragen und nutzbar; aktuell getragene Schuhe bleiben sichtbar."
+                }
+              ]
+            },
+            {
+              "name": "Movement",
+              "fields": [
+                {
+                  "key": "JumpFromMonorailAnywhere",
+                  "type": "bool",
+                  "label": "Freer monorail exits",
+                  "labelDe": "Freiere Einschienenbahn-Ausstiege",
+                  "group": "Movement",
+                  "groupDe": "Bewegung",
+                  "description": "Relaxes the relevant movement restriction. Native inputs and qualifying movement conditions still apply.",
+                  "descriptionDe": "Lockert die jeweilige Bewegungsbeschränkung. Normale Eingaben und erforderliche Bewegungsbedingungen gelten weiterhin."
+                },
+                {
+                  "key": "JumpFromZiplineAnywhere",
+                  "type": "bool",
+                  "label": "Freer zipline exits",
+                  "labelDe": "Freiere Seilrutschen-Ausstiege",
+                  "group": "Movement",
+                  "groupDe": "Bewegung",
+                  "description": "Relaxes the relevant movement restriction. Native inputs and qualifying movement conditions still apply.",
+                  "descriptionDe": "Lockert die jeweilige Bewegungsbeschränkung. Normale Eingaben und erforderliche Bewegungsbedingungen gelten weiterhin."
+                },
+                {
+                  "key": "LandingRollWithBackpack",
+                  "type": "bool",
+                  "label": "Landing rolls with backpack",
+                  "labelDe": "Landerollen mit Rucksack",
+                  "group": "Movement",
+                  "groupDe": "Bewegung",
+                  "description": "Relaxes the relevant movement restriction. Native inputs and qualifying movement conditions still apply.",
+                  "descriptionDe": "Lockert die jeweilige Bewegungsbeschränkung. Normale Eingaben und erforderliche Bewegungsbedingungen gelten weiterhin."
+                }
+              ]
+            },
+            {
+              "name": "Footprints",
+              "fields": [
+                {
+                  "key": "HideFootprints",
+                  "type": "bool",
+                  "label": "Hide footprints",
+                  "labelDe": "Fußspuren ausblenden",
+                  "description": "Hide normal and scan-highlighted footprints, including saved footprints rebuilt on load. Off by default. Restart the game.",
+                  "descriptionDe": "Blendet normale und vom Scan markierte Fußspuren aus, auch beim Laden wiederhergestellte Spuren. Standardmäßig aus. Spiel neu starten.",
+                  "group": "Footprints",
+                  "groupDe": "Fußspuren"
+                }
+              ]
+            },
+            {
+              "name": "GeneratorRange",
+              "fields": [
+                {
+                  "key": "Enabled",
+                  "type": "bool",
+                  "label": "Expand generator range",
+                  "labelDe": "Generatorreichweite erweitern",
+                  "description": "Expand charging range and the visible scan circle. Off by default.",
+                  "descriptionDe": "Erweitert die Ladereichweite und den sichtbaren Scan-Kreis. Standardmäßig aus.",
+                  "group": "Generator range",
+                  "groupDe": "Generatorreichweite"
+                },
+                {
+                  "key": "RangePercent",
+                  "type": "int",
+                  "label": "Charging radius percent",
+                  "labelDe": "Laderadius in Prozent",
+                  "description": "100 = vanilla radius; 200 = double radius. Restart the game.",
+                  "descriptionDe": "100 = normaler Radius; 200 = doppelter Radius. Spiel neu starten.",
+                  "group": "Generator range",
+                  "groupDe": "Generatorreichweite",
+                  "min": 100,
+                  "max": 400
+                }
+              ]
+            },
+            {
+              "name": "TimefallShelterRange",
+              "fields": [
+                {
+                  "key": "Enabled",
+                  "type": "bool",
+                  "label": "Expand shelter range",
+                  "labelDe": "Unterstandsreichweite erweitern",
+                  "description": "Expand timefall protection and the visible circle. Off by default. Cargo repair radius is configured separately.",
+                  "descriptionDe": "Erweitert Zeitregenschutz und sichtbaren Kreis. Standardmäßig aus. Der Fracht-Reparaturradius wird separat eingestellt.",
+                  "group": "Timefall shelter range",
+                  "groupDe": "Zeitregenunterstand-Reichweite"
+                },
+                {
+                  "key": "RangePercent",
+                  "type": "int",
+                  "label": "Protection radius percent",
+                  "labelDe": "Schutzradius in Prozent",
+                  "description": "100 = vanilla radius; 200 = double radius. Restart the game.",
+                  "descriptionDe": "100 = normaler Radius; 200 = doppelter Radius. Spiel neu starten.",
+                  "group": "Timefall shelter range",
+                  "groupDe": "Zeitregenunterstand-Reichweite",
+                  "min": 100,
+                  "max": 400
+                },
+                {
+                  "key": "RepairRadiusPercent",
+                  "type": "int",
+                  "label": "Cargo repair radius percent",
+                  "labelDe": "Fracht-Reparaturradius in Prozent",
+                  "description": "Independent native coating-repair radius. Default 215 compensates for slopes when protection is 200.",
+                  "descriptionDe": "Separater Radius der normalen Frachtbeschichtungs-Reparatur. Standardwert 215 gleicht bei Schutzradius 200 Bodensteigungen aus.",
+                  "group": "Timefall shelter range",
+                  "groupDe": "Zeitregenunterstand-Reichweite",
+                  "min": 100,
+                  "max": 400
+                },
+                {
+                  "key": "FixRestPrompt",
+                  "type": "bool",
+                  "label": "Correct German rest prompt",
+                  "labelDe": "Deutschen Ruhetext korrigieren",
+                  "description": "Use the German label Verschnaufen when shelter expansion is enabled. The native rest action stays unchanged.",
+                  "descriptionDe": "Verwendet bei aktiviertem erweitertem Unterstand den Text Verschnaufen. Die normale Ruheaktion bleibt unverändert.",
+                  "group": "Timefall shelter range",
+                  "groupDe": "Zeitregenunterstand-Reichweite"
+                },
+                {
+                  "key": "SpatialDiagnostics",
+                  "type": "bool",
+                  "label": "Spatial diagnostics",
+                  "labelDe": "Räumliche Diagnose",
+                  "description": "Expensive developer snapshots. Leave off unless troubleshooting.",
+                  "descriptionDe": "Aufwendige Entwickler-Diagnose. Nur zur Fehlersuche einschalten.",
+                  "group": "Timefall shelter range",
+                  "groupDe": "Zeitregenunterstand-Reichweite",
+                  "advanced": true
+                }
+              ]
+            },
+            {
+              "name": "AutoDrive",
+              "fields": [
+                {
+                  "key": "ActivationSeconds",
+                  "type": "decimal",
+                  "label": "Autodrive activation time",
+                  "labelDe": "Aktivierungszeit des Autopiloten",
+                  "group": "Autodrive",
+                  "groupDe": "Autopilot",
+                  "min": 0.5,
+                  "max": 5,
+                  "description": "Time in seconds. Autodrive: 5.0 is vanilla; chiral cannon charge: 3.0 is vanilla.",
+                  "descriptionDe": "Zeit in Sekunden. Autopilot: 5.0 entspricht dem Spielstandard; Ladezeit der chiralen Kanone: 3.0 entspricht dem Spielstandard."
+                }
+              ]
+            },
+            {
+              "name": "TruckHeavyMachineGun",
+              "fields": [
+                {
+                  "key": "Enabled",
+                  "type": "bool",
+                  "label": "Enabled",
+                  "labelDe": "Aktiviert",
+                  "group": "Truck heavy machine gun",
+                  "groupDe": "Schweres Lkw-Maschinengewehr",
+                  "description": "Enable tuning for this truck weapon.",
+                  "descriptionDe": "Aktiviert die Abstimmung dieser Lkw-Waffe."
+                },
+                {
+                  "key": "RangePercent",
+                  "type": "int",
+                  "label": "Weapon range percent",
+                  "labelDe": "Waffenreichweite in Prozent",
+                  "group": "Truck heavy machine gun",
+                  "groupDe": "Schweres Lkw-Maschinengewehr",
+                  "min": 100,
+                  "max": 300,
+                  "description": "100% keeps the vanilla value.",
+                  "descriptionDe": "100 % entspricht dem normalen Spielwert."
+                },
+                {
+                  "key": "AimSpeedPercent",
+                  "type": "int",
+                  "label": "Aiming speed percent",
+                  "labelDe": "Zielgeschwindigkeit in Prozent",
+                  "group": "Truck heavy machine gun",
+                  "groupDe": "Schweres Lkw-Maschinengewehr",
+                  "min": 100,
+                  "max": 500,
+                  "description": "100% keeps the vanilla value.",
+                  "descriptionDe": "100 % entspricht dem normalen Spielwert."
+                },
+                {
+                  "key": "LockOnSeconds",
+                  "type": "decimal",
+                  "label": "Lock-on time",
+                  "labelDe": "Zielerfassungszeit",
+                  "group": "Truck heavy machine gun",
+                  "groupDe": "Schweres Lkw-Maschinengewehr",
+                  "min": 0.05,
+                  "max": 5,
+                  "description": "Time in seconds. Autodrive: 5.0 is vanilla; chiral cannon charge: 3.0 is vanilla.",
+                  "descriptionDe": "Zeit in Sekunden. Autopilot: 5.0 entspricht dem Spielstandard; Ladezeit der chiralen Kanone: 3.0 entspricht dem Spielstandard."
+                },
+                {
+                  "key": "BurstSeconds",
+                  "type": "decimal",
+                  "label": "Burst duration",
+                  "labelDe": "Feuerstoßdauer",
+                  "group": "Truck heavy machine gun",
+                  "groupDe": "Schweres Lkw-Maschinengewehr",
+                  "min": 0.05,
+                  "max": 10,
+                  "description": "Time in seconds. Autodrive: 5.0 is vanilla; chiral cannon charge: 3.0 is vanilla.",
+                  "descriptionDe": "Zeit in Sekunden. Autopilot: 5.0 entspricht dem Spielstandard; Ladezeit der chiralen Kanone: 3.0 entspricht dem Spielstandard."
+                },
+                {
+                  "key": "CooldownSeconds",
+                  "type": "decimal",
+                  "label": "Cooldown time",
+                  "labelDe": "Abklingzeit",
+                  "group": "Truck heavy machine gun",
+                  "groupDe": "Schweres Lkw-Maschinengewehr",
+                  "min": 0.05,
+                  "max": 5,
+                  "description": "Time in seconds. Autodrive: 5.0 is vanilla; chiral cannon charge: 3.0 is vanilla.",
+                  "descriptionDe": "Zeit in Sekunden. Autopilot: 5.0 entspricht dem Spielstandard; Ladezeit der chiralen Kanone: 3.0 entspricht dem Spielstandard."
+                }
+              ]
+            },
+            {
+              "name": "TruckMortar",
+              "fields": [
+                {
+                  "key": "Enabled",
+                  "type": "bool",
+                  "label": "Enabled",
+                  "labelDe": "Aktiviert",
+                  "group": "Truck mortar",
+                  "groupDe": "Lkw-Mörser",
+                  "description": "Enable tuning for this truck weapon.",
+                  "descriptionDe": "Aktiviert die Abstimmung dieser Lkw-Waffe."
+                },
+                {
+                  "key": "RangePercent",
+                  "type": "int",
+                  "label": "Weapon range percent",
+                  "labelDe": "Waffenreichweite in Prozent",
+                  "group": "Truck mortar",
+                  "groupDe": "Lkw-Mörser",
+                  "min": 100,
+                  "max": 300,
+                  "description": "100% keeps the vanilla value.",
+                  "descriptionDe": "100 % entspricht dem normalen Spielwert."
+                },
+                {
+                  "key": "AimSpeedPercent",
+                  "type": "int",
+                  "label": "Aiming speed percent",
+                  "labelDe": "Zielgeschwindigkeit in Prozent",
+                  "group": "Truck mortar",
+                  "groupDe": "Lkw-Mörser",
+                  "min": 100,
+                  "max": 500,
+                  "description": "100% keeps the vanilla value.",
+                  "descriptionDe": "100 % entspricht dem normalen Spielwert."
+                },
+                {
+                  "key": "LockOnSeconds",
+                  "type": "decimal",
+                  "label": "Lock-on time",
+                  "labelDe": "Zielerfassungszeit",
+                  "group": "Truck mortar",
+                  "groupDe": "Lkw-Mörser",
+                  "min": 0.05,
+                  "max": 5,
+                  "description": "Time in seconds. Autodrive: 5.0 is vanilla; chiral cannon charge: 3.0 is vanilla.",
+                  "descriptionDe": "Zeit in Sekunden. Autopilot: 5.0 entspricht dem Spielstandard; Ladezeit der chiralen Kanone: 3.0 entspricht dem Spielstandard."
+                },
+                {
+                  "key": "RecoverySeconds",
+                  "type": "decimal",
+                  "label": "Recovery time",
+                  "labelDe": "Erholungszeit",
+                  "group": "Truck mortar",
+                  "groupDe": "Lkw-Mörser",
+                  "min": 0,
+                  "max": 5,
+                  "description": "Time in seconds. Autodrive: 5.0 is vanilla; chiral cannon charge: 3.0 is vanilla.",
+                  "descriptionDe": "Zeit in Sekunden. Autopilot: 5.0 entspricht dem Spielstandard; Ladezeit der chiralen Kanone: 3.0 entspricht dem Spielstandard."
+                },
+                {
+                  "key": "CooldownSeconds",
+                  "type": "decimal",
+                  "label": "Cooldown time",
+                  "labelDe": "Abklingzeit",
+                  "group": "Truck mortar",
+                  "groupDe": "Lkw-Mörser",
+                  "min": 0.05,
+                  "max": 5,
+                  "description": "Time in seconds. Autodrive: 5.0 is vanilla; chiral cannon charge: 3.0 is vanilla.",
+                  "descriptionDe": "Zeit in Sekunden. Autopilot: 5.0 entspricht dem Spielstandard; Ladezeit der chiralen Kanone: 3.0 entspricht dem Spielstandard."
+                }
+              ]
+            },
+            {
+              "name": "TruckChiralCannon",
+              "fields": [
+                {
+                  "key": "Enabled",
+                  "type": "bool",
+                  "label": "Enabled",
+                  "labelDe": "Aktiviert",
+                  "group": "Truck chiral cannon",
+                  "groupDe": "Chirale Lkw-Kanone",
+                  "description": "Enable tuning for this truck weapon.",
+                  "descriptionDe": "Aktiviert die Abstimmung dieser Lkw-Waffe."
+                },
+                {
+                  "key": "RangePercent",
+                  "type": "int",
+                  "label": "Weapon range percent",
+                  "labelDe": "Waffenreichweite in Prozent",
+                  "group": "Truck chiral cannon",
+                  "groupDe": "Chirale Lkw-Kanone",
+                  "min": 100,
+                  "max": 300,
+                  "description": "100% keeps the vanilla value.",
+                  "descriptionDe": "100 % entspricht dem normalen Spielwert."
+                },
+                {
+                  "key": "AimSpeedPercent",
+                  "type": "int",
+                  "label": "Aiming speed percent",
+                  "labelDe": "Zielgeschwindigkeit in Prozent",
+                  "group": "Truck chiral cannon",
+                  "groupDe": "Chirale Lkw-Kanone",
+                  "min": 100,
+                  "max": 500,
+                  "description": "100% keeps the vanilla value.",
+                  "descriptionDe": "100 % entspricht dem normalen Spielwert."
+                },
+                {
+                  "key": "LockOnSeconds",
+                  "type": "decimal",
+                  "label": "Lock-on time",
+                  "labelDe": "Zielerfassungszeit",
+                  "group": "Truck chiral cannon",
+                  "groupDe": "Chirale Lkw-Kanone",
+                  "min": 0.05,
+                  "max": 5,
+                  "description": "Time in seconds. Autodrive: 5.0 is vanilla; chiral cannon charge: 3.0 is vanilla.",
+                  "descriptionDe": "Zeit in Sekunden. Autopilot: 5.0 entspricht dem Spielstandard; Ladezeit der chiralen Kanone: 3.0 entspricht dem Spielstandard."
+                },
+                {
+                  "key": "RecoverySeconds",
+                  "type": "decimal",
+                  "label": "Recovery time",
+                  "labelDe": "Erholungszeit",
+                  "group": "Truck chiral cannon",
+                  "groupDe": "Chirale Lkw-Kanone",
+                  "min": 0,
+                  "max": 5,
+                  "description": "Time in seconds. Autodrive: 5.0 is vanilla; chiral cannon charge: 3.0 is vanilla.",
+                  "descriptionDe": "Zeit in Sekunden. Autopilot: 5.0 entspricht dem Spielstandard; Ladezeit der chiralen Kanone: 3.0 entspricht dem Spielstandard."
+                },
+                {
+                  "key": "CooldownSeconds",
+                  "type": "decimal",
+                  "label": "Cooldown time",
+                  "labelDe": "Abklingzeit",
+                  "group": "Truck chiral cannon",
+                  "groupDe": "Chirale Lkw-Kanone",
+                  "min": 0.05,
+                  "max": 5,
+                  "description": "Time in seconds. Autodrive: 5.0 is vanilla; chiral cannon charge: 3.0 is vanilla.",
+                  "descriptionDe": "Zeit in Sekunden. Autopilot: 5.0 entspricht dem Spielstandard; Ladezeit der chiralen Kanone: 3.0 entspricht dem Spielstandard."
+                },
+                {
+                  "key": "ChargeSeconds",
+                  "type": "decimal",
+                  "label": "Chiral cannon charge time",
+                  "labelDe": "Ladezeit der chiralen Kanone",
+                  "group": "Truck chiral cannon",
+                  "groupDe": "Chirale Lkw-Kanone",
+                  "min": 0.05,
+                  "max": 5,
+                  "description": "Time in seconds. Autodrive: 5.0 is vanilla; chiral cannon charge: 3.0 is vanilla.",
+                  "descriptionDe": "Zeit in Sekunden. Autopilot: 5.0 entspricht dem Spielstandard; Ladezeit der chiralen Kanone: 3.0 entspricht dem Spielstandard."
+                }
+              ]
+            },
+            {
+              "name": "TruckMissileLauncher",
+              "fields": [
+                {
+                  "key": "Enabled",
+                  "type": "bool",
+                  "label": "Enabled",
+                  "labelDe": "Aktiviert",
+                  "group": "Truck missile launcher",
+                  "groupDe": "Lkw-Raketenwerfer",
+                  "description": "Enable tuning for this truck weapon.",
+                  "descriptionDe": "Aktiviert die Abstimmung dieser Lkw-Waffe."
+                },
+                {
+                  "key": "RangePercent",
+                  "type": "int",
+                  "label": "Weapon range percent",
+                  "labelDe": "Waffenreichweite in Prozent",
+                  "group": "Truck missile launcher",
+                  "groupDe": "Lkw-Raketenwerfer",
+                  "min": 100,
+                  "max": 300,
+                  "description": "100% keeps the vanilla value.",
+                  "descriptionDe": "100 % entspricht dem normalen Spielwert."
+                },
+                {
+                  "key": "AimSpeedPercent",
+                  "type": "int",
+                  "label": "Aiming speed percent",
+                  "labelDe": "Zielgeschwindigkeit in Prozent",
+                  "group": "Truck missile launcher",
+                  "groupDe": "Lkw-Raketenwerfer",
+                  "min": 100,
+                  "max": 500,
+                  "description": "100% keeps the vanilla value.",
+                  "descriptionDe": "100 % entspricht dem normalen Spielwert."
+                },
+                {
+                  "key": "LockOnSeconds",
+                  "type": "decimal",
+                  "label": "Lock-on time",
+                  "labelDe": "Zielerfassungszeit",
+                  "group": "Truck missile launcher",
+                  "groupDe": "Lkw-Raketenwerfer",
+                  "min": 0.05,
+                  "max": 5,
+                  "description": "Time in seconds. Autodrive: 5.0 is vanilla; chiral cannon charge: 3.0 is vanilla.",
+                  "descriptionDe": "Zeit in Sekunden. Autopilot: 5.0 entspricht dem Spielstandard; Ladezeit der chiralen Kanone: 3.0 entspricht dem Spielstandard."
+                },
+                {
+                  "key": "RecoverySeconds",
+                  "type": "decimal",
+                  "label": "Recovery time",
+                  "labelDe": "Erholungszeit",
+                  "group": "Truck missile launcher",
+                  "groupDe": "Lkw-Raketenwerfer",
+                  "min": 0,
+                  "max": 5,
+                  "description": "Time in seconds. Autodrive: 5.0 is vanilla; chiral cannon charge: 3.0 is vanilla.",
+                  "descriptionDe": "Zeit in Sekunden. Autopilot: 5.0 entspricht dem Spielstandard; Ladezeit der chiralen Kanone: 3.0 entspricht dem Spielstandard."
+                },
+                {
+                  "key": "CooldownSeconds",
+                  "type": "decimal",
+                  "label": "Cooldown time",
+                  "labelDe": "Abklingzeit",
+                  "group": "Truck missile launcher",
+                  "groupDe": "Lkw-Raketenwerfer",
+                  "min": 0.05,
+                  "max": 5,
+                  "description": "Time in seconds. Autodrive: 5.0 is vanilla; chiral cannon charge: 3.0 is vanilla.",
+                  "descriptionDe": "Zeit in Sekunden. Autopilot: 5.0 entspricht dem Spielstandard; Ladezeit der chiralen Kanone: 3.0 entspricht dem Spielstandard."
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

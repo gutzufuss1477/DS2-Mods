@@ -1,0 +1,15 @@
+Hill Assist and Speed Boost - Permissions
+
+Personal use:
+You may download and use this mod for personal, non-commercial gameplay.
+
+Redistribution:
+Do not re-upload, mirror, bundle, repackage or redistribute this mod or its
+binary/source files without explicit permission from the mod author.
+
+Modifications and ports:
+Ask for permission before publishing modified versions, ports or derivative
+releases.
+
+The permissions selected on the official Nexus Mods page take precedence if
+they are updated later.

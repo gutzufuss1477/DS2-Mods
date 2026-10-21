@@ -1,0 +1,19 @@
+{
+  "id": "apas-memory-costs",
+  "version": "3.0.0",
+  "file": "ds2_apas_memory_costs.asi",
+  "sha256": "43171C77958D864AC5391F1AEC50F5FB6580DEE75A4C4BEB8DB4D94957922550",
+  "bytes": 117248,
+  "compiler": "C:\\Program Files\\LLVM\\bin\\clang-cl.exe",
+  "msvc": "14.44.35207",
+  "windowsSdk": "10.0.26100.0",
+  "sourceHashes": {
+    "mods/apas-memory-costs/src/apas.cpp": "E88DC3658E95CE1C9C645DF1122C41D4FD3989BD95DA17F9F989C3E87CF6097E",
+    "mods/apas-memory-costs/src/native_bridges.s": "D7F54B95AF0C753F8347CDCA78B26546C65E33BA13DDB4C027595C8DBEF29564",
+    "mods/apas-memory-costs/src/platform.h": "11761E70C00C59A612F67304AAE24F499CE01DCD023BB9908AA602C3FE42227D",
+    "mods/apas-memory-costs/src/target.h": "1CB5406529880BAE688315FDD85707689DFC53559DC324F94C99669E4D743D5C"
+  },
+  "sourceArtifact": "build/native-suite/apas-memory-costs/ds2_apas_memory_costs.asi",
+  "previousSha256": "69839224342963F4E1B334C4117520440D6C89CD3D429C8E24D845505FE394E8",
+  "buildReason": "Replace runtime executable relays with image-backed, CFG-registered static bridges with Windows unwind metadata; preserve all APAS options and target/conflict checks."
+}

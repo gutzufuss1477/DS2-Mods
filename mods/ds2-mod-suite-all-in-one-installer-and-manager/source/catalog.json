@@ -1,0 +1,789 @@
+{
+  "schemaVersion": 1,
+  "suiteVersion": "1.12.1",
+  "game": {
+    "name": "DEATH STRANDING 2: ON THE BEACH",
+    "executable": "DS2.exe",
+    "steamFolder": "DEATH STRANDING 2 - ON THE BEACH",
+    "supportedVersions": [
+      {
+        "fileVersion": "1.10.89.0",
+        "sha256": "BF3D1C665545930BC850D8F5DF486F7395885BB729D4FD408FDB03390DE0765B"
+      }
+    ]
+  },
+  "loader": {
+    "name": "Ultimate ASI Loader x64",
+    "version": "9.7.2",
+    "fileName": "winmm.dll",
+    "payload": "payload/loader/winmm.dll",
+    "sha256": "22FDA9C71EAAE02460F311BF3441638340AB591586D78F1DE213C4819DCB883C",
+    "knownCompatibleHashes": [
+      "22FDA9C71EAAE02460F311BF3441638340AB591586D78F1DE213C4819DCB883C"
+    ],
+    "proxyFileNames": [
+      "winmm.dll",
+      "dinput8.dll",
+      "version.dll",
+      "winhttp.dll",
+      "dsound.dll",
+      "dxgi.dll",
+      "d3d12.dll",
+      "xinput1_3.dll"
+    ]
+  },
+  "mods": [
+    {
+      "id": "hill-assist-and-speed-boost",
+      "name": "Hill Assist & Speed Boost",
+      "version": "1.1.0",
+      "category": "Vehicles & Cargo",
+      "categoryDe": "Fahrzeuge & Fracht",
+      "description": "Improves uphill driving and provides configurable speed settings for the Pickup and Tri-Cruiser.",
+      "descriptionDe": "Verbessert die Bergauffahrt und konfiguriert die Geschwindigkeit von Pickup und Tri-Cruiser.",
+      "files": [
+        {
+          "payload": "payload/mods/hill-assist-and-speed-boost/DS2VehicleCore.asi",
+          "target": "DS2VehicleCore.asi",
+          "sha256": "7DE69198CA9E3580F749A8ACCA84F6DB2EC1E2A084EBA99A17909398118D10A1",
+          "kind": "binary",
+          "previousHashes": [
+            "78F4D90B6473F9163E65A227AE6444D516133ABAC34C9E6575BD2B13C3CB60B6",
+            "CC0B87EE369D2CCCF5EFD1D672ADD55DB0FC59C50E7A6460072A363377CE3BC1"
+          ]
+        },
+        {
+          "payload": "payload/mods/hill-assist-and-speed-boost/PickupTruckHillAssist.ini",
+          "target": "PickupTruckHillAssist.ini",
+          "sha256": "9F05C6E68800531617E9F076A390F96D041CE24870C81EC1B9498C17607C7D0C",
+          "kind": "config"
+        },
+        {
+          "payload": "payload/mods/hill-assist-and-speed-boost/VehicleSpeedBoost.ini",
+          "target": "VehicleSpeedBoost.ini",
+          "sha256": "3046F2299FE4C0EE8D935B97706B7F50D2A5C2391EC394746825B90AB442E131",
+          "kind": "config"
+        }
+      ]
+    },
+    {
+      "id": "pickup-cargo-capacity",
+      "name": "Pickup Cargo Capacity",
+      "version": "1.0.2",
+      "category": "Vehicles & Cargo",
+      "categoryDe": "Fahrzeuge & Fracht",
+      "description": "Configurable Off-road Pickup cargo capacity with a rear load indicator scaled to the expanded capacity.",
+      "descriptionDe": "Konfigurierbare Frachtkapazität des Off-road Pickups mit passend skalierter Heck-Ladeanzeige.",
+      "files": [
+        {
+          "payload": "payload/mods/pickup-cargo-capacity/PickupCargoCapacity.asi",
+          "target": "PickupCargoCapacity.asi",
+          "sha256": "DF6C0960AF451E44449031127BE4C05BCC48B4A1C71E958030E19451DA6C9AC8",
+          "kind": "binary",
+          "previousHashes": [
+            "6B3FA29F9B671D93E43DB7001389F59F9C83095BCF612F26B2EE6B4D5E1C4692",
+            "1C0053C15F341B9FF6138268B88394154D899911E4B97662F48F1EA9F20E8DD3",
+            "B5CF25CC85577FDA89A74080A82369DC2320BE86A1F67B7BAAA858E52ABEBC98"
+          ]
+        },
+        {
+          "payload": "payload/mods/pickup-cargo-capacity/PickupCargoCapacity.ini",
+          "target": "PickupCargoCapacity.ini",
+          "sha256": "BD4954B7E7689FF247F736952A5DEBB8D9D8A95101460BC4EC9904079261771A",
+          "kind": "config"
+        }
+      ]
+    },
+    {
+      "id": "tri-cruiser-cargo-capacity",
+      "name": "Tri-Cruiser Cargo Capacity",
+      "version": "1.1.0",
+      "category": "Vehicles & Cargo",
+      "categoryDe": "Fahrzeuge & Fracht",
+      "description": "Increases the Tri-Cruiser's usable cargo capacity.",
+      "descriptionDe": "Erhöht die logisch nutzbare Frachtkapazität des Tri-Cruisers.",
+      "files": [
+        {
+          "payload": "payload/mods/tri-cruiser-cargo-capacity/DS2_TriCruiser_CargoCapacity_v1.1.0.asi",
+          "target": "DS2_TriCruiser_CargoCapacity_v1.1.0.asi",
+          "sha256": "E3C917BF5D558F8EB478135B70D432FEAC95041CEFFD31C25F7DCF30E22482F7",
+          "kind": "binary",
+          "previousHashes": [
+            "905CC132AE77427977315080646E9EFE62F074404019D495B785C3B6FC10D42A"
+          ]
+        }
+      ],
+      "obsoleteFiles": [
+        {
+          "target": "DS2_TriCruiser_CargoCapacity_v1.2.0_TEST.asi",
+          "sha256": "C574222A0BEAF22F62054FA8879286382B8B632E637CE921C393D0C5FAFCB41B"
+        },
+        {
+          "target": "DS2_TriCruiser_CargoCapacity_v1.2.1_TEST.asi",
+          "sha256": "E1DE0E6C8102E329B3B8AEDF37C66566032B0CF7AFE2A375E0D9B7284C8F64AB"
+        },
+        {
+          "target": "DS2_TriCruiser_CargoCapacity_v1.2.2_TRACE.asi",
+          "sha256": "DB3CDAEE7C624A2038F3ACC645E7F567F8C7938A98B97F06C3D9837E2AC758A1"
+        },
+        {
+          "target": "DS2_TriCruiser_CargoCapacity_v1.2.3_LIFECYCLE_TRACE.asi",
+          "sha256": "82D5B9B03929784B98A9844EB3DE8051C4CC397D86626FC5B4727D5F08E8A3D3"
+        }
+      ]
+    },
+    {
+      "id": "floating-carrier-cargo-capacity",
+      "name": "Floating Carrier Cargo Capacity",
+      "version": "1.0.0",
+      "category": "Vehicles & Cargo",
+      "categoryDe": "Fahrzeuge & Fracht",
+      "description": "Increases the Floating Carrier's usable cargo capacity.",
+      "descriptionDe": "Erhöht die nutzbare Frachtkapazität des Lastenschwebers.",
+      "files": [
+        {
+          "payload": "payload/mods/floating-carrier-cargo-capacity/DS2_FloatingCarrier_CargoCapacity_v1.0.0.asi",
+          "target": "DS2_FloatingCarrier_CargoCapacity_v1.0.0.asi",
+          "sha256": "12F82BB9E084CFBC611710168D7B0025C8405CE683AF84ACD11ACF50794D8496",
+          "kind": "binary",
+          "previousHashes": [
+            "2DB7F24180A43A4595AF594E6C84DE1199A2697899C60B3758C0E2BBB633E512"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "coffin-board-all-terrain-speed",
+      "name": "Coffin Board Reworked",
+      "version": "1.83.0",
+      "category": "Vehicles & Cargo",
+      "categoryDe": "Fahrzeuge & Fracht",
+      "description": "Configurable all-terrain speed and acceleration, loaded Floating Carrier support, Chiral Network boundary crossing and remounting outside the network.",
+      "descriptionDe": "Konfigurierbare Geschwindigkeit und Beschleunigung, beladene Lastenschweber, Überqueren der Chiralnetz-Grenze und erneutes Aufsteigen außerhalb des Netzwerks.",
+      "files": [
+        {
+          "payload": "payload/mods/coffin-board-all-terrain-speed/ds2_coffin_board_all_terrain_speed.asi",
+          "target": "ds2_coffin_board_all_terrain_speed.asi",
+          "sha256": "FA133C7470CFBCA12A900D1847717D78BF1B58F40D32FED86A6456C0C53D301A",
+          "kind": "binary",
+          "previousHashes": [
+            "068AB3173656924C39E498D11DF30FDB32F7FB20CABC11E92706A17A8FD372EA"
+          ]
+        },
+        {
+          "payload": "payload/mods/coffin-board-all-terrain-speed/ds2_coffin_board_all_terrain_speed.ini",
+          "target": "ds2_coffin_board_all_terrain_speed.ini",
+          "sha256": "7A81F165E95BCBD5EA5A247A03313450C4A50E4297B5DF8512C510988C54E6F7",
+          "kind": "config"
+        }
+      ]
+    },
+    {
+      "id": "high-density-backpack-modules",
+      "name": "High-Density Backpack Modules",
+      "version": "1.1.0",
+      "category": "Equipment & Progression",
+      "categoryDe": "Ausrüstung & Fortschritt",
+      "description": "Up to 30 functional backpack modules with automatic placement, hidden excess models and eight charm slots (two visible, six invisible). Select the separate Classic Overlap variant instead if you prefer visible overlapping meshes.",
+      "descriptionDe": "Bis zu 30 funktionale Rucksackmodule mit automatischer Platzierung, ausgeblendeten überzähligen Modellen und acht Anhängerplätzen (zwei sichtbar, sechs unsichtbar). Alternativ kann die Classic-Overlap-Variante mit sichtbaren überlappenden Modellen gewählt werden.",
+      "files": [
+        {
+          "payload": "payload/mods/high-density-backpack-modules/DS2_HighDensityBackpackModules_v1.1.0.asi",
+          "target": "DS2_HighDensityBackpackModules_v1.1.0.asi",
+          "sha256": "995683BB2ED64E6AD95DEACF2A93E91AFB15D2E1030EEAABC9984F547D77DA14",
+          "kind": "binary",
+          "previousHashes": [
+            "4FAE089E17D86D8DA0DAE61C6F91A383864944C5918C94725A0C758947E35747"
+          ]
+        }
+      ],
+      "obsoleteFiles": [
+        {
+          "target": "DS2_HighDensityBackpackModules_v1.0.0.asi",
+          "sha256": "C4C5CC2B525BEB88AEF264521B56C00E6616ABF6DFB0C2F6970C92379D719C1C"
+        }
+      ],
+      "exclusiveGroup": "high-density-backpack"
+    },
+    {
+      "id": "climbing-power-gloves-range",
+      "name": "Climbing Power Gloves Range",
+      "version": "1.1.1",
+      "category": "Equipment & Progression",
+      "categoryDe": "Ausrüstung & Fortschritt",
+      "description": "Configurable Climbing Power Gloves pickup ranges (30/50 m by default), plus optional magnetic cargo pickup for Combat Power Gloves. Combat gloves have no separate range setting.",
+      "descriptionDe": "Konfigurierbare Abholreichweiten der Kletterhandschuhe (Standard 30/50 m) und optionales magnetisches Aufnehmen mit Kampfhandschuhen. Kampfhandschuhe haben keinen eigenen Reichweitenregler.",
+      "files": [
+        {
+          "payload": "payload/mods/climbing-power-gloves-range/ds2_climbing_gloves_range.asi",
+          "target": "ds2_climbing_gloves_range.asi",
+          "sha256": "F7301BCC5F29660B0D602B71C3B6677A247B0DDE6336AC67733C7C6E0FB3CFC5",
+          "kind": "binary",
+          "previousHashes": [
+            "58F7007F9C4727D6173D623A5FB5762BF48DC720D88A265F6D88874DBDB93373",
+            "1DEE9DDF105729622C85345471A882524FEC38D992664DE8201FF500A387EDDE"
+          ]
+        },
+        {
+          "payload": "payload/mods/climbing-power-gloves-range/ds2_climbing_gloves_range.ini",
+          "target": "ds2_climbing_gloves_range.ini",
+          "sha256": "E87176992B618CBA2166117D5F920D6934C09FFF29DC354AD88C3046B204F51C",
+          "kind": "config"
+        }
+      ]
+    },
+    {
+      "id": "sam-stats-booster",
+      "name": "Sam Stats Booster",
+      "version": "1.0.0",
+      "category": "Equipment & Progression",
+      "categoryDe": "Ausrüstung & Fortschritt",
+      "description": "Provides a configurable boost to the progression of selected Sam stats.",
+      "descriptionDe": "Beschleunigt konfigurierbar den Fortschritt ausgewählter Sam-Werte.",
+      "files": [
+        {
+          "payload": "payload/mods/sam-stats-booster/SamStatsBooster.asi",
+          "target": "SamStatsBooster.asi",
+          "sha256": "0A4C3B117602D897916EF2C3B0F6E20FF0208E5218DF76759A5C7DF95EF94943",
+          "kind": "binary",
+          "previousHashes": [
+            "E930E2B6C59A955789A2E5F4D967D9BFC30F57CA2DBA9061039841A1F4E8AB99"
+          ]
+        },
+        {
+          "payload": "payload/mods/sam-stats-booster/SamStatsBooster.ini",
+          "target": "SamStatsBooster.ini",
+          "sha256": "843B792D3F9369AA76E01C52C5498FCBE668206A79EF1E595236032DE084F38E",
+          "kind": "config"
+        }
+      ]
+    },
+    {
+      "id": "porter-grade-booster",
+      "name": "Porter Grade Booster",
+      "version": "1.0.0",
+      "category": "Equipment & Progression",
+      "categoryDe": "Ausrüstung & Fortschritt",
+      "description": "Provides a configurable boost to the category points awarded by DS2 for completed deliveries.",
+      "descriptionDe": "Verstärkt konfigurierbar die Kategoriepunkte, die DS2 für abgeschlossene Lieferungen vergibt.",
+      "files": [
+        {
+          "payload": "payload/mods/porter-grade-booster/PorterGradeBooster.asi",
+          "target": "PorterGradeBooster.asi",
+          "sha256": "FA5EA1CB4D31F248A8BA94A3DE0A5A093E1D02A525883CB59A94408E7D1376B3",
+          "kind": "binary",
+          "previousHashes": [
+            "7AD9D021E0F7D1E61CA50C9F40D803954B49083A88C31335A18A34BE8F0E2213"
+          ]
+        },
+        {
+          "payload": "payload/mods/porter-grade-booster/PorterGradeBooster.ini",
+          "target": "PorterGradeBooster.ini",
+          "sha256": "D26107507B2FDC7C282E5E729398EA4AAD0F8D49733ADED46F0631EFAC65FD51",
+          "kind": "config"
+        }
+      ]
+    },
+    {
+      "id": "lost-cargo-likes-booster",
+      "name": "Lost Cargo Likes Booster",
+      "version": "1.1.1",
+      "category": "Deliveries & Rewards",
+      "categoryDe": "Lieferungen & Belohnungen",
+      "description": "Awards a configurable Like bonus when returning lost cargo.",
+      "descriptionDe": "Gewährt einen konfigurierbaren Like-Bonus bei der Rückgabe verlorener Fracht.",
+      "files": [
+        {
+          "payload": "payload/mods/lost-cargo-likes-booster/ds2_lost_cargo_likes_booster.asi",
+          "target": "ds2_lost_cargo_likes_booster.asi",
+          "sha256": "1A3024022B7DC7CCD73D0EC0442BE3F8117EB969B0AF63D356226D821E86AB9B",
+          "kind": "binary",
+          "previousHashes": [
+            "AB5771528603819D193748394F7BD90A5EFF6F588E110C9ED91087728E24C71A"
+          ]
+        },
+        {
+          "payload": "payload/mods/lost-cargo-likes-booster/ds2_lost_cargo_likes_booster.ini",
+          "target": "ds2_lost_cargo_likes_booster.ini",
+          "sha256": "DAAF0FAF048ED251CCA8EE27C3D23CA91F48152E7467CC2686DF36CC4BF5B4C4",
+          "kind": "config"
+        }
+      ]
+    },
+    {
+      "id": "no-magellan-evaluation",
+      "name": "No Magellan Evaluation Penalty",
+      "version": "1.0.0",
+      "category": "Deliveries & Rewards",
+      "categoryDe": "Lieferungen & Belohnungen",
+      "description": "Removes the Like penalty from Magellan deliveries without changing their designation.",
+      "descriptionDe": "Entfernt den Like-Malus bei Magellan-Lieferungen, ohne deren Kennzeichnung zu verändern.",
+      "files": [
+        {
+          "payload": "payload/mods/no-magellan-evaluation/ds2_no_magellan_evaluation.asi",
+          "target": "ds2_no_magellan_evaluation.asi",
+          "sha256": "3D19901786B97B7BDB188582B078FC97E811D2339AB04DBE19822B1E94200DFE",
+          "kind": "binary",
+          "previousHashes": [
+            "3EC72DA55493471470246C39179D8F56154D149409A95FF15F200FA0D5054FE3"
+          ]
+        },
+        {
+          "payload": "payload/mods/no-magellan-evaluation/ds2_no_magellan_evaluation.ini",
+          "target": "ds2_no_magellan_evaluation.ini",
+          "sha256": "8B71D66310EAE417B0BE23517CF7DE45A5126E9F00080FC826D82A684F67D7B1",
+          "kind": "config"
+        }
+      ]
+    },
+    {
+      "id": "construction-anywhere",
+      "name": "Construction Anywhere",
+      "version": "1.0.0",
+      "category": "Construction & World",
+      "categoryDe": "Bauen & Welt",
+      "description": "Loosens general construction distance limits and tested restricted zones for PCC structures.",
+      "descriptionDe": "Lockert allgemeine Bauabstände und getestete Sperrzonen für PCC-Konstruktionen.",
+      "files": [
+        {
+          "payload": "payload/mods/construction-anywhere/ds2_construction_anywhere.asi",
+          "target": "ds2_construction_anywhere.asi",
+          "sha256": "B7CE23837F5FD9399A6B6CB58C52790E187FB725A96246A9B313115132C3FD13",
+          "kind": "binary",
+          "previousHashes": [
+            "FC5D96527EE85696B7E796F911DB8414BF0834A6D8418318A4133D26392B09F3"
+          ]
+        },
+        {
+          "payload": "payload/mods/construction-anywhere/ds2_construction_anywhere.ini",
+          "target": "ds2_construction_anywhere.ini",
+          "sha256": "2F5CBD754E854474719C5F7E809C6EAAC42DD4098A2CDF12BDA1218A778778AF",
+          "kind": "config"
+        }
+      ]
+    },
+    {
+      "id": "construction-max-level-on-build",
+      "name": "Construction Max Level on Build",
+      "version": "1.0.1",
+      "category": "Construction & World",
+      "categoryDe": "Bauen & Welt",
+      "description": "Automatically upgrades newly built supported Player PCC structures to their native maximum level through the game's original level functions.",
+      "descriptionDe": "Wertet neu gebaute unterstützte eigene PCC-Konstruktionen über die originalen Level-Funktionen des Spiels automatisch auf ihre native Maximalstufe auf.",
+      "files": [
+        {
+          "payload": "payload/mods/construction-max-level-on-build/ds2_construction_max_level_on_build.asi",
+          "target": "ds2_construction_max_level_on_build.asi",
+          "sha256": "C87FE2B06CAF5A75A85A065B47C3D50B22A0D90159CFC4D1222D203E33EC90E4",
+          "kind": "binary",
+          "previousHashes": [
+            "FD73C65DDA920CA60761922DAE1E5A16CF37A649CF26AE1114D717ADF493B6C5"
+          ]
+        },
+        {
+          "payload": "payload/mods/construction-max-level-on-build/ds2_construction_max_level_on_build.ini",
+          "target": "ds2_construction_max_level_on_build.ini",
+          "sha256": "18B2B8C4751964F05A6CE0538548D985AC828D97CB24102928A6926834F26228",
+          "kind": "config"
+        }
+      ]
+    },
+    {
+      "id": "weapons-anywhere",
+      "name": "Weapons Anywhere",
+      "version": "1.0.0",
+      "category": "Construction & World",
+      "categoryDe": "Bauen & Welt",
+      "description": "Removes selected weapon restrictions in protected areas.",
+      "descriptionDe": "Hebt ausgewählte Waffenbeschränkungen in geschützten Bereichen auf.",
+      "files": [
+        {
+          "payload": "payload/mods/weapons-anywhere/ds2_weapons_anywhere.asi",
+          "target": "ds2_weapons_anywhere.asi",
+          "sha256": "09AA8203E3663CB79EBA60037925E433AAAE58191F42BF7A1121B0454D4E9976",
+          "kind": "binary",
+          "previousHashes": [
+            "20B922F78393B44E61CA9BE44C689652554A7BA8398C34FED1CCE35D2EEC10D2"
+          ]
+        },
+        {
+          "payload": "payload/mods/weapons-anywhere/ds2_weapons_anywhere.ini",
+          "target": "ds2_weapons_anywhere.ini",
+          "sha256": "1BB984218280F442EE10B443F94DEE06A8B2BE34BA5F2071917022B2A358E541",
+          "kind": "config"
+        }
+      ]
+    },
+    {
+      "id": "zipline-range",
+      "name": "Zipline Range & Speed",
+      "version": "1.0.0",
+      "category": "Construction & World",
+      "categoryDe": "Bauen & Welt",
+      "description": "Configures zip-line connection range and travel speed.",
+      "descriptionDe": "Konfiguriert Verbindungsreichweite und Fahrgeschwindigkeit von Seilrutschen.",
+      "files": [
+        {
+          "payload": "payload/mods/zipline-range/ds2_zipline_range.asi",
+          "target": "ds2_zipline_range.asi",
+          "sha256": "5DD3438554AECF13734E081D49F38797EBCD88007F7A95117DA0F6AAE7D1145F",
+          "kind": "binary",
+          "previousHashes": [
+            "DBC9126DA373EF13285499BDA1131C9B6AC36CC6C430F197210810BBD8D4A6BD"
+          ]
+        },
+        {
+          "payload": "payload/mods/zipline-range/ds2_zipline_range.ini",
+          "target": "ds2_zipline_range.ini",
+          "sha256": "6151A79670C45A7F4D7D410EB2030906720F31BCD7F5286790CBF7E99EC0EFF3",
+          "kind": "config"
+        }
+      ]
+    },
+    {
+      "id": "chiral-bandwidth-costs",
+      "name": "Chiral Bandwidth Costs",
+      "version": "1.0.0",
+      "category": "Construction & World",
+      "categoryDe": "Bauen & Welt",
+      "description": "Sets exact chiral bandwidth costs for supported structures.",
+      "descriptionDe": "Legt die Chiralbandbreitenkosten unterstützter Konstruktionen exakt fest.",
+      "files": [
+        {
+          "payload": "payload/mods/chiral-bandwidth-costs/ds2_chiral_bandwidth_costs.asi",
+          "target": "ds2_chiral_bandwidth_costs.asi",
+          "sha256": "28DCE50C4C489F489224946A1951C22916462F3E1F58B6FA2BA581BCFECEDE2E",
+          "kind": "binary",
+          "previousHashes": [
+            "BA49FAEBC661633945A19AFEDFAE0F3D7A88FA62DCA752735692AA3D436DFC2B"
+          ]
+        },
+        {
+          "payload": "payload/mods/chiral-bandwidth-costs/ds2_chiral_bandwidth_costs.ini",
+          "target": "ds2_chiral_bandwidth_costs.ini",
+          "sha256": "223AA9B0E6E95B0D448EECEF643463FFB304E497AAC903FA778A6EAEA9F3CA6A",
+          "kind": "config"
+        }
+      ]
+    },
+    {
+      "id": "infrastructure-one-unit",
+      "name": "Infrastructure One Unit",
+      "version": "1.1.0",
+      "category": "Construction & World",
+      "categoryDe": "Bauen & Welt",
+      "description": "Configurable infrastructure material requirements and optional reduced chiral crystal costs for mine extraction.",
+      "descriptionDe": "Konfigurierbarer Infrastruktur-Materialbedarf und optional reduzierte chirale Kristallkosten für die Minenförderung.",
+      "files": [
+        {
+          "payload": "payload/mods/infrastructure-one-unit/ds2_infrastructure_one_unit.asi",
+          "target": "ds2_infrastructure_one_unit.asi",
+          "sha256": "D7FB697EE2F73D4C6E308BB75397171EB4B232FF9EA6BCB16B8081DA9B510E9A",
+          "kind": "binary",
+          "previousHashes": [
+            "235556A9F4FCF8D45707D16598190FD62CF9DB2C5BEB4BC566050F87B85F64EE",
+            "E8BB57DCE383CD8542041985E9165EF522FD02B40580A9EDAD715D8F5F1D2EEA"
+          ]
+        },
+        {
+          "payload": "payload/mods/infrastructure-one-unit/ds2_infrastructure_one_unit.ini",
+          "target": "ds2_infrastructure_one_unit.ini",
+          "sha256": "56951CA933A6913C030B74768F2486DD9AF778DBE34166F5D3437BC4F400C40A",
+          "kind": "config"
+        }
+      ]
+    },
+    {
+      "id": "remote-orders-overlay",
+      "name": "Remote Orders Overlay",
+      "version": "0.2.0",
+      "category": "Interface",
+      "categoryDe": "Interface",
+      "description": "Shows a facility's available orders directly on the world map in a localized overlay.",
+      "descriptionDe": "Zeigt verfügbare Aufträge einer Einrichtung direkt auf der Weltkarte als lokalisierte Einblendung.",
+      "files": [
+        {
+          "payload": "payload/mods/remote-orders-overlay/DS2_Remote_Orders_Overlay.asi",
+          "target": "DS2_Remote_Orders_Overlay.asi",
+          "sha256": "0546539A5E45DC1BB89D006D9779912661F0A9DAC2D50E42054BF3E64048BA9C",
+          "kind": "binary",
+          "previousHashes": [
+            "02C3046773001DC6499B6B670C6DD0903F37F29EF5D19F1DB4A8DB1F2F183821"
+          ]
+        },
+        {
+          "payload": "payload/mods/remote-orders-overlay/DS2_Remote_Orders_Overlay.ini",
+          "target": "DS2_Remote_Orders_Overlay.ini",
+          "sha256": "2174B4A2775A5338D4D4D9A16ABDADCC77BCBF4E1C51C50F13AB4ECFC3FBBC5E",
+          "kind": "config"
+        }
+      ],
+      "obsoleteFiles": [
+        {
+          "target": "DS2_Remote_Orders_Overlay_LOCALIZED_TEST.asi",
+          "sha256": "84A9ABCC0E048B4B7625C2B21EA14971ECF7CED5D4F26559BFA63187CE1A7E00"
+        }
+      ]
+    },
+    {
+      "id": "extended-bt-cord-cutting-range",
+      "name": "Extended BT Cord Cutting Range",
+      "version": "1.0.0",
+      "category": "Equipment & Progression",
+      "categoryDe": "Ausrüstung & Fortschritt",
+      "description": "Increases the configurable range for cutting BT umbilical cords.",
+      "descriptionDe": "Erhöht die konfigurierbare Reichweite zum Durchtrennen von BT-Nabelschnüren.",
+      "files": [
+        {
+          "payload": "payload/mods/extended-bt-cord-cutting-range/ds2_extended_bt_cord_cutting_range.asi",
+          "target": "ds2_extended_bt_cord_cutting_range.asi",
+          "sha256": "31FEE85B8FAEC3D2AAA453995FEF8C8539D025555586FB20EC4520365990F1AD",
+          "kind": "binary",
+          "previousHashes": [
+            "AF65DEC8FA5704D5C4D4DE52B337FE78D2811BD319A9DA8E640B8199669E490F"
+          ]
+        },
+        {
+          "payload": "payload/mods/extended-bt-cord-cutting-range/ds2_extended_bt_cord_cutting_range.ini",
+          "target": "ds2_extended_bt_cord_cutting_range.ini",
+          "sha256": "A0D154A4637E917E53792D2208EC56E468CAD9F0E89DA44FB8FEE7396EB6989F",
+          "kind": "config"
+        }
+      ]
+    },
+    {
+      "id": "apas-memory-costs",
+      "name": "APAS Memory Costs",
+      "version": "4.0.0-rebuild.1",
+      "category": "Equipment & Progression",
+      "categoryDe": "Ausrüstung & Fortschritt",
+      "description": "Configurable APAS costs, optional Unlock All and Early Access. Progression options are off by default; saved unlocks may persist.",
+      "descriptionDe": "Konfigurierbare APAS-Kosten, optionales Alle freischalten und früher Zugang. Fortschrittsoptionen sind standardmäßig aus; Freischaltungen können gespeichert bleiben.",
+      "files": [
+        {
+          "payload": "payload/mods/apas-memory-costs/ds2_apas_memory_costs.asi",
+          "target": "ds2_apas_memory_costs.asi",
+          "sha256": "96F49E5928545AA7839CAA1417305588BF4A1080E207EAD4B71122380D85D899",
+          "kind": "binary",
+          "previousHashes": [
+            "7A3D0E37C5D1D631EA5DF58ED451C4E96DE782A6C04B52A1A14F879CA0CDFA37",
+            "8B1F9910A46B1E7929084ACEF23340131382BBA2D059B2CD24A9BD86EA16E4B9",
+            "5742577EB3DFEBF2DFA83426616677CBA1797165696C2753B5C2E606B4E5BE68",
+            "FCBC8C6EE1470896B02DDCA8D82D3C8BF2AC338DD4EB91EE4CC9B3B3D821AACE",
+            "69839224342963F4E1B334C4117520440D6C89CD3D429C8E24D845505FE394E8",
+            "43171C77958D864AC5391F1AEC50F5FB6580DEE75A4C4BEB8DB4D94957922550"
+          ]
+        },
+        {
+          "payload": "payload/mods/apas-memory-costs/ds2_apas_memory_costs.ini",
+          "target": "ds2_apas_memory_costs.ini",
+          "sha256": "D6EF5A944A03F4EBDFD9B2A6332FE9375C27D9F3F10DDA5DF596718879638DA2",
+          "kind": "config"
+        }
+      ]
+    },
+    {
+      "id": "proficiency-bonus-multiplier",
+      "name": "Proficiency Bonus Multiplier",
+      "version": "1.0.0",
+      "category": "Equipment & Progression",
+      "categoryDe": "Ausrüstung & Fortschritt",
+      "description": "Configures the strength of supported level-dependent proficiency bonuses for levels 1 through 5.",
+      "descriptionDe": "Konfiguriert die Stärke unterstützter stufenabhängiger Fertigkeitsboni für Stufe 1 bis 5.",
+      "files": [
+        {
+          "payload": "payload/mods/proficiency-bonus-multiplier/DS2_ProficiencyBonusMultiplier.asi",
+          "target": "DS2_ProficiencyBonusMultiplier.asi",
+          "sha256": "D5B59F282AA5D45B4A9F895626A2199A885E89AAFC60B8BE57F345F09346D722",
+          "kind": "binary",
+          "previousHashes": [
+            "D2CDD6D998163009D60257AF1D8ACF1274B30387A16846B0969DFB538D3013BD"
+          ]
+        },
+        {
+          "payload": "payload/mods/proficiency-bonus-multiplier/DS2_ProficiencyBonusMultiplier.ini",
+          "target": "DS2_ProficiencyBonusMultiplier.ini",
+          "sha256": "000837A2585E8F615BFA10F41BF0BE72289974D8D5DE31F3880D467EAF59D499",
+          "kind": "config"
+        }
+      ]
+    },
+    {
+      "id": "improved-odradek-scan",
+      "name": "Improved Odradek Scan",
+      "version": "1.0.1",
+      "category": "Equipment & Progression",
+      "categoryDe": "Ausrüstung & Fortschritt",
+      "description": "Configurable 360-degree Odradek scan with a tested 500 m default radius, distant cargo markers and distance display. Native terrain colors and hazard markings are preserved.",
+      "descriptionDe": "Konfigurierbarer 360-Grad-Odradek-Scan mit getestetem 500-m-Standardradius, entfernten Frachtmarkierungen und Entfernungsanzeige. Native Geländefarben und Gefahrenmarkierungen bleiben erhalten.",
+      "files": [
+        {
+          "payload": "payload/mods/improved-odradek-scan/ds2_odradek_scan.asi",
+          "target": "ds2_odradek_scan.asi",
+          "sha256": "21CAAA7C65AE44DB33CB9E05548D2AEEF169322B099F94C829CF57F193E8FB81",
+          "kind": "binary",
+          "previousHashes": [
+            "B9FCD0469783B6973BBF33D2396DF5884799734A476AC07A851F6B0CF6E4015B"
+          ]
+        },
+        {
+          "payload": "payload/mods/improved-odradek-scan/ds2_odradek_scan.ini",
+          "target": "ds2_odradek_scan.ini",
+          "sha256": "331E7E84DA0A4EEDBFAC0119F6679B97B0110A44392B76201B6B003E0C8EE705",
+          "kind": "config"
+        }
+      ]
+    },
+    {
+      "id": "high-density-backpack-classic",
+      "name": "High-Density Backpack - Classic Overlap",
+      "version": "1.1.0",
+      "category": "Equipment & Progression",
+      "categoryDe": "Ausrüstung & Fortschritt",
+      "description": "Alternative Backpack build: 30 one-cell modules, visible overlapping meshes, manual placement and eight charm slots. Not yet checked in game. Choose instead of the standard variant.",
+      "descriptionDe": "Alternative Backpack-Version: 30 Ein-Zellen-Module, sichtbare überlappende Modelle, manuelle Platzierung und acht Anhängerplätze. Noch nicht im Spiel geprüft. Statt der Standardvariante wählen.",
+      "exclusiveGroup": "high-density-backpack",
+      "files": [
+        {
+          "payload": "payload/mods/high-density-backpack-classic/DS2_HighDensityBackpackModules_v1.1.0_Classic_Overlap.asi",
+          "target": "DS2_HighDensityBackpackModules_v1.1.0_Classic_Overlap.asi",
+          "sha256": "94D07600A0DE5BEAEEFE342D20A3811541A9CFF79012FE35ABD480A2952622C3",
+          "kind": "binary",
+          "previousHashes": [
+            "EA16EC54D380D1CDB30D52C12197D92650C10877E0F9B6D551E29AB90E77643C"
+          ]
+        }
+      ],
+      "obsoleteFiles": []
+    },
+    {
+      "id": "crafting-unlocks",
+      "name": "Crafting & Equipment Overhaul",
+      "version": "1.8.0",
+      "category": "Equipment & Progression",
+      "categoryDe": "Ausrüstung & Fortschritt",
+      "description": "Early crafting for 132 items, ATLAS gear, four suppressed weapons and standard PCC building choices. Free Crafting and durability changes are off by default.",
+      "descriptionDe": "Frühes Herstellen von 132 Gegenständen, ATLAS-Ausrüstung, vier schallgedämpften Waffen und frühen Standard-PCC-Bauoptionen. Kostenloses Herstellen und Haltbarkeitsänderungen sind standardmäßig aus.",
+      "files": [
+        {
+          "payload": "payload/mods/crafting-unlocks/ds2_crafting_unlocks.asi",
+          "target": "ds2_crafting_unlocks.asi",
+          "sha256": "0D89E1270313DD7DFAC9AF38CFA5A7A2DB553EB010C87F5514F626699A0FB439",
+          "kind": "binary",
+          "previousHashes": [
+            "618AA029BF5202E3E9DFF8864B94B5C25A6FB9247F0F25327000E3336E9E65F2",
+            "1885C8861673D262726E9B3207140E11D726F18851DAF363735CC6E597765882"
+          ]
+        },
+        {
+          "payload": "payload/mods/crafting-unlocks/ds2_crafting_unlocks.ini",
+          "target": "ds2_crafting_unlocks.ini",
+          "sha256": "03ABE6445ED8F9A6A1DD0225B34247788BB19A58EFBF44BA1232972AC564DE8A",
+          "kind": "config"
+        }
+      ],
+      "conflictingFiles": [
+        "ds2_overpowered_equipment.asi",
+        "ds2_more_silenced_guns.asi"
+      ]
+    },
+    {
+      "id": "jump-ramp-unlimited",
+      "name": "Jump Ramp Unlimited",
+      "version": "1.0.0",
+      "category": "Construction & World",
+      "categoryDe": "Bauen & Welt",
+      "description": "Repeat the final available trick while airborne after a Jump Ramp, using the normal trick input.",
+      "descriptionDe": "Wiederholt nach einer Sprungrampe den letzten verfügbaren Trick in der Luft mit der normalen Trick-Eingabe.",
+      "files": [
+        {
+          "payload": "payload/mods/jump-ramp-unlimited/ds2_jump_ramp_unlimited.asi",
+          "target": "ds2_jump_ramp_unlimited.asi",
+          "sha256": "E7C64ADD96ADB9FECFA5EA609EAF6454122F6262B118AA6BE2CDE125ABB9A2E9",
+          "kind": "binary",
+          "previousHashes": [
+            "6F6E2256F58B766822915DBA3801D32678C24A2EF855F1BDA9B0A16859FD3E7F"
+          ]
+        },
+        {
+          "payload": "payload/mods/jump-ramp-unlimited/ds2_jump_ramp_unlimited.ini",
+          "target": "ds2_jump_ramp_unlimited.ini",
+          "sha256": "4B95A9349A606902985A2E7E2C5E19650D5C045900616BD2E839FD83DD12CA1C",
+          "kind": "config"
+        }
+      ],
+      "conflictingFiles": [
+        "ds2_jump_ramp_probe.asi"
+      ]
+    },
+    {
+      "id": "beach-jump-with-cargo",
+      "name": "Beach Jump with Cargo",
+      "version": "1.0.0",
+      "category": "Construction & World",
+      "categoryDe": "Bauen & Welt",
+      "description": "Keep cargo attached to Sam during Beach and Hot Spring Jumps. Vehicles, Floating Carriers and cargo on the ground are not included.",
+      "descriptionDe": "Behält Sams am Körper getragene Fracht bei Strand- und Thermalquellen-Sprüngen. Fahrzeuge, schwebende Träger und Fracht am Boden sind nicht eingeschlossen.",
+      "files": [
+        {
+          "payload": "payload/mods/beach-jump-with-cargo/ds2_beach_jump_with_cargo.asi",
+          "target": "ds2_beach_jump_with_cargo.asi",
+          "sha256": "6F387B1A50E2E0A968B491B2F3E2A375C5457E82218AD706483ADE6874BDD50F",
+          "kind": "binary",
+          "previousHashes": [
+            "23272BF40C571C5CDBEED9148459CFAA1D7F20F0E76F2A08D5E83A5DA11E2567"
+          ]
+        },
+        {
+          "payload": "payload/mods/beach-jump-with-cargo/ds2_beach_jump_with_cargo.ini",
+          "target": "ds2_beach_jump_with_cargo.ini",
+          "sha256": "111CCF5E185BFE83EF2A66C5A0B9185A42822440A25DBF0FDF36799FFD8C9286",
+          "kind": "config"
+        }
+      ]
+    },
+    {
+      "id": "sam-overhaul",
+      "name": "Sam Overhaul",
+      "version": "1.1.0",
+      "category": "Equipment & Progression",
+      "categoryDe": "Ausrüstung & Fortschritt",
+      "description": "Cargo visibility, movement, Autodrive and truck weapon tuning. Optional footprint hiding and expanded generator/shelter ranges are off by default. Replaces Sneaky Sam.",
+      "descriptionDe": "Frachtsichtbarkeit, Bewegung, Autopilot und Lkw-Waffenabstimmung. Optionales Ausblenden von Fußspuren und größere Generator-/Unterstandsreichweiten sind standardmäßig aus. Ersetzt Sneaky Sam.",
+      "files": [
+        {
+          "payload": "payload/mods/sam-overhaul/DS2_Sam_Overhaul_v1.1.0.asi",
+          "target": "DS2_Sam_Overhaul_v1.1.0.asi",
+          "sha256": "3461C835DCB46890451B2AD8D3984D268A60F80AF1F4110426084B58825B19B4",
+          "kind": "binary",
+          "previousHashes": [
+            "DCA56B593B0CF2B81A59CEA764455D7EEFF678371E492E6C6C610D2B5F6D9A3B"
+          ]
+        },
+        {
+          "payload": "payload/mods/sam-overhaul/ds2_sam_overhaul.ini",
+          "target": "ds2_sam_overhaul.ini",
+          "sha256": "7096EBB38553AB686A7E6E032408CEE2C6BFE30842591281AEF5D4708EA0D7BB",
+          "kind": "config"
+        }
+      ],
+      "obsoleteFiles": [
+        {
+          "target": "DS2_SneakySam_v1.0.0.asi",
+          "sha256": "57EB2FBA2B33AF665C5B9F3C24213E10C26B3BC3FA154263A6C1F60914D0A1A7"
+        },
+        {
+          "target": "DS2_SneakySam_v1.0.1.asi",
+          "sha256": "C23B727A08227B786C2C3DDAF77DECCCFE43ABF68D8CD3D69B27CE5B493E4DAB"
+        },
+        {
+          "target": "DS2_Sam_Overhaul_v1.0.0.asi",
+          "sha256": "8D98EE779E54A4172EFC2ADDC6BB80A60C49EBEA789D0D2A38C554BD87F03825"
+        }
+      ],
+      "conflictingFiles": [
+        "ds2_footprint_native_probe.asi"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+#pragma once
+struct CacheFile {const WCHAR* original; const WCHAR* cache; const char* sourceHash; const char* cacheHash;};
+constexpr CacheFile CacheFiles[]={
+{L"C:\\Program Files (x86)\\Steam\\steamapps\\common\\DEATH STRANDING 2 - ON THE BEACH\\LocalCacheWinGame\\package\\package.42.02.core.stream",L"D:\\DS2-Asset-Lab\\mods\\atlas-chiral-addon\\staging\\test11-hanging-shader\\cache\\6616c0a3be60872c60e5e00844fda9212164604c3257f08fa6fbccc9b5535e41\\package.42.02.core.stream","ea8eda102f61012975bcfd2822c22680dd3b78f1517e501808a23083b69bb16f","14da2af2e3c86491b9a5909c8fa8740c6f93b46804eff52ac806d61668253753"},
+{L"C:\\Program Files (x86)\\Steam\\steamapps\\common\\DEATH STRANDING 2 - ON THE BEACH\\LocalCacheWinGame\\package\\streaming_graph.core",L"D:\\DS2-Asset-Lab\\mods\\atlas-chiral-addon\\staging\\test11-hanging-shader\\cache\\6616c0a3be60872c60e5e00844fda9212164604c3257f08fa6fbccc9b5535e41\\streaming_graph.core","ac0c824ef73d1551d798357d12c150a963eb26910292ce4a4f9a6d8c923ca392","f9a2c43e50ef9460ca32cfb8b89d6990039f50285523c672905cb35f2f109d57"},
+{L"C:\\Program Files (x86)\\Steam\\steamapps\\common\\DEATH STRANDING 2 - ON THE BEACH\\LocalCacheWinGame\\package\\streaming_links.stream",L"D:\\DS2-Asset-Lab\\mods\\atlas-chiral-addon\\staging\\test11-hanging-shader\\cache\\6616c0a3be60872c60e5e00844fda9212164604c3257f08fa6fbccc9b5535e41\\streaming_links.stream","6f4e41debb19b1bb702b2effc8932108dd77255ea6fec9dbc459a1d5a7bab28d","8c3d7bc70e9eda0288f79e12cfc2da9448063ae35d38732962154be0c5f58ac7"},
+};
+constexpr char CacheBaseGraphSHA[]="2479bf350a16973a73f37d7da1be8409b6f9621baf852e454f215b978a564dd5";

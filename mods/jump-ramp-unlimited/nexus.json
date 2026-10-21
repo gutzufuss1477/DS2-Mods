@@ -1,0 +1,21 @@
+{
+  "name": "Jump Ramp Unlimited",
+  "game": "DEATH STRANDING 2: ON THE BEACH",
+  "nexusGame": "deathstranding2onthebeach",
+  "nexusModId": 91,
+  "nexusUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/91",
+  "pageVersion": "1",
+  "sourceStatus": "release-workspace",
+  "sourceNote": "Source from the published-release workspace; binaries are downloaded from Nexus. No new runtime test was performed for this source import.",
+  "currentFiles": [
+    {
+      "fileId": 351,
+      "name": "DS2 Jump Ramp Unlimited V1.0.0",
+      "version": "1",
+      "category": "MAIN",
+      "sha256": "cdcdc63e51932abe353da4377b4ad9fa9047c12b6167c560e86090503a8bcd4d",
+      "bytes": 4690,
+      "downloadUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/91?tab=files&file_id=351"
+    }
+  ]
+}

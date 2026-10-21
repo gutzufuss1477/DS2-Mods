@@ -1,0 +1,30 @@
+{
+  "name": "High Density Backpack",
+  "game": "DEATH STRANDING 2: ON THE BEACH",
+  "nexusGame": "deathstranding2onthebeach",
+  "nexusModId": 68,
+  "nexusUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/68",
+  "pageVersion": "1.1.0",
+  "sourceStatus": "release-workspace",
+  "sourceNote": "Source from the published-release workspace; binaries are downloaded from Nexus. No new runtime test was performed for this source import.",
+  "currentFiles": [
+    {
+      "fileId": 318,
+      "name": "High Density Backpack 1.1.0",
+      "version": "1.1.0",
+      "category": "MAIN",
+      "sha256": "6ba377e466ea94f0275ba0641e7c000e5e3877209b1ab371f4fb22f99a2e934f",
+      "bytes": 20198,
+      "downloadUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/68?tab=files&file_id=318"
+    },
+    {
+      "fileId": 325,
+      "name": "High Density Backpack 1.1.0 - Classic Overlap",
+      "version": "1.1.0",
+      "category": "OPTIONAL",
+      "sha256": "c999fcf113edc4f4fac044f4a709b44b129fcc2efe3b287ef69d84bccdfa46ce",
+      "bytes": 13420,
+      "downloadUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/68?tab=files&file_id=325"
+    }
+  ]
+}

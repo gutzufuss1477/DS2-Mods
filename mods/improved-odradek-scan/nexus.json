@@ -1,0 +1,21 @@
+{
+  "name": "Improved Odradek Scan",
+  "game": "DEATH STRANDING 2: ON THE BEACH",
+  "nexusGame": "deathstranding2onthebeach",
+  "nexusModId": 85,
+  "nexusUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/85",
+  "pageVersion": "1.0.0",
+  "sourceStatus": "release-workspace",
+  "sourceNote": "Source from the published-release workspace; binaries are downloaded from Nexus. No new runtime test was performed for this source import.",
+  "currentFiles": [
+    {
+      "fileId": 333,
+      "name": "Improved Odradek Scan 1.0.1",
+      "version": "1.0.1",
+      "category": "MAIN",
+      "sha256": "d0ab10fb651ebfb103257670a7eb0178619dec4b2084954a0f607503855e47aa",
+      "bytes": 44065,
+      "downloadUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/85?tab=files&file_id=333"
+    }
+  ]
+}

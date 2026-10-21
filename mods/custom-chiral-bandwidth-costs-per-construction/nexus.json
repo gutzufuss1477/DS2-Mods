@@ -1,0 +1,21 @@
+{
+  "name": "Custom Chiral Bandwidth Costs per Construction",
+  "game": "DEATH STRANDING 2: ON THE BEACH",
+  "nexusGame": "deathstranding2onthebeach",
+  "nexusModId": 71,
+  "nexusUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/71",
+  "pageVersion": "1",
+  "sourceStatus": "release-workspace",
+  "sourceNote": "Source from the published-release workspace; binaries are downloaded from Nexus. No new runtime test was performed for this source import.",
+  "currentFiles": [
+    {
+      "fileId": 260,
+      "name": "DS2 Chiral Bandwidth Costs V1.0.0",
+      "version": "1",
+      "category": "MAIN",
+      "sha256": "69c463304e3c7999663ef6982c4d6505ad21dfc0ba482f7166c256dc78a03d80",
+      "bytes": 10421,
+      "downloadUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/71?tab=files&file_id=260"
+    }
+  ]
+}

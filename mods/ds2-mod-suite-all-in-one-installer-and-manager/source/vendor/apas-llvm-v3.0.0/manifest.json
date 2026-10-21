@@ -1,0 +1,18 @@
+{
+  "id": "apas-memory-costs",
+  "version": "3.0.0",
+  "file": "ds2_apas_memory_costs.asi",
+  "sha256": "69839224342963F4E1B334C4117520440D6C89CD3D429C8E24D845505FE394E8",
+  "bytes": 117760,
+  "compiler": "C:\\Program Files\\LLVM\\bin\\clang-cl.exe",
+  "msvc": "14.44.35207",
+  "windowsSdk": "10.0.26100.0",
+  "sourceHashes": {
+    "mods/apas-memory-costs/src/apas.cpp": "B91B2F4B38EB269DB3FAEC60DD55ED40C5649E1C8818847D6B885DEC3958B861",
+    "mods/apas-memory-costs/src/platform.h": "11761E70C00C59A612F67304AAE24F499CE01DCD023BB9908AA602C3FE42227D",
+    "mods/apas-memory-costs/src/target.h": "1CB5406529880BAE688315FDD85707689DFC53559DC324F94C99669E4D743D5C"
+  },
+  "sourceArtifact": "build/native-suite/apas-memory-costs/ds2_apas_memory_costs.asi",
+  "previousSha256": "FCBC8C6EE1470896B02DDCA8D82D3C8BF2AC338DD4EB91EE4CC9B3B3D821AACE",
+  "buildReason": "Verify exact game target spans and patch snapshots with Windows CNG SHA-256; retain atomic conflict guards, standard static CRT, GS, CFG, ASLR/NX and APAS gameplay behavior."
+}

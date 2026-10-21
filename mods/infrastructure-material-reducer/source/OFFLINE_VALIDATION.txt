@@ -1,0 +1,23 @@
+Infrastructure One Unit v1.1.0 – Offline Validation
+
+Environment: DS2 Steam v1.10.89.0 reference SHA-256
+BF3D1C665545930BC850D8F5DF486F7395885BB729D4FD408FDB03390DE0765B
+
+- Existing policy regression: tests/test_policy.py
+- Configurable crystal price regression: tests/test_mine_cost_scaling.py
+- Development-only exact native opcode, caller and UI-formatting analyses: PASS
+
+Matrix for an original 1000-crystal extraction batch:
+INI=0 -> 1000/1000 (vanilla)
+INI=1 -> 1/1
+INI=2 -> 2/2
+INI=5 -> 5/5
+INI=10 -> 10/10
+INI=25 -> 25/25
+INI=50 -> 50/50
+INI=100 -> 100/100
+INI=500 -> 500/500
+INI=1000 -> 1000/1000
+INI=1500 -> 1000/1000 (never raises original cost)
+
+All matrix entries represent **offline/static model tests**. Separately observed in-game: option 1, correct one-crystal deduction, normal material yield at multiple mines and the 1/1 menu display.

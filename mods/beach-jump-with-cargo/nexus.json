@@ -1,0 +1,21 @@
+{
+  "name": "Beach Jump with Cargo",
+  "game": "DEATH STRANDING 2: ON THE BEACH",
+  "nexusGame": "deathstranding2onthebeach",
+  "nexusModId": 92,
+  "nexusUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/92",
+  "pageVersion": "1",
+  "sourceStatus": "release-workspace",
+  "sourceNote": "Source from the published-release workspace; binaries are downloaded from Nexus. No new runtime test was performed for this source import.",
+  "currentFiles": [
+    {
+      "fileId": 353,
+      "name": "DS2 Beach Jump With Cargo V1.0.0",
+      "version": "1",
+      "category": "MAIN",
+      "sha256": "20df02b3a12f619222c76ca0fffb398bcd815ca5333cc7da77af6ada17505026",
+      "bytes": 3426,
+      "downloadUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/92?tab=files&file_id=353"
+    }
+  ]
+}

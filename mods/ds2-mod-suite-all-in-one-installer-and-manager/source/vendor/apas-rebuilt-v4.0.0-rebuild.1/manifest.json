@@ -1,0 +1,18 @@
+{
+  "id": "apas-rebuilt",
+  "version": "4.0.0",
+  "file": "mods/apas-rebuilt/build/rebuild/apas-rebuilt/ds2_apas_memory_costs.asi",
+  "sha256": "96F49E5928545AA7839CAA1417305588BF4A1080E207EAD4B71122380D85D899",
+  "bytes": 154624,
+  "compiler": "C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\cl.exe",
+  "msvc": "14.44.35207",
+  "windowsSdk": "10.0.26100.0",
+  "sourceHashes": {
+    "mods/apas-rebuilt/src/apas.cpp": "9B764693DFD9EE50D48D07E26B9EF8901B3F89CDB0323540B30891A26149C46C",
+    "mods/apas-rebuilt/src/constructor.s": "7F813E278226B35DB07C14A13537C42A09796FBE5212EE0ADB84709F361486C7",
+    "mods/apas-rebuilt/src/target.h": "B3A5546A5D78DF5970441CC0D9E45889DD7F7AA5454288689B4B9D695BC46A80"
+  },
+  "catalogVersion": "4.0.0-rebuild.1",
+  "sourceCommit": "ba1792c",
+  "ingameValidation": "User confirmed Episode 2 APAS, costs, activation and save/reload on 2026-10-16; native unlock and virtual menu log markers observed."
+}

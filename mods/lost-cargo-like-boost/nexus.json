@@ -1,0 +1,21 @@
+{
+  "name": "Lost Cargo Like Boost",
+  "game": "DEATH STRANDING 2: ON THE BEACH",
+  "nexusGame": "deathstranding2onthebeach",
+  "nexusModId": 60,
+  "nexusUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/60",
+  "pageVersion": "1",
+  "sourceStatus": "release-workspace",
+  "sourceNote": "Source from the published-release workspace; binaries are downloaded from Nexus. No new runtime test was performed for this source import.",
+  "currentFiles": [
+    {
+      "fileId": 245,
+      "name": "Lost Cargo Likes Booster V4.0.0",
+      "version": "4",
+      "category": "MAIN",
+      "sha256": "445eeef8ebb8034d6fef734f94bd1b82899696c13bc7e152b57e340aa8fe1211",
+      "bytes": 5513,
+      "downloadUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/60?tab=files&file_id=245"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "name": "Climbing and Combat Power Gloves - Extended Cargo Pickup Range",
+  "game": "DEATH STRANDING 2: ON THE BEACH",
+  "nexusGame": "deathstranding2onthebeach",
+  "nexusModId": 76,
+  "nexusUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/76",
+  "pageVersion": "1.1.0",
+  "sourceStatus": "release-workspace",
+  "sourceNote": "Source from the published-release workspace; binaries are downloaded from Nexus. No new runtime test was performed for this source import.",
+  "currentFiles": [
+    {
+      "fileId": 350,
+      "name": "DS2 Climbing and Combat Power Gloves Range v1.1.2",
+      "version": "1.1.2",
+      "category": "MAIN",
+      "sha256": "3a36b9c0cdd1b779670386e1db0ff553f81bbbd54aafd61f9e2d1144c3a5711e",
+      "bytes": 13043,
+      "downloadUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/76?tab=files&file_id=350"
+    }
+  ]
+}

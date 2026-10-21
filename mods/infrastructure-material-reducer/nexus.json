@@ -1,0 +1,21 @@
+{
+  "name": "Infrastructure Material Reducer",
+  "game": "DEATH STRANDING 2: ON THE BEACH",
+  "nexusGame": "deathstranding2onthebeach",
+  "nexusModId": 67,
+  "nexusUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/67",
+  "pageVersion": "1",
+  "sourceStatus": "release-workspace",
+  "sourceNote": "Source from the published-release workspace; binaries are downloaded from Nexus. No new runtime test was performed for this source import.",
+  "currentFiles": [
+    {
+      "fileId": 368,
+      "name": "DS2 Infrastructure One Unit V1.1.0",
+      "version": "1.1.0",
+      "category": "MAIN",
+      "sha256": "585fcfa6f84968820852734a1cd8e5986448c52c51249efad463b57bd4556f7d",
+      "bytes": 12960,
+      "downloadUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/67?tab=files&file_id=368"
+    }
+  ]
+}

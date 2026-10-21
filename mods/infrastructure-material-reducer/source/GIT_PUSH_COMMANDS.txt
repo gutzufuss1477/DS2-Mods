@@ -1,0 +1,4 @@
+# Update the existing mod in the existing DS2-Mods repository.
+# Keep path mods/infrastructure-one-unit; do not create a second mod.
+# Review changes, commit only the public release files, and push to origin/main.
+# Do not force push; preserve unrelated worktrees and in-progress mods.

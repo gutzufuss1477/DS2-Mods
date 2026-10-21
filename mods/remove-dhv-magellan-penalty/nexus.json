@@ -1,0 +1,21 @@
+{
+  "name": "Remove DHV Magellan penalty",
+  "game": "DEATH STRANDING 2: ON THE BEACH",
+  "nexusGame": "deathstranding2onthebeach",
+  "nexusModId": 63,
+  "nexusUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/63",
+  "pageVersion": "1",
+  "sourceStatus": "release-workspace",
+  "sourceNote": "Source from the published-release workspace; binaries are downloaded from Nexus. No new runtime test was performed for this source import.",
+  "currentFiles": [
+    {
+      "fileId": 250,
+      "name": "Remove DHV Magellan Penalty V1",
+      "version": "1",
+      "category": "MAIN",
+      "sha256": "dc44e9b99a7aabf105386d4ee8b46c6793ac5ee2da3290448e1d7dd72def17d8",
+      "bytes": 4987,
+      "downloadUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/63?tab=files&file_id=250"
+    }
+  ]
+}

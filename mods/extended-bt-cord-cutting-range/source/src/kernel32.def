@@ -1,0 +1,16 @@
+LIBRARY KERNEL32
+EXPORTS
+GetModuleHandleW
+GetModuleFileNameW
+DisableThreadLibraryCalls
+CreateThread
+CloseHandle
+CreateFileW
+WriteFile
+FlushFileBuffers
+ReadProcessMemory
+GetCurrentProcess
+VirtualProtect
+FlushInstructionCache
+GetPrivateProfileStringW
+GetPrivateProfileIntW

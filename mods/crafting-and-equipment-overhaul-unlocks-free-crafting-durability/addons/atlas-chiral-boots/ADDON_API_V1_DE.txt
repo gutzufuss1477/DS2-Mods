@@ -1,0 +1,89 @@
+Crafting / ATLAS Chiral – Schnittstellenvertrag V1, Crafting 1.9.9 / Addon 1.0.0, 21.10.2026
+
+ZWECK
+Einmalige Erweiterung des veröffentlichten Crafting-1.9.8-Quellstands. Danach
+benötigen normale Crafting-Erweiterungen kein neu gebautes Chiral-Addon, solange
+dieser Vertrag erhalten bleibt. Die Versionsnummer und SHA256 der Hauptmod-ASI
+sind keine Kompatibilitätsbedingung mehr. Keine Zusage für beliebige DS2-Patches.
+
+QUELLBASIS FÜR WEITERE CRAFTING-UPDATES
+development/crafting-v198-addon-api/
+Die unveränderte öffentliche 1.9.8 liegt weiterhin in evidence/published-v198-baseline/.
+Nicht wieder vom alten privaten 1.9.22-Sarg-Stand ausgehen oder die Schnittstelle
+beim nächsten Hauptmod-Build weglassen. Die öffentliche Original-1.9.8 hat V1 noch
+nicht: Veröffentlichung des Addons erfordert einmalig auch den neuen Hauptmod.
+
+ABI
+Kanonische Definition: src/crafting_addon_api.h; identische Kopie im Hauptmod/src/.
+Windows x64, HostV1 32 Byte, AddonV1 64 Byte. Strukturgrößen und Version prüfen.
+Host-Export DS2CraftingQueryAddonApi(1); Addon-Export DS2CraftingAddonQueryV1.
+NativeLayout 0x01108901 bezeichnet den geprüften Adapter für DS2 1.10.89.0.
+Eine Änderung dieses nativen Layouts braucht eine neue Adapter-/ABI-Version.
+Versionsnummern neuer Crafting-Releases ändern V1 NICHT.
+
+AUFRUFFOLGE UND EIGENTUM
+Der Host entdeckt die ASI vor dem ersten Laden seines Graphen. Außerhalb DllMain
+ruft er mergeGraph auf seinem bereits erzeugten und geprüften aktuellen Graphen
+auf. Nur einmal pro Prozess; beide Module werden für die Prozesslaufzeit gepinnt.
+Er schreibt das Ergebnis, ruft graphCommitted(1) und gibt den Puffer ausschließlich
+über releaseGraph frei. Bei Fehler: graphCommitted(0), Original-Host-Graph behalten.
+Die Callbacks worn/hanging laufen nach host meshFor und vor dem nativen Renderer.
+catalogue läuft nach Host-Registrierung der Ressourcen, vor nativer Konstruktion.
+icon erhält die direkte Host-Funktion als Fortsetzung, keinen rekursiven Hook.
+Alle Fortsetzungen genau einmal aufrufen; keine Exceptions über die DLL-Grenze.
+Menü-Dispatch muss unabhängig von Waffenfarben/INI-Optionen verfügbar bleiben.
+Keine Hot-Unloads; Aktivieren/Entfernen der ASI ausschließlich nach Spielende.
+
+STABILE ATLAS-IDENTITÄT / ADAPTER
+Eigenes Item 103, Equipment-Liste 1000103, UUID 4A634CBDCE790267/B7AE21D89446A581,
+Name DS2Mod.Atlas.Boots.Equipment.v1. Stats, Rezepte und Save-Identität gehören
+weiter dem Hauptmod. Worn/Hanging-Tabellen bleiben im V1-Layout mit nativen
+Transportstiefel-Donoren 11 und Marker-UUIDs aus host meshFor (Typen 20/21).
+Änderungen an dieser nativen Bindung sind ABI-Änderungen, keine reinen Item-Updates.
+
+RESSOURCEN
+Addon besitzt nur Gruppen 67696 (Texturen), 31126 (Stiefel), 39987 (Sam/Hosenbund).
+Der Laufzeit-Merger hängt Typen, Locators und Spans an die aktuellen Host-Tabellen
+an, passt deren Verweise an und ersetzt nur die drei deklarierten Gruppen samt
+Array-Reservierungen. Alle fremden Gruppen und Host-Preloads bleiben erhalten.
+Neue Host-Gruppen sowie zusätzliche Typ-/Datei-Identitäten dürfen angehängt werden;
+vorhandene Identitäten/Indices dürfen nicht umnummeriert werden. Gleichzeitige
+Änderungen an den drei eigenen Gruppen werden abgelehnt, nicht blind übermalt.
+Originalarchive und Streaming-Links werden per SHA geprüft. Änderungen daran oder
+ein Spielpatch können eine neue Asset-Version erfordern. Hauptmod-Rezeptupdates
+ohne solche Änderungen brauchen keinen neuen Addon-Build.
+
+PORTABILITÄT / DATEIEN
+Runtime enthält keine festen Laufwerks-/Laborpfade und keine Host-Hashliste.
+Alle vier Payloads (ca. 7,9 MB) sind seit Test16 direkt in der ASI eingebettet.
+Nur die ASI installieren; atlas_chiral/ wird bei Bedarf automatisch angelegt.
+Eigene Cache-Dateien geometry-v1.cache und links-v1.cache entstehen daraus und
+aus den nur gelesenen Originaldateien; zusammen ca. 1,57 GB lokaler Speicher.
+Cache nicht im Download mitliefern. Erstaufbau kann auf langsamen Laufwerken dauern.
+Das aktuelle Host-Graph-Ergebnis wird pro Prozess frisch erstellt, nicht aus einem
+alten Host-Cache übernommen. Das Addon benötigt weder Python noch Blender beim Nutzer.
+
+FALLBACK / TESTGRENZE
+Ohne Addon bleibt der Host allein aktiv: dieselbe gespeicherte ATLAS-ID verwendet
+wieder die Host-/Pizzabäcker-Optik. Keine Save-Datei wird angefasst oder konvertiert.
+Unbekannte ABI, fehlerhafte eingebettete Daten oder Gruppenkonflikte aktivieren die neue
+Optik nicht. Vollständiges Entfernen des Hauptmods ist davon nicht abgedeckt.
+Test14-Entfernung wurde vom Nutzer ausdrücklich bestätigt. Test15 wurde mit
+„okay funktioniert“ bestätigt; eine erneute Entfernung wurde nicht separat berichtet.
+
+BAU / PRÜFUNG
+Hauptmod: development/crafting-v198-addon-api/build.ps1 -OutputDirectory build/test15-api
+Addon: build-api.ps1 (Ausgabe release/test16-single-asi/); Tests: test-api.ps1.
+Einbettung: tools/embed_portable_payloads.py, nur geprüfte Test15-Daten als Build-Eingabe.
+tests/test_api_merge.py verwendet den echten C++-Merger und prüft zusätzlich einen
+simulierten künftigen Host mit weiteren Gruppen, Identitäten, Preloads und Arrays.
+Die tools/wire_*_api.py sind historische einmalige Migrationsskripte, keine Build-
+Schritte; nicht erneut auf bereits umgebaute Quellen anwenden.
+
+VERÖFFENTLICHUNG
+Aktuelle Pakete: release/nexus-1.9.9-single-asi/. Hauptmod 1.9.9 ist unverändert;
+Addon 1.0.0 enthält jetzt alle Zusatzdaten in einer ASI (interner Build Test16).
+Test15 im Spiel bestätigt; Test16 offline einschließlich komplett neuem Cache
+geprüft, aber noch kein neuer Spieltest. Nichts wurde hochgeladen oder installiert.
+Addon als Optional File auf derselben Nexus-Seite. Hauptmod-Quellen bleiben unter
+development/crafting-v198-addon-api/. Vertrag, Stats und Ressourcenbytes unverändert.

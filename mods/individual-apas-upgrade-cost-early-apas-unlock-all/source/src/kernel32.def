@@ -1,0 +1,19 @@
+LIBRARY KERNEL32.dll
+EXPORTS
+  GetModuleHandleW
+  GetModuleHandleExW
+  GetModuleFileNameW
+  DisableThreadLibraryCalls
+  CreateThread
+  CloseHandle
+  Sleep
+  GetCurrentProcess
+  ReadProcessMemory
+  VirtualQuery
+  VirtualAlloc
+  VirtualFree
+  VirtualProtect
+  FlushInstructionCache
+  GetPrivateProfileStringW
+  CreateFileW
+  WriteFile

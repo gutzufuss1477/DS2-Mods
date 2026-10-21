@@ -1,0 +1,21 @@
+{
+  "name": "Construction Max Level On Build",
+  "game": "DEATH STRANDING 2: ON THE BEACH",
+  "nexusGame": "deathstranding2onthebeach",
+  "nexusModId": 74,
+  "nexusUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/74",
+  "pageVersion": "1",
+  "sourceStatus": "release-workspace",
+  "sourceNote": "Source from the published-release workspace; binaries are downloaded from Nexus. No new runtime test was performed for this source import.",
+  "currentFiles": [
+    {
+      "fileId": 268,
+      "name": "DS2 Construction Max Level On Build V2.0.0",
+      "version": "2",
+      "category": "MAIN",
+      "sha256": "1803b5e7a62e020c684f0cacdfeb50639f562c4d0acc8b16c6640e5ece714dbf",
+      "bytes": 17503,
+      "downloadUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/74?tab=files&file_id=268"
+    }
+  ]
+}

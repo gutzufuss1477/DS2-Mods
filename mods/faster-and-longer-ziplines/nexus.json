@@ -1,0 +1,21 @@
+{
+  "name": "Faster and longer Ziplines",
+  "game": "DEATH STRANDING 2: ON THE BEACH",
+  "nexusGame": "deathstranding2onthebeach",
+  "nexusModId": 70,
+  "nexusUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/70",
+  "pageVersion": "1",
+  "sourceStatus": "release-workspace",
+  "sourceNote": "Source from the published-release workspace; binaries are downloaded from Nexus. No new runtime test was performed for this source import.",
+  "currentFiles": [
+    {
+      "fileId": 259,
+      "name": "DS2 Zipline Range And Speed V1.0.0",
+      "version": "1",
+      "category": "MAIN",
+      "sha256": "0705ca31faad85d89808966ef03e97da066471070eac9436edab13bcf2f474a4",
+      "bytes": 15384,
+      "downloadUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/70?tab=files&file_id=259"
+    }
+  ]
+}
