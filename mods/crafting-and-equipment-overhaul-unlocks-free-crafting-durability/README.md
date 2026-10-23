@@ -4,9 +4,9 @@ Customize crafting, durability and early PCC unlocks. Includes ATLAS gear, suppr
 
 The Story Coffin Board belongs to the main mod and requires no shoe addon. It retains normal riding, towing and hiding, adds red menu/3D previews, and preserves its appearance through save/load and restarts. ATLAS Chiral Boots Addon 1.0.0 remains optional with its original API V1 and unchanged ASI. Coffin Board Reworked 1.83.0 was used for compatibility testing.
 
-## Prepared update: 1.10.0
+## Update 1.10.0: ready for Nexus upload
 
-Source and packaging are updated to 1.10.0. The Nexus upload has not been performed; the table below records the existing published downloads. See [English changelog](CHANGELOG.txt), [German changelog](CHANGELOG_DE.txt), [English installation notes](README_EN.txt) and [German installation notes](README_DE.txt).
+Source and the verified update package are finalized at 1.10.0. The Nexus upload has not been performed; the table below records the existing published downloads. See [English changelog](CHANGELOG.txt), [German changelog](CHANGELOG_DE.txt), [English installation notes](README_EN.txt) and [German installation notes](README_DE.txt).
 
 Fabricate one red coffin per transaction, without other selected items. Keep `ds2_story_coffin_variants.bin` when updating or transferring saves. Original game archives and save files are not modified. The main mod generates its own local resource cache (approximately 1.5 GB).
 
@@ -24,10 +24,10 @@ Only current published files are listed. Archived releases, comparisons and expl
 
 ## Source and build
 
-The red coffin's gameplay, menu appearance, persistence and the cosmetics were tested in-game. The independent resource-loading change passed the actual Windows cache/graph/hook tests both without the addon (zero addon-file reads) and with the unchanged addon. The additional in-game test without the addon is pending. See [validation](VALIDATION.md) for scope and limits.
+The red coffin's gameplay, menu appearance, persistence and the cosmetics were tested in-game. The independent resource-loading change passed the actual Windows cache/graph/hook tests both without the addon (zero addon-file reads) and with the unchanged addon. The additional in-game test without the addon was confirmed successful on 2026-10-23: saved red coffin, new fabrication, menu image, 3D preview and riding. See [validation](VALIDATION.md) for scope and limits.
 
 The optional Chiral Boots 1.0.0 source is included separately and is unchanged. Native textures, rendered game images and embedded resource payloads remain local build inputs. See [build instructions](source/BUILD.md); a clean clone does not contain those inputs.
 
-See `nexus.json` for immutable published file IDs and the prepared update record. Existing custom ATLAS/weapon variants still require the main mod's item definitions; the Story coffin's native-ID save compatibility does not establish a blanket removal guarantee for all older custom equipment.
+See `nexus.json` for immutable published file IDs and the upload-ready update record. Existing custom ATLAS/weapon variants still require the main mod's item definitions; the Story coffin's native-ID save compatibility does not establish a blanket removal guarantee for all older custom equipment.
 Build outputs, original game data, private diagnostics and credentials are kept out of Git.
 Third-party licenses remain with their respective source directories.

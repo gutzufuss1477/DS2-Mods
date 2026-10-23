@@ -8,7 +8,12 @@ Coffin Board Reworked 1.83.0 was present in the combined game test.
 The subsequent removal of the shoe-addon dependency changes only resource-cache
 selection, graph composition and the guarded DirectStorage read hook. Gameplay,
 menus, cosmetic policy and persistence source are unchanged from the confirmed
-build. An additional in-game test without the addon is pending.
+build. The additional in-game test without the addon was confirmed successful on
+2026-10-23: an existing saved red coffin, new fabrication, red menu image, 3D
+preview and riding. The main mod's generated standalone cache and links matched
+their expected hashes. The unchanged optional shoe addon was restored afterward
+with DS2 closed; original game files and the other installed mod files were
+verified by hash.
 
 Offline checks for this change:
 
