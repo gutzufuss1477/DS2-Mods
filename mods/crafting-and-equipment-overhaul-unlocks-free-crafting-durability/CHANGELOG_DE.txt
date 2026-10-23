@@ -1,0 +1,8 @@
+Crafting & Equipment Overhaul 1.10.0
+
+- Roter Story-Surfsarg herstellbar, mit originalem Story-Modell und den normalen Funktionen zum Fahren, Ziehen und Verstecken.
+- Eigener Menüname, rotes Vorschaubild und passendes 3D-Modell in Herstellung und Frachtansicht.
+- Die rote Variante bleibt beim Speichern/Laden und nach einem Spielneustart erhalten.
+- 52 Outfits und Accessoires samt Farbauswahl im Anpassungsmenü freigeschaltet, darunter Kleidung, Brillen, Kopfbedeckungen, Masken und BB-Pod-Designs.
+- Der Story-Surfsarg gehört vollständig zum Hauptmod und benötigt kein Schuhaddon. Das unveränderte ATLAS Chiral Boots Addon 1.0.0 bleibt optional kompatibel.
+- Unterstützung für Coffin Board Reworked; bestehende Crafting-, Ausrüstungs- und Haltbarkeitsfunktionen bleiben erhalten.

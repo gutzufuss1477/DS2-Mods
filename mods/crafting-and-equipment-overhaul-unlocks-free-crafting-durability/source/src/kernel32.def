@@ -17,6 +17,8 @@ WriteFile
 GetFileSizeEx
 SetFilePointerEx
 FlushFileBuffers
+CreateDirectoryW
+MoveFileExW
 ReadProcessMemory
 VirtualAlloc
 VirtualFree

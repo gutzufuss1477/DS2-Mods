@@ -1,0 +1,53 @@
+{
+  "gameBuild": "1.10.89.0",
+  "inputs": [
+    {
+      "path": "assets/bigbore-albedo.bc1",
+      "bytes": 699064,
+      "sha256": "517319d1c6d53df4fc1cd8e3dd3c430f2b994db568e22e8be4fba7b789745420",
+      "redistributed": false
+    },
+    {
+      "path": "assets/bigbore-icon.bc7",
+      "bytes": 163840,
+      "sha256": "d175202e1ce11337588cb46db06926ae09ae01320c7e1cdc6536f3bd53065f64",
+      "redistributed": false
+    },
+    {
+      "path": "assets/coffinboard-red-albedo.bc1",
+      "bytes": 2796216,
+      "sha256": "9c50df008b1500e829dba525b4fa03eb49cc12daf93cbd0f1d10031c69ee593d",
+      "redistributed": false
+    },
+    {
+      "path": "assets/red-higgs-guitar-icon.bc7",
+      "bytes": 163840,
+      "sha256": "a43958a783606efb8fede91fd1ec93426e5e43774b279f48101dd0b580945414",
+      "redistributed": false
+    },
+    {
+      "path": "assets/shotgun-icon.bc7",
+      "bytes": 163840,
+      "sha256": "a86f3120e90b307746ed88b0fc8c3769c9927cfc50a505b1f8539b3ae1badb8b",
+      "redistributed": false
+    },
+    {
+      "path": "assets/story-coffin-menu.bc7",
+      "bytes": 163840,
+      "sha256": "5a265100ef9fef5e3f7a751a99a8f556778fc938a216be8781a3496c792d4ae0",
+      "redistributed": false
+    },
+    {
+      "path": "src/coffin_embedded_private_links.hpp",
+      "bytes": 6598,
+      "sha256": "6b36a48a92256a77dbad12114072ceabfe6b3e95b9b4f8fdf7cb79cd3916395b",
+      "redistributed": false
+    },
+    {
+      "path": "src/coffin_registered_group_stream.hpp",
+      "bytes": 5431,
+      "sha256": "90b66e1090f960db25eb00e9e91afeb32dd83bcb3b05a73b7390b131813b293a",
+      "redistributed": false
+    }
+  ]
+}

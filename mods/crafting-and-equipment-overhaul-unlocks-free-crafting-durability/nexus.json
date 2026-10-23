@@ -5,8 +5,8 @@
   "nexusModId": 86,
   "nexusUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/86",
   "pageVersion": "1.0.0",
-  "sourceStatus": "release-workspace",
-  "sourceNote": "Source from the published-release workspace; binaries are downloaded from Nexus. No new runtime test was performed for this source import. The optional Chiral Boots 1.0.0 source is included separately. Native textures, rendered game images and embedded mesh/cache payloads remain local build inputs.",
+  "sourceStatus": "prepared-update",
+  "sourceNote": "1.10.0 main-mod source and local package prepared. Standalone and optional-addon Windows runtime tests passed; additional standalone in-game test pending. Nexus upload not performed. Game-derived build inputs remain local. Optional Chiral Boots 1.0.0 source unchanged.",
   "currentFiles": [
     {
       "fileId": 389,
@@ -26,5 +26,17 @@
       "bytes": 6000054,
       "downloadUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/86?tab=files&file_id=390"
     }
-  ]
+  ],
+  "sourceVersion": "1.10.0",
+  "preparedUpdate": {
+    "version": "1.10.0",
+    "name": "DS2_Crafting_Equipment_Overhaul_v1.10.0",
+    "fileId": null,
+    "nexusUploaded": false,
+    "sha256": "5ad681c146b38902b97ec0fa031ed900ad84a90b1bb7c28428fd037e6fb965c5",
+    "bytes": 1796694,
+    "binarySHA256": "904e4ca6317720f2e545d156daf4fc52bda882840feb424b3f52c931488dbe5b",
+    "requiresShoeAddon": false,
+    "standaloneInGameTest": "pending"
+  }
 }

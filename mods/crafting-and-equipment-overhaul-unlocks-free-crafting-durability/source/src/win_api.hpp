@@ -21,10 +21,13 @@ API BOOL WINAPI WriteFile(HANDLE,const void*,DWORD,DWORD*,void*);
 API BOOL WINAPI GetFileSizeEx(HANDLE,long long*);
 API BOOL WINAPI SetFilePointerEx(HANDLE,long long,long long*,DWORD);
 API BOOL WINAPI FlushFileBuffers(HANDLE);
+API BOOL WINAPI CreateDirectoryW(const WCHAR*,void*);
+API BOOL WINAPI MoveFileExW(const WCHAR*,const WCHAR*,DWORD);
 API BOOL WINAPI ReadProcessMemory(HANDLE,const void*,void*,SIZE_T,SIZE_T*);
 API void* WINAPI VirtualAlloc(void*,SIZE_T,DWORD,DWORD);
 API BOOL WINAPI VirtualFree(void*,SIZE_T,DWORD);
 API BOOL WINAPI VirtualProtect(void*,SIZE_T,DWORD,DWORD*);
+API SIZE_T WINAPI VirtualQuery(const void*,void*,SIZE_T);
 API BOOL WINAPI FlushInstructionCache(HANDLE,const void*,SIZE_T);
 API DWORD WINAPI GetLastError();
 API u64 WINAPI GetTickCount64();
@@ -42,6 +45,8 @@ static_assert(__builtin_offsetof(Context,rip)==248 && sizeof(Context)==1232,"Win
 API BOOL WINAPI GetThreadContext(HANDLE,Context*);
 API u8 WINAPI TryAcquireSRWLockShared(void*);
 API void WINAPI ReleaseSRWLockShared(void*);
+API void WINAPI AcquireSRWLockExclusive(void*);
+API void WINAPI ReleaseSRWLockExclusive(void*);
 #define InvalidHandle ((HANDLE)(long long)-1)
 API DWORD WINAPI GetProcessIdOfThread(HANDLE);
 API DWORD WINAPI GetThreadId(HANDLE);

@@ -1,0 +1,15 @@
+{
+  "addonApiV1SourceHashes": {
+    "src/crafting_addon_api.h": "6fceee5abf25d0990f32e54c8c5fe0490ccb65b618577b28b238f34dfbcee763",
+    "src/addon_host.hpp": "15e9200f604503ff07fd0c85aa8aecad18a0ec9697efb584ca3dfc0080458288",
+    "src/addon_host.inl": "292ebe671321d444e1ead56ce783012844478b719abd20ac31ecd7b061ba099b",
+    "src/atlas/loading_thunk.s": "90aa58fec366762fc289dad54c80828578b6d50983e5b77e2bafaae5080786ef",
+    "src/atlas_integration.hpp": "39f0887834a0181192d51eee86469f79caa5c0ae4d94cb7f90c1cbbe27b2d767",
+    "src/weapons/runtime.cpp": "61094fb2f4e084b3cd0ff44bc89b8b74757f71b85c1c69111e7655ff3b5b2ff2",
+    "src/weapons/attachment.hpp": "0f9d7e4e87af51d3504a46695f61477a48744876e192dbc5032c412642252659",
+    "src/weapons/menu_icon.hpp": "d8ddb67a4986c18c4d9fab05f5b9b9f5e3e7eacb4e727b861668f34f6330d5af"
+  },
+  "publishedAddonZipSHA256": "78c732ddcd2549e68ec3302de99625c8954cd8be8ed5af38c3b67867b5533982",
+  "publishedAddonASI_SHA256": "f2193e540a04e9b30507ee69a325b91feacdbed97ecc4dd9fa6d70b5fc5b172b",
+  "hashNormalization": "LF"
+}

@@ -1,10 +1,23 @@
 #include "win_api.hpp"
 #include "sha256.hpp"
 #include "backpack.hpp"
+#include "cosmetics.hpp"
 #include "freecrafting_sites.hpp"
 #include "durability_scope.hpp"
 #include "atlas_integration.hpp"
 #include "silenced_integration.hpp"
+#include "coffin_red_shader_probe.hpp"
+#include "coffin_vehicle_color_policy.hpp"
+#include "coffin_story_visual_policy.hpp"
+#include "coffin_view_scope.hpp"
+#include "coffin_story_loaded_lookup.hpp"
+#include "coffin_save_identity_policy.hpp"
+#include "coffin_texture_graph.hpp"
+#include "coffin_menu_alias.hpp"
+#include "coffin_direct_model_policy.hpp"
+#include "coffin_preview_policy.hpp"
+#include "coffin_session_policy.hpp"
+#include "coffin_persistence_policy.hpp"
 #include "version.hpp"
 #include "pcc_structures.hpp"
 #include "pcc_sites.generated.hpp"
@@ -15,10 +28,14 @@ extern "C" int memcmp(const void*a,const void*b,SIZE_T n){auto*x=(const u8*)a;au
 extern "C" long _InterlockedCompareExchange(long volatile*,long,long);
 extern "C" long _InterlockedExchange(long volatile*,long);
 extern "C" long _InterlockedIncrement(long volatile*);
+extern "C" long long _InterlockedCompareExchange64(long long volatile*,long long,long long);
 #pragma intrinsic(_InterlockedCompareExchange)
 #pragma intrinsic(_InterlockedExchange)
 #pragma intrinsic(_InterlockedIncrement)
+#pragma intrinsic(_InterlockedCompareExchange64)
 #include "addon_host.inl"
+#include "coffin_story_archive_cache.inl"
+#include "coffin_story_archive_storage.inl"
 #include "virtual_graph_runtime.inl"
 using namespace craft;
 extern "C" u32 DurabilityMultiplierBits=0x40000000u;
@@ -30,6 +47,7 @@ extern "C" i32 FreeCostCount(const u8* resource) {
  return effective_cost_count(true,key,nativeCount);
 }
 namespace {
+namespace redcoffin_runtime {void onCraftingMenuReady();}
 constexpr u64 ManagerRva=0x623E540, OriginalRva=0xB6F9C0, SiteRva=0x171DB1D;
 constexpr u64 BackpackSiteRva=0x1529896, BackpackOriginalRva=0xB6FC20, VectorCopyRva=0xB7E950;
 constexpr u8 BackpackCallBytes[5]={0xE8,0x85,0x63,0x64,0xFF};
@@ -42,7 +60,10 @@ HMODULE module;u64 image;WCHAR exePath[2048],folder[2048],iniPath[2048],logPath[
 Settings settings;char configData[ConfigLimit+1];u8 hashChunk[65536];
 Recipe recipes[MaxRecipes];u32 recipeCount;const char* scanIssue="not_started";i32 scanResourceCount=0,scanInstanceCount=0;u32 scanIndex=0;Instance nativeCopy[MaxMenu];
 struct Snapshot {Vector header;Instance entries[MaxMenu];};
-Snapshot* snapshots;u32 snapshotCount;volatile long busy=0;u32 menuCount=0;u64 lastCatalogueManager=0;u32 lastCatalogueCount=0;u64 warnedManager=0;u32 warnedCount=0;bool specialBootLogged=false;bool warriorCatalogueLogged=false;
+Snapshot* snapshots;u32 snapshotCount;
+u64 redAliasAddresses[MaxSnapshots]={};
+u32 redCoffinCatalogueIndex=0xFFFFFFFFu;
+volatile long busy=0;u32 menuCount=0;u64 lastCatalogueManager=0;u32 lastCatalogueCount=0;u64 warnedManager=0;u32 warnedCount=0;bool specialBootLogged=false;bool warriorCatalogueLogged=false;
 using ListFn=Vector*(*)(u64,u64);ListFn original;
 using BackpackListFn=void(*)(u64,u8,Vector*);
 using VectorCopyFn=void(*)(Vector*,const Instance*,i32);
@@ -144,6 +165,22 @@ Vector* makeMenu(Vector* native,u64 facility){
  exportCatalogue(manager,mask);
  if(snapshotCount==MaxSnapshots){say("VANILLA: snapshot lifetime budget reached; restart game.");return native;}
  Snapshot&s=snapshots[snapshotCount];Build b=build(settings,recipes,recipeCount,nativeCopy,v.count,mask,s.entries);
+ // PRIVATE diagnostic: second copy of original native Coffinboard
+ // menu Instance. Never register new baggage or cargo IDs.
+ if(b.ok&&!b.overLimit){
+  const CoffinMenuAliasResult alias=addNativeCoffinMenuAlias(
+     recipes,recipeCount,s.entries,b.count,s.entries,MaxMenu,mask);
+  if(alias.added){
+   redAliasAddresses[snapshotCount]=u64(&s.entries[b.count]);
+   redCoffinCatalogueIndex=s.entries[b.count].flags&0xFFFu;
+   ++b.count;++b.added;
+   Text event;event.add("COFFIN_MENU_NATIVE_ALIAS_READY: original instance duplicated source=");
+   event.dec(alias.originalIndex);event.add(" master=");event.dec(alias.catalogueIndex);
+   event.add(" canonical_flags=");event.hex(s.entries[alias.originalIndex].flags);log(event);
+  }else if(mask&2){
+   say("COFFIN_MENU_NATIVE_ALIAS_REFUSED: no exact canonical vehicle recipe found; original preserved.");
+  }
+ }
  Text t;t.add("MENU ");t.dec(++menuCount);t.add(" facility=");t.hex(facilityType);t.add(" recipes=");t.dec(recipeCount);t.add(" native=");t.dec(v.count);t.add(" added=");t.dec(b.added);t.add(" total=");t.dec(b.count);t.add(" overflow=");t.dec(b.overLimit);log(t);
  if(!b.ok||!b.added)return native;
  s.header.count=(i32)b.count;s.header.capacity=MaxMenu;s.header.data=s.entries;++snapshotCount;
@@ -154,7 +191,15 @@ extern "C" Vector* craftingList(u64 unused,u64 facility){
  // Exactly one original call, with its real register arguments retained.
  Vector*native=original(unused,facility);
  if(_InterlockedCompareExchange(&busy,1,0)!=0)return native;
- Vector*result=makeMenu(native,facility);_InterlockedExchange(&busy,0);return result;
+ Vector*result=makeMenu(native,facility);
+ _InterlockedExchange(&busy,0);
+ // After the game has received its vanilla-ID duplicated Coffinboard entry,
+ // prime ONLY its private render mesh while the user is still in the menu.
+ // No world actor is created or modified at this stage.
+ if(result!=native&&snapshotCount&&snapshotCount<=MaxSnapshots&&
+    redAliasAddresses[snapshotCount-1])
+   redcoffin_runtime::onCraftingMenuReady();
+ return result;
 }
 
 // Validate the read-only native ID maps consumed by 01529860/01526F50.
@@ -257,6 +302,9 @@ bool patchSpanOnce(u64 siteRva,const u8* expected,u32 length,void* relay){
  bool resumed=resumeThreads();closeThreads();if(!resumed)say("CRITICAL: a thread resume failed; close and restart the game.");return written;
 }
 void* relayNear(u64 siteRva,u64 destination){u64 base=(image+siteRva)&~u64(0xFFFF);for(u64 distance=0x10000;distance<0x70000000;distance+=0x10000){for(int side=0;side<2;++side){if(side&&base<=distance+0x10000)continue;u64 address=side?base-distance:base+distance;long long delta=(long long)address-(long long)(image+siteRva+5);if(delta<(-2147483647LL-1)||delta>2147483647LL)continue;void*p=VirtualAlloc((void*)address,0x1000,0x3000,4);if(p){u8 jump[14]={0xFF,0x25,0,0,0,0};u64 target=destination;memcpy(jump+6,&target,8);memcpy(p,jump,14);DWORD old;if(!VirtualProtect(p,0x1000,0x20,&old)||!FlushInstructionCache(GetCurrentProcess(),p,14)){VirtualFree(p,0,0x8000);return nullptr;}return p;}}}return nullptr;}
+#include "cosmetics_runtime.inl"
+#include "coffin_red_runtime.inl"
+#include "coffin_menu_runtime.inl"
 #include "freecrafting_runtime.inl"
 #include "durability_runtime.inl"
 #include "pcc_runtime.inl"
@@ -310,6 +358,9 @@ DWORD WINAPI init(void*){
  installFreeCrafting();
  installDurability();
  installPccStructures();
+ redcoffin_runtime::setupHooks();
+ coffin_menu_runtime::setup();
+ cosmetics_runtime::setup();
  return 0;
 }
 }

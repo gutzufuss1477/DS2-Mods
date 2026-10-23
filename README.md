@@ -26,12 +26,12 @@ Current Nexus-published mods by gutzufuss1477. Names and file versions follow Ne
 | [Extended BT Cord Cutting Range](mods/extended-bt-cord-cutting-range/) | 1 |
 | [Proficiency Bonus Multiplier](mods/proficiency-bonus-multiplier/) | 1 |
 | [Improved Odradek Scan](mods/improved-odradek-scan/) | 1.0.1 |
-| [Crafting and Equipment Overhaul - Unlocks - Free Crafting - Durability - ATLAS Gear](mods/crafting-and-equipment-overhaul-unlocks-free-crafting-durability/) | 1.9.9, 1.0.0 |
+| [Crafting and Equipment Overhaul - Unlocks - Free Crafting - Durability - ATLAS Gear](mods/crafting-and-equipment-overhaul-unlocks-free-crafting-durability/) | 1.10.0 source/update prepared; Nexus: 1.9.9, addon 1.0.0 |
 | [Sam Overhaul - Cargo - Movement -  Autodrive and Truck Weapons](mods/sam-overhaul-cargo-movement-autodrive-and-truck-weapons/) | 1.1.0 |
 | [Jump Ramp Unlimited](mods/jump-ramp-unlimited/) | 1 |
 | [Beach Jump with Cargo](mods/beach-jump-with-cargo/) | 1 |
 
 This repository contains source and declarative modifications. Downloads remain on the linked Nexus pages.
-Only the current public release is represented; private experiments and old release archives are not included.
+Prepared updates are labelled separately from published Nexus downloads. Private experiments and old release archives are not included.
 
 See [distribution notes](DISTRIBUTION.md), [security reporting](SECURITY.md) and [license scope](LICENSES.md).

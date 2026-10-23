@@ -1,0 +1,8 @@
+Crafting & Equipment Overhaul 1.10.0
+
+- Craft the red Story Coffin Board with its original Story model and normal riding, towing and hiding functions.
+- Distinct crafting-menu name, red thumbnail and matching 3D previews in fabrication and cargo screens.
+- The red variant persists through save/load and game restarts.
+- Unlock 52 outfits and accessories with color choices in the customization menu, including clothing, glasses, headwear, masks and BB pod designs.
+- The Story Coffin Board is part of the main mod and does not require the shoe addon. The unchanged ATLAS Chiral Boots Addon 1.0.0 remains optional and compatible.
+- Supports Coffin Board Reworked; existing crafting, equipment and durability features are retained.
