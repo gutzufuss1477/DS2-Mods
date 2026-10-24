@@ -1,5 +1,10 @@
 .intel_syntax noprefix
 .text
+// The verified special-vehicle callsite retains the exact selected row in RBP.
+.globl CoffinFabricateVehicleThunk
+CoffinFabricateVehicleThunk:
+ mov r8, rbp
+ jmp CoffinFabricateVehicle
 .globl CoffinCargoDetailIconThunk
 CoffinCargoDetailIconThunk:
  mov r8, r14

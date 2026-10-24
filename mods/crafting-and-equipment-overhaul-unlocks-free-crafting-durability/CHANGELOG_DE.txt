@@ -1,3 +1,10 @@
+Crafting & Equipment Overhaul 1.10.1 - 24.10.2026
+- Roter Story-Surfsarg funktioniert jetzt auch bei gemeinsamer Herstellung mit ATLAS und anderen Gegenständen; die bisherige Einzelherstellungs-Einschränkung entfällt.
+- Korrekte Zuordnung von rotem Menübild, 3D-Modell und gespeichertem Erscheinungsbild zum hergestellten Sarg.
+- Unterstützung für das optionale ATLAS N02 Exoskeleton Addon: einzeln oder zusammen mit dem unveränderten Chiral Boots Addon 1.0.0.
+- Stabile Addon-Schnittstelle für künftige Inhalts-, Rezept- und Werte-Updates des Hauptmods.
+- Sämtliche Funktionen aus 1.10.0 bleiben enthalten, einschließlich 52 Outfits/Accessoires und Farbauswahl. Keine neuen INI-Einstellungen nötig.
+
 Crafting & Equipment Overhaul 1.10.0
 
 - Roter Story-Surfsarg herstellbar, mit originalem Story-Modell und den normalen Funktionen zum Fahren, Ziehen und Verstecken.

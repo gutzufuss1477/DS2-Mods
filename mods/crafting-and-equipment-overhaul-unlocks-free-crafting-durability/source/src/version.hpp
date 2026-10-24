@@ -1,2 +1,2 @@
 #pragma once
-#define CRAFT_VERSION "1.10.0"
+#define CRAFT_VERSION "1.10.1"

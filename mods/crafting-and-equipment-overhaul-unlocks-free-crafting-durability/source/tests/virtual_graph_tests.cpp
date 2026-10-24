@@ -31,7 +31,14 @@ int main(int argc,char**argv){
  test(!build(invalid.data(),unsigned(invalid.size()),result.data(),unsigned(result.size())),"wrong header refuses");
  invalid=original;invalid[ChildOffset+4]=u8(ChildA);
  set32(invalid.data()+ChildOffset,ChildA);
- test(!build(invalid.data(),unsigned(invalid.size()),result.data(),unsigned(result.size())),"duplicate group refuses");
+ test(!build(invalid.data(),unsigned(invalid.size()),result.data(),unsigned(result.size())),"duplicate warrior group refuses");
+ invalid=original;
+ set32(invalid.data()+ChildOffset,ChildB);
+ test(!build(invalid.data(),unsigned(invalid.size()),result.data(),unsigned(result.size())),"duplicate higgs group refuses");
+ invalid=original;
+ set32(invalid.data()+ChildOffset,ChildC);
+ test(!build(invalid.data(),unsigned(invalid.size()),result.data(),unsigned(result.size())),"duplicate story group refuses");
+ test(ChildC==8542 && PatchedSize==28363389,"group8542 and exact temp graph length");
  test(!build(original.data(),OriginalSize-1u,result.data(),unsigned(result.size())),"short input refuses");
  std::printf("VIRTUAL_GRAPH_TESTS %u ERRORS %u\n",ok,fail);
  return fail?1:0;

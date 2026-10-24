@@ -4,6 +4,7 @@
 #include "virtual_graph_core.hpp"
 #include "coffin_registered_graph_delta.hpp"
 #include "coffin_standalone_graph_delta.hpp"
+#include "coffin_exoskeleton_graph_delta.hpp"
 #include "coffin_archive_path_scope.hpp"
 namespace vgraph_runtime {
 using namespace vgraph;
@@ -148,6 +149,13 @@ bool applyStoryGraph(const u8*source,u32 size,u8**output,u32*written,
  *output=result;*written=TargetSize;return true;
 }
 bool buildStoryRegisteredGraph(const u8*source,u32 size,u8**output,u32*written,bool withAddon=true){
+ if(withAddon){
+  using namespace coffin_exoskeleton_graph_delta;
+  if(size==coffin_exoskeleton_graph_delta::OriginalSize&&digestEqual(source,size,coffin_exoskeleton_graph_delta::OriginalSHA))
+   return applyStoryGraph(source,size,output,written,coffin_exoskeleton_graph_delta::OriginalSize,
+    coffin_exoskeleton_graph_delta::TargetSize,coffin_exoskeleton_graph_delta::OriginalSHA,coffin_exoskeleton_graph_delta::TargetSHA,
+    coffin_exoskeleton_graph_delta::Program,coffin_exoskeleton_graph_delta::OperationCount,coffin_exoskeleton_graph_delta::Literals,coffin_exoskeleton_graph_delta::LiteralCount);
+ }
  if(withAddon){
   using namespace coffin_registered_graph_delta;
   return applyStoryGraph(source,size,output,written,coffin_registered_graph_delta::OriginalSize,

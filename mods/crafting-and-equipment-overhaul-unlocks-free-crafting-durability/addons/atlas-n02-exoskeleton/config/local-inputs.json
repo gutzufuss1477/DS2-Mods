@@ -1,0 +1,23 @@
+{
+  "gameBuild": "1.10.89.0",
+  "inputs": [
+    {
+      "path": "build/payload.cpp",
+      "bytes": 95581670,
+      "sha256": "9d227dc5ce0cbed815ca5493d3cdad54c329e2b8f61c44f4b81eb9b2ceb6cda4",
+      "redistributed": false
+    },
+    {
+      "path": "build/chiral_icon_pixels.inc",
+      "bytes": 207413,
+      "sha256": "c0000ec42b54aa689d0ae54525a27da056503dd07b4d6b18fa802fe6cec6d3c6",
+      "redistributed": false
+    },
+    {
+      "path": "build/exo_icon_pixels.inc",
+      "bytes": 111130,
+      "sha256": "d3940d78809827dd0c13880b27c6c27c0092a62ec3dc3e7b77219e81c387c686",
+      "redistributed": false
+    }
+  ]
+}

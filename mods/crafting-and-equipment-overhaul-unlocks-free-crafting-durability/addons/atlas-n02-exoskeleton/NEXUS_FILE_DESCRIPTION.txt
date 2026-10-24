@@ -1,0 +1,1 @@
+Optional graphite-black/red ATLAS skeleton with matching menu image. Requires Crafting Overhaul 1.10.1+. Copy one ASI beside DS2.exe. Works with or without Chiral Boots Addon. Removing it restores the main-mod appearance.

@@ -1,0 +1,36 @@
+{
+  "cases": [
+    {
+      "host": "v1101",
+      "mode": "none",
+      "loadOrder": "boots,exo",
+      "passed": true
+    },
+    {
+      "host": "v1101",
+      "mode": "boots",
+      "loadOrder": "boots,exo",
+      "passed": true
+    },
+    {
+      "host": "v1101",
+      "mode": "exo",
+      "loadOrder": "boots,exo",
+      "passed": true
+    },
+    {
+      "host": "v1101",
+      "mode": "both",
+      "loadOrder": "boots,exo",
+      "passed": true
+    },
+    {
+      "host": "v1101",
+      "mode": "both",
+      "loadOrder": "exo,boots",
+      "passed": true
+    }
+  ],
+  "gameStarted": false,
+  "scope": "Actual release binary ABI/capability/module discovery, isolated processes; no rendering claim"
+}

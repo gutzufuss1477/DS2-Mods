@@ -77,6 +77,7 @@ void saveAll(u64 manager,u64 context){
 }
 void loadAll(u64 manager,u64 context){
  if(_InterlockedCompareExchange(&active,0,0)==1){
+  fabrication_runtime::reset();
   AcquireSRWLockExclusive(&dataLock);loadedCount=0;memset(loaded,0,sizeof(loaded));ReleaseSRWLockExclusive(&dataLock);
   AcquireSRWLockExclusive(&coffin_direct_runtime::storyOwnersLock);
   memset(coffin_direct_runtime::storyOwners,0,sizeof(coffin_direct_runtime::storyOwners));

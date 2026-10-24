@@ -1,6 +1,7 @@
 // Main-mod-owned runtime caches. Original game and addon files are read-only.
 #include "coffin_registered_group_stream.hpp"
 #include "coffin_archive_profiles.hpp"
+#include "visual_archive_capability.hpp"
 #include "coffin_embedded_private_links.hpp"
 namespace coffin_archive_cache {
 using namespace craft;
@@ -163,7 +164,7 @@ bool prepare(bool withAddon=false){
   }
   return false;
  }
- profile=withAddon?&coffin_archive_profiles::Chiral:&coffin_archive_profiles::Native;
+ profile=withAddon?(visual_archive::skeleton()?&coffin_archive_profiles::Exoskeleton:&coffin_archive_profiles::Chiral):&coffin_archive_profiles::Native;
  bool ok=buildFromPinnedSource();
  if(ok){
   sourcePin=CreateFileW(sourcePath,0x80000000u,1,nullptr,3,0x80,nullptr);

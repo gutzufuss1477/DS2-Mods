@@ -1,35 +1,46 @@
-# 1.10.0 validation
+# Validation: main 1.10.1 and optional N02 1.0.0
 
-The red Story Coffin Board was tested in-game for riding, towing, hiding,
-crafting/cargo previews and red appearance after loading in the same session and
-after restarting. The outfit/accessory update was also confirmed in-game.
-Coffin Board Reworked 1.83.0 was present in the combined game test.
+The user confirmed the final combined game setup on 2026-10-24 after testing the
+mixed-fabrication correction: main Test05, N02 Test04 and Chiral Boots 1.0.0.
+The exact hashes and scope are in [game-test confirmation](validation/game-test-2026-10-24.json).
+This supersedes the earlier pending Test05 status. It is not an exhaustive new
+claim about every removal/load permutation or every future game update.
 
-The subsequent removal of the shoe-addon dependency changes only resource-cache
-selection, graph composition and the guarded DirectStorage read hook. Gameplay,
-menus, cosmetic policy and persistence source are unchanged from the confirmed
-build. The additional in-game test without the addon was confirmed successful on
-2026-10-23: an existing saved red coffin, new fabrication, red menu image, 3D
-preview and riding. The main mod's generated standalone cache and links matched
-their expected hashes. The unchanged optional shoe addon was restored afterward
-with DS2 closed; original game files and the other installed mod files were
-verified by hash.
+## Release identity
 
-Offline checks for this change:
+The source export reproduces the tested main Test05 binary byte for byte after
+normalizing only the PE build timestamp. Main release 1.10.1 changes only the
+runtime version label. N02 is shipped as the exact accepted Test04 binary; its
+source rebuild likewise differs only in PE timestamp. No meshes, materials,
+rendered icons, game logic or addon callbacks were redesigned for packaging.
+See the two public-build verification JSON records in `validation/`.
 
-- Production Windows cache, graph and hook tests: 21 assertions without the addon
-  and 21 with the unchanged addon. Standalone mode rejects any addon-cache reads.
-- Generated standalone model metadata and links equal the game-tested model's
-  bytes. Native archive payloads and reserved table bytes are preserved.
-- Unchanged Addon API V1, original addon graph merge and eight pinned integration files.
-- 121 verified native callsites, no overlap with the tested Reworked patch ranges.
-- Core/equipment regressions, 353 cosmetic-policy and 58 cosmetic-runtime assertions.
-- Session/persistence/fabrication regressions and six disposable-process DLL loader cases.
-- Original game files, existing configuration and optional-mod binaries verified by hash.
-- Exported public source rebuilt with local inputs and matched the packaged ASI byte for byte when using the same PE timestamp.
+## Offline verification
 
-The generated cache is owned by the main mod; original game archives are read-only.
-Appearance associations are stored in the separate `ds2_story_coffin_variants.bin`
-file, not written into game save files. Removing the entire main mod with older
-custom ATLAS/weapon items in a save has not been established as safe. Native menu
-combination rules and DLC entitlement checks remain in effect.
+- Main policy/configuration regressions, including equipment, cosmetics, menu,
+  previews and persistence, passed. Details: `validation/offline-release-tests.json`.
+- Production mixed-fabrication callbacks: 235 assertions; production metadata
+  IO/save/load wrappers: 19 assertions. Engine calls use isolated test fixtures.
+- Six actual DLL-loading checks passed: master disabled, unsupported executable,
+  invalid configuration and the corresponding PCC cases. No DS2 process used.
+- Native baseline integration check: 95 exact signatures, no overlap, AMD64,
+  ASLR/NX and no writable executable sections. Additional Test05 special-vehicle
+  sites were verified before the accepted game test; active runtime sources are
+  preserved. The baseline count does not claim to enumerate every later hook.
+- Five actual release-binary discovery/API cases passed: no addon, boots only,
+  N02 only, both and reverse module load order. These are offline compatibility
+  checks, not five additional in-game rendering tests.
+- Both stable-interface build gates passed. Published shoe addon source/ASI is
+  unchanged. Packaged ZIP entries are flat and their bytes/CRC/SHA-256 verified.
+
+## Scope
+
+Supported DS2 PC build: 1.10.89.0, exact executable SHA recorded in validation.
+Normal main-mod content/recipe/stat updates can retain existing addons by preserving
+the frozen interfaces and ATLAS identities. This does not make unknown future game
+layouts compatible. Appearance addon removal is separate from full main-mod removal.
+The main mod still owns custom item definitions and stats. Keep personal INI and
+Story appearance metadata; neither personal saves nor caches are distributed.
+
+Nexus packages are ready for upload to mod 86 as MAIN and OPTIONAL files. No Nexus
+upload is claimed by this release preparation.

@@ -65,7 +65,8 @@ bool install(bool withAddon) {
   _InterlockedExchange(&state,-1);return false;
  }
  HMODULE core=GetModuleHandleW(L"DStorageCore.dll");
- HMODULE shoe=GetModuleHandleW(L"ds2_atlas_chiral_addon.asi");
+ const auto*visual=withAddon?visual_archive::skeleton():nullptr;
+ HMODULE shoe=GetModuleHandleW(visual?L"ds2_atlas_exoskeleton_addon.asi":L"ds2_atlas_chiral_addon.asi");
  u64 base=(u64)core;
  u32 pe=0;
  bool ok=core&&(!withAddon||shoe)&&
@@ -76,11 +77,12 @@ bool install(bool withAddon) {
     safeRead(base+pe+0x50,&imagesize,4)&&imagesize==CoreImageSize;
  if(ok)ok=GetModuleFileNameW(core,corePath,2048)>0&&
     coffin_archive_cache::shaMatches(corePath,1451520ull,coffin_archive_cache::StorageCoreSha);
- if(ok&&withAddon)ok=GetModuleFileNameW(shoe,shoeModulePath,2048)>0&&
+ if(ok&&withAddon&&!visual)ok=GetModuleFileNameW(shoe,shoeModulePath,2048)>0&&
     coffin_archive_cache::shaMatches(shoeModulePath,8018944ull,coffin_archive_cache::ShoeAddonSha);
  u64 prior=0;
  if(ok)ok=safeRead(base+ImportRva,&prior,8)&&prior>0x10000ull&&
     prior!=(u64)&readOverlay;
+ if(ok&&visual)ok=prior==(u64)visual->nativeFileOpen; // Exact reported shim, not an arbitrary pointer in its module.
  MemoryBasic info={};
  if(ok)ok=VirtualQuery((void*)prior,&info,sizeof(info))==sizeof(info)&&
     info.state==0x1000&&trustedPrior(withAddon,prior,info.allocationBase,shoe,

@@ -1,68 +1,68 @@
-Crafting & Equipment Overhaul 1.10.0
-DEATH STRANDING 2: ON THE BEACH | Windows x64 | supported game build 1.10.89.0
+Crafting & Equipment Overhaul 1.10.1
+DEATH STRANDING 2: ON THE BEACH | Windows x64 | Game build 1.10.89.0
 
-NEW
-The red Story Coffin Board is part of the main mod: fabrication, red menu thumbnail,
-3D previews, riding, towing, hiding and saved appearance. No shoe addon is required.
-Also adds 52 native outfits/accessories and color choices to customization.
-See CHANGELOG.txt for the update summary.
+NEW IN 1.10.1
+The red Story Coffin Board now works in mixed fabrication with ATLAS and other
+items. Supports the optional ATLAS N02 Exoskeleton Addon independently or together
+with Chiral Boots Addon 1.0.0. No new INI settings are required.
 
-UPDATING
-Exit DS2 completely and replace ds2_crafting_unlocks.asi beside DS2.exe.
-Keep your existing ds2_crafting_unlocks.ini and ds2_story_coffin_variants.bin.
-The new cosmetics feature is enabled even if your INI has no [Cosmetics] section.
-To customize it, merge that section from the supplied INI once, without duplicate
-sections or keys. The supplied INI is for fresh installation or resetting settings.
+UPDATE
+Close DS2 and replace ds2_crafting_unlocks.asi beside DS2.exe. Keep your existing
+ds2_crafting_unlocks.ini and ds2_story_coffin_variants.bin. The included INI is
+for a fresh installation or resetting settings, not for replacing personal choices.
+When updating from before 1.10.0, cosmetics are enabled even without [Cosmetics].
+Copy that section from the included INI only if you want to customize it.
+When updating from before 1.9.8, merge missing [WarriorWeapons], [RedGuitar] and
+[Guitars] sections. Do not create duplicate sections or keys.
 
 FRESH INSTALLATION
 Copy ds2_crafting_unlocks.asi and ds2_crafting_unlocks.ini beside DS2.exe.
 A compatible x64 ASI loader is required separately and is not included.
 Remove old standalone ds2_overpowered_equipment.asi and ds2_more_silenced_guns.asi
-if present; their functionality is integrated. When updating from before 1.9.8,
-merge missing [WarriorWeapons], [RedGuitar] and [Guitars] sections from the INI.
+if present; their features are already integrated.
 
 RED STORY COFFIN BOARD
-Select the Story entry in fabrication. Fabricate exactly one red coffin at a time,
-with no other items selected in that transaction. Repeat to make additional red
-coffins. The normal board remains available. The Story variant retains its native
-item identity and standard gameplay functions.
-
-On first launch the main mod generates its own ds2_crafting_story_cache folder
-beside DS2.exe. Allow approximately 1.5 GB of free space and extra startup time.
-The optional shoe addon uses a separate compatible cache profile; switching can
-leave both profiles present. With DS2 closed, this cache folder can be removed
-and will regenerate when needed. Original archives are only read.
-
-ds2_story_coffin_variants.bin beside DS2.exe stores the mod's appearance mappings.
-Back it up alongside your saves and transfer it when moving to another PC.
-This personal file is not part of the download; do not replace it during updates.
-Without these mappings, saved red coffins appear as standard coffins again.
-The mod does not modify original game archives or write to game save files.
-
-OUTFITS AND ACCESSORIES
-The 52 entries cover outfits/camouflage, glasses, hats/bandanas, hoods, masks,
-BB pod designs and Dollman's outfit. See cosmetics.native.tsv for the full list.
-Native combination rules and DLC entitlement checks remain in effect.
-[Cosmetics] Enabled=0 disables the additional unlocks; UnlockColors=0 retains
-native color availability. The global master switch, DefaultUnlock and individual
-[Items] rules still apply.
+Select the Story entry in the fabrication menu. It can be fabricated in the same
+transaction as ATLAS and other items. Each red coffin is associated with its own
+native vehicle/cargo identity. The normal coffin remains available. Riding,
+towing and hiding use native game behavior; red menu and 3D previews are included.
+The first start builds ds2_crafting_story_cache beside DS2.exe, requiring roughly
+1.5 GB per archive profile. Optional visual addons use matching separate caches;
+several profiles may remain after switching combinations. Initial loading can
+take longer. Generated caches can be removed while the game is closed and are
+rebuilt when needed. Original archives are read only.
+Keep ds2_story_coffin_variants.bin with your save backups and when moving to a
+different PC. It stores the mod's appearance associations, is personal and is
+never included in the download. Without those associations, saved Story coffins
+can appear as normal coffins. The mod does not write into native save files.
 
 EXISTING FEATURES AND DEFAULTS
-The previous 135 item entries, ATLAS equipment, additional suppressed weapons,
-Warrior weapons, red Higgs guitar and PCC selections remain included.
-Free Crafting and durability modifications are disabled in the public default INI.
-Restart DS2 after changing settings.
+Retains the 135 existing fabrication entries, ATLAS equipment, additional
+suppressed weapons, Warrior weapons, red Higgs guitar and early PCC structure
+selection. Also includes 52 native outfits/accessories and color choices:
+outfits/camouflage, glasses, hats/bandanas, hoods, masks, BB pod designs and Dollman.
+See cosmetics.native.tsv for the list. Native combination and DLC checks remain.
+[Cosmetics] Enabled=0 disables the additional unlocks; UnlockColors=0 keeps native
+color availability. The master switch, DefaultUnlock and [Items] rules still apply.
+Free crafting and durability changes are OFF in the public default INI.
+Restart after changing settings.
 
-COMPATIBILITY
-ATLAS Chiral Boots Addon 1.0.0 remains a separate optional download. Its ASI does
-not need updating; Addon API V1 is preserved. Coffin Board Reworked was checked
-in combination with version 1.83.0. Other game builds and conflicting resource
-mods are not covered. Do not replace streaming_graph.core or original archives.
+OPTIONAL ADDONS
+ATLAS Chiral Boots Addon 1.0.0 remains unchanged; no replacement is needed.
+ATLAS N02 Exoskeleton Addon 1.0.0 is a separate optional download on the same
+Crafting Nexus page. Install its single ASI beside DS2.exe; no addon INI is needed.
+The two visual addons work independently or together. Removing only a visual
+addon restores the main mod's normal appearance and retains ATLAS items/stats.
+Keep the main mod installed. Main-mod content, recipe and stat updates do not
+require rebuilding addons while Addon API V1, Visual Router V1 and ATLAS identities
+are preserved. N02 requires main mod 1.10.1 or a later compatible version.
+Coffin Board Reworked 1.83.0 was used for compatibility testing. Different game
+builds and other mods changing the same resources are not covered.
+Do not replace streaming_graph.core or other original archives.
 
 REMOVAL
-Exit DS2 and remove the mod ASI. The Story Coffin extension uses native coffin IDs
-and separate appearance metadata; removing it removes the red appearance.
-This is not a blanket removal guarantee for older custom equipment in the main
-mod: saved custom ATLAS/weapon variants still require their item definitions.
-Keep a separate save backup and account for custom equipment before removing the
-entire main mod. Keep the INI and appearance metadata for later reinstallation.
+Close DS2 before removing an ASI. Removing a visual addon is separate from removing
+the main mod. Custom ATLAS/weapon variants still require the main mod's definitions;
+native-ID Story Coffin compatibility is not a blanket removal guarantee for all
+custom equipment. Keep a separate save and account for custom gear before removing
+the main mod entirely. Keep your INI and appearance metadata for later reinstall.

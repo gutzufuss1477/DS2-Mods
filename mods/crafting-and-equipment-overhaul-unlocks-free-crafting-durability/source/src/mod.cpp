@@ -47,6 +47,7 @@ extern "C" i32 FreeCostCount(const u8* resource) {
  return effective_cost_count(true,key,nativeCount);
 }
 namespace {
+#include "coffin_menu_policy.hpp"
 namespace redcoffin_runtime {void onCraftingMenuReady();}
 constexpr u64 ManagerRva=0x623E540, OriginalRva=0xB6F9C0, SiteRva=0x171DB1D;
 constexpr u64 BackpackSiteRva=0x1529896, BackpackOriginalRva=0xB6FC20, VectorCopyRva=0xB7E950;

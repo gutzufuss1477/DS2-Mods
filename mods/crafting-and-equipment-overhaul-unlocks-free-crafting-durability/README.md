@@ -1,33 +1,46 @@
-# Crafting and Equipment Overhaul - Unlocks - Free Crafting - Durability - ATLAS Gear
+# Crafting & Equipment Overhaul 1.10.1
 
-Customize crafting, durability and early PCC unlocks. Includes ATLAS gear, suppressed and Warrior weapons, the red Higgs guitar, a craftable red Story Coffin Board, and 52 outfits/accessories with color choices. Free crafting and durability changes are optional.
+Crafting, equipment, early PCC unlocks, ATLAS gear, suppressed/Warrior weapons,
+red Higgs guitar, red Story Coffin Board, and 52 outfits/accessories with color
+selection. Free crafting and durability changes remain optional.
 
-The Story Coffin Board belongs to the main mod and requires no shoe addon. It retains normal riding, towing and hiding, adds red menu/3D previews, and preserves its appearance through save/load and restarts. ATLAS Chiral Boots Addon 1.0.0 remains optional with its original API V1 and unchanged ASI. Coffin Board Reworked 1.83.0 was used for compatibility testing.
+The red Story Coffin Board now works in mixed fabrication with ATLAS and other
+items. The previous one-red-coffin-only transaction restriction is removed. Its
+native vehicle/cargo identity owns the red appearance association, including menu
+and 3D previews. Keep `ds2_story_coffin_variants.bin` alongside save backups.
 
-## Update 1.10.0: ready for Nexus upload
+## Prepared Nexus update
 
-Source and the verified update package are finalized at 1.10.0. The Nexus upload has not been performed; the table below records the existing published downloads. See [English changelog](CHANGELOG.txt), [German changelog](CHANGELOG_DE.txt), [English installation notes](README_EN.txt) and [German installation notes](README_DE.txt).
+Main mod **1.10.1** and optional **ATLAS N02 Exoskeleton 1.0.0** are prepared for
+the [existing Nexus page](https://www.nexusmods.com/deathstranding2onthebeach/mods/86).
+These records do not claim that an upload has happened. Existing file IDs in
+`nexus.json` are historical verified publication records, not a fresh Nexus listing.
 
-Fabricate one red coffin per transaction, without other selected items. Keep `ds2_story_coffin_variants.bin` when updating or transferring saves. Original game archives and save files are not modified. The main mod generates its own local resource cache (approximately 1.5 GB).
+See [English changelog](CHANGELOG.txt), [German changelog](CHANGELOG_DE.txt),
+[English installation](README_EN.txt), [German installation](README_DE.txt) and
+[validation](VALIDATION.md). Existing INI settings and personal Story appearance
+metadata should be kept when updating.
 
-[Current downloads and installation instructions on Nexus Mods](https://www.nexusmods.com/deathstranding2onthebeach/mods/86)
+## Independent optional appearances
 
-## Current published files
+- [ATLAS N02 Exoskeleton 1.0.0](addons/atlas-n02-exoskeleton/README.md): graphite black
+  with red accents and a matching menu render; one ASI, no addon INI.
+- ATLAS Chiral Boots 1.0.0: published binary and source remain unchanged.
 
-| File / variant | Nexus file version | Nexus file ID |
-|---|---|---|
-| DS2_Crafting_Equipment_Overhaul_v1.9.9 | 1.9.9 | 389 |
-| DS2 ATLAS Chiral Boots Addon V1.0.0 | 1.0.0 | 390 |
+Either addon can be used alone, or both together. Stats, recipes and item identities
+stay in the main mod. Removing a visual addon restores the corresponding main-mod
+appearance while retaining the main mod. Normal content, recipe and stat updates
+do not require rebuilding addons while API V1, Router V1 and ATLAS identities remain
+stable. This is not a guarantee for unknown future game layout changes.
 
-File versions above are the actual download versions; the Nexus page version can differ.
-Only current published files are listed. Archived releases, comparisons and explicitly labelled tests are excluded.
+Removing the main mod is different: custom ATLAS/weapon variants still need its
+definitions. No blanket main-mod removal guarantee is made for custom equipment.
 
-## Source and build
+## Source
 
-The red coffin's gameplay, menu appearance, persistence and the cosmetics were tested in-game. The independent resource-loading change passed the actual Windows cache/graph/hook tests both without the addon (zero addon-file reads) and with the unchanged addon. The additional in-game test without the addon was confirmed successful on 2026-10-23: saved red coffin, new fabrication, menu image, 3D preview and riding. See [validation](VALIDATION.md) for scope and limits.
-
-The optional Chiral Boots 1.0.0 source is included separately and is unchanged. Native textures, rendered game images and embedded resource payloads remain local build inputs. See [build instructions](source/BUILD.md); a clean clone does not contain those inputs.
-
-See `nexus.json` for immutable published file IDs and the upload-ready update record. Existing custom ATLAS/weapon variants still require the main mod's item definitions; the Story coffin's native-ID save compatibility does not establish a blanket removal guarantee for all older custom equipment.
-Build outputs, original game data, private diagnostics and credentials are kept out of Git.
-Third-party licenses remain with their respective source directories.
+See [build instructions](source/BUILD.md). Native textures, rendered game images
+and embedded model/link payloads remain explicit local build inputs. A clean clone
+does not include them or an end-to-end extractor. Generated caches, original game
+archives, saves and personal configuration are excluded from Git and public packages.
+The game-test confirmation refers to the exact Test05 main build with both addons;
+release 1.10.1 changes only the main version label and was rebuilt and checked offline.

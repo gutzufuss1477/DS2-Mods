@@ -52,63 +52,10 @@ bool registered(u64 owner){
 }
 void beginDirect();
 bool prepareDirect();
+#include "coffin_fabrication_runtime.inl"
 void manufactured(u64 menu){
- // The engine's copied 0x20-byte per-fabrication row is the only safe
- // discriminator. A separate recipe/baggage id caused crashes previously.
- i32 n=0;bool safe=menu>=0x10000;
- u32 red=0,other=0;
- if(!safe||!rd(menu+0x41F0,n)||n<1||n>i32(MaxMenu))safe=false;
- if(safe){
-  for(i32 i=0;i<n;++i){
-   const u64 row=menu+0x1F0ull+u64(i)*0x20ull;
-   u64 instance=0;i32 qty=0;u32 item=0;
-   if(!rd(row,instance)||!rd(row+8,qty)||!rd(row+12,item)||
-      qty<0||qty>32){safe=false;break;}
-   if(!qty)continue;
-   if(ownAlias(instance)&&item==0x0184CF05u&&qty==1)red++;
-   else other++;
-  }
- }
- if(_InterlockedCompareExchange(&enabled,0,0)){
-  if(safe&&red==1&&!other&&
-     _InterlockedCompareExchange(&arm,2,0)==0){
-    if(saveExisting()){
-     beginDirect();
-     sourceMenu=menu;manufactureTick=GetTickCount64();
-     _InterlockedExchange(&tickCount,0);
-     _InterlockedExchange(&guardLogs,0);
-     _InterlockedExchange(&finished,0);
-     finishedOwner=0;
-     _InterlockedExchange(&arm,1);
-     if(_InterlockedCompareExchange(&storyEnabled,0,0)==1){
-      storyManufactureTime=manufactureTick;
-      _InterlockedExchange(&storyPending,1);
-      _InterlockedExchange(&storyApplied,0);
-      // Preload the original 8542 resource group BEFORE native vehicle model
-      // initialization. Waiting for the later baggage-view callback is too late.
-      if(!prepareDirect())
-       say("RED_COFFIN_STORY_MODEL_PRELOAD_PENDING: Story group unavailable at fabrication; normal model preserved.");
-      say("RED_COFFIN_V1955_DIRECT_MODEL_ARMED: fresh per-fabrication state; repeated crafting and crafting after reload allowed.");
-     }
-     Text t;t.add("RED_COFFIN_MANUFACTURE_ARMED: exact second recipe, previously present boards=");
-     t.dec(previousCount);t.add(" validRows=");t.dec(n);log(t);
-    }else{
-     _InterlockedExchange(&arm,0);
-     say("RED_COFFIN_MANUFACTURE_BLOCKED: native world registry snapshot invalid.");
-    }
-  }else if(safe&&red&&other){
-   say("RED_COFFIN_MIXED_FABRICATION_UNSUPPORTED: both menu rows have the same native baggage identity; manufacture one at a time for distinct color.");
-   _InterlockedExchange(&arm,0);
-   _InterlockedExchange(&storyPending,0);
-  }else if(safe&&other&&_InterlockedCompareExchange(&arm,0,0)==1){
-   _InterlockedExchange(&arm,0);
-   _InterlockedExchange(&storyPending,0);
-   say("RED_COFFIN_MANUFACTURE_CANCELLED: another original item was fabricated.");
-  }else if(_InterlockedIncrement(&manufactureLogs)<=5){
-   Text t;t.add("RED_COFFIN_MANUFACTURE_CHECK: valid=");
-   t.dec(safe?1:0);t.add(" red=");t.dec(red);t.add(" others=");t.dec(other);log(t);
-  }
- }
+ // Per-item identity is captured by the native row callsite below. The whole
+ // basket always reaches the native implementation once, without exclusions.
  originalManufacture(menu);
 }
 
@@ -125,6 +72,7 @@ void onCraftingMenuReady(){
 }
 void tick(u64 vehicle,float state){
  originalVehicleUpdate(vehicle,state);
+ fabrication_runtime::refreshCargo(vehicle);
  coffin_direct_runtime::observe(vehicle); // read-only diagnostics
  if(_InterlockedCompareExchange(&arm,0,0)==1&&!within(manufactureTick,GetTickCount64())){
   _InterlockedExchange(&arm,0);
@@ -134,25 +82,29 @@ void tick(u64 vehicle,float state){
 bool setupHooks(){
  originalManufacture=(ManufactureFn)(image+0x171E640);
  originalVehicleUpdate=(VehicleUpdateFn)(image+NativeVehicleUpdate);
- const u64 sites[3]={ManufactureRva,NativeVehicleTickRva,coffin_direct::AddRowSite};
- const u8*expected[3]={ManufactureBytes,NativeVehicleTickBytes,coffin_direct::AddRowBytes};
- const u64 targets[3]={u64(&manufactured),u64(&tick),u64(&coffin_direct_runtime::addRow)};
- u8 bytes[5]={};void*relays[3]={};
- for(u32 i=0;i<3;++i)if(!readmem(image+sites[i],bytes,5)||memcmp(bytes,expected[i],5)){
+ if(!fabrication_runtime::initialize()){say("RED_COFFIN_BATCH_TLS_UNAVAILABLE");return false;}
+ constexpr u32 hookCount=5;
+ const u64 sites[hookCount]={ManufactureRva,NativeVehicleTickRva,coffin_direct::AddRowSite,0x171e72e,0x1f26d66};
+ const u8 extraBytes[2][5]={{0xe8,0x0d,0x77,0x3b,0xff},{0xe8,0x45,0x2f,0x24,0xfe}};
+ const u8*expected[hookCount]={ManufactureBytes,NativeVehicleTickBytes,coffin_direct::AddRowBytes,extraBytes[0],extraBytes[1]};
+ const u64 targets[hookCount]={u64(&manufactured),u64(&tick),u64(&coffin_direct_runtime::addRow),u64(&CoffinFabricateVehicleThunk),u64(&fabrication_runtime::created)};
+ u8 bytes[5]={};void*relays[hookCount]={};
+ for(u32 i=0;i<hookCount;++i)if(!readmem(image+sites[i],bytes,5)||memcmp(bytes,expected[i],5)){
   say("RED_COFFIN_V1953_HOOK_REFUSED: original manufacture/update/native add-row callsite mismatch.");return false;
  }
- for(u32 i=0;i<3;++i){
+ for(u32 i=0;i<hookCount;++i){
   relays[i]=relayNear(sites[i],targets[i]);
   if(!relays[i]){for(u32 j=0;j<i;++j)VirtualFree(relays[j],0,0x8000);return false;}
  }
  bool all=true;
- for(u32 i=0;i<3;++i)if(!patchOnce(sites[i],expected[i],relays[i])){
+ for(u32 i=0;i<hookCount;++i)if(!patchOnce(sites[i],expected[i],relays[i])){
   VirtualFree(relays[i],0,0x8000);all=false;
  }
  if(!all){say("RED_COFFIN_V1953_PARTIAL_HOOKS_DISABLED: wrappers retain native behavior.");return false;}
  persistence_runtime::setup();
  _InterlockedExchange(&storyEnabled,1);_InterlockedExchange(&enabled,1);
- say("RED_COFFIN_V1953_DIRECT_NATIVE_HOOK_READY: three verified callsites; no Entity creation, GPU forcing, world-transform following, render-world correction or visibility override.");
+ _InterlockedExchange(&fabrication_runtime::ready,1);
+ say("RED_COFFIN_V1953_DIRECT_NATIVE_HOOK_READY: five verified callsites with exact native vehicle row and entity GUID; no Entity creation, GPU forcing, world-transform following, render-world correction or visibility override.");
  return true;
 }
 }

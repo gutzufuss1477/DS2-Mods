@@ -6,7 +6,7 @@
   "nexusUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/86",
   "pageVersion": "1.0.0",
   "sourceStatus": "release-ready",
-  "sourceNote": "Finalized 1.10.0 main-mod source and verified upload-ready package. Standalone in-game test confirmed on 2026-10-23; standalone and optional-addon Windows runtime tests passed. Nexus upload not performed. Game-derived build inputs remain local. Optional Chiral Boots 1.0.0 source unchanged.",
+  "sourceNote": "Main 1.10.1 and optional ATLAS N02 Exoskeleton 1.0.0 prepared after user-confirmed combined game test on 2026-10-24. Release main differs from tested Test05 only by runtime version label; offline tests passed. Chiral Boots 1.0.0 unchanged. Nexus upload not performed. currentFiles retains historical verified IDs, not a refreshed listing.",
   "currentFiles": [
     {
       "fileId": 389,
@@ -27,18 +27,33 @@
       "downloadUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/86?tab=files&file_id=390"
     }
   ],
-  "sourceVersion": "1.10.0",
+  "sourceVersion": "1.10.1",
   "preparedUpdate": {
-    "version": "1.10.0",
-    "name": "DS2_Crafting_Equipment_Overhaul_v1.10.0",
-    "fileId": null,
+    "version": "1.10.1",
+    "name": "DS2_Crafting_Equipment_Overhaul_v1.10.1",
+    "category": "MAIN",
+    "nexusModId": 86,
     "nexusUploaded": false,
-    "sha256": "5ad681c146b38902b97ec0fa031ed900ad84a90b1bb7c28428fd037e6fb965c5",
-    "bytes": 1796694,
-    "binarySHA256": "904e4ca6317720f2e545d156daf4fc52bda882840feb424b3f52c931488dbe5b",
-    "requiresShoeAddon": false,
-    "standaloneInGameTest": "passed",
     "status": "ready-for-nexus-upload",
-    "validationDate": "2026-10-23"
-  }
+    "fileId": null,
+    "sha256": "bf281b2800b1f70e25ff65499863584222ea6fcd3d0abfa61c58857c8905b26c",
+    "bytes": 1801938,
+    "binarySHA256": "5108a7a74e720eb21f3fdfc6acece00c296f8e46a1458e024e153045c5f9f3f9"
+  },
+  "preparedOptionalUpdates": [
+    {
+      "version": "1.0.0",
+      "name": "DS2_ATLAS_N02_Exoskeleton_Addon_v1.0.0",
+      "category": "OPTIONAL",
+      "nexusModId": 86,
+      "nexusUploaded": false,
+      "status": "ready-for-nexus-upload",
+      "fileId": null,
+      "sha256": "1e91654dba7885bbfae76f79455554173dc38b88a6bbe9cfb81d6801cf40345b",
+      "bytes": 20613311,
+      "binarySHA256": "42dde96ca4e423efa73c90cf5a924799c1f17c1229da85f7c2aaaa801e2d0587",
+      "requiresMainVersion": "1.10.1",
+      "interface": "Addon API V1 + Visual Router V1"
+    }
+  ]
 }

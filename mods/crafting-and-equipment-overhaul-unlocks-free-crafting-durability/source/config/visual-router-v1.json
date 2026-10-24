@@ -1,0 +1,9 @@
+{
+  "version": 1,
+  "frozenSources": {
+    "src/crafting_addon_api.h": "6fceee5abf25d0990f32e54c8c5fe0490ccb65b618577b28b238f34dfbcee763",
+    "src/addon_host.inl": "5603dd0418d22ce6676d39a8f028a8eb1e481e048e35f605b2aa70951e9c5355",
+    "src/addon_host.hpp": "15e9200f604503ff07fd0c85aa8aecad18a0ec9697efb584ca3dfc0080458288",
+    "src/visual_archive_api.h": "7cad3bad039bc91a2e0a98a29f247d0dba853c3264258e14260ace8725d84369"
+  }
+}

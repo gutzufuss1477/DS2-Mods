@@ -1,0 +1,32 @@
+{
+  "date": "2026-10-24",
+  "mainVersion": "1.10.1",
+  "regressions": [
+    "SHOE_API_V1_BUILD_GATE_PASS: 8 protected source files; optional addon not required.",
+    "PASS 335491 host assertions (policy/layout/selection/SHA); Windows/game hook NOT executed",
+    "PASS 13772 backpack/config assertions; 135 INI keys; 106 normal + 19 modules + 2 covers + 8 charms.",
+    "PASS 206 ATLAS integration/config/identity assertions.",
+    "PASS 924 suppressed weapons integration/config/policy assertions.",
+    "COFFIN_DIRECT_MODEL_ASSERTIONS=33 FAILURES=0",
+    "COFFIN_MENU_ALIAS_ASSERTIONS 18 ERRORS 0",
+    "COFFIN_LOADED_STORY_RESOURCE_ASSERTIONS 29 ERRORS 0",
+    "COFFIN_NATIVE_BAGGAGE_VIEW_PRESERVED_ASSERTIONS 8 ERRORS 0",
+    "V1945_CANONICAL_GRAPH_AND_LINKS_PATH_33_ASSERTIONS_ERRORS_0",
+    "COFFIN_MENU_ASSERTIONS=23 FAILURES=0",
+    "COFFIN_PREVIEW_ASSERTIONS=23 FAILURES=0",
+    "COFFIN_SESSION_ASSERTIONS=19 FAILURES=0",
+    "COFFIN_PERSISTENCE_ASSERTIONS=24 FAILURES=0",
+    "COSMETICS_POLICY_ASSERTIONS=353 FAILURES=0",
+    "COSMETICS_RUNTIME_ASSERTIONS=58 FAILURES=0",
+    "PRODUCTION_PERSISTENCE_ASSERTIONS=19 FAILURES=0",
+    "PRODUCTION_FABRICATION_ASSERTIONS=235 FAILURES=0"
+  ],
+  "loaderSmokeCases": 6,
+  "loaderSmokeAllPassed": true,
+  "nativeSignatureChecks": 95,
+  "supportedGameSHA256": "bf3d1c665545930bc850d8f5df486f7395885bb729d4fd408fdb03390de0765b",
+  "mainSourceProof": "Test05 comparison exact after PE timestamp normalization; release source changes runtime version label only",
+  "sourceAssetsUnchanged": true,
+  "shoeAddonUnchanged": true,
+  "gameProcessStarted": false
+}

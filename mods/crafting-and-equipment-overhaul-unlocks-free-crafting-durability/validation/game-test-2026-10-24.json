@@ -1,0 +1,9 @@
+{
+  "date": "2026-10-24",
+  "source": "Direct user confirmation in current task",
+  "userQuote": "ok jetzt klappt alles zusammen",
+  "testedMainSHA256": "4b4658bc4827c15fbce6f9aecf80613c81dbb78876651e96b4ec89c7aa3d0bfc",
+  "testedN02SHA256": "42dde96ca4e423efa73c90cf5a924799c1f17c1229da85f7c2aaaa801e2d0587",
+  "unchangedBootsSHA256": "f2193e540a04e9b30507ee69a325b91feacdbed97ecc4dd9fa6d70b5fc5b172b",
+  "scope": "User confirmed the final combined setup after the mixed-fabrication correction. No additional removal/load permutations inferred."
+}

@@ -23,6 +23,7 @@ u8 record[0x160]={},bag[0x80]={},serialized[coffin_persistence::RecordSize]={},s
 u64 uid=0x475a0000004b26;unsigned saveCalls=0,loadCalls=0,saveAllCalls=0,loadAllCalls=0;
 bool freshRed=true,failMove=false;std::wstring root;
 namespace persistence_runtime{bool isLoaded(u64);void saveRecord(u64,u64);void loadRecord(u64,u64);}
+namespace fabrication_runtime {unsigned resets=0;void reset(){++resets;}}
 namespace coffin_direct_runtime{
  void*storyOwnersLock=nullptr;coffin_session::Identity storyOwners[2]={};
  void beginFabrication(){}
@@ -66,6 +67,7 @@ int main(){
  initialize();ck(writable&&count==1,"new process recovers metadata from disk");
  loadAll(0,0);ck(loadAllCalls==1&&loadCalls==1,"native loading called exactly once");
  ck(isLoaded(uid),"existing red coffin survives simulated process restart and load");
+ ck(fabrication_runtime::resets==1,"load resets fresh fabrication identities before restoring saved cargo");
  ck(!std::memcmp(sourceBytes,serialized,sizeof(serialized)),"load wrapper also leaves save bytes unchanged");
  serialized[0x40]^=1;loadAll(0,0);ck(!isLoaded(uid),"loading a different save clears stale red associations");
  ck(fileBytes(metadataPath)==first,"read-only load never writes metadata or saves");

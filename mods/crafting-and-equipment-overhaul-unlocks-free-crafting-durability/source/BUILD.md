@@ -1,8 +1,9 @@
-# Crafting and Equipment Overhaul 1.10.0
+# Crafting and Equipment Overhaul 1.10.1
 
 Use Windows x64, Python 3 and LLVM (`clang-cl`/`lld-link`). Policy tests additionally
 need the MSVC/Windows SDK headers and runtime. The supported game build is
-1.10.89.0. No game process is needed to compile.
+1.10.89.0. No game process is needed to compile. The read-only native signature check also
+requires Python capstone and DS2_TEST_EXE pointing to the supported DS2.exe.
 
 Game-derived build inputs are deliberately absent from Git. `config/local-inputs.json`
 lists every required file, size and SHA-256. The eight inputs are six texture
@@ -21,7 +22,7 @@ before compiling; the addon does not need to be installed to build the main mod.
 `./scripts/test_release.ps1` runs the core, equipment, coffin, cosmetics, persistence
 and repeat-fabrication regressions. These are offline tests, not game automation.
 `python scripts/smoke_loader.py --pcc` tests DLL loading in disposable Python
-processes. `tests/verify_integration.py --version 1.10.0 --pcc` reads the exact
+processes. `tests/verify_integration.py --version 1.10.1 --pcc` reads the exact
 game executable using `DS2_TEST_EXE`; it does not modify it.
 
 `tests/story_independence_windows_test.cpp` exercises the production cache builder,
@@ -40,5 +41,12 @@ appearance metadata must remain outside Git.
 
 The optional Chiral Boots 1.0.0 source lives in the sibling `addons` directory.
 Its original mesh/texture/cache inputs are likewise not redistributed. Published
-Nexus downloads remain the end-user installation path; the prepared 1.10.0
+Nexus downloads remain the end-user installation path; the prepared 1.10.1
 package has no Nexus file ID until it is uploaded.
+
+The 1.10.1 update includes the frozen Visual Router V1 gate, N02 archive profile
+and per-native-vehicle fabrication association. It removes the red-coffin-only
+transaction gate. `tools/test_repeat_fabrication.py` now exercises 235 production
+callback assertions, including mixed/nested/concurrent/delayed construction.
+`tools/test_persistence_runtime.py` checks 19 production IO/save/load cases.
+The optional N02 source/build notes are in `../addons/atlas-n02-exoskeleton`.

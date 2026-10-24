@@ -1,0 +1,1 @@
+Main mod 1.10.1: fixes mixed fabrication of the red Story Coffin Board and adds independent N02 skeleton/Chiral Boots addon support. All 1.10.0 features retained. Keep your existing INI and Story appearance metadata.

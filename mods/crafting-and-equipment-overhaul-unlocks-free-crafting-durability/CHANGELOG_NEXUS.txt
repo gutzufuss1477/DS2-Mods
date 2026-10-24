@@ -1,0 +1,6 @@
+Crafting & Equipment Overhaul 1.10.1 - 2026-10-24
+- Fixed the red Story Coffin Board when fabricated together with ATLAS gear and other items; removed the single-item-only fabrication restriction.
+- Correctly associates the red menu image, 3D model and saved appearance with the fabricated coffin.
+- Added support for the optional ATLAS N02 Exoskeleton Addon, alone or alongside the unchanged Chiral Boots Addon 1.0.0.
+- Preserves a stable addon interface for future main-mod content, recipe and stat updates.
+- Retains all 1.10.0 features, including 52 outfits/accessories and color selection. No new INI settings required.

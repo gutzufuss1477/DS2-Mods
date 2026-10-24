@@ -1,0 +1,8 @@
+{
+  "status": "IDENTICAL_EXCEPT_PE_BUILD_TIMESTAMP",
+  "testedSHA256": "4b4658bc4827c15fbce6f9aecf80613c81dbb78876651e96b4ec89c7aa3d0bfc",
+  "rebuiltSHA256": "f37184354a48898ea40f728748f67013a16e2b3f13197a003fdd0ce60ed95431",
+  "releaseSHA256": "5108a7a74e720eb21f3fdfc6acece00c296f8e46a1458e024e153045c5f9f3f9",
+  "onlyReleaseSourceDifference": "src/version.hpp",
+  "sourceFormattingNote": "Four copied source/test files had trailing blank lines removed after the byte-identity build proof; no C++ or assembly tokens changed."
+}

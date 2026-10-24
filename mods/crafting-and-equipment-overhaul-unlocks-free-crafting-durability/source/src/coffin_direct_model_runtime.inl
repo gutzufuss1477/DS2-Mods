@@ -10,7 +10,7 @@ volatile long previewBindings=0,previewChecks=0;
 coffin_session::Identity storyOwners[coffin_session::Capacity]={};
 void*storyOwnersLock=nullptr;
 bool isStoryCargo(u64 cargo){
- if(persistence_runtime::isLoaded(cargo))return true;
+ if(persistence_runtime::isLoaded(cargo)||fabrication_runtime::isRed(cargo))return true;
  auto reader=[](u64 p,auto&v){return rd(p,v);};
  const u64 vehicle=coffin_session::cargoOwner(reader,image,cargo);
  const auto current=coffin_session::identity(reader,image,vehicle);if(!current.owner)return false;
@@ -82,20 +82,9 @@ u64 addRow(u64 skin,u64 row,u8 initialize){
   u64 vehicle=0,vt=0;
   if(rd(skin+0x48,vehicle)&&rd(vehicle,vt)&&vt==image+redcoffin::CoffinVehicleVtableRva){
    const u64 cargo=coffin_persistence::worldCargo(reader,image,vehicle);
-   if(persistence_runtime::isLoaded(cargo)&&((parts[0]&&parts[1])||prepare())){
+   if((fabrication_runtime::isOwner(vehicle)||persistence_runtime::isLoaded(cargo))&&((parts[0]&&parts[1])||prepare())){
     choice=coffin_direct::inspect(reader,image,skin,row,parts);restored=choice.replacement!=0;
    }
-  }
- }
- if(_InterlockedCompareExchange(&enabled,0,0)==1&&
-    !restored&&_InterlockedCompareExchange(&arm,0,0)==1&&parts[0]&&parts[1]){
-  choice=coffin_direct::inspect(reader,image,skin,row,parts);
-  const u64 tracked=u64(_InterlockedCompareExchange64(&owner,0,0));
-  if(!choice.replacement||!coffin_direct::selected(true,GetTickCount64(),manufactureTick,
-       choice.owner,tracked,previousOwners,previousCount))choice={};
-  if(choice.replacement){
-   const u64 prior=u64(_InterlockedCompareExchange64(&owner,(long long)choice.owner,0));
-   if(prior&&prior!=choice.owner)choice={};
   }
  }
  bool preview=false;
@@ -112,13 +101,13 @@ u64 addRow(u64 skin,u64 row,u8 initialize){
  auto native=[](u64 s,u64 r,u8 flag)->u64{return ((AddFn)(image+coffin_direct::AddRowTarget))(s,r,flag);};
  const u64 result=coffin_direct::dispatch(choice,skin,row,initialize,bind,native);
  if(restored){
-  // This is the same native construction-time binding as fresh fabrication.
-  // Do not touch the fresh-fabrication arm or its two-part verification state.
+  // Exact freshly fabricated entity GUID, or a restored native cargo UID.
   u64 rows=0,bound=0;u32 count=0;const u32 index=u32(result);
   bool ok=index<redcoffin::NativeCoffinArtPartCount&&rd(skin+0x58,count)&&index<count&&
    rd(skin+0x60,rows)&&rows>=0x10000&&rd(rows+0x140ull*index+0xc8,bound)&&bound==choice.replacement;
-  Text m;m.add(ok?"RED_COFFIN_V1956_RESTORED_PART: owner=":"RED_COFFIN_V1956_RESTORE_BIND_INCOMPLETE: owner=");
-  m.hex(choice.owner,16);m.add(" slot=");m.dec(choice.slot);log(m);
+  Text m;m.add(ok?"RED_COFFIN_EXACT_CARGO_PART: owner=":"RED_COFFIN_EXACT_CARGO_BIND_INCOMPLETE: owner=");
+  m.hex(choice.owner,16);m.add(" slot=");m.dec(choice.slot);
+  m.add(" cargo=");m.hex(coffin_persistence::worldCargo(reader,image,choice.owner),16);log(m);
   return result;
  }
  if(preview){

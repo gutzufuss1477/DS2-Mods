@@ -1,7 +1,12 @@
-Crafting & Equipment Overhaul 1.10.0
+Crafting & Equipment Overhaul 1.10.1
 DEATH STRANDING 2: ON THE BEACH | Windows x64 | Spielversion 1.10.89.0
 
-NEU
+NEU IN 1.10.1
+Der rote Story-Surfsarg kann zusammen mit ATLAS und anderen Gegenständen hergestellt
+werden. Das optionale N02-Skelett-Addon wird separat oder gemeinsam mit dem bisherigen
+Schuhaddon unterstützt. Keine neuen INI-Einstellungen erforderlich.
+
+WEITERHIN ENTHALTEN
 Der rote Story-Surfsarg ist Bestandteil des Hauptmods: Herstellung, rotes Menübild,
 3D-Vorschau, Fahren, Ziehen, Verstecken und gespeicherte Farbzuordnung.
 Kein Schuhaddon erforderlich. Dazu kommen 52 native Outfits und Accessoires
@@ -24,16 +29,16 @@ Beim Update von Versionen vor 1.9.8 fehlende Abschnitte [WarriorWeapons], [RedGu
 und [Guitars] aus der INI übernehmen.
 
 ROTER STORY-SURFSARG
-Im Herstellungsmenü den Story-Eintrag wählen. Pro Herstellung genau einen roten
-Surfsarg auswählen, ohne weitere Gegenstände im selben Herstellungsvorgang.
-Mehrere rote Särge können nacheinander hergestellt werden. Der normale Surfsarg
-bleibt erhalten. Der Story-Sarg verwendet dessen native Funktionen und Kennung.
+Im Herstellungsmenü den Story-Eintrag wählen. Eine gemeinsame Auswahl mit ATLAS
+und anderen Gegenständen ist möglich. Die Zuordnung erfolgt pro hergestelltem
+Sarg; der normale Surfsarg bleibt erhalten. Der Story-Sarg verwendet dessen
+native Funktionen und Kennung.
 
 Beim ersten Start erzeugt der Hauptmod seinen eigenen Ressourcen-Cache im Ordner
 ds2_crafting_story_cache neben DS2.exe. Dafür werden ungefähr 1,5 GB freier Platz
-benötigt; der erste Start kann länger dauern. Mit optionalem Schuhaddon wird ein
-separater kompatibler Cache verwendet. Nach einem Wechsel können beide Varianten
-vorhanden sein. Dieser Cache lässt sich bei geschlossenem Spiel löschen und wird
+benötigt; der erste Start kann länger dauern. Mit optionalen Schuh-/Skelett-Addons werden
+passende separate Caches verwendet. Nach einem Wechsel können mehrere Varianten
+vorhanden sein; der gesamte Platzbedarf steigt entsprechend. Dieser Cache lässt sich bei geschlossenem Spiel löschen und wird
 bei Bedarf neu erzeugt. Originalarchive werden ausschließlich gelesen.
 
 Die Datei ds2_story_coffin_variants.bin neben DS2.exe speichert nur die Farbzuordnung
@@ -59,6 +64,10 @@ der öffentlichen Standard-INI ausgeschaltet. Nach INI-Änderungen neu starten.
 KOMPATIBILITÄT
 ATLAS Chiral Boots Addon 1.0.0 bleibt ein separater optionaler Download. Seine ASI
 muss für dieses Update nicht ersetzt werden; die Addon-Schnittstelle V1 bleibt erhalten.
+ATLAS N02 Exoskeleton Addon 1.0.0 benötigt Hauptmod 1.10.1 oder eine spätere Version,
+die Addon API V1 / Visual Router V1 und die ATLAS-Kennungen beibehält.
+Beide Erscheinungsbild-Addons können unabhängig oder gemeinsam verwendet werden.
+Normale Inhalts-, Rezept- und Werte-Updates benötigen keinen Neubau der Addons.
 Coffin Board Reworked wurde in der Kombination mit Version 1.83.0 geprüft.
 Andere Spielversionen oder Mods, die dieselben Ressourcen verändern, sind nicht abgedeckt.
 Keine streaming_graph.core oder andere Originalarchive austauschen.

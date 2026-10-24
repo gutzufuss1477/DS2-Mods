@@ -13,8 +13,10 @@ if (-not (Test-Path -LiteralPath $linker -PathType Leaf)) {
 }
 Push-Location $PSScriptRoot
 try {
-    python 'tools/check_local_inputs.py'
-    if ($LASTEXITCODE -ne 0) { throw 'Required local game-derived build inputs missing or mismatched' }
+    python tools/check_local_inputs.py
+    if ($LASTEXITCODE -ne 0) { throw 'Missing or mismatched local build inputs' }
+    python tools/enforce_visual_router_v1.py
+    if ($LASTEXITCODE -ne 0) { throw "Visual API contract regression" }
     # Hard compatibility gate: never build a Crafting host that breaks ATLAS/Chiral Boots Addon API V1.
     python 'tools/enforce_addon_api_v1.py'
     if ($LASTEXITCODE -ne 0) { throw 'Public shoe add-on API V1 regression: build stopped before outputs' }
@@ -57,9 +59,7 @@ try {
     & $linker '/dll' '/entry:DllMain' '/machine:x64' '/nodefaultlib' '/dynamicbase' '/nxcompat' '/opt:ref' '/opt:icf' "/out:$artifact" '/implib:build/ds2_crafting_unlocks.lib' 'build/mod.obj' 'build/atlas.obj' 'build/weapons.obj' 'build/weapons_gpu.obj' 'build/atlas_loading_thunk.obj' 'build/freecrafting_thunks.obj' 'build/special_boot_thunk.obj' 'build/durability_thunks.obj' 'build/pcc_thunk.obj' 'build/coffin_gpu.obj' 'build/coffin_story_view_thunk.obj' 'build/coffin_menu_gpu.obj' 'build/coffin_menu_thunks.obj' 'build/kernel32.lib'
     if ($LASTEXITCODE -ne 0) { throw "Link failed: $LASTEXITCODE" }
     $configuration = Join-Path $OutputDirectory 'ds2_crafting_unlocks.ini'
-    if (-not (Test-Path -LiteralPath $configuration)) {
-        Copy-Item -LiteralPath 'config/default.ini' -Destination $configuration
-    }
+    if (-not (Test-Path -LiteralPath $configuration)) { Copy-Item -LiteralPath 'config/default.ini' -Destination $configuration }
     Get-FileHash -Algorithm SHA256 -LiteralPath $artifact
 } finally {
     Pop-Location
