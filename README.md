@@ -26,7 +26,7 @@ Current Nexus-published mods by gutzufuss1477. Names and file versions follow Ne
 | [Extended BT Cord Cutting Range](mods/extended-bt-cord-cutting-range/) | 1 |
 | [Proficiency Bonus Multiplier](mods/proficiency-bonus-multiplier/) | 1 |
 | [Improved Odradek Scan](mods/improved-odradek-scan/) | 1.0.1 |
-| [Crafting and Equipment Overhaul - Unlocks - Free Crafting - Durability - ATLAS Gear](mods/crafting-and-equipment-overhaul-unlocks-free-crafting-durability/) | 1.10.1 + N02 addon 1.0.0 prepared; see release records |
+| [Crafting and Equipment Overhaul - Unlocks - Free Crafting - Durability - ATLAS Gear](mods/crafting-and-equipment-overhaul-unlocks-free-crafting-durability/) | 1.10.1; optional Chiral Boots 1.0.0 and N02 Exoskeleton 1.0.0 |
 | [Sam Overhaul - Cargo - Movement -  Autodrive and Truck Weapons](mods/sam-overhaul-cargo-movement-autodrive-and-truck-weapons/) | 1.1.0 |
 | [Jump Ramp Unlimited](mods/jump-ramp-unlimited/) | 1 |
 | [Beach Jump with Cargo](mods/beach-jump-with-cargo/) | 1 |

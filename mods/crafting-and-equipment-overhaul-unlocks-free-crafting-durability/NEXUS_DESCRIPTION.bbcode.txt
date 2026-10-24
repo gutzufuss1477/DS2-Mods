@@ -1,0 +1,84 @@
+Combine early crafting and PCC unlocks, custom ATLAS gear, suppressed weapons, the red Story Coffin Board, outfit/accessory unlocks and optional durability changes in one INI.
+
+[center][size=4][b][url=https://ko-fi.com/gutzufuss]☕ Support my mods on Ko-fi[/url][/b][/size]
+Optional support helps me keep making updates. Thank you![/center]
+
+[b]New in 1.10.1[/b]
+Mixed fabrication of the red Story Coffin Board is fixed. The new optional ATLAS N02 Exoskeleton addon can be used on its own or together with the unchanged Chiral Boots addon. All 1.10.0 features remain included; existing INI settings can be kept.
+
+[b]Features[/b]
+[list]
+[*]Early fabrication of 135 supported items, including special boots, backpack equipment and enemy weapons.[/*]
+[*]Craft the red Story Coffin Board with its original Story model, full riding, towing and hiding functionality, a distinct menu name, red thumbnail and matching 3D previews. Its appearance persists through save/load and game restarts.[/*]
+[*]Unlock 52 native outfits and accessories with color options, including clothing, glasses, hats/bandanas, hoods, masks, BB pod designs and Dollman's outfit. Native combination rules and DLC checks remain in effect.[/*]
+[*]ATLAS Boots combine footwear effects; ATLAS Skeleton combines Battle, Boost and Bokka effects with an optional gold look.[/*]
+[*]Four suppressed variants: Assault Rifle [MP] Lv.2, Machine Gun [MP] Lv.2, Shotgun [MP] Lv.2 and Big-Bore Handgun [MP].[/*]
+[*]Three craftable Warrior weapons with configurable ammunition, plus the red Higgs Battle Guitar alongside Sam's original guitar.[/*]
+[*]Early PCC structure selection within each PCC level's native list.[/*]
+[*]Optional ATLAS Chiral Boots visual addon: gold boots when worn and on the boot clip, with a matching menu icon.[/*]
+[*]Optional ATLAS N02 Exoskeleton visual addon: graphite-black skeleton with red accents, revised geometry and a matching rendered menu image.[/*]
+[/list]
+
+
+[b]Requirements[/b]
+Windows x64, Steam [b]DS2.exe 1.10.89.0[/b] and a working [url=https://github.com/ThirteenAG/Ultimate-ASI-Loader]x64 ASI loader[/url] (not included).
+
+[b]Install / update[/b]
+[b]New installation:[/b] Close the game and copy [b]ds2_crafting_unlocks.asi[/b] and [b]ds2_crafting_unlocks.ini[/b] from Main Files beside [b]DS2.exe[/b].
+[b]Updating to 1.10.1:[/b] Close the game, replace the main mod's ASI and keep your existing INI and [b]ds2_story_coffin_variants.bin[/b]. Outfit/accessory unlocks are enabled even if your INI has no [Cosmetics] section. Merge that section from the supplied INI only if you want to customize it. When updating from older versions, merge other missing settings without duplicating keys.
+Keep only one version of the main mod installed. Restart after changing the INI. See Important below before removing the main mod.
+
+[b]Red Story Coffin Board — included in the main mod[/b]
+[b]No visual addon is required.[/b] Select the Story entry. Since 1.10.1, you can fabricate it together with ATLAS gear and other items in the same transaction. The previous single-item restriction has been removed. The normal board remains available. Compatible with Coffin Board Reworked (tested with 1.83.0).
+
+The main mod creates its own [b]ds2_crafting_story_cache[/b] folder beside DS2.exe. Allow approximately [b]1.5 GB of free space[/b] and extra time on first launch. Matching separate cache profiles are used with the optional shoe and skeleton addons; switching combinations can leave multiple profiles present and increase total disk usage. Original game archives are only read.
+
+[b]Keep ds2_story_coffin_variants.bin:[/b] This separate mod file preserves the red appearance. Back it up alongside your saves and transfer it when moving to another PC. Without it, saved Story coffins appear as normal coffins. The mod does not write into game save files.
+
+[b]Optional: ATLAS Chiral Boots[/b]
+Download [b]ATLAS Chiral Boots Addon[/b] from [b]Optional Files[/b] on this page. Requires [b]Crafting & Equipment Overhaul 1.9.9 or a compatible later version[/b] and the ASI loader already used by the main mod.
+
+[b]Install:[/b] With the game closed, copy only [b]ds2_atlas_chiral_addon.asi[/b] beside [b]DS2.exe[/b]. No additional data folder, BIN files or addon INI need to be installed.
+
+The addon changes ATLAS Boots to gold Chiral models, including the boot-clip models and menu icon. [b]ATLAS remains a separate craftable item and keeps all combined boot properties.[/b] The main mod works without this optional download.
+
+[b]First launch:[/b] The addon automatically creates its [b]atlas_chiral[/b] cache folder. Allow at least [b]1.6 GB of free disk space[/b]; the first loading sequence can take longer. Later launches reuse the verified cache. Original game archives are never replaced.
+
+[b]Remove only the addon:[/b] Close the game and remove [b]ds2_atlas_chiral_addon.asi[/b]. [b]Keep the main mod installed.[/b] Existing saved ATLAS Boots then return to the main mod's standard Pizza Baker appearance. No save conversion is needed. You may also delete the automatically generated cache folder after closing the game to reclaim space.
+
+The unchanged ATLAS Chiral Boots Addon 1.0.0 remains compatible with Crafting 1.10.1. It works independently or together with the N02 skeleton addon. No new shoe-addon download is needed. The red Story Coffin Board does not depend on either visual addon.
+
+[b]Optional: ATLAS N02 Exoskeleton[/b]
+Download [b]ATLAS N02 Exoskeleton Addon 1.0.0[/b] from [b]Optional Files[/b] on this same page. Requires [b]Crafting & Equipment Overhaul 1.10.1 or a compatible later version[/b].
+
+[b]Install:[/b] Close DS2 and copy only [b]ds2_atlas_exoskeleton_addon.asi[/b] beside [b]DS2.exe[/b]. No addon INI or manually installed data folder is needed.
+
+The separately craftable ATLAS Skeleton gets a graphite-black N02 look with red accents, revised geometry and its own rendered menu image. [b]All combined ATLAS properties and crafting recipes stay with the main mod.[/b] Normal skeletons remain available.
+
+[b]Use either addon or both:[/b] The N02 skeleton and Chiral Boots addons are independent optional appearances. Install either ASI, both ASIs, or neither. The main mod remains required.
+
+[b]First launch:[/b] The addon automatically builds its [b]atlas_exoskeleton[/b] cache. Allow roughly [b]1.5 GB[/b] for this cache plus any caches used by the main mod and shoe addon. Initial loading can take longer; original archives are not replaced.
+
+[b]Remove only the skeleton addon:[/b] Close DS2 and remove [b]ds2_atlas_exoskeleton_addon.asi[/b]. Keep the main mod installed. Saved ATLAS Skeletons retain their stats and return to the main mod appearance (gold by default, depending on GoldSkeletonSkin). No save conversion is needed.
+
+[b]Future main-mod updates:[/b] Both visual addons are designed to remain compatible across normal content, recipe and stat updates that preserve their supported interface and ATLAS item identities. They do not need a new release for every Crafting update. Game patches or conflicting resource mods may still require compatibility work.
+
+[b]Settings[/b]
+Bundled defaults enable ATLAS, red/black suppressed weapons and [PCCStructures] UnlockAll=1. FreeCrafting, durability scaling (up to 1000x) and Unbreakable are optional and off by default. Keep custom INI values and add new settings without duplicate keys; old INIs without [PCCStructures] keep native PCC progression.
+
+[b]Cosmetics:[/b] In [Cosmetics], set Enabled=0 to disable additional outfit/accessory unlocks or UnlockColors=0 to keep native color availability. The global master switch, DefaultUnlock and individual [Items] rules still apply.
+
+[b]Important[/b]
+[list]
+[*][b]Back up your save before obtaining custom gear.[/b] Disabling recipes preserves existing items only while the mod stays enabled. To fully remove/downgrade it, use a save from before obtaining custom items.[/*]
+[*]Remove the old ds2_overpowered_equipment.asi and ds2_more_silenced_guns.asi standalone tests.[/*]
+[*]PCC costs, bandwidth, terrain, network and placement restrictions remain. Hot Spring Digger, mission constructions and native bridge-length restrictions are not unlocked.[/*]
+[*]Suppressors do not silence grenade launchers, impacts or explosions. Native cargo durability remains unchanged.[/*]
+[*]Early Episode 2 Safehouse placement was confirmed; not every structure type or long-session case has been tested.[/*]
+[/list]
+
+
+[url=https://github.com/gutzufuss1477/DS2-Mods/tree/main/mods/crafting-and-equipment-overhaul-unlocks-free-crafting-durability]Full instructions and source on GitHub[/url]
+
+[b]Credits[/b]
+Thanks to the DS2 modding community and everyone who tested the mod.

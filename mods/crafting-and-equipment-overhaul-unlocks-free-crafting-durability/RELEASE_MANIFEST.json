@@ -3,9 +3,9 @@
   "name": "DS2_Crafting_Equipment_Overhaul_v1.10.1",
   "category": "MAIN",
   "nexusModId": 86,
-  "nexusUploaded": false,
-  "status": "ready-for-nexus-upload",
-  "fileId": null,
+  "nexusUploaded": true,
+  "status": "published",
+  "fileId": 392,
   "sha256": "bf281b2800b1f70e25ff65499863584222ea6fcd3d0abfa61c58857c8905b26c",
   "bytes": 1801938,
   "files": {
@@ -45,5 +45,8 @@
       "bytes": 7628,
       "sha256": "1113f49eb0e177a7eb6da8ec1dd724d9c96efe9d058540827896b5d73664eae6"
     }
-  }
+  },
+  "publishedDate": "2026-10-24",
+  "downloadUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/86?tab=files&file_id=392",
+  "primary": true
 }

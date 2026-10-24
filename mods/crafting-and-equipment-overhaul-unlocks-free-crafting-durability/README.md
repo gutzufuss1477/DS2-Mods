@@ -9,12 +9,13 @@ items. The previous one-red-coffin-only transaction restriction is removed. Its
 native vehicle/cargo identity owns the red appearance association, including menu
 and 3D previews. Keep `ds2_story_coffin_variants.bin` alongside save backups.
 
-## Prepared Nexus update
+## Published Nexus update
 
-Main mod **1.10.1** and optional **ATLAS N02 Exoskeleton 1.0.0** are prepared for
-the [existing Nexus page](https://www.nexusmods.com/deathstranding2onthebeach/mods/86).
-These records do not claim that an upload has happened. Existing file IDs in
-`nexus.json` are historical verified publication records, not a fresh Nexus listing.
+Main mod **1.10.1** is the primary download and **ATLAS N02 Exoskeleton 1.0.0**
+is an optional file on the [existing Nexus page](https://www.nexusmods.com/deathstranding2onthebeach/mods/86?tab=files).
+Publication was verified on 2026-10-24: main file **392**, N02 file **393**, and
+unchanged Chiral Boots file **390**. Main 1.10.0 was archived. `nexus.json` and
+the release manifests record the published files and exact package hashes.
 
 See [English changelog](CHANGELOG.txt), [German changelog](CHANGELOG_DE.txt),
 [English installation](README_EN.txt), [German installation](README_DE.txt) and

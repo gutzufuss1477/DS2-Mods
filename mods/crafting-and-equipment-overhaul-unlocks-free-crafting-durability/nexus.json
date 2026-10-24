@@ -4,18 +4,40 @@
   "nexusGame": "deathstranding2onthebeach",
   "nexusModId": 86,
   "nexusUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/86",
-  "pageVersion": "1.0.0",
-  "sourceStatus": "release-ready",
-  "sourceNote": "Main 1.10.1 and optional ATLAS N02 Exoskeleton 1.0.0 prepared after user-confirmed combined game test on 2026-10-24. Release main differs from tested Test05 only by runtime version label; offline tests passed. Chiral Boots 1.0.0 unchanged. Nexus upload not performed. currentFiles retains historical verified IDs, not a refreshed listing.",
+  "pageVersion": "1.10.1",
+  "sourceStatus": "published",
+  "sourceNote": "Main 1.10.1 is published as the primary MAIN file 392; N02 Exoskeleton 1.0.0 is OPTIONAL file 393. Public file categories, versions, download links, descriptions and changelogs were verified through Nexus browser UI on 2026-10-24. The old 1.10.0 main was archived. Chiral Boots 1.0.0 file 390 is unchanged. Public VirusTotal links match the package SHA-256 values. Release main differs from user-tested Test05 only by its runtime version label; offline checks passed.",
   "currentFiles": [
     {
-      "fileId": 389,
-      "name": "DS2_Crafting_Equipment_Overhaul_v1.9.9",
-      "version": "1.9.9",
+      "version": "1.10.1",
+      "name": "DS2_Crafting_Equipment_Overhaul_v1.10.1",
       "category": "MAIN",
-      "sha256": "f1e0c139b362c308d042dd5c1f30ba2d5e5a3dd268d93e4156d73f5d6bf8ffbd",
-      "bytes": 575081,
-      "downloadUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/86?tab=files&file_id=389"
+      "nexusModId": 86,
+      "nexusUploaded": true,
+      "status": "published",
+      "fileId": 392,
+      "sha256": "bf281b2800b1f70e25ff65499863584222ea6fcd3d0abfa61c58857c8905b26c",
+      "bytes": 1801938,
+      "binarySHA256": "5108a7a74e720eb21f3fdfc6acece00c296f8e46a1458e024e153045c5f9f3f9",
+      "publishedDate": "2026-10-24",
+      "downloadUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/86?tab=files&file_id=392",
+      "primary": true
+    },
+    {
+      "version": "1.0.0",
+      "name": "DS2 ATLAS N02 Exoskeleton Addon V1.0.0",
+      "category": "OPTIONAL",
+      "nexusModId": 86,
+      "nexusUploaded": true,
+      "status": "published",
+      "fileId": 393,
+      "sha256": "1e91654dba7885bbfae76f79455554173dc38b88a6bbe9cfb81d6801cf40345b",
+      "bytes": 20613311,
+      "binarySHA256": "42dde96ca4e423efa73c90cf5a924799c1f17c1229da85f7c2aaaa801e2d0587",
+      "requiresMainVersion": "1.10.1",
+      "interface": "Addon API V1 + Visual Router V1",
+      "publishedDate": "2026-10-24",
+      "downloadUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/86?tab=files&file_id=393"
     },
     {
       "fileId": 390,
@@ -33,27 +55,50 @@
     "name": "DS2_Crafting_Equipment_Overhaul_v1.10.1",
     "category": "MAIN",
     "nexusModId": 86,
-    "nexusUploaded": false,
-    "status": "ready-for-nexus-upload",
-    "fileId": null,
+    "nexusUploaded": true,
+    "status": "published",
+    "fileId": 392,
     "sha256": "bf281b2800b1f70e25ff65499863584222ea6fcd3d0abfa61c58857c8905b26c",
     "bytes": 1801938,
-    "binarySHA256": "5108a7a74e720eb21f3fdfc6acece00c296f8e46a1458e024e153045c5f9f3f9"
+    "binarySHA256": "5108a7a74e720eb21f3fdfc6acece00c296f8e46a1458e024e153045c5f9f3f9",
+    "publishedDate": "2026-10-24",
+    "downloadUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/86?tab=files&file_id=392",
+    "primary": true
   },
   "preparedOptionalUpdates": [
     {
       "version": "1.0.0",
-      "name": "DS2_ATLAS_N02_Exoskeleton_Addon_v1.0.0",
+      "name": "DS2 ATLAS N02 Exoskeleton Addon V1.0.0",
       "category": "OPTIONAL",
       "nexusModId": 86,
-      "nexusUploaded": false,
-      "status": "ready-for-nexus-upload",
-      "fileId": null,
+      "nexusUploaded": true,
+      "status": "published",
+      "fileId": 393,
       "sha256": "1e91654dba7885bbfae76f79455554173dc38b88a6bbe9cfb81d6801cf40345b",
       "bytes": 20613311,
       "binarySHA256": "42dde96ca4e423efa73c90cf5a924799c1f17c1229da85f7c2aaaa801e2d0587",
       "requiresMainVersion": "1.10.1",
-      "interface": "Addon API V1 + Visual Router V1"
+      "interface": "Addon API V1 + Visual Router V1",
+      "publishedDate": "2026-10-24",
+      "downloadUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/86?tab=files&file_id=393"
+    }
+  ],
+  "publicationVerifiedDate": "2026-10-24",
+  "previousFiles": [
+    {
+      "fileId": 389,
+      "name": "DS2_Crafting_Equipment_Overhaul_v1.9.9",
+      "version": "1.9.9",
+      "category": "OLD",
+      "sha256": "f1e0c139b362c308d042dd5c1f30ba2d5e5a3dd268d93e4156d73f5d6bf8ffbd",
+      "bytes": 575081,
+      "downloadUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/86?tab=files&file_id=389"
+    },
+    {
+      "fileId": 391,
+      "name": "DS2_Crafting_Equipment_Overhaul_v1.10.0",
+      "version": "1.10.0",
+      "category": "ARCHIVED"
     }
   ]
 }

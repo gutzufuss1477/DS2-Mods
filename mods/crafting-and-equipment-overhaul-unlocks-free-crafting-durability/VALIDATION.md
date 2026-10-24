@@ -42,5 +42,8 @@ layouts compatible. Appearance addon removal is separate from full main-mod remo
 The main mod still owns custom item definitions and stats. Keep personal INI and
 Story appearance metadata; neither personal saves nor caches are distributed.
 
-Nexus packages are ready for upload to mod 86 as MAIN and OPTIONAL files. No Nexus
-upload is claimed by this release preparation.
+Published to Nexus mod 86 on 2026-10-24: main 1.10.1 is primary file 392, and
+N02 1.0.0 is optional file 393. Chiral Boots 1.0.0 remains unchanged as file 390.
+Public versions, categories, download links, file descriptions and changelogs
+were read back in the browser. Nexus displays green scan checks and VirusTotal
+links matching both release ZIP hashes. Publication did not change package bytes.

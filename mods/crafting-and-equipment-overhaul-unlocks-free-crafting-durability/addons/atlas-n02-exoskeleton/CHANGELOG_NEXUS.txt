@@ -1,6 +1,7 @@
 ATLAS N02 Exoskeleton Addon 1.0.0 - 2026-10-24
-- Initial optional single-ASI release for Crafting & Equipment Overhaul 1.10.1+.
+- Initial optional ATLAS N02 Exoskeleton Addon 1.0.0 for Crafting & Equipment Overhaul 1.10.1 or a later compatible version.
 - Graphite-black ATLAS skeleton with red accents, revised geometry and native-game material handling.
 - Matching rendered menu image.
-- Works alone or together with Chiral Boots Addon 1.0.0; ATLAS stats and crafting remain owned by the main mod.
-- Removing the addon restores the main mod's normal skeleton appearance without changing saved item identities.
+- Single-ASI installation; no addon INI or manually installed data folder.
+- Works alone or together with Chiral Boots Addon 1.0.0. ATLAS stats and crafting remain owned by the main mod.
+- Removing only this addon restores the main mod skeleton appearance without changing saved item identities.
