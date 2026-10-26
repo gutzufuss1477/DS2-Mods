@@ -1,8 +1,20 @@
-# ATLAS Chiral Boots Addon 1.0.0
+# Building ATLAS Chiral Boots Addon 1.0.1
 
-The source is the published single-ASI addon implementation. It uses the
-Crafting Addon API V1. Required game-derived model/texture/cache inputs stay
-local; the embedding scripts record their expected hashes and names. Provide
-those inputs locally and configure the local Python/LLVM paths before using
-`build-api.ps1`. No game archives, generated resource arrays or precompiled ASIs
-are tracked by this import. No new game compatibility is claimed.
+Use Windows x64, LLVM clang-cl/lld-link, Python 3 and Windows SDK headers.
+Provision the exact local inputs in `config/local-inputs.json`, then run
+`./build-api.ps1` and `./test-runtime.ps1`.
+The build verifies local inputs before compilation. `/timestamp:0` gives a
+reproducible PE; the public source rebuild matches the packaged ASI byte for byte.
+
+Game-derived model/texture arrays and menu pixels remain local and ignored by Git.
+A clean clone does not contain those assets or act as a complete extractor.
+Compiled binaries, caches and private runtime captures are not committed either.
+
+`validation/v1.0.1/` records runtime and real-DLL combination checks. The native
+material tests simulate renderer changes, 600 texture replacements, shared use,
+invalid owner/table rejection, and inactive-equipment cleanup. They do not launch
+the game or prove visual results. Final release smoke testing remains explicit.
+
+The boot peer ABI is additive; neither the host ABI nor its router changed.
+The host's normal content updates remain compatible while the frozen contracts
+stay stable. Native calls are guarded by DS2 executable and signature validation.

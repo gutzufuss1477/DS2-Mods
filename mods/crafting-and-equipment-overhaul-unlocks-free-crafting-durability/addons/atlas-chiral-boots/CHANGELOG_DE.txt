@@ -1,0 +1,10 @@
+1.0.1 - 2026-10-26
+- Fehlende Anzug-Material-/Texturupdates beim Tragen der ATLAS-Stiefel korrigiert,
+  einschliesslich gruener Brust/Beine bei metallischen Anzugfarben.
+- Chiral-Gold bleibt draussen stabil. Dafuer werden die dynamischen Schmutz- und
+  Schneeauflagen an ATLAS-Schuhoberteilen und Sohlen derzeit unterdrueckt.
+  Naesse und normale Beleuchtung bleiben aktiv.
+- Gemeinsame Anzugkorrektur mit N02 ueber eine versionierte Addon-Schnittstelle.
+  Bei gemeinsamer Nutzung auch N02 auf 1.0.1 bringen; kein Hauptmod-Update noetig.
+- Ungenutzte Texturreferenzen werden nach Farb-/Ausrustungswechseln freigegeben.
+  ATLAS-Werte, Rezepte, Modelle und Menuebilder bleiben unveraendert.

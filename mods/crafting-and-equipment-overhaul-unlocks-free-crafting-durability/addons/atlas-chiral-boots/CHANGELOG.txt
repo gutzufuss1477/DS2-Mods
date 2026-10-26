@@ -1,0 +1,10 @@
+1.0.1 - 2026-10-26
+- Fixes missing suit material/texture updates while wearing ATLAS Chiral Boots,
+  including the reported green torso/legs with metallic suit colours.
+- Stabilises the chiral gold appearance outdoors by isolating the private boot
+  paint layers. Dynamic dirt/snow overlays on the ATLAS boot uppers and soles are
+  currently suppressed; wetness and normal lighting remain active.
+- Shares the suit fix with N02 through a versioned addon interface. Update N02 to
+  1.0.1 as well when using both addons; no Crafting main-mod update is needed.
+- Releases unused texture references after colour/equipment changes and actor
+  replacement. ATLAS stats, recipes, models and menu artwork are unchanged.

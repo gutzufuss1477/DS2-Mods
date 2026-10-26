@@ -1,0 +1,52 @@
+{
+  "version": "1.0.1",
+  "name": "DS2_ATLAS_Chiral_Boots_Addon_v1.0.1",
+  "category": "OPTIONAL",
+  "nexusModId": 86,
+  "nexusUploaded": false,
+  "status": "prepared-final-game-test-pending",
+  "date": "2026-10-26",
+  "zip": "D:\\DS2-Asset-Lab\\release-packages\\DS2_ATLAS_Chiral_Boots_Addon_v1.0.1.zip",
+  "sha256": "c2793fc53a6f833363f3ba582d3af7185cd325fc08b1fac7330f553df26f1789",
+  "bytes": 6012692,
+  "files": {
+    "CHANGELOG.txt": {
+      "bytes": 712,
+      "sha256": "cd77f4eebb91d126eab36b631a13ccce2c113192cf592c732b0f159cf948109e"
+    },
+    "CHANGELOG_DE.txt": {
+      "bytes": 689,
+      "sha256": "105ca23de9486600bcdcecdedc779196f48b04feafce513e7e1954b0f81d764a"
+    },
+    "ds2_atlas_chiral_addon.asi": {
+      "bytes": 8046592,
+      "sha256": "0e80cd46db1ae2f0a8a853248e3464045a3d70feae513f54bfa7394de8eccd16"
+    },
+    "README_DE.txt": {
+      "bytes": 1726,
+      "sha256": "8561e18cb1fdd2a342affaa2ff900bd7d1361a56f667f425f3246e600a1a1079"
+    },
+    "README_EN.txt": {
+      "bytes": 1618,
+      "sha256": "fe509be06cb36f221d25aa6ffba2d935377d3034c2f7ccd92248fac28917111b"
+    },
+    "VERSION.txt": {
+      "bytes": 6,
+      "sha256": "44e161e4495cac2cf7858043e9e6418e9579f0ddcfae826f9a372622968ce066"
+    },
+    "SHA256SUMS.txt": {
+      "bytes": 494,
+      "sha256": "a067adecf03d1f2864765823ae9b00cca28ef282422af2bcb4e67cac4a748278"
+    }
+  },
+  "mainModChanged": false,
+  "testedHostVersion": "1.10.1",
+  "hostSHA256": "4b4658bc4827c15fbce6f9aecf80613c81dbb78876651e96b4ec89c7aa3d0bfc",
+  "gameBuild": "1.10.89.0",
+  "reproducibleFromPublicSourceAndLocalInputs": true,
+  "runtimeChecks": 264,
+  "dllMatrixCases": 9,
+  "previousBuildVisualFeedback": "User confirmed suit gold in Test20 and stable outdoor boot gold in Test21; not a claim that all colours or the cleaned release binary were game-tested.",
+  "finalGameTestPending": true,
+  "requiresBothAddons101WhenCombined": true
+}

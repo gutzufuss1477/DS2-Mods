@@ -6,24 +6,23 @@ const PortableFile*activePortableFiles=nullptr;
 const char*activeGraphHash=nullptr;
 const EmbeddedPayload*(*activeFind)(const WCHAR*)=nullptr;
 constexpr char PublishedBootSHA[]="f2193e540a04e9b30507ee69a325b91feacdbed97ecc4dd9fa6d70b5fc5b172b";
+#include "boot_companion.inl"
 bool supportedRouter(){
  HMODULE host=GetModuleHandleW(L"ds2_crafting_unlocks.asi");
  using Router=unsigned(*)();auto f=host?(Router)GetProcAddress(host,"DS2CraftingAddonRouterV1"):nullptr;
  return f&&f()==1;
 }
-bool publishedBootModule(HMODULE module){
- if(!module||module!=GetModuleHandleW(L"ds2_atlas_chiral_addon.asi"))return false;
- char digest[65];return moduleDigest(module,digest)&&sameDigest(digest,PublishedBootSHA);
-}
 bool selectExo(){
  if(!supportedRouter()){log("EXO_ROUTER_REQUIRED: compatible optional-visual host required.");return false;}
  HMODULE boots=GetModuleHandleW(L"ds2_atlas_chiral_addon.asi");
- if(boots&&!publishedBootModule(boots)){log("EXO_COMPANION_REFUSED: unrecognized shoe addon; main appearance retained.");return false;}
+ if(boots&&!compatibleBootModule(boots)){log("EXO_COMPANION_REFUSED: unknown boot ABI/assets or active second owner; main appearance retained.");return false;}
  bootsEnabled=boots!=nullptr;
+ bootCompanion={};if(boots)queryBootCompanion(boots,bootCompanion);
  const auto*e=AtlasVisualPayloadV1();
  if(!e||e->size!=sizeof(*e)||e->version!=1||!e->files||!e->graphHash||!e->find)return false;
  activePortableFiles=e->files;activeGraphHash=e->graphHash;activeFind=e->find;
- log(bootsEnabled?"EXO_MODE_BOTH: one resource owner; independent boots and skeleton visuals active.":"EXO_MODE_SKELETON_ONLY: shoe mesh and icon callbacks pass through unchanged.");return true;
+ log(bootsEnabled?"EXO_MODE_BOTH: one resource owner; independent boots and skeleton visuals active.":"EXO_MODE_SKELETON_ONLY: shoe mesh and icon callbacks pass through unchanged.");
+ if(bootCompanion.prepareMaterials)log("EXO_BOOT_ABI1_ACCEPTED: compatible shoe runtime and exact existing boot assets.");return true;
 }
 struct CacheFile {WCHAR original[2048],cache[2048];const char* sourceHash;const char* cacheHash;};
 CacheFile CacheFiles[2]={};

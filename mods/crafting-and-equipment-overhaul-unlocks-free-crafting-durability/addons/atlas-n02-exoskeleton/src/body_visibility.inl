@@ -73,6 +73,7 @@ bool syncBody(void*component,bool apply){
  _InterlockedExchange(&target->active,active?1:0);
  BodyMap snapshot=*target;
  ReleaseSRWLockExclusive(&bodyMapLock);
+ syncBootCompanion(snapshot.owner,active);
  if(chainVisibility&&setControllerVisibility)for(u32 j=0;j<2;++j){
   const u8 enabled=read<u8>(snapshot.originalController[j]+0x2d)?1:0;
   chainVisibility(snapshot.render,snapshot.original[j],active?0:enabled);

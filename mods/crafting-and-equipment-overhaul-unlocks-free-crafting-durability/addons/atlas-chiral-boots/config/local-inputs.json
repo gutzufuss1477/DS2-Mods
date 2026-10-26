@@ -1,0 +1,17 @@
+{
+  "gameBuild": "1.10.89.0",
+  "inputs": [
+    {
+      "path": "build/api/embedded_payload.cpp",
+      "bytes": 31795344,
+      "sha256": "b9317975535f460e951aa8ab33273af677ba34ff416955ce0fa466a3c61dacbf",
+      "redistributed": false
+    },
+    {
+      "path": "build/chiral_icon_pixels.inc",
+      "bytes": 207413,
+      "sha256": "c0000ec42b54aa689d0ae54525a27da056503dd07b4d6b18fa802fe6cec6d3c6",
+      "redistributed": false
+    }
+  ]
+}

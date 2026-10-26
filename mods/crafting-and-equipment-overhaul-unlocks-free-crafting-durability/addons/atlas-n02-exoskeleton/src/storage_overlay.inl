@@ -44,12 +44,12 @@ bool installStorageCore(){
   nextStorageOpen=(OpenW)read<u64>(base+0x58158);
   bool native=expected&&u64(nextStorageOpen)==u64(expected);
   HMODULE owner=nullptr;
-  bool passiveBoot=!native&&nextStorageOpen&&GetModuleHandleExW(6,(const WCHAR*)nextStorageOpen,&owner)&&publishedBootModule(owner);
+  bool passiveBoot=!native&&nextStorageOpen&&GetModuleHandleExW(6,(const WCHAR*)nextStorageOpen,&owner)&&compatibleBootModule(owner,(void*)nextStorageOpen);
   // The unchanged published shoe ASI installs early IAT shims at load time.
   // The host selects ONLY this runtime when both are present. Its boot peer
   // never commits a graph and remains a forwarding-only shim.
   ok=native||passiveBoot;
-  if(passiveBoot)log("EXO_LEGACY_BOOT_CHAIN: verified published boot file-open shim retained, no second active cache.");
+  if(passiveBoot)log("EXO_PASSIVE_BOOT_CHAIN: verified boot file-open shim retained; N02 is sole active cache owner.");
   HMODULE pinned=nullptr;
   ok=ok&&GetModuleHandleExW(5,(const WCHAR*)core,&pinned);
   if(ok)ok=exchangeImport(base+0x58158,u64(nextStorageOpen),u64(&openStorageW));

@@ -1,9 +1,10 @@
-// Test16 / 1.0.0: single-ASI distribution; exact confirmed Test15 assets embedded.
+// ATLAS Chiral Boots 1.0.1: stable suit textures, private boot paint, bounded texture ownership.
 // The host owns all item definitions, recipes, stats and save identities.
 #include "vendor/win_api.hpp"
 #include "vendor/sha256.hpp"
 #include "visual_policy.hpp"
 #include "crafting_addon_api.h"
+#include "boot_companion_api.h"
 #include "graph_merge.hpp"
 #include "embedded_payload.hpp"
 using namespace chiral;
@@ -76,6 +77,7 @@ void openLog(){
  logFile=CreateFileW(path,4,3,nullptr,4,0x80,nullptr); // FILE_APPEND_DATA / OPEN_ALWAYS; addon log only
 }
 volatile long storageState=0; // 2 only after the verified DirectStorage IAT is bound.
+bool companionMode=false;
 #include "file_overlay.inl"
 #include "storage_overlay.inl"
 #include "body_visibility.inl"
@@ -252,7 +254,7 @@ int install(){
 }
 
 int mergeCurrentGraph(const u8*src,u32 size,u8**out,u32*outSize){
- *out=nullptr;*outSize=0;openLog();log("ATLAS Chiral 1.0.0 Test16 | Crafting ABI v1 | embedded assets, single ASI");
+ *out=nullptr;*outSize=0;openLog();log("ATLAS Chiral Boots 1.0.1 | suit textures + stable boot gold | N02 companion ABI1 | Crafting ABI1");
  char digest[65];
  if(!overlayInstalled||!moduleDigest(nullptr,digest)||!sameDigest(digest,GameSHA)){
   log("CHIRAL_ABI_REFUSED: game identity or early file hooks unavailable.");return 0;}
@@ -264,7 +266,7 @@ int mergeCurrentGraph(const u8*src,u32 size,u8**out,u32*outSize){
  u32 capacity=size+deltaSize;u8*merged=(u8*)VirtualAlloc(nullptr,capacity,0x3000,4);u32 length=0;
  bool ok=merged&&chiral_graph::merge(src,size,delta,deltaSize,merged,capacity,length);
  if(!ok){if(merged)VirtualFree(merged,0,0x8000);log("CHIRAL_GRAPH_REFUSED: owned groups conflict; current host graph retained.");return 0;}
- if(!prepare()){VirtualFree(merged,0,0x8000);log("CHIRAL_VISIBILITY_REFUSED: native signature unavailable.");return 0;}
+ if(!prepareSuitMaterials()||!prepare()){VirtualFree(merged,0,0x8000);log("CHIRAL_NATIVE_REFUSED: suit or visibility signature unavailable.");return 0;}
  int result=0;for(u32 i=0;i<20&&!result;++i){result=install();if(!result)Sleep(50);}
  if(result!=1){VirtualFree(merged,0,0x8000);log(result==2?"CHIRAL_CRITICAL: native visibility rollback/thread resume failure.":"CHIRAL_VISIBILITY_REFUSED: native hook not installed.");return 0;}
  *out=merged;*outSize=length;log("CHIRAL_GRAPH_MERGED: three owned groups appended to CURRENT host graph; host preload list preserved.");return 1;
@@ -272,6 +274,27 @@ int mergeCurrentGraph(const u8*src,u32 size,u8**out,u32*outSize){
 void releaseGraph(u8*p){if(p)VirtualFree(p,0,0x8000);}
 void commitGraph(int success){_InterlockedExchange(&overlayState,success?2:-1);
  log(success?"CHIRAL_API1_READY: graph committed; worn, hanging and menu callbacks active.":"CHIRAL_API1_INACTIVE: host graph not committed; native appearance retained.");}
+int passiveCompanion(){return _InterlockedCompareExchange(&overlayState,0,0)==0;}
+int prepareCompanionMaterials(){
+ if(logFile==InvalidHandle)openLog();
+ char digest[65];
+ if(!passiveCompanion()||!GetModuleHandleW(L"ds2_atlas_exoskeleton_addon.asi")||
+   !moduleDigest(nullptr,digest)||!sameDigest(digest,GameSHA)||!prepareSuitMaterials()){
+  log("CHIRAL_COMPANION_REFUSED: native material prerequisites unavailable.");return 0;
+ }
+ companionMode=true;
+ log("CHIRAL_TEST18_COMPANION_READY: N02 owns assets/visibility; this module supplies suit material propagation.");return 1;
+}
+void companionSuitMaterials(u64 art,int active){
+ if(!companionMode||!passiveCompanion())return;
+ BodyMap m={};if(!findBody(art,m))return;m.active=active?1:0;syncSuitMaterials(m);
+}
+}
+extern "C" __declspec(dllexport) const AtlasBootCompanionV1* DS2AtlasBootCompanionQueryV1(unsigned version){
+ if(version!=1)return nullptr;
+ static const AtlasBootCompanionV1 api={sizeof(AtlasBootCompanionV1),1,crafting_addon::NativeLayout,103,
+  GraphPayloadSHA,(void*)&openStorageW,&prepareCompanionMaterials,&companionSuitMaterials,&passiveCompanion};
+ return &api;
 }
 extern "C" __declspec(dllexport) int DS2CraftingAddonQueryV1(const crafting_addon::HostV1*host,crafting_addon::AddonV1*out){
  using namespace crafting_addon;

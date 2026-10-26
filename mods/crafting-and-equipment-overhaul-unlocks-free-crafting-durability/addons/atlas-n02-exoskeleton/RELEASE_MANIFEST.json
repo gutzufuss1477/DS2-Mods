@@ -1,43 +1,52 @@
 {
-  "version": "1.0.0",
-  "name": "DS2_ATLAS_N02_Exoskeleton_Addon_v1.0.0",
+  "version": "1.0.1",
+  "name": "DS2_ATLAS_N02_Exoskeleton_Addon_v1.0.1",
   "category": "OPTIONAL",
   "nexusModId": 86,
-  "nexusUploaded": true,
-  "status": "published",
-  "fileId": 393,
-  "sha256": "1e91654dba7885bbfae76f79455554173dc38b88a6bbe9cfb81d6801cf40345b",
-  "bytes": 20613311,
+  "nexusUploaded": false,
+  "status": "prepared-final-game-test-pending",
+  "date": "2026-10-26",
+  "zip": "D:\\DS2-Asset-Lab\\release-packages\\DS2_ATLAS_N02_Exoskeleton_Addon_v1.0.1.zip",
+  "sha256": "b357ddd515fdacee31e4eec7f196c091533ed50f1cec2ea079e4fa022dfad0cd",
+  "bytes": 20612863,
   "files": {
     "CHANGELOG.txt": {
-      "bytes": 486,
-      "sha256": "6ecff0b968c7f2a9cb711ffa8d396f2672f5b3707edc3b2a4df8106fe6018dff"
+      "bytes": 586,
+      "sha256": "c42880296e130fd9dd4718b883332ea2a4ad51d99b8084dbf333316ce8f6bacc"
     },
     "CHANGELOG_DE.txt": {
-      "bytes": 542,
-      "sha256": "187e735c96964190af8f9f495ad48470e8f9b4013d28d919b9ec039924f6d438"
+      "bytes": 569,
+      "sha256": "ccac871aa2485e1a68bfaf63ec809aa5f7bfd5f0983b140a1c960035c4336285"
+    },
+    "ds2_atlas_exoskeleton_addon.asi": {
+      "bytes": 23953920,
+      "sha256": "d7a151a64c2de416b5423742b40840a7a9d4c4dade11c0f354eb023e6a888ab3"
     },
     "README_DE.txt": {
-      "bytes": 1886,
-      "sha256": "462b2664fdb1892c2f0eb761159a6db6851c47e0341827e3b512ceac44513058"
+      "bytes": 1568,
+      "sha256": "e89a70321e36ff984e08d7bcc9d89b33be436533a4be0faa29983e697407a35d"
     },
     "README_EN.txt": {
-      "bytes": 1757,
-      "sha256": "5c37ccd27b9054a44c1684aae9ca04059a099aae4bd10308628d75901e7b883b"
-    },
-    "SHA256SUMS.txt": {
-      "bytes": 499,
-      "sha256": "416157959f6275fd3280b32036e7f9ba4e85bf3abe00a2843ccde06402766295"
+      "bytes": 1474,
+      "sha256": "f34041bff326f65d78159e4b6618701c1ff3c2b10ada031f862fe1a6c3942d77"
     },
     "VERSION.txt": {
       "bytes": 6,
-      "sha256": "59854984853104df5c353e2f681a15fc7924742f9a2e468c29af248dce45ce03"
+      "sha256": "44e161e4495cac2cf7858043e9e6418e9579f0ddcfae826f9a372622968ce066"
     },
-    "ds2_atlas_exoskeleton_addon.asi": {
-      "bytes": 23952896,
-      "sha256": "42dde96ca4e423efa73c90cf5a924799c1f17c1229da85f7c2aaaa801e2d0587"
+    "SHA256SUMS.txt": {
+      "bytes": 499,
+      "sha256": "72c586f47107e114b9d105cfc2ad2d1a80b77459d082be56b76f0f130979f630"
     }
   },
-  "publishedDate": "2026-10-24",
-  "downloadUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/86?tab=files&file_id=393"
+  "mainModChanged": false,
+  "testedHostVersion": "1.10.1",
+  "hostSHA256": "4b4658bc4827c15fbce6f9aecf80613c81dbb78876651e96b4ec89c7aa3d0bfc",
+  "gameBuild": "1.10.89.0",
+  "reproducibleFromPublicSourceAndLocalInputs": true,
+  "runtimeChecks": 127,
+  "dllMatrixCases": 9,
+  "previousBuildVisualFeedback": "User confirmed suit gold in Test20 and stable outdoor boot gold in Test21; not a claim that all colours or the cleaned release binary were game-tested.",
+  "finalGameTestPending": true,
+  "requiresBothAddons101WhenCombined": true
 }

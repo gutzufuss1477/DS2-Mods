@@ -479,5 +479,7 @@
     "gameTestPending": true,
     "currentlyInstalled": false,
     "gameOrSaveFilesModified": false
-  }
+  },
+  "historicalRecordThrough": "1.0.0 / Test16; historical fields retained for provenance",
+  "currentReleaseManifest": "RELEASE_MANIFEST.json"
 }

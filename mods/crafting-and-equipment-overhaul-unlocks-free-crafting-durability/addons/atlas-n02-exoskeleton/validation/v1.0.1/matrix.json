@@ -1,0 +1,63 @@
+{
+  "cases": [
+    {
+      "mode": "none",
+      "order": "boots,exo",
+      "bootsVersion": "new",
+      "passed": true
+    },
+    {
+      "mode": "boots",
+      "order": "boots,exo",
+      "bootsVersion": "new",
+      "passed": true
+    },
+    {
+      "mode": "exo",
+      "order": "boots,exo",
+      "bootsVersion": "new",
+      "passed": true
+    },
+    {
+      "mode": "both",
+      "order": "boots,exo",
+      "bootsVersion": "new",
+      "passed": true
+    },
+    {
+      "mode": "both",
+      "order": "exo,boots",
+      "bootsVersion": "new",
+      "passed": true
+    },
+    {
+      "mode": "both",
+      "order": "boots,exo",
+      "bootsVersion": "legacy",
+      "passed": true
+    },
+    {
+      "mode": "both",
+      "order": "exo,boots",
+      "bootsVersion": "legacy",
+      "passed": true
+    },
+    {
+      "mode": "both",
+      "order": "boots,exo",
+      "bootsVersion": "test17",
+      "passed": true
+    },
+    {
+      "mode": "both",
+      "order": "exo,boots",
+      "bootsVersion": "test17",
+      "passed": true
+    }
+  ],
+  "gameStarted": false,
+  "scope": "Real DLL discovery, production peer negotiation/DirectStorage acceptance, both load orders; simulated native materials tested separately. No in-game rendering claim.",
+  "hostSHA": "4b4658bc4827c15fbce6f9aecf80613c81dbb78876651e96b4ec89c7aa3d0bfc",
+  "bootsSHA": "0e80cd46db1ae2f0a8a853248e3464045a3d70feae513f54bfa7394de8eccd16",
+  "exoSHA": "d7a151a64c2de416b5423742b40840a7a9d4c4dade11c0f354eb023e6a888ab3"
+}

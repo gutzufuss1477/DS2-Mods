@@ -14,7 +14,7 @@ try {
         & $cc /nologo /std:c++17 /O2 /GS- /GR- /EHs-c- /Zl /W4 /Isrc /c $name "/Fo$obj"
         if ($LASTEXITCODE -ne 0) { throw "Compile failed: $name" }
     }
-    & $ld /dll /entry:DllMain /machine:x64 /nodefaultlib /dynamicbase /nxcompat /opt:ref /opt:icf "/out:$OutputDirectory/ds2_atlas_exoskeleton_addon.asi" /implib:build/exo.lib build/addon.obj build/exo_icon_gpu.obj build/payload.obj build/icon_gpu.obj build/kernel32.lib
+    & $ld /dll /timestamp:0 /entry:DllMain /machine:x64 /nodefaultlib /dynamicbase /nxcompat /opt:ref /opt:icf "/out:$OutputDirectory/ds2_atlas_exoskeleton_addon.asi" /implib:build/exo.lib build/addon.obj build/icon_gpu.obj build/exo_icon_gpu.obj build/payload.obj build/kernel32.lib
     if ($LASTEXITCODE -ne 0) { throw 'Link failed' }
     Get-FileHash -Algorithm SHA256 "$OutputDirectory/ds2_atlas_exoskeleton_addon.asi"
 } finally { Pop-Location }

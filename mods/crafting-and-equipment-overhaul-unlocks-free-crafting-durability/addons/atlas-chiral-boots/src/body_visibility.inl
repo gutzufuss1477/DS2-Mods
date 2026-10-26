@@ -29,8 +29,9 @@ bool findBody(u64 art,BodyMap&out){
  u64 resource=read<u64>(art+0x30);
  if(read<u64>(resource+0x10)!=0x99427894a809558dull||read<u64>(resource+0x18)!=0xd1d869139c5e09b4ull)return false;
  i32 count=read<i32>(resource+0x88);u64 names=read<u64>(resource+0x90);
- if(count!=166)return false;
- u32 hashes[166];if(!readmem(names,hashes,sizeof(hashes)))return false;
+ if(count!=(companionMode?167:166))return false;
+ u32 hashes[167];if(!readmem(names,hashes,count*4))return false;
+ if(companionMode&&(hashes[59]!=851113522||hashes[64]!=0x6e010001))return false;
  i32 indices[4]={-1,-1,-1,-1};const u32 wanted[]={1838528733,718898234,0x6c1a0005,0x6c1a0006};
  for(i32 i=0;i<count;++i)for(u32 j=0;j<4;++j)if(hashes[i]==wanted[j]){if(indices[j]>=0)return false;indices[j]=i;}
  for(auto i:indices)if(i<0)return false;
@@ -49,6 +50,7 @@ bool findBody(u64 art,BodyMap&out){
  }
  return validBody(out);
 }
+#include "body_materials.inl"
 bool syncBody(void*component,bool apply){
  const u64 entity=read<u64>(u64(component)+0x48);
  u64 parent=read<u64>(entity+0x80);BodyMap found={};bool success=false;
@@ -71,6 +73,7 @@ bool syncBody(void*component,bool apply){
  _InterlockedExchange(&target->active,active?1:0);
  BodyMap snapshot=*target;
  ReleaseSRWLockExclusive(&bodyMapLock);
+ syncSuitMaterials(snapshot);
  if(chainVisibility&&setControllerVisibility)for(u32 j=0;j<2;++j){
   const u8 enabled=read<u8>(snapshot.originalController[j]+0x2d)?1:0;
   chainVisibility(snapshot.render,snapshot.original[j],active?0:enabled);

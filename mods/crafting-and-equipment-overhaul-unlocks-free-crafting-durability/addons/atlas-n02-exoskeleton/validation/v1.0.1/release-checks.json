@@ -1,0 +1,18 @@
+{
+  "date": "2026-10-26",
+  "visualBasis": {
+    "silverAllColorsConfirmed": false,
+    "outdoorBootGoldTest21": true,
+    "suitGoldTest20": true
+  },
+  "releaseGameTestPending": true,
+  "sourceRebuild": "Both ASIs byte-identical to candidate and installed files",
+  "runtimeChecks": {
+    "exo": 127,
+    "boots": 264
+  },
+  "dllMatrixCases": 9,
+  "coreChanged": false,
+  "otherInstalledASIAndINIsChanged": false,
+  "knownLimitation": "Private worn ATLAS boot uppers/soles use neutral paint layers; dynamic dirt/snow overlays suppressed. Wetness remains active."
+}

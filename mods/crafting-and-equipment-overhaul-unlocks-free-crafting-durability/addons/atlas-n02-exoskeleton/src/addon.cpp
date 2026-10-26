@@ -1,4 +1,4 @@
-// Test16 / 1.0.0: single-ASI distribution; exact confirmed Test15 assets embedded.
+// ATLAS N02 1.0.1: single-ASI addon; compatible boot companion ABI1.
 // The host owns all item definitions, recipes, stats and save identities.
 #include "vendor/win_api.hpp"
 #include "vendor/sha256.hpp"
@@ -279,12 +279,12 @@ int install(){
 }
 
 int mergeCurrentGraph(const u8*src,u32 size,u8**out,u32*outSize){
- *out=nullptr;*outSize=0;openLog();log("ATLAS N02 Exoskeleton 1.0.0 Test04 | stable Crafting ABI1 + Router1 | independent single ASI");
+ *out=nullptr;*outSize=0;openLog();log("ATLAS N02 1.0.1 | boot companion ABI1 | Crafting ABI1 + Router1 unchanged");
  char digest[65];
  if(!overlayInstalled||!moduleDigest(nullptr,digest)||!sameDigest(digest,GameSHA)){
   log("CHIRAL_ABI_REFUSED: game identity or early file hooks unavailable.");return 0;}
  if(storageState!=2&&!installStorageCore()){log("CHIRAL_ABI_REFUSED: DirectStorage unavailable.");return 0;}
- if(!selectExo()||!preparePortable()){log("CHIRAL_ABI_REFUSED: original/cache/payload validation failed.");return 0;}
+ if(!selectExo()||!prepareBootCompanion()||!preparePortable()){log("CHIRAL_ABI_REFUSED: peer materials or original/cache/payload validation failed.");return 0;}
  const auto*graph=validatedEmbedded(L"graph-addon.bin",activeGraphHash);
  if(!graph){log("CHIRAL_ABI_REFUSED: embedded graph payload validation failed.");return 0;}
  const u8*delta=graph->data;u32 deltaSize=graph->size;

@@ -6,8 +6,8 @@ namespace {
 u32 tests=0,failures=0;
 void check(bool value){++tests;if(!value)++failures;}
 alignas(8)u8 hostResource[0x50],hostRows[3][RowSize],component[0x500],component2[0x500];
-alignas(8)u8 bodyArt[0x100],bodyResource[0x100],bodyControllers[166*0x30],bodyRender[0x80],entity[0x100],parent[0x100];
-u32 bodyNames[166]={};u8 visibleParts[55]={};
+alignas(8)u8 bodyArt[0x100],bodyResource[0x100],bodyControllers[167*0x30],bodyRender[0x80],entity[0x100],parent[0x100];
+u32 bodyNames[167]={};u8 visibleParts[55]={};
 void fixtureBody(){
  memset(bodyArt,0,sizeof(bodyArt));memset(bodyResource,0,sizeof(bodyResource));
  memset(bodyControllers,0,sizeof(bodyControllers));memset(bodyRender,0,sizeof(bodyRender));
@@ -43,6 +43,10 @@ void fixture(bool hanging){
  overlayState=2;fixtureBody();
 }
 u64 observedResource=0;u32 hostCalls=0;
+#include "suit_material_tests.inl"
+#include "suit_texture_tests.inl"
+#include "boot_paint_tests.inl"
+#include "texture_lifetime_tests.inl"
 void(*fakeNativeWorn)(void*)=nullptr;void(*fakeNativeHung)(void*)=nullptr;
 void fakeHostWorn(void*p){++hostCalls;fakeNativeWorn(p);}
 void fakeHostHung(void*p){++hostCalls;fakeNativeHung(p);}
@@ -210,7 +214,7 @@ extern "C" void mainCRTStartup(){
  check(!factoryName(nullptr)&&!factoryName((const char*)1)&&!factoryName("DStorageGet"));
  overlayState=0;check(!verifyOverlay());commitGraph(1);check(verifyOverlay());commitGraph(0);check(!verifyOverlay());
  fixture(false);
- menuPolicyTests();fakeHostImage();
+ menuPolicyTests();suitMaterialTests();suitTextureTests();bootPaintTests();textureLifetimeTests();fakeHostImage();
  char line[120]="CHIRAL_API_RUNTIME_TESTS ";u32 n=sizeof("CHIRAL_API_RUNTIME_TESTS ")-1;
  auto number=[&](u32 v){char digits[16];u32 k=0;do{digits[k++]=char('0'+v%10);v/=10;}while(v);while(k)line[n++]=digits[--k];};
  number(tests);const char middle[]=" failures=";copy(line+n,middle,sizeof(middle)-1);n+=sizeof(middle)-1;number(failures);line[n++]='\r';line[n++]='\n';
