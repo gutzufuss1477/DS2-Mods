@@ -1,0 +1,34 @@
+{
+  "date": "2026-10-26T21:43:10.446026+01:00",
+  "version": "1.0.1",
+  "source": "Direct user reply to final smoke-test request",
+  "userReply": "Alles funktioniert",
+  "questionItemId": "call_c93a9adbbf564df0a0eb13a925c10bb9/0",
+  "userConfirmed": {
+    "saveLoad": true,
+    "suitGoldSilverSwitch": true,
+    "outdoorBootGoldStable": true,
+    "swapAtlasAndNormalBoots": true,
+    "noCrashDuringRequestedTest": true
+  },
+  "installedSHA256": {
+    "ds2_atlas_chiral_addon.asi": "0e80cd46db1ae2f0a8a853248e3464045a3d70feae513f54bfa7394de8eccd16",
+    "ds2_atlas_exoskeleton_addon.asi": "d7a151a64c2de416b5423742b40840a7a9d4c4dade11c0f354eb023e6a888ab3",
+    "ds2_crafting_unlocks.asi": "4b4658bc4827c15fbce6f9aecf80613c81dbb78876651e96b4ec89c7aa3d0bfc"
+  },
+  "testedCombination": "Chiral Boots 1.0.1 + N02 1.0.1 + Crafting 1.10.1",
+  "scope": "User confirmation of the requested smoke test, supported by matching installed hashes and native addon logs. Does not establish every suit palette, all removal permutations, or future game compatibility.",
+  "finalGameTestPending": false,
+  "releaseReady": true,
+  "nexusUploaded": false,
+  "logSessions": {
+    "ds2_atlas_chiral_addon.log": {
+      "pid": "8544",
+      "lines": 201
+    },
+    "ds2_atlas_exoskeleton_addon.log": {
+      "pid": "8544",
+      "lines": 19
+    }
+  }
+}

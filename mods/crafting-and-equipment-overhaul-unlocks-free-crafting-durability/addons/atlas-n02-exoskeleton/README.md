@@ -15,5 +15,8 @@ closed to recover the main mod's appearance; keep the main mod installed.
 
 Release preparation: 127 runtime assertions, nine real-DLL
 compatibility cases, and a byte-identical source rebuild passed. The visual fixes
-were confirmed on Test20/Test21; the cleaned 1.0.1 binary still awaits the final
-game smoke test. See [manifest](RELEASE_MANIFEST.json). Nothing has been uploaded.
+were confirmed on Test20/Test21. On 2026-10-26 the user also confirmed the final
+1.0.1 pair: save loading, Gold/Silver suit switching, outdoor boot gold and swapping
+ATLAS/normal boots worked without a crash during the requested test. See the
+[game-test record](validation/v1.0.1/game-test-result.json) and
+[manifest](RELEASE_MANIFEST.json). Ready for publication; not uploaded yet.
