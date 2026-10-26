@@ -19,4 +19,4 @@ were confirmed on Test20/Test21. On 2026-10-26 the user also confirmed the final
 1.0.1 pair: save loading, Gold/Silver suit switching, outdoor boot gold and swapping
 ATLAS/normal boots worked without a crash during the requested test. See the
 [game-test record](validation/v1.0.1/game-test-result.json) and
-[manifest](RELEASE_MANIFEST.json). Ready for publication; not uploaded yet.
+[manifest](RELEASE_MANIFEST.json). Published on 2026-10-26 as optional [Nexus file 396](https://www.nexusmods.com/deathstranding2onthebeach/mods/86?tab=files); the previous 1.0.0 file is archived. See the [publication record](validation/v1.0.1/publication.json).

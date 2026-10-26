@@ -3,8 +3,8 @@
   "name": "DS2_ATLAS_N02_Exoskeleton_Addon_v1.0.1",
   "category": "OPTIONAL",
   "nexusModId": 86,
-  "nexusUploaded": false,
-  "status": "ready-for-publication-user-game-test-passed",
+  "nexusUploaded": true,
+  "status": "published",
   "date": "2026-10-26",
   "zip": "D:\\DS2-Asset-Lab\\release-packages\\DS2_ATLAS_N02_Exoskeleton_Addon_v1.0.1.zip",
   "sha256": "b357ddd515fdacee31e4eec7f196c091533ed50f1cec2ea079e4fa022dfad0cd",
@@ -53,5 +53,11 @@
     "date": "2026-10-26T21:43:10.446026+01:00",
     "evidence": "validation/v1.0.1/game-test-result.json",
     "source": "Direct user confirmation: Alles funktioniert"
-  }
+  },
+  "fileId": 396,
+  "publishedDate": "2026-10-26",
+  "publicFilesUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/86?tab=files",
+  "scanStatus": "safe-to-use",
+  "manualDownloadAvailable": true,
+  "publicationEvidence": "validation/v1.0.1/publication.json"
 }

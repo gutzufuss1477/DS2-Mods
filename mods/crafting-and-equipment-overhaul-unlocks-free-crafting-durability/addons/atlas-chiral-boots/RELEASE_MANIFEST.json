@@ -3,8 +3,8 @@
   "name": "DS2_ATLAS_Chiral_Boots_Addon_v1.0.1",
   "category": "OPTIONAL",
   "nexusModId": 86,
-  "nexusUploaded": false,
-  "status": "ready-for-publication-user-game-test-passed",
+  "nexusUploaded": true,
+  "status": "published",
   "date": "2026-10-26",
   "zip": "D:\\DS2-Asset-Lab\\release-packages\\DS2_ATLAS_Chiral_Boots_Addon_v1.0.1.zip",
   "sha256": "c2793fc53a6f833363f3ba582d3af7185cd325fc08b1fac7330f553df26f1789",
@@ -53,5 +53,11 @@
     "date": "2026-10-26T21:43:10.446026+01:00",
     "evidence": "validation/v1.0.1/game-test-result.json",
     "source": "Direct user confirmation: Alles funktioniert"
-  }
+  },
+  "fileId": 395,
+  "publishedDate": "2026-10-26",
+  "publicFilesUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/86?tab=files",
+  "scanStatus": "safe-to-use",
+  "manualDownloadAvailable": true,
+  "publicationEvidence": "validation/v1.0.1/publication.json"
 }
