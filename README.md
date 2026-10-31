@@ -9,7 +9,7 @@ Current Nexus-published mods by gutzufuss1477. Names and file versions follow Ne
 | [Lost Cargo Like Boost](mods/lost-cargo-like-boost/) | 4 |
 | [Cargo Capacity Expansion for Pickup](mods/cargo-capacity-expansion-for-pickup/) | 3 |
 | [Porter Grade Booster](mods/porter-grade-booster/) | 1 |
-| [Remove DHV Magellan penalty](mods/remove-dhv-magellan-penalty/) | 1 |
+| [Remove DHV Magellan penalty](mods/remove-dhv-magellan-penalty/) | 1.1.0 |
 | [Cargo Capacity Expansion for Tri-Cruiser](mods/cargo-capacity-expansion-for-tri-cruiser/) | 2 |
 | [High Porter Tower (aka Cargo increase for Floating Carrier)](mods/high-porter-tower-aka-cargo-increase-for-floating-carrier/) | 1 |
 | [Sam's stats boost](mods/sam-s-stats-boost/) | 1 |

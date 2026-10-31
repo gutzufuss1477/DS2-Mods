@@ -4,18 +4,18 @@
   "nexusGame": "deathstranding2onthebeach",
   "nexusModId": 63,
   "nexusUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/63",
-  "pageVersion": "1",
-  "sourceStatus": "release-workspace",
-  "sourceNote": "Source from the published-release workspace; binaries are downloaded from Nexus. No new runtime test was performed for this source import.",
+  "pageVersion": "1.1.0",
+  "sourceStatus": "published-v1.1.0-tested-single-magellan-order",
+  "sourceNote": "Official Nexus version 1.1.0 published 2026-10-31. The source preserves the game's computed delivery grade, not a maximum rank. In-game tested with Standard Order 310, selector 5: saved normal Legend/S bit 0x20 instead of Magellan-only bit 0x01. Other selectors, difficulties and achievements were not independently verified.",
   "currentFiles": [
     {
-      "fileId": 250,
-      "name": "Remove DHV Magellan Penalty V1",
-      "version": "1",
+      "fileId": 397,
+      "name": "Remove DHV Magellan Penalty",
+      "version": "1.1.0",
       "category": "MAIN",
-      "sha256": "dc44e9b99a7aabf105386d4ee8b46c6793ac5ee2da3290448e1d7dd72def17d8",
-      "bytes": 4987,
-      "downloadUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/63?tab=files&file_id=250"
+      "sha256": "1b2f9d4616d878de3d415dfa7fad08754326447bbf17f3c3b600ddbb21ea3a70",
+      "bytes": 8305,
+      "downloadUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/63?tab=files&file_id=397"
     }
   ]
 }
