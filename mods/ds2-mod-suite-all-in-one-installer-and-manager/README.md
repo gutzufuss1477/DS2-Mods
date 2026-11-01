@@ -1,23 +1,30 @@
 # DS2 Mod Suite 1.13.0
 
-Offline Windows manager with 29 selectable components, 398 central settings and
-10 languages. Includes Crafting 1.10.1, optional ATLAS addons 1.0.1, Magellan 1.1.0,
-Gloves 1.1.2 and the unchanged published APAS 3.0.0. Supports Steam DS2 1.10.89.0.
+Updated for Crafting 1.10.1, optional ATLAS addons 1.0.1, Magellan 1.1.0 and
+Climbing/Combat Gloves 1.1.2. Ten interface languages, central INI migration,
+dependency selection and tested installation/removal.
 
-[Downloads and scan status on Nexus](https://www.nexusmods.com/deathstranding2onthebeach/mods/72?tab=files)
-· [Installation](source/README.md) · [Build instructions](source/BUILD.md)
-· [Changelog](source/publication/v1.13.0/changelog.txt)
-· [Verification](source/publication/v1.13.0/VALIDATION.md)
+Both **1.13.0** uploads are **quarantined on Nexus**: full file **398** and no-APAS comparison **399**. Neither is available for download. The previous 1.12.1 no-APAS file **379** remains primary; this does not certify its current antivirus status.
 
-Version 1.13.0 is uploaded as Nexus file 398 and awaits the site's scan result.
-The previous accepted no-APAS build 1.12.1, file 379, remains the primary download.
-The quarantined experimental 1.12.1/APAS rebuild is not used in this update.
+[Current Nexus files](https://www.nexusmods.com/deathstranding2onthebeach/mods/72?tab=files)
+· [Build instructions](source/BUILD.md)
+· [Validation](source/publication/v1.13.0/VALIDATION.md)
+· [Scan evidence](source/publication/v1.13.0/scan-results.json)
 
-ATLAS addons automatically select their required Crafting mod. Removing the
-Crafting selection also deselects both addons. Existing INIs and central choices
-are retained; new Warrior recipe overrides follow DefaultUnlock unless explicitly
-configured. Personal Story Coffin metadata is never managed or removed.
+The full source catalog contains 29 components and 398 settings, including the
+unchanged published APAS 3.0.0 binary. Earlier experimental APAS rewrites are not
+packaged. The no-APAS variant contains 28 components and 394 settings and leaves
+existing standalone APAS files untouched.
 
-The Git repository contains source and provenance, not compiled payloads or game
-assets. Exact package/component hashes and Nexus file IDs are recorded in
-nexus.json and source/release-inputs-v1.13.0.json.
+Both variants passed the complete regression and language tests. Local Defender
+reported no threats, but VirusTotal reports detections for several bundled
+components and for both the old and new manager executables. These findings
+remain unresolved; no confirmed false-positive claim is made.
+
+ATLAS addons select the required Crafting mod and are deselected with it.
+Existing INIs, user choices and personal Story Coffin metadata are preserved.
+New Warrior recipe overrides follow DefaultUnlock unless explicitly configured.
+No new in-game test was performed for the suite.
+
+Git contains source, build instructions, component provenance and validation
+records; compiled payloads and game assets remain outside the repository.

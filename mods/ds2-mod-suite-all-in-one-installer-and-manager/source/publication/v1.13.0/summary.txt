@@ -1,1 +1,1 @@
-Offline manager with 29 selectable components, 398 central settings and 10 languages. Includes current Crafting, ATLAS, Magellan and Gloves updates, plus original APAS 3.0.0. Mod files, ASI Loader, backups and INI preservation included. Steam 1.10.89.0.
+Offline DS2 mod manager with central INI settings, ten languages, backups and ASI Loader. Update 1.13.0 is built but both new packages are quarantined by Nexus. The previous 1.12.1 no-APAS download remains listed. Steam 1.10.89.0.

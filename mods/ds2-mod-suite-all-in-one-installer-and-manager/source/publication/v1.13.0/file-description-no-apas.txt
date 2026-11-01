@@ -1,0 +1,1 @@
+Without APAS: 28 components, 394 settings, 10 languages. Includes Crafting 1.10.1, ATLAS addons 1.0.1, Magellan 1.1.0 and Gloves 1.1.2. Existing APAS files stay untouched. Extract the complete ZIP including payload. Manual install; Steam 1.10.89.0.

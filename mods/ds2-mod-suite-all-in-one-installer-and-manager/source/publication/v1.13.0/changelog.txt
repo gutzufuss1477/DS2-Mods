@@ -1,5 +1,5 @@
 Updated Crafting & Equipment Overhaul to 1.10.1, Magellan to 1.1.0 and Climbing/Combat Gloves to 1.1.2.
-Added both optional ATLAS appearance addons 1.0.1 with automatic Crafting dependency selection and known-version upgrades.
-Restored the unchanged original APAS 3.0.0 standalone build; Unlock All and Early Access remain optional and off by default.
-Added Warrior weapon, guitar, cosmetics and independent Magellan options; removed obsolete glove diagnostics from the settings UI.
-398 central settings in 10 languages. Existing INI choices, comments and personal Story Coffin metadata are preserved. New Warrior recipe overrides follow DefaultUnlock unless explicitly configured.
+Added optional ATLAS appearance addons 1.0.1, automatic Crafting dependency selection and known-version upgrades.
+Added Warrior weapon, guitar, cosmetics and independent Magellan options; removed obsolete glove diagnostics from the UI. Existing INI choices, comments and Story Coffin metadata are preserved.
+Built and tested two variants: full with unchanged original APAS 3.0.0 (29 components, 398 settings), and without APAS (28 components, 394 settings). Ten languages; both passed functional tests and local Defender scans.
+Both 1.13.0 packages, with and without APAS, were quarantined by Nexus and are unavailable. The previous 1.12.1 no-APAS file remains primary. Scan findings are unresolved.

@@ -1,0 +1,25 @@
+PASS catalog and all payload hashes
+PASS external payload integrity, immutable verified streams, missing/tampered files, hash allowlist, size and path guards; no embedded mod binaries
+PASS English/German localization, persistence and 394-field settings schema validation
+PASS ten embedded languages, complete string/placeholder coverage, settings persistence, 394 invariant fields, 23 byte-identical INIs and elevated payload
+PASS Backpack legacy filename migration, conflict guard, idempotence, removal and charm-state preservation
+PASS mutually exclusive Backpack variants, safe switching and charm-state preservation
+PASS Odradek defaults, bounds/modes, profile upgrade, install/adoption, settings, idempotence and removal
+PASS no APAS catalog/settings/payload, standalone APAS ASI/INI retained during install, reapply and removal
+PASS Crafting 1.10.1 defaults, item settings, inline comments, adoption, idempotence and removal
+PASS glove 1.1.2 defaults, decimal ranges, bounds/relationships, migration, opt-out, idempotence, rollback and removal
+PASS v1.8 profile migration retains saved choices, imports new standalone INI choices, and supports 135 grouped Crafting items including inherit
+PASS v1.12 defaults, range bounds, v1.11 profile migration, standalone opt-outs, missing keys, idempotence and custom INI retention
+PASS v1.13 bounds, legacy/no-profile INI migration, retired diagnostics, opt-outs, metadata preservation, dependency selection and invalid-plan guards
+PASS v1.11 profile/INI migration, new mod install/removal, Sam replacement, standalone conflicts, numeric bounds and idempotence
+PASS Coffin Board TEST upgrade without central profile, strict INI migration and idempotent re-apply
+PASS install, loader dependency, obsolete-build migration and post-install verification
+PASS idempotent re-apply
+PASS central settings UI profile, individual INI write, validation and comment preservation
+PASS unknown obsolete-build conflict detection and companion-config preservation
+PASS safe removal, retained-file reporting and preservation of modified ASI companion/config files
+PASS strict loader allowlist, unknown/multiple proxy block without overwrite
+PASS transactional rollback and atomic exact-hash removal guard
+PASS authenticated UAC result integrity and bounded compressed settings transport
+PASS path traversal and alternate-data-stream guards
+SELF-TEST PASSED

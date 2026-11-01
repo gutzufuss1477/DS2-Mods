@@ -23,4 +23,3 @@ Die vollständige ZIP einschließlich payload in einen eigenen Ordner außerhalb
 ATLAS-Addons benötigen den aktivierten Crafting-Mod und wählen ihn automatisch mit aus. Beim Abwählen des Hauptmods werden auch die Addons abgewählt. APAS 3.0.0 ist unverändert enthalten; Unlock All und Early Access sind standardmäßig aus. Bereits gespeicherte Freischaltungen können erhalten bleiben.
 
 Crafting erstellt beim ersten Start größere lokale Caches. ds2_story_coffin_variants.bin zusammen mit den Spielständen sichern. Vor dem Entfernen von Mods mit eigener Ausrüstung die Hinweise der jeweiligen Standalone-Seite beachten.
-

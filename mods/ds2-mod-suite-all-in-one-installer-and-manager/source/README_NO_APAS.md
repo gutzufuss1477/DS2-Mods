@@ -8,4 +8,3 @@ Includes Crafting 1.10.1, optional ATLAS addons 1.0.1, Magellan 1.1.0 and Gloves
 
 Source and full installation notes: https://github.com/gutzufuss1477/DS2-Mods
 Downloads: https://www.nexusmods.com/deathstranding2onthebeach/mods/72
-

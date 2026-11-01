@@ -8,8 +8,8 @@ component versions are distinct from the latest independent Nexus mod downloads.
 
 No payload is fetched automatically, and no quarantined file should be restored
 to make the build pass. The source import is not a new malware or gameplay verdict.
-The local `WithoutApas` diagnostic build option is not an additional repository
-release or a listed Nexus download.
+The `WithoutApas` option builds a comparison package from the same inputs.
+Current upload and scan outcomes are recorded under `publication/v1.13.0/`.
 
 On Windows PowerShell 5.1, use `-OutputRoot D:\DS2-Suite-Build` when the checkout
 path would put release files beyond the Windows path limit. The build removes

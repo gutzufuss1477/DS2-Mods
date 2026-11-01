@@ -1,0 +1,56 @@
+{
+  "observedDate": "2026-11-02",
+  "localDefender": {
+    "signatureVersion": "1.463.73.0",
+    "originalApas": "no threats detected",
+    "fullZip": "no threats detected",
+    "withoutApasZip": "no threats detected"
+  },
+  "reports": [
+    {
+      "artifact": "Suite 1.13.0 full ZIP",
+      "sha256": "83969825c4c92107741b2bba035c2aea72f8093b4f8c1c14d035d41c69db6a1b",
+      "nexusFileId": 398,
+      "nexusStatus": "quarantined",
+      "detections": 33,
+      "engines": 67,
+      "analysisDate": "2026-11-02",
+      "url": "https://www.virustotal.com/gui/file/83969825c4c92107741b2bba035c2aea72f8093b4f8c1c14d035d41c69db6a1b"
+    },
+    {
+      "artifact": "APAS 3.0.0 ASI (bundled-file report)",
+      "sha256": "8b1f9910a46b1e7929084acef23340131382bba2d059b2cd24a9bd86ea16e4b9",
+      "detections": 25,
+      "engines": 71,
+      "analysisDate": "2026-10-03",
+      "url": "https://www.virustotal.com/gui/file/8b1f9910a46b1e7929084acef23340131382bba2d059b2cd24a9bd86ea16e4b9"
+    },
+    {
+      "artifact": "Suite 1.13.0 full manager EXE",
+      "sha256": "1ac62dd9b9873b174a76dcc0b561f222f5dd2606653e62e69b21ae770cdf2d92",
+      "detections": 7,
+      "engines": 71,
+      "analysisDate": "2026-11-02",
+      "url": "https://www.virustotal.com/gui/file/1ac62dd9b9873b174a76dcc0b561f222f5dd2606653e62e69b21ae770cdf2d92"
+    },
+    {
+      "artifact": "Previously accepted Suite 1.12.1 no-APAS manager EXE",
+      "sha256": "421eea2edd3ccee34b30d10b75dc844c7a3352bafca7c62561b4b5854befe799",
+      "detections": 8,
+      "engines": 70,
+      "analysisDate": "2026-10-30",
+      "url": "https://www.virustotal.com/gui/file/421eea2edd3ccee34b30d10b75dc844c7a3352bafca7c62561b4b5854befe799"
+    },
+    {
+      "artifact": "Suite 1.13.0 without APAS ZIP",
+      "sha256": "e7e40c739c4e987e6d41e8279b0456d03e02e99788684feb2ac0d300ca4dba7b",
+      "nexusFileId": 399,
+      "nexusStatus": "quarantined",
+      "detections": 10,
+      "engines": 67,
+      "analysisDate": "2026-11-02",
+      "url": "https://www.virustotal.com/gui/file/e7e40c739c4e987e6d41e8279b0456d03e02e99788684feb2ac0d300ca4dba7b"
+    }
+  ],
+  "interpretation": "Multiple components have vendor detections; this is not isolated to APAS or the new manager changes. Reports have different analysis dates and engine counts. Detection labels alone do not establish the cause, and a local clean scan or earlier Nexus acceptance does not resolve the other vendors' results. No claim of a confirmed false positive."
+}

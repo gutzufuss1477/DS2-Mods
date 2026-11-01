@@ -35,3 +35,11 @@ No new in-game test was performed for this suite build. Published component
 runtime behavior remains the responsibility of the corresponding standalone
 release; the manager tests use isolated temporary game-folder fixtures.
 
+## Nexus outcome
+
+Both **1.13.0** uploads are **quarantined on Nexus**: full file **398** and no-APAS comparison **399**. Neither is available for download. The previous 1.12.1 no-APAS file **379** remains primary; this does not certify its current antivirus status.
+
+The full ZIP report is 33/67. The full manager EXE is 7/71; the previous
+accepted no-APAS manager EXE is now 8/70 in its 2026-10-30 report. Reports use
+different analysis dates and engine sets. APAS is not the only unresolved
+component. See scan-results.json; no scanner protections were changed.

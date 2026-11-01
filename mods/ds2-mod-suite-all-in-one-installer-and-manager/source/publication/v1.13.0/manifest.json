@@ -26,7 +26,12 @@
   "nexus": {
     "modId": 72,
     "fileId": 398,
-    "status": "uploaded; Nexus scan pending",
-    "url": "https://www.nexusmods.com/deathstranding2onthebeach/mods/72?tab=files&file_id=398"
-  }
+    "status": "quarantined",
+    "url": "https://www.nexusmods.com/deathstranding2onthebeach/mods/72?tab=files&file_id=398",
+    "virusTotal": {
+      "detections": 33,
+      "engines": 67
+    }
+  },
+  "buildSourceCommit": "5d09c61"
 }

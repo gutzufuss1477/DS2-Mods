@@ -1,0 +1,30 @@
+{
+  "version": "1.13.0",
+  "variant": "without APAS",
+  "archive": "DS2_Mod_Suite_v1.13.0_No_APAS.zip",
+  "sha256": "e7e40c739c4e987e6d41e8279b0456d03e02e99788684feb2ac0d300ca4dba7b",
+  "bytes": 33096385,
+  "managerSha256": "5c4b903a85c2520fdb31dcac6109e2dd6bed57ee9690dc50c11f122df99a5103",
+  "components": 28,
+  "centralSettings": 394,
+  "verification": {
+    "selfTests": "passed",
+    "crc": true,
+    "allOtherPayloadsByteIdenticalToFull": true,
+    "defender": {
+      "signatureVersion": "1.463.73.0",
+      "finalZip": "no threats detected"
+    }
+  },
+  "nexus": {
+    "modId": 72,
+    "fileId": 399,
+    "status": "quarantined",
+    "primary": false,
+    "url": "https://www.nexusmods.com/deathstranding2onthebeach/mods/72?tab=files&file_id=399",
+    "virusTotal": {
+      "detections": 10,
+      "engines": 67
+    }
+  }
+}

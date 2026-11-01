@@ -1,1 +1,1 @@
-29 selectable components, 398 settings, 10 languages. Includes Crafting 1.10.1, ATLAS addons 1.0.1, Magellan 1.1.0, Gloves 1.1.2 and unchanged APAS 3.0.0. Extract the complete ZIP including payload; run DS2ModManager.exe with the game closed. Manual install; Steam 1.10.89.0.
+29 components, 398 settings, 10 languages. Crafting 1.10.1, ATLAS 1.0.1, Magellan 1.1.0, Gloves 1.1.2 and original APAS 3.0.0. Extract the complete ZIP including payload; run DS2ModManager.exe with the game closed. Steam 1.10.89.0; manual install.

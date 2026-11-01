@@ -1,32 +1,28 @@
-[b]Choose your mods. Change their settings. Keep everything in one place.[/b]
+[b]Choose your mods. Manage their settings in one place.[/b]
 
-DS2 Mod Suite includes [b]29 selectable components, 398 central settings and 10 languages[/b]. Mod files and the ASI Loader are included; the manager works offline.
+[b]Update status — 2 November 2026:[/b] Version 1.13.0 is built and tested, but Nexus quarantined [b]both[/b] new uploads: with APAS (file 398) and without APAS (file 399). They are unavailable. The previous [b]1.12.1 without APAS[/b] remains listed. Scan findings are unresolved; previous acceptance is not a current safety certification.
 
 [center][size=4][b][url=https://ko-fi.com/gutzufuss]☕ Support my mods on Ko-fi[/url][/b][/size]
 Optional support helps me keep making updates. Thank you![/center]
 
-[b]What's included[/b]
-Vehicle, cargo, equipment, progression, construction and scanning mods — choose only what you want. Install, update, repair or remove with file checks, backups and rollback. Central INI settings retain existing choices and comments.
-[b]1.13.0:[/b] Crafting 1.10.1, optional ATLAS addons 1.0.1, Magellan 1.1.0, Gloves 1.1.2 and the unchanged original APAS 3.0.0.
+[b]Features[/b]
+Install, update, repair or remove DS2 mods with file checks, backups and rollback. Central INI settings preserve existing choices and comments. Works offline. Pick only what you want; choose one Backpack variant.
+
+[b]Prepared in 1.13.0[/b]
+Crafting 1.10.1, optional ATLAS appearance addons 1.0.1, Magellan 1.1.0 and Climbing/Combat Gloves 1.1.2. ATLAS addons select their required Crafting mod automatically. New Warrior, guitar, cosmetics and Magellan options are translated into all ten interface languages.
 
 [b]Install / update[/b]
 Windows x64 · .NET Framework 4.8 · [b]Steam DS2.exe 1.10.89.0[/b].
 [list=1]
-[*]Close the game. Download manually and extract the [b]complete ZIP[/b] into its own folder. Keep payload beside the EXE.[/*]
-[*]Run [b]DS2ModManager.exe[/b], check the game folder and choose your mods → [b]Apply changes[/b].[/*]
-[*]For installed mods: [b]Mod Settings → Save settings → Apply changes[/b]. To update, use the new manager and apply your selection again.[/*]
+[*]Close the game. Download manually and extract the [b]complete ZIP[/b] into its own folder, keeping payload beside the EXE. Do not install through Vortex.[/*]
+[*]Run [b]DS2ModManager.exe[/b], check the game folder, select mods → [b]Apply changes[/b].[/*]
+[*]For installed mods: [b]Mod Settings → Save settings → Apply changes[/b]. Deselect and apply to remove; personal INIs remain.[/*]
 [/list]
-Deselect and apply to remove a mod; personal INIs remain. Do not install through Vortex.
 
-[b]Please read[/b]
-[list]
-[*][b]APAS:[/b] Unlock All and Early Access default off. Back up your save; saved unlocks can persist.[/*]
-[*][b]Crafting / ATLAS:[/b] Addons automatically select Crafting, which must be enabled. First launch can generate large caches. Keep [b]ds2_story_coffin_variants.bin[/b] with save backups. Keep the main mod installed while using custom equipment; see the [url=https://www.nexusmods.com/deathstranding2onthebeach/mods/86]standalone instructions[/url].[/*]
-[*][b]Backpack:[/b] Choose one variant. Before removal, unequip extra charms, restore a vanilla layout and save. Classic Overlap remains untested in game.[/*]
-[*]Follow conflict warnings before applying. Current file scan status is shown in the [b]Files[/b] tab.[/*]
-[/list]
+[b]Keep your data[/b]
+Before removing Backpack, unequip extra charms, restore a vanilla layout and save. Classic Overlap remains untested in game. For Crafting, keep [b]ds2_story_coffin_variants.bin[/b] with save backups and retain the main mod while using custom equipment. First launch can generate large caches. See the [url=https://www.nexusmods.com/deathstranding2onthebeach/mods/86]Crafting instructions[/url].
+
 [b]Languages:[/b] English, German, French, Spanish, Italian, Brazilian Portuguese, Russian, Simplified Chinese, Japanese and Korean.
 
-[url=https://github.com/gutzufuss1477/DS2-Mods/tree/main/mods/ds2-mod-suite-all-in-one-installer-and-manager]Source and build instructions[/url] · Version details are in [b]Changelogs[/b].
+[url=https://github.com/gutzufuss1477/DS2-Mods/tree/main/mods/ds2-mod-suite-all-in-one-installer-and-manager]Source, build instructions and scan records[/url] · Version changes are in [b]Changelogs[/b].
 Thanks to [url=https://github.com/ThirteenAG/Ultimate-ASI-Loader]ThirteenAG / Ultimate ASI Loader[/url], ShadelessFox and the testers. Unofficial community project.
-

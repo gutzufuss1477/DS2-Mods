@@ -147,4 +147,3 @@ namespace DS2ModSuite
         }
     }
 }
-

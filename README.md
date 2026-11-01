@@ -18,7 +18,7 @@ Current Nexus-published mods by gutzufuss1477. Names and file versions follow Ne
 | [Construction Anywhere](mods/construction-anywhere/) | 1 |
 | [Faster and longer Ziplines](mods/faster-and-longer-ziplines/) | 1 |
 | [Custom Chiral Bandwidth Costs per Construction](mods/custom-chiral-bandwidth-costs-per-construction/) | 1 |
-| [DS2 Mod Suite - All-in-One Installer and Manager](mods/ds2-mod-suite-all-in-one-installer-and-manager/) | 1.12.1 |
+| [DS2 Mod Suite - All-in-One Installer and Manager](mods/ds2-mod-suite-all-in-one-installer-and-manager/) | 1.12.1; 1.13.0 uploaded but quarantined |
 | [Construction Max Level On Build](mods/construction-max-level-on-build/) | 2 |
 | [Coffin Board Reworked](mods/coffin-board-reworked/) | 4 |
 | [Climbing and Combat Power Gloves - Extended Cargo Pickup Range](mods/climbing-and-combat-power-gloves-extended-cargo-pickup-range/) | 1.1.2 |
