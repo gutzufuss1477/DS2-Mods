@@ -1,0 +1,171 @@
+{
+  "suiteVersion": "1.13.0",
+  "baseline": {
+    "nexusMod": 72,
+    "fileId": 379,
+    "sha256": "962f91457fca030aa09049911a837d3db57ab612da2df3770355c437412b0e0b"
+  },
+  "components": [
+    {
+      "modId": "apas-memory-costs",
+      "version": "3.0.0",
+      "nexusMod": 79,
+      "fileId": 327,
+      "archive": "DS2_APAS_Memory_Costs_v3.0.0_NEXUS.zip",
+      "archiveSha256": "143af18e095bd0ed625df15fdfcac2a20e3b998a5e29e3fc56bb296d7eecedb0",
+      "files": [
+        {
+          "payload": "payload/mods/apas-memory-costs/ds2_apas_memory_costs.asi",
+          "target": "ds2_apas_memory_costs.asi",
+          "sha256": "8B1F9910A46B1E7929084ACEF23340131382BBA2D059B2CD24A9BD86EA16E4B9",
+          "kind": "binary",
+          "previousHashes": [
+            "7A3D0E37C5D1D631EA5DF58ED451C4E96DE782A6C04B52A1A14F879CA0CDFA37",
+            "5742577EB3DFEBF2DFA83426616677CBA1797165696C2753B5C2E606B4E5BE68",
+            "FCBC8C6EE1470896B02DDCA8D82D3C8BF2AC338DD4EB91EE4CC9B3B3D821AACE",
+            "69839224342963F4E1B334C4117520440D6C89CD3D429C8E24D845505FE394E8",
+            "43171C77958D864AC5391F1AEC50F5FB6580DEE75A4C4BEB8DB4D94957922550",
+            "96F49E5928545AA7839CAA1417305588BF4A1080E207EAD4B71122380D85D899",
+            "5191D9A1A39169D36E5DCA613A83E985143650895ED714489CDB032BF3217A5A"
+          ]
+        },
+        {
+          "payload": "payload/mods/apas-memory-costs/ds2_apas_memory_costs.ini",
+          "target": "ds2_apas_memory_costs.ini",
+          "sha256": "D6EF5A944A03F4EBDFD9B2A6332FE9375C27D9F3F10DDA5DF596718879638DA2",
+          "kind": "config"
+        }
+      ]
+    },
+    {
+      "modId": "climbing-power-gloves-range",
+      "version": "1.1.2",
+      "nexusMod": 76,
+      "fileId": 350,
+      "archive": "DS2_Climbing_Power_Gloves_Range_v1.1.2.zip",
+      "archiveSha256": "3a36b9c0cdd1b779670386e1db0ff553f81bbbd54aafd61f9e2d1144c3a5711e",
+      "files": [
+        {
+          "payload": "payload/mods/climbing-power-gloves-range/ds2_climbing_gloves_range.asi",
+          "target": "ds2_climbing_gloves_range.asi",
+          "sha256": "9CD1CF4BEA085196B3F176842647A7976D431EEA8AB33DFBDC824FC162CEB31F",
+          "kind": "binary",
+          "previousHashes": [
+            "58F7007F9C4727D6173D623A5FB5762BF48DC720D88A265F6D88874DBDB93373",
+            "1DEE9DDF105729622C85345471A882524FEC38D992664DE8201FF500A387EDDE",
+            "F7301BCC5F29660B0D602B71C3B6677A247B0DDE6336AC67733C7C6E0FB3CFC5"
+          ]
+        },
+        {
+          "payload": "payload/mods/climbing-power-gloves-range/ds2_climbing_gloves_range.ini",
+          "target": "ds2_climbing_gloves_range.ini",
+          "sha256": "28C5364080A170863657C6E5CCD761E0DA8093A23B512B7F47C0413BE1241915",
+          "kind": "config"
+        }
+      ]
+    },
+    {
+      "modId": "crafting-unlocks",
+      "version": "1.10.1",
+      "nexusMod": 86,
+      "fileId": 392,
+      "archive": "DS2_Crafting_Equipment_Overhaul_v1.10.1.zip",
+      "archiveSha256": "bf281b2800b1f70e25ff65499863584222ea6fcd3d0abfa61c58857c8905b26c",
+      "files": [
+        {
+          "payload": "payload/mods/crafting-unlocks/ds2_crafting_unlocks.asi",
+          "target": "ds2_crafting_unlocks.asi",
+          "sha256": "5108A7A74E720EB21F3FDFC6ACECE00C296F8E46A1458E024E153045C5F9F3F9",
+          "kind": "binary",
+          "previousHashes": [
+            "618AA029BF5202E3E9DFF8864B94B5C25A6FB9247F0F25327000E3336E9E65F2",
+            "1885C8861673D262726E9B3207140E11D726F18851DAF363735CC6E597765882",
+            "0D89E1270313DD7DFAC9AF38CFA5A7A2DB553EB010C87F5514F626699A0FB439"
+          ]
+        },
+        {
+          "payload": "payload/mods/crafting-unlocks/ds2_crafting_unlocks.ini",
+          "target": "ds2_crafting_unlocks.ini",
+          "sha256": "1113F49EB0E177A7EB6DA8EC1DD724D9C96EFE9D058540827896B5D73664EAE6",
+          "kind": "config"
+        }
+      ]
+    },
+    {
+      "modId": "no-magellan-evaluation",
+      "version": "1.1.0",
+      "nexusMod": 63,
+      "fileId": 397,
+      "archive": "Remove_DHV_Magellan_Penalty_v1.1.0.zip",
+      "archiveSha256": "1b2f9d4616d878de3d415dfa7fad08754326447bbf17f3c3b600ddbb21ea3a70",
+      "files": [
+        {
+          "payload": "payload/mods/no-magellan-evaluation/ds2_no_magellan_evaluation.asi",
+          "target": "ds2_no_magellan_evaluation.asi",
+          "sha256": "E5F529699305FC9DB819F002E78DD8B9C7F3BB536452D6D0845B9EEFD7B90FAA",
+          "kind": "binary",
+          "previousHashes": [
+            "3EC72DA55493471470246C39179D8F56154D149409A95FF15F200FA0D5054FE3",
+            "3D19901786B97B7BDB188582B078FC97E811D2339AB04DBE19822B1E94200DFE"
+          ]
+        },
+        {
+          "payload": "payload/mods/no-magellan-evaluation/ds2_no_magellan_evaluation.ini",
+          "target": "ds2_no_magellan_evaluation.ini",
+          "sha256": "72D424EFC8AF0FF46E1E70E71752F491AF7EF6E991CA87146712A03708C9D269",
+          "kind": "config"
+        }
+      ]
+    },
+    {
+      "modId": "atlas-chiral-boots",
+      "version": "1.0.1",
+      "nexusMod": 86,
+      "fileId": 395,
+      "archive": "DS2_ATLAS_Chiral_Boots_Addon_v1.0.1.zip",
+      "archiveSha256": "c2793fc53a6f833363f3ba582d3af7185cd325fc08b1fac7330f553df26f1789",
+      "files": [
+        {
+          "payload": "payload/mods/atlas-chiral-boots/ds2_atlas_chiral_addon.asi",
+          "target": "ds2_atlas_chiral_addon.asi",
+          "sha256": "0E80CD46DB1AE2F0A8A853248E3464045A3D70FEAE513F54BFA7394DE8ECCD16",
+          "kind": "binary",
+          "previousHashes": [
+            "F2193E540A04E9B30507EE69A325B91FEACDBED97ECC4DD9FA6D70B5FC5B172B"
+          ]
+        }
+      ],
+      "previousRelease": {
+        "version": "1.0.0",
+        "fileId": 390,
+        "archiveSha256": "78c732ddcd2549e68ec3302de99625c8954cd8be8ed5af38c3b67867b5533982",
+        "binarySha256": "F2193E540A04E9B30507EE69A325B91FEACDBED97ECC4DD9FA6D70B5FC5B172B"
+      }
+    },
+    {
+      "modId": "atlas-n02-exoskeleton",
+      "version": "1.0.1",
+      "nexusMod": 86,
+      "fileId": 396,
+      "archive": "DS2_ATLAS_N02_Exoskeleton_Addon_v1.0.1.zip",
+      "archiveSha256": "b357ddd515fdacee31e4eec7f196c091533ed50f1cec2ea079e4fa022dfad0cd",
+      "files": [
+        {
+          "payload": "payload/mods/atlas-n02-exoskeleton/ds2_atlas_exoskeleton_addon.asi",
+          "target": "ds2_atlas_exoskeleton_addon.asi",
+          "sha256": "D7A151A64C2DE416B5423742B40840A7A9D4C4DADE11C0F354EB023E6A888AB3",
+          "kind": "binary",
+          "previousHashes": [
+            "42DDE96CA4E423EFA73C90CF5A924799C1F17C1229DA85F7C2AAAA801E2D0587"
+          ]
+        }
+      ],
+      "previousRelease": {
+        "version": "1.0.0",
+        "fileId": 393,
+        "archiveSha256": "1e91654dba7885bbfae76f79455554173dc38b88a6bbe9cfb81d6801cf40345b",
+        "binarySha256": "42DDE96CA4E423EFA73C90CF5A924799C1F17C1229DA85F7C2AAAA801E2D0587"
+      }
+    }
+  ]
+}

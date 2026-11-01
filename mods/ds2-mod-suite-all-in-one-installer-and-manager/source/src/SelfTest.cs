@@ -10,14 +10,14 @@ namespace DS2ModSuite
     {
 #if DS2_WITHOUT_APAS
         private const int ExcludedApasSettings = 4;
-        private const int ExpectedModCount = 26;
+        private const int ExpectedModCount = 28;
         private const int ExpectedIniCount = 23;
 #else
         private const int ExcludedApasSettings = 0;
-        private const int ExpectedModCount = 27;
+        private const int ExpectedModCount = 29;
         private const int ExpectedIniCount = 24;
 #endif
-        private const int ExpectedSettingsCount = 388 - ExcludedApasSettings;
+        private const int ExpectedSettingsCount = 398 - ExcludedApasSettings;
 
         public static string Run()
         {
@@ -28,7 +28,7 @@ namespace DS2ModSuite
             {
                 Catalog catalog = CatalogService.LoadAndValidate();
                 CatalogService.ValidatePayloads(catalog);
-                Assert(catalog.SuiteVersion == "1.12.1" && catalog.Mods.Count == ExpectedModCount,
+                Assert(catalog.SuiteVersion == "1.13.0" && catalog.Mods.Count == ExpectedModCount,
                     "suite version/mod count mismatch");
                 report.AppendLine("PASS catalog and all payload hashes");
                 TestExternalPayloads(testRoot, report);
@@ -154,15 +154,16 @@ namespace DS2ModSuite
                 report.AppendLine("PASS no APAS catalog/settings/payload, standalone APAS ASI/INI retained during install, reapply and removal");
 #else
                 TestApasOptIn(catalog, testRoot, runningExecutable);
-                report.AppendLine("PASS APAS rebuild default-off progression, no-APAS profile recovery, legacy migration with/without profile, explicit opt-in/out, preservation and idempotence");
+                report.AppendLine("PASS APAS 3.0.0 default-off progression, no-APAS profile recovery, legacy migration with/without profile, explicit opt-in/out, preservation and idempotence");
 #endif
                 TestCraftingSettings(catalog, testRoot, runningExecutable);
-                report.AppendLine("PASS Crafting 1.7.0 defaults, item settings, inline comments, adoption, idempotence and removal");
+                report.AppendLine("PASS Crafting 1.10.1 defaults, item settings, inline comments, adoption, idempotence and removal");
                 TestRelease190Settings(catalog, testRoot, runningExecutable);
-                report.AppendLine("PASS glove 1.1.1 defaults, decimal ranges, bounds/relationships, migration, opt-out, idempotence, rollback and removal");
-                report.AppendLine("PASS v1.8 profile migration retains saved choices, imports new standalone INI choices, and supports 132 grouped Crafting items including inherit");
+                report.AppendLine("PASS glove 1.1.2 defaults, decimal ranges, bounds/relationships, migration, opt-out, idempotence, rollback and removal");
+                report.AppendLine("PASS v1.8 profile migration retains saved choices, imports new standalone INI choices, and supports 135 grouped Crafting items including inherit");
                 TestRelease1110(catalog, testRoot, runningExecutable);
                 TestRelease1120(catalog, testRoot, runningExecutable, report);
+                TestRelease1130(catalog, testRoot, runningExecutable, report);
                 report.AppendLine("PASS v1.11 profile/INI migration, new mod install/removal, Sam replacement, standalone conflicts, numeric bounds and idempotence");
 
                 string noProfileUpgradeRoot = Path.Combine(testRoot, "coffin-no-profile-upgrade");
@@ -582,7 +583,7 @@ namespace DS2ModSuite
             const string target = "ds2_crafting_unlocks.ini";
             List<ConfigFieldDefinition> fields = ModConfigurationService.GetDefinitions(catalog)
                 .Where(field => field.ModId == modId).ToList();
-            Assert(fields.Count == 152 && fields.Count(field => field.Section == "Items") == 132,
+            Assert(fields.Count == 165 && fields.Count(field => field.Section == "Items") == 135,
                 "Crafting settings are incomplete");
             ConfigFieldDefinition free = fields.Single(field => field.Section == "CraftingUnlocks" && field.Key == "FreeCrafting");
             ConfigFieldDefinition durability = fields.Single(field => field.Section == "Durability" && field.Key == "Enabled");
@@ -665,7 +666,7 @@ namespace DS2ModSuite
                 .Single(field => field.ModId == modId && field.Key == "UnlockAll");
             ConfigFieldDefinition early = ModConfigurationService.GetDefinitions(catalog)
                 .Single(field => field.ModId == modId && field.Key == "EarlyAccess");
-            Assert(apas.Version == "4.0.0-rebuild.1" && unlock.DefaultValue == "0" && !unlock.Schema.Advanced
+            Assert(apas.Version == "3.0.0" && unlock.DefaultValue == "0" && !unlock.Schema.Advanced
                 && early.DefaultValue == "0" && !early.Schema.Advanced,
                 "APAS progression options must be visible and off by default");
 
@@ -680,14 +681,14 @@ namespace DS2ModSuite
             var unrelated = fields.Single(f => f.ModId == "crafting-unlocks" && f.Section == "CraftingUnlocks" && f.Key == "Enabled");
             var reducedProfile = ModConfigurationService.LoadEffectiveProfile(catalog, null);
             reducedProfile.Values.RemoveAll(v => v.Id.StartsWith(modId + "|", StringComparison.Ordinal));
-            Assert(reducedProfile.Values.Count == 384, "no-APAS recovery fixture field count");
+            Assert(reducedProfile.Values.Count == ExpectedSettingsCount - 4, "no-APAS recovery fixture field count");
             ModConfigurationService.SetValue(reducedProfile, unrelated.Id, "0");
             JsonStore.Write(ModConfigurationService.ProfilePath, reducedProfile);
             try
             {
                 var recovered = ModConfigurationService.LoadStoredProfile(catalog, recoveryRoot);
                 string error;
-                Assert(recovered.Values.Count == 388 && ModConfigurationService.TryValidateProfile(catalog, recovered, out error),
+                Assert(recovered.Values.Count == ExpectedSettingsCount && ModConfigurationService.TryValidateProfile(catalog, recovered, out error),
                     "no-APAS profile recovery did not restore all fields");
                 foreach (var field in fields.Where(f => f.ModId == modId))
                 {

@@ -106,6 +106,7 @@ namespace DS2ModSuite
                 throw new InvalidDataException(Localization.T("A legacy path conflicts with a current mod file: ", "Ein Altdateipfad kollidiert mit einer aktuellen Mod-Datei: ") + overlap);
             }
 
+            ModDependencies.ValidateCatalog(catalog);
             return catalog;
         }
 

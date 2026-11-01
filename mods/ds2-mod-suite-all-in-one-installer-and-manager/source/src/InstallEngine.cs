@@ -721,6 +721,8 @@ namespace DS2ModSuite
                 throw new InvalidDataException(Localization.T(
                     "Select only one variant of the same mod.",
                     "Wähle nur eine Variante desselben Mods."));
+            string dependencyError = ModDependencies.SelectionError(catalog, plan.SelectedModIds);
+            if (dependencyError != null) throw new InvalidDataException(dependencyError);
             return gamePath;
         }
 

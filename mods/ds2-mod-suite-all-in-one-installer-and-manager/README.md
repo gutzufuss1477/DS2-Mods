@@ -1,22 +1,23 @@
-# DS2 Mod Suite - All-in-One Installer and Manager
+# DS2 Mod Suite 1.13.0
 
-Install and manage 26 DS2 mods with 388 central settings in 10 languages. Includes mod files, ASI Loader, backups and INI preservation. Choose only the mods you want. Offline, standalone manager for Steam 1.10.89.0.
+Offline Windows manager with 29 selectable components, 398 central settings and
+10 languages. Includes Crafting 1.10.1, optional ATLAS addons 1.0.1, Magellan 1.1.0,
+Gloves 1.1.2 and the unchanged published APAS 3.0.0. Supports Steam DS2 1.10.89.0.
 
-[Current downloads and installation instructions on Nexus Mods](https://www.nexusmods.com/deathstranding2onthebeach/mods/72)
+[Downloads and scan status on Nexus](https://www.nexusmods.com/deathstranding2onthebeach/mods/72?tab=files)
+· [Installation](source/README.md) · [Build instructions](source/BUILD.md)
+· [Changelog](source/publication/v1.13.0/changelog.txt)
+· [Verification](source/publication/v1.13.0/VALIDATION.md)
 
-## Current published files
+Version 1.13.0 is uploaded as Nexus file 398 and awaits the site's scan result.
+The previous accepted no-APAS build 1.12.1, file 379, remains the primary download.
+The quarantined experimental 1.12.1/APAS rebuild is not used in this update.
 
-| File / variant | Nexus file version | Nexus file ID |
-|---|---|---|
-| DS2 Mod Suite v1.12.1 - All-in-One Installer | 1.12.1 | 383 |
+ATLAS addons automatically select their required Crafting mod. Removing the
+Crafting selection also deselects both addons. Existing INIs and central choices
+are retained; new Warrior recipe overrides follow DefaultUnlock unless explicitly
+configured. Personal Story Coffin metadata is never managed or removed.
 
-File versions above are the actual download versions; the Nexus page version can differ.
-Only current published files are listed. Archived releases, comparisons and explicitly labelled tests are excluded.
-
-## Source and build
-
-Source from the published-release workspace; binaries are downloaded from Nexus. No new runtime test was performed for this source import.
-
-See `nexus.json` for the immutable file IDs and SHA-256 values.
-Build outputs, original game data, private diagnostics and credentials are kept out of Git.
-Third-party licenses remain with their respective source directories.
+The Git repository contains source and provenance, not compiled payloads or game
+assets. Exact package/component hashes and Nexus file IDs are recorded in
+nexus.json and source/release-inputs-v1.13.0.json.

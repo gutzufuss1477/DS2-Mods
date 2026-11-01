@@ -52,6 +52,7 @@ namespace DS2ModSuite
                     Assert(state.StatusText == Localization.T("Will be removed", "Wird entfernt"), "known previous removal status misleading");
                     var engine = new InstallEngine(catalog, true);
                     var plan = new ApplyPlan { GamePath = root, SelectedModIds = new List<string> { mod.Id } };
+                    plan.SelectedModIds.AddRange(mod.Requires ?? new List<string>());
                     var result = engine.Apply(plan, new DirectProgress());
                     Assert(result.Success && result.Updated == 1 && HashUtil.EqualsHash(HashUtil.FileSha256(path), binary.Sha256), "same-name upgrade failed");
                     File.WriteAllText(path, "trusted previous " + mod.Id);
@@ -98,9 +99,9 @@ namespace DS2ModSuite
                 if (storedProfile)
                 {
                     var legacy = ModConfigurationService.LoadEffectiveProfile(catalog, null);
-                    var ids = new HashSet<string>(added.Select(f => f.Id));
+                    var ids = new HashSet<string>(fields.Where(f => IsRelease1120Field(f) || IsRelease1130Field(f)).Select(f => f.Id));
                     legacy.Values.RemoveAll(v => ids.Contains(v.Id));
-                    Assert(legacy.Values.Count == 377 - ExcludedApasSettings, "v1.11 fixture field count");
+                    Assert(legacy.Values.Count == 372 - ExcludedApasSettings, "v1.11 fixture field count");
                     ModConfigurationService.SetValue(legacy, capacity.Id, "352");
                     JsonStore.Write(ModConfigurationService.ProfilePath, legacy);
                 }

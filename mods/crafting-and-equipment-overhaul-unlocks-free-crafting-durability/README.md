@@ -11,11 +11,11 @@ and 3D previews. Keep `ds2_story_coffin_variants.bin` alongside save backups.
 
 ## Published Nexus update
 
-Main mod **1.10.1** is the primary download and **ATLAS N02 Exoskeleton 1.0.0**
-is an optional file on the [existing Nexus page](https://www.nexusmods.com/deathstranding2onthebeach/mods/86?tab=files).
-Publication was verified on 2026-10-24: main file **392**, N02 file **393**, and
-unchanged Chiral Boots file **390**. Main 1.10.0 was archived. `nexus.json` and
-the release manifests record the published files and exact package hashes.
+Main **1.10.1** is primary file **392**; optional ATLAS Chiral Boots **1.0.1**
+and N02 Exoskeleton **1.0.1** are files **395** and **396** on the
+[existing Nexus page](https://www.nexusmods.com/deathstranding2onthebeach/mods/86?tab=files).
+Both addons were published on 2026-10-26; update both when using them together.
+The Nexus API and exact local archive hashes were checked again on 2026-11-02.
 
 See [English changelog](CHANGELOG.txt), [German changelog](CHANGELOG_DE.txt),
 [English installation](README_EN.txt), [German installation](README_DE.txt) and
@@ -24,9 +24,9 @@ metadata should be kept when updating.
 
 ## Independent optional appearances
 
-- [ATLAS N02 Exoskeleton 1.0.0](addons/atlas-n02-exoskeleton/README.md): graphite black
+- [ATLAS N02 Exoskeleton 1.0.1](addons/atlas-n02-exoskeleton/README.md): graphite black
   with red accents and a matching menu render; one ASI, no addon INI.
-- ATLAS Chiral Boots 1.0.0: published binary and source remain unchanged.
+- [ATLAS Chiral Boots 1.0.1](addons/atlas-chiral-boots/README.md): stable gold appearance and corrected character colors.
 
 Either addon can be used alone, or both together. Stats, recipes and item identities
 stay in the main mod. Removing a visual addon restores the corresponding main-mod

@@ -269,60 +269,6 @@
                   "descriptionDe": "In v1.1.0 standardmäßig an. Benötigt den Hauptschalter. Normale Angriffe bleiben erhalten; diese Version hat keine eigenen Kampfhandschuh-Reichweitenregler."
                 }
               ]
-            },
-            {
-              "name": "CombatDebug",
-              "fields": [
-                {
-                  "key": "LiveDebug",
-                  "type": "bool",
-                  "label": "Combat live diagnostics",
-                  "labelDe": "Live-Diagnose für Kampfhandschuhe",
-                  "description": "Advanced diagnostic switch; keep the release default unless troubleshooting.",
-                  "descriptionDe": "Erweiterter Diagnoseschalter; Vorgabe der Veröffentlichung nur zur Fehlersuche ändern.",
-                  "advanced": true
-                },
-                {
-                  "key": "ScanGeneration",
-                  "type": "int",
-                  "label": "Combat scan generation",
-                  "labelDe": "Scan-Generation der Kampfhandschuhe",
-                  "description": "Diagnostic scan generation, from 0 to 1000000. Release default: 1.",
-                  "descriptionDe": "Diagnostische Scan-Generation von 0 bis 1000000. Vorgabe: 1.",
-                  "advanced": true,
-                  "min": 0,
-                  "max": 1000000
-                },
-                {
-                  "key": "FallbackAction",
-                  "type": "int",
-                  "label": "Combat fallback action",
-                  "labelDe": "Ersatzaktion der Kampfhandschuhe",
-                  "description": "Diagnostic action override, from -1 to 248. Keep -1 for the release behavior.",
-                  "descriptionDe": "Diagnostische Aktionsvorgabe von -1 bis 248. Für das veröffentlichte Verhalten bei -1 belassen.",
-                  "advanced": true,
-                  "min": -1,
-                  "max": 248
-                },
-                {
-                  "key": "RootSubcategoryFallback",
-                  "type": "bool",
-                  "label": "Combat root fallback",
-                  "labelDe": "Stamm-Ersatzlogik der Kampfhandschuhe",
-                  "description": "Advanced pickup fallback used by the release. Default: enabled.",
-                  "descriptionDe": "Erweiterte Ersatzlogik beim Aufheben. Vorgabe der Veröffentlichung: aktiviert.",
-                  "advanced": true
-                },
-                {
-                  "key": "MapRightWriterToLeft",
-                  "type": "bool",
-                  "label": "Map right pickup writer to left",
-                  "labelDe": "Rechte Aufhebe-Schreibroutine auf links umleiten",
-                  "description": "Diagnostic routing override. Keep disabled for the vehicle cargo stowing fix.",
-                  "descriptionDe": "Diagnostische Umleitung. Für die Korrektur beim Verstauen von Fahrzeugfracht deaktiviert lassen.",
-                  "advanced": true
-                }
-              ]
             }
           ]
         }
@@ -510,6 +456,22 @@
                   "key": "DebugLog",
                   "type": "bool",
                   "advanced": true
+                },
+                {
+                  "key": "RemoveLikePenalty",
+                  "type": "bool",
+                  "label": "Remove Magellan Like penalty",
+                  "description": "Remove Magellan Like penalty",
+                  "labelDe": "Magellan-Like-Abzug entfernen",
+                  "descriptionDe": "Magellan-Like-Abzug entfernen"
+                },
+                {
+                  "key": "RemoveMagellanRank",
+                  "type": "bool",
+                  "label": "Remove Magellan rank label",
+                  "description": "Keeps the earned rank instead of the Magellan label. Does not force an S rank.",
+                  "labelDe": "Magellan-Rangbezeichnung entfernen",
+                  "descriptionDe": "Behält den verdienten Rang statt der Magellan-Bezeichnung. Erzwingt keinen S-Rang."
                 }
               ]
             }
@@ -3425,6 +3387,166 @@
                     "0",
                     "inherit"
                   ]
+                },
+                {
+                  "key": "0x22B02657",
+                  "type": "choice",
+                  "label": "Warrior Assault Rifle",
+                  "advanced": true,
+                  "group": "Enemy-Drop Weapons",
+                  "groupDe": "Gegnerwaffen",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ],
+                  "labelDe": "Krieger-Sturmgewehr",
+                  "default": "inherit"
+                },
+                {
+                  "key": "0x22424DD4",
+                  "type": "choice",
+                  "label": "Warrior Shotgun",
+                  "advanced": true,
+                  "group": "Enemy-Drop Weapons",
+                  "groupDe": "Gegnerwaffen",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ],
+                  "labelDe": "Krieger-Schrotflinte",
+                  "default": "inherit"
+                },
+                {
+                  "key": "0x5029CED7",
+                  "type": "choice",
+                  "label": "Warrior Grenade Launcher",
+                  "advanced": true,
+                  "group": "Enemy-Drop Weapons",
+                  "groupDe": "Gegnerwaffen",
+                  "choices": [
+                    "1",
+                    "0",
+                    "inherit"
+                  ],
+                  "labelDe": "Krieger-Granatwerfer",
+                  "default": "inherit"
+                }
+              ]
+            },
+            {
+              "name": "WarriorWeapons",
+              "fields": [
+                {
+                  "key": "AmmoMultiplier",
+                  "type": "int",
+                  "label": "Warrior ammunition multiplier",
+                  "description": "Warrior ammunition multiplier",
+                  "min": 1,
+                  "max": 10,
+                  "labelDe": "Munitionsmultiplikator der Krieger-Waffen",
+                  "descriptionDe": "Munitionsmultiplikator der Krieger-Waffen"
+                },
+                {
+                  "key": "ReserveMode",
+                  "type": "choice",
+                  "label": "Warrior reserve mode",
+                  "description": "0: native reserve. 1: backpack ammunition. 2: unlimited reserve; reloading is still required.",
+                  "choices": [
+                    "0",
+                    "1",
+                    "2"
+                  ],
+                  "labelDe": "Reservemodus der Krieger-Waffen",
+                  "descriptionDe": "0: normale Reserve. 1: Rucksackmunition. 2: unbegrenzte Reserve; Nachladen bleibt nötig."
+                },
+                {
+                  "key": "RifleMagazine",
+                  "type": "int",
+                  "label": "Warrior rifle magazine",
+                  "description": "Warrior rifle magazine",
+                  "min": 1,
+                  "max": 300,
+                  "labelDe": "Sturmgewehr-Magazingröße",
+                  "descriptionDe": "Sturmgewehr-Magazingröße"
+                },
+                {
+                  "key": "ShotgunMagazine",
+                  "type": "int",
+                  "label": "Warrior shotgun magazine",
+                  "description": "Warrior shotgun magazine",
+                  "min": 1,
+                  "max": 300,
+                  "labelDe": "Schrotflinten-Magazingröße",
+                  "descriptionDe": "Schrotflinten-Magazingröße"
+                },
+                {
+                  "key": "GrenadeMagazine",
+                  "type": "int",
+                  "label": "Warrior grenade magazine",
+                  "description": "Warrior grenade magazine",
+                  "min": 1,
+                  "max": 300,
+                  "labelDe": "Granatwerfer-Magazingröße",
+                  "descriptionDe": "Granatwerfer-Magazingröße"
+                },
+                {
+                  "key": "ReserveMagazines",
+                  "type": "int",
+                  "label": "Warrior reserve magazines",
+                  "description": "Warrior reserve magazines",
+                  "min": 0,
+                  "max": 30,
+                  "labelDe": "Reservemagazine der Krieger-Waffen",
+                  "descriptionDe": "Reservemagazine der Krieger-Waffen"
+                }
+              ]
+            },
+            {
+              "name": "RedGuitar",
+              "fields": [
+                {
+                  "key": "Enabled",
+                  "type": "bool",
+                  "label": "Red Battle Guitar",
+                  "description": "Red Battle Guitar",
+                  "labelDe": "Rote Kampfgitarre",
+                  "descriptionDe": "Rote Kampfgitarre"
+                }
+              ]
+            },
+            {
+              "name": "Guitars",
+              "fields": [
+                {
+                  "key": "FreeChiralShots",
+                  "type": "bool",
+                  "label": "Free chiral guitar shots",
+                  "description": "Free chiral guitar shots",
+                  "labelDe": "Gitarrenschüsse ohne chirale Kosten",
+                  "descriptionDe": "Gitarrenschüsse ohne chirale Kosten"
+                }
+              ]
+            },
+            {
+              "name": "Cosmetics",
+              "fields": [
+                {
+                  "key": "Enabled",
+                  "type": "bool",
+                  "label": "Early cosmetics",
+                  "description": "Respects DefaultUnlock and item choices; owned DLC is still required.",
+                  "labelDe": "Kosmetik vorzeitig freischalten",
+                  "descriptionDe": "Beachtet DefaultUnlock und die Item-Auswahl; benötigte DLCs müssen weiterhin vorhanden sein."
+                },
+                {
+                  "key": "UnlockColors",
+                  "type": "bool",
+                  "label": "Early outfit colors",
+                  "description": "Respects DefaultUnlock and item choices; owned DLC is still required.",
+                  "labelDe": "Kleidungsfarben vorzeitig freischalten",
+                  "descriptionDe": "Beachtet DefaultUnlock und die Item-Auswahl; benötigte DLCs müssen weiterhin vorhanden sein."
                 }
               ]
             }

@@ -2,17 +2,19 @@
 param(
     [switch]$SkipPackage,
     [switch]$WithoutApas,
-    [string]$PayloadRoot=''
+    [string]$PayloadRoot='',
+    [string]$OutputRoot=''
 )
 
 $ErrorActionPreference = 'Stop'
 $installerRoot = [System.IO.Path]::GetFullPath($PSScriptRoot)
 $workspaceRoot = [System.IO.Path]::GetFullPath((Join-Path $installerRoot '..'))
 $distRoot = [System.IO.Path]::GetFullPath((Join-Path $installerRoot 'dist'))
+if ($OutputRoot) { $distRoot = [System.IO.Path]::GetFullPath($OutputRoot) }
 if ($WithoutApas) { $distRoot = Join-Path $distRoot 'no-apas' }
 $appRoot = [System.IO.Path]::GetFullPath((Join-Path $distRoot 'DS2-Mod-Suite'))
-$zipPath = Join-Path $distRoot 'DS2_Mod_Suite_v1.12.1.zip'
-if ($WithoutApas) { $zipPath = Join-Path $distRoot 'DS2_Mod_Suite_v1.12.1_No_APAS.zip' }
+$zipPath = Join-Path $distRoot 'DS2_Mod_Suite_v1.13.0.zip'
+if ($WithoutApas) { $zipPath = Join-Path $distRoot 'DS2_Mod_Suite_v1.13.0_No_APAS.zip' }
 $zipHashPath = "$zipPath.sha256.txt"
 
 function Assert-ChildPath([string]$parent, [string]$candidate) {
@@ -103,8 +105,11 @@ function New-Ds2Icon([string]$path) {
     }
 }
 
-Assert-ChildPath $installerRoot $distRoot
+if (-not $OutputRoot) { Assert-ChildPath $installerRoot $distRoot }
 Assert-ChildPath $distRoot $appRoot
+for ($ancestor = $distRoot; $ancestor; $ancestor = [System.IO.Path]::GetDirectoryName($ancestor)) {
+    Assert-NotReparsePoint $ancestor
+}
 Assert-NotReparsePoint $installerRoot
 Assert-NotReparsePoint (Join-Path $installerRoot 'dist')
 Assert-NotReparsePoint $distRoot

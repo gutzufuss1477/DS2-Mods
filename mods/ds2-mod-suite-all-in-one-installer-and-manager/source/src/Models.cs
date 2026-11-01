@@ -101,6 +101,9 @@ namespace DS2ModSuite
         [DataMember(Name = "exclusiveGroup", EmitDefaultValue = false)]
         public string ExclusiveGroup { get; set; }
 
+        [DataMember(Name = "requires", EmitDefaultValue = false)]
+        public List<string> Requires { get; set; }
+
         public string LocalizedCategory
         {
             get { return Localization.T(Category, CategoryDe); }

@@ -19,12 +19,12 @@ namespace DS2ModSuite
             ConfigFieldDefinition level1 = gloves.Single(f => f.Key == "Level1RangeMeters");
             ConfigFieldDefinition level2 = gloves.Single(f => f.Key == "Level2RangeMeters");
             ConfigFieldDefinition combat = gloves.Single(f => f.Key == "EnableCargoPickup");
-            Assert(gloves.Count == 10 && level1.DefaultValue == "30" && level2.DefaultValue == "50"
+            Assert(gloves.Count == 5 && level1.DefaultValue == "30" && level2.DefaultValue == "50"
                 && combat.DefaultValue == "1" && !combat.Schema.Advanced, "glove release defaults mismatch");
             List<ConfigFieldDefinition> items = definitions.Where(f => f.ModId == "crafting-unlocks" && f.Section == "Items").ToList();
-            List<ConfigFieldDefinition> added = items.Where(f => f.Label == "Chiral Boots" || f.Schema.Group == "Enemy-Drop Weapons").ToList();
-            Assert(items.Count == 132 && added.Count == 12 && added.Any(f => f.Label == "Ghost Blade")
-                && items.All(f => f.DefaultValue == "1" && f.Schema.Advanced && !string.IsNullOrWhiteSpace(f.Schema.Group))
+            List<ConfigFieldDefinition> added = items.Where(f => !IsRelease1130Field(f) && (f.Label == "Chiral Boots" || f.Schema.Group == "Enemy-Drop Weapons")).ToList();
+            Assert(items.Count == 135 && added.Count == 12 && added.Any(f => f.Label == "Ghost Blade")
+                && items.All(f => f.DefaultValue == (IsRelease1130Field(f) ? "inherit" : "1") && f.Schema.Advanced && !string.IsNullOrWhiteSpace(f.Schema.Group))
                 && items.Select(f => f.Schema.Group).Distinct().Count() == 13, "Crafting 1.5 item/group coverage mismatch");
             ConfigFieldDefinition chiral = added.Single(f => f.Label == "Chiral Boots");
             ConfigFieldDefinition ghost = added.Single(f => f.Label == "Ghost Blade");
@@ -95,7 +95,7 @@ namespace DS2ModSuite
             File.WriteAllText(craftingIni, "; preserve me\r\n[Items]\r\n" + chiral.Key + "=0 ; my boots\r\n" + ghost.Key + "=inherit ; follow default\r\n[Custom]\r\nKeep=1\r\n");
             ModConfigurationProfile legacy = ModConfigurationService.LoadEffectiveProfile(catalog, null);
             HashSet<string> addedIds = new HashSet<string>(added.Select(f => f.Id)) { combat.Id };
-            addedIds.UnionWith(definitions.Where(f => IsRelease1110Field(f) || IsRelease1120Field(f)).Select(f => f.Id));
+            addedIds.UnionWith(definitions.Where(f => IsRelease1110Field(f) || IsRelease1120Field(f) || IsRelease1130Field(f)).Select(f => f.Id));
             legacy.Values.RemoveAll(v => addedIds.Contains(v.Id));
             Assert(legacy.Values.Count == 312 - ExcludedApasSettings, "v1.8 profile fixture field count");
             ModConfigurationService.SetValue(legacy, level1.Id, "40");

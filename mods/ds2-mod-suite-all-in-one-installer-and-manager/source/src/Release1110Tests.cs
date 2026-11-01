@@ -18,7 +18,7 @@ namespace DS2ModSuite
         private static void TestRelease1110(Catalog catalog, string testRoot, string executable)
         {
             var definitions = ModConfigurationService.GetDefinitions(catalog);
-            Assert(definitions.Count(IsRelease1110Field) == 52, "v1.11 field delta mismatch");
+            Assert(definitions.Count(IsRelease1110Field) == 47, "v1.11 field delta mismatch");
             Assert(!catalog.Mods.Any(m => m.Id == "sneaky-sam"), "Sneaky Sam must be replaced");
             var sam = catalog.Mods.Single(m => m.Id == "sam-overhaul");
             Assert(sam.ObsoleteFiles.Count(f => f.Target.StartsWith("DS2_SneakySam_")) == 2, "Sneaky Sam migration paths missing");
@@ -26,7 +26,7 @@ namespace DS2ModSuite
             Directory.CreateDirectory(root);
             File.Copy(executable, Path.Combine(root, catalog.Game.Executable));
             var oldProfile = ModConfigurationService.LoadEffectiveProfile(catalog, null);
-            var newIds = new HashSet<string>(definitions.Where(f => IsRelease1110Field(f) || IsRelease1120Field(f)).Select(f => f.Id));
+            var newIds = new HashSet<string>(definitions.Where(f => IsRelease1110Field(f) || IsRelease1120Field(f) || IsRelease1130Field(f)).Select(f => f.Id));
             oldProfile.Values.RemoveAll(v => newIds.Contains(v.Id));
             Assert(oldProfile.Values.Count == 325 - ExcludedApasSettings, "v1.10 profile fixture mismatch");
             var global = definitions.Single(f => f.ModId == "crafting-unlocks" && f.Section == "CraftingUnlocks" && f.Key == "Enabled");

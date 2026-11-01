@@ -6,7 +6,7 @@
   "nexusUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/86",
   "pageVersion": "1.10.1",
   "sourceStatus": "published",
-  "sourceNote": "Main 1.10.1 is published as the primary MAIN file 392; N02 Exoskeleton 1.0.0 is OPTIONAL file 393. Public file categories, versions, download links, descriptions and changelogs were verified through Nexus browser UI on 2026-10-24. The old 1.10.0 main was archived. Chiral Boots 1.0.0 file 390 is unchanged. Public VirusTotal links match the package SHA-256 values. Release main differs from user-tested Test05 only by its runtime version label; offline checks passed.",
+  "sourceNote": "Main 1.10.1 is primary file 392. Optional Chiral Boots 1.0.1 and N02 Exoskeleton 1.0.1 are files 395 and 396, published 2026-10-26. Current files were cross-checked with the Nexus API on 2026-11-02; addon hashes match their release manifests.",
   "currentFiles": [
     {
       "version": "1.10.1",
@@ -24,29 +24,22 @@
       "primary": true
     },
     {
-      "version": "1.0.0",
-      "name": "DS2 ATLAS N02 Exoskeleton Addon V1.0.0",
+      "fileId": 395,
+      "name": "DS2 ATLAS Chiral Boots Addon V1.0.1",
+      "version": "1.0.1",
       "category": "OPTIONAL",
-      "nexusModId": 86,
-      "nexusUploaded": true,
-      "status": "published",
-      "fileId": 393,
-      "sha256": "1e91654dba7885bbfae76f79455554173dc38b88a6bbe9cfb81d6801cf40345b",
-      "bytes": 20613311,
-      "binarySHA256": "42dde96ca4e423efa73c90cf5a924799c1f17c1229da85f7c2aaaa801e2d0587",
-      "requiresMainVersion": "1.10.1",
-      "interface": "Addon API V1 + Visual Router V1",
-      "publishedDate": "2026-10-24",
-      "downloadUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/86?tab=files&file_id=393"
+      "sha256": "c2793fc53a6f833363f3ba582d3af7185cd325fc08b1fac7330f553df26f1789",
+      "bytes": 6012692,
+      "downloadUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/86?tab=files&file_id=395"
     },
     {
-      "fileId": 390,
-      "name": "DS2 ATLAS Chiral Boots Addon V1.0.0",
-      "version": "1.0.0",
+      "fileId": 396,
+      "name": "DS2 ATLAS N02 Exoskeleton Addon V1.0.1",
+      "version": "1.0.1",
       "category": "OPTIONAL",
-      "sha256": "78c732ddcd2549e68ec3302de99625c8954cd8be8ed5af38c3b67867b5533982",
-      "bytes": 6000054,
-      "downloadUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/86?tab=files&file_id=390"
+      "sha256": "b357ddd515fdacee31e4eec7f196c091533ed50f1cec2ea079e4fa022dfad0cd",
+      "bytes": 20612863,
+      "downloadUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/86?tab=files&file_id=396"
     }
   ],
   "sourceVersion": "1.10.1",
@@ -67,23 +60,31 @@
   },
   "preparedOptionalUpdates": [
     {
-      "version": "1.0.0",
-      "name": "DS2 ATLAS N02 Exoskeleton Addon V1.0.0",
+      "fileId": 395,
+      "name": "DS2 ATLAS Chiral Boots Addon V1.0.1",
+      "version": "1.0.1",
       "category": "OPTIONAL",
-      "nexusModId": 86,
-      "nexusUploaded": true,
+      "sha256": "c2793fc53a6f833363f3ba582d3af7185cd325fc08b1fac7330f553df26f1789",
+      "bytes": 6012692,
+      "downloadUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/86?tab=files&file_id=395",
       "status": "published",
-      "fileId": 393,
-      "sha256": "1e91654dba7885bbfae76f79455554173dc38b88a6bbe9cfb81d6801cf40345b",
-      "bytes": 20613311,
-      "binarySHA256": "42dde96ca4e423efa73c90cf5a924799c1f17c1229da85f7c2aaaa801e2d0587",
       "requiresMainVersion": "1.10.1",
-      "interface": "Addon API V1 + Visual Router V1",
-      "publishedDate": "2026-10-24",
-      "downloadUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/86?tab=files&file_id=393"
+      "publishedDate": "2026-10-26"
+    },
+    {
+      "fileId": 396,
+      "name": "DS2 ATLAS N02 Exoskeleton Addon V1.0.1",
+      "version": "1.0.1",
+      "category": "OPTIONAL",
+      "sha256": "b357ddd515fdacee31e4eec7f196c091533ed50f1cec2ea079e4fa022dfad0cd",
+      "bytes": 20612863,
+      "downloadUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/86?tab=files&file_id=396",
+      "status": "published",
+      "requiresMainVersion": "1.10.1",
+      "publishedDate": "2026-10-26"
     }
   ],
-  "publicationVerifiedDate": "2026-10-24",
+  "publicationVerifiedDate": "2026-11-02",
   "previousFiles": [
     {
       "fileId": 389,
@@ -99,6 +100,31 @@
       "name": "DS2_Crafting_Equipment_Overhaul_v1.10.0",
       "version": "1.10.0",
       "category": "ARCHIVED"
+    },
+    {
+      "fileId": 390,
+      "name": "DS2 ATLAS Chiral Boots Addon V1.0.0",
+      "version": "1.0.0",
+      "category": "ARCHIVED",
+      "sha256": "78c732ddcd2549e68ec3302de99625c8954cd8be8ed5af38c3b67867b5533982",
+      "bytes": 6000054,
+      "downloadUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/86?tab=files&file_id=390"
+    },
+    {
+      "version": "1.0.0",
+      "name": "DS2 ATLAS N02 Exoskeleton Addon V1.0.0",
+      "category": "ARCHIVED",
+      "nexusModId": 86,
+      "nexusUploaded": true,
+      "status": "published",
+      "fileId": 393,
+      "sha256": "1e91654dba7885bbfae76f79455554173dc38b88a6bbe9cfb81d6801cf40345b",
+      "bytes": 20613311,
+      "binarySHA256": "42dde96ca4e423efa73c90cf5a924799c1f17c1229da85f7c2aaaa801e2d0587",
+      "requiresMainVersion": "1.10.1",
+      "interface": "Addon API V1 + Visual Router V1",
+      "publishedDate": "2026-10-24",
+      "downloadUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/86?tab=files&file_id=393"
     }
   ]
 }

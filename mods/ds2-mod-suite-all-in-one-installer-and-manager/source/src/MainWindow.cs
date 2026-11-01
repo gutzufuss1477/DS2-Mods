@@ -465,6 +465,7 @@ namespace DS2ModSuite
                 }
 
                 modStates = GameInspector.InspectMods(inspection, catalog);
+                ModDependencies.IncludeRequired(modStates);
                 RenderInspection();
                 BuildModList();
             }
@@ -472,6 +473,7 @@ namespace DS2ModSuite
             {
                 inspection = new GameInspection { Error = exception.Message, Loader = new LoaderInspection { Status = LoaderStatus.InvalidPayload } };
                 modStates = GameInspector.InspectMods(inspection, catalog);
+                ModDependencies.IncludeRequired(modStates);
                 RenderInspection();
                 BuildModList();
             }
@@ -622,6 +624,7 @@ namespace DS2ModSuite
 
         private Border BuildModCard(ModRuntimeState state)
         {
+            GameInspector.UpdateStatus(state);
             Border card = new Border
             {
                 Background = Theme.Surface,
@@ -698,27 +701,28 @@ namespace DS2ModSuite
                 return;
             }
 
-            state.DesiredEnabled = enabled;
-            if (enabled && !string.IsNullOrWhiteSpace(state.Spec.ExclusiveGroup))
+            suppressSelectionEvents = true;
+            try
             {
-                suppressSelectionEvents = true;
-                foreach (ModRuntimeState other in modStates.Where(item => item != state
-                    && string.Equals(item.Spec.ExclusiveGroup, state.Spec.ExclusiveGroup, StringComparison.OrdinalIgnoreCase)))
-                {
-                    other.DesiredEnabled = false;
-                    GameInspector.UpdateStatus(other);
-                    ModRowControls otherRow;
-                    if (modRows.TryGetValue(other, out otherRow))
-                    {
-                        otherRow.CheckBox.IsChecked = false;
-                        UpdateModRow(other);
-                    }
-                }
-                suppressSelectionEvents = false;
+                ModDependencies.SetSelection(modStates, state, enabled);
+                RefreshSelectionRows();
             }
-            GameInspector.UpdateStatus(state);
-            UpdateModRow(state);
+            finally { suppressSelectionEvents = false; }
             UpdateChangeSummary();
+        }
+
+        private void RefreshSelectionRows()
+        {
+            foreach (var state in modStates)
+            {
+                GameInspector.UpdateStatus(state);
+                ModRowControls row;
+                if (modRows.TryGetValue(state, out row))
+                {
+                    row.CheckBox.IsChecked = state.DesiredEnabled;
+                    UpdateModRow(state);
+                }
+            }
         }
 
         private void UpdateModRow(ModRuntimeState state)
@@ -775,6 +779,8 @@ namespace DS2ModSuite
                     UpdateModRow(state);
                 }
             }
+            ModDependencies.IncludeRequired(modStates);
+            RefreshSelectionRows();
             suppressSelectionEvents = false;
             UpdateChangeSummary();
         }

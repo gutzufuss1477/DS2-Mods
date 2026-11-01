@@ -638,6 +638,7 @@ namespace DS2ModSuite
                 || string.Equals(modId, "jump-ramp-unlimited", StringComparison.OrdinalIgnoreCase)
                 || string.Equals(modId, "beach-jump-with-cargo", StringComparison.OrdinalIgnoreCase)
                 || string.Equals(modId, "sam-overhaul", StringComparison.OrdinalIgnoreCase)
+                || string.Equals(modId, "no-magellan-evaluation", StringComparison.OrdinalIgnoreCase)
                 || string.Equals(modId, "pickup-cargo-capacity", StringComparison.OrdinalIgnoreCase)
                 || string.Equals(modId, "infrastructure-one-unit", StringComparison.OrdinalIgnoreCase);
         }

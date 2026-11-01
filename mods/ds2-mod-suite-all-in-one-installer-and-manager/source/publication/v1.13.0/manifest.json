@@ -1,0 +1,32 @@
+{
+  "version": "1.13.0",
+  "archive": "DS2_Mod_Suite_v1.13.0.zip",
+  "sha256": "83969825c4c92107741b2bba035c2aea72f8093b4f8c1c14d035d41c69db6a1b",
+  "bytes": 33102744,
+  "components": 29,
+  "centralSettings": 398,
+  "languages": 10,
+  "payloadFiles": 54,
+  "managerSha256": "1ac62dd9b9873b174a76dcc0b561f222f5dd2606653e62e69b21ae770cdf2d92",
+  "verification": {
+    "crc": true,
+    "payloadHashes": true,
+    "checksumManifest": true,
+    "selfTests": "passed",
+    "locales": "passed",
+    "gameTest": "not run for this suite build",
+    "defender": {
+      "date": "2026-11-02",
+      "signatureVersion": "1.463.73.0",
+      "apas": "no threats detected",
+      "extractedPackage": "no threats detected",
+      "finalZip": "no threats detected"
+    }
+  },
+  "nexus": {
+    "modId": 72,
+    "fileId": 398,
+    "status": "uploaded; Nexus scan pending",
+    "url": "https://www.nexusmods.com/deathstranding2onthebeach/mods/72?tab=files&file_id=398"
+  }
+}

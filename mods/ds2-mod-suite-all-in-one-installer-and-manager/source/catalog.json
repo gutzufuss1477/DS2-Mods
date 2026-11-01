@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "suiteVersion": "1.12.1",
+  "suiteVersion": "1.13.0",
   "game": {
     "name": "DEATH STRANDING 2: ON THE BEACH",
     "executable": "DS2.exe",
@@ -208,7 +208,7 @@
     {
       "id": "climbing-power-gloves-range",
       "name": "Climbing Power Gloves Range",
-      "version": "1.1.1",
+      "version": "1.1.2",
       "category": "Equipment & Progression",
       "categoryDe": "Ausrüstung & Fortschritt",
       "description": "Configurable Climbing Power Gloves pickup ranges (30/50 m by default), plus optional magnetic cargo pickup for Combat Power Gloves. Combat gloves have no separate range setting.",
@@ -217,17 +217,18 @@
         {
           "payload": "payload/mods/climbing-power-gloves-range/ds2_climbing_gloves_range.asi",
           "target": "ds2_climbing_gloves_range.asi",
-          "sha256": "F7301BCC5F29660B0D602B71C3B6677A247B0DDE6336AC67733C7C6E0FB3CFC5",
+          "sha256": "9CD1CF4BEA085196B3F176842647A7976D431EEA8AB33DFBDC824FC162CEB31F",
           "kind": "binary",
           "previousHashes": [
             "58F7007F9C4727D6173D623A5FB5762BF48DC720D88A265F6D88874DBDB93373",
-            "1DEE9DDF105729622C85345471A882524FEC38D992664DE8201FF500A387EDDE"
+            "1DEE9DDF105729622C85345471A882524FEC38D992664DE8201FF500A387EDDE",
+            "F7301BCC5F29660B0D602B71C3B6677A247B0DDE6336AC67733C7C6E0FB3CFC5"
           ]
         },
         {
           "payload": "payload/mods/climbing-power-gloves-range/ds2_climbing_gloves_range.ini",
           "target": "ds2_climbing_gloves_range.ini",
-          "sha256": "E87176992B618CBA2166117D5F920D6934C09FFF29DC354AD88C3046B204F51C",
+          "sha256": "28C5364080A170863657C6E5CCD761E0DA8093A23B512B7F47C0413BE1241915",
           "kind": "config"
         }
       ]
@@ -313,25 +314,26 @@
     {
       "id": "no-magellan-evaluation",
       "name": "No Magellan Evaluation Penalty",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "category": "Deliveries & Rewards",
       "categoryDe": "Lieferungen & Belohnungen",
-      "description": "Removes the Like penalty from Magellan deliveries without changing their designation.",
-      "descriptionDe": "Entfernt den Like-Malus bei Magellan-Lieferungen, ohne deren Kennzeichnung zu verändern.",
+      "description": "Separately removes the Magellan Like penalty and rank label while preserving the earned delivery rank.",
+      "descriptionDe": "Entfernt Magellan-Like-Abzug und Rangbezeichnung getrennt und behält den verdienten Lieferrang.",
       "files": [
         {
           "payload": "payload/mods/no-magellan-evaluation/ds2_no_magellan_evaluation.asi",
           "target": "ds2_no_magellan_evaluation.asi",
-          "sha256": "3D19901786B97B7BDB188582B078FC97E811D2339AB04DBE19822B1E94200DFE",
+          "sha256": "E5F529699305FC9DB819F002E78DD8B9C7F3BB536452D6D0845B9EEFD7B90FAA",
           "kind": "binary",
           "previousHashes": [
-            "3EC72DA55493471470246C39179D8F56154D149409A95FF15F200FA0D5054FE3"
+            "3EC72DA55493471470246C39179D8F56154D149409A95FF15F200FA0D5054FE3",
+            "3D19901786B97B7BDB188582B078FC97E811D2339AB04DBE19822B1E94200DFE"
           ]
         },
         {
           "payload": "payload/mods/no-magellan-evaluation/ds2_no_magellan_evaluation.ini",
           "target": "ds2_no_magellan_evaluation.ini",
-          "sha256": "8B71D66310EAE417B0BE23517CF7DE45A5126E9F00080FC826D82A684F67D7B1",
+          "sha256": "72D424EFC8AF0FF46E1E70E71752F491AF7EF6E991CA87146712A03708C9D269",
           "kind": "config"
         }
       ]
@@ -554,7 +556,7 @@
     {
       "id": "apas-memory-costs",
       "name": "APAS Memory Costs",
-      "version": "4.0.0-rebuild.1",
+      "version": "3.0.0",
       "category": "Equipment & Progression",
       "categoryDe": "Ausrüstung & Fortschritt",
       "description": "Configurable APAS costs, optional Unlock All and Early Access. Progression options are off by default; saved unlocks may persist.",
@@ -563,15 +565,16 @@
         {
           "payload": "payload/mods/apas-memory-costs/ds2_apas_memory_costs.asi",
           "target": "ds2_apas_memory_costs.asi",
-          "sha256": "96F49E5928545AA7839CAA1417305588BF4A1080E207EAD4B71122380D85D899",
+          "sha256": "8B1F9910A46B1E7929084ACEF23340131382BBA2D059B2CD24A9BD86EA16E4B9",
           "kind": "binary",
           "previousHashes": [
             "7A3D0E37C5D1D631EA5DF58ED451C4E96DE782A6C04B52A1A14F879CA0CDFA37",
-            "8B1F9910A46B1E7929084ACEF23340131382BBA2D059B2CD24A9BD86EA16E4B9",
             "5742577EB3DFEBF2DFA83426616677CBA1797165696C2753B5C2E606B4E5BE68",
             "FCBC8C6EE1470896B02DDCA8D82D3C8BF2AC338DD4EB91EE4CC9B3B3D821AACE",
             "69839224342963F4E1B334C4117520440D6C89CD3D429C8E24D845505FE394E8",
-            "43171C77958D864AC5391F1AEC50F5FB6580DEE75A4C4BEB8DB4D94957922550"
+            "43171C77958D864AC5391F1AEC50F5FB6580DEE75A4C4BEB8DB4D94957922550",
+            "96F49E5928545AA7839CAA1417305588BF4A1080E207EAD4B71122380D85D899",
+            "5191D9A1A39169D36E5DCA613A83E985143650895ED714489CDB032BF3217A5A"
           ]
         },
         {
@@ -659,26 +662,27 @@
     {
       "id": "crafting-unlocks",
       "name": "Crafting & Equipment Overhaul",
-      "version": "1.8.0",
+      "version": "1.10.1",
       "category": "Equipment & Progression",
       "categoryDe": "Ausrüstung & Fortschritt",
-      "description": "Early crafting for 132 items, ATLAS gear, four suppressed weapons and standard PCC building choices. Free Crafting and durability changes are off by default.",
-      "descriptionDe": "Frühes Herstellen von 132 Gegenständen, ATLAS-Ausrüstung, vier schallgedämpften Waffen und frühen Standard-PCC-Bauoptionen. Kostenloses Herstellen und Haltbarkeitsänderungen sind standardmäßig aus.",
+      "description": "Early crafting, Warrior weapons, red guitar, cosmetics, story coffins and optional ATLAS equipment. Free Crafting and durability changes are off by default.",
+      "descriptionDe": "Frühes Crafting, Krieger-Waffen, rote Gitarre, Kosmetik, Story-Särge und optionale ATLAS-Ausrüstung. Kostenloses Crafting und Haltbarkeitsänderungen sind standardmäßig aus.",
       "files": [
         {
           "payload": "payload/mods/crafting-unlocks/ds2_crafting_unlocks.asi",
           "target": "ds2_crafting_unlocks.asi",
-          "sha256": "0D89E1270313DD7DFAC9AF38CFA5A7A2DB553EB010C87F5514F626699A0FB439",
+          "sha256": "5108A7A74E720EB21F3FDFC6ACECE00C296F8E46A1458E024E153045C5F9F3F9",
           "kind": "binary",
           "previousHashes": [
             "618AA029BF5202E3E9DFF8864B94B5C25A6FB9247F0F25327000E3336E9E65F2",
-            "1885C8861673D262726E9B3207140E11D726F18851DAF363735CC6E597765882"
+            "1885C8861673D262726E9B3207140E11D726F18851DAF363735CC6E597765882",
+            "0D89E1270313DD7DFAC9AF38CFA5A7A2DB553EB010C87F5514F626699A0FB439"
           ]
         },
         {
           "payload": "payload/mods/crafting-unlocks/ds2_crafting_unlocks.ini",
           "target": "ds2_crafting_unlocks.ini",
-          "sha256": "03ABE6445ED8F9A6A1DD0225B34247788BB19A58EFBF44BA1232972AC564DE8A",
+          "sha256": "1113F49EB0E177A7EB6DA8EC1DD724D9C96EFE9D058540827896B5D73664EAE6",
           "kind": "config"
         }
       ],
@@ -783,6 +787,52 @@
       ],
       "conflictingFiles": [
         "ds2_footprint_native_probe.asi"
+      ]
+    },
+    {
+      "id": "atlas-chiral-boots",
+      "name": "ATLAS Chiral Boots Addon",
+      "version": "1.0.1",
+      "category": "Equipment & Progression",
+      "categoryDe": "Ausrüstung & Fortschritt",
+      "description": "Optional ATLAS Chiral Boots. Requires Crafting Overhaul; selecting this addon also selects the main mod.",
+      "descriptionDe": "Optionale ATLAS-Chiralstiefel. Benötigen Crafting Overhaul; die Auswahl aktiviert auch den Hauptmod.",
+      "requires": [
+        "crafting-unlocks"
+      ],
+      "files": [
+        {
+          "payload": "payload/mods/atlas-chiral-boots/ds2_atlas_chiral_addon.asi",
+          "target": "ds2_atlas_chiral_addon.asi",
+          "sha256": "0E80CD46DB1AE2F0A8A853248E3464045A3D70FEAE513F54BFA7394DE8ECCD16",
+          "kind": "binary",
+          "previousHashes": [
+            "F2193E540A04E9B30507EE69A325B91FEACDBED97ECC4DD9FA6D70B5FC5B172B"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "atlas-n02-exoskeleton",
+      "name": "ATLAS N02 Exoskeleton Addon",
+      "version": "1.0.1",
+      "category": "Equipment & Progression",
+      "categoryDe": "Ausrüstung & Fortschritt",
+      "description": "Optional ATLAS N02 Exoskeleton. Requires Crafting Overhaul; selecting this addon also selects the main mod.",
+      "descriptionDe": "Optionales ATLAS-N02-Exoskelett. Benötigt Crafting Overhaul; die Auswahl aktiviert auch den Hauptmod.",
+      "requires": [
+        "crafting-unlocks"
+      ],
+      "files": [
+        {
+          "payload": "payload/mods/atlas-n02-exoskeleton/ds2_atlas_exoskeleton_addon.asi",
+          "target": "ds2_atlas_exoskeleton_addon.asi",
+          "sha256": "D7A151A64C2DE416B5423742B40840A7A9D4C4DADE11C0F354EB023E6A888AB3",
+          "kind": "binary",
+          "previousHashes": [
+            "42DDE96CA4E423EFA73C90CF5A924799C1F17C1229DA85F7C2AAAA801E2D0587"
+          ]
+        }
       ]
     }
   ]
