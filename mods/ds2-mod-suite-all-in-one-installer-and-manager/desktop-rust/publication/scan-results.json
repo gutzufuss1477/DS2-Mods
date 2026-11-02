@@ -24,5 +24,34 @@
     "defender_result": "no_threats_detected",
     "defender_signature": "1.463.83.0"
   },
-  "conclusion": "Manager-only accepted; complete native-mod distribution remains unresolved. No public release."
+  "apas41_archive": {
+    "nexus_file_id": 402,
+    "sha256": "147b94fb0ded43a4c072a92f05e685090b9c06d3ebdba1a7000f4388070027a8",
+    "nexus_result": "green_scan_indicator_manual_download_enabled",
+    "virustotal_detections": 0,
+    "virustotal_engines": 66,
+    "analysis_utc": "2026-11-02T09:33:26Z"
+  },
+  "apas41_binary": {
+    "sha256": "e97b7f30a2e1ec063d56caa6a11aee9cad76b9964c2bcc08a466c153bf27afab",
+    "virustotal_detections": 2,
+    "virustotal_engines": 71,
+    "analysis_utc": "2026-11-02T09:37:07Z",
+    "detecting_engines": ["Cynet", "Microsoft"],
+    "defender_result": "no_threats_detected",
+    "defender_signature": "1.463.83.0"
+  },
+  "complete_preview2": {
+    "nexus_file_id": 403,
+    "sha256": "f79b10f43c52a2dc7b194ab64783f06877d8500d664d842427130208a18d462f",
+    "nexus_result": "green_scan_indicator_manual_download_enabled",
+    "virustotal_detections": 5,
+    "virustotal_engines": 67,
+    "analysis_utc": "2026-11-02T09:43:19Z",
+    "defender_result": "no_threats_detected",
+    "defender_signature": "1.463.83.0",
+    "browser_download_verified": false,
+    "browser_download_error": "ERR_BLOCKED_BY_CLIENT"
+  },
+  "conclusion": "APAS 4.1 ZIP and complete Rust preview 2 accepted by Nexus. Some archive/raw-file detections remain; no in-game acceptance test or public release."
 }

@@ -56,4 +56,14 @@ out of the archive's 501 files and does not enumerate the native payloads. It
 cannot isolate the remaining detections to a particular mod. No definitive
 false-positive determination or proprietary-rule diagnosis has been made.
 
-Nexus final status is recorded after its processing finishes.
+After initially remaining in processing, Nexus showed a **green individual-file
+indicator and an enabled Manual download button** for file 403. File 402 also
+remained green and downloadable. The draft itself remains unpublished. This
+establishes the observed Nexus screening result; the separate detections above
+remain unresolved.
+
+An end-to-end download attempt navigated to the Nexus file host, where Chrome
+displayed `ERR_BLOCKED_BY_CLIENT`. The browser tool then refused read-only
+navigation to `chrome://downloads` because its URL policy only permits HTTP/HTTPS.
+No browser protection was bypassed, and no downloaded copy was verified. The
+client-side error is not by itself evidence of a malware classification.

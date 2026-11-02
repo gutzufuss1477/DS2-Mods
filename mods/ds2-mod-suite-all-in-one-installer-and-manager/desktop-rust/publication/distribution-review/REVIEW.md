@@ -1,5 +1,10 @@
 # Distribution review — 2026-11-02
 
+Later update: the APAS 4.1 lifecycle/rollback corrections and complete Rust
+preview 2 were accepted by Nexus on the unpublished draft. Residual scan findings
+and the unverified browser download are documented in [PREVIEW2.md](../PREVIEW2.md).
+The earlier observations below remain historical results for their exact hashes.
+
 ## Result
 
 The original APAS 3.0.0 ZIP offered by Nexus is not a clean contemporary control.
