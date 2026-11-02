@@ -5,8 +5,8 @@
   "nexusModId": 72,
   "nexusUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/72",
   "pageVersion": "1.14.0",
-  "sourceStatus": "uploaded-scan-pending",
-  "sourceNote": "Rust/Tauri Suite 1.14.0: complete ZIP accepted on unpublished test mod 97/file 404. Original mod 72/file 405: uploaded; Nexus virus scan still processing. 30 components include APAS 4.1 preview and optional Free Mining beta. 19 offline tests passed. Defender clean; VirusTotal archive 5/67. Native startup confirmation and fresh APAS/zero-inventory Free Mining game testing remain outstanding.",
+  "sourceStatus": "published",
+  "sourceNote": "Rust/Tauri Suite 1.14.0: complete ZIP accepted on unpublished test mod 97/file 404. Original mod 72/file 405: accepted. 30 components include APAS 4.1 preview and optional Free Mining beta. 19 offline tests passed. Defender clean; VirusTotal archive 5/67. User reports Windows startup appears OK. Fresh APAS 4.1 and zero-inventory Free Mining game testing remain outstanding. Previous file 379 was archived by the author.",
   "currentFiles": [
     {
       "fileId": 405,
@@ -17,7 +17,7 @@
       "sha256": "6f533ff26aa9a3c9c5c21e45067a94b0d2c64f77a6e531ef8ec2e738c88e0d51",
       "bytes": 37033375,
       "downloadUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/72?tab=files&file_id=405",
-      "status": "virus-scan-in-progress"
+      "status": "accepted"
     }
   ],
   "sourceVersion": "1.14.0",
@@ -26,11 +26,12 @@
       "fileId": 379,
       "name": "DS2 Mod Suite v1.12.1 - No APAS comparison",
       "version": "1.12.1",
-      "category": "MAIN",
+      "category": "ARCHIVED",
       "primary": false,
       "sha256": "962f91457fca030aa09049911a837d3db57ab612da2df3770355c437412b0e0b",
       "bytes": 5274559,
-      "downloadUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/72?tab=files&file_id=379"
+      "downloadUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/72?tab=files&file_id=379",
+      "status": "archived"
     },
     {
       "fileId": 383,

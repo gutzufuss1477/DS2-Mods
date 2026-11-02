@@ -9,7 +9,7 @@ catalog; the older `source/` directory documents the historical C# release.
 - 30 components; 398 editable fields and one automatically managed variant flag.
 - 24 canonical INI templates, ten interface languages and 56 payload files.
 - Baseline: the verified Suite 1.13.0 payloads, already compared with all 26 owned
-  standalone Nexus mod pages on 2 November. No further production Git changes
+  tracked Nexus mod pages on 2 November. No further production Git changes
   were found at `origin/main` (`68f0854`).
 - APAS: the lifecycle/rollback correction `4.1.0-preview.1`, standalone test file
   402 and previously accepted complete test file 403. ASI SHA-256:
@@ -56,15 +56,20 @@ was altered merely to change scan classification.
 
 The exact complete ZIP was uploaded to unpublished Nexus test mod 97 as file 404.
 Test file 404 has Manual download enabled. Original mod 72/file 405 is uploaded
-and primary; its virus scan is still in progress. Old file 379 remains listed as
-a fallback. The main-page manifest confirms the exact ZIP hash and all 503
+and primary; its scan is complete and Manual download is enabled. Old file 379
+was archived by the author. The main-page manifest confirms the exact ZIP hash and all 503
 archive entries. The archive report is **5/67**, from AhnLab-V3, Bkav Pro,
 DeepInstinct, Elastic and MaxSecure. Description, Ko-fi link and 1.14.0 changelog
 were updated and verified. No manager-only or remote-download substitute is being promoted.
 
-Native window/UAC startup confirmation is pending. Fresh APAS 4.1 in-game testing
+The author reported that Windows startup appears OK on 2 November 2026. No
+in-game validation is inferred from that startup report. Fresh APAS 4.1 in-game testing
 and Free Mining with an actually empty crystal inventory remain outstanding.
 Existing historical antivirus findings in `scan-results.json` are retained;
 Nexus acceptance and one local clean scan are not a universal safety guarantee.
 The old manager's backups remain on disk but are not imported into the Rust
 restore UI. Game-save changes are outside the file-transaction backup.
+
+Fresh inventory check after publication: all 26 tracked Nexus pages checked,
+no newly missing mods or active files, all 30 packaged components and 56 payload
+hashes matched. The original page shows Safe to use and Manual download enabled.

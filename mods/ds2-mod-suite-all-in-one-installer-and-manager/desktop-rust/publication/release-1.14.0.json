@@ -17,7 +17,7 @@
   "automated_tests": "19 passed",
   "browser_ui": "variant exclusion, shared settings and all 10 languages passed",
   "defender": "custom scan with remediation disabled: no threats; exit 0; signature 1.463.83.0",
-  "native_window_startup": "awaiting user confirmation",
+  "native_window_startup": "Author reports Windows startup appears OK; no game installation or gameplay test inferred.",
   "fresh_in_game_test": "not performed",
   "nexus": {
     "test_mod_id": 97,
@@ -27,7 +27,7 @@
     "original_file_id": 405,
     "primary": true,
     "test_result": "manual_download_enabled",
-    "result": "virus_scan_in_progress",
+    "result": "manual_download_enabled",
     "archive_manifest_verified": true,
     "virustotal_detections": 5,
     "virustotal_engines": 67,
@@ -38,6 +38,15 @@
       "Elastic",
       "MaxSecure"
     ],
-    "download_completed_in_browser": false
+    "download_completed_in_browser": false,
+    "previous_file_id": 379,
+    "previous_file_status": "archived_by_author"
+  },
+  "inventory_rechecked": {
+    "checked_at": "2026-11-02T11:44:46.018288+00:00",
+    "nexus_mods": 26,
+    "new_missing_mods": [],
+    "unexpected_active_files": [],
+    "api_errors": []
   }
 }
