@@ -47,10 +47,11 @@ does not have the native bridge and cannot access game files.
 
 Requires Rust MSVC, Visual Studio C++ Build Tools, Node/npm and Python. Use the
 checked-in Cargo/npm lockfiles. No post-build packer, obfuscator or encryption is
-used. Native payloads remain external, unmodified files with their original hashes.
+used. Native payloads are included as ordinary local files with checked hashes.
 
 ```powershell
-python prepare.py --payload-root D:\path\to\verified\DS2-Mod-Suite
+python stage_apas_candidate.py --payload-root D:\verified\DS2-Mod-Suite --apas-archive D:\build\DS2_APAS_4.1.0-preview.1.zip --out D:\APAS-staged
+python prepare.py --payload-root D:\APAS-staged --catalog D:\APAS-staged\catalog.json
 npm ci --ignore-scripts
 cargo test --manifest-path src-tauri\Cargo.toml --locked -- --test-threads=1
 npm run build
@@ -61,6 +62,14 @@ existing source catalog. Generated data and native binaries are not committed.
 For short build paths set `CARGO_TARGET_DIR` outside this long checkout path.
 The resulting executable supports `--verify-package <report.json>` and
 `--inspect-game <report.json>` for headless, read-only checks.
+
+Preview 2 integrates the APAS 4.1.0-preview.1 lifecycle/recovery candidate that
+passed the standalone Nexus test as file 402. Use `stage_apas_candidate.py` with
+the verified baseline payload directory, reviewed APAS archive and fresh output
+directory. Pass its `catalog.json` to `prepare.py --catalog` (or `build.ps1 -Catalog`).
+The public source catalog stays unchanged. All other payloads retain their exact
+previous bytes. Standalone APAS acceptance does not establish complete-package
+acceptance or in-game compatibility.
 
 Tests cover default schema validity, dependencies, variant conflicts, exact uint64
 values, migration, personal INI data, payload tampering, foreign binaries, stale

@@ -1,7 +1,8 @@
 param(
     [Parameter(Mandatory = $true)][string]$PayloadRoot,
     [Parameter(Mandatory = $true)][string]$OutputRoot,
-    [string]$Python = 'python'
+    [string]$Python = 'python',
+    [string]$Catalog
 )
 $ErrorActionPreference = 'Stop'
 Set-Location $PSScriptRoot
@@ -11,7 +12,9 @@ if ($buildRoot -eq [System.IO.Path]::GetPathRoot($buildRoot)) { throw 'Choose a 
 if (Test-Path -LiteralPath (Join-Path $buildRoot 'packages')) { throw 'Choose a fresh output folder; existing releases are never overwritten.' }
 New-Item -ItemType Directory -Path $buildRoot -Force | Out-Null
 $env:CARGO_TARGET_DIR = Join-Path $buildRoot 'target'
-& $Python prepare.py --payload-root $payloadPath
+$catalogArgs = @()
+if ($Catalog) { $catalogArgs = @('--catalog', (Resolve-Path -LiteralPath $Catalog).Path) }
+& $Python prepare.py --payload-root $payloadPath @catalogArgs
 if ($LASTEXITCODE -ne 0) { throw 'Data generation failed.' }
 & npm.cmd ci --ignore-scripts
 if ($LASTEXITCODE -ne 0) { throw 'npm dependency installation failed.' }

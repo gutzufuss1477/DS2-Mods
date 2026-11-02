@@ -10,6 +10,7 @@ def main():
     parser.add_argument('--out',type=Path,required=True)
     args=parser.parse_args()
     base=Path(__file__).resolve().parent
+    version=json.loads((base/'package.json').read_text())['version']
     data=json.loads((base/'src-tauri/generated/data.json').read_text(encoding='utf-8'))
     args.out.mkdir(parents=True,exist_ok=True)
     common={'DS2ModManager.exe':args.exe,'README.md':base/'README.md'}
@@ -38,8 +39,8 @@ def main():
         for name,src in files.items():
             dest=folder/name;dest.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(src,dest)
         manifest={name:{'sha256':digest(src),'bytes':src.stat().st_size} for name,src in sorted(files.items())}
-        (folder/'manifest.json').write_text(json.dumps({'variant':flavor,'version':'1.13.0-preview.1','files':manifest},indent=2)+'\n',encoding='utf-8')
-        archive=args.out/f'DS2_Rust_Manager_1.13.0_preview1_{flavor}.zip'
+        (folder/'manifest.json').write_text(json.dumps({'variant':flavor,'version':version,'files':manifest},indent=2)+'\n',encoding='utf-8')
+        archive=args.out/f'DS2_Rust_Manager_{version}_{flavor}.zip'
         with zipfile.ZipFile(archive,'w',compression=zipfile.ZIP_DEFLATED,compresslevel=9) as z:
             for path in sorted(folder.rglob('*')):
                 if path.is_file():z.write(path,'DS2-Mod-Suite/'+path.relative_to(folder).as_posix())

@@ -1,6 +1,6 @@
 [package]
 name = "ds2-mod-suite"
-version = "1.13.0-preview.1"
+version = "1.13.0-preview.2"
 edition = "2021"
 description = "Offline DS2 mod installation and configuration manager"
 authors = ["gutzufuss1477"]

@@ -1,7 +1,7 @@
 {
   "name": "ds2-mod-suite-desktop",
   "private": true,
-  "version": "1.13.0-preview.1",
+  "version": "1.13.0-preview.2",
   "scripts": {"build": "tauri build --no-bundle", "dev": "tauri dev"},
   "devDependencies": {"@tauri-apps/cli": "^2.0.0"}
 }

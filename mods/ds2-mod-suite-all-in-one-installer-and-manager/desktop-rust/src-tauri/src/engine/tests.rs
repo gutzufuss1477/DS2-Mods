@@ -282,6 +282,69 @@ fn dangerous_names_and_paths_are_rejected() {
     safe_name("DS2_APAS.ini").unwrap();
 }
 #[test]
+fn apas_update_preserves_all_settings_and_restores_previous_build() {
+    let (_temp, mut e) = fixture();
+    let m = e
+        .data
+        .catalog
+        .mods
+        .iter()
+        .find(|m| m.id == "apas-memory-costs")
+        .unwrap()
+        .clone();
+    let binary = m.files.iter().find(|f| f.kind == "binary").unwrap();
+    let old = b"previous-apas-test-build";
+    e.data
+        .catalog
+        .mods
+        .iter_mut()
+        .find(|m| m.id == "apas-memory-costs")
+        .unwrap()
+        .files
+        .iter_mut()
+        .find(|f| f.kind == "binary")
+        .unwrap()
+        .previous_hashes
+        .push(hash(old));
+    let game = e.game.clone().unwrap();
+    let ini_name = "ds2_apas_memory_costs.ini";
+    let previous = "; Personal APAS settings\r\n[APASMemoryCosts]\r\nEnabled=0\r\nGlobalCost=25 ; chosen cost\r\n[APASUnlocks]\r\nUnlockAll=1\r\nEarlyAccess=1\r\n[Personal]\r\nNote=keep-me\r\n";
+    fs::write(game.join(&binary.target), old).unwrap();
+    fs::write(game.join(ini_name), previous).unwrap();
+    let view = e.inspect(Some(game.clone())).unwrap();
+    let fields: Vec<_> = e
+        .data
+        .fields
+        .iter()
+        .filter(|f| f.mod_id == m.id)
+        .cloned()
+        .collect();
+    assert_eq!(fields.len(), 4);
+    for f in &fields {
+        let expected = match f.key.as_str() {
+            "Enabled" => "0",
+            "GlobalCost" => "25",
+            _ => "1",
+        };
+        assert_eq!(view.values[&f.id], expected);
+    }
+    let plan = e.preview(vec![m.id], view.values.clone()).unwrap();
+    e.apply(&plan.token).unwrap();
+    assert_eq!(
+        hash_file(&game.join(&binary.target)).unwrap(),
+        binary.sha256
+    );
+    let contents = fs::read_to_string(game.join(ini_name)).unwrap();
+    assert!(contents.contains("Note=keep-me") && contents.contains("; chosen cost"));
+    let ini = Ini::parse(&contents);
+    for f in &fields {
+        assert_eq!(ini.get(f).unwrap(), view.values[&f.id]);
+    }
+    e.restore_latest().unwrap();
+    assert_eq!(fs::read(game.join(&binary.target)).unwrap(), old);
+    assert_eq!(fs::read_to_string(game.join(ini_name)).unwrap(), previous);
+}
+#[test]
 fn game_change_blocks_application() {
     let (_temp, mut e) = fixture();
     let p = e

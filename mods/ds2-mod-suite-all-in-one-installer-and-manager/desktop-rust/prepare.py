@@ -5,10 +5,11 @@ from pathlib import Path
 def main():
     parser=argparse.ArgumentParser()
     parser.add_argument('--payload-root',type=Path,required=True)
+    parser.add_argument('--catalog',type=Path,help='Explicit development catalog; public source catalog remains unchanged.')
     args=parser.parse_args()
     base=Path(__file__).resolve().parent
     source=base.parent/'source'
-    catalog=json.loads((source/'catalog.json').read_text(encoding='utf-8-sig'))
+    catalog=json.loads((args.catalog or source/'catalog.json').read_text(encoding='utf-8-sig'))
     schema=json.loads((source/'settings-schema.json').read_text(encoding='utf-8-sig'))
     templates={}
     for mod in catalog['mods']:
