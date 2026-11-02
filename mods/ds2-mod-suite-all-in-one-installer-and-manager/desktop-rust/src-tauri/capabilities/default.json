@@ -1,0 +1,1 @@
+{"identifier":"main","description":"Local main window only; no shell, HTTP or filesystem plugin exposure.","windows":["main"],"permissions":["core:default"]}

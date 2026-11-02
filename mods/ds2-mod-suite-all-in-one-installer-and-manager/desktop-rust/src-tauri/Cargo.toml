@@ -1,0 +1,28 @@
+[package]
+name = "ds2-mod-suite"
+version = "1.13.0-preview.1"
+edition = "2021"
+description = "Offline DS2 mod installation and configuration manager"
+authors = ["gutzufuss1477"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = [] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+sha2 = "0.10"
+rfd = { version = "0.15", default-features = false }
+fs2 = "0.4"
+winreg = "0.55"
+windows-sys = { version = "0.59", features = ["Win32_Foundation", "Win32_Storage_FileSystem", "Win32_System_Diagnostics_ToolHelp"] }
+
+[dev-dependencies]
+tempfile = "3"
+
+[profile.release]
+opt-level = 2
+debug = 0
+strip = false
+lto = false

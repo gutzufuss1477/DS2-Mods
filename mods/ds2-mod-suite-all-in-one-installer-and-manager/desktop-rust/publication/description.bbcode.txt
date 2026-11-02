@@ -1,0 +1,13 @@
+[b]Unpublished Rust desktop architecture test[/b]
+
+Private development draft for DS2 Mod Suite 1.13.0. The desktop manager is rebuilt with Rust and Tauri/WebView2. The normal complete package includes the local mod files: extract once, start the manager, select mods and apply. Game detection, central INI editing and backups are handled by the application.
+
+[b]Diagnostic files[/b]
+[list]
+[*]Manager only: isolates the new manager executable and notices. It cannot install mods without payloads and is not a player release.
+[*]Complete package: the identical manager plus all 54 original, hash-verified payload files, including APAS 3.0.0. Payload bytes have not been changed to influence scanning.
+[/list]
+
+Previous complete and no-APAS Suite packages were quarantined. The native mod findings remain unresolved. A result for the manager alone must not be treated as approval of the complete package or as proof that previous detections were false positives.
+
+This page remains unpublished. No public release, download mirror, antivirus exception or disabled security protection is requested. Local regression tests and Defender results are recorded separately from Nexus screening.

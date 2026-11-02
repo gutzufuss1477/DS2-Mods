@@ -1,0 +1,8 @@
+/src-tauri/target/
+/src-tauri/generated/
+/src-tauri/gen/
+/ui/data.js
+/build/
+/dist/
+/node_modules/
+/build-dependencies.json
