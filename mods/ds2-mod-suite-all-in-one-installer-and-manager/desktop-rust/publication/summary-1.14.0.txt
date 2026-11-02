@@ -1,0 +1,1 @@
+Offline DS2 mod manager: 30 components, central INI settings, ten languages and automatic backups. Includes APAS and optional Free Mining beta. Extract the ZIP, choose your mods and apply. Windows x64; Steam 1.10.89.0.

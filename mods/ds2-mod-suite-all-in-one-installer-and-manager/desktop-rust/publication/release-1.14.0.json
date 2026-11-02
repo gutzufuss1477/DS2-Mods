@@ -1,0 +1,43 @@
+{
+  "version": "1.14.0",
+  "zip": {
+    "sha256": "6f533ff26aa9a3c9c5c21e45067a94b0d2c64f77a6e531ef8ec2e738c88e0d51",
+    "bytes": 37033375,
+    "exe_sha256": "a93377e360ffdbbc29eb2108cc9a2e44437fd76ec6697bc5f34d6f9837505c31",
+    "file_count": 503
+  },
+  "files_verified": 502,
+  "payload_files": 56,
+  "components": 30,
+  "editable_settings": 398,
+  "managed_variant_settings": 1,
+  "ini_templates": 24,
+  "languages": 10,
+  "release_manifest": "requireAdministrator; uiAccess=false",
+  "automated_tests": "19 passed",
+  "browser_ui": "variant exclusion, shared settings and all 10 languages passed",
+  "defender": "custom scan with remediation disabled: no threats; exit 0; signature 1.463.83.0",
+  "native_window_startup": "awaiting user confirmation",
+  "fresh_in_game_test": "not performed",
+  "nexus": {
+    "test_mod_id": 97,
+    "test_file_id": 404,
+    "test_mod_status": "not_published",
+    "original_mod_id": 72,
+    "original_file_id": 405,
+    "primary": true,
+    "test_result": "manual_download_enabled",
+    "result": "virus_scan_in_progress",
+    "archive_manifest_verified": true,
+    "virustotal_detections": 5,
+    "virustotal_engines": 67,
+    "detecting_engines": [
+      "AhnLab-V3",
+      "Bkav Pro",
+      "DeepInstinct",
+      "Elastic",
+      "MaxSecure"
+    ],
+    "download_completed_in_browser": false
+  }
+}

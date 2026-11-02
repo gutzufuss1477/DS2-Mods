@@ -55,8 +55,12 @@ was altered merely to change scan classification.
 ## Publication and remaining limits
 
 The exact complete ZIP was uploaded to unpublished Nexus test mod 97 as file 404.
-Scan result and final original-mod publication are recorded separately below
-when observed. No manager-only or remote-download substitute is being promoted.
+Test file 404 has Manual download enabled. Original mod 72/file 405 is uploaded
+and primary; its virus scan is still in progress. Old file 379 remains listed as
+a fallback. The main-page manifest confirms the exact ZIP hash and all 503
+archive entries. The archive report is **5/67**, from AhnLab-V3, Bkav Pro,
+DeepInstinct, Elastic and MaxSecure. Description, Ko-fi link and 1.14.0 changelog
+were updated and verified. No manager-only or remote-download substitute is being promoted.
 
 Native window/UAC startup confirmation is pending. Fresh APAS 4.1 in-game testing
 and Free Mining with an actually empty crystal inventory remain outstanding.

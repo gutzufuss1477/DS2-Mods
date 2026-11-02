@@ -4,34 +4,34 @@
   "nexusGame": "deathstranding2onthebeach",
   "nexusModId": 72,
   "nexusUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/72",
-  "pageVersion": "1.12.1",
-  "sourceStatus": "built-nexus-quarantined",
-  "sourceNote": "Suite 1.13.0 functional/language tests passed in both variants; local Defender found no threats. Full file 398 is quarantined. No-APAS file 399 is quarantined. Multiple bundled files and both old/new manager executables have vendor detections; the cause is unresolved.",
+  "pageVersion": "1.14.0",
+  "sourceStatus": "uploaded-scan-pending",
+  "sourceNote": "Rust/Tauri Suite 1.14.0: complete ZIP accepted on unpublished test mod 97/file 404. Original mod 72/file 405: uploaded; Nexus virus scan still processing. 30 components include APAS 4.1 preview and optional Free Mining beta. 19 offline tests passed. Defender clean; VirusTotal archive 5/67. Native startup confirmation and fresh APAS/zero-inventory Free Mining game testing remain outstanding.",
   "currentFiles": [
+    {
+      "fileId": 405,
+      "name": "DS2 Mod Suite 1.14.0",
+      "version": "1.14.0",
+      "category": "MAIN",
+      "primary": true,
+      "sha256": "6f533ff26aa9a3c9c5c21e45067a94b0d2c64f77a6e531ef8ec2e738c88e0d51",
+      "bytes": 37033375,
+      "downloadUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/72?tab=files&file_id=405",
+      "status": "virus-scan-in-progress"
+    }
+  ],
+  "sourceVersion": "1.14.0",
+  "previousFiles": [
     {
       "fileId": 379,
       "name": "DS2 Mod Suite v1.12.1 - No APAS comparison",
       "version": "1.12.1",
       "category": "MAIN",
-      "primary": true,
+      "primary": false,
       "sha256": "962f91457fca030aa09049911a837d3db57ab612da2df3770355c437412b0e0b",
       "bytes": 5274559,
       "downloadUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/72?tab=files&file_id=379"
-    }
-  ],
-  "sourceVersion": "1.13.0",
-  "preparedUpdate": {
-    "fileId": 398,
-    "name": "DS2 Mod Suite v1.13.0 - All-in-One Installer",
-    "version": "1.13.0",
-    "category": "MAIN",
-    "status": "quarantined",
-    "primary": false,
-    "sha256": "83969825c4c92107741b2bba035c2aea72f8093b4f8c1c14d035d41c69db6a1b",
-    "bytes": 33102744,
-    "downloadUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/72?tab=files&file_id=398"
-  },
-  "previousFiles": [
+    },
     {
       "fileId": 383,
       "name": "DS2 Mod Suite v1.12.1 - All-in-One Installer",
@@ -43,15 +43,28 @@
       "status": "quarantined"
     }
   ],
-  "comparisonUpdate": {
-    "fileId": 399,
-    "name": "DS2 Mod Suite v1.13.0 - Without APAS",
-    "version": "1.13.0",
-    "category": "MAIN",
-    "primary": false,
-    "status": "quarantined",
-    "sha256": "e7e40c739c4e987e6d41e8279b0456d03e02e99788684feb2ac0d300ca4dba7b",
-    "bytes": 33096385,
-    "downloadUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/72?tab=files&file_id=399"
-  }
+  "historicalQuarantinedUpdates": [
+    {
+      "fileId": 398,
+      "name": "DS2 Mod Suite v1.13.0 - All-in-One Installer",
+      "version": "1.13.0",
+      "category": "MAIN",
+      "status": "quarantined",
+      "primary": false,
+      "sha256": "83969825c4c92107741b2bba035c2aea72f8093b4f8c1c14d035d41c69db6a1b",
+      "bytes": 33102744,
+      "downloadUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/72?tab=files&file_id=398"
+    },
+    {
+      "fileId": 399,
+      "name": "DS2 Mod Suite v1.13.0 - Without APAS",
+      "version": "1.13.0",
+      "category": "MAIN",
+      "primary": false,
+      "status": "quarantined",
+      "sha256": "e7e40c739c4e987e6d41e8279b0456d03e02e99788684feb2ac0d300ca4dba7b",
+      "bytes": 33096385,
+      "downloadUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/72?tab=files&file_id=399"
+    }
+  ]
 }

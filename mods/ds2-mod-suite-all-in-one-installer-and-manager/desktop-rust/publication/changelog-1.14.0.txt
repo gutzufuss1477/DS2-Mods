@@ -1,0 +1,6 @@
+Rebuilt the offline desktop manager in Rust/Tauri with the familiar extract → open → select → apply workflow.
+Includes the current 30 components, APAS 4.1 lifecycle/recovery build and optional Free Mining beta.
+Preserves existing central INI settings and older profiles; detects renamed legacy mods for upgrade.
+Adds mutually exclusive Infrastructure/Free Mining variants with shared settings and automatic mining-mode management.
+Improves variant detection, checked backups, restore and standard Windows administrator startup.
+Ten interface languages; 398 editable settings. Free Mining with zero crystals and a fresh APAS 4.1 in-game test remain outstanding.

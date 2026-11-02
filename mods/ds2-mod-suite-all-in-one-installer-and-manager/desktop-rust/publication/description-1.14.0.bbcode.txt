@@ -1,0 +1,25 @@
+[b]Choose your mods. Manage their settings in one place.[/b]
+
+Install, update and remove 30 components with central INI settings, automatic dependencies and checked backups. All files are included; the manager works offline. Existing settings and comments are retained.
+
+[center][size=4][b][url=https://ko-fi.com/gutzufuss]☕ Support my mods on Ko-fi[/url][/b][/size]
+Optional support helps me keep making updates. Thank you![/center]
+
+[b]Install / update[/b]
+Windows 10/11 x64 · Microsoft Edge WebView2 · [b]Steam DS2.exe 1.10.89.0[/b].
+[list=1]
+[*]Close the game. Download manually and extract the [b]complete ZIP into a new folder[/b]. Keep payload beside the EXE; do not install through Vortex.
+[*]Run [b]DS2ModManager.exe[/b], accept the Windows administrator prompt and check the detected game folder.
+[*]Review mods and settings → [b]Apply changes[/b]. Deselect and apply to remove mods; personal INIs remain.
+[/list]
+
+[b]Included / optional[/b]
+Current Crafting, ATLAS addons, Magellan, Gloves, Backpack, Sam Overhaul and the other Suite mods. [b]APAS 4.1[/b] retains costs, Unlock All and Early Access; a fresh in-game test of this lifecycle build is outstanding. [b]Free Mining (beta)[/b] is an alternative to Infrastructure One Unit, with shared settings; extraction with zero crystals remains unconfirmed. Choose one variant per group.
+
+[b]Keep your data[/b]
+Before removing Backpack, unequip extra charms, restore a vanilla layout and save; Classic Overlap remains untested in game. Back up saves and [b]ds2_story_coffin_variants.bin[/b]; retain Crafting while using custom equipment. First launch can create large caches: see [url=https://www.nexusmods.com/deathstranding2onthebeach/mods/86]Crafting instructions[/url]. Saved unlocks may persist. Restore backup undoes this manager's latest file operation, not game saves or old-manager backups.
+
+[b]Languages:[/b] English, German, French, Spanish, Italian, Brazilian Portuguese, Russian, Simplified Chinese, Japanese and Korean.
+
+[url=https://github.com/gutzufuss1477/DS2-Mods/tree/main/mods/ds2-mod-suite-all-in-one-installer-and-manager/desktop-rust]Source, build instructions and scan records[/url] · Changes are in [b]Changelogs[/b].
+Thanks to [url=https://github.com/ThirteenAG/Ultimate-ASI-Loader]ThirteenAG / Ultimate ASI Loader[/url], ShadelessFox and the testers. Unofficial community project.

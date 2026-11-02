@@ -13,12 +13,12 @@ Current Nexus-published mods by gutzufuss1477. Names and file versions follow Ne
 | [Cargo Capacity Expansion for Tri-Cruiser](mods/cargo-capacity-expansion-for-tri-cruiser/) | 2 |
 | [High Porter Tower (aka Cargo increase for Floating Carrier)](mods/high-porter-tower-aka-cargo-increase-for-floating-carrier/) | 1 |
 | [Sam's stats boost](mods/sam-s-stats-boost/) | 1 |
-| [Infrastructure Material Reducer](mods/infrastructure-material-reducer/) | 1.1.0 |
+| [Infrastructure Material Reducer](mods/infrastructure-material-reducer/) | 1.1.0; optional Free Mining beta |
 | [High Density Backpack](mods/high-density-backpack/) | 1.1.0 |
 | [Construction Anywhere](mods/construction-anywhere/) | 1 |
 | [Faster and longer Ziplines](mods/faster-and-longer-ziplines/) | 1 |
 | [Custom Chiral Bandwidth Costs per Construction](mods/custom-chiral-bandwidth-costs-per-construction/) | 1 |
-| [DS2 Mod Suite - All-in-One Installer and Manager](mods/ds2-mod-suite-all-in-one-installer-and-manager/) | 1.12.1; 1.13.0 uploaded but quarantined |
+| [DS2 Mod Suite - All-in-One Installer and Manager](mods/ds2-mod-suite-all-in-one-installer-and-manager/) | 1.14.0; includes APAS and optional Free Mining beta; main-file scan pending |
 | [Construction Max Level On Build](mods/construction-max-level-on-build/) | 2 |
 | [Coffin Board Reworked](mods/coffin-board-reworked/) | 4 |
 | [Climbing and Combat Power Gloves - Extended Cargo Pickup Range](mods/climbing-and-combat-power-gloves-extended-cargo-pickup-range/) | 1.1.2 |
