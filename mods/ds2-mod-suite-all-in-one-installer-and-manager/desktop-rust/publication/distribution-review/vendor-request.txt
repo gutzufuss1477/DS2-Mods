@@ -1,0 +1,64 @@
+Subject: Suspected false positive review — DS2 APAS mod / Gen:Variant.Yogi.89861
+
+Hello Bitdefender Labs,
+
+I maintain the unofficial Death Stranding 2 APAS gameplay mod published under
+gutzufuss1477 on Nexus Mods. Please review the Gen:Variant.Yogi.89861 detection
+on the attached APAS samples. I am requesting an investigation, not assuming
+the detections are already proven false positives.
+
+The mod is a native x64 ASI plugin loaded inside DS2.exe by an ASI loader. It
+changes APAS upgrade costs and offers optional early access/unlock settings.
+It uses game-function hooks and local INI/log files. The reviewed paths validate
+the supported game executable and operate in the current game process. Please
+account for these intentional game-modification operations when reviewing it.
+
+Original published version 3.0.0:
+Nexus mod 79, file 327:
+https://www.nexusmods.com/deathstranding2onthebeach/mods/79?tab=files
+ZIP SHA-256:
+143af18e095bd0ed625df15fdfcac2a20e3b998a5e29e3fc56bb296d7eecedb0
+ASI SHA-256:
+8b1f9910a46b1e7929084acef23340131382bba2d059b2cd24a9bd86ea16e4b9
+
+The original archive had 0/67 VirusTotal detections on 25 September 2026.
+Reanalysis of the same hash on 2 November 2026 returned 30/67, including your
+Gen:Variant.Yogi.89861 detection. The same ASI is byte-identical inside our mod
+manager package, so combining it with the manager did not modify the sample.
+https://www.virustotal.com/gui/file/143af18e095bd0ed625df15fdfcac2a20e3b998a5e29e3fc56bb296d7eecedb0
+
+Corrected development candidate, 4.0.0-rebuild.1 (memory-read correction):
+ZIP SHA-256:
+b464a188dadfc7c7eea05136680b685e6fd8e594df50e88142db02783ffd559f
+ASI SHA-256:
+5191d9a1a39169d36e5dca613a83e985143650895ed714489cdb032bf3217a5a
+The available report dated 16 October 2026 has 8/67 detections, again including
+Gen:Variant.Yogi.89861. A new completed report for this candidate has not yet
+been obtained. Nexus quarantined its standalone test as file 385.
+https://www.virustotal.com/gui/file/b464a188dadfc7c7eea05136680b685e6fd8e594df50e88142db02783ffd559f
+
+The corrected candidate uses the normal Windows CRT and compiler protections,
+has no permanently writable/executable PE section, and no executable relay
+allocation. Its read fallback rejects guard/no-access/uncommitted pages and
+restores page permissions. It still installs game hooks. The correction has
+offline regression coverage; it is not claimed to be the cause of the detection.
+The first rewrite was tested in Episode 2 by the author; the later memory-read
+correction has not received a fresh in-game acceptance test.
+
+Source, build instructions, exact sample hashes and the focused technical review
+are available in the prepared review kit. On 2 November 2026 we rebuilt the
+corrected candidate from that isolated source kit and reproduced its exact ASI
+SHA-256. Configuration (30 cases plus defaults), memory protection, costs,
+menu/reload, installation, accounting and constructor ABI fixtures all passed.
+These were offline fixtures; the game was not started.
+No game executable, saves, personal
+configuration, account credentials or API keys are included. Static analysis and
+a local clean Defender result are not presented as a full security certification.
+
+Please confirm whether the detection is correct or a false positive. If it is
+correct, please identify the offending behavior or component sufficiently for us
+to correct it. If false, please update the classification and provide a reference
+we can supply to Nexus moderators. We are seeking to resolve the classification,
+not to ask players to disable protection or use exceptions.
+
+Thank you.

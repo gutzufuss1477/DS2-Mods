@@ -1,0 +1,151 @@
+{
+  "observedDate": "2026-11-02",
+  "originalNexusFile": 327,
+  "originalApasZipSha256": "143af18e095bd0ed625df15fdfcac2a20e3b998a5e29e3fc56bb296d7eecedb0",
+  "originalAndBundledAsiSha256": "8b1f9910a46b1e7929084acef23340131382bba2d059b2cd24a9bd86ea16e4b9",
+  "byteEqual": true,
+  "previousScan": {
+    "date": "2026-09-25",
+    "detections": 0,
+    "engines": 67
+  },
+  "newScan": {
+    "timeUtc": "2026-11-02T08:53:29Z",
+    "detections": 30,
+    "engines": 67,
+    "vendors": [
+      {
+        "name": "ALYac",
+        "classification": "Gen:Variant.Yogi.89861"
+      },
+      {
+        "name": "Antiy-AVL",
+        "classification": "Trojan/Win32.Agent"
+      },
+      {
+        "name": "Arcabit",
+        "classification": "Trojan.Yogi.D15F05"
+      },
+      {
+        "name": "Avast",
+        "classification": "Win64:MalwareX-gen [Misc]"
+      },
+      {
+        "name": "AVG",
+        "classification": "Win64:MalwareX-gen [Misc]"
+      },
+      {
+        "name": "Avira (no cloud)",
+        "classification": "TR/W64.Agent"
+      },
+      {
+        "name": "BitDefender",
+        "classification": "Gen:Variant.Yogi.89861"
+      },
+      {
+        "name": "CTX",
+        "classification": "Zip.unknown.yogi"
+      },
+      {
+        "name": "Cynet",
+        "classification": "Malicious (score: 99)"
+      },
+      {
+        "name": "Emsisoft",
+        "classification": "Gen:Variant.Yogi.89861 (B)"
+      },
+      {
+        "name": "eScan",
+        "classification": "Gen:Variant.Yogi.89861"
+      },
+      {
+        "name": "ESET-NOD32",
+        "classification": "Win64/Agent_AGen.RNQ Trojan"
+      },
+      {
+        "name": "GData",
+        "classification": "Gen:Variant.Yogi.89861"
+      },
+      {
+        "name": "Google",
+        "classification": "Detected"
+      },
+      {
+        "name": "Ikarus",
+        "classification": "Trojan.Win64.Agent"
+      },
+      {
+        "name": "K7AntiVirus",
+        "classification": "Trojan ( 006e7be61 )"
+      },
+      {
+        "name": "K7GW",
+        "classification": "Trojan ( 006e7be61 )"
+      },
+      {
+        "name": "Lionic",
+        "classification": "Trojan.Win32.Generic.4!c"
+      },
+      {
+        "name": "MaxSecure",
+        "classification": "Trojan.Malware.413192098.susgen"
+      },
+      {
+        "name": "Rising",
+        "classification": "Trojan.Agent!8.B1E (CLOUD)"
+      },
+      {
+        "name": "Sangfor Engine Zero",
+        "classification": "Trojan.Win64.Agent.Vr0y"
+      },
+      {
+        "name": "Sophos",
+        "classification": "Mal/Generic-S"
+      },
+      {
+        "name": "Tencent",
+        "classification": "Malware.Win32.Gencirc.14b647fd"
+      },
+      {
+        "name": "Trellix ENS",
+        "classification": "Artemis!77FDD1634DD9"
+      },
+      {
+        "name": "TrendMicro",
+        "classification": "Trojan.Win64.AGENTAGEN.USBLJ326"
+      },
+      {
+        "name": "TrendMicro-HouseCall",
+        "classification": "Trojan.Win64.AGENTAGEN.USBLJ326"
+      },
+      {
+        "name": "Varist",
+        "classification": "W64/ABRisk.PVBR-8073"
+      },
+      {
+        "name": "VIPRE",
+        "classification": "Gen:Variant.Yogi.89861"
+      },
+      {
+        "name": "WithSecure",
+        "classification": "Trojan.TR/W64.Agent"
+      },
+      {
+        "name": "Zillya",
+        "classification": "Trojan.AgentAGen.Win64.60094"
+      }
+    ]
+  },
+  "correctedCandidate": {
+    "zipSha256": "b464a188dadfc7c7eea05136680b685e6fd8e594df50e88142db02783ffd559f",
+    "asiSha256": "5191d9a1a39169d36e5dca613a83e985143650895ed714489cdb032bf3217a5a",
+    "reproducedExactly": true,
+    "offlineFixturesPassed": true,
+    "lastCompletedScanDate": "2026-10-16",
+    "detections": 8,
+    "engines": 67,
+    "newReanalysis": "not completed; CAPTCHA requires user confirmation"
+  },
+  "vendorSubmission": "prepared only; awaiting authorization and contact details",
+  "onlineDownloader": "design only; not implemented and no hosting changes"
+}
