@@ -38,11 +38,28 @@ hashes. The manager-only archive cannot install mods and is a diagnostic control
 New mod 97, **not published**:
 https://www.nexusmods.com/deathstranding2onthebeach/mods/97?tab=files
 
-- File 400: manager-only diagnostic, uploaded 2026-11-02 around 08:29 UTC.
-- File 401: complete package with APAS, uploaded 2026-11-02 around 08:29 UTC.
-- Initial status: uploaded; scan pending. Final status will be recorded below.
+- File 400: manager-only diagnostic, uploaded 2026-11-02 at 08:28:48 UTC.
+  Nexus shows a green scan indicator and enables Manual download. VirusTotal:
+  **0/66**. The actual Rust manager executable is **0/69** in the contained-file
+  report, analysed 2026-11-02.
+- File 401: complete package with APAS, uploaded at 08:29:10 UTC.
+  Nexus **quarantined** the file. The observed VirusTotal report is **21/52**.
+  The Rust rewrite therefore has not solved distribution of the complete package.
+- Both files remain on the **unpublished** draft. No alternate delivery path or
+  automatic payload download was introduced to bypass the quarantine.
 - Original mod 72 was not edited in this task. Its description and primary file
   379 were compared against the prior saved state and remained unchanged.
+
+Reports:
+
+- Manager archive: https://www.virustotal.com/gui/file/9f759d9ebaed737173ae2394aa211d7b7f41b38bbf8e92c809525160de1e9790
+- Manager executable: https://www.virustotal.com/gui/file/81a96b3ccdbf807fb895c83d595b24bd2c4a868ffeb72eace31b8329e557ebb7
+- Complete archive: https://www.virustotal.com/gui/file/85fed044eff003f892e282a47eb9aadb2aa0d305e586d603daba4feccd5897b7
+
+Counts are observations, not permanent guarantees. The visible contained-file
+list for this archive is incomplete, so it does not by itself isolate one ASI as
+the only cause. Earlier per-file findings for APAS and other native mods remain
+separate evidence with their own analysis dates.
 
 ## Remaining release validation
 
