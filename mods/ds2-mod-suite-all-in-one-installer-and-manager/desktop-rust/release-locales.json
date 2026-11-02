@@ -1,0 +1,102 @@
+{
+  "en": {
+    "Infrastructure + Free Mining (Beta)": "Infrastructure + Free Mining (Beta)",
+    "Infrastructure settings plus free mine extraction. Shares settings with the standard variant. Mining with zero crystals in inventory is not yet confirmed.": "Infrastructure settings plus free mine extraction. Shares settings with the standard variant. Mining with zero crystals in inventory is not yet confirmed.",
+    "Close the game before applying changes": "Close the game before applying changes",
+    "Extract the complete ZIP before applying changes": "Extract the complete ZIP before applying changes",
+    "Unsupported game build": "Unsupported game build",
+    "Save configuration": "Save configuration",
+    "Install / update": "Install / update",
+    "Remove known mod binary": "Remove known mod binary"
+  },
+  "de": {
+    "Infrastructure + Free Mining (Beta)": "Infrastruktur + Free Mining (Beta)",
+    "Infrastructure settings plus free mine extraction. Shares settings with the standard variant. Mining with zero crystals in inventory is not yet confirmed.": "Infrastruktur-Einstellungen plus kostenlose Minenförderung. Gemeinsame Einstellungen mit der Standardvariante. Förderung mit leerem Kristallinventar ist noch nicht bestätigt.",
+    "Close the game before applying changes": "Spiel vor dem Anwenden schließen",
+    "Extract the complete ZIP before applying changes": "Vor dem Anwenden das vollständige ZIP entpacken",
+    "Unsupported game build": "Nicht unterstützte Spielversion",
+    "Save configuration": "Konfiguration speichern",
+    "Install / update": "Installieren / aktualisieren",
+    "Remove known mod binary": "Bekannte Mod-Datei entfernen"
+  },
+  "fr": {
+    "Infrastructure + Free Mining (Beta)": "Infrastructures + extraction gratuite (bêta)",
+    "Infrastructure settings plus free mine extraction. Shares settings with the standard variant. Mining with zero crystals in inventory is not yet confirmed.": "Réglages des infrastructures et extraction gratuite. Réglages partagés avec la variante standard. Extraction avec zéro cristal en inventaire non confirmée.",
+    "Close the game before applying changes": "Fermez le jeu avant de continuer",
+    "Extract the complete ZIP before applying changes": "Extrayez le ZIP complet avant de continuer",
+    "Unsupported game build": "Version du jeu non compatible",
+    "Save configuration": "Enregistrer la configuration",
+    "Install / update": "Installer / mettre à jour",
+    "Remove known mod binary": "Supprimer le fichier du mod reconnu"
+  },
+  "es": {
+    "Infrastructure + Free Mining (Beta)": "Infraestructura + extracción gratuita (beta)",
+    "Infrastructure settings plus free mine extraction. Shares settings with the standard variant. Mining with zero crystals in inventory is not yet confirmed.": "Ajustes de infraestructura y extracción gratuita. Comparte ajustes con la variante normal. Sin confirmar con cero cristales en el inventario.",
+    "Close the game before applying changes": "Cierra el juego antes de aplicar",
+    "Extract the complete ZIP before applying changes": "Extrae el ZIP completo antes de aplicar",
+    "Unsupported game build": "Versión del juego no compatible",
+    "Save configuration": "Guardar configuración",
+    "Install / update": "Instalar / actualizar",
+    "Remove known mod binary": "Eliminar archivo de mod reconocido"
+  },
+  "it": {
+    "Infrastructure + Free Mining (Beta)": "Infrastrutture + estrazione gratuita (beta)",
+    "Infrastructure settings plus free mine extraction. Shares settings with the standard variant. Mining with zero crystals in inventory is not yet confirmed.": "Impostazioni infrastrutture ed estrazione gratuita. Impostazioni condivise con la variante standard. Estrazione con zero cristalli in inventario non ancora confermata.",
+    "Close the game before applying changes": "Chiudi il gioco prima di applicare",
+    "Extract the complete ZIP before applying changes": "Estrai tutto lo ZIP prima di applicare",
+    "Unsupported game build": "Versione del gioco non supportata",
+    "Save configuration": "Salva configurazione",
+    "Install / update": "Installa / aggiorna",
+    "Remove known mod binary": "Rimuovi file mod riconosciuto"
+  },
+  "zh-CN": {
+    "Infrastructure + Free Mining (Beta)": "基础设施 + 免费采矿（测试版）",
+    "Infrastructure settings plus free mine extraction. Shares settings with the standard variant. Mining with zero crystals in inventory is not yet confirmed.": "基础设施设置与免费采矿。与标准版本共用设置。背包中完全没有晶体时的采矿效果尚未确认。",
+    "Close the game before applying changes": "应用前请关闭游戏",
+    "Extract the complete ZIP before applying changes": "应用前请完整解压 ZIP",
+    "Unsupported game build": "不支持的游戏版本",
+    "Save configuration": "保存配置",
+    "Install / update": "安装 / 更新",
+    "Remove known mod binary": "移除已识别的模组文件"
+  },
+  "ja": {
+    "Infrastructure + Free Mining (Beta)": "インフラ＋無料採掘（ベータ）",
+    "Infrastructure settings plus free mine extraction. Shares settings with the standard variant. Mining with zero crystals in inventory is not yet confirmed.": "インフラ設定と無料採掘。通常版と設定を共有します。所持結晶がゼロの場合の採掘は未確認です。",
+    "Close the game before applying changes": "適用前にゲームを終了してください",
+    "Extract the complete ZIP before applying changes": "適用前にZIP全体を展開してください",
+    "Unsupported game build": "非対応のゲームバージョン",
+    "Save configuration": "設定を保存",
+    "Install / update": "インストール / 更新",
+    "Remove known mod binary": "確認済みModファイルを削除"
+  },
+  "ko": {
+    "Infrastructure + Free Mining (Beta)": "인프라 + 무료 채굴 (베타)",
+    "Infrastructure settings plus free mine extraction. Shares settings with the standard variant. Mining with zero crystals in inventory is not yet confirmed.": "인프라 설정 및 무료 채굴. 일반 버전과 설정을 공유합니다. 보유 결정이 0개일 때의 채굴은 아직 확인되지 않았습니다.",
+    "Close the game before applying changes": "적용 전에 게임을 종료하세요",
+    "Extract the complete ZIP before applying changes": "적용 전에 ZIP 전체를 압축 해제하세요",
+    "Unsupported game build": "지원되지 않는 게임 버전",
+    "Save configuration": "설정 저장",
+    "Install / update": "설치 / 업데이트",
+    "Remove known mod binary": "확인된 모드 파일 제거"
+  },
+  "pt-BR": {
+    "Infrastructure + Free Mining (Beta)": "Infraestrutura + mineração gratuita (beta)",
+    "Infrastructure settings plus free mine extraction. Shares settings with the standard variant. Mining with zero crystals in inventory is not yet confirmed.": "Configurações de infraestrutura e mineração gratuita. Compartilha ajustes com a variante padrão. Extração com zero cristais no inventário ainda não confirmada.",
+    "Close the game before applying changes": "Feche o jogo antes de aplicar",
+    "Extract the complete ZIP before applying changes": "Extraia o ZIP completo antes de aplicar",
+    "Unsupported game build": "Versão do jogo não compatível",
+    "Save configuration": "Salvar configuração",
+    "Install / update": "Instalar / atualizar",
+    "Remove known mod binary": "Remover arquivo de mod reconhecido"
+  },
+  "ru": {
+    "Infrastructure + Free Mining (Beta)": "Инфраструктура + бесплатная добыча (бета)",
+    "Infrastructure settings plus free mine extraction. Shares settings with the standard variant. Mining with zero crystals in inventory is not yet confirmed.": "Настройки инфраструктуры и бесплатная добыча. Общие настройки с обычным вариантом. Добыча при нуле кристаллов в инвентаре пока не подтверждена.",
+    "Close the game before applying changes": "Закройте игру перед применением",
+    "Extract the complete ZIP before applying changes": "Распакуйте весь ZIP перед применением",
+    "Unsupported game build": "Неподдерживаемая версия игры",
+    "Save configuration": "Сохранить настройки",
+    "Install / update": "Установить / обновить",
+    "Remove known mod binary": "Удалить известный файл мода"
+  }
+}

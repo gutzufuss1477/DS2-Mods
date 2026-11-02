@@ -166,21 +166,55 @@ impl Engine {
                 warnings.push("Unsupported game build: installation is disabled.".into());
             }
             let snapshot = self.scan(game)?;
+            let mut variants: BTreeMap<String, (usize, Vec<String>)> = BTreeMap::new();
             for m in &self.data.catalog.mods {
                 let binaries: Vec<_> = m.files.iter().filter(|f| f.kind != "config").collect();
-                if !binaries.is_empty()
-                    && binaries
-                        .iter()
-                        .all(|f| snapshot.files.contains_key(&f.target))
-                {
-                    installed.push(m.id.clone());
+                let matches = !binaries.is_empty()
+                    && binaries.iter().all(|f| {
+                        snapshot
+                            .hashes
+                            .get(&f.target)
+                            .and_then(Option::as_ref)
+                            .is_some_and(|h| {
+                                std::iter::once(&f.sha256)
+                                    .chain(f.previous_hashes.iter())
+                                    .any(|known| known.eq_ignore_ascii_case(h))
+                            })
+                    });
+                let legacy = m.obsolete_files.iter().any(|f| {
+                    snapshot
+                        .hashes
+                        .get(&f.target)
+                        .and_then(Option::as_ref)
+                        .is_some_and(|h| f.sha256.eq_ignore_ascii_case(h))
+                });
+                if matches || legacy {
+                    if let Some(group) = &m.exclusive_group {
+                        let exact = binaries.iter().all(|f| {
+                            snapshot.hashes[&f.target]
+                                .as_ref()
+                                .is_some_and(|h| f.sha256.eq_ignore_ascii_case(h))
+                        });
+                        let score = if exact {
+                            3
+                        } else if matches {
+                            2
+                        } else {
+                            1
+                        };
+                        let best = variants.entry(group.clone()).or_insert((0, Vec::new()));
+                        if score > best.0 {
+                            *best = (score, vec![m.id.clone()]);
+                        } else if score == best.0 {
+                            best.1.push(m.id.clone());
+                        }
+                    } else {
+                        installed.push(m.id.clone());
+                    }
                 }
-                for f in binaries {
+                for f in &binaries {
                     if let Some(Some(h)) = snapshot.hashes.get(&f.target) {
-                        if !std::iter::once(&f.sha256)
-                            .chain(f.previous_hashes.iter())
-                            .any(|known| known.eq_ignore_ascii_case(h))
-                        {
+                        if !self.data.known_binary(&f.target, h) {
                             warnings.push(format!(
                                 "Unknown or modified file will be retained: {}",
                                 f.target
@@ -189,6 +223,18 @@ impl Engine {
                     }
                 }
             }
+            for (group, (_, ids)) in variants {
+                if ids.len() == 1 {
+                    installed.extend(ids);
+                } else {
+                    warnings.push(format!(
+                        "Choose the installed variant before applying: {}",
+                        group
+                    ));
+                }
+            }
+            warnings.sort();
+            warnings.dedup();
             for f in &self.data.fields {
                 if let Some(raw) = snapshot.files.get(&f.target) {
                     let source = decode(raw)?;
@@ -280,8 +326,23 @@ impl Engine {
                 return Err("A previous operation was interrupted. Use Restore backup before applying further changes.".into());
             }
         }
-        let values = self.data.validate_values(&values)?;
+        let mut values = self.data.validate_values(&values)?;
         let selected = self.data.selected(&ids)?;
+        // The selected variant owns its mode switch. Common user settings have
+        // one canonical field ID and survive switching in either direction.
+        for m in &self.data.catalog.mods {
+            if selected.contains(&m.id) {
+                for (id, value) in &m.setting_overrides {
+                    let field = self
+                        .data
+                        .fields
+                        .iter()
+                        .find(|f| &f.id == id)
+                        .ok_or("Unknown variant setting")?;
+                    values.insert(id.clone(), field.normalize(value)?);
+                }
+            }
+        }
         let snapshot = self.snapshot.as_ref().ok_or("Select a game folder first")?;
         if !self.supported {
             return Err("The selected game build is not supported".into());
@@ -336,11 +397,7 @@ impl Engine {
                     continue;
                 }
                 let installed = snapshot.hashes.get(&f.target).and_then(|h| h.as_ref());
-                let known = installed.is_none_or(|h| {
-                    std::iter::once(&f.sha256)
-                        .chain(f.previous_hashes.iter())
-                        .any(|x| x.eq_ignore_ascii_case(h))
-                });
+                let known = installed.is_none_or(|h| self.data.known_binary(&f.target, h));
                 if !known {
                     if enabled {
                         return Err(format!("Unknown or modified file retained: {}", f.target));

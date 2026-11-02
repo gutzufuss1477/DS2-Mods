@@ -1,81 +1,62 @@
-# DS2 Mod Suite — Rust desktop preview
+# DS2 Mod Suite 1.14.0
 
-Native Windows desktop candidate for Suite 1.13.0, using Rust and Tauri/WebView2.
-This is an unpublished development preview, not a replacement for the public
-release. Native mod antivirus findings remain unresolved. A clean result for the
-manager by itself is not a clean result for the complete mod package.
+Install, update and configure DS2 mods in one window. All mod files are included.
 
-## Player workflow
+1. Close Death Stranding 2. Extract the **entire ZIP into a new folder**.
+2. Start `DS2ModManager.exe` and accept the normal Windows administrator prompt.
+3. Check the detected game folder, choose mods/settings, then **Apply changes**.
 
-Extract the complete ZIP, start `DS2ModManager.exe`, select mods and choose Apply.
-Steam libraries and the previous manager's game path are detected automatically.
-Use Browse only if automatic detection cannot find your installation. Mod files
-are included in the complete package; there is no second payload download, browser
-folder permission flow, command prompt or manual INI copying.
+Existing installations are detected. Your current INI values, comments and
+personal keys are retained. Do not copy the payload folders into the game by hand.
+Keep the EXE and its payload folder together. The old manager does not need to run.
 
-The standalone manager-only ZIP is a diagnostic control and cannot install mods.
-It must not be presented as the normal player download.
+Windows 10/11 x64 and Microsoft Edge WebView2 Runtime are required. WebView2 is
+normally present on Windows; if it is missing, install it from Microsoft:
+https://developer.microsoft.com/microsoft-edge/webview2/
+The manager checks the supported game fingerprint before making changes.
 
-Windows 10/11 x64 with Microsoft Edge WebView2 is required. WebView2 is normally
-already installed; this portable preview does not silently install a runtime or
-download dependencies. Protected game directories require ordinary filesystem
-write access; this preview does not implement automatic UAC elevation.
+## Included
 
-## Current implementation
+- 30 components, including updated APAS 4.1.0-preview.1 and optional Free Mining.
+- 398 editable settings in 24 INIs, with JSON profile import/export.
+- English, German, French, Spanish, Italian, Simplified Chinese, Japanese,
+  Korean, Brazilian Portuguese and Russian interface.
+- Automatic dependencies, mutually exclusive variants and checked file backups.
 
-- 29 components, 398 centralized settings, 24 INI templates, ten UI languages.
-- Compiled catalog and SHA-256 verification of each local payload; no network
-  updater, shell launcher, process injection, mod execution or antivirus changes.
-- Automatic dependencies and exclusive backpack variants; game fingerprint and
-  read-only running-process checks before installation.
-- Existing INI values, comments and unknown keys retained; legacy field aliases
-  migrated. Previous C# settings profiles are read without modifying that app's
-  files. JSON import/export uses native file dialogs.
-- File replacement through completed temporary files, checked backups and a
-  persistent transaction journal. Known binaries alone are removed; personal INIs
-  and unknown binaries remain. Changes made since inspection abort the plan.
-- Recovery of the latest transaction with hash checks. Interrupted transactions
-  must be restored before another installation. Closing the window is blocked
-  while a native filesystem operation owns the engine lock.
+**Free Mining is a beta alternative to Infrastructure One Unit.** Choose one.
+Construction settings are shared. The manager sets the mining mode automatically;
+the standard mining-cost value is preserved for switching back. Extraction with
+zero crystals in inventory has not yet been confirmed in game.
 
-Normal configuration, installation and recovery are implemented in Rust. The HTML
-interface is embedded in the desktop application and never opens in the user's
-browser. A localhost browser preview can exercise presentation only; it explicitly
-does not have the native bridge and cannot access game files.
+APAS keeps its cost, Unlock All and Early Access settings. Progression-changing
+options are off by default. Unlocks and other changes saved by the game can persist.
+The new APAS lifecycle build has offline validation; a fresh in-game test of that
+exact build is still outstanding.
 
-## Build and test
+## Update, remove and restore
 
-Requires Rust MSVC, Visual Studio C++ Build Tools, Node/npm and Python. Use the
-checked-in Cargo/npm lockfiles. No post-build packer, obfuscator or encryption is
-used. Native payloads are included as ordinary local files with checked hashes.
+Use the new manager with your existing game folder, review the detected selection
+and apply. Deselected known mod binaries are removed; INIs and unfamiliar files
+are retained. Select **Restore backup** to undo the latest operation by this
+manager. Backups are in `DS2SuiteBackups` inside the game folder. Existing backups
+from the old C# manager remain on disk; they are not imported into this restore UI.
+Game saves are not backed up or restored by the manager.
 
-```powershell
-python stage_apas_candidate.py --payload-root D:\verified\DS2-Mod-Suite --apas-archive D:\build\DS2_APAS_4.1.0-preview.1.zip --out D:\APAS-staged
-python prepare.py --payload-root D:\APAS-staged --catalog D:\APAS-staged\catalog.json
-npm ci --ignore-scripts
-cargo test --manifest-path src-tauri\Cargo.toml --locked -- --test-threads=1
-npm run build
-```
+Support: https://www.nexusmods.com/deathstranding2onthebeach/mods/72
+Source: https://github.com/gutzufuss1477/DS2-Mods
 
-`prepare.py` derives definitions, default INI text and translations from the
-existing source catalog. Generated data and native binaries are not committed.
-For short build paths set `CARGO_TARGET_DIR` outside this long checkout path.
-The resulting executable supports `--verify-package <report.json>` and
-`--inspect-game <report.json>` for headless, read-only checks.
+## Build
 
-Preview 2 integrates the APAS 4.1.0-preview.1 lifecycle/recovery candidate that
-passed the standalone Nexus test as file 402. Use `stage_apas_candidate.py` with
-the verified baseline payload directory, reviewed APAS archive and fresh output
-directory. Pass its `catalog.json` to `prepare.py --catalog` (or `build.ps1 -Catalog`).
-The public source catalog stays unchanged. All other payloads retain their exact
-previous bytes. Standalone APAS acceptance does not establish complete-package
-acceptance or in-game compatibility.
+The desktop application uses Rust/Tauri and a local embedded interface. Native
+mods remain ordinary ASI/DLL/INI files, verified against the compiled catalog.
+There are no remote payload downloads or changes to antivirus settings.
 
-Tests cover default schema validity, dependencies, variant conflicts, exact uint64
-values, migration, personal INI data, payload tampering, foreign binaries, stale
-plans, game changes, rollback and backup restoration. They use temporary test game
-directories and synthetic payloads; they do not install into a real game.
+Use `stage_release.py` with the verified baseline, APAS archive and Free Mining
+directory, then `build.ps1 -PayloadRoot <staged-folder> -OutputRoot <fresh-folder>`.
+Rust MSVC, Visual Studio C++ Build Tools, Node/npm and Python are required. Cargo
+and npm lockfiles are checked in. Release builds request administrator access;
+debug/test builds use writable temporary fixtures without elevation.
 
-Native window interaction and a fresh in-game test are still required before a
-public release. Browser preview testing is not equivalent to a native WebView2 UI
-test. Filesystem permission/elevation UX also needs final release validation.
+See `publication/RELEASE-1.14.0.md` in the source repository for validation and
+remaining test limitations. A Nexus acceptance result does not guarantee that
+every antivirus product will accept a file.

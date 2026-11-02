@@ -5,11 +5,11 @@ from pathlib import Path
 def main():
     parser=argparse.ArgumentParser()
     parser.add_argument('--payload-root',type=Path,required=True)
-    parser.add_argument('--catalog',type=Path,help='Explicit development catalog; public source catalog remains unchanged.')
+    parser.add_argument('--catalog',type=Path,help='Override the Rust release catalog for development builds.')
     args=parser.parse_args()
     base=Path(__file__).resolve().parent
     source=base.parent/'source'
-    catalog=json.loads((args.catalog or source/'catalog.json').read_text(encoding='utf-8-sig'))
+    catalog=json.loads((args.catalog or base/'catalog.json').read_text(encoding='utf-8-sig'))
     schema=json.loads((source/'settings-schema.json').read_text(encoding='utf-8-sig'))
     templates={}
     for mod in catalog['mods']:
@@ -17,7 +17,8 @@ def main():
             if f['kind']!='config':continue
             raw=(args.payload_root/f['payload']).read_bytes()
             assert hashlib.sha256(raw).hexdigest().lower()==f['sha256'].lower(),f['target']
-            templates[f['target']]=raw.decode('utf-8-sig')
+            # Shared variant INIs use one canonical template and common fields.
+            templates.setdefault(f['target'],raw.decode('utf-8-sig'))
     fields=[]
     for mod in schema['mods']:
         for file in mod['files']:
@@ -40,8 +41,16 @@ def main():
                             if default is not None:break
                     assert default is not None,key
                     fields.append({**field,'id':'|'.join([mod['modId'],file['target'],sec['name'],field['key']]),'modId':mod['modId'],'target':file['target'],'section':sec['name'],'defaultValue':default,'label':field.get('label',re.sub(r'(?<=[a-z])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])',' ',field['key'])),'description':field.get('description',comments.get(key,''))})
+    fields.extend(catalog.get('managedSettings',[]))
     data={'catalog':catalog,'fields':fields,'templates':templates,'locales':{p.stem:json.loads(p.read_text(encoding='utf-8-sig')) for p in (source/'locales').glob('*.json')}}
-    assert len(fields)==398 and len(catalog['mods'])==29
+    assert len({f['id'] for f in fields})==len(fields)
+    expected=json.loads((base/'package.json').read_text())['version']
+    assert catalog['suiteVersion']==expected, 'Catalog/package version mismatch'
+    for mod in catalog['mods']:
+        for key in mod.get('settingOverrides',{}):
+            assert any(f['id']==key and f.get('managedByVariant') for f in fields), key
+    for locale, translations in json.loads((base/'release-locales.json').read_text(encoding='utf-8')).items():
+        data['locales'][locale].update(translations)
     generated=base/'src-tauri/generated';generated.mkdir(parents=True,exist_ok=True)
     serialized=json.dumps(data,ensure_ascii=False,separators=(',',':'))
     (generated/'data.json').write_text(serialized,encoding='utf-8')

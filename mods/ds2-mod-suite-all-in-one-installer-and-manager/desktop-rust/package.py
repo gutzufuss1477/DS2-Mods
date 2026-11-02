@@ -1,4 +1,4 @@
-"""Create transparent diagnostic/full archives. Never modifies source payloads."""
+"""Create the complete portable release. Never modifies source payloads."""
 import argparse, hashlib, json, shutil, zipfile
 from pathlib import Path
 
@@ -8,6 +8,7 @@ def main():
     parser.add_argument('--payload-root',type=Path,required=True)
     parser.add_argument('--exe',type=Path,required=True)
     parser.add_argument('--out',type=Path,required=True)
+    parser.add_argument('--include-diagnostic',action='store_true')
     args=parser.parse_args()
     base=Path(__file__).resolve().parent
     version=json.loads((base/'package.json').read_text())['version']
@@ -27,7 +28,7 @@ def main():
     notices_path=args.out/'THIRD_PARTY_NOTICES.md';notices_path.write_text('\n'.join(notices)+'\n',encoding='utf-8')
     common['THIRD_PARTY_NOTICES.md']=notices_path
     manifests={}
-    for flavor in ['manager-only','complete']:
+    for flavor in (['manager-only','complete'] if args.include_diagnostic else ['complete']):
         files=dict(common)
         if flavor=='complete':
             specs=[data['catalog']['loader']]+[f for m in data['catalog']['mods'] for f in m['files']]
@@ -40,7 +41,7 @@ def main():
             dest=folder/name;dest.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(src,dest)
         manifest={name:{'sha256':digest(src),'bytes':src.stat().st_size} for name,src in sorted(files.items())}
         (folder/'manifest.json').write_text(json.dumps({'variant':flavor,'version':version,'files':manifest},indent=2)+'\n',encoding='utf-8')
-        archive=args.out/f'DS2_Rust_Manager_{version}_{flavor}.zip'
+        archive=args.out/(f'DS2_Mod_Suite_v{version}.zip' if flavor=='complete' else f'DS2_Manager_Only_v{version}_diagnostic.zip')
         with zipfile.ZipFile(archive,'w',compression=zipfile.ZIP_DEFLATED,compresslevel=9) as z:
             for path in sorted(folder.rglob('*')):
                 if path.is_file():z.write(path,'DS2-Mod-Suite/'+path.relative_to(folder).as_posix())

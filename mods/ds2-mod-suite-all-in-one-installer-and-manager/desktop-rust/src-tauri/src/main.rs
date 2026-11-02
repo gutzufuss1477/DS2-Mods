@@ -59,24 +59,7 @@ async fn import_profile(
     }
     let p: model::Profile = serde_json::from_slice(&raw).map_err(platform::err)?;
     let engine = state.lock().map_err(|_| "Manager busy")?;
-    if p.schema_version != 1 {
-        return Err("Unknown profile version".into());
-    }
-    let mut values = engine.data.defaults();
-    let mut seen = std::collections::BTreeSet::new();
-    for v in p.values {
-        let f = engine
-            .data
-            .fields
-            .iter()
-            .find(|f| f.id.eq_ignore_ascii_case(&v.id))
-            .ok_or("Unknown setting in profile")?;
-        if !seen.insert(f.id.clone()) {
-            return Err("Duplicate setting in profile".into());
-        }
-        values.insert(f.id.clone(), f.normalize(&v.value)?);
-    }
-    Ok(Some(engine.data.validate_values(&values)?))
+    Ok(Some(engine.data.import_profile(p)?))
 }
 #[tauri::command]
 async fn export_profile(

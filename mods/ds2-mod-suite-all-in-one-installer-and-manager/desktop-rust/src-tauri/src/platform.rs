@@ -223,7 +223,7 @@ pub fn discover(steam_folder: &str) -> Vec<PathBuf> {
             .map(|p| p.join("steamapps/common").join(steam_folder)),
     );
     candidates.retain(|p| p.join("DS2.exe").is_file());
-    candidates.sort();
-    candidates.dedup();
+    let mut seen = std::collections::BTreeSet::new();
+    candidates.retain(|p| seen.insert(p.to_string_lossy().to_ascii_lowercase()));
     candidates
 }

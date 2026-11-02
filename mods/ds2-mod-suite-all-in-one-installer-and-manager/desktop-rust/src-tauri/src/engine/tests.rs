@@ -50,9 +50,9 @@ fn chosen(e: &Engine) -> Vec<String> {
 #[test]
 fn all_defaults_are_valid_and_complete() {
     let data = Data::load();
-    assert_eq!(data.fields.len(), 398);
+    assert_eq!(data.fields.len(), 399);
     assert_eq!(data.templates.len(), 24);
-    assert_eq!(data.catalog.mods.len(), 29);
+    assert_eq!(data.catalog.mods.len(), 30);
     data.validate_values(&data.defaults()).unwrap();
 }
 #[test]
@@ -356,4 +356,184 @@ fn game_change_blocks_application() {
     )
     .unwrap();
     assert!(e.apply(&p.token).is_err());
+}
+
+#[test]
+fn every_exclusive_variant_is_detected_and_can_be_switched() {
+    let (_temp, mut e) = fixture();
+    let mut groups: BTreeMap<String, Vec<String>> = BTreeMap::new();
+    for m in &e.data.catalog.mods {
+        if let Some(g) = &m.exclusive_group {
+            groups.entry(g.clone()).or_default().push(m.id.clone());
+        }
+    }
+    let game = e.game.clone().unwrap();
+    for ids in groups.values() {
+        for id in ids.iter().chain(ids.iter().rev()) {
+            let view = e.inspect(Some(game.clone())).unwrap();
+            let plan = e.preview(vec![id.clone()], view.values).unwrap();
+            e.apply(&plan.token).unwrap();
+            let view = e.inspect(Some(game.clone())).unwrap();
+            assert_eq!(
+                view.installed
+                    .iter()
+                    .filter(|m| ids.contains(m))
+                    .collect::<Vec<_>>(),
+                vec![id]
+            );
+            assert!(
+                !view
+                    .warnings
+                    .iter()
+                    .any(|w| w.starts_with("Unknown or modified")),
+                "{:?}",
+                view.warnings
+            );
+        }
+    }
+}
+
+#[test]
+fn free_mining_switches_preserve_common_ini_and_restore_exact_previous_files() {
+    let (_temp, mut e) = fixture();
+    let stable = e
+        .data
+        .catalog
+        .mods
+        .iter()
+        .find(|m| m.id == "infrastructure-one-unit")
+        .unwrap()
+        .clone();
+    let binary = stable.files.iter().find(|f| f.kind == "binary").unwrap();
+    let game = e.game.clone().unwrap();
+    let ini_name = "ds2_infrastructure_one_unit.ini";
+    let before = "; My construction settings\r\n[InfrastructureOneUnit]\r\nEnabled=1\r\nRemainingUnits=7\r\nRoadConstruction=0\r\nMineProductionCrystalCost=25 ; retained for standard mode\r\n[Personal]\r\nNote=keep-me\r\n";
+    fs::write(
+        game.join(&binary.target),
+        fs::read(e.package.join(&binary.payload)).unwrap(),
+    )
+    .unwrap();
+    fs::write(game.join(ini_name), before).unwrap();
+    let fields: Vec<_> = e
+        .data
+        .fields
+        .iter()
+        .filter(|f| f.mod_id == stable.id)
+        .cloned()
+        .collect();
+    let flag = fields
+        .iter()
+        .find(|f| f.key == "MineProductionFree")
+        .unwrap();
+    let view = e.inspect(Some(game.clone())).unwrap();
+    assert!(view.installed.contains(&stable.id));
+    let original_values = view.values.clone();
+    let plan = e
+        .preview(vec!["infrastructure-free-mining".into()], view.values)
+        .unwrap();
+    e.apply(&plan.token).unwrap();
+    let content = fs::read_to_string(game.join(ini_name)).unwrap();
+    let ini = Ini::parse(&content);
+    assert_eq!(ini.get(flag).unwrap(), "1");
+    for f in &fields {
+        if f.id != flag.id {
+            assert_eq!(ini.get(f).unwrap(), original_values[&f.id]);
+        }
+    }
+    assert!(content.contains("Note=keep-me") && content.contains("; retained for standard mode"));
+    e.restore_latest().unwrap();
+    assert_eq!(fs::read_to_string(game.join(ini_name)).unwrap(), before);
+    assert_eq!(
+        hash_file(&game.join(&binary.target)).unwrap(),
+        binary.sha256
+    );
+    for (id, expected) in [
+        ("infrastructure-free-mining", "1"),
+        ("infrastructure-one-unit", "0"),
+    ] {
+        let view = e.inspect(Some(game.clone())).unwrap();
+        let p = e.preview(vec![id.into()], view.values).unwrap();
+        e.apply(&p.token).unwrap();
+        let view = e.inspect(Some(game.clone())).unwrap();
+        assert_eq!(view.values[&flag.id], expected);
+        assert!(view.installed.contains(&id.to_string()));
+        for f in &fields {
+            if f.id != flag.id {
+                assert_eq!(view.values[&f.id], original_values[&f.id]);
+            }
+        }
+    }
+}
+
+#[test]
+fn old_profiles_migrate_retired_keys_without_losing_current_values() {
+    let data = Data::load();
+    let mut settings: Vec<_> = data
+        .defaults()
+        .into_iter()
+        .filter(|(id, _)| !id.ends_with("|MineProductionFree"))
+        .map(|(id, value)| Setting { id, value })
+        .collect();
+    settings.push(Setting {
+        id: "retired-diagnostic|file.ini|Debug|OldFlag".into(),
+        value: "ignored".into(),
+    });
+    let profile = Profile {
+        schema_version: 1,
+        values: settings,
+    };
+    assert_eq!(
+        data.import_profile(profile.clone()).unwrap(),
+        data.validate_values(&data.defaults()).unwrap()
+    );
+    let mut duplicate = profile.clone();
+    duplicate.values.push(duplicate.values[0].clone());
+    assert!(data.import_profile(duplicate).is_err());
+    let mut invalid = profile;
+    invalid.values[0].value = "bad\n[Injected]".into();
+    assert!(data.import_profile(invalid).is_err());
+}
+
+#[test]
+fn renamed_legacy_mods_are_selected_for_upgrade_and_restore() {
+    let (_temp, mut e) = fixture();
+    let game = e.game.clone().unwrap();
+    let ids: Vec<_> = e
+        .data
+        .catalog
+        .mods
+        .iter()
+        .filter(|m| !m.obsolete_files.is_empty())
+        .map(|m| m.id.clone())
+        .collect();
+    for id in ids {
+        let m = e.data.catalog.mods.iter_mut().find(|m| m.id == id).unwrap();
+        let old = &mut m.obsolete_files[0];
+        let raw = format!("old renamed binary for {id}").into_bytes();
+        old.sha256 = hash(&raw);
+        let target = old.target.clone();
+        fs::write(game.join(&target), &raw).unwrap();
+        let view = e.inspect(Some(game.clone())).unwrap();
+        assert!(
+            view.installed.contains(&id),
+            "{id} was not selected for upgrade"
+        );
+        let plan = e.preview(view.installed, view.values).unwrap();
+        e.apply(&plan.token).unwrap();
+        assert!(!game.join(&target).exists());
+        for f in &e
+            .data
+            .catalog
+            .mods
+            .iter()
+            .find(|m| m.id == id)
+            .unwrap()
+            .files
+        {
+            assert!(game.join(&f.target).exists());
+        }
+        e.restore_latest().unwrap();
+        assert_eq!(fs::read(game.join(&target)).unwrap(), raw);
+        fs::remove_file(game.join(&target)).unwrap();
+    }
 }

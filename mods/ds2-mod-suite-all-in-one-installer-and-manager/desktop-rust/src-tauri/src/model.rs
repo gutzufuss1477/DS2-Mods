@@ -47,6 +47,8 @@ pub struct Mod {
     pub requires: Vec<String>,
     pub exclusive_group: Option<String>,
     #[serde(default)]
+    pub setting_overrides: BTreeMap<String, String>,
+    #[serde(default)]
     pub conflicting_files: Vec<String>,
     #[serde(default)]
     pub obsolete_files: Vec<Obsolete>,
@@ -163,6 +165,41 @@ impl Field {
     }
 }
 impl Data {
+    // Shared targets (variant ASIs) are owned by the catalog, not by whichever
+    // variant happens to be selected. Unknown files still fail closed.
+    pub fn known_binary(&self, target: &str, hash: &str) -> bool {
+        self.catalog.mods.iter().flat_map(|m| &m.files).any(|f| {
+            f.kind != "config"
+                && f.target == target
+                && std::iter::once(&f.sha256)
+                    .chain(f.previous_hashes.iter())
+                    .any(|h| h.eq_ignore_ascii_case(hash))
+        })
+    }
+
+    pub fn import_profile(&self, profile: Profile) -> Result<Values, String> {
+        if profile.schema_version != 1 {
+            return Err("Unknown profile version".into());
+        }
+        let mut values = self.defaults();
+        let mut seen = BTreeSet::new();
+        for item in profile.values {
+            if !seen.insert(item.id.to_ascii_lowercase()) {
+                return Err("Duplicate setting in profile".into());
+            }
+            // Older managers exported retired diagnostic settings as well.
+            // Import only recognized field IDs; never treat profile text as an INI key.
+            if let Some(f) = self
+                .fields
+                .iter()
+                .find(|f| f.id.eq_ignore_ascii_case(&item.id))
+            {
+                values.insert(f.id.clone(), f.normalize(&item.value)?);
+            }
+        }
+        self.validate_values(&values)
+    }
+
     pub fn load() -> Self {
         serde_json::from_str(include_str!("../generated/data.json"))
             .expect("Invalid embedded catalog")

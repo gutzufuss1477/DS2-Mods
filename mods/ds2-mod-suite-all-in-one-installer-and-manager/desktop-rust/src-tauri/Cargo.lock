@@ -663,7 +663,7 @@ dependencies = [
 
 [[package]]
 name = "ds2-mod-suite"
-version = "1.13.0-preview.2"
+version = "1.14.0"
 dependencies = [
  "fs2",
  "rfd",
