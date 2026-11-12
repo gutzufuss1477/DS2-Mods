@@ -4,6 +4,7 @@ Current Nexus-published mods by gutzufuss1477. Names and file versions follow Ne
 
 | Mod | Current files |
 |---|---|
+| [All Containers Small](mods/all-containers-small/) | 1.0.0 |
 | [Vehicle Enhancements - Hill Assist and Speed Boost](mods/vehicle-enhancements-hill-assist-and-speed-boost/) | 2 |
 | [Remote Orders Overlay](mods/remote-orders-overlay/) | 4 |
 | [Lost Cargo Like Boost](mods/lost-cargo-like-boost/) | 4 |
@@ -31,7 +32,7 @@ Current Nexus-published mods by gutzufuss1477. Names and file versions follow Ne
 | [Jump Ramp Unlimited](mods/jump-ramp-unlimited/) | 1 |
 | [Beach Jump with Cargo](mods/beach-jump-with-cargo/) | 1 |
 
-This repository contains source and declarative modifications. Downloads remain on the linked Nexus pages.
+This repository contains source and declarative modifications. Downloads are on the linked Nexus pages; All Containers Small also has a versioned GitHub release.
 Prepared updates are labelled separately from published Nexus downloads. Private experiments and old release archives are not included.
 
 See [distribution notes](DISTRIBUTION.md), [security reporting](SECURITY.md) and [license scope](LICENSES.md).
