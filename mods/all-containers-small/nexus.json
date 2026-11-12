@@ -1,0 +1,23 @@
+{
+  "name": "All Containers Small",
+  "game": "DEATH STRANDING 2: ON THE BEACH",
+  "nexusGame": "deathstranding2onthebeach",
+  "nexusModId": 98,
+  "nexusUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/98",
+  "pageVersion": "1.0.0",
+  "sourceStatus": "source-published",
+  "sourceCommit": "1c3f00fbd094ca2ea3fc5584002c3e66ae066782",
+  "githubRelease": "https://github.com/gutzufuss1477/DS2-Mods/releases/tag/all-containers-small-v1.0.0",
+  "asiSha256": "3f8ea44ef83b3ce0a3564445547169da7d59ce07bfa9cd9c5bd143853ea5d111",
+  "currentFiles": [
+    {
+      "fileId": 406,
+      "name": "All Containers Small 1.0.0",
+      "version": "1.0.0",
+      "category": "MAIN",
+      "sha256": "12ecea3e386bd2d417ff04e3ec03bc770b8d5a78c79ddaebbc2dc7117fac1913",
+      "bytes": 14358,
+      "downloadUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/98?tab=files&file_id=406"
+    }
+  ]
+}
