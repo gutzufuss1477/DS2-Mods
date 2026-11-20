@@ -9,8 +9,9 @@ constexpr u32 SourceBootList=0x4B48C47B, SourceSkeletonList=0x58EA5C0C;
 constexpr u32 SourceBootListId=1000001, SourceSkeletonListId=1000011;
 constexpr u32 BootListId=1000103, SkeletonListId=1000104;
 struct AtlasSources {
- u64 item[2]={},recipe[2]={},visual[2]={};
- bool conflict=false;
+ u64 item[3]={},recipe[3]={},visual[2]={};
+ u64 defaultBootVisual=0;
+ bool hybridConflict=false,conflict=false,defaultBootAmbiguous=false;
  u32 visited=0;
 };
 constexpr AtlasSources EmptyAtlasSources;
@@ -21,7 +22,7 @@ struct DepotPlan {
  i32 count=0,capacity=0;
 };
 inline bool prepareDepotCopy(DepotPlan& plan,u64 depot,u32 extra,u64(*allocate)(u64),bool(*copy)(u64,void*,u64)){
- if(!depot||!extra||extra>8||plan.replacement)return false;
+ if(!depot||!extra||extra>12||plan.replacement)return false;
  const i32 n=at<i32>((void*)depot,0x38),cap=at<i32>((void*)depot,0x3C);
  const u64 source=at<u64>((void*)depot,0x40);
  if(n<0||cap<n||n>100000||(!source&&n))return false;
@@ -49,6 +50,22 @@ constexpr u32 BootRecipe=nameCode("DS2Mod.Atlas.Boots.Recipe.v1");
 constexpr u32 SkeletonRecipe=nameCode("DS2Mod.Atlas.Skeleton.Recipe.v1");
 constexpr u32 BootList=nameCode("DS2Mod.Atlas.Boots.Equipment.v1");
 constexpr u32 SkeletonList=nameCode("DS2Mod.Atlas.Skeleton.Equipment.v1");
+constexpr u32 CombatBokkaRecipe=nameCode("DS2Mod.CombatBokka.Recipe.v1");
+constexpr u32 CombatBokkaBag=nameCode("DS2Mod.CombatBokka.Baggage.v1");
+constexpr u32 CombatBokkaList=nameCode("DS2Mod.CombatBokka.Equipment.v1");
+constexpr u32 CombatBokkaListId=1000105;
+struct EquipmentRecipe {
+ u8 id,sourceId;
+ u32 listId,listCode,bag,recipe;
+ u32 sourceListId,sourceListCode,sourceBag,sourceRecipe;
+};
+// The Battle Lv.3 list is identified by its numeric ID and the shared item/baggage link.
+constexpr EquipmentRecipe EquipmentRecipes[]={
+ {BootId,SourceBootId,BootListId,BootList,BootBag,BootRecipe,SourceBootListId,SourceBootList,SourceBootBag,SourceBootRecipe},
+ {SkeletonId,SourceSkeletonId,SkeletonListId,SkeletonList,SkeletonBag,SkeletonRecipe,SourceSkeletonListId,SourceSkeletonList,SourceSkeletonBag,SourceSkeletonRecipe},
+ {CombatBokkaId,BattleLevel3Id,CombatBokkaListId,CombatBokkaList,CombatBokkaBag,CombatBokkaRecipe,1000013,0,0x37E8F300,0x1CE4AB95}
+};
+static_assert((0xCE790000u | (1u<<8) | CombatBokkaId)==CombatBokkaItemTag);
 constexpr char BootNameDe[]="ATLAS-Stiefel", BootNameEn[]="ATLAS Boots";
 constexpr char SkeletonNameDe[]="ATLAS-Skelett", SkeletonNameEn[]="ATLAS Skeleton";
 constexpr char BootDescriptionEn[]="ATLAS equipment: secure footing, high impact absorption, stronger kicks and quiet steps. Weight: 0.2 kg. Durability: 3400.";
@@ -72,15 +89,20 @@ inline void atlasFabrication(AtlasBundle& b,bool enabled){
  b.recipe[0x52]=enabled?1:0;
 }
 inline void atlasLanguage(AtlasBundle& b,bool german){
+ if(b.item[0x20]==CombatBokkaId){
+  setText(b.name,german?"Bokka-Kampfskelett St.3":"Bokka Combat Skeleton Lv.3");
+  setText(b.preview.description,german?CombatBokkaDescription:CombatBokkaDescriptionEn);
+  return;
+ }
  bool boot=b.item[0x20]==BootId;
  setText(b.name,boot?(german?BootNameDe:BootNameEn):(german?SkeletonNameDe:SkeletonNameEn));
  setText(b.preview.description,boot?(german?BootDescription:BootDescriptionEn):(german?SkeletonDescription:SkeletonDescriptionEn));
 }
 // Borrow only presentation fields. In particular, keep the real item ID, level,
 // category, subtype, equipment-list graph and all gameplay values unchanged.
-inline bool atlasVisuals(AtlasBundle& b,const u8* donor,const u8* donorList,u8 skeletonVisualId){
+inline bool atlasVisuals(AtlasBundle& b,const u8* donor,const u8* donorList,u8 expectedVisualId){
  const bool boot=b.item[0x20]==BootId;
- if((!boot && b.item[0x20]!=SkeletonId) || donor[0x20]!=(boot?BootVisualId:skeletonVisualId) ||
+ if((!boot && b.item[0x20]!=SkeletonId) || donor[0x20]!=expectedVisualId ||
     donor[0x22]!=(boot?5:6) || (!boot && (donor[0x21]!=2 || donor[0x23]!=2)))return false;
  at<u64>(b.item,0x38)=at<u64>(donor,0x38);
  previewCopy(b.item+0x78,donor+0x78,0x20); // entity / helper UUID references
@@ -88,15 +110,27 @@ inline bool atlasVisuals(AtlasBundle& b,const u8* donor,const u8* donorList,u8 s
  at<u32>(b.list,0x58)=at<u32>(donorList,0x58);
  return true;
 }
+inline i32 bootMeshRow(const u8 (*rows)[0x28],i32 count,u8 visualId){
+ i32 selected=-1,defaultRow=-1;
+ for(i32 i=0;i<count;++i){
+  const u8 id=rows[i][0];
+  if(id==BootId)return -1; // This table already owns an ATLAS row.
+  if(id==visualId)selected=i;
+  if(id==DefaultBootVisualId)defaultRow=i;
+ }
+ return selected>=0?selected:defaultRow;
+}
 // All input objects are immutable. Their owners are pinned by the runtime before
 // publishing copies, retaining shared model, icon, language and recipe-cost data.
-inline bool prepareAtlas(AtlasBundle& b,bool boot,const u8* item,const u8* list,const u8* bag,const u8* recipe,
+inline bool prepareAtlas(AtlasBundle& b,const EquipmentRecipe& spec,const u8* item,const u8* list,const u8* bag,const u8* recipe,
  const u8* name,const u8* description,const u8* chart,const u8 (&rows)[6][0x30],bool german){
- const u8 id=boot?BootId:SkeletonId,sourceId=boot?SourceBootId:SourceSkeletonId;
+ const u8 id=spec.id,sourceId=spec.sourceId;
+ const bool boot=id==BootId,hybrid=id==CombatBokkaId;
+ if(hybrid && item[0x21]!=2)return false;
  if(item[0x20]!=sourceId || item[0x22]!=(boot?5:6) || item[0x23]!=(boot?5:1) ||
-    at<u32>(list,0x40)!=(boot?SourceBootListId:SourceSkeletonListId) || at<u32>(list,0x44)!=(boot?SourceBootList:SourceSkeletonList) ||
-    at<u32>(bag,0x44)!=(boot?SourceBootBag:SourceSkeletonBag) ||
-    at<u32>(recipe,0x20)!=(boot?SourceBootRecipe:SourceSkeletonRecipe))return false;
+    at<u32>(list,0x40)!=spec.sourceListId || (spec.sourceListCode && at<u32>(list,0x44)!=spec.sourceListCode) ||
+    at<u32>(bag,0x44)!=spec.sourceBag ||
+    at<u32>(recipe,0x20)!=spec.sourceRecipe)return false;
  if(!preparePreview(b.preview,id,description,chart,rows))return false;
  previewCopy(b.item,item,sizeof(b.item));previewCopy(b.list,list,sizeof(b.list));
  previewCopy(b.bag,bag,sizeof(b.bag));previewCopy(b.recipe,recipe,sizeof(b.recipe));previewCopy(b.name,name,sizeof(b.name));
@@ -109,17 +143,19 @@ inline bool prepareAtlas(AtlasBundle& b,bool boot,const u8* item,const u8* list,
  if(boot){
   previewCopy(b.bootParameters,BootParams,sizeof(BootParams));
   at<u32>(b.item,0x68)=6;at<u32>(b.item,0x6C)=6;at<u64>(b.item,0x70)=u64(b.bootParameters);
- }else{b.item[0x21]=2;at<float>(b.item,0x58)=3.0f;}
- at<u32>(b.list,0x40)=boot?BootListId:SkeletonListId;at<u32>(b.list,0x44)=boot?BootList:SkeletonList;
+ }else if(!hybrid){b.item[0x21]=2;at<float>(b.item,0x58)=3.0f;}
+ at<u32>(b.list,0x40)=spec.listId;at<u32>(b.list,0x44)=spec.listCode;
  at<u64>(b.list,0x20)=u64(b.name);at<u64>(b.list,0x28)=u64(b.preview.description);
  at<u64>(b.list,0x30)=0;at<u64>(b.list,0x38)=0;
  at<u64>(b.list,0x98)=u64(b.preview.chart);at<u64>(b.list,0xA0)=0;
  // NameCode identifies saved baggage independently of language and source item.
- at<u32>(b.bag,0x44)=boot?BootBag:SkeletonBag;
+ at<u32>(b.bag,0x44)=spec.bag;
  at<u64>(b.bag,0x20)=u64(b.name);at<u64>(b.bag,0x28)=u64(b.preview.description);
  at<u64>(b.bag,0x30)=0;at<u64>(b.bag,0x38)=0;at<u64>(b.bag,0x50)=u64(b.list);
- at<float>(b.bag,0x60)=boot?0.2f:4.0f;at<u32>(b.bag,0x64)=boot?3400:20000;at<u32>(b.bag,0x6C)=boot?3400:20000;
- at<u32>(b.recipe,0x20)=boot?BootRecipe:SkeletonRecipe;at<u64>(b.recipe,0x28)=u64(b.bag);
+ if(!hybrid){
+  at<float>(b.bag,0x60)=boot?0.2f:4.0f;at<u32>(b.bag,0x64)=boot?3400:20000;at<u32>(b.bag,0x6C)=boot?3400:20000;
+ }
+ at<u32>(b.recipe,0x20)=spec.recipe;at<u64>(b.recipe,0x28)=u64(b.bag);
  b.recipe[0x30]=0;at<u64>(b.recipe,0x38)=0;at<u64>(b.recipe,0x40)=0;at<u64>(b.recipe,0x48)=0;
  b.recipe[0x52]=1;b.recipe[0x74]=0; // normal crafting, no inherited DLC/fact gate
  atlasLanguage(b,german);return true;

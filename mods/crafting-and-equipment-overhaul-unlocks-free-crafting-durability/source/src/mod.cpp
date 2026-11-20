@@ -315,6 +315,7 @@ DWORD WINAPI init(void*){
  Text session;session.add("DS2 Crafting & Equipment Overhaul " CRAFT_VERSION " | fabrication + backpack | exact-build gate | pid=");session.dec(GetCurrentProcessId());session.add(" tick=");session.dec(GetTickCount64());log(session);
  vgraph_runtime::diagnostics(&say);
  if(!config())return 0;if(!settings.enabled){say("DISABLED: no patch installed.");return 0;}
+ if(settings.unknownBootAppearance)say("ATLAS_BOOT_APPEARANCE: unknown model name, using Default. See the model list under [AtlasEquipment] in the supplied INI.");
  image=(u64)GetModuleHandleW(nullptr);n=GetModuleFileNameW(nullptr,exePath,2048);if(!n||n>=2048){say("VERSION_BLOCKED: executable path unavailable.");return 0;}
  u8 hash[32];if(!filehash(exePath,hash)||memcmp(hash,ExpectedHash,32)){say("VERSION_BLOCKED: installed DS2.exe SHA-256 differs from analysed binary. No patch.");return 0;}
 
@@ -365,4 +366,7 @@ DWORD WINAPI init(void*){
  return 0;
 }
 }
+bool equipment::configuredCombatBokkaRecipe(){return settings.combatBokkaEnabled;}
+equipment::BootAppearance equipment::configuredBootAppearance(){return settings.bootAppearance;}
+
 extern "C" BOOL WINAPI DllMain(HMODULE h,DWORD reason,void*){if(reason==1){module=h;DisableThreadLibraryCalls(h);u64 base=(u64)GetModuleHandleW(nullptr);vgraph_runtime::earlyInstall(base);HANDLE thread=CreateThread(nullptr,0,&init,nullptr,0,nullptr);if(thread)CloseHandle(thread);}return 1;}

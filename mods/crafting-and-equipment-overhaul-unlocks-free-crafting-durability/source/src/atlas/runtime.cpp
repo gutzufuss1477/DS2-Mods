@@ -144,7 +144,7 @@ extern "C" void CombineLoading(void* output,void* state,void* inventory){
  void* slot=((Slot)(image+0x1198FD0))(inventory,0x11);
  void* bag=slot?((Baggage)(image+0x11943B0))(slot):nullptr;
  void* item=bag?at<void*>(bag,0xC8):nullptr;
- if(!targetSkeleton(item))return;
+ if(!targetSkeleton(item) && !combatBokkaItem(item))return;
  void* settings=at<void*>(state,0x11A8);void* action=settings?at<void*>(settings,0x68):nullptr;
  if(!action)return;
  combineLoading(output,item,at<float>(action,0xA8),at<float>(action,0x9C),at<float>(state,0x10F4));

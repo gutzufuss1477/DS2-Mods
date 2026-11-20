@@ -1,1 +1,1 @@
-Main mod 1.10.1: fixes mixed fabrication of the red Story Coffin Board and supports independent N02 skeleton/Chiral Boots addons. All 1.10.0 features retained. Keep your existing INI and Story appearance metadata.
+Adds the Bokka Combat Skeleton Lv.3 with Battle shield, Bokka carrying capacity and four cargo mounts. Includes the 12-model ATLAS boot selector for worn boots and the boot clip. Keep your existing INI. Chiral Boots and N02 visuals are optional.

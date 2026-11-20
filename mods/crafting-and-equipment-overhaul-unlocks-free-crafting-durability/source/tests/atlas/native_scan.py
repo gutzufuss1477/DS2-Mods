@@ -9,7 +9,7 @@ import struct
 import os
 from capstone import Cs, CS_ARCH_X86, CS_MODE_64
 
-ROOT = next(p for p in Path(__file__).resolve().parents if (p/'scripts/atlas_graph.py').is_file())
+ROOT = next((p for p in Path(__file__).resolve().parents if (p/'analysis/DS2.exe').is_file()), Path(__file__).resolve().parents[2])
 EXE = Path(os.environ.get('DS2_TEST_EXE', str(ROOT/'analysis/DS2.exe')))
 EXPECTED = 'bf3d1c665545930bc850d8f5df486f7395885bb729d4fd408fdb03390de0765b'
 

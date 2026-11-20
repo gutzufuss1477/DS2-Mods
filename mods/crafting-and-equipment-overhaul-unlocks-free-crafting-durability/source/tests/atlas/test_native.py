@@ -15,6 +15,8 @@ import sys
 from native_scan import Image, EXE
 
 ROOT=Path(__file__).resolve().parents[2]
+FIXTURES=ROOT/"tests/atlas/fixtures"
+if not FIXTURES.is_dir(): FIXTURES=ROOT/"build/atlas-fixtures"
 DLL=C.CDLL(str(ROOT/'build/atlas_tests.dll'))
 DLL.AtlasFabrication.argtypes=[C.c_void_p,C.c_bool]
 DLL.TestLoading.argtypes=[C.c_void_p,C.c_void_p,C.c_float,C.c_float,C.c_float]
@@ -32,7 +34,7 @@ DLL.CapturedArgument.argtypes=[C.c_uint];DLL.CapturedArgument.restype=C.c_void_p
 DLL.TestPreview.argtypes=[C.c_ubyte]+[C.c_void_p]*4;DLL.TestPreview.restype=C.c_bool
 DLL.PreviewDescription.argtypes=[C.c_void_p];DLL.PreviewDescription.restype=C.c_void_p
 DLL.PreviewChart.argtypes=[C.c_void_p];DLL.PreviewChart.restype=C.c_void_p
-DLL.TestAtlas.argtypes=[C.c_void_p,C.c_bool]+[C.c_void_p]*8+[C.c_bool];DLL.TestAtlas.restype=C.c_bool
+DLL.TestAtlas.argtypes=[C.c_void_p,C.c_ubyte]+[C.c_void_p]*8+[C.c_bool];DLL.TestAtlas.restype=C.c_bool
 DLL.AtlasPart.argtypes=[C.c_void_p,C.c_uint];DLL.AtlasPart.restype=C.c_void_p
 DLL.AtlasLanguage.argtypes=[C.c_void_p,C.c_bool]
 DLL.TestAtlasVisuals.argtypes=[C.c_void_p,C.c_void_p,C.c_void_p,C.c_ubyte];DLL.TestAtlasVisuals.restype=C.c_bool
@@ -42,10 +44,12 @@ DLL.PrepareHipValidation.argtypes=[C.c_void_p,C.c_uint,C.c_bool];DLL.PrepareHipV
 DLL.TestPrepareDepot.argtypes=[C.c_void_p,C.c_void_p,C.c_uint,C.c_bool,C.c_bool];DLL.TestPrepareDepot.restype=C.c_bool
 DLL.TestDepotAllocationBytes.restype=C.c_uint64
 DLL.TestPublishDepot.argtypes=[C.c_void_p];DLL.TestPublishDepot.restype=C.c_bool
-SITES=json.loads((ROOT/'tests/atlas/fixtures/patch-sites.json').read_text())
+SITES=json.loads((FIXTURES/'patch-sites.json').read_text())
 
 def item(id=104,level=2,cat=6,sub=1):
- p=C.create_string_buffer(0xa0);struct.pack_into('4B',p,0x20,id,level,cat,sub);return p
+ p=C.create_string_buffer(0xa0);struct.pack_into('4B',p,0x20,id,level,cat,sub)
+ if id==105:struct.pack_into('<I',p,0x10,0xCE790169)
+ return p
 
 def loading(powered=True):
  p=C.create_string_buffer(bytes([0xA5])*0x100,0x100)
@@ -70,7 +74,7 @@ class NativeTests(unittest.TestCase):
     page=DLL.PrepareHipValidation(buffer,len(raw),patched);self.assertTrue(page);pages.append(page)
     fn=C.CFUNCTYPE(C.c_ubyte,C.c_void_p,C.c_void_p,C.c_void_p)(page)
     # Equipping a skeleton with occupied hip slots, with/without explicit swaps.
-    for id,sub in [(104,1),(21,1),(22,1),(23,1),(24,2),(26,2),(27,3),(29,3)]:
+    for id,sub in [(104,1),(105,1),(21,1),(22,1),(23,1),(24,2),(26,2),(27,3),(29,3)]:
      p=item(id=id,sub=sub);struct.pack_into('<Q',skeleton_bag,0xc8,C.addressof(p))
      struct.pack_into('<Q',moving,0,C.addressof(skeleton_bag))
      for occupied,swapped in product(range(4),range(4)):
@@ -81,21 +85,21 @@ class NativeTests(unittest.TestCase):
       struct.pack_into('<I',removed,0x12000,len(rm))
       for i,ptr in enumerate(rm):struct.pack_into('<Q',removed,i*8,ptr)
       before=[b.raw for b in [moving,removed,skeleton_bag,p,*slots.values(),*cargo,group,owner]]
-      blocked=sub==1 and not (patched and id==104) and bool(occupied&~swapped)
+      blocked=sub==1 and not (patched and id in (104,105)) and bool(occupied&~swapped)
       self.assertEqual(fn(moving,slots[17],removed),4 if blocked else 0,(patched,id,occupied,swapped))
       self.assertEqual([b.raw for b in [moving,removed,skeleton_bag,p,*slots.values(),*cargo,group,owner]],before)
       count+=1
     # Putting ordinary cargo on either hip while a skeleton remains equipped.
-    for slot,(id,sub),equipped,swap in product([6,7],[(104,1),(21,1),(23,1),(26,2),(29,3)],[False,True],[False,True]):
+    for slot,(id,sub),equipped,swap in product([6,7],[(104,1),(105,1),(21,1),(23,1),(26,2),(29,3)],[False,True],[False,True]):
      p=item(id=id,sub=sub);struct.pack_into('<Q',skeleton_bag,0xc8,C.addressof(p))
      struct.pack_into('<I',slots[17],0x10,int(equipped));struct.pack_into('<Q',moving,0,C.addressof(cargo[2]))
      struct.pack_into('<I',removed,0x12000,int(swap));struct.pack_into('<Q',removed,0,C.addressof(skeleton_bag))
-     blocked=equipped and sub==1 and not swap and not (patched and id==104)
+     blocked=equipped and sub==1 and not swap and not (patched and id in (104,105))
      self.assertEqual(fn(moving,slots[slot],removed),4 if blocked else 0,(patched,slot,id,equipped,swap))
      count+=1
   finally:
    for page in pages:DLL.FreeBranch(page)
-  self.assertEqual(count,336)
+  self.assertEqual(count,384)
 
  def test_skeleton_visual_selector_keeps_identity_and_effects(self):
   im=Image();self.assertEqual(im.read(0xec70f6,6),bytes.fromhex('0f b6 c0 83 c0 ea'))
@@ -107,7 +111,7 @@ class NativeTests(unittest.TestCase):
     for id,cat,sub in product(range(256),[5,6,8],range(1,8)):
      p=item(id=id,cat=cat,sub=sub);before=p.raw;local_sub=sub if cat==6 else 255
      fn(p,out,local_sub);selector,group,ptr,flags=struct.unpack('<IIQQ',out.raw)
-     target=id==104 and cat==6 and sub==1;visual=configured if target else id
+     target=id==104 and cat==6 and sub==1;visual=configured if target else (23 if id==105 and cat==6 and sub==1 else id)
      self.assertEqual(selector,(visual-22)&0xffffffff)
      self.assertEqual(group,2 if target else local_sub)
      self.assertEqual(ptr,C.addressof(p));self.assertEqual(p.raw,before)
@@ -120,7 +124,7 @@ class NativeTests(unittest.TestCase):
   page=DLL.PrepareNativeUnlock(buffer,len(raw));self.assertTrue(page)
   fn=C.CFUNCTYPE(C.c_ubyte,C.c_void_p)(page)
   try:
-   for fixture in json.loads((ROOT/'tests/atlas/fixtures/atlas-native-source-fixtures.json').read_text(encoding='utf8')):
+   for fixture in json.loads((FIXTURES/'atlas-native-source-fixtures.json').read_text(encoding='utf8')):
     data=[C.create_string_buffer(base64.b64decode(x)) for x in fixture['data']]
     out=C.create_string_buffer(DLL.AtlasSize());boot=fixture['id']==11
     self.assertEqual(fn(data[3]),0) # Original recipe has a story fact, currently false.
@@ -136,7 +140,7 @@ class NativeTests(unittest.TestCase):
   finally:DLL.FreeBranch(page)
 
  def test_fabrication_toggle_preserves_saved_identities_and_gameplay(self):
-  for fixture in json.loads((ROOT/'tests/atlas/fixtures/atlas-native-source-fixtures.json').read_text(encoding='utf8')):
+  for fixture in json.loads((FIXTURES/'atlas-native-source-fixtures.json').read_text(encoding='utf8')):
    data=[C.create_string_buffer(base64.b64decode(x)) for x in fixture['data']]
    out=C.create_string_buffer(DLL.AtlasSize());boot=fixture['id']==11
    self.assertTrue(DLL.TestAtlas(out,boot,*data,True))
@@ -148,23 +152,27 @@ class NativeTests(unittest.TestCase):
     self.assertEqual(out.raw,bytes(expected))
 
  def test_visual_donors_only_change_art_fields(self):
-  for fixture in json.loads((ROOT/'tests/atlas/fixtures/atlas-native-source-fixtures.json').read_text(encoding='utf8')):
+  for fixture in json.loads((FIXTURES/'atlas-native-source-fixtures.json').read_text(encoding='utf8')):
    data=[C.create_string_buffer(base64.b64decode(x)) for x in fixture['data']]
    boot=fixture['id']==11;out=C.create_string_buffer(DLL.AtlasSize())
    self.assertTrue(DLL.TestAtlas(out,boot,*data,True))
    dp=C.create_string_buffer(bytes([0xa5])*0xa0,0xa0);dl=C.create_string_buffer(bytes([0xb6])*0xc0,0xc0)
-   struct.pack_into('4B',dp,0x20,20 if boot else 35,0 if boot else 2,5 if boot else 6,5 if boot else 2)
-   parts=[DLL.AtlasPart(out,i) for i in range(7)];sizes=[0xa0,0xc0,0x88,0xb0,0x38,0x38,0x30]
-   before=[C.string_at(p,n) for p,n in zip(parts,sizes)];donors=(dp.raw,dl.raw)
-   self.assertTrue(DLL.TestAtlasVisuals(out,dp,dl,20 if boot else 35))
-   allowed=[set(range(0x38,0x40))|set(range(0x78,0x98)),set(range(0x50,0x5c))]+[set()]*5
-   for i,(p,n) in enumerate(zip(parts,sizes)):
-    after=C.string_at(p,n)
-    for offset in range(n):
-     self.assertEqual(after[offset],(dp.raw if i==0 else dl.raw)[offset] if offset in allowed[i] else before[i][offset],(i,offset))
-   self.assertEqual((dp.raw,dl.raw),donors)
-   saved=out.raw;dp[0x20]=11 if boot else 21
-   self.assertFalse(DLL.TestAtlasVisuals(out,dp,dl,20 if boot else 35));self.assertEqual(out.raw,saved)
+   original=out.raw
+   for visual_id in ((*range(11,21),93,94) if boot else (26,35)):
+    with self.subTest(visual_id=visual_id):
+     out.raw=original
+     struct.pack_into('4B',dp,0x20,visual_id,0 if boot else 2,5 if boot else 6,5 if boot else 2)
+     parts=[DLL.AtlasPart(out,i) for i in range(7)];sizes=[0xa0,0xc0,0x88,0xb0,0x38,0x38,0x30]
+     before=[C.string_at(p,n) for p,n in zip(parts,sizes)];donors=(dp.raw,dl.raw)
+     self.assertTrue(DLL.TestAtlasVisuals(out,dp,dl,visual_id))
+     allowed=[set(range(0x38,0x40))|set(range(0x78,0x98)),set(range(0x50,0x5c))]+[set()]*5
+     for i,(p,n) in enumerate(zip(parts,sizes)):
+      after=C.string_at(p,n)
+      for offset in range(n):
+       self.assertEqual(after[offset],(dp.raw if i==0 else dl.raw)[offset] if offset in allowed[i] else before[i][offset],(i,offset))
+     self.assertEqual((dp.raw,dl.raw),donors)
+     saved=out.raw;dp[0x20]=103 if boot else 21
+     self.assertFalse(DLL.TestAtlasVisuals(out,dp,dl,visual_id));self.assertEqual(out.raw,saved)
 
  def test_depot_growth_stages_fresh_allocation_before_publishing(self):
   for fail_alloc,fail_copy in [(False,False),(True,False),(False,True)]:
@@ -188,7 +196,7 @@ class NativeTests(unittest.TestCase):
     if replacement:DLL.FreeBranch(replacement)
 
  def test_atlas_accepts_captured_game_resources_without_item_list_id_conflation(self):
-  fixtures=json.loads((ROOT/'tests/atlas/fixtures/atlas-native-source-fixtures.json').read_text(encoding='utf-8'))
+  fixtures=json.loads((FIXTURES/'atlas-native-source-fixtures.json').read_text(encoding='utf-8'))
   for fixture in fixtures:
    raw=[base64.b64decode(x) for x in fixture['data']]
    data=[C.create_string_buffer(x,len(x)) for x in raw]
@@ -250,7 +258,7 @@ class NativeTests(unittest.TestCase):
    for patched in [False,True]:
     page=DLL.PrepareNativeJumpInput(raw,len(original),patched);self.assertTrue(page);pages.append(page)
     fn=C.CFUNCTYPE(C.c_ubyte,C.c_void_p)(page)
-    for id,kind,worn,consumed,press,suppressed,special_state in product([104,23,26,29,30],[3,4,5],[0,1],[0,1],[0,1],[0,1],[None,0,1]):
+    for id,kind,worn,consumed,press,suppressed,special_state in product([104,105,23,26,29,30],[3,4,5],[0,1],[0,1],[0,1],[0,1],[None,0,1]):
      p[0x20]=id;equip[entry+0x10]=worn
      struct.pack_into('<i',context,0x1dc,kind);context[0x1cc]=consumed
      inputs[0x2c0]=8 if press else 0;inputs[0x7314]=8 if suppressed else 0
@@ -276,7 +284,7 @@ class NativeTests(unittest.TestCase):
   finally:DLL.FreeBranch(address)
 
  def test_preview_clones_leave_shared_resources_untouched(self):
-  resources=json.loads((ROOT/'tests/atlas/fixtures/native-preview-resources.json').read_text())
+  resources=json.loads((FIXTURES/'native-preview-resources.json').read_text())
   for id,expected in [(103,[8,8,8,16,8,12]),(104,[10,16,16,4,16,12])]:
    original=next(x for x in resources if x['id']==(11 if id==103 else 21))
    desc=C.create_string_buffer(bytes([0x31])*0x38,0x38)
@@ -308,17 +316,18 @@ class NativeTests(unittest.TestCase):
    self.assertFalse(DLL.TestPreview(id,desc,chart,params,out))
 
  def test_atlas_independent_resource_graph_and_localization(self):
-  resources=json.loads((ROOT/'tests/atlas/fixtures/native-preview-resources.json').read_text())
+  resources=json.loads((FIXTURES/'native-preview-resources.json').read_text())
   all_codes=set();all_uuids=set()
-  for boot in [True,False]:
-   source=11 if boot else 21;new=103 if boot else 104
-   source_bag=0x45711b80 if boot else 0x56d383f7
+  for variant in [1,0,2]:
+   boot=variant==1;hybrid=variant==2
+   source=11 if boot else (23 if hybrid else 21);new=103 if boot else (105 if hybrid else 104)
+   source_bag=0x45711b80 if boot else (0x37e8f300 if hybrid else 0x56d383f7)
    source_list=0x4b48c47b if boot else 0x58ea5c0c
-   source_recipe=0x6e7d4315 if boot else 0x7ddfdb62
+   source_recipe=0x6e7d4315 if boot else (0x1ce4ab95 if hybrid else 0x7ddfdb62)
    data=[C.create_string_buffer(n) for n in [0xa0,0xc0,0x88,0xb0,0x38,0x38,0x30,6*0x30]]
    p,l,b,r,n,d,c,rows=data
-   struct.pack_into('4B',p,0x20,source,0,5 if boot else 6,5 if boot else 1)
-   struct.pack_into('<II',l,0x40,1000001 if boot else 1000011,source_list)
+   struct.pack_into('4B',p,0x20,source,2 if hybrid else 0,5 if boot else 6,5 if boot else 1)
+   struct.pack_into('<II',l,0x40,1000001 if boot else (1000013 if hybrid else 1000011),source_list)
    struct.pack_into('<I',b,0x44,source_bag);struct.pack_into('<I',r,0x20,source_recipe)
    for buf,off,ptr in [(p,0x40,l),(b,0x50,l),(r,0x28,b)]:struct.pack_into('<Q',buf,off,C.addressof(ptr))
    struct.pack_into('<I',c,0x20,6)
@@ -326,30 +335,32 @@ class NativeTests(unittest.TestCase):
     struct.pack_into('<B',rows,i*0x30+0x20,row['type']);struct.pack_into('<i',rows,i*0x30+0x24,row['value'])
    # Distinct packed/worn references and costs must survive the clone.
    p[0x78:0x98]=bytes(range(32));r[0x58:0x68]=bytes(range(16));b[0x4d]=4
+   if hybrid:
+    struct.pack_into('<fI',b,0x60,8,20000)
    before=[x.raw for x in data];out=C.create_string_buffer(DLL.AtlasSize())
-   self.assertTrue(DLL.TestAtlas(out,boot,*data,True));self.assertEqual(before,[x.raw for x in data])
+   self.assertTrue(DLL.TestAtlas(out,variant,*data,True));self.assertEqual(before,[x.raw for x in data])
    parts=[DLL.AtlasPart(out,i) for i in range(7)]
    read=lambda i,off,fmt:struct.unpack(fmt,C.string_at(parts[i]+off,struct.calcsize(fmt)))[0]
    text=lambda i:C.string_at(read(i,0x20,'<Q'),read(i,0x28,'<I')).decode('utf-8')
-   self.assertEqual(read(0,0x20,'B'),new);self.assertEqual(read(1,0x40,'<I'),1000103 if boot else 1000104)
+   self.assertEqual(read(0,0x20,'B'),new);self.assertEqual(read(1,0x40,'<I'),1000000+new)
    for i,off,target in [(0,0x40,1),(0,0x28,4),(0,0x30,5),(1,0x20,4),(1,0x28,5),(1,0x98,6),(2,0x50,1),(3,0x28,2)]:
     self.assertEqual(read(i,off,'<Q'),parts[target])
    self.assertEqual(C.string_at(parts[0]+0x78,32),p.raw[0x78:0x98])
    self.assertEqual(C.string_at(parts[3]+0x58,16),r.raw[0x58:0x68])
    self.assertEqual(read(2,0x4d,'B'),4)
-   self.assertAlmostEqual(read(2,0x60,'<f'),.2 if boot else 4)
+   self.assertAlmostEqual(read(2,0x60,'<f'),.2 if boot else (8 if hybrid else 4))
    self.assertEqual(read(2,0x64,'<I'),3400 if boot else 20000)
-   self.assertEqual(text(4),'ATLAS-Stiefel' if boot else 'ATLAS-Skelett')
-   self.assertIn('ATLAS-Ausrüstung',text(5))
+   self.assertEqual(text(4),'ATLAS-Stiefel' if boot else ('Bokka-Kampfskelett St.3' if hybrid else 'ATLAS-Skelett'))
+   self.assertIn('Bokka-Kampfskelett' if hybrid else 'ATLAS-Ausrüstung',text(5))
    for i,off in [(1,0x44),(2,0x44),(3,0x20)]:
     code=read(i,off,'<I');self.assertNotIn(code,all_codes);self.assertNotIn(code,[source_list,source_bag,source_recipe]);all_codes.add(code)
    for ptr in parts:
     uuid=C.string_at(ptr+0x10,16);self.assertNotIn(uuid,all_uuids);all_uuids.add(uuid)
    for german in [False,True,False]:
     DLL.AtlasLanguage(out,german)
-    self.assertEqual(text(4),('ATLAS-Stiefel' if boot else 'ATLAS-Skelett') if german else ('ATLAS Boots' if boot else 'ATLAS Skeleton'))
+    self.assertEqual(text(4),('ATLAS-Stiefel' if boot else ('Bokka-Kampfskelett St.3' if hybrid else 'ATLAS-Skelett')) if german else ('ATLAS Boots' if boot else ('Bokka Combat Skeleton Lv.3' if hybrid else 'ATLAS Skeleton')))
    self.assertEqual(before,[x.raw for x in data])
-   p[0x20]=new;self.assertFalse(DLL.TestAtlas(out,boot,*data,True))
+   p[0x20]=new;self.assertFalse(DLL.TestAtlas(out,variant,*data,True))
 
  def test_atlas_hook_sites_and_relocated_prologues(self):
   im=Image()
@@ -384,10 +395,27 @@ class NativeTests(unittest.TestCase):
         if target:
          if spec['kind']==3:expected=False
          elif spec['kind']==0 or query in [2,3]:expected=True
+        if id==105 and cat==6 and sub==1:
+         if spec['name'].startswith('hip_cargo_'):expected=False
+         elif spec['name'] in ('bokka_active','bokka_weight_while_boosting','loading_bokka_active'):expected=True
+         elif spec['kind'] in [1,2] and query==3:expected=True
         self.assertEqual(fn(p,query),int(expected),(spec['name'],id,cat,sub,query))
         total+=1
    finally:DLL.FreeBranch(address)
   print(f'Native branch cases executed: {total}')
+
+ def test_combat_bokka_capacity_and_foreign_identity(self):
+  for power in [False,True]:
+   result=loading(power);before=result.raw
+   self.assertTrue(DLL.TestLoading(result,item(id=105),100,450,180))
+   for off in [0,4,0x4c,0x50]:
+    self.assertEqual(struct.unpack_from('<f',result,off)[0],struct.unpack_from('<f',before,off)[0]+(80 if power else 0))
+   self.assertEqual(result[0x66:0x69:2],bytes([1,int(power)]))
+   self.assertEqual(result[0x69:0x6c],before[0x69:0x6c])
+   self.assertEqual(result[0x7c:0x80],before[0x7c:0x80])
+  foreign=item(id=105);struct.pack_into('<I',foreign,0x10,0)
+  result=loading();before=result.raw
+  self.assertFalse(DLL.TestLoading(result,foreign,100,80,180));self.assertEqual(result.raw,before)
 
  def test_capacity_max_keeps_other_bonuses(self):
   p=loading();before=p.raw
@@ -406,7 +434,7 @@ class NativeTests(unittest.TestCase):
   self.assertEqual(p[0x68],b'\0');self.assertEqual(p[0x6a],b'\0')
 
  def test_other_equipment_and_invalid_data_are_untouched(self):
-  for other in [item(id=x) for x in range(128) if x!=104]+[item(cat=5),item(sub=2),item(level=0)]:
+  for other in [item(id=x) for x in range(128) if x not in (104,105)]+[item(cat=5),item(sub=2),item(level=0)]:
    p=loading();before=p.raw
    self.assertFalse(DLL.TestLoading(p,other,100,80,180));self.assertEqual(p.raw,before)
   for bad in [float('nan'),float('inf'),-1,1001]:

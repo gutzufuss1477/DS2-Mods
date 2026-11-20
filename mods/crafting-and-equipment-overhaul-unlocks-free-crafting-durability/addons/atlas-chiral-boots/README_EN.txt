@@ -10,7 +10,7 @@ Install file: ds2_atlas_chiral_addon.asi
 INSTALL / UPDATE
 Close DS2 and replace the ASI beside DS2.exe. Only that ASI needs installing.
 No additional INI or manual bin/data folder is required. Keep Crafting & Equipment
-Overhaul and its ASI loader installed. Main mod 1.10.1 does not need an update.
+Overhaul and its ASI loader installed. This addon also works with main mod 1.10.2.
 If using both visual addons, update BOTH Chiral Boots and N02 to 1.0.1.
 N02 1.0.0 cannot cooperate with the new shoe build. Each 1.0.1 addon also works alone.
 

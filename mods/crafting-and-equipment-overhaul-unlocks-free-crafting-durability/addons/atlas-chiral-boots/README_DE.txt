@@ -10,8 +10,8 @@ Installationsdatei: ds2_atlas_chiral_addon.asi
 INSTALLATION / UPDATE
 DS2 beenden und die ASI neben DS2.exe ersetzen. Nur diese ASI muss installiert werden.
 Keine weitere INI und kein manuell zu kopierender bin-/Datenordner erforderlich.
-Crafting & Equipment Overhaul samt ASI-Loader installiert lassen. Der Hauptmod
-1.10.1 braucht kein Update. Bei Verwendung beider Optik-Addons BEIDE auf 1.0.1
+Crafting & Equipment Overhaul samt ASI-Loader installiert lassen. Dieses Addon
+funktioniert auch mit Hauptmod 1.10.2. Bei Verwendung beider Optik-Addons BEIDE auf 1.0.1
 aktualisieren: Chiral Boots und N02. N02 1.0.0 erkennt die neue Schuhversion nicht.
 Beide 1.0.1-Addons lassen sich auch einzeln nutzen.
 

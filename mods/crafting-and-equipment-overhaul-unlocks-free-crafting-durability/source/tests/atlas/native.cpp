@@ -1,6 +1,6 @@
 #include "../../src/atlas/win_api.hpp"
 #include "../../src/atlas/branch.hpp"
-#include "../../src/atlas/sha256.hpp"
+#include "../../src/sha256.hpp"
 #include "../../src/atlas/atlas.hpp"
 using namespace equipment;
 #include "../../src/atlas/sites.generated.hpp"
@@ -26,11 +26,11 @@ EXPORT bool TestPrepareDepot(void*out,void*depot,u32 extra,bool failAllocate,boo
 }
 EXPORT u64 TestDepotAllocationBytes(){return depotAllocationBytes;}
 EXPORT bool TestPublishDepot(void*out){return publishDepot(*(DepotPlan*)out);}
-EXPORT bool TestAtlas(void*out,bool boot,void*item,void*list,void*bag,void*recipe,void*name,void*desc,void*chart,void*rows,bool german){
- return prepareAtlas(*(AtlasBundle*)out,boot,(u8*)item,(u8*)list,(u8*)bag,(u8*)recipe,(u8*)name,(u8*)desc,(u8*)chart,*(const u8(*)[6][0x30])rows,german);
+EXPORT bool TestAtlas(void*out,u8 variant,void*item,void*list,void*bag,void*recipe,void*name,void*desc,void*chart,void*rows,bool german){
+ return variant<=2 && prepareAtlas(*(AtlasBundle*)out,EquipmentRecipes[variant==2?2:(variant?0:1)],(u8*)item,(u8*)list,(u8*)bag,(u8*)recipe,(u8*)name,(u8*)desc,(u8*)chart,*(const u8(*)[6][0x30])rows,german);
 }
 EXPORT void AtlasLanguage(void*out,bool german){atlasLanguage(*(AtlasBundle*)out,german);}
-EXPORT bool TestAtlasVisuals(void*out,const void*item,const void*list,u8 skeletonVisualId){return atlasVisuals(*(AtlasBundle*)out,(const u8*)item,(const u8*)list,skeletonVisualId);}
+EXPORT bool TestAtlasVisuals(void*out,const void*item,const void*list,u8 expectedVisualId){return atlasVisuals(*(AtlasBundle*)out,(const u8*)item,(const u8*)list,expectedVisualId);}
 EXPORT void* AtlasPart(void*out,u32 part){auto&b=*(AtlasBundle*)out;void*parts[]={b.item,b.list,b.bag,b.recipe,b.name,b.preview.description,b.preview.chart};return part<7?parts[part]:nullptr;}
 EXPORT void* PreviewDescription(void*out){return ((PreviewBundle*)out)->description;}
 EXPORT void* PreviewChart(void*out){return ((PreviewBundle*)out)->chart;}

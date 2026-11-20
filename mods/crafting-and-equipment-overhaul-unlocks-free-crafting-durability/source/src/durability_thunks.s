@@ -57,6 +57,8 @@ DurabilityContentsThunk:
     je .contents_supported
     cmp eax, 0x178BAE7D
     je .contents_supported
+    cmp eax, 0x18526607
+    je .contents_supported
     cmp eax, 0x1859E22B
     je .contents_supported
     cmp eax, 0x18AB89A8

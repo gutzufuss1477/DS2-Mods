@@ -1,3 +1,8 @@
+Crafting & Equipment Overhaul 1.10.2 - 2026-11-20
+- Adds a separate Bokka Combat Skeleton Lv.3 recipe. It combines the Battle Skeleton model and shield with Bokka terrain assistance and carrying capacity. One small cargo item fits on each shoulder and hip. Movement and jumping follow the Battle Skeleton.
+- Integrates the ATLAS Boot Model Selector into the main file. Choose from 12 boot models for Sam and the boot clip with BootAppearance under [AtlasEquipment]. The Chiral Boots visual addon takes priority when installed.
+- Existing INIs can be kept. CombatBokkaSkeleton sets the new recipe's visibility independently. If omitted, it follows Enabled under [AtlasEquipment].
+
 Crafting & Equipment Overhaul 1.10.1 - 2026-10-24
 - Fixed the red Story Coffin Board when fabricated together with ATLAS gear and other items; removed the single-item-only fabrication restriction.
 - Correctly associates the red menu image, 3D model and saved appearance with the fabricated coffin.

@@ -1,10 +1,19 @@
-Crafting & Equipment Overhaul 1.10.1
+Crafting & Equipment Overhaul 1.10.2
 DEATH STRANDING 2: ON THE BEACH | Windows x64 | Game build 1.10.89.0
 
-NEW IN 1.10.1
-The red Story Coffin Board now works in mixed fabrication with ATLAS and other
-items. Supports the optional ATLAS N02 Exoskeleton Addon independently or together
-with Chiral Boots Addon 1.0.0. No new INI settings are required.
+NEW IN 1.10.2
+At a fabrication terminal, select Bokka Combat Skeleton Lv.3. It combines the
+Battle Skeleton model and shield with Bokka terrain assistance. Attach one small
+cargo item to each shoulder and hip. Carrying capacity increases by 180 kg with
+power and 100 kg with an empty battery. Movement and jumping follow the Battle
+Skeleton. The new item has German and English text with English as the fallback.
+
+In [AtlasEquipment], set CombatBokkaSkeleton=1 to show its recipe, or 0 to hide it.
+If the setting is absent, the recipe follows Enabled in that section.
+To change the ATLAS Boots model on Sam and on his boot clip, set BootAppearance
+in that same section, for example BootAppearance=Absolute. The included INI lists
+all 12 choices. The default uses Pizza Chef's Boots. Restart after editing the INI.
+Chiral Boots takes priority when installed. The selector is built into the main ASI.
 
 UPDATE
 Close DS2 and replace ds2_crafting_unlocks.asi beside DS2.exe. Keep your existing
@@ -48,8 +57,8 @@ Free crafting and durability changes are OFF in the public default INI.
 Restart after changing settings.
 
 OPTIONAL ADDONS
-ATLAS Chiral Boots Addon 1.0.0 remains unchanged; no replacement is needed.
-ATLAS N02 Exoskeleton Addon 1.0.0 is a separate optional download on the same
+ATLAS Chiral Boots Addon 1.0.1 is optional.
+ATLAS N02 Exoskeleton Addon 1.0.1 is a separate optional download on the same
 Crafting Nexus page. Install its single ASI beside DS2.exe; no addon INI is needed.
 The two visual addons work independently or together. Removing only a visual
 addon restores the main mod's normal appearance and retains ATLAS items/stats.

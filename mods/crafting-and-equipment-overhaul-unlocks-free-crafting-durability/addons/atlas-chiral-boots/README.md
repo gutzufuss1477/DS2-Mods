@@ -8,7 +8,7 @@ Gold chiral appearance and matching menu image for the separately craftable ATLA
 Known limitation: dynamic dirt/snow paint overlays on ATLAS boot uppers/soles
 are suppressed to keep the gold stable. Wetness and lighting remain active.
 
-The main mod remains at 1.10.1. When combining these addons, update both to 1.0.1.
+This addon also works with main mod 1.10.2. When combining these addons, update both to 1.0.1.
 Normal main-mod updates retaining Addon API V1, Visual Router V1 and the ATLAS
 contracts need no addon rebuild. Game updates are separately guarded.
 

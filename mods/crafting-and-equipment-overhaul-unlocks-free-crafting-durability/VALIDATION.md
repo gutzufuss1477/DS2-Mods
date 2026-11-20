@@ -1,4 +1,20 @@
-# Validation: main 1.10.1 and optional N02 1.0.0
+# Crafting & Equipment Overhaul validation
+
+## Main 1.10.2, published 2026-11-20
+
+The release ZIP and each member match the byte counts and SHA-256 hashes in
+[the manifest](RELEASE_MANIFEST.json). Rebuilding the published source with the
+verified local inputs reproduced the packaged ASI byte for byte after normalizing
+the PE build timestamp. The integration check matched all 95
+expected signatures in DS2.exe 1.10.89.0. All six loader checks passed. Offline
+checks covered the Bokka recipe, ATLAS boot selection and both addon load orders.
+
+The [November 18 tester report](https://www.nexusmods.com/deathstranding2onthebeach/mods/86?tab=posts&jump_to_comment=180124950)
+covers the Absolute boot model in the selector test release. For the new Bokka
+item, the in-game check with all four small cargo items attached before and
+after a save and reload is still pending.
+
+## October 2026 release history (main 1.10.1 and optional N02 1.0.0)
 
 The user confirmed the final combined game setup on 2026-10-24 after testing the
 mixed-fabrication correction: main Test05, N02 Test04 and Chiral Boots 1.0.0.
@@ -6,7 +22,7 @@ The exact hashes and scope are in [game-test confirmation](validation/game-test-
 This supersedes the earlier pending Test05 status. It is not an exhaustive new
 claim about every removal/load permutation or every future game update.
 
-## Release identity
+### Release identity
 
 The source export reproduces the tested main Test05 binary byte for byte after
 normalizing only the PE build timestamp. Main release 1.10.1 changes only the
@@ -15,7 +31,7 @@ source rebuild likewise differs only in PE timestamp. No meshes, materials,
 rendered icons, game logic or addon callbacks were redesigned for packaging.
 See the two public-build verification JSON records in `validation/`.
 
-## Offline verification
+### Offline verification
 
 - Main policy/configuration regressions, including equipment, cosmetics, menu,
   previews and persistence, passed. Details: `validation/offline-release-tests.json`.
@@ -33,7 +49,7 @@ See the two public-build verification JSON records in `validation/`.
 - Both stable-interface build gates passed. Published shoe addon source/ASI is
   unchanged. Packaged ZIP entries are flat and their bytes/CRC/SHA-256 verified.
 
-## Scope
+### Scope
 
 Supported DS2 PC build: 1.10.89.0, exact executable SHA recorded in validation.
 Normal main-mod content/recipe/stat updates can retain existing addons by preserving

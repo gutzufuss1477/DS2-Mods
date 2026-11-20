@@ -1,52 +1,52 @@
 {
-  "version": "1.10.1",
-  "name": "DS2_Crafting_Equipment_Overhaul_v1.10.1",
+  "version": "1.10.2",
+  "name": "DS2_Crafting_Equipment_Overhaul_v1.10.2",
   "category": "MAIN",
   "nexusModId": 86,
   "nexusUploaded": true,
   "status": "published",
-  "fileId": 392,
-  "sha256": "bf281b2800b1f70e25ff65499863584222ea6fcd3d0abfa61c58857c8905b26c",
-  "bytes": 1801938,
+  "fileId": 430,
+  "sha256": "c130c5485de9ae2fd616690e2e0c8be183c070c1b2c6e4a906048a4cceab3d53",
+  "bytes": 1806789,
   "files": {
     "CHANGELOG.txt": {
-      "bytes": 1357,
-      "sha256": "06f0968238448c51019083ee705439026bd553efcfb2dd5f24c10449674ecd9f"
+      "bytes": 2057,
+      "sha256": "165fc7ec3b804ad11dfe51ade7bd5c27517d139ac760f34a8bbf5a05612ff028"
     },
     "CHANGELOG_DE.txt": {
-      "bytes": 1505,
-      "sha256": "320f86f42308f35db56d71b19f9b1613918e2b61fcd1e6cfbc3a0fa76a5439f7"
+      "bytes": 2200,
+      "sha256": "2659fcb219eb6c36ff0d237e6fa7edff49b5ed88a5a6d5b6686f750fea6bf1b8"
     },
     "README_DE.txt": {
-      "bytes": 5052,
-      "sha256": "4a6331a223519c5b61c2ce38347b3bc0bb0e6a18c054de112ed4e4ffe12d2747"
+      "bytes": 5816,
+      "sha256": "6b74415895d2abb2565202f37c943f2fe7318e8964137817ae1a916c4bba9729"
     },
     "README_EN.txt": {
-      "bytes": 4213,
-      "sha256": "6a4763c3a8c1127e030b059c8095e778099e1a2e92a0e0f97266c8a7a19c96e6"
+      "bytes": 4916,
+      "sha256": "3b773e2c1d335366c4eef3f7167e7819a62793cf91da3d193066383f984d3e93"
     },
     "SHA256SUMS.txt": {
-      "bytes": 670,
-      "sha256": "ad3a31513035cfd8d5acade2c1fe6adc582476db3e52d79e4ba283205db432d1"
+      "bytes": 678,
+      "sha256": "c9043e25f52a99b6924841f294f3a274d150bfd2f38dc52adf26f05fb25f1bb5"
     },
     "VERSION.txt": {
-      "bytes": 7,
-      "sha256": "118705d21506adb8d7c06a51156bb59497679f644fb4ae3d14bbbfc366643124"
+      "bytes": 8,
+      "sha256": "9bcfd4b3386e68831ecc63645a6036ab76d58e442b17454674516ee6c4c84bf2"
     },
     "cosmetics.native.tsv": {
       "bytes": 2820,
       "sha256": "1dd7c647bb92729dd504903ce25e4f9ce00d46c9fbb8a494e81842302a1bde0d"
     },
     "ds2_crafting_unlocks.asi": {
-      "bytes": 4514816,
-      "sha256": "5108a7a74e720eb21f3fdfc6acece00c296f8e46a1458e024e153045c5f9f3f9"
+      "bytes": 4521472,
+      "sha256": "929f02c330a7dbdc267d7a1ab39121c10de3af3f5537b49284e2eca0a78aeb2d"
     },
     "ds2_crafting_unlocks.ini": {
-      "bytes": 7628,
-      "sha256": "1113f49eb0e177a7eb6da8ec1dd724d9c96efe9d058540827896b5d73664eae6"
+      "bytes": 9052,
+      "sha256": "bb1da1a955e673ecf142f9f4cd0ca59b00db740758c8e7946c3586f12f8d773d"
     }
   },
-  "publishedDate": "2026-10-24",
-  "downloadUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/86?tab=files&file_id=392",
+  "publishedDate": "2026-11-20",
+  "downloadUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/86?tab=files&file_id=430",
   "primary": true
 }

@@ -55,7 +55,7 @@ int main(int argc,char**argv){try{
  for(const auto* extra:{"Language=3","Language=inherit","Language=1\nLanguage=2","Unknown=1"}){auto bad=old+"[SuppressedWeapons]\n"+extra+"\n";Settings s{};Error e{};check(!parse(bad.data(),u32(bad.size()),s,e),"Invalid language/unknown setting rejected");}
  auto disabled=parseOk("[CraftingUnlocks]\nEnabled=0\nDefaultUnlock=1\n[SuppressedWeapons]\nEnabled=1\n");
  check(!disabled.enabled&&!selected(disabled,silenced::Definitions[0].newRecipe),"Global master still wins");
- check(FreeRecipeKeyCount==142&&DurabilityCraftedBaggageCount==143,"Exact combined cost and durability scope");
+ check(FreeRecipeKeyCount==143&&DurabilityCraftedBaggageCount==144,"Exact combined cost and durability scope");
  check(silenced::PrivateIconCount==3,"Three private menu icons including red Higgs guitar");
  check(silenced::customMenuIcon(silenced::CustomIconStrings[2].data,silenced::CustomIconStrings[2].length,silenced::CustomIconStrings[2].hash)==2,
    "Red Higgs guitar uses independent texture lookup");

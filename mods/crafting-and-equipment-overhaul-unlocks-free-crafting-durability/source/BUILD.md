@@ -1,4 +1,4 @@
-# Crafting and Equipment Overhaul 1.10.1
+# Crafting and Equipment Overhaul 1.10.2
 
 Use Windows x64, Python 3 and LLVM (`clang-cl`/`lld-link`). Policy tests additionally
 need the MSVC/Windows SDK headers and runtime. The supported game build is
@@ -22,7 +22,7 @@ before compiling; the addon does not need to be installed to build the main mod.
 `./scripts/test_release.ps1` runs the core, equipment, coffin, cosmetics, persistence
 and repeat-fabrication regressions. These are offline tests, not game automation.
 `python scripts/smoke_loader.py --pcc` tests DLL loading in disposable Python
-processes. `tests/verify_integration.py --version 1.10.1 --pcc` reads the exact
+processes. `python tests/verify_integration.py --version 1.10.2 --pcc` reads the exact
 game executable using `DS2_TEST_EXE`; it does not modify it.
 
 `tests/story_independence_windows_test.cpp` exercises the production cache builder,
@@ -39,10 +39,10 @@ original published binary too. The checked-in graph delta programs contain
 structural registrations; complete game graphs, caches, textures and personal
 appearance metadata must remain outside Git.
 
-The optional Chiral Boots 1.0.0 source lives in the sibling `addons` directory.
-Its original mesh/texture/cache inputs are likewise not redistributed. Published
-Nexus downloads remain the end-user installation path; the prepared 1.10.1
-package has no Nexus file ID until it is uploaded.
+The optional Chiral Boots 1.0.1 source lives in the sibling `addons` directory.
+Its original mesh/texture/cache inputs are likewise not redistributed. The [published 1.10.2 package](https://www.nexusmods.com/deathstranding2onthebeach/mods/86?tab=files&file_id=430)
+contains the Bokka Combat Skeleton and the ATLAS boot model selector. Both
+features are compiled into the main ASI.
 
 The 1.10.1 update includes the frozen Visual Router V1 gate, N02 archive profile
 and per-native-vehicle fabrication association. It removes the red-coffin-only

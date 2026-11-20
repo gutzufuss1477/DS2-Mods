@@ -1,7 +1,7 @@
 #pragma once
 #include "core.hpp"
 namespace equipment {
-struct BranchSpec {u32 rva,notEqual;u8 length,cmpLength,reg,kind;u8 expected[16];};
+struct BranchSpec {u32 rva,notEqual;u8 length,cmpLength,reg,kind;u8 expected[16];bool combatBokka=false;};
 // kind: 0=constant subtype; 1=DL subtype; 2=BPL subtype; 3=exclude target.
 struct Code {
  u8* start;u32 size=0;
@@ -13,6 +13,8 @@ struct Code {
  void absolute(u64 target){b(0xFF);b(0x25);d(0);q(target);}
  u32 jcc(u8 cc){b(0x0F);b(cc);u32 p=size;d(0);return p;}
  void fix(u32 p,u32 target){u32 v=target-(p+4);for(u32 i=0;i<4;++i)start[p+i]=u8(v>>(i*8));}
+ // CMP dword ptr [reg + offset], immediate (RAX, RCX or RDX).
+ void cmpField(u8 reg,u8 offset,u32 value){b(0x81);b(0x78+reg);b(offset);d(value);}
  void cmpMem(u8 reg,u8 offset,u8 value){b(0x80);b(reg?0x79:0x78);b(offset);b(value);}
 };
 inline u32 branchCode(u8* output, const BranchSpec& s, u64 image) {
@@ -33,6 +35,23 @@ inline u32 branchCode(u8* output, const BranchSpec& s, u64 image) {
  c.cmpMem(s.reg,0x20,s.kind==3?0:SkeletonId);
  c.jump(image+(s.kind==3?s.notEqual:s.rva+s.length));
  c.fix(other,c.size);c.fix(category,c.size);c.fix(subtype,c.size);
+ // The hybrid inherits Battle natively. Extend only Bokka queries and the
+ // seven cargo exclusions. A foreign resource using ID 105 keeps native behavior.
+ if(s.combatBokka){
+  c.cmpField(s.reg,0x20,CombatBokkaItemFields);u32 different=c.jcc(0x85);
+  c.cmpField(s.reg,0x10,CombatBokkaItemTag);u32 foreign=c.jcc(0x85);
+  u32 otherQuery=0;
+  if(s.kind==1 || s.kind==2){
+   if(s.kind==2)c.b(0x40);
+   c.b(0x80);c.b(s.kind==1?0xFA:0xFD);c.b(3);
+   otherQuery=c.jcc(0x85);
+  }
+  c.b(0x9D);
+  c.cmpMem(s.reg,0x20,s.kind==3?0:CombatBokkaId);
+  c.jump(image+(s.kind==3?s.notEqual:s.rva+s.length));
+  c.fix(different,c.size);c.fix(foreign,c.size);
+  if(otherQuery)c.fix(otherQuery,c.size);
+ }
  if(notRequested)c.fix(notRequested,c.size);
  c.b(0x9D);c.bytes(s.expected,s.cmpLength);
  c.b(0x0F);c.b(0x85);c.d(u32(image+s.notEqual-(u64(output)+c.size+4)));
@@ -68,7 +87,16 @@ inline u32 skeletonVisualCode(u8* output,u64 resume,u8 skeletonVisualId){
  const u8 sub[]={0x80,0x7A,0x23,1};c.bytes(sub,4);u32 subtype=c.jcc(0x85);
  c.b(0xB0);c.b(skeletonVisualId); // local item selector AL
  const u8 boost[]={0x41,0xBE,2,0,0,0};c.bytes(boost,6); // local mesh group R14D
- c.fix(other,c.size);c.fix(absent,c.size);c.fix(category,c.size);c.fix(subtype,c.size);
+ c.b(0xE9);u32 done=c.size;c.d(0);
+ c.fix(other,c.size);
+ c.b(0x3C);c.b(CombatBokkaId);u32 unrelated=c.jcc(0x85);
+ c.bytes(nonNull,3);u32 missing=c.jcc(0x84);
+ c.cmpField(2,0x20,CombatBokkaItemFields);u32 wrongFields=c.jcc(0x85);
+ c.cmpField(2,0x10,CombatBokkaItemTag);u32 wrongTag=c.jcc(0x85);
+ c.b(0xB0);c.b(BattleLevel3Id); // R14D already holds the native Battle mesh group.
+ c.fix(done,c.size);c.fix(unrelated,c.size);c.fix(missing,c.size);
+ c.fix(wrongFields,c.size);c.fix(wrongTag,c.size);
+ c.fix(absent,c.size);c.fix(category,c.size);c.fix(subtype,c.size);
  c.bytes(SkeletonVisualBytes,sizeof(SkeletonVisualBytes)); // also restores native arithmetic flags
  c.jump(resume);return c.size;
 }

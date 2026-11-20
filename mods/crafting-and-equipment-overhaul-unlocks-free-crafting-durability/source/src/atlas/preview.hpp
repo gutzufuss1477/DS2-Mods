@@ -6,6 +6,10 @@ constexpr PreviewRow BootPreview[6]={{14,4,8},{7,5,8},{13,4,8},{6,16,16},{11,4,8
 // Portability stays at the native L-size rating. The base model/packing size
 // remains L, even though the equipment's weight has been reduced to 4 kg.
 constexpr PreviewRow SkeletonPreview[6]={{16,3,10},{7,12,16},{13,4,16},{6,4,4},{17,10,16},{12,8,12}};
+// Battle Lv.3 chart with Bokka Lv.3 capacity and terrain ratings.
+constexpr PreviewRow CombatBokkaPreview[6]={{16,5,10},{7,16,16},{13,4,16},{6,8,8},{17,10,10},{12,12,12}};
+constexpr char CombatBokkaDescription[]=u8"Bokka-Kampfskelett St.3 mit elektromagnetischem Schild und Geländehilfe. Trägt je ein kleines Frachtstück an beiden Schultern und beiden Hüften. Tragkraftbonus mit Akku +180 kg, ohne Akku +100 kg.";
+constexpr char CombatBokkaDescriptionEn[]="A level 3 battle skeleton with an electromagnetic shield and Bokka terrain assistance. Carries one small cargo on each shoulder and hip. Adds 180 kg of carrying capacity with power and 100 kg without power.";
 constexpr char BootDescription[]=u8"ATLAS-Ausrüstung: sicherer Halt, hohe Stoßabsorption, stärkere Tritte und leise Schritte. Gewicht: 0,2 kg. Haltbarkeit: 3400.";
 constexpr char SkeletonDescription[]=u8"ATLAS-Ausrüstung mit Kampf-, Boost- und Bokka-Effekten auf Stufe 3: schnelle Bewegung, stärkere Sprünge, Geländehilfe und elektromagnetischer Schutz. Verbraucht Akku. Tragkraftbonus: bis zu +180 kg mit Akku, +100 kg ohne Akku. Gewicht: 4,0 kg. Haltbarkeit: 20000. Packgröße: L.";
 // These small resource copies retain a permanent reference for process lifetime.
@@ -23,17 +27,18 @@ struct PreviewBundle {
 static_assert(sizeof(SkeletonDescription)<=512,"Preview description capacity");
 inline void previewCopy(void*d,const void*s,u32 n){auto*a=(u8*)d;auto*b=(const u8*)s;for(u32 i=0;i<n;++i)a[i]=b[i];}
 inline bool preparePreview(PreviewBundle& out,u8 itemId,const u8* description,const u8* chart,const u8 (&parameters)[6][0x30]){
- if(itemId!=BootId && itemId!=SkeletonId)return false;
+ if(itemId!=BootId && itemId!=SkeletonId && itemId!=CombatBokkaId)return false;
  if(at<i32>(chart,0x20)!=6)return false;
- const PreviewRow* rows=itemId==BootId?BootPreview:SkeletonPreview;
+ const PreviewRow* rows=itemId==BootId?BootPreview:(itemId==CombatBokkaId?CombatBokkaPreview:SkeletonPreview);
  // Require the exact native chart. A conflicting mod is never silently replaced.
  for(u32 i=0;i<6;++i){
   if(at<u8>(parameters[i],0x20)!=rows[i].type || at<i32>(parameters[i],0x24)!=rows[i].before || at<u64>(parameters[i],0x28)!=0)return false;
  }
  out.itemId=itemId;
  previewCopy(out.description,description,0x38);at<u32>(out.description,8)=1;
- const char*text=itemId==BootId?BootDescription:SkeletonDescription;
- const u32 count=itemId==BootId?sizeof(BootDescription)-1:sizeof(SkeletonDescription)-1;
+ const char*text=itemId==BootId?BootDescription:(itemId==CombatBokkaId?CombatBokkaDescription:SkeletonDescription);
+ static_assert(sizeof(CombatBokkaDescription)<=sizeof(out.text));
+ u32 count=0;while(text[count])++count;
  previewCopy(out.text,text,count+1);
  at<u64>(out.description,0x20)=u64(out.text);at<u32>(out.description,0x28)=count;
  previewCopy(out.chart,chart,0x30);at<u32>(out.chart,8)=1;

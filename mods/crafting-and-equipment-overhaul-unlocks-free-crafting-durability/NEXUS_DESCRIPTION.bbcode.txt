@@ -3,8 +3,16 @@ Combine early crafting and PCC unlocks, custom ATLAS gear, suppressed weapons, t
 [center][size=4][b][url=https://ko-fi.com/gutzufuss]☕ Support my mods on Ko-fi[/url][/b][/size]
 Optional support helps me keep making updates. Thank you![/center]
 
-[b]New in 1.10.1[/b]
-Mixed fabrication of the red Story Coffin Board is fixed. The new optional ATLAS N02 Exoskeleton addon can be used on its own or together with the unchanged Chiral Boots addon. All 1.10.0 features remain included; existing INI settings can be kept.
+[b]New in main mod 1.10.2 — 20 November 2026[/b]
+The fabrication terminal lists Bokka Combat Skeleton Lv.3 as a separate item alongside the original Bokka. In German, look for Bokka-Kampfskelett St.3. The item name and description use English in other game languages. It combines the Battle Skeleton model and electromagnetic shield with Bokka terrain assistance. It has four mounts for small cargo, one on each shoulder and hip. Carrying capacity increases by 180 kg with power and 100 kg on an empty battery. Movement and jump behaviour follow the Battle Skeleton. In-game confirmation of all four mounts after reloading is pending.
+
+The main file includes the ATLAS Boot Model Selector from the former optional test download. Both the Bokka recipe and the boot selector work with the main mod alone. Under [AtlasEquipment] in your existing INI, set [b]BootAppearance=Absolute[/b] or use any of the 12 models in the included INI. The selection applies on Sam and on the boot clip. Chiral Boots takes priority when installed. Set [b]CombatBokkaSkeleton=1[/b] in the same section to enable the new recipe independently, or set it to 0 to hide it. If the key is missing, the recipe follows Enabled in that section. Restart after editing the INI.
+
+[b]Optional addon update 1.0.1 — 26 October 2026[/b]
+Chiral Boots 1.0.1 fixes the green torso/legs seen with some suit colours, including Gold and Silver, and keeps the boot gold stable outdoors. N02 1.0.1 adds compatibility with this correction. [b]If you use both addons, update BOTH to 1.0.1.[/b] Each addon can also be used alone.
+
+[b]New in main mod 1.10.1[/b]
+Mixed fabrication of the red Story Coffin Board is fixed. The new optional ATLAS N02 Exoskeleton addon can be used on its own or together with the Chiral Boots addon. All 1.10.0 features remain included; existing INI settings can be kept.
 
 [b]Features[/b]
 [list]
@@ -25,7 +33,7 @@ Windows x64, Steam [b]DS2.exe 1.10.89.0[/b] and a working [url=https://github.co
 
 [b]Install / update[/b]
 [b]New installation:[/b] Close the game and copy [b]ds2_crafting_unlocks.asi[/b] and [b]ds2_crafting_unlocks.ini[/b] from Main Files beside [b]DS2.exe[/b].
-[b]Updating to 1.10.1:[/b] Close the game, replace the main mod's ASI and keep your existing INI and [b]ds2_story_coffin_variants.bin[/b]. Outfit/accessory unlocks are enabled even if your INI has no [Cosmetics] section. Merge that section from the supplied INI only if you want to customize it. When updating from older versions, merge other missing settings without duplicating keys.
+[b]Updating to 1.10.2:[/b] Close the game, replace the main mod's ASI and keep your existing INI and [b]ds2_story_coffin_variants.bin[/b]. Outfit/accessory unlocks are enabled even if your INI has no [Cosmetics] section. Merge that section from the supplied INI only if you want to customize it. When updating from older versions, merge other missing settings without duplicating keys.
 Keep only one version of the main mod installed. Restart after changing the INI. See Important below before removing the main mod.
 
 [b]Red Story Coffin Board — included in the main mod[/b]
@@ -36,7 +44,7 @@ The main mod creates its own [b]ds2_crafting_story_cache[/b] folder beside DS2.e
 [b]Keep ds2_story_coffin_variants.bin:[/b] This separate mod file preserves the red appearance. Back it up alongside your saves and transfer it when moving to another PC. Without it, saved Story coffins appear as normal coffins. The mod does not write into game save files.
 
 [b]Optional: ATLAS Chiral Boots[/b]
-Download [b]ATLAS Chiral Boots Addon[/b] from [b]Optional Files[/b] on this page. Requires [b]Crafting & Equipment Overhaul 1.9.9 or a compatible later version[/b] and the ASI loader already used by the main mod.
+Download [b]ATLAS Chiral Boots Addon 1.0.1[/b] from [b]Optional Files[/b] on this page. Requires [b]Crafting & Equipment Overhaul 1.9.9 or a compatible later version[/b] and the ASI loader already used by the main mod.
 
 [b]Install:[/b] With the game closed, copy only [b]ds2_atlas_chiral_addon.asi[/b] beside [b]DS2.exe[/b]. No additional data folder, BIN files or addon INI need to be installed.
 
@@ -44,18 +52,20 @@ The addon changes ATLAS Boots to gold Chiral models, including the boot-clip mod
 
 [b]First launch:[/b] The addon automatically creates its [b]atlas_chiral[/b] cache folder. Allow at least [b]1.6 GB of free disk space[/b]; the first loading sequence can take longer. Later launches reuse the verified cache. Original game archives are never replaced.
 
-[b]Remove only the addon:[/b] Close the game and remove [b]ds2_atlas_chiral_addon.asi[/b]. [b]Keep the main mod installed.[/b] Existing saved ATLAS Boots then return to the main mod's standard Pizza Baker appearance. No save conversion is needed. You may also delete the automatically generated cache folder after closing the game to reclaim space.
+[b]Remove only the addon:[/b] Close the game and remove [b]ds2_atlas_chiral_addon.asi[/b]. [b]Keep the main mod installed.[/b] Existing saved ATLAS Boots then return to the main mod's configured boot appearance (Pizza Chef by default). No save conversion is needed. You may also delete the automatically generated cache folder after closing the game to reclaim space.
 
-The unchanged ATLAS Chiral Boots Addon 1.0.0 remains compatible with Crafting 1.10.1. It works independently or together with the N02 skeleton addon. No new shoe-addon download is needed. The red Story Coffin Board does not depend on either visual addon.
+[b]Version 1.0.1:[/b] Corrects suit colour/material updates while wearing ATLAS boots and stabilises outdoor boot gold. [b]Known limitation:[/b] Dynamic dirt/snow overlays on the ATLAS boot uppers and soles are currently suppressed to keep the gold stable; wetness and normal lighting remain active.
+
+[b]Using both visual addons:[/b] Update Chiral Boots and N02 to 1.0.1 together. N02 1.0.0 does not recognise the new shoe build. Both visual addons work with main mod 1.10.2. The red Story Coffin Board is included in the main file. Sam Overhaul's HideSpareShoes option can hide boots on the clip.
 
 [b]Optional: ATLAS N02 Exoskeleton[/b]
-Download [b]ATLAS N02 Exoskeleton Addon 1.0.0[/b] from [b]Optional Files[/b] on this same page. Requires [b]Crafting & Equipment Overhaul 1.10.1 or a compatible later version[/b].
+Download [b]ATLAS N02 Exoskeleton Addon 1.0.1[/b] from [b]Optional Files[/b] on this same page. Requires [b]Crafting & Equipment Overhaul 1.10.1 or a compatible later version[/b].
 
 [b]Install:[/b] Close DS2 and copy only [b]ds2_atlas_exoskeleton_addon.asi[/b] beside [b]DS2.exe[/b]. No addon INI or manually installed data folder is needed.
 
 The separately craftable ATLAS Skeleton gets a graphite-black N02 look with red accents, revised geometry and its own rendered menu image. [b]All combined ATLAS properties and crafting recipes stay with the main mod.[/b] Normal skeletons remain available.
 
-[b]Use either addon or both:[/b] The N02 skeleton and Chiral Boots addons are independent optional appearances. Install either ASI, both ASIs, or neither. The main mod remains required.
+[b]Use either addon or both:[/b] The N02 skeleton and Chiral Boots addons are independent optional appearances. Install either ASI, both ASIs, or neither. [b]When combining them, use 1.0.1 of both addons.[/b] N02 1.0.1 keeps the same look and menu image and adds support for the new shoe colour fix. The main mod remains required.
 
 [b]First launch:[/b] The addon automatically builds its [b]atlas_exoskeleton[/b] cache. Allow roughly [b]1.5 GB[/b] for this cache plus any caches used by the main mod and shoe addon. Initial loading can take longer; original archives are not replaced.
 

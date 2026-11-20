@@ -1,3 +1,8 @@
+Crafting & Equipment Overhaul 1.10.2 - 20.11.2026
+- Ergänzt das Bokka-Kampfskelett St.3 als eigenes Rezept. Es verbindet Kampfmodell und Schild mit Bokka-Geländehilfe und Tragkraft. Je ein kleines Frachtstück passt an beide Schultern und beide Hüften. Bewegung und Sprung entsprechen dem Kampfskelett.
+- Integriert die Modellwahl für ATLAS-Stiefel in die Hauptdatei. BootAppearance unter [AtlasEquipment] bietet zwölf Modelle für Sam und den Stiefelclip. Das optionale Chiral-Boots-Addon hat Vorrang.
+- Die vorhandene INI kann weiterverwendet werden. CombatBokkaSkeleton steuert das neue Rezept unabhängig. Fehlt der Schlüssel, gilt Enabled unter [AtlasEquipment].
+
 Crafting & Equipment Overhaul 1.10.1 - 24.10.2026
 - Roter Story-Surfsarg funktioniert jetzt auch bei gemeinsamer Herstellung mit ATLAS und anderen Gegenständen; die bisherige Einzelherstellungs-Einschränkung entfällt.
 - Korrekte Zuordnung von rotem Menübild, 3D-Modell und gespeichertem Erscheinungsbild zum hergestellten Sarg.

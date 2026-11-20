@@ -1,10 +1,20 @@
-Crafting & Equipment Overhaul 1.10.1
+Crafting & Equipment Overhaul 1.10.2
 DEATH STRANDING 2: ON THE BEACH | Windows x64 | Spielversion 1.10.89.0
 
-NEU IN 1.10.1
-Der rote Story-Surfsarg kann zusammen mit ATLAS und anderen Gegenständen hergestellt
-werden. Das optionale N02-Skelett-Addon wird separat oder gemeinsam mit dem bisherigen
-Schuhaddon unterstützt. Keine neuen INI-Einstellungen erforderlich.
+NEU IN 1.10.2
+Am Herstellungsterminal steht das Bokka-Kampfskelett St.3 als eigener Eintrag.
+Es kombiniert das Kampfmodell und den Schild mit der Bokka-Geländehilfe.
+An jede Schulter und jede Hüfte passt ein kleines Frachtstück. Die zusätzliche
+Tragkraft beträgt 180 kg mit Akku und 100 kg bei leerem Akku. Bewegung und
+Sprung entsprechen dem Kampfskelett. Der neue Eintrag erscheint auf Deutsch
+oder Englisch, in anderen Spielsprachen auf Englisch.
+
+Unter [AtlasEquipment] blendet CombatBokkaSkeleton=1 das Rezept ein, 0 blendet
+es aus. Fehlt die Zeile, gilt Enabled aus diesem Abschnitt. BootAppearance im
+selben Abschnitt wählt das ATLAS-Stiefelmodell für Sam und den Stiefelclip.
+Beispiel: BootAppearance=Absolute. Alle zwölf Modelle stehen in der INI.
+Standard sind die Stiefel des Pizzabäckers. Nach Änderungen das Spiel neu
+starten. Das Chiral-Boots-Addon hat Vorrang. Die Modellwahl ist im Hauptmod enthalten.
 
 WEITERHIN ENTHALTEN
 Der rote Story-Surfsarg ist Bestandteil des Hauptmods: Herstellung, rotes Menübild,
@@ -62,9 +72,9 @@ bleiben enthalten. Kostenlose Herstellung und Haltbarkeitsänderungen sind in
 der öffentlichen Standard-INI ausgeschaltet. Nach INI-Änderungen neu starten.
 
 KOMPATIBILITÄT
-ATLAS Chiral Boots Addon 1.0.0 bleibt ein separater optionaler Download. Seine ASI
+ATLAS Chiral Boots Addon 1.0.1 bleibt ein separater optionaler Download. Seine ASI
 muss für dieses Update nicht ersetzt werden; die Addon-Schnittstelle V1 bleibt erhalten.
-ATLAS N02 Exoskeleton Addon 1.0.0 benötigt Hauptmod 1.10.1 oder eine spätere Version,
+ATLAS N02 Exoskeleton Addon 1.0.1 benötigt Hauptmod 1.10.1 oder eine spätere Version,
 die Addon API V1 / Visual Router V1 und die ATLAS-Kennungen beibehält.
 Beide Erscheinungsbild-Addons können unabhängig oder gemeinsam verwendet werden.
 Normale Inhalts-, Rezept- und Werte-Updates benötigen keinen Neubau der Addons.

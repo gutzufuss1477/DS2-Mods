@@ -98,7 +98,7 @@ int main(){try{
   check(!parse(t.data(),(u32)t.size(),q,e),"reject invalid durability setting");
  }
 
- check(DurabilityCraftedBaggageCount==143,"143 scoped crafted baggage IDs");
+ check(DurabilityCraftedBaggageCount==144,"144 scoped crafted baggage IDs");
  check(DurabilityBootBaggageCount==9,"9 scoped boot baggage IDs");
  for(u32 i=1;i<DurabilityCraftedBaggageCount;++i)
   check(DurabilityCraftedBaggage[i-1]<DurabilityCraftedBaggage[i],"crafted allowlist sorted unique");

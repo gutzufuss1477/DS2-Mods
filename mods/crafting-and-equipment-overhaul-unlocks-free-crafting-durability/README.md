@@ -1,4 +1,4 @@
-# Crafting & Equipment Overhaul 1.10.1
+# Crafting & Equipment Overhaul 1.10.2
 
 Crafting, equipment, early PCC unlocks, ATLAS gear, suppressed/Warrior weapons,
 red Higgs guitar, red Story Coffin Board, and 52 outfits/accessories with color
@@ -11,16 +11,29 @@ and 3D previews. Keep `ds2_story_coffin_variants.bin` alongside save backups.
 
 ## Published Nexus update
 
-Main **1.10.1** is primary file **392**; optional ATLAS Chiral Boots **1.0.1**
-and N02 Exoskeleton **1.0.1** are files **395** and **396** on the
-[existing Nexus page](https://www.nexusmods.com/deathstranding2onthebeach/mods/86?tab=files).
-Both addons were published on 2026-10-26; update both when using them together.
-The Nexus API and exact local archive hashes were checked again on 2026-11-02.
+Main **1.10.2** was published on 2026-11-20 as primary file **430**.
+The optional ATLAS Chiral Boots and N02 Exoskeleton visual addons are version
+**1.0.1**, files **395** and **396**. The integrated boot selector replaces
+the archived optional test file **414**. [Nexus downloads](https://www.nexusmods.com/deathstranding2onthebeach/mods/86?tab=files)
 
 See [English changelog](CHANGELOG.txt), [German changelog](CHANGELOG_DE.txt),
 [English installation](README_EN.txt), [German installation](README_DE.txt) and
 [validation](VALIDATION.md). Existing INI settings and personal Story appearance
 metadata should be kept when updating.
+
+## Bokka Combat Skeleton and ATLAS boot models
+
+The main ASI includes the 12-model ATLAS Boot Model Selector from Nexus test file 414
+and the separate Bokka Combat Skeleton Lv.3 recipe. To use the Absolute Boots model,
+set `BootAppearance=Absolute` under `[AtlasEquipment]` in the existing INI and restart
+the game. The setting applies to the worn boots and the boot clip. The Chiral Boots
+visual addon takes priority when installed. N02 and Chiral Boots are the two separate
+visual addons.
+
+The [November 18 tester reply](https://www.nexusmods.com/deathstranding2onthebeach/mods/86?tab=posts&jump_to_comment=180124950)
+confirms the Absolute Boots test in 1.10.2-test2. Release 1.10.2 passed offline checks, including
+loading the visual addons in either order. The in-game check for four mounted
+cargo items and their persistence after a save and reload is pending.
 
 ## Independent optional appearances
 
@@ -43,5 +56,4 @@ See [build instructions](source/BUILD.md). Native textures, rendered game images
 and embedded model/link payloads remain explicit local build inputs. A clean clone
 does not include them or an end-to-end extractor. Generated caches, original game
 archives, saves and personal configuration are excluded from Git and public packages.
-The game-test confirmation refers to the exact Test05 main build with both addons;
-release 1.10.1 changes only the main version label and was rebuilt and checked offline.
+The October 2026 game-test confirmation covers the Test05 main build with both addons.
