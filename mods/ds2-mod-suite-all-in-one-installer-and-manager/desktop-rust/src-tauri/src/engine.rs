@@ -28,6 +28,7 @@ pub struct View {
     pub warnings: Vec<String>,
     pub payload_ready: bool,
     pub backup_available: bool,
+    pub auxiliary_proxies: Vec<String>,
 }
 #[derive(Clone)]
 struct Change {
@@ -78,7 +79,34 @@ pub struct Engine {
     pub supported: bool,
     pub settings_dir: PathBuf,
 }
+#[derive(Default)]
+struct ProxyRoles {
+    loaders: Vec<String>,
+    auxiliary: Vec<String>,
+    unknown: Vec<String>,
+}
 impl Engine {
+    fn proxy_roles(&self, snapshot: &Snapshot) -> ProxyRoles {
+        let mut roles = ProxyRoles::default();
+        let loader = &self.data.catalog.loader;
+        for name in &loader.proxy_file_names {
+            let Some(Some(hash)) = snapshot.hashes.get(name) else {
+                continue;
+            };
+            if std::iter::once(&loader.sha256)
+                .chain(&loader.known_compatible_hashes)
+                .any(|known| known.eq_ignore_ascii_case(hash))
+            {
+                roles.loaders.push(name.clone());
+            } else if matches!(name.as_str(), "dxgi.dll" | "d3d12.dll" | "winhttp.dll") {
+                roles.auxiliary.push(name.clone());
+            } else {
+                roles.unknown.push(name.clone());
+            }
+        }
+        roles
+    }
+
     pub fn new() -> Self {
         Self {
             data: Data::load(),
@@ -148,6 +176,7 @@ impl Engine {
         let mut installed = Vec::new();
         self.supported = false;
         let mut backup_available = false;
+        let mut auxiliary_proxies = Vec::new();
         if let Some(game) = &self.game {
             check_path(game)?;
             let exe = game.join(&self.data.catalog.game.executable);
@@ -166,6 +195,7 @@ impl Engine {
                 warnings.push("Unsupported game build: installation is disabled.".into());
             }
             let snapshot = self.scan(game)?;
+            auxiliary_proxies = self.proxy_roles(&snapshot).auxiliary;
             let mut variants: BTreeMap<String, (usize, Vec<String>)> = BTreeMap::new();
             for m in &self.data.catalog.mods {
                 let binaries: Vec<_> = m.files.iter().filter(|f| f.kind != "config").collect();
@@ -236,6 +266,22 @@ impl Engine {
             warnings.sort();
             warnings.dedup();
             for f in &self.data.fields {
+                if let Some(owner) = &f.only_for {
+                    // Two variants can use the same INI key with different valid values.
+                    let other_installed = self.data.fields.iter().any(|other| {
+                        other.id != f.id
+                            && other.target == f.target
+                            && other.section == f.section
+                            && other.key == f.key
+                            && other
+                                .only_for
+                                .as_ref()
+                                .is_some_and(|m| installed.contains(m))
+                    });
+                    if !installed.contains(owner) && other_installed {
+                        continue;
+                    }
+                }
                 if let Some(raw) = snapshot.files.get(&f.target) {
                     let source = decode(raw)?;
                     if let Some(v) = Ini::parse(&source).get(f) {
@@ -281,6 +327,7 @@ impl Engine {
             warnings,
             payload_ready,
             backup_available,
+            auxiliary_proxies,
         })
     }
     fn scan(&self, game: &Path) -> Result<Snapshot, String> {
@@ -316,7 +363,16 @@ impl Engine {
         }
         Ok(raw)
     }
+    #[cfg(test)]
     pub fn preview(&mut self, ids: Vec<String>, values: Values) -> Result<PlanView, String> {
+        self.preview_with_proxies(ids, values, &[])
+    }
+    pub fn preview_with_proxies(
+        &mut self,
+        ids: Vec<String>,
+        values: Values,
+        confirmed_auxiliary: &[String],
+    ) -> Result<PlanView, String> {
         self.plan = None;
         if let Some(game) = &self.game {
             if self
@@ -375,8 +431,9 @@ impl Engine {
                             Some(raw) => decode(raw)?,
                             None => self
                                 .data
-                                .templates
-                                .get(&f.target)
+                                .variant_templates
+                                .get(&f.payload)
+                                .or_else(|| self.data.templates.get(&f.target))
                                 .ok_or("Missing INI template")?
                                 .clone(),
                         };
@@ -387,12 +444,28 @@ impl Engine {
                             .iter()
                             .filter(|field| field.target == f.target)
                         {
+                            if field.only_for.as_ref().is_some_and(|id| id != &m.id) {
+                                if field.remove_when_inactive {
+                                    ini.remove(field);
+                                }
+                                continue;
+                            }
                             ini.set(field, values.get(&field.id).ok_or("Incomplete settings")?);
                         }
-                        planned.insert(
-                            f.target.clone(),
-                            (Some(ini.render().into_bytes()), "Save configuration".into()),
-                        );
+                        let rendered = ini.render();
+                        let bytes = if snapshot
+                            .files
+                            .get(&f.target)
+                            .is_some_and(|raw| raw.starts_with(&[0xff, 0xfe]))
+                        {
+                            let mut bytes = vec![0xff, 0xfe];
+                            bytes.extend(rendered.encode_utf16().flat_map(u16::to_le_bytes));
+                            bytes
+                        } else {
+                            rendered.into_bytes()
+                        };
+                        planned
+                            .insert(f.target.clone(), (Some(bytes), "Save configuration".into()));
                     }
                     continue;
                 }
@@ -435,29 +508,26 @@ impl Engine {
         }
         if !selected.is_empty() {
             let l = &self.data.catalog.loader;
-            let proxies: Vec<_> = l
-                .proxy_file_names
-                .iter()
-                .filter(|n| snapshot.files.contains_key(*n))
-                .collect();
-            if proxies.len() > 1 {
-                return Err(
-                    "Multiple ASI proxy loaders found. Resolve this conflict first.".into(),
-                );
+            let roles = self.proxy_roles(snapshot);
+            if roles.loaders.len() > 1 {
+                return Err(format!(
+                    "Multiple ASI loaders: {}",
+                    roles.loaders.join(", ")
+                ));
             }
-            if let Some(proxy) = proxies.first() {
-                let h = snapshot
-                    .hashes
-                    .get(*proxy)
-                    .and_then(|h| h.as_ref())
-                    .unwrap();
-                if !std::iter::once(&l.sha256)
-                    .chain(l.known_compatible_hashes.iter())
-                    .any(|known| known.eq_ignore_ascii_case(h))
-                {
-                    return Err(format!("Unknown loader retained: {}", proxy));
-                }
-            } else {
+            if !roles.unknown.is_empty() {
+                return Err(format!(
+                    "Unknown loader retained: {}",
+                    roles.unknown.join(", ")
+                ));
+            }
+            if roles.auxiliary != confirmed_auxiliary {
+                return Err(format!(
+                    "Confirm the additional graphics proxies: {}",
+                    roles.auxiliary.join(", ")
+                ));
+            }
+            if roles.loaders.is_empty() {
                 planned.insert(
                     l.file_name.clone(),
                     (

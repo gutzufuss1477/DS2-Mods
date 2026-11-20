@@ -1,28 +1,14 @@
-# DS2 Mod Suite 1.14.0
+# DS2 Mod Suite 1.15.0
 
-Portable offline manager for 30 DS2 components, with 398 editable central INI
-settings, ten languages, automatic dependencies, verified backups and restore.
-Includes APAS 4.1.0-preview.1 and optional Free Mining beta.
+Install and configure 33 DS2 mod components, with 401 editable INI settings,
+ten interface languages and automatic backups. Windows x64, Microsoft Edge
+WebView2 and Steam DS2 1.10.89.0 are required.
 
-[Download on Nexus](https://www.nexusmods.com/deathstranding2onthebeach/mods/72?tab=files&file_id=405)
+[Download on Nexus](https://www.nexusmods.com/deathstranding2onthebeach/mods/72?tab=files&file_id=424)
 · [Usage and build instructions](desktop-rust/README.md)
-· [Validation and scan evidence](desktop-rust/publication/RELEASE-1.14.0.md)
+· [Release validation](desktop-rust/publication/RELEASE-1.15.0.md)
 
-Extract the complete ZIP into a new folder, open `DS2ModManager.exe`, accept the
-normal Windows administrator prompt, review your detected mods/settings and apply.
-Windows x64 with WebView2 is required. The Rust/Tauri manager keeps ordinary local
-ASI/DLL/INI payloads; there is no separate payload download. Existing INIs and
-older profiles are preserved. Infrastructure and Free Mining share their settings
-and are mutually exclusive, as are the two Backpack variants.
-
-The full ZIP was accepted on the unpublished test page and on the original mod
-page. All 19 offline tests passed and local Defender reported no threats. The
-archive still has a 5/67 VirusTotal report; acceptance is not a zero-detection
-claim. The author reports Windows startup appears OK. Fresh APAS 4.1 / zero-inventory
-Free Mining in-game testing remain outstanding. Free Mining is explicitly optional beta.
-
-Previous file 379 is archived; 1.14.0/file 405 is the active main download.
-
-The production sources and catalog are in `desktop-rust/`. `source/` and its
-publication records retain the historical C# releases and their scan results.
-Game assets and compiled payloads are not stored in Git.
+Extract the complete ZIP into a new folder and run DS2ModManager.exe. Choose your
+existing game folder, review the detected selection and settings, and apply.
+Select a single build for each of Crafting, Remote Orders, Backpack and
+Infrastructure. APAS and the optional Free Mining beta are included.

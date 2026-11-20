@@ -12,13 +12,16 @@ def main():
     catalog=json.loads((args.catalog or base/'catalog.json').read_text(encoding='utf-8-sig'))
     schema=json.loads((source/'settings-schema.json').read_text(encoding='utf-8-sig'))
     templates={}
+    variant_templates={}
     for mod in catalog['mods']:
         for f in mod['files']:
             if f['kind']!='config':continue
             raw=(args.payload_root/f['payload']).read_bytes()
             assert hashlib.sha256(raw).hexdigest().lower()==f['sha256'].lower(),f['target']
             # Shared variant INIs use one canonical template and common fields.
-            templates.setdefault(f['target'],raw.decode('utf-8-sig'))
+            template = raw.decode('utf-8-sig')
+            if templates.setdefault(f['target'], template) != template:
+                variant_templates[f['payload']] = template
     fields=[]
     for mod in schema['mods']:
         for file in mod['files']:
@@ -41,8 +44,12 @@ def main():
                             if default is not None:break
                     assert default is not None,key
                     fields.append({**field,'id':'|'.join([mod['modId'],file['target'],sec['name'],field['key']]),'modId':mod['modId'],'target':file['target'],'section':sec['name'],'defaultValue':default,'label':field.get('label',re.sub(r'(?<=[a-z])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])',' ',field['key'])),'description':field.get('description',comments.get(key,''))})
+    for field in fields:
+        if field['id'] in catalog.get('fieldVariants', {}):
+            field['onlyFor'] = catalog['fieldVariants'][field['id']]
+    fields.extend(catalog.get('additionalSettings', []))
     fields.extend(catalog.get('managedSettings',[]))
-    data={'catalog':catalog,'fields':fields,'templates':templates,'locales':{p.stem:json.loads(p.read_text(encoding='utf-8-sig')) for p in (source/'locales').glob('*.json')}}
+    data={'catalog':catalog,'fields':fields,'templates':templates,'variantTemplates':variant_templates,'locales':{p.stem:json.loads(p.read_text(encoding='utf-8-sig')) for p in (source/'locales').glob('*.json')}}
     assert len({f['id'] for f in fields})==len(fields)
     expected=json.loads((base/'package.json').read_text())['version']
     assert catalog['suiteVersion']==expected, 'Catalog/package version mismatch'

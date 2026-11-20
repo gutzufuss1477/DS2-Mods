@@ -53,6 +53,14 @@ impl Ini {
         }
         None
     }
+    pub fn remove(&mut self, field: &Field) {
+        for (index, section, key, _) in self.entries().into_iter().rev() {
+            if section.eq_ignore_ascii_case(&field.section) && key.eq_ignore_ascii_case(&field.key)
+            {
+                self.lines.remove(index);
+            }
+        }
+    }
     pub fn set(&mut self, field: &Field, value: &str) {
         let entries: Vec<_> = self
             .entries()

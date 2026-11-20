@@ -50,9 +50,9 @@ fn chosen(e: &Engine) -> Vec<String> {
 #[test]
 fn all_defaults_are_valid_and_complete() {
     let data = Data::load();
-    assert_eq!(data.fields.len(), 399);
+    assert_eq!(data.fields.len(), 402);
     assert_eq!(data.templates.len(), 24);
-    assert_eq!(data.catalog.mods.len(), 30);
+    assert_eq!(data.catalog.mods.len(), 33);
     data.validate_values(&data.defaults()).unwrap();
 }
 #[test]
@@ -536,4 +536,193 @@ fn renamed_legacy_mods_are_selected_for_upgrade_and_restore() {
         assert_eq!(fs::read(game.join(&target)).unwrap(), raw);
         fs::remove_file(game.join(&target)).unwrap();
     }
+}
+
+#[test]
+fn graphics_proxies_require_confirmation_and_never_become_install_targets() {
+    let (_temp, mut e) = fixture();
+    let game = e.game.clone().unwrap();
+    let selected = vec![e.data.catalog.mods[0].id.clone()];
+    fs::write(game.join("version.dll"), b"test-loader").unwrap();
+    fs::write(game.join("dxgi.dll"), b"graphics proxy").unwrap();
+    fs::write(game.join("winhttp.dll"), b"graphics helper").unwrap();
+    let view = e.inspect(Some(game.clone())).unwrap();
+    assert_eq!(view.auxiliary_proxies, ["winhttp.dll", "dxgi.dll"]);
+    assert!(e.preview(selected.clone(), view.values.clone()).is_err());
+    let plan = e
+        .preview_with_proxies(selected.clone(), view.values, &view.auxiliary_proxies)
+        .unwrap();
+    e.apply(&plan.token).unwrap();
+    assert!(!game.join("winmm.dll").exists());
+    assert_eq!(fs::read(game.join("dxgi.dll")).unwrap(), b"graphics proxy");
+    fs::write(game.join("dxgi.dll"), b"test-loader").unwrap();
+    let view = e.inspect(Some(game.clone())).unwrap();
+    assert!(e
+        .preview_with_proxies(selected, view.values, &view.auxiliary_proxies)
+        .err()
+        .unwrap()
+        .contains("Multiple ASI loaders"));
+}
+
+#[test]
+fn boot_selector_with_addon_keeps_preferences_on_switch_back() {
+    let (_temp, mut e) = fixture();
+    let game = e.game.clone().unwrap();
+    let field = e
+        .data
+        .fields
+        .iter()
+        .find(|f| f.key == "BootAppearance")
+        .unwrap()
+        .clone();
+    let path = game.join(&field.target);
+    let custom = "[AtlasEquipment]\r\nBootAppearance=Absolute Boots\r\n; personal note\r\n";
+    fs::write(&path, custom).unwrap();
+    let view = e.inspect(Some(game.clone())).unwrap();
+    assert_eq!(view.values[&field.id], "Absolute");
+    let plan = e
+        .preview(
+            vec![
+                "atlas-n02-exoskeleton".into(),
+                "crafting-boot-selector".into(),
+            ],
+            view.values,
+        )
+        .unwrap();
+    assert!(!plan.selected.contains(&"crafting-unlocks".into()));
+    e.apply(&plan.token).unwrap();
+    let view = e.inspect(Some(game.clone())).unwrap();
+    assert!(view.installed.contains(&"crafting-boot-selector".into()));
+    let plan = e
+        .preview(vec!["atlas-n02-exoskeleton".into()], view.values)
+        .unwrap();
+    assert!(plan.selected.contains(&"crafting-unlocks".into()));
+    e.apply(&plan.token).unwrap();
+    let stable_ini = fs::read_to_string(&path).unwrap();
+    assert!(!stable_ini.contains("BootAppearance="));
+    assert!(stable_ini.contains("; personal note"));
+    let view = e.inspect(Some(game)).unwrap();
+    assert_eq!(view.values[&field.id], "Absolute");
+}
+
+#[test]
+fn remote_v4_preserves_custom_scale_and_utf16_ini() {
+    let (_temp, mut e) = fixture();
+    let game = e.game.clone().unwrap();
+    let v4 = e
+        .data
+        .catalog
+        .mods
+        .iter()
+        .find(|m| m.id == "remote-orders-scaled")
+        .unwrap()
+        .clone();
+    let binary = &v4.files[0];
+    fs::copy(e.package.join(&binary.payload), game.join(&binary.target)).unwrap();
+    let scale = e
+        .data
+        .fields
+        .iter()
+        .find(|f| f.only_for.as_ref() == Some(&v4.id) && f.key == "Scale")
+        .unwrap()
+        .clone();
+    let txt = "[Overlay]\r\nScale=1.45\r\n; Höhe\r\n[Localization]\r\nLanguage=de\r\n";
+    let mut encoded = vec![0xff, 0xfe];
+    encoded.extend(txt.encode_utf16().flat_map(u16::to_le_bytes));
+    fs::write(game.join(&scale.target), encoded).unwrap();
+    let view = e.inspect(Some(game.clone())).unwrap();
+    assert!(view.installed.contains(&v4.id));
+    assert_eq!(view.values[&scale.id], "1.45");
+    let plan = e.preview(view.installed, view.values).unwrap();
+    e.apply(&plan.token).unwrap();
+    let after = fs::read(game.join(&scale.target)).unwrap();
+    assert!(after.starts_with(&[0xff, 0xfe]));
+    assert!(decode(&after).unwrap().contains("; Höhe"));
+}
+
+/// Release check using extracted archives and real binaries, in a temporary game folder.
+#[test]
+#[ignore = "requires the previous package, new package and standalone migration samples"]
+fn published_binaries_upgrade_without_losing_settings_or_originals() {
+    let path = |var| PathBuf::from(std::env::var_os(var).unwrap());
+    let old = path("DS2_PREVIOUS_PACKAGE");
+    let standalones = path("DS2_MIGRATION_SAMPLES");
+    let (_temp, mut e) = fixture();
+    e.data = Data::load();
+    e.data.catalog.game.supported_versions[0].sha256 = hash(b"test-game");
+    e.package = path("DS2_NEW_PACKAGE");
+    e.verify_package().unwrap();
+    let game = e.game.clone().unwrap();
+    let legacy_mods = [
+        "tri-cruiser-cargo-capacity",
+        "extended-bt-cord-cutting-range",
+    ];
+    let installed_mods = [
+        "lost-cargo-likes-booster",
+        "chiral-bandwidth-costs",
+        "remote-orders-scaled",
+        "crafting-unlocks",
+        "apas-memory-costs",
+        "infrastructure-free-mining",
+    ];
+    for id in legacy_mods {
+        let legacy = &e
+            .data
+            .catalog
+            .mods
+            .iter()
+            .find(|m| m.id == id)
+            .unwrap()
+            .obsolete_files[0];
+        let raw = fs::read(standalones.join(&legacy.target)).unwrap();
+        assert_eq!(hash(&raw), legacy.sha256);
+        fs::write(game.join(&legacy.target), raw).unwrap();
+    }
+    for id in installed_mods {
+        let m = e.data.catalog.mods.iter().find(|m| m.id == id).unwrap();
+        let root = if id == "remote-orders-scaled" {
+            &e.package
+        } else {
+            &old
+        };
+        for f in &m.files {
+            fs::copy(root.join(&f.payload), game.join(&f.target)).unwrap();
+        }
+    }
+    fs::copy(
+        old.join(&e.data.catalog.loader.payload),
+        game.join("version.dll"),
+    )
+    .unwrap();
+    let cfg = "ds2_lost_cargo_likes_booster.ini";
+    fs::write(
+        game.join(cfg),
+        "; my profile\r\n[LostCargoLikesBooster]\r\nExtraLikes=12345\r\n",
+    )
+    .unwrap();
+    let original = e.scan(&game).unwrap();
+    let mut view = e.inspect(Some(game.clone())).unwrap();
+    for id in legacy_mods.into_iter().chain(installed_mods) {
+        assert!(view.installed.contains(&id.into()), "missed {id}");
+    }
+    view.installed.push("all-containers-small".into());
+    let plan = e.preview(view.installed, view.values).unwrap();
+    e.apply(&plan.token).unwrap();
+    let current = e.inspect(Some(game.clone())).unwrap();
+    assert!(current.installed.contains(&"all-containers-small".into()));
+    assert!(fs::read_to_string(game.join(cfg))
+        .unwrap()
+        .contains("ExtraLikes=12345"));
+    for id in legacy_mods {
+        let m = e.data.catalog.mods.iter().find(|m| m.id == id).unwrap();
+        assert!(!game.join(&m.obsolete_files[0].target).exists());
+        assert_eq!(
+            hash_file(&game.join(&m.files[0].target)).unwrap(),
+            m.files[0].sha256
+        );
+    }
+    let repeat = e.preview(current.installed, current.values).unwrap();
+    assert!(repeat.changes.is_empty());
+    e.restore_latest().unwrap();
+    assert_eq!(e.scan(&game).unwrap().hashes, original.hashes);
 }

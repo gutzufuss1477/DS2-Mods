@@ -4,24 +4,35 @@
   "nexusGame": "deathstranding2onthebeach",
   "nexusModId": 72,
   "nexusUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/72",
-  "pageVersion": "1.14.0",
+  "pageVersion": "1.15.0",
   "sourceStatus": "published",
-  "sourceNote": "Rust/Tauri Suite 1.14.0: complete ZIP accepted on unpublished test mod 97/file 404. Original mod 72/file 405: accepted. 30 components include APAS 4.1 preview and optional Free Mining beta. 19 offline tests passed. Defender clean; VirusTotal archive 5/67. User reports Windows startup appears OK. Fresh APAS 4.1 and zero-inventory Free Mining game testing remain outstanding. Previous file 379 was archived by the author.",
+  "sourceNote": "Offline Rust/Tauri manager with 33 components and 401 editable settings. Nexus file 424 was downloaded and matched the release SHA-256. See the release validation record.",
   "currentFiles": [
+    {
+      "fileId": 424,
+      "name": "DS2 Mod Suite 1.15.0",
+      "version": "1.15.0",
+      "category": "MAIN",
+      "primary": true,
+      "sha256": "83cc3fb33004cd9f396e39ff1c5ee8db2e694a4db78402d7c2359faa31fcb9c2",
+      "bytes": 38771196,
+      "downloadUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/72?tab=files&file_id=424",
+      "status": "published"
+    }
+  ],
+  "sourceVersion": "1.15.0",
+  "previousFiles": [
     {
       "fileId": 405,
       "name": "DS2 Mod Suite 1.14.0",
       "version": "1.14.0",
-      "category": "MAIN",
-      "primary": true,
+      "category": "OLD_VERSION",
+      "primary": false,
       "sha256": "6f533ff26aa9a3c9c5c21e45067a94b0d2c64f77a6e531ef8ec2e738c88e0d51",
       "bytes": 37033375,
       "downloadUrl": "https://www.nexusmods.com/deathstranding2onthebeach/mods/72?tab=files&file_id=405",
       "status": "accepted"
-    }
-  ],
-  "sourceVersion": "1.14.0",
-  "previousFiles": [
+    },
     {
       "fileId": 379,
       "name": "DS2 Mod Suite v1.12.1 - No APAS comparison",

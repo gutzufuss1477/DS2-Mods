@@ -26,13 +26,14 @@ async fn choose_game() -> Result<Option<String>, String> {
 #[tauri::command]
 async fn preview(
     selected: Vec<String>,
+    auxiliary_proxies: Vec<String>,
     values: std::collections::BTreeMap<String, String>,
     state: State<'_, Mutex<Engine>>,
 ) -> Result<engine::PlanView, String> {
     state
         .lock()
         .map_err(|_| "Manager busy")?
-        .preview(selected, values)
+        .preview_with_proxies(selected, values, &auxiliary_proxies)
 }
 #[tauri::command]
 async fn apply(token: String, state: State<'_, Mutex<Engine>>) -> Result<String, String> {

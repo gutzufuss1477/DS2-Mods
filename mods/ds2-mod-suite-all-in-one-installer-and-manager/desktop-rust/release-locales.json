@@ -17,7 +17,15 @@
     "Unsupported game build": "Nicht unterstützte Spielversion",
     "Save configuration": "Konfiguration speichern",
     "Install / update": "Installieren / aktualisieren",
-    "Remove known mod binary": "Bekannte Mod-Datei entfernen"
+    "Remove known mod binary": "Bekannte Mod-Datei entfernen",
+    "These files belong to my graphics mods": "Diese Dateien gehören zu meinen Grafikmods",
+    "ATLAS boot model": "ATLAS-Stiefelmodell",
+    "Overlay scale": "Overlay-Skalierung",
+    "Standard cargo containers use size S. Weight and material quantities stay the same.": "Standard-Frachtcontainer erhalten Größe S. Gewicht und Materialmenge bleiben gleich.",
+    "Choose the ATLAS boot model. The Chiral Boots addon overrides this setting.": "Wählt das Modell der ATLAS-Stiefel. Das Chiral-Boots-Addon hat Vorrang.",
+    "Resolution-aware overlay with German and English text.": "Overlay mit Auflösungsskalierung und deutschen oder englischen Texten.",
+    "Set a cost for each structure. Native keeps the original cost, 0 makes it free. Restart DS2 after editing.": "Kosten je Bauwerk einstellen. Native behält die Spielkosten bei, 0 macht den Bau kostenlos. DS2 nach Änderungen neu starten.",
+    "ATLAS N02 Exoskeleton for Crafting Overhaul. A player reported a crash at the transition after the final Higgs fight while using this addon.": "ATLAS-N02-Exoskelett für Crafting Overhaul. Ein Spieler meldet mit diesem Addon einen Absturz beim Missionswechsel nach dem letzten Higgs-Kampf."
   },
   "fr": {
     "Infrastructure + Free Mining (Beta)": "Infrastructures + extraction gratuite (bêta)",
@@ -27,7 +35,15 @@
     "Unsupported game build": "Version du jeu non compatible",
     "Save configuration": "Enregistrer la configuration",
     "Install / update": "Installer / mettre à jour",
-    "Remove known mod binary": "Supprimer le fichier du mod reconnu"
+    "Remove known mod binary": "Supprimer le fichier du mod reconnu",
+    "These files belong to my graphics mods": "Ces fichiers appartiennent à mes mods graphiques",
+    "ATLAS boot model": "Modèle des bottes ATLAS",
+    "Overlay scale": "Échelle de la fenêtre",
+    "Standard cargo containers use size S. Weight and material quantities stay the same.": "Les conteneurs standard passent en taille S. Le poids et les quantités sont conservés.",
+    "Choose the ATLAS boot model. The Chiral Boots addon overrides this setting.": "Choisissez le modèle des bottes ATLAS. Le module Chiral Boots est prioritaire.",
+    "Resolution-aware overlay with German and English text.": "Affichage adapté à la résolution, en allemand et en anglais.",
+    "Set a cost for each structure. Native keeps the original cost, 0 makes it free. Restart DS2 after editing.": "Réglez le coût par structure. Native conserve le coût du jeu, 0 le supprime. Redémarrez DS2.",
+    "ATLAS N02 Exoskeleton for Crafting Overhaul. A player reported a crash at the transition after the final Higgs fight while using this addon.": "Exosquelette N02 pour Crafting Overhaul. Un joueur signale un plantage après le dernier combat contre Higgs."
   },
   "es": {
     "Infrastructure + Free Mining (Beta)": "Infraestructura + extracción gratuita (beta)",
@@ -37,7 +53,15 @@
     "Unsupported game build": "Versión del juego no compatible",
     "Save configuration": "Guardar configuración",
     "Install / update": "Instalar / actualizar",
-    "Remove known mod binary": "Eliminar archivo de mod reconocido"
+    "Remove known mod binary": "Eliminar archivo de mod reconocido",
+    "These files belong to my graphics mods": "Estos archivos son de mis mods gráficos",
+    "ATLAS boot model": "Modelo de botas ATLAS",
+    "Overlay scale": "Escala de la superposición",
+    "Standard cargo containers use size S. Weight and material quantities stay the same.": "Los contenedores estándar pasan a tamaño S. Se conservan el peso y las cantidades.",
+    "Choose the ATLAS boot model. The Chiral Boots addon overrides this setting.": "Elige el modelo de botas ATLAS. El complemento Chiral Boots tiene prioridad.",
+    "Resolution-aware overlay with German and English text.": "Superposición que se adapta a la resolución, con texto en alemán e inglés.",
+    "Set a cost for each structure. Native keeps the original cost, 0 makes it free. Restart DS2 after editing.": "Ajusta el coste por estructura. Native conserva el coste del juego y 0 lo elimina. Reinicia DS2.",
+    "ATLAS N02 Exoskeleton for Crafting Overhaul. A player reported a crash at the transition after the final Higgs fight while using this addon.": "Exoesqueleto N02 para Crafting Overhaul. Un jugador informó de un cierre tras la última lucha contra Higgs."
   },
   "it": {
     "Infrastructure + Free Mining (Beta)": "Infrastrutture + estrazione gratuita (beta)",
@@ -47,7 +71,15 @@
     "Unsupported game build": "Versione del gioco non supportata",
     "Save configuration": "Salva configurazione",
     "Install / update": "Installa / aggiorna",
-    "Remove known mod binary": "Rimuovi file mod riconosciuto"
+    "Remove known mod binary": "Rimuovi file mod riconosciuto",
+    "These files belong to my graphics mods": "Questi file appartengono alle mie mod grafiche",
+    "ATLAS boot model": "Modello stivali ATLAS",
+    "Overlay scale": "Scala della finestra",
+    "Standard cargo containers use size S. Weight and material quantities stay the same.": "I contenitori standard diventano di taglia S. Peso e quantità restano invariati.",
+    "Choose the ATLAS boot model. The Chiral Boots addon overrides this setting.": "Scegli il modello degli stivali ATLAS. Chiral Boots ha la precedenza.",
+    "Resolution-aware overlay with German and English text.": "Finestra adattata alla risoluzione, con testo in tedesco e inglese.",
+    "Set a cost for each structure. Native keeps the original cost, 0 makes it free. Restart DS2 after editing.": "Imposta il costo per struttura. Native mantiene il costo del gioco, 0 lo azzera. Riavvia DS2.",
+    "ATLAS N02 Exoskeleton for Crafting Overhaul. A player reported a crash at the transition after the final Higgs fight while using this addon.": "Esoscheletro N02 per Crafting Overhaul. Un giocatore ha segnalato un crash dopo lo scontro finale con Higgs."
   },
   "zh-CN": {
     "Infrastructure + Free Mining (Beta)": "基础设施 + 免费采矿（测试版）",
@@ -57,7 +89,15 @@
     "Unsupported game build": "不支持的游戏版本",
     "Save configuration": "保存配置",
     "Install / update": "安装 / 更新",
-    "Remove known mod binary": "移除已识别的模组文件"
+    "Remove known mod binary": "移除已识别的模组文件",
+    "These files belong to my graphics mods": "这些文件属于我的图形模组",
+    "ATLAS boot model": "ATLAS 靴子模型",
+    "Overlay scale": "叠加层缩放",
+    "Standard cargo containers use size S. Weight and material quantities stay the same.": "标准货箱变为 S 号，重量和材料数量保持不变。",
+    "Choose the ATLAS boot model. The Chiral Boots addon overrides this setting.": "选择 ATLAS 靴子模型。开罗尔靴子插件优先。",
+    "Resolution-aware overlay with German and English text.": "根据分辨率缩放，文字支持德语和英语。",
+    "Set a cost for each structure. Native keeps the original cost, 0 makes it free. Restart DS2 after editing.": "按建筑设置消耗。Native 保留原值，0 表示免费。修改后重启游戏。",
+    "ATLAS N02 Exoskeleton for Crafting Overhaul. A player reported a crash at the transition after the final Higgs fight while using this addon.": "适用于 Crafting Overhaul 的 N02 外骨骼。有玩家报告在与希格斯的最终战后崩溃。"
   },
   "ja": {
     "Infrastructure + Free Mining (Beta)": "インフラ＋無料採掘（ベータ）",
@@ -67,7 +107,15 @@
     "Unsupported game build": "非対応のゲームバージョン",
     "Save configuration": "設定を保存",
     "Install / update": "インストール / 更新",
-    "Remove known mod binary": "確認済みModファイルを削除"
+    "Remove known mod binary": "確認済みModファイルを削除",
+    "These files belong to my graphics mods": "これらはグラフィックModのファイルです",
+    "ATLAS boot model": "ATLASブーツのモデル",
+    "Overlay scale": "オーバーレイの倍率",
+    "Standard cargo containers use size S. Weight and material quantities stay the same.": "標準の荷物ケースがSサイズになります。重量と素材の量は変わりません。",
+    "Choose the ATLAS boot model. The Chiral Boots addon overrides this setting.": "ATLASブーツのモデルを選べます。カイラルブーツのアドオンが優先されます。",
+    "Resolution-aware overlay with German and English text.": "解像度に応じて表示倍率が変わります。表示言語はドイツ語と英語です。",
+    "Set a cost for each structure. Native keeps the original cost, 0 makes it free. Restart DS2 after editing.": "建設物ごとの消費量です。Native は元の値、0 は無料です。変更後にDS2を再起動してください。",
+    "ATLAS N02 Exoskeleton for Crafting Overhaul. A player reported a crash at the transition after the final Higgs fight while using this addon.": "Crafting Overhaul用N02外骨格。ヒッグスとの最終戦後にクラッシュしたとの報告があります。"
   },
   "ko": {
     "Infrastructure + Free Mining (Beta)": "인프라 + 무료 채굴 (베타)",
@@ -77,7 +125,15 @@
     "Unsupported game build": "지원되지 않는 게임 버전",
     "Save configuration": "설정 저장",
     "Install / update": "설치 / 업데이트",
-    "Remove known mod binary": "확인된 모드 파일 제거"
+    "Remove known mod binary": "확인된 모드 파일 제거",
+    "These files belong to my graphics mods": "이 파일은 그래픽 모드에 속합니다",
+    "ATLAS boot model": "ATLAS 부츠 모델",
+    "Overlay scale": "오버레이 배율",
+    "Standard cargo containers use size S. Weight and material quantities stay the same.": "표준 화물 상자가 S 크기로 바뀝니다. 무게와 재료 수량은 유지됩니다.",
+    "Choose the ATLAS boot model. The Chiral Boots addon overrides this setting.": "ATLAS 부츠 모델을 선택합니다. 키랄 부츠 애드온이 우선합니다.",
+    "Resolution-aware overlay with German and English text.": "해상도에 맞춰 크기를 조정합니다. 독일어와 영어를 지원합니다.",
+    "Set a cost for each structure. Native keeps the original cost, 0 makes it free. Restart DS2 after editing.": "구조물별 비용을 설정합니다. Native는 기본값이며 0은 무료입니다. 변경 후 게임을 재시작하세요.",
+    "ATLAS N02 Exoskeleton for Crafting Overhaul. A player reported a crash at the transition after the final Higgs fight while using this addon.": "Crafting Overhaul용 N02 외골격입니다. 힉스와의 마지막 전투 후 충돌 보고가 있습니다."
   },
   "pt-BR": {
     "Infrastructure + Free Mining (Beta)": "Infraestrutura + mineração gratuita (beta)",
@@ -87,7 +143,15 @@
     "Unsupported game build": "Versão do jogo não compatível",
     "Save configuration": "Salvar configuração",
     "Install / update": "Instalar / atualizar",
-    "Remove known mod binary": "Remover arquivo de mod reconhecido"
+    "Remove known mod binary": "Remover arquivo de mod reconhecido",
+    "These files belong to my graphics mods": "Estes arquivos são dos meus mods gráficos",
+    "ATLAS boot model": "Modelo das botas ATLAS",
+    "Overlay scale": "Escala da sobreposição",
+    "Standard cargo containers use size S. Weight and material quantities stay the same.": "Os contêineres padrão passam ao tamanho S. O peso e as quantidades são preservados.",
+    "Choose the ATLAS boot model. The Chiral Boots addon overrides this setting.": "Escolha o modelo das botas ATLAS. O complemento Chiral Boots tem prioridade.",
+    "Resolution-aware overlay with German and English text.": "Sobreposição adaptada à resolução, com texto em alemão e inglês.",
+    "Set a cost for each structure. Native keeps the original cost, 0 makes it free. Restart DS2 after editing.": "Defina o custo por estrutura. Native mantém o custo original e 0 o zera. Reinicie o jogo.",
+    "ATLAS N02 Exoskeleton for Crafting Overhaul. A player reported a crash at the transition after the final Higgs fight while using this addon.": "Exoesqueleto N02 para Crafting Overhaul. Um jogador relatou uma falha após a luta final com Higgs."
   },
   "ru": {
     "Infrastructure + Free Mining (Beta)": "Инфраструктура + бесплатная добыча (бета)",
@@ -97,6 +161,14 @@
     "Unsupported game build": "Неподдерживаемая версия игры",
     "Save configuration": "Сохранить настройки",
     "Install / update": "Установить / обновить",
-    "Remove known mod binary": "Удалить известный файл мода"
+    "Remove known mod binary": "Удалить известный файл мода",
+    "These files belong to my graphics mods": "Эти файлы относятся к моим графическим модам",
+    "ATLAS boot model": "Модель ботинок ATLAS",
+    "Overlay scale": "Масштаб оверлея",
+    "Standard cargo containers use size S. Weight and material quantities stay the same.": "Стандартные контейнеры получают размер S. Вес и количество материалов сохраняются.",
+    "Choose the ATLAS boot model. The Chiral Boots addon overrides this setting.": "Выберите модель ботинок ATLAS. Дополнение Chiral Boots имеет приоритет.",
+    "Resolution-aware overlay with German and English text.": "Масштаб зависит от разрешения. Текст на немецком и английском.",
+    "Set a cost for each structure. Native keeps the original cost, 0 makes it free. Restart DS2 after editing.": "Задайте стоимость для каждого сооружения. Native сохраняет исходную стоимость, 0 обнуляет её. Перезапустите DS2.",
+    "ATLAS N02 Exoskeleton for Crafting Overhaul. A player reported a crash at the transition after the final Higgs fight while using this addon.": "Экзоскелет N02 для Crafting Overhaul. Один игрок сообщил о вылете после последней битвы с Хиггсом."
   }
 }

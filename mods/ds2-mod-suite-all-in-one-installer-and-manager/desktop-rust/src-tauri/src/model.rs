@@ -7,6 +7,8 @@ pub struct Data {
     pub catalog: Catalog,
     pub fields: Vec<Field>,
     pub templates: BTreeMap<String, String>,
+    #[serde(rename = "variantTemplates")]
+    pub variant_templates: BTreeMap<String, String>,
 }
 #[derive(Clone, Deserialize)]
 #[serde(rename_all = "camelCase")]
@@ -45,6 +47,7 @@ pub struct Mod {
     pub files: Vec<ModFile>,
     #[serde(default)]
     pub requires: Vec<String>,
+    pub provides: Option<String>,
     pub exclusive_group: Option<String>,
     #[serde(default)]
     pub setting_overrides: BTreeMap<String, String>,
@@ -86,6 +89,11 @@ pub struct Field {
     pub min: Option<Value>,
     pub max: Option<Value>,
     pub multiple_of: Option<Value>,
+    pub only_for: Option<String>,
+    #[serde(default)]
+    pub remove_when_inactive: bool,
+    #[serde(default)]
+    pub value_aliases: BTreeMap<String, String>,
 }
 #[derive(Clone, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
@@ -113,6 +121,16 @@ impl Field {
                 "false" | "0" => Ok("0".into()),
                 _ => Err(error()),
             };
+        }
+        let canonical = self
+            .value_aliases
+            .iter()
+            .find(|(a, _)| a.eq_ignore_ascii_case(v));
+        let v = canonical.map_or(v, |(_, value)| value.as_str());
+        if self.kind == "presetOrDecimal" {
+            if let Some(preset) = self.choices.iter().find(|p| p.eq_ignore_ascii_case(v)) {
+                return Ok(preset.clone());
+            }
         }
         if self.kind == "choice" {
             return self
@@ -144,7 +162,7 @@ impl Field {
             }
             return Ok(n.to_string());
         }
-        if self.kind != "decimal" {
+        if self.kind != "decimal" && self.kind != "presetOrDecimal" {
             return Err(error());
         }
         let v = v.replace(',', ".");
@@ -284,6 +302,7 @@ impl Data {
         fn add(
             data: &Data,
             id: &str,
+            requested: &[String],
             out: &mut BTreeSet<String>,
             stack: &mut BTreeSet<String>,
         ) -> Result<(), String> {
@@ -300,7 +319,11 @@ impl Data {
                 .find(|m| m.id == id)
                 .ok_or("Unknown component")?;
             for dep in &m.requires {
-                add(data, dep, out, stack)?;
+                let provider = data.catalog.mods.iter().find(|candidate| {
+                    candidate.provides.as_ref() == Some(dep) && requested.contains(&candidate.id)
+                });
+                let resolved = provider.map_or(dep.as_str(), |m| m.id.as_str());
+                add(data, resolved, requested, out, stack)?;
             }
             stack.remove(id);
             out.insert(id.into());
@@ -308,7 +331,7 @@ impl Data {
         }
         let mut result = BTreeSet::new();
         for id in ids {
-            add(self, id, &mut result, &mut BTreeSet::new())?;
+            add(self, id, ids, &mut result, &mut BTreeSet::new())?;
         }
         let mut groups = BTreeSet::new();
         for m in &self.catalog.mods {

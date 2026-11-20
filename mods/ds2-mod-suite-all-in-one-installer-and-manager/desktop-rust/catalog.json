@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "suiteVersion": "1.14.0",
+  "suiteVersion": "1.15.0",
   "game": {
     "name": "DEATH STRANDING 2: ON THE BEACH",
     "executable": "DS2.exe",
@@ -114,6 +114,10 @@
         }
       ],
       "obsoleteFiles": [
+        {
+          "target": "DS2_TriCruiser_CargoCapacity_v2.asi",
+          "sha256": "905CC132AE77427977315080646E9EFE62F074404019D495B785C3B6FC10D42A"
+        },
         {
           "target": "DS2_TriCruiser_CargoCapacity_v1.2.0_TEST.asi",
           "sha256": "C574222A0BEAF22F62054FA8879286382B8B632E637CE921C393D0C5FAFCB41B"
@@ -297,16 +301,16 @@
         {
           "payload": "payload/mods/lost-cargo-likes-booster/ds2_lost_cargo_likes_booster.asi",
           "target": "ds2_lost_cargo_likes_booster.asi",
-          "sha256": "1A3024022B7DC7CCD73D0EC0442BE3F8117EB969B0AF63D356226D821E86AB9B",
+          "sha256": "AB5771528603819D193748394F7BD90A5EFF6F588E110C9ED91087728E24C71A",
           "kind": "binary",
           "previousHashes": [
-            "AB5771528603819D193748394F7BD90A5EFF6F588E110C9ED91087728E24C71A"
+            "1A3024022B7DC7CCD73D0EC0442BE3F8117EB969B0AF63D356226D821E86AB9B"
           ]
         },
         {
           "payload": "payload/mods/lost-cargo-likes-booster/ds2_lost_cargo_likes_booster.ini",
           "target": "ds2_lost_cargo_likes_booster.ini",
-          "sha256": "DAAF0FAF048ED251CCA8EE27C3D23CA91F48152E7467CC2686DF36CC4BF5B4C4",
+          "sha256": "E9AFD73041017B27C0A605F904B504024BA6508709A85D7E65F41947188640B2",
           "kind": "config"
         }
       ]
@@ -448,16 +452,16 @@
       "version": "1.0.0",
       "category": "Construction & World",
       "categoryDe": "Bauen & Welt",
-      "description": "Sets exact chiral bandwidth costs for supported structures.",
-      "descriptionDe": "Legt die Chiralbandbreitenkosten unterstützter Konstruktionen exakt fest.",
+      "description": "Set a cost for each structure. Native keeps the original cost, 0 makes it free. Restart DS2 after editing.",
+      "descriptionDe": "Kosten je Bauwerk einstellen. Native behält die Spielkosten bei, 0 macht den Bau kostenlos. DS2 nach Änderungen neu starten.",
       "files": [
         {
           "payload": "payload/mods/chiral-bandwidth-costs/ds2_chiral_bandwidth_costs.asi",
           "target": "ds2_chiral_bandwidth_costs.asi",
-          "sha256": "28DCE50C4C489F489224946A1951C22916462F3E1F58B6FA2BA581BCFECEDE2E",
+          "sha256": "BA49FAEBC661633945A19AFEDFAE0F3D7A88FA62DCA752735692AA3D436DFC2B",
           "kind": "binary",
           "previousHashes": [
-            "BA49FAEBC661633945A19AFEDFAE0F3D7A88FA62DCA752735692AA3D436DFC2B"
+            "28DCE50C4C489F489224946A1951C22916462F3E1F58B6FA2BA581BCFECEDE2E"
           ]
         },
         {
@@ -566,7 +570,39 @@
           "target": "DS2_Remote_Orders_Overlay_LOCALIZED_TEST.asi",
           "sha256": "84A9ABCC0E048B4B7625C2B21EA14971ECF7CED5D4F26559BFA63187CE1A7E00"
         }
-      ]
+      ],
+      "exclusiveGroup": "remote-orders"
+    },
+    {
+      "id": "remote-orders-scaled",
+      "name": "Remote Orders Overlay (4K)",
+      "version": "4",
+      "category": "Interface",
+      "categoryDe": "Interface",
+      "description": "Resolution-aware overlay with German and English text.",
+      "descriptionDe": "Overlay mit Auflösungsskalierung und deutschen oder englischen Texten.",
+      "files": [
+        {
+          "payload": "payload/mods/remote-orders-scaled/DS2_Remote_Orders_Overlay.asi",
+          "target": "DS2_Remote_Orders_Overlay.asi",
+          "sha256": "6D8E1F906ADDFA619DD9A9083BD94D8F026AC06FC8BB85B4309801DD17ACB2C1",
+          "kind": "binary"
+        },
+        {
+          "payload": "payload/mods/remote-orders-scaled/DS2_Remote_Orders_Overlay.ini",
+          "target": "DS2_Remote_Orders_Overlay.ini",
+          "sha256": "B896BBF861496B56C41EC1079E3BED8597E1E39CE2CE8455A17A49B223547F8B",
+          "kind": "config"
+        }
+      ],
+      "obsoleteFiles": [
+        {
+          "target": "DS2_Remote_Orders_Overlay_LOCALIZED_TEST.asi",
+          "sha256": "84A9ABCC0E048B4B7625C2B21EA14971ECF7CED5D4F26559BFA63187CE1A7E00"
+        }
+      ],
+      "exclusiveGroup": "remote-orders",
+      "settingsModId": "remote-orders-overlay"
     },
     {
       "id": "extended-bt-cord-cutting-range",
@@ -591,6 +627,12 @@
           "target": "ds2_extended_bt_cord_cutting_range.ini",
           "sha256": "A0D154A4637E917E53792D2208EC56E468CAD9F0E89DA44FB8FEE7396EB6989F",
           "kind": "config"
+        }
+      ],
+      "obsoleteFiles": [
+        {
+          "target": "ds2_extended_bt_cord_cutting_range_v100.asi",
+          "sha256": "AF65DEC8FA5704D5C4D4DE52B337FE78D2811BD319A9DA8E640B8199669E490F"
         }
       ]
     },
@@ -731,7 +773,38 @@
       "conflictingFiles": [
         "ds2_overpowered_equipment.asi",
         "ds2_more_silenced_guns.asi"
-      ]
+      ],
+      "exclusiveGroup": "crafting"
+    },
+    {
+      "id": "crafting-boot-selector",
+      "name": "Crafting Overhaul + ATLAS Boot Selector (Test)",
+      "version": "1.10.2-test2",
+      "category": "Equipment & Progression",
+      "categoryDe": "Ausrüstung & Fortschritt",
+      "description": "Choose the ATLAS boot model. The Chiral Boots addon overrides this setting.",
+      "descriptionDe": "Wählt das Modell der ATLAS-Stiefel. Das Chiral-Boots-Addon hat Vorrang.",
+      "files": [
+        {
+          "payload": "payload/mods/crafting-boot-selector/ds2_crafting_unlocks.asi",
+          "target": "ds2_crafting_unlocks.asi",
+          "sha256": "61CE0035BB0D2C92A6A3C88EF7010BBB249DEBD3FD363216B3F37A55D22DD50F",
+          "kind": "binary"
+        },
+        {
+          "payload": "payload/mods/crafting-boot-selector/ds2_crafting_unlocks.ini",
+          "target": "ds2_crafting_unlocks.ini",
+          "sha256": "62D2CF0329C0DFB2FC69BED905A5FBA7DFCA56AB187EF64BEDE72BF193036118",
+          "kind": "config"
+        }
+      ],
+      "conflictingFiles": [
+        "ds2_overpowered_equipment.asi",
+        "ds2_more_silenced_guns.asi"
+      ],
+      "exclusiveGroup": "crafting",
+      "settingsModId": "crafting-unlocks",
+      "provides": "crafting-unlocks"
     },
     {
       "id": "jump-ramp-unlimited",
@@ -860,8 +933,8 @@
       "version": "1.0.1",
       "category": "Equipment & Progression",
       "categoryDe": "Ausrüstung & Fortschritt",
-      "description": "Optional ATLAS N02 Exoskeleton. Requires Crafting Overhaul; selecting this addon also selects the main mod.",
-      "descriptionDe": "Optionales ATLAS-N02-Exoskelett. Benötigt Crafting Overhaul; die Auswahl aktiviert auch den Hauptmod.",
+      "description": "ATLAS N02 Exoskeleton for Crafting Overhaul. A player reported a crash at the transition after the final Higgs fight while using this addon.",
+      "descriptionDe": "ATLAS-N02-Exoskelett für Crafting Overhaul. Ein Spieler meldet mit diesem Addon einen Absturz beim Missionswechsel nach dem letzten Higgs-Kampf.",
       "requires": [
         "crafting-unlocks"
       ],
@@ -874,6 +947,23 @@
           "previousHashes": [
             "42DDE96CA4E423EFA73C90CF5A924799C1F17C1229DA85F7C2AAAA801E2D0587"
           ]
+        }
+      ]
+    },
+    {
+      "id": "all-containers-small",
+      "name": "All Containers Small",
+      "version": "1.0.0",
+      "category": "Vehicles & Cargo",
+      "categoryDe": "Fahrzeuge & Fracht",
+      "description": "Standard cargo containers use size S. Weight and material quantities stay the same.",
+      "descriptionDe": "Standard-Frachtcontainer erhalten Größe S. Gewicht und Materialmenge bleiben gleich.",
+      "files": [
+        {
+          "payload": "payload/mods/all-containers-small/ds2_all_containers_small.asi",
+          "target": "ds2_all_containers_small.asi",
+          "sha256": "3F8EA44EF83B3CE0A3564445547169DA7D59CE07BFA9CD9C5BD143853EA5D111",
+          "kind": "binary"
         }
       ]
     }
@@ -890,5 +980,112 @@
       "label": "Free Mining variant",
       "managedByVariant": true
     }
-  ]
+  ],
+  "additionalSettings": [
+    {
+      "id": "crafting-unlocks|ds2_crafting_unlocks.ini|AtlasEquipment|BootAppearance",
+      "modId": "crafting-unlocks",
+      "target": "ds2_crafting_unlocks.ini",
+      "section": "AtlasEquipment",
+      "key": "BootAppearance",
+      "type": "choice",
+      "choices": [
+        "Default",
+        "Transporter",
+        "Trekking",
+        "Combat",
+        "Sneaking",
+        "Bandit",
+        "Brigand",
+        "Survivalist",
+        "Absolute",
+        "Mule",
+        "PizzaChef",
+        "Omnireflector",
+        "Chiral"
+      ],
+      "defaultValue": "Default",
+      "label": "ATLAS boot model",
+      "onlyFor": "crafting-boot-selector",
+      "removeWhenInactive": true,
+      "valueAliases": {
+        "Transporter Boots": "Transporter",
+        "Transportstiefel": "Transporter",
+        "TransporterBoots": "Transporter",
+        "Trekking Boots": "Trekking",
+        "Wanderstiefel": "Trekking",
+        "TrekkingBoots": "Trekking",
+        "Combat Boots": "Combat",
+        "Kampfstiefel": "Combat",
+        "CombatBoots": "Combat",
+        "Sneaking Boots": "Sneaking",
+        "Schleichstiefel": "Sneaking",
+        "SneakingBoots": "Sneaking",
+        "Bandit Boots": "Bandit",
+        "Banditenstiefel": "Bandit",
+        "BanditBoots": "Bandit",
+        "Brigand Boots": "Brigand",
+        "Brigand-Stiefel": "Brigand",
+        "BrigandBoots": "Brigand",
+        "Survivalist Boots": "Survivalist",
+        "Waffennarren-Stiefel": "Survivalist",
+        "TerroristBoots": "Survivalist",
+        "Absolute Boots": "Absolute",
+        "Allround-Stiefel": "Absolute",
+        "AbsoluteBoots": "Absolute",
+        "MULE Boots": "Mule",
+        "MULE-Stiefel": "Mule",
+        "MuleBoots": "Mule",
+        "Pizza Chef's Boots": "PizzaChef",
+        "Stiefel des Pizzabäckers": "PizzaChef",
+        "PizzeriaBoots": "PizzaChef",
+        "Omnireflector Boots": "Omnireflector",
+        "Omnireflektor-Stiefel": "Omnireflector",
+        "AllReflectorBoots": "Omnireflector",
+        "Chiral Boots": "Chiral",
+        "Chirale Stiefel": "Chiral",
+        "ChiralBoots": "Chiral"
+      }
+    },
+    {
+      "id": "remote-orders-overlay|DS2_Remote_Orders_Overlay.ini|Overlay|Scale",
+      "modId": "remote-orders-overlay",
+      "target": "DS2_Remote_Orders_Overlay.ini",
+      "section": "Overlay",
+      "key": "Scale",
+      "type": "presetOrDecimal",
+      "defaultValue": "auto",
+      "choices": [
+        "auto",
+        "1080p",
+        "1440p",
+        "2160p",
+        "4k"
+      ],
+      "min": 0.75,
+      "max": 2.5,
+      "label": "Overlay scale",
+      "description": "auto, 1080p, 1440p, 2160p, 4k, or 0.75–2.50",
+      "onlyFor": "remote-orders-scaled"
+    },
+    {
+      "id": "remote-orders-scaled|DS2_Remote_Orders_Overlay.ini|Localization|Language",
+      "modId": "remote-orders-scaled",
+      "target": "DS2_Remote_Orders_Overlay.ini",
+      "section": "Localization",
+      "key": "Language",
+      "type": "choice",
+      "choices": [
+        "auto",
+        "en",
+        "de"
+      ],
+      "defaultValue": "auto",
+      "label": "Language",
+      "onlyFor": "remote-orders-scaled"
+    }
+  ],
+  "fieldVariants": {
+    "remote-orders-overlay|DS2_Remote_Orders_Overlay.ini|Localization|Language": "remote-orders-overlay"
+  }
 }

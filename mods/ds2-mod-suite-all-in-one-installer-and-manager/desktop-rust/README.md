@@ -1,4 +1,4 @@
-# DS2 Mod Suite 1.14.0
+# DS2 Mod Suite 1.15.0
 
 Install, update and configure DS2 mods in one window. All mod files are included.
 
@@ -17,11 +17,20 @@ The manager checks the supported game fingerprint before making changes.
 
 ## Included
 
-- 30 components, including updated APAS 4.1.0-preview.1 and optional Free Mining.
-- 398 editable settings in 24 INIs, with JSON profile import/export.
+- 33 components, including All Containers Small, APAS and optional Free Mining.
+- 401 editable settings in 24 INIs, with JSON profile import/export.
 - English, German, French, Spanish, Italian, Simplified Chinese, Japanese,
   Korean, Brazilian Portuguese and Russian interface.
 - Automatic dependencies, mutually exclusive variants and checked file backups.
+
+**Crafting Overhaul** offers the stable 1.10.1 build and the optional ATLAS boot
+model test. Select the test to choose a boot model. The Chiral Boots addon takes
+priority. **Remote Orders** offers the multilingual overlay and the German/English
+Nexus V4 overlay with adjustable scaling. Select one build per mod.
+
+If you use a graphics mod with an additional dxgi.dll, winhttp.dll or d3d12.dll,
+confirm the listed filenames belong to that graphics mod before applying changes.
+Two recognized ASI loaders still require choosing a single loader.
 
 **Free Mining is a beta alternative to Infrastructure One Unit.** Choose one.
 Construction settings are shared. The manager sets the mining mode automatically;
@@ -51,12 +60,8 @@ The desktop application uses Rust/Tauri and a local embedded interface. Native
 mods remain ordinary ASI/DLL/INI files, verified against the compiled catalog.
 There are no remote payload downloads or changes to antivirus settings.
 
-Use `stage_release.py` with the verified baseline, APAS archive and Free Mining
-directory, then `build.ps1 -PayloadRoot <staged-folder> -OutputRoot <fresh-folder>`.
+Use `stage_release.py --help` to stage the 1.14 baseline, Container ASI and
+Nexus archives (files 243, 245, 260 and 414), then `build.ps1 -PayloadRoot <staged-folder> -OutputRoot <fresh-folder>`.
 Rust MSVC, Visual Studio C++ Build Tools, Node/npm and Python are required. Cargo
 and npm lockfiles are checked in. Release builds request administrator access;
 debug/test builds use writable temporary fixtures without elevation.
-
-See `publication/RELEASE-1.14.0.md` in the source repository for validation and
-remaining test limitations. A Nexus acceptance result does not guarantee that
-every antivirus product will accept a file.
