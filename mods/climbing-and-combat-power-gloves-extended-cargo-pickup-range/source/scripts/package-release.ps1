@@ -4,7 +4,7 @@ $ErrorActionPreference = 'Stop'
 $root = Split-Path -Parent (Split-Path -Parent $MyInvocation.MyCommand.Path)
 & (Join-Path $root 'scripts\test-synthetic.ps1') -Toolchain $Toolchain
 
-$name = 'DS2_Climbing_Power_Gloves_Range_v1.1.2'
+$name = 'DS2_Climbing_Power_Gloves_Range_v1.1.3'
 $releaseRoot = Join-Path $root 'release'
 $stage = Join-Path $releaseRoot $name
 $fullReleaseRoot = [System.IO.Path]::GetFullPath($releaseRoot).TrimEnd('\') + '\'

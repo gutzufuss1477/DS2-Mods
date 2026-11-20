@@ -1,22 +1,17 @@
 # Climbing and Combat Power Gloves - Extended Cargo Pickup Range
 
-Extend Climbing Power Gloves reach to 30/50 m by default and enable magnetic cargo pickup with Combat Power Gloves. Separate climbing ranges; normal combat behavior is preserved.
+Climbing and Combat Power Gloves use the same magnetic cargo pickup range for each level. The defaults are 30 m for Level 1 and 50 m for Level 2.
 
 [Current downloads and installation instructions on Nexus Mods](https://www.nexusmods.com/deathstranding2onthebeach/mods/76)
 
-## Current published files
+## Updating to 1.1.3
 
-| File / variant | Nexus file version | Nexus file ID |
-|---|---|---|
-| DS2 Climbing and Combat Power Gloves Range v1.1.2 | 1.1.2 | 350 |
+Close the game, replace `ds2_climbing_gloves_range.asi` beside `DS2.exe` and keep your existing INI. Both glove types now read `Level1RangeMeters` and `Level2RangeMeters` on startup. Set them to 8 and 10 for the original Climbing Gloves distances. Combat Gloves require `EnableCargoPickup=1`.
 
-File versions above are the actual download versions; the Nexus page version can differ.
-Only current published files are listed. Archived releases, comparisons and explicitly labelled tests are excluded.
+## Release
 
-## Source and build
+[Download version 1.1.3 from Nexus Mods](https://www.nexusmods.com/deathstranding2onthebeach/mods/76?tab=files&file_id=429). The archive contains the ASI and default INI for the Steam PC build 1.10.89.0.
 
-Source from the published-release workspace; binaries are downloaded from Nexus. No new runtime test was performed for this source import.
+The 8 m / 10 m Combat Gloves fix was tested in game. Automated tests also cover the default ranges, fractional distances, the maximum range and combat action costs.
 
-See `nexus.json` for the immutable file IDs and SHA-256 values.
-Build outputs, original game data, private diagnostics and credentials are kept out of Git.
-Third-party licenses remain with their respective source directories.
+See [nexus.json](nexus.json) for the release archive checksum and [the test plan](source/TEST_PLAN.md) for verification details.

@@ -22,7 +22,7 @@ Current Nexus-published mods by gutzufuss1477. Names and file versions follow Ne
 | [DS2 Mod Suite - All-in-One Installer and Manager](mods/ds2-mod-suite-all-in-one-installer-and-manager/) | 1.15.0; includes All Containers Small, optional ATLAS boot models and scalable Remote Orders |
 | [Construction Max Level On Build](mods/construction-max-level-on-build/) | 2 |
 | [Coffin Board Reworked](mods/coffin-board-reworked/) | 4 |
-| [Climbing and Combat Power Gloves - Extended Cargo Pickup Range](mods/climbing-and-combat-power-gloves-extended-cargo-pickup-range/) | 1.1.2 |
+| [Climbing and Combat Power Gloves - Extended Cargo Pickup Range](mods/climbing-and-combat-power-gloves-extended-cargo-pickup-range/) | 1.1.3 |
 | [Individual APAS Upgrade Cost - Early APAS - Unlock All](mods/individual-apas-upgrade-cost-early-apas-unlock-all/) | v3.0.0 |
 | [Extended BT Cord Cutting Range](mods/extended-bt-cord-cutting-range/) | 1 |
 | [Proficiency Bonus Multiplier](mods/proficiency-bonus-multiplier/) | 1 |

@@ -1,5 +1,13 @@
 # In-Game Test Plan
 
+## Shared pickup ranges v1.1.3
+
+On Steam build 1.10.89.0, the targeting query at RVA 0xFFCFEB reads the equipped glove's Params[6] and squares it for distance checks. The search at 0xEDC341 also reads this slot. Combat action 8 at RVA 0xE9E46B reads the same slot for cost. The private pickup array supplies the configured distance, and the existing glove cost hook supplies the original cost for that action.
+
+The synthetic tests read INIs with 8/10, 30/50, 16.5/27.25 and 100/100 m. They check the distance on both glove types, original combat costs on both tiers, signature mismatch and resource reattachment.
+
+The tester confirmed the 8/10 m fix before release. To repeat the distance check, set 8/10 and restart. On flat ground, try the same cargo at roughly 6, 9 and 13 m with each combat tier. At 6 m both should reach it, at 9 m only Level 2, and at 13 m neither. Repeat with the climbing tiers, check a combat attack and check cargo pickup from a vehicle.
+
 ## Production cleanup v1.1.2
 
 - Automated MSVC build and synthetic tests passed on 2026-10-02, including the native catch regression tests and execution through the new seven-hook installer.

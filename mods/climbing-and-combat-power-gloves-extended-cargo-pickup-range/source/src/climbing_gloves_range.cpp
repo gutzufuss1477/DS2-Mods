@@ -26,7 +26,7 @@ extern "C" void* _ReturnAddress(void);
 #define __builtin_return_address(level) _ReturnAddress()
 #endif
 
-#define MOD_VERSION "1.1.2"
+#define MOD_VERSION "1.1.3"
 #define EXPECTED_TIMESTAMP 0x6A3DAE46u
 #define EXPECTED_IMAGE_SIZE 0x0B292000u
 
@@ -674,7 +674,7 @@ static DWORD WINAPI worker(LPVOID){
     logRaw(ready,(DWORD)(sizeof(ready)-1u));
     if(combatPickupEnabled){
         const char message[]=
-            "CONFIG: Combat Gloves cargo pickup enabled; native combat parameters will be preserved.\r\n";
+            "CONFIG: Combat Gloves cargo pickup uses Level1RangeMeters and Level2RangeMeters.\r\n";
         logRaw(message,(DWORD)(sizeof(message)-1u));
     }
     bool waitingLogged=false,invalidLogged=false,conflictLogged=false;
@@ -685,7 +685,7 @@ static DWORD WINAPI worker(LPVOID){
         if(result==APPLY_READY){
             if(!activeLogged){
                 const char message[]=
-                    "ACTIVE: Level 1 and Level 2 Params[6] match their configured pickup ranges; all other item parameters are unchanged.\r\n";
+                    "ACTIVE: Climbing Gloves use the configured Level 1 and Level 2 pickup ranges.\r\n";
                 logRaw(message,(DWORD)(sizeof(message)-1u));
                 activeLogged=true;
             }
@@ -731,24 +731,15 @@ static DWORD WINAPI worker(LPVOID){
             }
         }
         if(combatPickupEnabled){
-            CombatReconcileResult combatResult=reconcileCombatGloves(&image);
+            CombatReconcileResult combatResult=reconcileCombatGloves(&image,settings);
             if(combatResult==COMBAT_READY){
                 combatWaitingLogged=false;
-                if(!g_combatHooksInstalled&&!installCombatHooks(&image)){
-                    if(!combatErrorLogged){
-                        const char message[]=
-                            "ERROR: Combat Gloves hook installation failed; cargo pickup remains inactive.\r\n";
-                        logCritical(message,(DWORD)(sizeof(message)-1u));
-                        combatErrorLogged=true;
-                    }
-                }else if(validateCombatHookState(&image)){
-                    combatErrorLogged=false;
-                    if(!combatActiveLogged){
-                        const char message[]=
-                            "ACTIVE: Combat Gloves remote cargo pickup enabled; vehicle cargo catch fix active; seven functional hooks.\r\n";
-                        logRaw(message,(DWORD)(sizeof(message)-1u));
-                        combatActiveLogged=true;
-                    }
+                combatErrorLogged=false;
+                if(!combatActiveLogged){
+                    const char message[]=
+                        "ACTIVE: Combat Gloves use the configured pickup ranges; vehicle cargo catch active.\r\n";
+                    logRaw(message,(DWORD)(sizeof(message)-1u));
+                    combatActiveLogged=true;
                 }
             }else if(combatResult==COMBAT_WAITING){
                 combatActiveLogged=false;
@@ -761,9 +752,13 @@ static DWORD WINAPI worker(LPVOID){
             }else{
                 combatActiveLogged=false;
                 if(!combatErrorLogged){
-                    const char message[]=
-                        "ERROR: Combat Glove resource validation failed; cargo pickup is fail-closed.\r\n";
-                    logCritical(message,(DWORD)(sizeof(message)-1u));
+                    if(combatResult==COMBAT_HOOK_ERROR){
+                        const char message[]="ERROR: Combat Gloves hook validation failed.\r\n";
+                        logCritical(message,(DWORD)(sizeof(message)-1u));
+                    }else{
+                        const char message[]="ERROR: Combat Glove resource validation failed.\r\n";
+                        logCritical(message,(DWORD)(sizeof(message)-1u));
+                    }
                     combatErrorLogged=true;
                 }
             }

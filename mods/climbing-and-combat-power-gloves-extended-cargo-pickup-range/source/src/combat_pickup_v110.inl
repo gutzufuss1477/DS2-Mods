@@ -1,4 +1,4 @@
-// Combat Power Gloves cargo pickup, v1.1.2.
+// Combat Power Gloves cargo pickup, v1.1.3.
 // Only functional hooks are installed; development probes are not included.
 static const u64 RVA_GLOVE_ACTION_COST=0x00E9E400ull;
 static const u64 RVA_GLOVE_ACTION_AVAILABLE=0x00E9E6B0ull;
@@ -34,8 +34,6 @@ static EquippedSubcategoryCheckFn g_originalEquippedSubcategoryCheck=0;
 static u64 g_combatImageBase=0;
 static u8* g_combatHookPage=0;
 static u8* g_combatShadowPage=0;
-static u8* g_combatObject1=0;
-static u8* g_combatObject2=0;
 static bool g_combatHooksInstalled=false,g_combatHookInstallFailed=false;
 static volatile long g_recentGloveSubcategory=0,g_combatVehicleActive=0;
 static volatile long g_nativeVehicleCatchCount=0;
@@ -112,7 +110,7 @@ static bool inspectCombatIdentity(
 }
 
 enum CombatReconcileResult{
-    COMBAT_WAITING,COMBAT_INVALID,COMBAT_READY
+    COMBAT_WAITING,COMBAT_INVALID,COMBAT_HOOK_ERROR,COMBAT_READY
 };
 static bool findCombatItems(
     const GameImage* image,u8** level1,u8** level2
@@ -145,82 +143,75 @@ static bool findCombatItems(
     return *level1&&*level2;
 }
 
-static bool validateCombatNative(
-    const GameImage* image,u8* object,u8 id,RawArray* params
-){
-    if(!inspectCombatIdentity(image,object,id,params))return false;
+// The pickup queries read Params[6] for distance (e.g. RVA 0xFFCFEB).
+// Combat action 8 also reads it for cost (RVA 0xE9E46B). Keep that cost
+// privately after the eight game-visible floats.
+struct CombatPickupParams {
+    u32 values[COMBAT_SHADOW_PARAM_COUNT];
+    u32 nativeAction8Cost;
+};
+
+static CombatPickupParams combatPickupParams(u8 id,u32 rangeBits){
+    CombatPickupParams params;
+    combatNativeParams(id,params.values);
+    params.nativeAction8Cost=params.values[6];
+    params.values[6]=rangeBits;
+    params.values[7]=floatBits(
+        id==COMBAT_ID_LEVEL1?COMBAT_LEVEL1_PICKUP_ANGLE:COMBAT_LEVEL2_PICKUP_ANGLE
+    );
+    return params;
+}
+
+static bool prepareCombatTier(const GameImage* image,u8* object,u8 id,
+                              const CombatPickupParams& expected,RawArray** attach){
+    RawArray params;
+    *attach=0;
+    if(!inspectCombatIdentity(image,object,id,&params))return false;
     u8* shadow=combatShadowForId(id);
-    if(params->count==COMBAT_SHADOW_PARAM_COUNT&&params->capacity==COMBAT_SHADOW_PARAM_COUNT&&
-       params->entries==(u64)shadow){
-        u32 values[COMBAT_SHADOW_PARAM_COUNT];
-        if(!readMemory(shadow,values,sizeof(values)))return false;
-        u32 expected[COMBAT_NATIVE_PARAM_COUNT];
-        combatNativeParams(id,expected);
-        for(u32 i=0;i<COMBAT_NATIVE_PARAM_COUNT;i++)
-            if(values[i]!=expected[i])return false;
-        u32 expectedAngle=floatBits(
-            id==COMBAT_ID_LEVEL1?COMBAT_LEVEL1_PICKUP_ANGLE:COMBAT_LEVEL2_PICKUP_ANGLE
-        );
-        return values[7]==expectedAngle;
-    }
-    if(params->count!=COMBAT_NATIVE_PARAM_COUNT||
-       params->capacity<COMBAT_NATIVE_PARAM_COUNT||params->capacity>32u||
-       !params->entries)return false;
-    u32 values[COMBAT_NATIVE_PARAM_COUNT],expected[COMBAT_NATIVE_PARAM_COUNT];
-    if(!readMemory((void*)params->entries,values,sizeof(values)))return false;
-    combatNativeParams(id,expected);
-    for(u32 i=0;i<COMBAT_NATIVE_PARAM_COUNT;i++)
-        if(values[i]!=expected[i])return false;
+    if(!memoryEquals(shadow,(const u8*)&expected,sizeof(expected)))return false;
+    if(params.entries==(u64)shadow)
+        return params.count==COMBAT_SHADOW_PARAM_COUNT&&params.capacity==COMBAT_SHADOW_PARAM_COUNT;
+    u32 native[COMBAT_NATIVE_PARAM_COUNT];
+    combatNativeParams(id,native);
+    if(params.count!=COMBAT_NATIVE_PARAM_COUNT||params.capacity<params.count||params.capacity>32u||
+       !memoryEquals((void*)params.entries,(const u8*)native,sizeof(native))||
+       !isWritableRange(object+OFF_ITEM_PARAMS,sizeof(RawArray)))return false;
+    *attach=(RawArray*)(object+OFF_ITEM_PARAMS);
     return true;
 }
 
-static bool applyCombatShadow(
-    const GameImage* image,u8* object,u8 id
-){
-    RawArray params;
-    if(!validateCombatNative(image,object,id,&params))return false;
-    u8* shadow=combatShadowForId(id);
-    if(!shadow)return false;
-    if(params.count==COMBAT_SHADOW_PARAM_COUNT&&params.entries==(u64)shadow)return true;
-    u32 values[COMBAT_SHADOW_PARAM_COUNT],expected[COMBAT_NATIVE_PARAM_COUNT];
-    combatNativeParams(id,expected);
-    for(u32 i=0;i<COMBAT_NATIVE_PARAM_COUNT;i++)values[i]=expected[i];
-    values[7]=floatBits(
-        id==COMBAT_ID_LEVEL1?COMBAT_LEVEL1_PICKUP_ANGLE:COMBAT_LEVEL2_PICKUP_ANGLE
-    );
-    if(!isWritableRange(shadow,sizeof(values)))return false;
-    memcpy(shadow,values,sizeof(values));
-    if(!isWritableRange(object+OFF_ITEM_PARAMS,sizeof(RawArray)))return false;
-    RawArray* live=(RawArray*)(object+OFF_ITEM_PARAMS);
-    live->entries=(u64)shadow;
-    live->capacity=COMBAT_SHADOW_PARAM_COUNT;
-    live->count=COMBAT_SHADOW_PARAM_COUNT;
-    RawArray verify;
-    return inspectCombatIdentity(image,object,id,&verify)&&
-           verify.count==COMBAT_SHADOW_PARAM_COUNT&&
-           verify.capacity==COMBAT_SHADOW_PARAM_COUNT&&
-           verify.entries==(u64)shadow;
+static void attachCombatTier(volatile RawArray* target,u8 id){
+    if(!target)return;
+    // The game can read the pointer before it sees the extended length.
+    target->entries=(u64)combatShadowForId(id);
+    target->capacity=COMBAT_SHADOW_PARAM_COUNT;
+    target->count=COMBAT_SHADOW_PARAM_COUNT;
 }
 
-static CombatReconcileResult reconcileCombatGloves(const GameImage* image){
-    if(!image)return COMBAT_INVALID;
+static bool installCombatHooks(const GameImage* image);
+static bool validateCombatHookState(const GameImage* image);
+
+static CombatReconcileResult reconcileCombatGloves(const GameImage* image,const Settings& settings){
+    u8 *level1=0,*level2=0;
+    if(!image||!findCombatItems(image,&level1,&level2))return COMBAT_WAITING;
+    CombatPickupParams first=combatPickupParams(COMBAT_ID_LEVEL1,settings.level1Bits);
+    CombatPickupParams second=combatPickupParams(COMBAT_ID_LEVEL2,settings.level2Bits);
     if(!g_combatShadowPage){
         g_combatShadowPage=(u8*)VirtualAlloc(
             0,0x1000u,MEM_RESERVE|MEM_COMMIT,PAGE_READWRITE
         );
         if(!g_combatShadowPage)return COMBAT_INVALID;
+        memcpy(combatShadowForId(COMBAT_ID_LEVEL1),&first,sizeof(first));
+        memcpy(combatShadowForId(COMBAT_ID_LEVEL2),&second,sizeof(second));
     }
-    u8 *level1=0,*level2=0;
-    if(!findCombatItems(image,&level1,&level2))return COMBAT_WAITING;
-    RawArray params1,params2;
-    if(!validateCombatNative(image,level1,COMBAT_ID_LEVEL1,&params1)||
-       !validateCombatNative(image,level2,COMBAT_ID_LEVEL2,&params2))
-        return COMBAT_INVALID;
-    if(!applyCombatShadow(image,level1,COMBAT_ID_LEVEL1)||
-       !applyCombatShadow(image,level2,COMBAT_ID_LEVEL2))
-        return COMBAT_INVALID;
-    g_combatObject1=level1;
-    g_combatObject2=level2;
+    RawArray *attach1,*attach2;
+    if(!prepareCombatTier(image,level1,COMBAT_ID_LEVEL1,first,&attach1)||
+       !prepareCombatTier(image,level2,COMBAT_ID_LEVEL2,second,&attach2))return COMBAT_INVALID;
+    // Both resource descriptors must be usable and the cost hook must be
+    // active before either item can expose a pickup radius in slot 6.
+    if(!installCombatHooks(image)||!validateCombatHookState(image))return COMBAT_HOOK_ERROR;
+    attachCombatTier(attach1,COMBAT_ID_LEVEL1);
+    attachCombatTier(attach2,COMBAT_ID_LEVEL2);
     return COMBAT_READY;
 }
 
@@ -240,32 +231,28 @@ static bool combatShadowLive(u8* item){
 }
 
 static float combatActionCostHook(u64 first,u8* entry,u8 action){
-    if(entry&&action<8u){
-        u64 itemPointer=0;
-        if(readU64(entry+0x20u,&itemPointer)&&itemPointer){
-            u8 subcategory=0;
-            if(readU8((u8*)itemPointer+OFF_ITEM_SUBCATEGORY,&subcategory)){
-                u8 itemId=0;readU8((u8*)itemPointer+OFF_ITEM_ID,&itemId);
-                bool combatId=itemId==COMBAT_ID_LEVEL1||itemId==COMBAT_ID_LEVEL2;
-                if(combatId)
-                    _InterlockedExchange(&g_recentGloveSubcategory,(long)COMBAT_SUBCATEGORY);
-                else if(subcategory==ITEM_SUBCATEGORY_CLIMBING_POWER_GLOVE)
-                    _InterlockedExchange(&g_recentGloveSubcategory,(long)subcategory);
+    u64 itemPointer=0;
+    u8 id=0,subcategory=0;
+    if(entry&&action<=8u&&readU64(entry+0x20u,&itemPointer)&&itemPointer&&
+       readU8((u8*)itemPointer+OFF_ITEM_ID,&id)&&
+       readU8((u8*)itemPointer+OFF_ITEM_SUBCATEGORY,&subcategory)){
+        bool combatId=id==COMBAT_ID_LEVEL1||id==COMBAT_ID_LEVEL2;
+        if(action<8u&&(combatId||subcategory==ITEM_SUBCATEGORY_CLIMBING_POWER_GLOVE))
+            _InterlockedExchange(&g_recentGloveSubcategory,combatId?COMBAT_SUBCATEGORY:subcategory);
+        if(combatId&&action==8u&&subcategory==COMBAT_SUBCATEGORY){
+            u64 entries=0;
+            float cost;
+            if(readU64(&((RawArray*)(itemPointer+OFF_ITEM_PARAMS))->entries,&entries)&&entries){
+                // Snapshot the entries pointer once, including during a resource reload.
+                const void* source=entries==(u64)combatShadowForId(id)
+                    ? (const void*)&((const CombatPickupParams*)entries)->nativeAction8Cost
+                    : (const void*)((const u32*)entries+6);
+                if(readMemory(source,&cost,sizeof(cost)))return cost;
             }
         }
-    }
-    if(entry&&action==6u){
-        u64 itemPointer=0;
-        if(readU64(entry+0x20u,&itemPointer)&&combatShadowLive((u8*)itemPointer)){
-            RawArray params;
-            if(readMemory((u8*)itemPointer+OFF_ITEM_PARAMS,&params,sizeof(params))){
-                u32 bits=0;
-                if(readU32((void*)(params.entries+5u*4u),&bits)){
-                    union FloatBits{u32 bits;float value;};
-                    FloatBits converted;converted.bits=bits;
-                    return converted.value;
-                }
-            }
+        if(action==6u&&combatId&&combatShadowLive((u8*)itemPointer)){
+            float cost;
+            if(readMemory(combatShadowForId(id)+5u*sizeof(float),&cost,sizeof(cost)))return cost;
         }
     }
     return g_originalGloveActionCost?

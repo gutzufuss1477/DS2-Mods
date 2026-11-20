@@ -60,7 +60,7 @@ public static class ClimbingGlovesNativeTest {
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     public delegate uint NoArgs();
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate uint WithImage(IntPtr image, uint capacity);
+    public delegate uint WithImage(IntPtr image, uint capacity, float level1, float level2);
 }
 '@
 
@@ -92,9 +92,22 @@ try {
     if ($image -eq [IntPtr]::Zero) {
         throw "VirtualAlloc failed: $([Runtime.InteropServices.Marshal]::GetLastWin32Error())"
     }
-    $syntheticResult = $syntheticTest.Invoke($image, $capacity)
-    if ($syntheticResult -ne 0) { throw "synthetic runtime test failed: $syntheticResult" }
-    Write-Host 'Synthetic climbing-gloves tests: PASS'
+    $testIni = Join-Path $out 'ds2_climbing_gloves_range.ini'
+    $packagedIni = [IO.File]::ReadAllText($testIni)
+    try {
+        foreach ($pair in @(@(8, 10), @(30, 50), @(16.5, 27.25), @(100, 100))) {
+            $level1, $level2 = $pair
+            $invariant = [Globalization.CultureInfo]::InvariantCulture
+            $ini = $packagedIni.Replace('Level1RangeMeters=30', 'Level1RangeMeters=' + $level1.ToString($invariant))
+            $ini = $ini.Replace('Level2RangeMeters=50', 'Level2RangeMeters=' + $level2.ToString($invariant))
+            [IO.File]::WriteAllText($testIni, $ini, [Text.Encoding]::ASCII)
+            $syntheticResult = $syntheticTest.Invoke($image, $capacity, $level1, $level2)
+            if ($syntheticResult -ne 0) { throw "synthetic test failed for $pair at check $syntheticResult" }
+            Write-Host "Synthetic pickup range and combat cost tests passed ($level1 / $level2 m)"
+        }
+    } finally {
+        Copy-Item -LiteralPath (Join-Path $root 'config\ds2_climbing_gloves_range.ini') -Destination $testIni -Force
+    }
 } finally {
     if ($image -ne [IntPtr]::Zero) {
         [void][ClimbingGlovesNativeTest]::VirtualFree($image, [UIntPtr]::Zero, 0x8000)
